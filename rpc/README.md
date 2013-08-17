@@ -58,7 +58,7 @@ If the call succeeds, a response message from the JSON RPC is a list of response
 
 `"id"` identifies the corresponding request call (list order doesn't). `"result"`'s presence and value are procedure-specific and are documented below. 
 
-If a particular call fails, `"status"` is set to something besides "ok", and an `"error"` key is included:
+If a particular call fails, the response message is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
 
 ```javascript
 [{"id": 0,
