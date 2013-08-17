@@ -1,11 +1,20 @@
-# One Platform JSON encoded RPC API Reference
+## Exosite JSON RPC API
 
-## HTTP Format
+### HTTP Format
 
 _TODO_
 
+### Libraries
 
-## Request Message
+Wrapper libraries for this API are available:
+
+* Python: [pyonep](https://github.com/exosite-labs/pyonep)
+* Java: [javaonep](https://github.com/exosite-labs/javaonep)
+* C++: [cpponep](https://github.com/exosite-labs/cpponep)
+* .NET: [clronep](https://github.com/exosite-labs/clronep)
+
+
+### Request Message
 
 A request message to the JSON RPC has the following structure:
 
@@ -36,7 +45,7 @@ A request message to the JSON RPC has the following structure:
 `"procedure"` and `"arguments"` are specific to individual procedures and are documented below. 
 
 
-## Response Message
+### Response Message
 
 
 A response message from the JSON RPC is a list of responses to the calls made in the request:
@@ -47,7 +56,7 @@ A response message from the JSON RPC is a list of responses to the calls made in
   "result": [[1376709527, 64.2]]}]
 ```
 
-`"id"` identifies the corresponding request call (list order doesn't). `"result"` may or may not be present and has a procedure-specific value. If an individual call fails, `"status"` is set to something besides "ok", and an `"error"` key is included:
+`"id"` identifies the corresponding request call (list order doesn't). `"result"`'s presence and value are procedure-specific and are documented below. If an individual call fails, `"status"` is set to something besides "ok", and an `"error"` key is included:
 
 ```javascript
 [{"id": 0,
