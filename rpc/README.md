@@ -48,7 +48,7 @@ A request message to the JSON RPC has the following structure:
 ### Response Message
 
 
-A response message from the JSON RPC is a list of responses to the calls made in the request:
+If the call succeeds, a response message from the JSON RPC is a list of responses to the calls made in the request:
 
 ```javascript
 [{"id": 0,
@@ -56,13 +56,15 @@ A response message from the JSON RPC is a list of responses to the calls made in
   "result": [[1376709527, 64.2]]}]
 ```
 
-`"id"` identifies the corresponding request call (list order doesn't). `"result"`'s presence and value are procedure-specific and are documented below. If an individual call fails, `"status"` is set to something besides "ok", and an `"error"` key is included:
+`"id"` identifies the corresponding request call (list order doesn't). `"result"`'s presence and value are procedure-specific and are documented below. 
+
+If a particular call fails, `"status"` is set to something besides "ok", and an `"error"` key is included:
 
 ```javascript
 [{"id": 0,
   "status": "fail",
-  "error": {"code": TODO,
-            "message": "Invalid",
+  "error": {"code": 501,
+            "message": "Error",
             "context": TODO}
 ```
 
