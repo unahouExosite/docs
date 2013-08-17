@@ -36,9 +36,9 @@ A request message to the JSON RPC has the following structure:
 
 `"auth"` provides the authentication for the procedures listed in "calls", and can take several forms: 
 
-    * `{"cik": CIK}` authenticates as the Client identified by the given CIK.
-    * `{"cik": CIK, "client_id": RID}` authenticates as the given Client if the CIK identifies an ancestor of the given Client.
-    * `{"cik": CIK, "resource_id": RID}` authenticate as the Owner of the given Resource if the CIK identifies as an ancestor of the given Resource.
+* `{"cik": CIK}` authenticates as the Client identified by the given CIK.
+* `{"cik": CIK, "client_id": RID}` authenticates as the given Client if the CIK identifies an ancestor of the given Client.
+* `{"cik": CIK, "resource_id": RID}` authenticate as the Owner of the given Resource if the CIK identifies as an ancestor of the given Resource.
 
 `"id"` is a unique identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
