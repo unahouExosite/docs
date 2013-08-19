@@ -91,6 +91,7 @@ If the request message causes an error not associated with any given call, the r
 
 ######call
 
+|-------------|--------|
 |`"procedure"`|`"read"`|
 |`"arguments"`|
 ```
