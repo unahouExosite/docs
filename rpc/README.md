@@ -90,8 +90,8 @@ If the request message causes an error not associated with any given call, the r
 ####read 
 
 <table>
-<tr><td><code>"procedure"</code></td><td><code>"read"</code></td></tr>
-<tr><td><code>"arguments"</code><td><pre><code>
+<tr><td><code>"procedure"</code></td><td><pre>"read"</pre></code></td></tr>
+<tr><td><code>"arguments"</code><td><pre>
 [
     <rid>, 
     {
@@ -102,7 +102,7 @@ If the request message causes an error not associated with any given call, the r
         "selection": "all",
     }
 ]
-</code></pre></td></tr></table>
+</pre></td></tr></table>
 
 * `<rid>` is the identifier of the device to read. 
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
