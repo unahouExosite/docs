@@ -89,34 +89,22 @@ If the request message causes an error not associated with any given call, the r
 
 ####read 
 
-```javascript
+<table>
+<tr><td><code>"procedure"</code></td><td><code>"read"</code></td></tr>
+<tr><td><code>"arguments"</code><td><pre><code>
+[
+    <rid>, 
+    {
+        "starttime": 1
+        "endtime": 1376951491,
+        "sort": "desc",
+        "limit": 1,
+        "selection": "all",
+    }
+]
+</code></pre></td></tr></table>
 
-{
-    "auth": {
-        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
-    },
-    "calls": [
-        {
-            "arguments": [
-                {
-                    "alias": "temperature"
-                },
-                {
-                    "starttime": 1
-                    "endtime": 1376951491,
-                    "sort": "desc",
-                    "limit": 1,
-                    "selection": "all",
-                }
-            ],
-            "id": 21,
-            "procedure": "read"
-        }
-    ]
-}
-```
-
-* `RID` is the identifier of the device to read. 
+* `<rid>` is the identifier of the device to read. 
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
 * `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
@@ -142,9 +130,38 @@ Result is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value p
 [[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]]
 ```
 
-Example full result:
+Request JSON:
 
-```javascript
+```
+{
+    "auth": {
+        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
+    },
+    "calls": [
+        {
+            "arguments": [
+                {
+                    "alias": "temperature"
+                },
+                {
+                    "starttime": 1
+                    "endtime": 1376951491,
+                    "sort": "desc",
+                    "limit": 1,
+                    "selection": "all",
+                }
+            ],
+            "id": 21,
+            "procedure": "read"
+        }
+    ]
+}
+
+```
+
+Response JSON:
+
+```
 [
     {
         "id": 21,
