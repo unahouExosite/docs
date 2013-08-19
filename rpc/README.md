@@ -85,5 +85,49 @@ If the request message causes an error not associated with any given call, the r
 * `501` The application of the given Arguments to the specified Procedure is not supported.
 
 
-_TODO: procedure calls_
+### Procedures
 
+####read 
+
+#####procedure
+
+`"read"`
+
+#####arguments
+
+```javascript
+
+[RID, {
+    "starttime":number
+   ,"endtime":number
+   ,"sort":"asc" | "desc"
+   ,"limit":number
+   ,"selection":"all" | "autowindow" | "givenwindow"
+  }]
+```
+
+* `RID` is the identifier of the device to read. 
+* `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
+* `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
+* `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
+* `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation.
+
+
+#####result
+
+Read returns a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
+
+```javascript
+
+// float resource 
+[[1376709527,64.2]]
+
+// string resource 
+[[1376950234,"World"],[1376950230,"Hello"]]
+
+// integer resource 
+[[1376950410,11],[1376950405,10]]
+
+// boolean resource 
+[[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]]
+```
