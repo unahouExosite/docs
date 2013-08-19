@@ -87,12 +87,10 @@ If the request message causes an error not associated with any given call, the r
 
 ### Procedures
 
+---
 ####read 
 
 Read data from the specified resource.
-
-
-######call
 
 ```
 {
@@ -118,7 +116,7 @@ Read data from the specified resource.
 * `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation.
 
 
-######response
+####read response
 
 Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
 
