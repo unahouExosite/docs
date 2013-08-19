@@ -89,25 +89,27 @@ If the request message causes an error not associated with any given call, the r
 
 ####read 
 
+Read data from the specified resource.
+
+
 ######call
 
-|-------------|--------|
-|`"procedure"`|`"read"`|
-|`"arguments"`|
 ```
-[
-    &lt;rid&gt;, 
-    {
-        "starttime": 1
-        "endtime": 1376951491,
-        "sort": "desc",
-        "limit": 1,
-        "selection": "all",
-    }
-]
-```|
-
-</code></td></tr></table>
+{
+    "procedure": "read",
+    "arguments": [
+        <RID>,
+        {
+            "starttime": 1
+            "endtime": 1376951491,
+            "sort": "desc",
+            "limit": 1,
+            "selection": "all",
+        }
+    ],
+    "id": 1
+}
+```
 
 * `<rid>` is the identifier of the device to read. 
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
