@@ -89,21 +89,31 @@ If the request message causes an error not associated with any given call, the r
 
 ####read 
 
-#####procedure
-
-`"read"`
-
-#####arguments
-
 ```javascript
 
-[RID, {
-    "starttime":number
-   ,"endtime":number
-   ,"sort":"asc" | "desc"
-   ,"limit":number
-   ,"selection":"all" | "autowindow" | "givenwindow"
-  }]
+{
+    "auth": {
+        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
+    },
+    "calls": [
+        {
+            "arguments": [
+                {
+                    "alias": "temperature"
+                },
+                {
+                    "starttime": 1
+                    "endtime": 1376951491,
+                    "sort": "desc",
+                    "limit": 1,
+                    "selection": "all",
+                }
+            ],
+            "id": 21,
+            "procedure": "read"
+        }
+    ]
+}
 ```
 
 * `RID` is the identifier of the device to read. 
@@ -115,7 +125,7 @@ If the request message causes an error not associated with any given call, the r
 
 #####result
 
-Read returns a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
+Result is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
 
 ```javascript
 
@@ -131,3 +141,21 @@ Read returns a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), valu
 // boolean resource 
 [[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]]
 ```
+
+Example full result:
+
+```javascript
+[
+    {
+        "id": 21,
+        "result": [
+            [
+                1376951473,
+                72.5
+            ]
+        ],
+        "status": "ok"
+    }
+]
+```
+
