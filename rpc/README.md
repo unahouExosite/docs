@@ -436,7 +436,9 @@ Creates a datarule.
 <pre><code>
 {
     "simple": {
-        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "comparison": "gt" | "lt" | 
+                      "eq" | "geq" | 
+                      "leq" | "neq",
         "constant": number,
         "repeat": boolean
     }
@@ -457,7 +459,9 @@ Creates a datarule.
 <pre><code>
 {
     "interval": {
-        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "comparison": "gt" | "lt" | 
+                      "eq" | "geq" | 
+                      "leq" | "neq",
         "constant": number,
         "repeat": boolean,
         "timeout": number
@@ -469,7 +473,9 @@ Creates a datarule.
 <pre><code>
 {
     "duration": {
-        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "comparison": "gt" | "lt" | 
+                      "eq" | "geq" |
+                      "leq" | "neq",
         "constant": number,
         "repeat": boolean,
         "timeout": number
@@ -481,7 +487,9 @@ Creates a datarule.
 <pre><code>
 {
     "count": {
-        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "comparison": "gt" | "lt" |
+                      "eq" | "geq" | 
+                      "leq" | "neq",
         "constant": number,
         "count": number,
         "repeat": boolean,
