@@ -556,8 +556,11 @@ Creates a dispatch.
 * `"public"`: TODO
 * `"meta"`: General purpose metadata.
 * `"preprocess"`: A list of `[<operation>, <value>]` pairs. For more information, refer to the Platform User Guide (TODO: link?)
-    `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
+
+    `<operation>` may be one of `"add"`, `"sub"`, `"mul"`, `"div"`, `"mod"`, `"gt"`, `"geq"`, `"lt"`, `"leq"`, `"eq"`, `"neq"`, `"value"`
+
     `<value>` is the value to use in the operation.
+
 * `"recipient"`: The intended recipient for messages from this dispatch resources. It must be a valid email address, phone number, etc. for the configured delivery method.
 * `"count"`: The maximum number of entries this resource will retain.
 * `"duration"`: The maximum number of hours this resource will retain its data.
