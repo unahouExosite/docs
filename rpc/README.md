@@ -85,10 +85,9 @@ Server: nginx
 
 ### Request Message
 
-A request message to the JSON RPC has the following structure:
+Request message bodies have the following structure:
 
 ```
-
 {"auth": {"cik": "e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"},
  "calls": [
     ["id": 1, 
@@ -134,7 +133,7 @@ If a particular call fails, the response message is still a list, but `"status"`
   "status": "fail",
   "error": {"code": 501,
             "message": "Error",
-            "context": TODO}
+            "context": TODO}]
 ```
 
 If the request message causes an error not associated with any given call, the response message will instead look like this:
@@ -188,19 +187,35 @@ Read data from the specified resource.
 
 Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
 
-```javascript
+```
 
 // float resource 
-[[1376709527,64.2]]
+{
+    "status": "ok",
+    "result": [[1376709527,64.2]],
+    "id": 1
+}
 
 // string resource 
-[[1376950234,"World"],[1376950230,"Hello"]]
+{
+    "status": "ok",
+    "result": [[1376950234,"World"],[1376950230,"Hello"]],
+    "id": 1
+}
 
 // integer resource 
-[[1376950410,11],[1376950405,10]]
+{
+    "status": "ok",
+    "result": [[1376950410,11],[1376950405,10]],
+    "id": 1
+}
 
 // boolean resource 
-[[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]]
+{
+    "status": "ok",
+    "result": [[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]],
+    "id": 1
+}
 ```
 
 ---
@@ -227,8 +242,8 @@ Writes a single value to the resource specified.
 
 ```
 {
-    "status": "ok"
-    "id": 1, 
+    "status": "ok",
+    "id": 1 
 }
 ```
 
@@ -267,8 +282,8 @@ TODO: what does it mean to activate an entity?
 
 ```
 {
-    "status": <result>
-    "id": 1, 
+    "status": <result>,
+    "id": 1
 }
 ```
 
@@ -317,6 +332,7 @@ Creates a client.
             "name":string = "",
             "public":boolean = false
         }
+    ],
     "id": 1
 }
 ```
@@ -336,8 +352,8 @@ Creates a client.
 
 ```
 {
-    "status": "ok"
-    "id": 1, 
+    "status": "ok",
+    "id": 1
 }
 ```
 
@@ -385,8 +401,8 @@ Creates a dataport.
 
 ```
 {
-    "status": "ok"
-    "id": 1, 
+    "status": "ok",
+    "id": 1
 }
 ```
 
@@ -511,8 +527,8 @@ Creates a datarule.
 
 ```
 {
-    "status": "ok"
-    "id": 1, 
+    "status": "ok",
+    "id": 1
 }
 ```
 
@@ -572,9 +588,44 @@ Creates a dispatch.
 
 ```
 {
-    "status": "ok"
-    "id": 1, 
+    "status": "ok",
+    "id": 1
 }
 ```
 
+---
 
+###create (clone)
+
+Create a clone from an existing One Platform resource given its RID or a non-activated sharecode for that resource.
+
+```
+{
+    "procedure": "create",
+    "arguments": [
+        "clone", 
+        {
+             "rid": string,
+             % 'rid' and 'code' are mutually exclusive options
+             "code": string,
+             "noaliases":boolean = false,
+             "nohistorical":boolean = false
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `"rid"`: Resource identifier to clone.
+* `"code`: Share code for the resource to clone.
+* `"noaliases"`: Whether to create clone aliases
+* `"nohistorical"`: Whether to clone historical data
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
