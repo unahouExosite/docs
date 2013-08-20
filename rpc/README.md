@@ -284,10 +284,223 @@ TODO: what does it mean to activate an entity?
     `"noauth"`: The calling client does not own the client associated with the
     specified activation code (client only).
 
-
 ---
  
+###create (client)
+
+Creates a client.
+
+```
+{
+    "procedure": "create",
+    "arguments": [
+        "client", 
+        {
+            "limits":{
+                "client": <limit>,
+                "dataport": <limit>,
+                "datarule": <limit>,
+                "disk": <limit>,
+                "dispatch": <limit>,
+                "email": <limit>,
+                "email_bucket": <limit>,
+                "http": <limit>,
+                "http_bucket": <limit>,
+                "share": <limit>,
+                "sms": <limit>,
+                "sms_bucket": <limit>,
+                "xmpp": <limit>,
+                "xmpp_bucket": <limit>
+            },
+            "locked":boolean = false,
+            "meta":string = "",
+            "name":string = "",
+            "public":boolean = false
+        }
+    "id": 1
+}
+```
+
+* `<limit>`: Either a number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default is 0. 
+* `"client"`, `"dataport"`, `"datarule"`, `"dispatch"`: The number of each type of resource this client can own.
+* `"disk"`: The amount of disk space this client can occupy. Currently this limit is not enforced. 
+* `"email"`, `"http"`, `"sms"`, `"xmpp"`: The number of each type of dispatch this client can use on a daily basis.
+* `"email_bucket"`, `"http_buckket"`, `"sms_bucket"`, `"xmpp_bucket"`: TODO
+* `"io"`: The number of One Platform API calls this client can make on a daily basis.
+* `"share"`: The number of shares this client can create.
+
+#####response
+
+```
+{
+    "status": "ok"
+    "id": 1, 
+}
+```
+
+---
+
+###create (dataport)
+
+Creates a dataport.
+
+```
+{
+    "procedure": "create",
+    "arguments": [
+        "dataport", 
+        {
+            "format": "binary" | "boolean" | "float" | "integer" | "string",
+            "meta": string = "",
+            "name": string = "",
+            "preprocess": list = [],
+            "public": boolean = false,
+            "retention": {
+                "count": number | "infinity",
+                "duration": number | "infinity"
+            },
+            "subscribe": ResourceID = ""
+       }
+    ], 
+    "id": 1
+}
+```
+
+* `"format"`: The format in which the dataport will store its data.
+* `"name"`: A descriptive name for the client to be created. This field has no further function and the One Platform does not use this name to identify the resource.
+* `"meta"`: General purpose metadata.
+* `"preprocess"`: A list of `[<operation>, <value>]` pairs. For more information, refer to the Platform User Guide (TODO: link?)
+    `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
+    `<value>` is the value to use in the operation.
+* `"count"`: The maximum number of entries this resource will retain.
+* `"duration"`: The maximum number of hours this resource will retain its data.
+* `"subscribe"`: An RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
 
 
+#####response
 
+```
+{
+    "status": "ok"
+    "id": 1, 
+}
+```
+
+---
+
+###create (datarule)
+
+Creates a datarule.
+
+```
+{
+    "procedure": "create",
+    "arguments": [
+        "datarule", 
+        {
+            "format": "boolean" | "float" | "integer",
+            "meta": string = "",
+            "name": string = "",
+            "preprocess": list = [],
+            "public": boolean = false,
+            "retention": {
+                "count": number | "infinity",
+                "duration": number | "infinity"
+            }
+            "rule": dict,            
+            "subscribe":ResourceID = ""
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `"format"`: The format in which the datarule will store its data.
+* `"name"`: A descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
+* `"meta"`: General purpose metadata.
+* `"preprocess"`: A list of `[<operation>, <value>]` pairs. For more information, refer to the Platform User Guide (TODO: link?)
+    `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
+    `<value>` is the value to use in the operation.
+* `"public"`: TODO 
+* `"count"`: The maximum number of entries this resource will retain.
+* `"duration"`: The maximum number of hours this resource will retain its data.
+* `"subscribe"`: An RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
+* `"rule"`: The main processing this resource will do on each of its incoming datapoint. The rule may be one of the following:
+
+<table><tr><th>Rule</th><th>Description</th></tr>
+<tr><td>
+```
+{
+    "simple": {
+        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "constant": number,
+        "repeat": boolean
+    }
+}
+```
+</td><td>TODO</td></tr>
+<tr><td>
+```
+{
+    "timeout": {
+        "repeat": boolean,
+        "timeout": number
+    }
+}
+```
+</td><td>TODO</td></tr>
+<tr><td>
+```
+{
+    "interval": {
+        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "constant": number,
+        "repeat": boolean,
+        "timeout": number
+    }
+}
+```
+</td><td>TODO</td></tr>
+<tr><td>
+```
+{
+    "duration": {
+        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "constant": number,
+        "repeat": boolean,
+        "timeout": number
+    }
+}
+```
+</td><td>TODO</td></tr>
+<tr><td>
+```
+{
+    "count": {
+        "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+        "constant": number,
+        "count": number,
+        "repeat": boolean,
+        "timeout": number,
+    }
+}
+```
+</td><td>TODO</td></tr>
+<tr><td>
+```
+{
+    "script": string
+}
+```
+</td><td>TODO</td></tr>
+</table>
+
+#####response
+
+```
+{
+    "status": "ok"
+    "id": 1, 
+}
+```
 
