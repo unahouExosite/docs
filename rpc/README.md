@@ -147,11 +147,11 @@ If the request message causes an error not associated with any given call, the r
 
 * `"code"` may have one of the following values:
 
-    `-1` means the Request Message is not a proper JSON string
+    `-1` means the request message is not a proper JSON string
 
-    `400` means the Request is not properly formed
+    `400` means the request is not properly formed
 
-    `401` means the Auth credentials are invalid
+    `401` means the credentials in `"auth"` are invalid
 
     `500` means an internal error occured while generating the response message.  Individual calls may or may not have completed successfully.
 
@@ -256,7 +256,7 @@ Writes a single value to the resource specified.
 
 ###activate
 
-Given an Activation Code, the associated entity is activated for the calling Client.
+Given an activation code, activate an entity for the calling Client.
 
 TODO: what does it mean to activate an entity?
 
@@ -287,21 +287,19 @@ TODO: what does it mean to activate an entity?
 
 ```
 {
-    "status": <result>,
+    "status": string,
     "id": 1
 }
 ```
 
-* `<result>`
+* `"status": "ok"` means the activation was successful.
 
-    `"ok"` means the activation was successful.
-
-    `"invalid"` means the specified activation code was not found or already activated
+* `"status": "invalid"` means the specified activation code was not found or already activated
     (client only) or expired (client only) or activated by another client
     (share only).  Or, the resource associated with the activation code has already been
     activated either via this or another activation code (share only).
 
-    `"noauth"` means the calling client does not own the client associated with the
+* `"status": "noauth"` means the calling client does not own the client associated with the 
     specified activation code (client only).
 
 ---
@@ -635,4 +633,305 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ---
 
+###deactivate
+
+Given an activation code, deactivate an entity for the calling client.
+
+```
+{
+    "procedure": "deactivate",
+    "arguments": [
+        {
+            <CodeType>,
+            <RIDOrCode> 
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `<CodeType>` specifies what type of One Platform entity is to be deactivated. It can have one of these values:
+
+    `"client"` deactivate and expire the specified client interface 
+    key (CIK) if it was previously activated. If the key was not previously 
+    activated, the call will expire the key.
+
+    `"share"` deactivate a previous activation of a resource share for the specified activator.
+
+* `<RIDOrCode>` is the client or share activation code or the shared resource ID to be deactivated.
+
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+---
+
+###drop
+
+Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
+the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
+be terminated.  
+
+```
+{
+    "procedure": "drop",
+    "arguments": [
+        {
+            ResourceID,
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `ResourceID` specifies the resource to drop.
+
+#####response
+
+```
+{
+    "status": string,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was successfully dropped
+
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client.
+
+---
+
+###flush
+
+Empties the specified resource of data per specified constraints. If no constraints are specified, all data gets flushed.  
+
+```
+{
+    "procedure": "flush",
+    "arguments": [
+        {
+            ResourceID,
+            {
+                "newerthan": number,
+                "olderthan": number
+            }
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `ResourceID` specifies what resource to flush.
+
+* `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
+
+
+#####response
+
+```
+{
+    "status": string,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was successfully flushed 
+
+* `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp.
+
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client.
+
+
+---
+
+###info
+
+Provide creation and usage information of specified resource according to
+the specified options. Information will be returned for the options
+specified. If no option is specified, a full information report is
+returned.
+
+```
+{
+    "procedure": "info",
+    "arguments": [
+        {
+            ResourceID,
+            <options>
+            
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `ResourceID` specifies what resource to query.
+
+* `<options>` is a JSON object with boolean entries. Each boolean entry defaults
+        to false. If `<options>` is set to `{}` then all available boolean options 
+        are set to true, `"starttime"` is set to the start of time, and `"endtime"` 
+        is set to the end of time. Not all resource types have the same
+        set of options. Valid options are the following:
+
+    `"aliases"` returns all aliases associated with the calling client's resources.
+
+    `"basic"` returns basic information about a resource, such as its type, when 
+    it was created, last modified and, for 'client' and 'dispatch' type resources, its current status.
+
+    `"comments"` returns all comments associated with the specified resource that 
+    are visible to the calling client. See the One Platform User Guide for 
+    'visibility' definition.
+
+    `"description"` returns the description of the resource that was used to create 
+    or last update the resource.
+
+    `"key"` returns the Client Interface Key (CIK) associated with the specified resource.
+    This is valid for client resources only.
+
+    `"shares"` returns share activation codes along with information about how many 
+    times and for what duration this resource has been shared and which clients the 
+    activators are.
+
+    `"usage"` returns current usage information for the specified resource.
+
+    `"starttime"` specifies timestamp from which to generate requested information.
+
+    `"endtime"` specifies timestamp upto which to generate information.
+
+
+#####response
+
+```
+{
+    "status": string,
+    "id": 1
+    "result": <result>
+}
+```
+
+* `"status": "ok"` means the infomation was returned. Any other value for `"status"` indicates failure.
+
+* `<result>` is a JSON object containing the requested information. The following documents parts of the result.
+
+```
+{
+    "aliases": {
+        // key is the ResourceID of the aliased resource,
+        // and a list of aliases that map to it. Value is
+        // a list of alias strings, or "undefined" if
+        // requesting client is not aliased resource or 
+        // its owner.
+        "1b1ae80c224b4df0c74401234567890123456789": [
+            "myinteger" 
+        ],
+        "6154e05357efac4ec3d801234567890123456789": [
+            "temperature",
+            "myfloat"
+        ],
+    },
+    "basic": {
+        // The timestamp at which this resource was last updated via 
+        // the 'update' API.
+        "modified": 1374553089,
+        // The current status of this resource. Applicable to client 
+        // and dispatch type resources only.
+        // "activated" | "locked" | "notactivated"
+        "status": "activated",
+        // TODO
+        "subscribers": 0,
+        // Type of resource
+        // "client" | "dataport" | "datarule" | "dispatch"
+        "type": "client 
+    },
+    // Private and public comments associated with this resource that are 
+    // visible to the calling client.
+    "comments": [],
+    // TODO
+    "counts": {
+        "client": 3,
+        "dataport": 14,
+        "datarule": 0,
+        "disk": 40516,
+        "dispatch": 0,
+        "email": 0,
+        "http": 0,
+        "share": 0,
+        "sms": 0,
+        "xmpp": 0
+    },
+    // description as passed to create procedure
+    "description": {
+        "limits": {
+            "client": 500,
+            "dataport": 10000,
+            "datarule": 5100,
+            "disk": "inherit",
+            "dispatch": 5100,
+            "email": 2500,
+            "email_bucket": "inherit",
+            "http": 1000,
+            "http_bucket": "inherit",
+            "share": 5100,
+            "sms": 5,
+            "sms_bucket": 30,
+            "xmpp": 1000,
+            "xmpp_bucket": "inherit"
+        },
+        "locked": false,
+        "meta": "",
+        "name": "Dev",
+        "public": false
+    },
+    // List of shares in this format:
+    // {"code":Code,   // The code for activating this share
+    //  "count":Count, // How many times this share can be activated
+    //  "duration":Duration,  // How many seconds this share can be activated
+    // Activation timestamps and platform RIDs. 
+    //  "activated":[[Timestamp,ClientID], ...]} 
+    "shares": [],
+    "storage": {
+        // The number of data entries in the resource's datastack.
+        "count": 2681,
+        // The timestamp of the oldest entry in the resource's datastack.
+        "first": 1372449660,
+        // The timestamp of the newest entry in the resource's datastack.
+        "last": 1377005537,
+        // The total space in bytes of this resource's datastack.
+        "size": 40215
+    },
+    "subscribers": [],
+    "tagged": [],
+    "tags": [],
+    "usage": {
+        // Number of the respective resource type owned by this
+        // and allocated to descendant clients. Applicable to 
+        // client type resources only.
+        "client": 3,
+        "dataport": 14,
+        "datarule": 0,
+        "dispatch": 0,
+        // Number of resources
+        // shared by this and allocated to descendant clients. 
+        // Applicable to client type resources only.
+        "share": 0,
+        // Current total disk space in bytes used by this and descendant 
+        // clients, expressed in bytes. Applicable to client type 
+        // resources only.
+        "disk": 40516,
+        // Current daily usage of the respective dispatch type by this
+        // and descendant clients. Applicable to 'client' type
+        // resources only.
+        "email": 0,
+        "http": 0,
+        "sms": 0,
+        "xmpp": 0
+    }
+}
+```
 
