@@ -124,7 +124,8 @@ If the call succeeds, a response message from the JSON RPC is a list of response
   "result": [[1376709527, 64.2]]}]
 ```
 
-`"id"` identifies the corresponding request call (list order doesn't). `"result"`'s presence and value are procedure-specific and are documented below. 
+* `"id"` identifies the corresponding request call. 
+* `"result"` is the return value for the procedure. Procedures without return values omit it entirely.
 
 If a particular call fails, the response message is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
 
@@ -144,13 +145,17 @@ If the request message causes an error not associated with any given call, the r
            "context": TODO}}
 ```
 
-`"code"` may have one of the following values:
+* `"code"` may have one of the following values:
 
-* `-1` The Request Message is not a proper JSON string
-* `400` The Request is not properly formed
-* `401` The Auth credentials are invalid
-* `500` An internal error occured will generating the Response Message.  Individual Call Requests may or may not have completed successfully.
-* `501` The application of the given Arguments to the specified Procedure is not supported.
+    `-1` means the Request Message is not a proper JSON string
+
+    `400` means the Request is not properly formed
+
+    `401` means the Auth credentials are invalid
+
+    `500` means an internal error occured while generating the response message.  Individual calls may or may not have completed successfully.
+
+    `501` means the application of the given arguments to the specified procedure is not supported.
 
 
 ## Procedures
@@ -268,11 +273,11 @@ TODO: what does it mean to activate an entity?
 
 * `<codetype>`
 
-    `"client"` Activates the specified client
+    `"client"` activates the specified client
     interface key (CIK) if it is not already activated or expired. Only the
     owner of the client associated with the CIK can activate it.
 
-    `"share"` Activates the specified share code
+    `"share"` activates the specified share code
     for the specified activator if the activator has not already activated
     a share for the same resource, either using this share code or another.
 
@@ -289,14 +294,14 @@ TODO: what does it mean to activate an entity?
 
 * `<result>`
 
-    `"ok"`: The activation was successful.
+    `"ok"` means the activation was successful.
 
-    `"invalid"`: The specified activation code was not found or already activated
+    `"invalid"` means the specified activation code was not found or already activated
     (client only) or expired (client only) or activated by another client
     (share only).  Or, the resource associated with the activation code has already been
     activated either via this or another activation code (share only).
 
-    `"noauth"`: The calling client does not own the client associated with the
+    `"noauth"` means the calling client does not own the client associated with the
     specified activation code (client only).
 
 ---
@@ -337,27 +342,27 @@ Creates a client.
 }
 ```
 
-* `"limits"`: `<limit>` is either number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default limit is 0. 
+* `"limits"` is an object containing limits for various entities and consumables. `<limit>` is either number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default limit is 0. 
     
-    `"client"`, `"dataport"`, `"datarule"`, `"dispatch"`: The number of each type of resource this client can own.
+    `"client"`, `"dataport"`, `"datarule"`, `"dispatch"` represent the number of each type of resource this client can own.
     
-    `"disk"`: The amount of disk space this client can occupy. Currently this limit is not enforced. 
+    `"disk"` is the amount of disk space this client can occupy. Currently this limit is not enforced. 
 
-    `"email"`, `"http"`, `"sms"`, `"xmpp"`: The number of each type of dispatch this client can use on a daily basis.
+    `"email"`, `"http"`, `"sms"`, `"xmpp"` is the number of each type of dispatch this client can use on a daily basis.
 
-    `"email_bucket"`, `"http_buckket"`, `"sms_bucket"`, `"xmpp_bucket"`: TODO
+    `"email_bucket"`, `"http_buckket"`, `"sms_bucket"`, `"xmpp_bucket"` TODO
 
-    `"io"`: The number of One Platform API calls this client can make on a daily basis.
+    `"io"` is the number of One Platform API calls this client can make on a daily basis.
 
-    `"share"`: The number of shares this client can create.
+    `"share"` is the number of shares this client can create.
 
-* `"locked"`: When this field is set to 'true', the client is not allowed to interact with the One Platform. Every API call will return the error code 'locked'.
+* `"locked"`, if set to `true`, prevents this client from interacting with the One Platform. Every API call will return the error code 'locked'.
 
-* `"meta"`: General purpose metadata.
+* `"meta"` is general purpose metadata. It can be used for application-specific purposes. For example, Portals uses meta to store a client's vendor and model, among other things.
 
-* `"name"`: A descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
+* `"name"` is a descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
 
-* `"public"`: TODO
+* `"public"` TODO
 
 #####response
 
@@ -396,9 +401,9 @@ Creates a dataport.
 }
 ```
 
-* `"format"`: The format in which the dataport will store its data.
-* `"meta"`, `"name"`, `"public"`: See [create (client)](#create-client)
-* `"preprocess"`: A list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data. For more information, refer to the Platform User Guide (TODO: link?)
+* `"format"` is the format in which the dataport will store its data.
+* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
+* `"preprocess"` is a list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data. For more information, refer to the Platform User Guide (TODO: link?)
 
     `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
 
@@ -406,11 +411,11 @@ Creates a dataport.
 
 * `"retention"`
 
-    `"count"`: The maximum number of entries this resource will retain.
+    `"count"` is the maximum number of entries this resource will retain.
 
-    `"duration"`: The maximum number of hours this resource will retain its data.
+    `"duration"` is the maximum number of hours this resource will retain its data.
 
-* `"subscribe"`: An RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
+* `"subscribe"` is an RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
 
 
 #####response
@@ -451,10 +456,10 @@ Creates a datarule.
 }
 ```
 
-* `"format"`: The format in which the datarule will store its data.
-* `"meta"`, `"name"`, `"public"`: See [create (client)](#create-client)
-* `"preprocess"`, `"retention"`, `"subscribe"`: See [create (dataport)](#create-dataport)
-* `"rule"`: The main processing this resource will do on each of its incoming datapoint. The rule may be one of the following:
+* `"format"` is the format in which the datarule will store its data.
+* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
+* `"preprocess"`, `"retention"`, `"subscribe"` are described in [create (dataport)](#create-dataport)
+* `"rule"` is a JSON object describing the main processing this resource will do on each incoming datapoint. It may be one of the following:
 
 <table><tr><th>Rule</th><th>Description</th></tr>
 <tr><td>
@@ -573,13 +578,13 @@ Creates a dispatch.
 }
 ```
 
-* `"locked"`: With this field set to 'true', the dispatch resource will not send messages to its configured recipient. The output from a locked dispatch resource will be 'undelivered'.
-* `"message"`: If not empty, this string will be sent to the configured recipient. If this string is empty, the value output from the preprocessing stage will be output instead.
-* `"meta"`, `"name"`, `"public"`: See [create (client)](#create-client)
-* `"method"`: The method to be used to deliver messages by this dispatch resource.
-* `"preprocess"`, `"retention"`, `"subscribe"`: See [create (dataport)](#create-dataport)
-* `"recipient"`: The intended recipient for messages from this dispatch resources. It must be a valid email address, phone number, etc. for the configured delivery method.
-* `"subject"`: The subject string for delivery methods that support a subject line, such as email.
+* `"locked"`, if set to `true`, will prevent the dispatch resource from sending messages to its configured recipient. The output from a locked dispatch resource will be 'undelivered'.
+* `"message"` is the message to dispatch. If this string is empty, the value output from the preprocessing stage will be output instead.
+* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
+* `"method"` is the method to be used to deliver messages by this dispatch resource.
+* `"preprocess"`, `"retention"`, `"subscribe"` are described in [create (dataport)](#create-dataport)
+* `"recipient"` is the intended recipient for messages from this dispatch resources. It must be a valid email address or phone number, depending on the configured delivery method.
+* `"subject"` is the subject string for delivery methods that support a subject line, such as email.
 
 
 #####response
@@ -603,8 +608,8 @@ Create a clone from an existing One Platform resource given its RID or a non-act
     "arguments": [
         "clone", 
         {
+             // 'rid' and 'code' are mutually exclusive options
              "rid": string,
-             % 'rid' and 'code' are mutually exclusive options
              "code": string,
              "noaliases":boolean = false,
              "nohistorical":boolean = false
@@ -614,10 +619,10 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 }
 ```
 
-* `"rid"`: Resource identifier to clone.
-* `"code`: Share code for the resource to clone.
-* `"noaliases"`: Whether to create clone aliases
-* `"nohistorical"`: Whether to clone historical data
+* `"rid"` is the resource identifier to clone.
+* `"code` is the share code for the resource to clone.
+* `"noaliases"` specifies whether to create clone aliases
+* `"nohistorical"` specifies whether to clone historical data
 
 #####response
 
@@ -627,3 +632,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
     "id": 1
 }
 ```
+
+---
+
+
