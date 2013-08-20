@@ -1,12 +1,11 @@
 ## Exosite JSON RPC API
 
-### HTTP Format
+The JSON RPC API provides full featured access to data on the One Platform. It is intended for applications that need to do more than just read and write individual points.(For an API designed for bandwidth-constrained environments, see the HTTP Data Interface.)
 
-_TODO_
 
 ### Libraries
 
-Wrapper libraries for this API are available:
+Wrapper libraries are available for this API:
 
 * Python: [pyonep](https://github.com/exosite-labs/pyonep)
 * Java: [javaonep](https://github.com/exosite-labs/javaonep)
@@ -14,11 +13,81 @@ Wrapper libraries for this API are available:
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 
 
+### HTTP Request/Response Format
+
+JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is an example of an HTTP request, with JSON formatted for readability:
+
+```
+POST /api:v1/rpc/process
+Host: m2.exosite.com:80
+Content-Type: application/json; charset=utf-8
+Content-Length: 235
+Accept-Encoding: identity
+
+{
+    "auth": {
+        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
+    }, 
+    "calls": [
+        {
+            "arguments": [
+                {
+                    "alias": "temperature"
+                }, 
+                {
+                    "endtime": 1376957311, 
+                    "limit": 3, 
+                    "selection": "all", 
+                    "sort": "desc", 
+                    "starttime": 1
+                }
+            ], 
+            "id": 56, 
+            "procedure": "read"
+        }
+    ]
+}
+```
+
+HTTP Response:
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 20 Aug 2013 00:08:27 GMT
+Content-Length: 90
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Server: nginx
+
+[
+    {
+        "id": 56, 
+        "result": [
+            [
+                1376957195, 
+                72.2
+            ], 
+            [
+                1376957184, 
+                72.3
+            ], 
+            [
+                1376951473, 
+                72.5
+            ]
+        ], 
+        "status": "ok"
+    }
+]
+```
+
+
+
 ### Request Message
 
 A request message to the JSON RPC has the following structure:
 
-```javascript
+```
 
 {"auth": {"cik": "e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"},
  "calls": [
@@ -50,7 +119,7 @@ A request message to the JSON RPC has the following structure:
 
 If the call succeeds, a response message from the JSON RPC is a list of responses to the calls made in the request:
 
-```javascript
+```
 [{"id": 0,
   "status": "ok",
   "result": [[1376709527, 64.2]]}]
@@ -60,7 +129,7 @@ If the call succeeds, a response message from the JSON RPC is a list of response
 
 If a particular call fails, the response message is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
 
-```javascript
+```
 [{"id": 0,
   "status": "fail",
   "error": {"code": 501,
@@ -70,7 +139,7 @@ If a particular call fails, the response message is still a list, but `"status"`
 
 If the request message causes an error not associated with any given call, the response message will instead look like this:
 
-```javascript
+```
 {"error": {"code": 401,
            "message": "Invalid",
            "context": TODO}}
@@ -87,7 +156,6 @@ If the request message causes an error not associated with any given call, the r
 
 ## Procedures
 
----
 ###read 
 
 Read data from the specified resource.
@@ -135,49 +203,91 @@ Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value
 [[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]]
 ```
 
-Request JSON:
+---
+
+###write
+
+Writes a single value to the resource specified.
 
 ```
 {
-    "auth": {
-        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
-    },
-    "calls": [
-        {
-            "arguments": [
-                {
-                    "alias": "temperature"
-                },
-                {
-                    "starttime": 1
-                    "endtime": 1376951491,
-                    "sort": "desc",
-                    "limit": 1,
-                    "selection": "all",
-                }
-            ],
-            "id": 21,
-            "procedure": "read"
-        }
-    ]
+    "procedure": "write",
+    "arguments": [
+        <rid>, 
+        <value> 
+    ], 
+    "id": 1 
 }
-
 ```
 
-Response JSON:
+* `<rid>` is the identifier of the device to write.  
+* `<value>` is the value to write.
+
+#####response
 
 ```
-[
-    {
-        "id": 21,
-        "result": [
-            [
-                1376951473,
-                72.5
-            ]
-        ],
-        "status": "ok"
-    }
-]
+{
+    "status": "ok"
+    "id": 1, 
+}
 ```
+
+---
+
+###activate
+
+Given an Activation Code, the associated entity is activated for the calling Client.
+
+TODO: what does it mean to activate an entity?
+
+```
+{
+    "procedure": "write",
+    "arguments": [
+        <codetype: "client" | "share" >, 
+        <code: string> 
+    ], 
+    "id": 1 
+}
+```
+
+* `<codetype>`
+
+    `"client"` Activates the specified client
+    interface key (CIK) if it is not already activated or expired. Only the
+    owner of the client associated with the CIK can activate it.
+
+    `"share"` Activates the specified share code
+    for the specified activator if the activator has not already activated
+    a share for the same resource, either using this share code or another.
+
+* `<code>` is the activation code with which the entity to be activated is associated.
+
+#####response
+
+```
+{
+    "status": <result>
+    "id": 1, 
+}
+```
+
+* `<result>`
+
+    `"ok"`: The activation was successful.
+
+    `"invalid"`: The specified activation code was not found or already activated
+    (client only) or expired (client only) or activated by another client
+    (share only).  Or, the resource associated with the activation code has already been
+    activated either via this or another activation code (share only).
+
+    `"noauth"`: The calling client does not own the client associated with the
+    specified activation code (client only).
+
+
+---
+ 
+
+
+
 
