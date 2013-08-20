@@ -328,6 +328,9 @@ Creates a client.
 * `"email_bucket"`, `"http_buckket"`, `"sms_bucket"`, `"xmpp_bucket"`: TODO
 * `"io"`: The number of One Platform API calls this client can make on a daily basis.
 * `"share"`: The number of shares this client can create.
+* `"meta"`: General purpose metadata.
+* `"name"`: A descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
+* `"public"`: TODO
 
 #####response
 
@@ -367,11 +370,12 @@ Creates a dataport.
 ```
 
 * `"format"`: The format in which the dataport will store its data.
-* `"name"`: A descriptive name for the client to be created. This field has no further function and the One Platform does not use this name to identify the resource.
 * `"meta"`: General purpose metadata.
+* `"name"`: A descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
 * `"preprocess"`: A list of `[<operation>, <value>]` pairs. For more information, refer to the Platform User Guide (TODO: link?)
     `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
     `<value>` is the value to use in the operation.
+* `"public"`: TODO
 * `"count"`: The maximum number of entries this resource will retain.
 * `"duration"`: The maximum number of hours this resource will retain its data.
 * `"subscribe"`: An RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
@@ -407,7 +411,7 @@ Creates a datarule.
                 "count": number | "infinity",
                 "duration": number | "infinity"
             }
-            "rule": dict,            
+            "rule": object,            
             "subscribe":ResourceID = ""
         }
     ], 
@@ -503,4 +507,63 @@ Creates a datarule.
     "id": 1, 
 }
 ```
+
+---
+
+###create (dispatch)
+
+Creates a dispatch.
+
+```
+{
+    "procedure": "create",
+    "arguments": [
+        "dispatch", 
+        {
+            "locked": boolean = false,
+            "message": string = "",
+            "meta": string = "",
+            "method": "email" | "http_get" | "http_post" | "http_put" | "sms" | "xmpp",
+            "name": string = "",
+            "preprocess": Preprocess = [],
+            "public": boolean = false,
+            "recipient": string,
+            "retention": {
+                "count": number | "infinity",
+                "duration": number | "infinity"
+            },
+            "subject": string,
+            "subscribe": ResourceID | null = null
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `"locked"`: With this field set to 'true', the dispatch resource will not send messages to its configured recipient. The output from a locked dispatch resource will be 'undelivered'.
+* `"message"`: If not empty, this string will be sent to the configured recipient. If this string is empty, the value output from the preprocessing stage will be output instead.
+* `"method"`: The method to be used to deliver messages by this dispatch resource.
+* `"format"`: The format in which the dataport will store its data.
+* `"name"`: A descriptive name for the client to be created. This field has no further function and the One Platform does not use this name to identify the resource.
+* `"public"`: TODO
+* `"meta"`: General purpose metadata.
+* `"preprocess"`: A list of `[<operation>, <value>]` pairs. For more information, refer to the Platform User Guide (TODO: link?)
+    `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
+    `<value>` is the value to use in the operation.
+* `"recipient"`: The intended recipient for messages from this dispatch resources. It must be a valid email address, phone number, etc. for the configured delivery method.
+* `"count"`: The maximum number of entries this resource will retain.
+* `"duration"`: The maximum number of hours this resource will retain its data.
+* `"subject"`: The subject string for delivery methods that support a subject line, such as email.
+* `"subscribe"`: An RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
+
+
+#####response
+
+```
+{
+    "status": "ok"
+    "id": 1, 
+}
+```
+
 
