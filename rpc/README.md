@@ -321,7 +321,7 @@ Creates a client.
 }
 ```
 
-* `<limit>`: Either a number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default is 0. 
+* `<limit>`: Either a number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default limit is 0. 
 * `"client"`, `"dataport"`, `"datarule"`, `"dispatch"`: The number of each type of resource this client can own.
 * `"disk"`: The amount of disk space this client can occupy. Currently this limit is not enforced. 
 * `"email"`, `"http"`, `"sms"`, `"xmpp"`: The number of each type of dispatch this client can use on a daily basis.
@@ -429,7 +429,7 @@ Creates a datarule.
 
 <table><tr><th>Rule</th><th>Description</th></tr>
 <tr><td>
-```
+<pre><code>
 {
     "simple": {
         "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
@@ -437,20 +437,20 @@ Creates a datarule.
         "repeat": boolean
     }
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 <tr><td>
-```
+<pre><code>
 {
     "timeout": {
         "repeat": boolean,
         "timeout": number
     }
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 <tr><td>
-```
+<pre><code>
 {
     "interval": {
         "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
@@ -459,10 +459,10 @@ Creates a datarule.
         "timeout": number
     }
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 <tr><td>
-```
+<pre><code>
 {
     "duration": {
         "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
@@ -471,10 +471,10 @@ Creates a datarule.
         "timeout": number
     }
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 <tr><td>
-```
+<pre><code>
 {
     "count": {
         "comparison": "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
@@ -484,14 +484,14 @@ Creates a datarule.
         "timeout": number,
     }
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 <tr><td>
-```
+<pre><code>
 {
     "script": string
 }
-```
+</code></pre>
 </td><td>TODO</td></tr>
 </table>
 
