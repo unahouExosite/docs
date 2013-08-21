@@ -1022,7 +1022,7 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 {
     "procedure": "listing",
     "arguments": [
-        <type_list>
+        <type_list>,
         <filter_list>
     ], 
     "id": 1
