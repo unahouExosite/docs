@@ -2,6 +2,63 @@
 
 The JSON RPC API provides full featured access to data on the One Platform. It is intended for applications that need to do more than just read and write individual points.(For an API designed for bandwidth-constrained environments, see the HTTP Data Interface.)
 
+### Table of Contents
+
+#####Data
+
+[read](#read) - read time series data
+
+[write](#write) - write live time series data
+
+[record](#record) - record timestamped data
+
+[flush](#flush) - remove data
+
+
+#####Resources
+
+[create (client)](#create-client) - create a resource that can contain other resources
+
+[create (dataport)](#create-dataport) - create a time series data resource
+
+[create (datarule)](#create-datarule) - create a resource that can act on data (including Lua scripts)
+
+[create (dispatch)](#create-dispatch) - create a resource for sending emails, SMS, etc.
+
+[create (clone)](#create-clone) - copy an existing resource
+
+[update](#update) - update an existing resource
+
+[info](#info) - get information about an existing resource
+
+[listing](#listing) - list the children of a client resource
+
+[drop](#drop) - delete a resource
+
+[usage](#usage) - get usage information for a resource
+
+
+#####Aliases
+
+[map](#map) - create an alias that can be used to refer to a resource
+
+[lookup](#lookup) - look up the resource for an alias
+
+[unmap](#unmap) - remove an alias for a resource
+
+
+#####Resource Sharing
+
+[share](#share) - generate a code that can allows non-owners to access resources
+
+[revoke](#revoke) - revoke a share code
+
+[lookup](#lookup) - look up a resource based on a share code
+
+[activate](#activate) - activate a share code or CIK
+
+[deactivate](#deactivate) - deactivate a share code or CIK
+
 
 ### Libraries
 
@@ -267,7 +324,7 @@ TODO: what does it mean to activate an entity?
 
 ```
 {
-    "procedure": "write",
+    "procedure": "activate",
     "arguments": [
         <codetype: "client" | "share" >, 
         <code: string> 
@@ -1030,7 +1087,7 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 
 --- 
 
-###mapping
+###map
 
 Creates an alias for a resource. Subsequently the resource can be looked up using the "lookup" method.
 
@@ -1226,7 +1283,7 @@ Updates the description of the specified resource.
 }
 ```
 
-* `<description>` is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), [create (dispatch)](#create-dispatch), but its use for update has some limitations:
+* `<description>` is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
     Client limits must not be lowered below current use level. Resources
     must be dropped prior to lowering the limits. For daily limits, those
