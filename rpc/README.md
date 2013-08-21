@@ -4,6 +4,12 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 
 ### Table of Contents
 
+##### [API Libraries](#api-libraries)
+##### [Authentication](#authentication)
+##### [HTTP Request/Response Format](#http-request-response)
+##### [Request Message](#request-message)
+##### [Response Message](#response-message)
+
 #####Data
 
 [read](#read) - read time series data
@@ -60,7 +66,7 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 [deactivate](#deactivate) - deactivate a share code or CIK
 
 
-### Libraries
+### API Libraries
 
 Wrapper libraries are available for this API:
 
