@@ -20,55 +20,55 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 #####Data
 
-[read](#read) - Read time series data
+[read](#read) - read time series data
 
-[write](#write) - Write live time series data
+[write](#write) - write live time series data
 
-[record](#record) - Record timestamped data
+[record](#record) - record timestamped data
 
-[flush](#flush) - Remove data
+[flush](#flush) - remove data
 
 #####Resources
 
-[create (client)](#create-client) - Create a resource that can contain other resources
+[create (client)](#create-client) - create a resource that can contain other resources
 
-[create (dataport)](#create-dataport) - Create a time series data resource
+[create (dataport)](#create-dataport) - create a time series data resource
 
-[create (datarule)](#create-datarule) - Create a resource that can perform processing in response to data
+[create (datarule)](#create-datarule) - create a resource that can perform processing in response to data
 
-[create (dispatch)](#create-dispatch) - Create a resource for sending notifications 
+[create (dispatch)](#create-dispatch) - create a resource for sending notifications 
 
-[create (clone)](#create-clone) - Copy an existing resource
+[create (clone)](#create-clone) - copy an existing resource
 
-[update](#update) - Update an existing resource
+[update](#update) - update an existing resource
 
-[info](#info) - Get information about an existing resource
+[info](#info) - get information about an existing resource
 
-[listing](#listing) - List the children of a client resource
+[listing](#listing) - list the children of a client resource
 
-[drop](#drop) - Delete a resource
+[drop](#drop) - delete a resource
 
-[usage](#usage) - Get usage information for a resource
+[usage](#usage) - get usage information for a resource
 
 #####Aliases
 
-[map](#map) - Create an alias that can be used to refer to a resource
+[map](#map) - create an alias that can be used to refer to a resource
 
-[lookup](#lookup) - Look up the resource for an alias
+[lookup](#lookup) - look up the resource for an alias
 
-[unmap](#unmap) - Remove an alias for a resource
+[unmap](#unmap) - remove an alias for a resource
 
 #####Shares and Keys 
 
-[share](#share) - Generate a code that can allows non-owners to access resources
+[share](#share) - generate a code that can allows non-owners to access resources
 
-[revoke](#revoke) - Revoke a share code or CIK
+[revoke](#revoke) - revoke a share code or CIK
 
-[lookup](#lookup) - Look up a resource based on a share code
+[lookup](#lookup) - look up a resource based on a share code
 
-[activate](#activate) - Activate a share code or CIK
+[activate](#activate) - activate a share code or CIK
 
-[deactivate](#deactivate) - Deactivate a share code or CIK
+[deactivate](#deactivate) - deactivate a share code or CIK
 
 
 ### API Libraries
