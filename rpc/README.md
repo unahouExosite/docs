@@ -140,7 +140,7 @@ The body of a request has the following structure:
 
 `"id"` is a unique identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
-`"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures). 
+`"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures-1). 
 
 ### Response JSON
 
