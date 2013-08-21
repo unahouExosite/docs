@@ -1,6 +1,6 @@
 ## Exosite JSON RPC API
 
-The JSON RPC API provides full featured access to data on the One Platform. It is intended for applications that need to do more than just read and write individual points.(For an API designed for bandwidth-constrained environments, see the HTTP Data Interface.)
+The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. (For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.)
 
 ### Table of Contents
 
@@ -24,7 +24,6 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 
 [flush](#flush) - remove data
 
-
 #####Resources
 
 [create (client)](#create-client) - create a resource that can contain other resources
@@ -47,7 +46,6 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 
 [usage](#usage) - get usage information for a resource
 
-
 #####Aliases
 
 [map](#map) - create an alias that can be used to refer to a resource
@@ -55,7 +53,6 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 [lookup](#lookup) - look up the resource for an alias
 
 [unmap](#unmap) - remove an alias for a resource
-
 
 #####Resource Sharing
 
