@@ -20,55 +20,55 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 #####Data
 
-[read](#read) - read time series data
+[read](#read) - Read time series data
 
-[write](#write) - write live time series data
+[write](#write) - Write live time series data
 
-[record](#record) - record timestamped data
+[record](#record) - Record timestamped data
 
-[flush](#flush) - remove data
+[flush](#flush) - Remove data
 
 #####Resources
 
-[create (client)](#create-client) - create a resource that can contain other resources
+[create (client)](#create-client) - Create a resource that can contain other resources
 
-[create (dataport)](#create-dataport) - create a time series data resource
+[create (dataport)](#create-dataport) - Create a time series data resource
 
-[create (datarule)](#create-datarule) - create a resource that can perform processing in response to data
+[create (datarule)](#create-datarule) - Create a resource that can perform processing in response to data
 
-[create (dispatch)](#create-dispatch) - create a resource for sending notifications 
+[create (dispatch)](#create-dispatch) - Create a resource for sending notifications 
 
-[create (clone)](#create-clone) - copy an existing resource
+[create (clone)](#create-clone) - Copy an existing resource
 
-[update](#update) - update an existing resource
+[update](#update) - Update an existing resource
 
-[info](#info) - get information about an existing resource
+[info](#info) - Get information about an existing resource
 
-[listing](#listing) - list the children of a client resource
+[listing](#listing) - List the children of a client resource
 
-[drop](#drop) - delete a resource
+[drop](#drop) - Delete a resource
 
-[usage](#usage) - get usage information for a resource
+[usage](#usage) - Get usage information for a resource
 
 #####Aliases
 
-[map](#map) - create an alias that can be used to refer to a resource
+[map](#map) - Create an alias that can be used to refer to a resource
 
-[lookup](#lookup) - look up the resource for an alias
+[lookup](#lookup) - Look up the resource for an alias
 
-[unmap](#unmap) - remove an alias for a resource
+[unmap](#unmap) - Remove an alias for a resource
 
 #####Shares and Keys 
 
-[share](#share) - generate a code that can allows non-owners to access resources
+[share](#share) - Generate a code that can allows non-owners to access resources
 
-[revoke](#revoke) - revoke a share code or CIK
+[revoke](#revoke) - Revoke a share code or CIK
 
-[lookup](#lookup) - look up a resource based on a share code
+[lookup](#lookup) - Look up a resource based on a share code
 
-[activate](#activate) - activate a share code or CIK
+[activate](#activate) - Activate a share code or CIK
 
-[deactivate](#deactivate) - deactivate a share code or CIK
+[deactivate](#deactivate) - Deactivate a share code or CIK
 
 
 ### API Libraries
@@ -254,7 +254,7 @@ Read data from the specified resource.
 {
     "procedure": "read",
     "arguments": [
-        <rid>,
+        ResourceID,
         {
             "starttime": 1
             "endtime": 1376951491,
@@ -267,7 +267,7 @@ Read data from the specified resource.
 }
 ```
 
-* `<rid>` is the identifier of the device to read. 
+* `ResourceID` is the identifier of the device to read. 
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
 * `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
@@ -319,14 +319,14 @@ Writes a single value to the resource specified.
 {
     "procedure": "write",
     "arguments": [
-        <rid>, 
+        ResourceID, 
         <value> 
     ], 
     "id": 1 
 }
 ```
 
-* `<rid>` is the identifier of the device to write.  
+* `ResourceID` is the identifier of the device to write.  
 * `<value>` is the value to write.
 
 #####response
@@ -486,10 +486,10 @@ Creates a dataport.
 ```
 
 * `"format"` is the format in which the dataport will store its data.
-* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
+* `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
 * `"preprocess"` is a list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data. For more information, refer to the Platform User Guide (TODO: link?)
 
-    `<operation>` can be one of "add", "sub", "mul", "div", "mod", "gt", "geq", "lt", "leq", "eq", "neq", "value"
+    `<operation>` may be `"add"`, `"sub"`, `"mul"`, `"div"`, `"mod"`, `"gt"`, `"geq"`, `"lt"`, `"leq"`, `"eq"`, `"neq"`, or `"value"`
 
     `<value>` is the value to use in the operation.
 
@@ -541,8 +541,8 @@ Creates a datarule.
 ```
 
 * `"format"` is the format in which the datarule will store its data.
-* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
-* `"preprocess"`, `"retention"`, `"subscribe"` are described in [create (dataport)](#create-dataport)
+* `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
+* `"preprocess"`, `"retention"`, and `"subscribe"` are described in [create (dataport)](#create-dataport)
 * `"rule"` is a JSON object describing the main processing this resource will do on each incoming datapoint. It may be one of the following:
 
 <table><tr><th>Rule</th><th>Description</th></tr>
@@ -664,9 +664,9 @@ Creates a dispatch.
 
 * `"locked"`, if set to `true`, will prevent the dispatch resource from sending messages to its configured recipient. The output from a locked dispatch resource will be 'undelivered'.
 * `"message"` is the message to dispatch. If this string is empty, the value output from the preprocessing stage will be output instead.
-* `"meta"`, `"name"`, `"public"` are described in [create (client)](#create-client)
+* `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
 * `"method"` is the method to be used to deliver messages by this dispatch resource.
-* `"preprocess"`, `"retention"`, `"subscribe"` are described in [create (dataport)](#create-dataport)
+* `"preprocess"`, `"retention"`, and `"subscribe"` are described in [create (dataport)](#create-dataport)
 * `"recipient"` is the intended recipient for messages from this dispatch resources. It must be a valid email address or phone number, depending on the configured delivery method.
 * `"subject"` is the subject string for delivery methods that support a subject line, such as email.
 
@@ -899,11 +899,9 @@ returned.
 ```
 {
     "aliases": {
-        // key is the ResourceID of the aliased resource,
-        // and a list of aliases that map to it. Value is
-        // a list of alias strings, or "undefined" if
-        // requesting client is not aliased resource or 
-        // its owner.
+        // Shows alias to resource mapping. If calling client is not
+        // the aliased resource or its owner, the value is "undefined"
+        // rather than a list of aliases.
         "1b1ae80c224b4df0c74401234567890123456789": [
             "myinteger" 
         ],
@@ -1035,15 +1033,15 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 
 * The second argument is a filter list. If no option is provided, it will default to as if "owned" were specified.
 
-        `"activated"` includes resources that have been shared with and activated by caller client
+`"activated"` includes resources that have been shared with and activated by caller client
 
-        `"aliased"` includes resources that have been aliased by caller client
+`"aliased"` includes resources that have been aliased by caller client
 
-        `"owned"` includes resources owned by caller client
+`"owned"` includes resources owned by caller client
 
-        `"public"` public resources
+`"public"` public resources
 
-        `"tagged"` resources that have been tagged by any client, and the caller client has read access to
+`"tagged"` resources that have been tagged by any client, and the caller client has read access to
 
 #####response
 
@@ -1160,7 +1158,7 @@ Records a list of historical entries to the resource specified.
 }
 ```
 
-* `ResourceID` is a string resource identifier.
+* `ResourceID` is a resource identifier.
 * The second argument is a list of timestamp, value entries to record to the resource. If 
     timestamp is a negative value, it means an offset back into the past from the current time.
 * The third argument is currently unused.
@@ -1233,7 +1231,7 @@ shared resource.
 
 ```
 {
-    "procedure": "revoke",
+    "procedure": "share",
     "arguments": [
         ResourceID,
         {
