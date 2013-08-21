@@ -2,7 +2,7 @@
 
 The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.
 
-If you're completely new to Exosite's APIs, you may want to read the [system overview](../README.md) first.
+If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 ### Table of Contents
 
