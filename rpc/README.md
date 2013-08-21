@@ -853,8 +853,8 @@ returned.
 * `<ResourceID>` specifies what resource to query.
 
 * `<options>` is a JSON object with boolean entries. Each boolean entry defaults
-    to false. If `<options>` is set to `{}` then all available boolean options 
-    are set to true, `"starttime"` is set to the start of time, and `"endtime"` 
+    to `false`. If `<options>` is set to `{}` then all available boolean options 
+    are set to `true`, `"starttime"` is set to the start of time, and `"endtime"` 
     is set to the end of time. Not all resource types have the same
     set of options. Valid options are the following:
 
