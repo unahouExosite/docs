@@ -26,9 +26,9 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [write](#write) - write live time series data
 
-[record](#record) - record timestamped data
+[record](#record) - record time series data that already has timestamps
 
-[flush](#flush) - remove data
+[flush](#flush) - remove time series data
 
 #####Resources
 
