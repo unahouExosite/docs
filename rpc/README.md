@@ -868,9 +868,8 @@ returned.
 
 * `<options>` is a JSON object with boolean entries. Each boolean entry defaults
     to `false`. If `<options>` is set to `{}` then all available boolean options 
-    are set to `true`, `"starttime"` is set to the start of time, and `"endtime"` 
-    is set to the end of time. Not all resource types have the same
-    set of options. Valid options are the following:
+    are set to `true` Not all resource types have the same set of options. Valid 
+    options are the following:
 
     `"aliases"` returns all aliases associated with the calling client's resources.
 
@@ -892,10 +891,6 @@ returned.
     activators are.
 
     `"usage"` returns current usage information for the specified resource.
-
-    `"starttime"` specifies timestamp from which to generate requested information.
-
-    `"endtime"` specifies timestamp upto which to generate information.
 
 
 #####response
