@@ -8,11 +8,11 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 
 [Authentication](#authentication)
 
-[HTTP Request/Response Format](#http-request-response)
+[HTTP Request/Response Format](#http-requestresponse-format)
 
-[Request Message](#request-message)
+[Request JSON](#request-json)
 
-[Response Message](#response-message)
+[Response JSON](#response-json)
 
 #####Data
 
@@ -155,7 +155,7 @@ Server: nginx
 ```
 
 
-### Request Message
+### Request JSON
 
 Request message bodies have the following structure:
 
@@ -185,8 +185,7 @@ Request message bodies have the following structure:
 `"procedure"` and `"arguments"` are specific to individual procedures and are documented below. 
 
 
-### Response Message
-
+### Response JSON
 
 If the call succeeds, a response message from the JSON RPC is a list of responses to the calls made in the request:
 
