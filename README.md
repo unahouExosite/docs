@@ -1,6 +1,6 @@
 ## One Platform APIs ##
 
-Are you looking to create an application that uses the One Platform API? You've come ot the right place. Exosite provides APIs and libraries that make it possible to work with the platform from a variety of environments. 
+Are you looking to create an application that uses the One Platform API? You've come to the right place. Exosite provides APIs and libraries that make it possible to work with the platform from a variety of environments. 
 
 ### APIs ###
 
