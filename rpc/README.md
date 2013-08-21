@@ -356,7 +356,7 @@ Writes a single value to the resource specified.
 
 ---
 
-e##activate
+##activate
 
 Given an activation code, activate an entity for the calling client.
 
