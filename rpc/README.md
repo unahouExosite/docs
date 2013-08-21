@@ -2,6 +2,8 @@
 
 The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.
 
+If you're completely new to Exosite's APIs, you may want to read the [system overview](../README.md) first.
+
 ### Table of Contents
 
 [API Libraries](#api-libraries)
@@ -32,9 +34,9 @@ The JSON RPC API provides full featured access to data and resources on the One 
 
 [create (dataport)](#create-dataport) - create a time series data resource
 
-[create (datarule)](#create-datarule) - create a resource that can act on data (including Lua scripts)
+[create (datarule)](#create-datarule) - create a resource that can perform processing in response to data
 
-[create (dispatch)](#create-dispatch) - create a resource for sending emails, SMS, etc.
+[create (dispatch)](#create-dispatch) - create a resource for sending notifications 
 
 [create (clone)](#create-clone) - copy an existing resource
 
