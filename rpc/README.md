@@ -1023,7 +1023,6 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
     "procedure": "listing",
     "arguments": [
         <type_list>
-        // filter results
         <filter_list>
     ], 
     "id": 1
@@ -1032,7 +1031,7 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 
 * `<type_list>` is a list of resource types to list, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
-* `<filter_list>` is a list of filter methods. If no method is provided, it will default to as if "owned" were specified.
+* `<filter_list>` is a list of filter options. If no option is provided, it default to as if the "owned" option is specified.
 
     `"activated"` includes resources that have been shared with and activated by caller client
 
