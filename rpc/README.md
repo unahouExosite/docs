@@ -13,6 +13,12 @@ Wrapper libraries are available for this API:
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 
 
+### Authentication
+
+Unlike some APIs where authentication is done on behalf of a user account that is granted access to a set of resources, authentication in the JSON RPC is done on behalf of a particular resource in the system (the "calling client"). Every client resource in the system has a password, called a CIK, that grants limited control to that client and everything it owns. Using Portals as an example, it's possible to authenticate on behalf of a device (using a device CIK) or portal (using a portal CIK).
+
+See the documentation for `"auth"` below for details of how to authenticate as a particular client.
+
 ### HTTP Request/Response Format
 
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is an example of an HTTP request, with JSON formatted for readability:
@@ -80,7 +86,6 @@ Server: nginx
     }
 ]
 ```
-
 
 
 ### Request Message
@@ -256,7 +261,7 @@ Writes a single value to the resource specified.
 
 ###activate
 
-Given an activation code, activate an entity for the calling Client.
+Given an activation code, activate an entity for the calling client.
 
 TODO: what does it mean to activate an entity?
 
@@ -641,10 +646,8 @@ Given an activation code, deactivate an entity for the calling client.
 {
     "procedure": "deactivate",
     "arguments": [
-        {
-            <CodeType>,
-            <RIDOrCode> 
-        }
+        <CodeType>,
+        <RIDOrCode> 
     ], 
     "id": 1
 }
@@ -682,9 +685,7 @@ be terminated.
 {
     "procedure": "drop",
     "arguments": [
-        {
-            ResourceID,
-        }
+        ResourceID,
     ], 
     "id": 1
 }
@@ -715,12 +716,10 @@ Empties the specified resource of data per specified constraints. If no constrai
 {
     "procedure": "flush",
     "arguments": [
+        ResourceID,
         {
-            ResourceID,
-            {
-                "newerthan": number,
-                "olderthan": number
-            }
+            "newerthan": number,
+            "olderthan": number
         }
     ], 
     "id": 1
@@ -761,11 +760,8 @@ returned.
 {
     "procedure": "info",
     "arguments": [
-        {
-            ResourceID,
-            <options>
-            
-        }
+        ResourceID,
+        <options>
     ], 
     "id": 1
 }
@@ -817,7 +813,7 @@ returned.
 
 * `"status": "ok"` means the infomation was returned. Any other value for `"status"` indicates failure.
 
-* `<result>` is a JSON object containing the requested information. The following documents parts of the result.
+* `<result>` is a JSON object containing the requested information.
 
 ```
 {
@@ -934,4 +930,364 @@ returned.
     }
 }
 ```
+
+--- 
+
+###listing
+
+Returns an ordered list, in the same order as the input TypeList order, of resource id lists, filtered by any provided options.
+
+```
+{
+    "procedure": "listing",
+    "arguments": [
+        // resource types to return, in the order they should be returned
+        ["client" | "dataport" | "datarule" | "dispatch", ...],
+        // filter results
+        ["activated" | "aliased" | "owned" | "public" | "tagged", ...]
+    ], 
+    "id": 1
+}
+```
+
+* `<type list>` is a list of resource types to list. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
+
+* The second argument is a filter list. If no option is provided, it will default to as if "owned" were specified.
+
+        `"activated"` includes resources that have been shared with and activated by caller client
+
+        `"aliased"` includes resources that have been aliased by caller client
+
+        `"owned"` includes resources owned by caller client
+
+        `"public"` public resources
+
+        `"tagged"` resources that have been tagged by any client, and the caller client has read access to
+
+#####response
+
+```
+{
+    "status": string,
+    "id": 1
+    "result": [
+        [],
+        [
+            "85a85bd51361b976260d01234567890123456789",
+            "ba423f0dd8c62039239601234567890123456789",
+            "c10a68d3a35464c0308b01234567890123456789",
+            "df82c362433a2b0df6dc01234567890123456789"
+        ],
+        [],
+        []
+    ]
+}
+```
+
+* `"status": "ok"` means `"result"` contains a list of lists of resource IDs.
+
+* `"status": "error"` means one or more specified resource types are invalid, and `"result"` contains an error string.
+
+--- 
+
+###lookup
+
+Look up a Resource ID by alias, owned Resource ID, or share activation code. 
+
+```
+{
+    "procedure": "lookup",
+    "arguments": [
+        "aliased" | "owner" | "shared",
+        <alias> | <ResourceID> | <Code>
+    ], 
+    "id": 1
+}
+```
+
+* If the first argument is `"aliased"`, the second argument is a string alias, or `""` to 
+    look up the caller client's Resource ID.
+
+* If the first argument is `"owner"`, the second argument is a ResourceID whose owner will 
+    be looked up. Owner lookup is restricted to within the caller client's subhierarchy. 
+    Also, a client is not allowed to look up its own owner's resource id.
+
+* If the first argument is `"shared"`, the second argument is a share activation code whose
+    Resource ID will be looked up. 
+
+#####response
+
+```
+{
+    "status": "ok",
+    "result": ResourceID,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means `"result"` contains a Resource ID. Other values of `"status"` indicate failure.
+
+
+--- 
+
+###mapping
+
+Creates an alias for a resource. Subsequently the resource can be looked up using the "lookup" method.
+
+```
+{
+    "procedure": "map",
+    "arguments": [
+        'alias',
+        ResourceID,
+        string  
+    ], 
+    "id": 1
+}
+```
+
+* `ResourceID` identifies the resource to which the alias should map.
+* `string` is an alias string to map to `ResourceID`.
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the mapping was successfully created
+
+
+--- 
+
+###record
+
+Records a list of historical entries to the resource specified.
+
+```
+{
+    "procedure": "record",
+    "arguments": [
+        ResourceID,
+        [[Timestamp, Value], ...],
+        {}
+    ], 
+    "id": 1
+}
+```
+
+* `ResourceID` is a string resource identifier.
+* The second argument is a list of timestamp, value entries to record to the resource. If 
+    timestamp is a negative value, it means an offset back into the past from the current time.
+* The third argument is currently unused.
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the entries were successfully recorded.
+
+--- 
+
+###revoke
+
+Given an activation code, the associated entity is revoked after which
+the activation code can no longer be used. The calling client must be
+the owner of the resource with which the activation code is associated.
+
+```
+{
+    "procedure": "revoke",
+    "arguments": [
+        "client" | "share",
+        <Code>
+    ], 
+    "id": 1
+}
+```
+
+* The first argument specifies what to revoke.
+
+    `"client"` revokes the specified client interface key (CIK) and generates a new one. If the revoked code was
+    previously activated, the new one replacing it will need to be
+    activated. The new code will expire after the default CIK expiration
+    period.
+
+    `"share"` revokes the specified share activation code after which the resource associated with the share
+    activation code will no longer be accessible by the activator.
+
+* `<Code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the specified item was successfully revoked.
+
+* `"status": "invalid"` means the specified CIK or code was not found.
+
+* `"status": "noauth"` means the client associated with the specified CIK or client activation code is
+      not owned by caller client.
+
+--- 
+
+###share
+
+Generates a share code for the given resource. The share code can
+subsequently be used to activate the share and gain read access to the
+shared resource.
+
+```
+{
+    "procedure": "revoke",
+    "arguments": [
+        ResourceID,
+        {
+            // The duration, in seconds, for which this share can be 
+            // activated or 'infinity' to indicate no limit.
+            "duration": 'infinity',       
+            // The number of times this share can be activated
+            "count": 1
+    ], 
+    "id": 1
+}
+```
+
+#####response
+
+```
+{
+    "status": "ok",
+    "result": "ab24f30dd8c62039239601234567890123456789" 
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the share code was successfully generated and returned in `"result"`
+
+--- 
+
+###unmap
+
+Removes a mapping of specified type. After the removal, the previously
+mapped resource will not be able to be looked up by the mapping.
+
+```
+{
+    "procedure": "unmap",
+    "arguments": [
+        "alias",
+        // alias to unmap
+        string 
+    ], 
+    "id": 1
+}
+```
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the alias was successfully unmapped
+
+
+---
+
+###update
+
+Updates the description of the specified resource. 
+
+```
+{
+    "procedure": "update",
+    "arguments": [
+        ResourceID,
+        <description> 
+    ], 
+    "id": 1
+}
+```
+
+* `<description>` is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), [create (dispatch)](#create-dispatch), but its use for update has some limitations:
+
+    Client limits must not be lowered below current use level. Resources
+    must be dropped prior to lowering the limits. For daily limits, those
+    may be lowered at any point and take immediate affect.
+
+    Dataport and datarule format may not be changed.
+
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was updated
+
+
+---
+
+###usage
+
+Returns metric usage for client and its subhierarchy.
+
+```
+{
+    "procedure": "usage",
+    "arguments": [
+        ResourceID,
+        // usage metric to measure
+        // entity: "client" | "dataport" | "datarule" | dispatch"
+        // or consumable: "share" | "email" | "http" | "sms" | "xmpp"
+        "client",
+        // start time of window to measure
+        1376709504,
+        // end time of window to measure
+        1376709527
+    ], 
+    "id": 1
+}
+```
+
+#####response
+
+```
+{
+    "status": "ok",
+    "result": number, 
+    "id": 1
+}
+```
+
+* `"status": "ok"` means `"result"` contains the value for the metric
+
+* `"result"` value depends on usage metric being measured.
+
+    for consumables, the sum of the consumable used during the given window
+
+    for entities, the sum of the number of that entity used in one second for
+    each second in the given window.
+
 
