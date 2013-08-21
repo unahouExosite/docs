@@ -4,11 +4,15 @@ The JSON RPC API provides full featured access to data on the One Platform. It i
 
 ### Table of Contents
 
-##### [API Libraries](#api-libraries)
-##### [Authentication](#authentication)
-##### [HTTP Request/Response Format](#http-request-response)
-##### [Request Message](#request-message)
-##### [Response Message](#response-message)
+[API Libraries](#api-libraries)
+
+[Authentication](#authentication)
+
+[HTTP Request/Response Format](#http-request-response)
+
+[Request Message](#request-message)
+
+[Response Message](#response-message)
 
 #####Data
 
