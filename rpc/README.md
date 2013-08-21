@@ -1,10 +1,12 @@
 ## Exosite JSON RPC API
 
-The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. (For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.)
+The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.
 
 ### Table of Contents
 
 [API Libraries](#api-libraries)
+
+[Notational Convention](#notational-convention)
 
 [Authentication](#authentication)
 
@@ -54,11 +56,11 @@ The JSON RPC API provides full featured access to data and resources on the One 
 
 [unmap](#unmap) - remove an alias for a resource
 
-#####Resource Sharing
+#####Shares and Keys 
 
 [share](#share) - generate a code that can allows non-owners to access resources
 
-[revoke](#revoke) - revoke a share code
+[revoke](#revoke) - revoke a share code or CIK
 
 [lookup](#lookup) - look up a resource based on a share code
 
@@ -82,6 +84,18 @@ Wrapper libraries are available for this API:
 Unlike some APIs where authentication is done on behalf of a user account that is granted access to a set of resources, authentication in the JSON RPC is done on behalf of a particular resource in the system (the "calling client"). Every client resource in the system has a password, called a CIK, that grants limited control to that client and everything it owns. Using Portals as an example, it's possible to authenticate on behalf of a device (using a device CIK) or portal (using a portal CIK).
 
 See the documentation for `"auth"` below for details of how to authenticate as a particular client.
+
+### Notational Conventions
+
+This document uses a few conventions for clarity or brevity:
+
+* JSON is pretty printed. The extra whitespace aids documentation readability, but is not included in the RPC itself.
+* Comments (`//`) are included in JSON. The actual requests and responses should not include comments.
+* `ResourceID` may be either a 40 digit resource identifier (e.g., "879542b837bfac5beee2f4cc5172e6d8a1628bee") or an alias reference (e.g., {"alias": "myalias"}).
+* `<bracket>` identifies a placeholder that will be defined elsewhere.
+* `number` indicates an number, e.g. 42. 
+* `string` represents a string in quotes, e.g. "Hello World".
+* `...` indicates that the preceeding thing may be repeated.
 
 ### HTTP Request/Response Format
 
@@ -1171,7 +1185,7 @@ the owner of the resource with which the activation code is associated.
     "procedure": "revoke",
     "arguments": [
         "client" | "share",
-        <Code>
+        <code>
     ], 
     "id": 1
 }
@@ -1187,7 +1201,7 @@ the owner of the resource with which the activation code is associated.
     `"share"` revokes the specified share activation code after which the resource associated with the share
     activation code will no longer be accessible by the activator.
 
-* `<Code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
+* `<code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
 
 #####response
 
