@@ -187,7 +187,7 @@ Request message bodies have the following structure:
 
 ### Response JSON
 
-If the call succeeds, a response message from the JSON RPC is a list of responses to the calls made in the request:
+If the call succeeds, the body of the response is a JSON list of responses to the calls made in the request:
 
 ```
 [{"id": 0,
@@ -198,7 +198,7 @@ If the call succeeds, a response message from the JSON RPC is a list of response
 * `"id"` identifies the corresponding request call. 
 * `"result"` is the return value for the procedure. Procedures without return values omit it entirely.
 
-If a particular call fails, the response message is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
+If a particular call fails, the response body is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
 
 ```
 [{"id": 0,
@@ -208,7 +208,7 @@ If a particular call fails, the response message is still a list, but `"status"`
             "context": TODO}]
 ```
 
-If the request message causes an error not associated with any given call, the response message will instead look like this:
+If the request message causes an error not associated with any given call, the response body is a JSON object like this:
 
 ```
 {"error": {"code": 401,
