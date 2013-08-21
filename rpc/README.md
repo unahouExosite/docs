@@ -18,6 +18,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Response JSON](#response-json)
 
+####Procedures
+
 #####Data
 
 [read](#read) - read time series data
@@ -93,8 +95,8 @@ This document uses a few conventions for clarity or brevity:
 
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
 * Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
-* `ResourceID` may be either a 40 digit resource identifier (e.g., "879542b837bfac5beee2f4cc5172e6d8a1628bee") or an alias reference (e.g., {"alias": "myalias"}).
 * A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
+* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., "879542b837bfac5beee2f4cc5172e6d8a1628bee") or an alias reference (e.g., {"alias": "myalias"}). It may also be a self reference: {"alias": ""}.
 * `number` indicates a number, e.g. 42. 
 * `string` represents a string, e.g. "MySensor".
 * `|` represents multiple choice
@@ -254,7 +256,7 @@ Read data from the specified resource.
 {
     "procedure": "read",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
         {
             "starttime": 1
             "endtime": 1376951491,
@@ -267,7 +269,7 @@ Read data from the specified resource.
 }
 ```
 
-* `ResourceID` is the identifier of the device to read. 
+* `<ResourceID>` is the identifier of the device to read. 
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
 * `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
@@ -319,14 +321,14 @@ Writes a single value to the resource specified.
 {
     "procedure": "write",
     "arguments": [
-        ResourceID, 
+        <ResourceID>, 
         <value> 
     ], 
     "id": 1 
 }
 ```
 
-* `ResourceID` is the identifier of the device to write.  
+* `<ResourceID>` is the identifier of the device to write.  
 * `<value>` is the value to write.
 
 #####response
@@ -340,24 +342,24 @@ Writes a single value to the resource specified.
 
 ---
 
-###activate
+e##activate
 
 Given an activation code, activate an entity for the calling client.
 
-TODO: what does it mean to activate an entity?
+TODO: what does it mean to activate an entity? Does entity mean the same thing as resource?
 
 ```
 {
     "procedure": "activate",
     "arguments": [
-        <codetype: "client" | "share" >, 
-        <code: string> 
+        "client" | "share", 
+        <code>
     ], 
     "id": 1 
 }
 ```
 
-* `<codetype>`
+* The first argument indicates the type of thing to activate:
 
     `"client"` activates the specified client
     interface key (CIK) if it is not already activated or expired. Only the
@@ -367,7 +369,7 @@ TODO: what does it mean to activate an entity?
     for the specified activator if the activator has not already activated
     a share for the same resource, either using this share code or another.
 
-* `<code>` is the activation code with which the entity to be activated is associated.
+* `<code>` is a CIK or share code
 
 #####response
 
@@ -400,33 +402,33 @@ Creates a client.
     "arguments": [
         "client", 
         {
-            "limits":{
-                "client": <limit>,
-                "dataport": <limit>,
-                "datarule": <limit>,
-                "disk": <limit>,
-                "dispatch": <limit>,
-                "email": <limit>,
-                "email_bucket": <limit>,
-                "http": <limit>,
-                "http_bucket": <limit>,
-                "share": <limit>,
-                "sms": <limit>,
-                "sms_bucket": <limit>,
-                "xmpp": <limit>,
-                "xmpp_bucket": <limit>
+            "limits": {
+                "client":       number | "inherit" = 0,
+                "dataport":     number | "inherit" = 0,
+                "datarule":     number | "inherit" = 0,
+                "disk":         number | "inherit" = 0,
+                "dispatch":     number | "inherit" = 0,
+                "email":        number | "inherit" = 0,
+                "email_bucket": number | "inherit" = 0,
+                "http":         number | "inherit" = 0,
+                "http_bucket":  number | "inherit" = 0,
+                "share":        number | "inherit" = 0,
+                "sms":          number | "inherit" = 0,
+                "sms_bucket":   number | "inherit" = 0,
+                "xmpp":         number | "inherit" = 0,
+                "xmpp_bucket":  number | "inherit" = 0
             },
-            "locked":boolean = false,
-            "meta":string = "",
-            "name":string = "",
-            "public":boolean = false
+            "locked": boolean = false,
+            "meta": string = "",
+            "name": string = "",
+            "public": boolean = false
         }
     ],
     "id": 1
 }
 ```
 
-* `"limits"` is an object containing limits for various entities and consumables. `<limit>` is either number representing a limit on the number of the thing the client can own/use, or `"inherit"`, which inherits the limit of the new client's owner. The default limit is 0. 
+* `"limits"` is an object containing limits for various entities and consumables. Each limit is either number, or `"inherit"`, which inherits the limit of the client's owner.
     
     `"client"`, `"dataport"`, `"datarule"`, `"dispatch"` represent the number of each type of resource this client can own.
     
@@ -440,7 +442,7 @@ Creates a client.
 
     `"share"` is the number of shares this client can create.
 
-* `"locked"`, if set to `true`, prevents this client from interacting with the One Platform. Every API call will return the error code 'locked'.
+* `"locked"`, if set to `true`, prevents this client from interacting with the One Platform. Every API call will return the error code "locked".
 
 * `"meta"` is general purpose metadata. It can be used for application-specific purposes. For example, Portals uses meta to store a client's vendor and model, among other things.
 
@@ -478,7 +480,7 @@ Creates a dataport.
                 "count": number | "infinity",
                 "duration": number | "infinity"
             },
-            "subscribe": ResourceID = ""
+            "subscribe": <ResourceID> = ""
        }
     ], 
     "id": 1
@@ -533,7 +535,7 @@ Creates a datarule.
                 "duration": number | "infinity"
             }
             "rule": object,            
-            "subscribe": ResourceID = ""
+            "subscribe": <ResourceID> = ""
         }
     ], 
     "id": 1
@@ -655,7 +657,7 @@ Creates a dispatch.
                 "duration": number | "infinity"
             },
             "subject": string,
-            "subscribe": ResourceID = ""
+            "subscribe": <ResourceID> = ""
         }
     ], 
     "id": 1
@@ -703,8 +705,8 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 }
 ```
 
-* `"rid"` is the resource identifier to clone.
-* `"code` is the share code for the resource to clone.
+* `"rid"` is the resource identifier to clone
+* `"code` is the share code for the resource to clone
 * `"noaliases"` specifies whether to create clone aliases
 * `"nohistorical"` specifies whether to clone historical data
 
@@ -740,9 +742,9 @@ Given an activation code, deactivate an entity for the calling client.
     key (CIK) if it was previously activated. If the key was not previously 
     activated, the call will expire the key.
 
-    `"share"` deactivate a previous activation of a resource share for the specified activator.
+    `"share"` deactivate a previous activation of a resource share for the specified activator
 
-* `<RIDOrCode>` is the client or share activation code or the shared resource ID to be deactivated.
+* `<RIDOrCode>` is the client or share activation code or the shared resource ID to be deactivated
 
 
 #####response
@@ -766,13 +768,13 @@ be terminated.
 {
     "procedure": "drop",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
     ], 
     "id": 1
 }
 ```
 
-* `ResourceID` specifies the resource to drop.
+* `<ResourceID>` specifies the resource to drop
 
 #####response
 
@@ -785,7 +787,7 @@ be terminated.
 
 * `"status": "ok"` means the resource was successfully dropped
 
-* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client.
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
 
 ---
 
@@ -797,7 +799,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 {
     "procedure": "flush",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
         {
             "newerthan": number,
             "olderthan": number
@@ -807,7 +809,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 }
 ```
 
-* `ResourceID` specifies what resource to flush.
+* `<ResourceID>` specifies what resource to flush.
 
 * `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
 
@@ -823,9 +825,9 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 * `"status": "ok"` means the resource was successfully flushed 
 
-* `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp.
+* `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp
 
-* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client.
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
 
 
 ---
@@ -841,20 +843,20 @@ returned.
 {
     "procedure": "info",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
         <options>
     ], 
     "id": 1
 }
 ```
 
-* `ResourceID` specifies what resource to query.
+* `<ResourceID>` specifies what resource to query.
 
 * `<options>` is a JSON object with boolean entries. Each boolean entry defaults
-        to false. If `<options>` is set to `{}` then all available boolean options 
-        are set to true, `"starttime"` is set to the start of time, and `"endtime"` 
-        is set to the end of time. Not all resource types have the same
-        set of options. Valid options are the following:
+    to false. If `<options>` is set to `{}` then all available boolean options 
+    are set to true, `"starttime"` is set to the start of time, and `"endtime"` 
+    is set to the end of time. Not all resource types have the same
+    set of options. Valid options are the following:
 
     `"aliases"` returns all aliases associated with the calling client's resources.
 
@@ -899,7 +901,7 @@ returned.
 ```
 {
     "aliases": {
-        // Shows alias to resource mapping. If calling client is not
+        // Resource to alias mapping. If calling client is not
         // the aliased resource or its owner, the value is "undefined"
         // rather than a list of aliases.
         "1b1ae80c224b4df0c74401234567890123456789": [
@@ -1020,28 +1022,27 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 {
     "procedure": "listing",
     "arguments": [
-        // resource types to return, in the order they should be returned
-        ["client" | "dataport" | "datarule" | "dispatch", ...],
+        <type_list>
         // filter results
-        ["activated" | "aliased" | "owned" | "public" | "tagged", ...]
+        <filter_list>
     ], 
     "id": 1
 }
 ```
 
-* `<type list>` is a list of resource types to list. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
+* `<type_list>` is a list of resource types to list, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
-* The second argument is a filter list. If no option is provided, it will default to as if "owned" were specified.
+* `<filter_list>` is a list of filter methods. If no method is provided, it will default to as if "owned" were specified.
 
-`"activated"` includes resources that have been shared with and activated by caller client
+    `"activated"` includes resources that have been shared with and activated by caller client
 
-`"aliased"` includes resources that have been aliased by caller client
+    `"aliased"` includes resources that have been aliased by caller client
 
-`"owned"` includes resources owned by caller client
+    `"owned"` includes resources owned by caller client
 
-`"public"` public resources
+    `"public"` public resources
 
-`"tagged"` resources that have been tagged by any client, and the caller client has read access to
+    `"tagged"` resources that have been tagged by any client, and the caller client has read access to
 
 #####response
 
@@ -1099,7 +1100,7 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 ```
 {
     "status": "ok",
-    "result": ResourceID,
+    "result": <ResourceID>,
     "id": 1
 }
 ```
@@ -1118,15 +1119,15 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
     "procedure": "map",
     "arguments": [
         'alias',
-        ResourceID,
+        <ResourceID>,
         string  
     ], 
     "id": 1
 }
 ```
 
-* `ResourceID` identifies the resource to which the alias should map.
-* `string` is an alias string to map to `ResourceID`.
+* `<ResourceID>` identifies the resource to which the alias should map.
+* `string` is an alias string to map to `<ResourceID>`.
 
 #####response
 
@@ -1150,17 +1151,17 @@ Records a list of historical entries to the resource specified.
 {
     "procedure": "record",
     "arguments": [
-        ResourceID,
-        [[Timestamp, Value], ...],
+        <ResourceID>,
+        [[<timestamp>, <value>], ...],
         {}
     ], 
     "id": 1
 }
 ```
 
-* `ResourceID` is a resource identifier.
+* `<ResourceID>` is a resource identifier.
 * The second argument is a list of timestamp, value entries to record to the resource. If 
-    timestamp is a negative value, it means an offset back into the past from the current time.
+    `<timestamp>` is a negative value, it means an offset back into the past from the current time.
 * The third argument is currently unused.
 
 #####response
@@ -1233,17 +1234,18 @@ shared resource.
 {
     "procedure": "share",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
         {
-            // The duration, in seconds, for which this share can be 
-            // activated or 'infinity' to indicate no limit.
-            "duration": 'infinity',       
-            // The number of times this share can be activated
+            "duration": 'infinity',
             "count": 1
     ], 
     "id": 1
 }
 ```
+
+* `"duration"` is the duration, in seconds, for which this share can be 
+    activated or 'infinity' to indicate no limit
+* `"count"` is the number of times this share can be activated
 
 #####response
 
@@ -1269,12 +1271,13 @@ mapped resource will not be able to be looked up by the mapping.
     "procedure": "unmap",
     "arguments": [
         "alias",
-        // alias to unmap
-        string 
+        <alias> 
     ], 
     "id": 1
 }
 ```
+
+* `<alias>` is the alias string to unmap.
 
 #####response
 
@@ -1298,13 +1301,14 @@ Updates the description of the specified resource.
 {
     "procedure": "update",
     "arguments": [
-        ResourceID,
+        <ResourceID>,
         <description> 
     ], 
     "id": 1
 }
 ```
 
+* `<ResourceID>` identifies the resource to update
 * `<description>` is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
     Client limits must not be lowered below current use level. Resources
@@ -1336,19 +1340,21 @@ Returns metric usage for client and its subhierarchy.
 {
     "procedure": "usage",
     "arguments": [
-        ResourceID,
-        // usage metric to measure
-        // entity: "client" | "dataport" | "datarule" | dispatch"
-        // or consumable: "share" | "email" | "http" | "sms" | "xmpp"
-        "client",
-        // start time of window to measure
-        1376709504,
-        // end time of window to measure
-        1376709527
+        <ResourceID>,
+        <metric>,
+        <starttime>,
+        <endtime>
     ], 
     "id": 1
 }
 ```
+
+* `<ResourceID>` identifies the resource whose usage will be measured (TODO: must it be a client?)
+* `<metric>` is the usage metric to measure. It may be:
+    ...an entity: "client" | "dataport" | "datarule" | dispatch"
+    ...or a consumable: "share" | "email" | "http" | "sms" | "xmpp"
+* `<starttime>` and `<endtime>` specify the window in which to measure usage
+
 
 #####response
 
@@ -1362,11 +1368,11 @@ Returns metric usage for client and its subhierarchy.
 
 * `"status": "ok"` means `"result"` contains the value for the metric
 
-* `"result"` value depends on usage metric being measured.
+* `"result"` depends on usage metric being measured.
 
-    for consumables, the sum of the consumable used during the given window
+    For consumables, `"result"` is the sum of the consumable used during the given window.
 
-    for entities, the sum of the number of that entity used in one second for
-    each second in the given window.
+    For entities, `"result"` is the sum of the number of that entity used in one second for
+    each second in the given window
 
 
