@@ -1237,6 +1237,7 @@ shared resource.
         {
             "duration": 'infinity',
             "count": 1
+        }
     ], 
     "id": 1
 }
@@ -1308,7 +1309,7 @@ Updates the description of the specified resource.
 ```
 
 * `<ResourceID>` identifies the resource to update
-* `<description>` is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
+* `<description>` is a JSON object and is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
     Client limits must not be lowered below current use level. Resources
     must be dropped prior to lowering the limits. For daily limits, those
