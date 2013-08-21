@@ -91,13 +91,15 @@ See the documentation for `"auth"` below for details of how to authenticate as a
 
 This document uses a few conventions for clarity or brevity:
 
-* JSON is pretty printed. The extra whitespace aids documentation readability, but is not included in the RPC itself.
-* Comments (`//`) are included in JSON. The actual requests and responses should not include comments.
+* JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
+* Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
 * `ResourceID` may be either a 40 digit resource identifier (e.g., "879542b837bfac5beee2f4cc5172e6d8a1628bee") or an alias reference (e.g., {"alias": "myalias"}).
-* `<bracket>` identifies a placeholder that will be defined elsewhere.
-* `number` indicates an number, e.g. 42. 
-* `string` represents a string in quotes, e.g. "Hello World".
-* `...` indicates that the preceeding thing may be repeated.
+* A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
+* `number` indicates a number, e.g. 42. 
+* `string` represents a string, e.g. "MySensor".
+* `|` represents multiple choice
+* `=` represents default value
+* `...` represents one or more of the previous item
 
 ### HTTP Request/Response Format
 
