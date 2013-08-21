@@ -1,8 +1,8 @@
 ## Exosite JSON RPC API
 
-The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. For an API designed for reading and writing data in bandwidth-constrained environments, see the HTTP Data Interface.
+The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points. For an API designed for reading and writing data in bandwidth-constrained environments, consider using the HTTP Data Interface.
 
-If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
+If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) (TODO) first.
 
 ### Table of Contents
 
@@ -12,11 +12,15 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Authentication](#authentication)
 
-[HTTP Request/Response Format](#http-requestresponse-format)
+[Making a Request](#making-a-request)
 
 [Request JSON](#request-json)
 
 [Response JSON](#response-json)
+
+[HTTP Request/Response Example](#http-requestresponse-example)
+
+[API Improvement](#api-improvement)
 
 ####Procedures
 
@@ -82,6 +86,19 @@ Wrapper libraries are available for this API:
 * C++: [cpponep](https://github.com/exosite-labs/cpponep)
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 
+### Notational Conventions
+
+This document uses a few notational conventions:
+
+* JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
+* Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
+* A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
+* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`.
+* `number` indicates a number, e.g. 42. 
+* `string` represents a string, e.g. "MySensor".
+* `|` represents multiple choice
+* `=` represents default value
+* `...` represents one or more of the previous item
 
 ### Authentication
 
@@ -89,92 +106,16 @@ Unlike some APIs where authentication is done on behalf of a user account that i
 
 See the documentation for `"auth"` below for details of how to authenticate as a particular client.
 
-### Notational Conventions
+### Making a Request
 
-This document uses a few conventions for clarity or brevity:
+Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
 
-* JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
-* Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
-* A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
-* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., "879542b837bfac5beee2f4cc5172e6d8a1628bee") or an alias reference (e.g., {"alias": "myalias"}). It may also be a self reference: {"alias": ""}.
-* `number` indicates a number, e.g. 42. 
-* `string` represents a string, e.g. "MySensor".
-* `|` represents multiple choice
-* `=` represents default value
-* `...` represents one or more of the previous item
-
-### HTTP Request/Response Format
-
-JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is an example of an HTTP request, with JSON formatted for readability:
-
-```
-POST /api:v1/rpc/process
-Host: m2.exosite.com:80
-Content-Type: application/json; charset=utf-8
-Content-Length: 235
-Accept-Encoding: identity
-
-{
-    "auth": {
-        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
-    }, 
-    "calls": [
-        {
-            "arguments": [
-                {
-                    "alias": "temperature"
-                }, 
-                {
-                    "endtime": 1376957311, 
-                    "limit": 3, 
-                    "selection": "all", 
-                    "sort": "desc", 
-                    "starttime": 1
-                }
-            ], 
-            "id": 56, 
-            "procedure": "read"
-        }
-    ]
-}
-```
-
-HTTP Response:
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 20 Aug 2013 00:08:27 GMT
-Content-Length: 90
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-Server: nginx
-
-[
-    {
-        "id": 56, 
-        "result": [
-            [
-                1376957195, 
-                72.2
-            ], 
-            [
-                1376957184, 
-                72.3
-            ], 
-            [
-                1376951473, 
-                72.5
-            ]
-        ], 
-        "status": "ok"
-    }
-]
-```
+The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
 
 ### Request JSON
 
-Request message bodies have the following structure:
+The body of a request has the following structure:
 
 ```
 {"auth": {"cik": "e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"},
@@ -191,20 +132,19 @@ Request message bodies have the following structure:
  ]}
 ```
 
-`"auth"` provides the authentication for the procedures listed in "calls", and can take several forms: 
+`"auth"` provides the authentication for the procedures listed in `"calls"`, and can take several forms: 
 
-* `{"cik": CIK}` authenticates as the Client identified by the given CIK.
-* `{"cik": CIK, "client_id": RID}` authenticates as the given Client if the CIK identifies an ancestor of the given Client.
-* `{"cik": CIK, "resource_id": RID}` authenticate as the Owner of the given Resource if the CIK identifies as an ancestor of the given Resource.
+* `{"cik": CIK}` authenticates as the client identified by the given CIK.
+* `{"cik": CIK, "client_id": RID}` authenticates as the given client if the CIK identifies an ancestor of the given client.
+* `{"cik": CIK, "resource_id": RID}` authenticate as the owner of the given resource if the CIK identifies as an ancestor of the given resource.
 
 `"id"` is a unique identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
-`"procedure"` and `"arguments"` are specific to individual procedures and are documented below. 
-
+`"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures). 
 
 ### Response JSON
 
-If the call succeeds, the body of the response is a JSON list of responses to the calls made in the request:
+The response body is always JSON, but its format varies based on error handling conditions. If a call succeeds, the body of the response is a JSON list of responses to the calls made in the request:
 
 ```
 [{"id": 0,
@@ -244,6 +184,80 @@ If the request message causes an error not associated with any given call, the r
     `500` means an internal error occured while generating the response message.  Individual calls may or may not have completed successfully.
 
     `501` means the application of the given arguments to the specified procedure is not supported.
+
+
+### HTTP Request/Response Example
+
+JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
+
+```
+POST /api:v1/rpc/process
+Host: m2.exosite.com:80
+Content-Type: application/json; charset=utf-8
+User-Agent: Documentation Example (danweaver@exosite.com)
+Content-Length: 235
+Accept-Encoding: identity
+
+{
+    "auth": {
+        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
+    }, 
+    "calls": [
+        {
+            "id": 56, 
+            "procedure": "read",
+            "arguments": [
+                {
+                    "alias": "temperature"
+                }, 
+                {
+                    "endtime": 1376957311, 
+                    "limit": 3, 
+                    "selection": "all", 
+                    "sort": "desc", 
+                    "starttime": 1
+                }
+            ]
+        }
+    ]
+}
+```
+
+Here is a full HTTP response for that request:
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 20 Aug 2013 00:08:27 GMT
+Content-Length: 90
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Server: nginx
+
+[
+    {
+        "id": 56, 
+        "result": [
+            [
+                1376957195, 
+                72.2
+            ], 
+            [
+                1376957184, 
+                72.3
+            ], 
+            [
+                1376951473, 
+                72.5
+            ]
+        ], 
+        "status": "ok"
+    }
+]
+```
+
+### API Improvement
+
+Please tell us how we can make the API better. If you have a specific feature request or if you found a bug, please use GitHub issues. Fork these docs and send a pull request with improvements. Thanks!
 
 
 ## Procedures
