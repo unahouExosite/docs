@@ -10,11 +10,11 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Notational Convention](#notational-convention)
 
+[Making a Request](#making-a-request)
+
 [Authentication](#authentication)
 
 [Identifying Resources](#identifying-resources)
-
-[Making a Request](#making-a-request)
 
 [Request JSON](#request-json)
 
@@ -26,13 +26,13 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 ####Procedures
 
-#####Data
+#####Time Series Data
 
 [read](#read) - read time series data
 
-[write](#write) - write live time series data
+[write](#write) - write new data into a time series
 
-[record](#record) - record time series data that already has timestamps
+[record](#record) - write time series data that has already been timestamped
 
 [flush](#flush) - remove time series data
 
@@ -78,6 +78,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [deactivate](#deactivate) - deactivate a share code or CIK
 
+[tag](#tag) - add or remove a tag to describe a public resource
+
 
 ### API Libraries
 
@@ -94,7 +96,7 @@ This document uses a few notational conventions:
 
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
 * Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
-* A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
+* A name in angle brackets, e.g. `<myvar>`, is a placeholder that will be defined elsewhere.
 * `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`. See [Identifying Resources](#identifying-resources) for details.
 
 * `number` indicates a number, e.g. 42. 
@@ -103,11 +105,36 @@ This document uses a few notational conventions:
 * `=` represents default value
 * `...` represents one or more of the previous item
 
+### Making a Request
+
+Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
+
+The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
+
+
 ### Authentication
 
-Unlike some APIs where authentication is done on behalf of a user account that is granted access to a set of resources, authentication in the JSON RPC is done on behalf of a particular resource in the system (the "calling client"). Every client resource in the system has a password, called a CIK, that grants limited control to that client and everything it owns. Using Portals as an example, it's possible to authenticate on behalf of a device (using a device CIK) or portal (using a portal CIK).
+Requests to the JSON RPC are made on behalf of a particular client in the system, 
+called the "calling client". Every request passes a client key, called a 
+CIK, that functions like a password and grants limited control over that
+client and full control of that client's subhierarchy. This is somewhat 
+different from other APIs where authentication is done on behalf of a user
+account that is granted access to a set of resources.
 
-See the documentation for `"auth"` below for details of how to authenticate as a particular client.
+For example, to [read](#read) from a Portals datasource, you could
+authenticate with the CIK of the device that owns the datasource or with 
+the CIK of the portal that owns that device, all the way up to the 
+root node of the OneP tree.
+
+Authentication information is placed in the JSON body of a request, in
+`"auth"`. The value of the `"auth"` key can have one of three forms:
+
+* `{"cik": CIK}` authenticates as the client identified by the given CIK. This is the most common form.
+
+* `{"cik": CIK, "client_id": RID}` authenticates as the given client if the CIK identifies an ancestor of the given client.
+
+* `{"cik": CIK, "resource_id": RID}` authenticate as the owner of the given resource if the CIK identifies as an ancestor of the given resource.
+
 
 ### Identifying Resources
 
@@ -119,37 +146,59 @@ Many procedures in the API include an argument for identifying a resource to act
 
 3.) `{"alias": ""}` identifies the calling client itself. So, for example, if `"auth"` was set to `{"cik":"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`, the procedure would act upon the client whose CIK is `"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`.
 
-### Making a Request
-
-Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
-
-The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
-
 
 ### Request JSON
 
 The body of a request has the following structure:
 
 ```
-{"auth": {"cik": "e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"},
- "calls": [
-    ["id": 1, 
-     "procedure": "read", 
-     "arguments": [
-         "34eaae237988167d90bfc2ffeb666daaaaaaaaaa", 
-         {"starttime":1376709504,
-          "endtime":1376709527,
-          "limit":1,
-          "sort":"desc",
-          "selection":"all"}]]
- ]}
+{
+    "auth": {
+            "cik": "e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"
+    },
+    "calls": [
+        // first call is a read
+        [
+            "id": 1, 
+            "procedure": "read", 
+            "arguments": [
+                 // <ResourceID>
+                 // descendant RID of calling client
+                 "34eaae237988167d90bfc2ffeb666daaaaaaaaaa", 
+                 {
+                     "starttime":1376709504,
+                      "endtime":1376709527,
+                      "limit":1,
+                      "sort":"desc",
+                      "selection":"all"
+                 }
+            ]
+        ],
+        // second call is a write
+        [
+            "id": 2, 
+            "procedure": "write", 
+            "arguments": [
+                 // <ResourceID>
+                 // instead of an RID string, this call references the 
+                 // alias of one of the calling client's children.
+                 {
+                     "alias": "temperature"
+                 },
+                 {
+                     "starttime":1376709504,
+                      "endtime":1376709527,
+                      "limit":1,
+                      "sort":"desc",
+                      "selection":"all"
+                 }
+            ]
+        ]
+    ]
+}
 ```
 
-`"auth"` provides the authentication for the procedures listed in `"calls"`, and can take several forms: 
-
-* `{"cik": CIK}` authenticates as the client identified by the given CIK.
-* `{"cik": CIK, "client_id": RID}` authenticates as the given client if the CIK identifies an ancestor of the given client.
-* `{"cik": CIK, "resource_id": RID}` authenticate as the owner of the given resource if the CIK identifies as an ancestor of the given resource.
+* `"auth"` provides the authentication for the procedures listed in `"calls"`. See [Authenticating](#authenticating) for details.
 
 `"id"` is an identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
@@ -160,9 +209,14 @@ The body of a request has the following structure:
 The response body is always JSON, but its format varies based on error handling conditions. If a call succeeds, the body of the response is a JSON list of responses to the calls made in the request:
 
 ```
-[{"id": 0,
-  "status": "ok",
-  "result": [[1376709527, 64.2]]}]
+[
+    // response for 
+    {
+        "id": 1,
+        "status": "ok",
+        "result": [[1376709527, 64.2]]
+    }
+]
 ```
 
 * `"id"` identifies the corresponding request call. 
@@ -277,7 +331,7 @@ Please tell us how we can make the API better. If you have a specific feature re
 
 ###read 
 
-Read data from the specified resource.
+Read data from a resource.
 
 ```
 {
@@ -476,7 +530,7 @@ Creates a client.
 
 * `"name"` is a descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
 
-* `"public"` TODO
+* `"public"` needs to be documented (TODO)
 
 #####response
 
@@ -864,8 +918,8 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ###info
 
-Provide creation and usage information of specified resource according to
-the specified options. Information will be returned for the options
+Request creation and usage information of specified resource according 
+to the specified options. Information is returned for the options
 specified. If no option is specified, a full information report is
 returned.
 
@@ -876,10 +930,16 @@ returned.
         <ResourceID>,
         // <options>
         {
+            "aliases": true,
+            "basic": true,
+            "comments: true,
             "description": true,
-            "basic": true
+            "key": true,
+            "shares": true,
+            "tagged": true,
+            "tags": true,
+            "usage": true
         }
-        <options>
     ], 
     "id": 1
 }
@@ -897,21 +957,26 @@ returned.
     `"basic"` returns basic information about a resource, such as its type, when 
     it was created, last modified and, for 'client' and 'dispatch' type resources, its current status.
 
-    `"comments"` returns all comments associated with the specified resource that 
+    `"comments"` returns all comments associated with the resource that 
     are visible to the calling client. See the One Platform User Guide for 
     'visibility' definition.
 
     `"description"` returns the description of the resource that was used to create 
     or last update the resource.
 
-    `"key"` returns the Client Interface Key (CIK) associated with the specified resource.
+    `"key"` returns the Client Interface Key (CIK) associated with the resource.
     This is valid for client resources only.
 
     `"shares"` returns share activation codes along with information about how many 
     times and for what duration this resource has been shared and which clients the 
     activators are.
 
-    `"usage"` returns current usage information for the specified resource.
+    `"tagged"` needs to be documented (TODO)
+
+    `"tags"` needs to be documented (TODO)
+
+    `"usage"` returns current usage information for the resource.
+
 
 
 #####response
@@ -920,127 +985,121 @@ returned.
 {
     "status": string,
     "id": 1
-    "result": <result>
-}
-```
-
-* `"status": "ok"` means the infomation was returned. Any other value for `"status"` indicates failure.
-
-* `<result>` is a JSON object containing the requested information.
-
-```
-{
-    "aliases": {
-        // Resource to alias mapping. If calling client is not
-        // the aliased resource or its owner, the value is "undefined"
-        // rather than a list of aliases.
-        "1b1ae80c224b4df0c74401234567890123456789": [
-            "myinteger" 
-        ],
-        "6154e05357efac4ec3d801234567890123456789": [
-            "temperature",
-            "myfloat"
-        ],
-    },
-    "basic": {
-        // The timestamp at which this resource was last updated via 
-        // the 'update' API.
-        "modified": 1374553089,
-        // The current status of this resource. Applicable to client 
-        // and dispatch type resources only.
-        // "activated" | "locked" | "notactivated"
-        "status": "activated",
-        // TODO
-        "subscribers": 0,
-        // Type of resource
-        // "client" | "dataport" | "datarule" | "dispatch"
-        "type": "client 
-    },
-    // Private and public comments associated with this resource that are 
-    // visible to the calling client.
-    "comments": [],
-    // TODO
-    "counts": {
-        "client": 3,
-        "dataport": 14,
-        "datarule": 0,
-        "disk": 40516,
-        "dispatch": 0,
-        "email": 0,
-        "http": 0,
-        "share": 0,
-        "sms": 0,
-        "xmpp": 0
-    },
-    // description as passed to create procedure
-    "description": {
-        "limits": {
-            "client": 500,
-            "dataport": 10000,
-            "datarule": 5100,
-            "disk": "inherit",
-            "dispatch": 5100,
-            "email": 2500,
-            "email_bucket": "inherit",
-            "http": 1000,
-            "http_bucket": "inherit",
-            "share": 5100,
-            "sms": 5,
-            "sms_bucket": 30,
-            "xmpp": 1000,
-            "xmpp_bucket": "inherit"
+    "result": {
+        "aliases": {
+            // Resource to alias mapping. If calling client is not
+            // the aliased resource or its owner, the value is "undefined"
+            // rather than a list of aliases.
+            "1b1ae80c224b4df0c74401234567890123456789": [
+                "myinteger" 
+            ],
+            "6154e05357efac4ec3d801234567890123456789": [
+                "temperature",
+                "myfloat"
+            ],
         },
-        "locked": false,
-        "meta": "",
-        "name": "Dev",
-        "public": false
-    },
-    // List of shares in this format:
-    // {"code":Code,   // The code for activating this share
-    //  "count":Count, // How many times this share can be activated
-    //  "duration":Duration,  // How many seconds this share can be activated
-    // Activation timestamps and platform RIDs. 
-    //  "activated":[[Timestamp,ClientID], ...]} 
-    "shares": [],
-    "storage": {
-        // The number of data entries in the resource's datastack.
-        "count": 2681,
-        // The timestamp of the oldest entry in the resource's datastack.
-        "first": 1372449660,
-        // The timestamp of the newest entry in the resource's datastack.
-        "last": 1377005537,
-        // The total space in bytes of this resource's datastack.
-        "size": 40215
-    },
-    "subscribers": [],
-    "tagged": [],
-    "tags": [],
-    "usage": {
-        // Number of the respective resource type owned by this
-        // and allocated to descendant clients. Applicable to 
-        // client type resources only.
-        "client": 3,
-        "dataport": 14,
-        "datarule": 0,
-        "dispatch": 0,
-        // Number of resources
-        // shared by this and allocated to descendant clients. 
-        // Applicable to client type resources only.
-        "share": 0,
-        // Current total disk space in bytes used by this and descendant 
-        // clients, expressed in bytes. Applicable to client type 
-        // resources only.
-        "disk": 40516,
-        // Current daily usage of the respective dispatch type by this
-        // and descendant clients. Applicable to 'client' type
-        // resources only.
-        "email": 0,
-        "http": 0,
-        "sms": 0,
-        "xmpp": 0
+        "basic": {
+            // The timestamp at which this resource was last updated via 
+            // the 'update' API.
+            "modified": 1374553089,
+            // The current status of this resource. Applicable to client 
+            // and dispatch type resources only.
+            // "activated" | "locked" | "notactivated"
+            "status": "activated",
+            // TODO
+            "subscribers": 0,
+            // Type of resource
+            // "client" | "dataport" | "datarule" | "dispatch"
+            "type": "client 
+        },
+        // Private and public comments associated with this resource that are 
+        // visible to the calling client.
+        "comments": [],
+        // TODO
+        "counts": {
+            "client": 3,
+            "dataport": 14,
+            "datarule": 0,
+            "disk": 40516,
+            "dispatch": 0,
+            "email": 0,
+            "http": 0,
+            "share": 0,
+            "sms": 0,
+            "xmpp": 0
+        },
+        // description as passed to create procedure
+        "description": {
+            "limits": {
+                "client": 500,
+                "dataport": 10000,
+                "datarule": 5100,
+                "disk": "inherit",
+                "dispatch": 5100,
+                "email": 2500,
+                "email_bucket": "inherit",
+                "http": 1000,
+                "http_bucket": "inherit",
+                "share": 5100,
+                "sms": 5,
+                "sms_bucket": 30,
+                "xmpp": 1000,
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "",
+            "name": "Dev",
+            "public": false
+        },
+        // List of shares in this format:
+        // {"code":Code,   // The code for activating this share
+        //  "count":Count, // How many times this share can be activated
+        //  "duration":Duration,  // How many seconds this share can be activated
+        // Activation timestamps and platform RIDs. 
+        //  "activated":[[Timestamp,ClientID], ...]} 
+        "shares": [],
+        "storage": {
+            // The number of data entries in the resource's datastack.
+            "count": 2681,
+            // The timestamp of the oldest entry in the resource's datastack.
+            "first": 1372449660,
+            // The timestamp of the newest entry in the resource's datastack.
+            "last": 1377005537,
+            // The total space in bytes of this resource's datastack.
+            "size": 40215
+        },
+        "subscribers": [],
+        "tagged": [],
+        "tags": [],
+        "usage": {
+            // Number of the respective resource type owned by this
+            // and allocated to descendant clients. Applicable to 
+            // client type resources only.
+            "client": 3,
+            "dataport": 14,
+            "datarule": 0,
+            "dispatch": 0,
+            // Number of resources
+            // shared by this and allocated to descendant clients. 
+            // Applicable to client type resources only.
+            "share": 0,
+            // Current total disk space in bytes used by this and descendant 
+            // clients, expressed in bytes. Applicable to client type 
+            // resources only.
+            "disk": 40516,
+            // Current daily usage of the respective dispatch type by this
+            // and descendant clients. Applicable to 'client' type
+            // resources only.
+            "email": 0,
+            "http": 0,
+            "sms": 0,
+            "xmpp": 0
+        }
     }
 }
 ```
+
+* `"status": "ok"` means the infomation was returned in `"result"`. Any other value for `"status"` indicates failure.
 
 --- 
 
@@ -1228,13 +1287,14 @@ the owner of the resource with which the activation code is associated.
 
 * The first argument specifies what to revoke.
 
-    `"client"` revokes the specified client interface key (CIK) and generates a new one. If the revoked code was
-    previously activated, the new one replacing it will need to be
-    activated. The new code will expire after the default CIK expiration
-    period.
+    `"client"` revokes the specified client interface key (CIK) passed in 
+    `<code>` and generates a new one. If the revoked code was previously 
+    activated, the new one replacing it will need to be activated. The new 
+    code will expire after the default CIK expiration period.
 
-    `"share"` revokes the specified share activation code after which the resource associated with the share
-    activation code will no longer be accessible by the activator.
+    `"share"` revokes the specified share activation code after which the 
+    resource associated with the share activation code will no longer be 
+    accessible by the activator.
 
 * `<code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
 
@@ -1294,6 +1354,37 @@ shared resource.
 
 --- 
 
+###tag
+
+Creates or deletes a tag for the resource specified by ResourceID.
+
+```
+{
+    "procedure": "unmap",
+    "arguments": [
+        <ResourceID>
+        "add" | "remove",
+        "mytag",
+    ], 
+    "id": 1
+}
+```
+
+
+#####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the tag was successfully added or deleted.
+
+
+--- 
+
 ###unmap
 
 Removes a mapping of specified type. After the removal, the previously
@@ -1328,7 +1419,7 @@ mapped resource will not be able to be looked up by the mapping.
 
 ###update
 
-Updates the description of the specified resource. 
+Updates the description of the resource. 
 
 ```
 {
@@ -1377,7 +1468,7 @@ Returns metric usage for client and its subhierarchy.
         <ResourceID>,
         <metric>,
         <starttime>,
-        <endtime>
+        <endtime>,
     ], 
     "id": 1
 }
@@ -1388,6 +1479,7 @@ Returns metric usage for client and its subhierarchy.
 * `<metric>` is the usage metric to measure. It may be:
     ...an entity: "client" | "dataport" | "datarule" | dispatch"
     ...or a consumable: "share" | "email" | "http" | "sms" | "xmpp"
+
 * `<starttime>` and `<endtime>` specify the window in which to measure usage
 
 
