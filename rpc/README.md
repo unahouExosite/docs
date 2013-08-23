@@ -12,6 +12,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Authentication](#authentication)
 
+[Identifying Resources](#identifying-resources)
+
 [Making a Request](#making-a-request)
 
 [Request JSON](#request-json)
@@ -93,7 +95,8 @@ This document uses a few notational conventions:
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
 * Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
 * A name in angle brackets, e.g. `<myvar>` identifies a placeholder that will be defined elsewhere.
-* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`.
+* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`. See [Identifying Resources](#identifying-resources) for details.
+
 * `number` indicates a number, e.g. 42. 
 * `string` represents a string, e.g. "MySensor".
 * `|` represents multiple choice
@@ -105,6 +108,16 @@ This document uses a few notational conventions:
 Unlike some APIs where authentication is done on behalf of a user account that is granted access to a set of resources, authentication in the JSON RPC is done on behalf of a particular resource in the system (the "calling client"). Every client resource in the system has a password, called a CIK, that grants limited control to that client and everything it owns. Using Portals as an example, it's possible to authenticate on behalf of a device (using a device CIK) or portal (using a portal CIK).
 
 See the documentation for `"auth"` below for details of how to authenticate as a particular client.
+
+### Identifying Resources
+
+Many procedures in the API include an argument for identifying a resource to act upon. In this documentation, that resource is identified by `<ResourceID>`. This argument can take any of three forms:
+
+1.) `"34eaae237988167d90bfc2ffeb666daaaaaaaaaa"` directly identifies a resource ID. The resource must be in the [calling client](#authentication)'s subhierarchy.
+
+2.) `{"alias": "temperature"}` looks up an immediate child of the [calling client](#authentication) by alias (`"temperature"` in this example).
+
+3.) `{"alias": ""}` identifies the calling client itself. So, for example, if `"auth"` was set to `{"cik":"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`, the procedure would act upon the client whose CIK is `"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`.
 
 ### Making a Request
 
@@ -138,7 +151,7 @@ The body of a request has the following structure:
 * `{"cik": CIK, "client_id": RID}` authenticates as the given client if the CIK identifies an ancestor of the given client.
 * `{"cik": CIK, "resource_id": RID}` authenticate as the owner of the given resource if the CIK identifies as an ancestor of the given resource.
 
-`"id"` is a unique identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
+`"id"` is an identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
 `"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures-1). 
 
@@ -187,7 +200,7 @@ If the request message causes an error not associated with any given call, the r
 
 
 ### HTTP Request/Response Example
-
+  
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
 
 ```
@@ -283,7 +296,7 @@ Read data from the specified resource.
 }
 ```
 
-* `<ResourceID>` is the identifier of the device to read. 
+* `<ResourceID>` is the identifier of the device to read. See [Identifying Resources](#identifying-resources) for details.
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
 * `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
@@ -342,7 +355,8 @@ Writes a single value to the resource specified.
 }
 ```
 
-* `<ResourceID>` is the identifier of the device to write.  
+* `<ResourceID>` is the identifier of the device to write. See [Identifying Resources](#identifying-resources) for details.
+
 * `<value>` is the value to write.
 
 #####response
@@ -788,7 +802,8 @@ be terminated.
 }
 ```
 
-* `<ResourceID>` specifies the resource to drop
+* `<ResourceID>` specifies the resource to drop.  See [Identifying Resources](#identifying-resources) for details.
+
 
 #####response
 
@@ -823,7 +838,8 @@ Empties the specified resource of data per specified constraints. If no constrai
 }
 ```
 
-* `<ResourceID>` specifies what resource to flush.
+* `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
+
 
 * `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
 
@@ -858,13 +874,18 @@ returned.
     "procedure": "info",
     "arguments": [
         <ResourceID>,
+        // <options>
+        {
+            "description": true,
+            "basic": true
+        }
         <options>
     ], 
     "id": 1
 }
 ```
 
-* `<ResourceID>` specifies what resource to query.
+* `<ResourceID>` specifies what resource to query. See [Identifying Resources](#identifying-resources) for details.
 
 * `<options>` is a JSON object with boolean entries. Each boolean entry defaults
     to `false`. If `<options>` is set to `{}` then all available boolean options 
@@ -1098,7 +1119,9 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 
 * If the first argument is `"owner"`, the second argument is a ResourceID whose owner will 
     be looked up. Owner lookup is restricted to within the caller client's subhierarchy. 
-    Also, a client is not allowed to look up its own owner's resource id.
+    Also, a client is not allowed to look up its own owner's resource id. See 
+    [Identifying Resources](#identifying-resources) for details.
+
 
 * If the first argument is `"shared"`, the second argument is a share activation code whose
     Resource ID will be looked up. 
@@ -1134,7 +1157,8 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 }
 ```
 
-* `<ResourceID>` identifies the resource to which the alias should map.
+* `<ResourceID>` identifies the resource to which the alias should map. See [Identifying Resources](#identifying-resources) for details.
+
 * `string` is an alias string to map to `<ResourceID>`.
 
 #####response
@@ -1167,7 +1191,7 @@ Records a list of historical entries to the resource specified.
 }
 ```
 
-* `<ResourceID>` is a resource identifier.
+* `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
 * The second argument is a list of timestamp, value entries to record to the resource. If 
     `<timestamp>` is a negative value, it means an offset back into the past from the current time.
 * The third argument is currently unused.
@@ -1317,7 +1341,8 @@ Updates the description of the specified resource.
 }
 ```
 
-* `<ResourceID>` identifies the resource to update
+* `<ResourceID>` identifies the resource to update.  See [Identifying Resources](#identifying-resources) for details.
+
 * `<description>` is a JSON object and is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
     Client limits must not be lowered below current use level. Resources
@@ -1358,7 +1383,8 @@ Returns metric usage for client and its subhierarchy.
 }
 ```
 
-* `<ResourceID>` identifies the resource whose usage will be measured (TODO: must it be a client?)
+* `<ResourceID>` identifies the resource whose usage will be measured (TODO: must it be a client?). See [Identifying Resources](#identifying-resources) for details.
+
 * `<metric>` is the usage metric to measure. It may be:
     ...an entity: "client" | "dataport" | "datarule" | dispatch"
     ...or a consumable: "share" | "email" | "http" | "sms" | "xmpp"
