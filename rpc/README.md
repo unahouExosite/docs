@@ -10,6 +10,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Notational Convention](#notational-convention)
 
+[HTTP Request/Response Example](#http-requestresponse-example)
+
 [Making a Request](#making-a-request)
 
 [Authentication](#authentication)
@@ -19,8 +21,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [Request JSON](#request-json)
 
 [Response JSON](#response-json)
-
-[HTTP Request/Response Example](#http-requestresponse-example)
 
 [API Improvement](#api-improvement)
 
@@ -95,15 +95,84 @@ Wrapper libraries are available for this API:
 This document uses a few notational conventions:
 
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
-* Comments (`//`) are occasionally included in JSON for clarity. The comments are not included in the RPC JSON.
+* Comments (`//`) are occasionally included in JSON to give hints or provide detail. These comments are not included in actual requests or responses.
 * A name in angle brackets, e.g. `<myvar>`, is a placeholder that will be defined elsewhere.
 * `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`. See [Identifying Resources](#identifying-resources) for details.
 
-* `number` indicates a number, e.g. 42. 
-* `string` represents a string, e.g. "MySensor".
+* `number` indicates a number, e.g. 42
+* `string` represents a string, e.g. "MySensor"
 * `|` represents multiple choice
 * `=` represents default value
 * `...` represents one or more of the previous item
+
+### HTTP Request/Response Example
+  
+JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
+
+```
+POST /api:v1/rpc/process
+Host: m2.exosite.com:80
+Content-Type: application/json; charset=utf-8
+User-Agent: API Example (danweaver@exosite.com)
+Content-Length: 235
+Accept-Encoding: identity
+
+{
+    "auth": {
+        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
+    }, 
+    "calls": [
+        {
+            "id": 56, 
+            "procedure": "read",
+            "arguments": [
+                {
+                    "alias": "temperature"
+                }, 
+                {
+                    "endtime": 1376957311, 
+                    "limit": 3, 
+                    "selection": "all", 
+                    "sort": "desc", 
+                    "starttime": 1
+                }
+            ]
+        }
+    ]
+}
+```
+
+Here is the full HTTP response for that request:
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 20 Aug 2013 00:08:27 GMT
+Content-Length: 90
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Server: nginx
+
+[
+    {
+        "id": 56, 
+        "result": [
+            [
+                1376957195, 
+                72.2
+            ], 
+            [
+                1376957184, 
+                72.3
+            ], 
+            [
+                1376951473, 
+                72.5
+            ]
+        ], 
+        "status": "ok"
+    }
+]
+```
 
 ### Making a Request
 
@@ -222,7 +291,7 @@ The response body is always JSON, but its format varies based on error handling 
 * `"id"` identifies the corresponding request call. 
 * `"result"` is the return value for the procedure. Procedures without return values omit it entirely.
 
-If a particular call fails, the response body is still a list, but `"status"` for the response for that call is set to something besides "ok", and an `"error"` key is included:
+If a particular call fails, the response body is still a list, but `"status"` for the response for that call is set to something besides `"ok"`, and an `"error"` key is included:
 
 ```
 [{"id": 0,
@@ -252,75 +321,6 @@ If the request message causes an error not associated with any given call, the r
 
     `501` means the application of the given arguments to the specified procedure is not supported.
 
-
-### HTTP Request/Response Example
-  
-JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
-
-```
-POST /api:v1/rpc/process
-Host: m2.exosite.com:80
-Content-Type: application/json; charset=utf-8
-User-Agent: Documentation Example (danweaver@exosite.com)
-Content-Length: 235
-Accept-Encoding: identity
-
-{
-    "auth": {
-        "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
-    }, 
-    "calls": [
-        {
-            "id": 56, 
-            "procedure": "read",
-            "arguments": [
-                {
-                    "alias": "temperature"
-                }, 
-                {
-                    "endtime": 1376957311, 
-                    "limit": 3, 
-                    "selection": "all", 
-                    "sort": "desc", 
-                    "starttime": 1
-                }
-            ]
-        }
-    ]
-}
-```
-
-Here is a full HTTP response for that request:
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 20 Aug 2013 00:08:27 GMT
-Content-Length: 90
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-Server: nginx
-
-[
-    {
-        "id": 56, 
-        "result": [
-            [
-                1376957195, 
-                72.2
-            ], 
-            [
-                1376957184, 
-                72.3
-            ], 
-            [
-                1376951473, 
-                72.5
-            ]
-        ], 
-        "status": "ok"
-    }
-]
-```
 
 ### API Improvement
 
@@ -1118,7 +1118,7 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 }
 ```
 
-* `<type_list>` is a list of resource types to list, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
+* `<type_list>` is a list of resource types, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
 * `<filter_list>` is a list of filter options. If no option is provided, it default to as if the "owned" option is specified.
 
