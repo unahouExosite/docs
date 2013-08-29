@@ -667,17 +667,18 @@ is the result of the Condition.</p>
 <p><b>Input:</b> Timeouts, Values</p>
 <p><b>Internal Logic:</b> A Timeout is always running. If a Value is received, the Timeout is restarted,
 otherwise the Timeout repeatedly elapses and restarts. When a Value is received
-the Condition result is `"false"`. When a Timeout elapses, the Condition result is `"true"`.
+the Condition result is <code>"false"</code>. When a Timeout elapses, the Condition result is <code>"true"</code>.
 
 <p>e.g. Condition = Timeout</p>
 
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li><p>`DataSourceID` is an input resource identifier whose input data Values to compare</p></li>
+<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
+<li><code>"timeout"</code> is a timeout in seconds</li>
+<li>
 </ul>
 
-<p>`Timeout` is in seconds</p>
 </td></tr>
 <tr><td>
 <pre><code>
@@ -705,10 +706,10 @@ elapses, the Condition result is "true" and the Timeout restarts.</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
-<li>`Constant` is a numerical constant used by Comparison</li>
-<li>`Comparison` is any of "Comparisons"</li>
-<li>`Timeout` is a timeout in seconds</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>Constant</code> is a numerical constant used by Comparison</li>
+<li><code>Comparison</code> is any of "Comparisons"</li>
+<li><code>Timeout</code> is a timeout in seconds</li>
 </ul>
 </td></tr>
 <tr><td>
@@ -732,15 +733,15 @@ is "true" then a Timeout is started.  If the Comparison is "false" then any
 existing Timeout is canceled and the Condition result is "false".  When a
 Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
 
-<p>e.g. Condition = Comparision && Timeout</p>
+<p>e.g. Condition = Comparison && Timeout</p>
 
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
-<li>`Constant` is a numerical constant used by Comparison</li>
-<li>`Comparison` is any of "Comparisons"</li>
-<li>`Timeout` is a timeout in seconds</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is any of "Comparisons"</li>
+<li><code>"timeout"</code> is a timeout in seconds</li>
 </td></tr>
 <tr><td>
 <pre><code>
@@ -770,11 +771,11 @@ the Timeout is canceled and the condition evaluates to "false".</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
-<li>`Constant` is a numerical constant used by Comparison</li>
-<li>`Comparison` is any of "Comparisons"</li>
-<li>`Timeout` is a timeout in seconds</li>
-<li>`Count` is the aumber of data points accumulated that satisfy the Comparison</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is any of "Comparisons"</li>
+<li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"count"</code> is the aumber of data points accumulated that satisfy the Comparison</li>
 </ul>
 </td></tr>
 <tr><td>
@@ -783,7 +784,9 @@ the Timeout is canceled and the condition evaluates to "false".</p>
     "script": string
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>
+<code>"script"</code> is a string containing Lua source code to run on the server.
+</td></tr>
 </table>
 
 #####response
