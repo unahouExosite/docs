@@ -176,7 +176,7 @@ Server: nginx
 
 ### Making a Request
 
-Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
+Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
@@ -642,7 +642,26 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>Input: Values
+
+Internal Logic:
+
+When a Value is received it is used in the Comparison, and the Comparison result
+is the result of the Condition.
+
+e.g. Condition = Comparison
+
+Internal logic configuration parameters:
+
+ DataSourceID
+   Input resource identifier whose input data Values to compare
+
+ Constant
+   Numerical constant used by Comparison
+
+ Comparison
+   Any of "Comparisons"
+</td></tr>
 <tr><td>
 <pre><code>
 {
@@ -652,7 +671,26 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>
+Input: Timeouts, Values
+
+Internal Logic:
+
+A Timeout is always running.  If a Value is received, the Timeout is restarted,
+otherwise the Timeout repeatedly elapses and restarts.  When a Value is received
+the Condition result is "false". When a Timeout elapses, the Condition result is
+"true".
+
+eg. Condition = Timeout
+
+Internal logic configuration parameters:
+
+ DataSourceID
+   Input resource identifier whose input data Values to compare
+
+ Timeout
+   Number of seconds
+</td></tr>
 <tr><td>
 <pre><code>
 {
@@ -666,7 +704,32 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>
+Input: Timeouts, Values
+
+Internal Logic:
+
+When a Value is received it is used in the Comparison any running Timeout is
+canceled and the Comparison result is the result of the Condition.  If the
+Comparision result is "true" then a new Timeout is started.  When a Timeout
+elapses, the Condition result is "true" and the Timeout restarts.
+
+eg. Condition = Comparison; repeated while "true"
+
+Internal logic configuration parameters:
+
+ DataSourceID
+   Input resource identifier whose input data Values to compare
+
+ Constant
+   Numerical constant used by Comparison
+
+ Comparison
+   Any of "Comparisons"
+
+ Timeout
+   Number of seconds
+</td></tr>
 <tr><td>
 <pre><code>
 {
@@ -680,7 +743,32 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>
+Input: Timeouts, Values
+
+Internal Logic:
+
+When a Value is received it is used in the Comparison, if the Comparison result
+is "true" then a Timeout is started.  If the Comparison is "false" then any
+existing Timeout is canceled and the Condition result is "false".  When a
+Timeout elapses, the Condition result is "true" and the timer is restarted.
+
+eg. Condition = Comparision && Timeout
+
+Internal logic configuration parameters:
+
+ DataSourceID
+   Input resource identifier whose input data Values to compare
+
+ Constant
+   Numerical constant used by Comparison
+
+ Comparison
+   Any of "Comparisons"
+
+ Timeout
+   Number of seconds
+</td></tr>
 <tr><td>
 <pre><code>
 {
@@ -695,7 +783,36 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>TODO</td></tr>
+</td><td>
+Input: Timeouts, Values
+
+Internal Logic:
+
+When a Value is received it is used in the Comparison, if the Comparison result
+is "true" and no there is no existing Timeout, then a Timeout is started and an
+internal counter is set to 1; if a Timeout already exists then increment the
+internal counter.  If the internal counter matches the Count configuration
+parameter, then Timeout is restarted, the internal counter is set to 0 and the
+Condition evaluates to "true".  If the Timeout elapses, the counter is set to 0,
+the Timeout is canceled and the condition evaluates to "false".
+
+Internal logic configuration parameters:
+
+ DataSourceID
+   Input resource identifier whose input data Values to compare
+
+ Constant
+   Numerical constant used by Comparison
+
+ Comparison
+   Any of "Comparisons"
+
+ Timeout
+   Number of seconds
+
+ Count
+   Number of data points accumulated that satisfy the Comparison
+</td></tr>
 <tr><td>
 <pre><code>
 {
