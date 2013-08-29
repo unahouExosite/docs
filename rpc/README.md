@@ -676,7 +676,6 @@ the Condition result is <code>"false"</code>. When a Timeout elapses, the Condit
 <ul>
 <li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
-<li>
 </ul>
 
 </td></tr>
