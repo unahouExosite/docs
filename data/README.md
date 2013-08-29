@@ -1,6 +1,6 @@
 ## Exosite Data API
 
-This is a lightweight API intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point over a reliable HTTP connection.
+This is a lightweight HTTP-based API for writing to and reading from the Exosite One Platform. It is intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point.
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
@@ -20,6 +20,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [Hybrid write/read](#combined-writeread) - read a set of dataports, then write a set of dataports
 
 [IP](#ip) - get the IP address of the host server 
+
 
 ### Libraries and Sample Code
 
@@ -44,12 +45,23 @@ This document uses a few notational conventions:
 * `=` represents default value
 * `...` represents one or more of the previous item
 
+##HTTP Responses
+
+Typical HTTP response codes include:
+
+| Code   | Response      | Description                                       |
+| ------ |:--------------|:------------------------------------------------- |
+| 200    | OK            | Successful request, returning requested values    |
+| 204    | No Content    | Successful request, nothing will be returned      |
+| 4xx    | Client Error  | There was an error with the request by the client |
+| 5xx    | Server Error  | There way an error with the request on the server |
+
 
 ## Procedures
 
 ###Write
 
-Writes one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
+Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
 
 #####request
 
@@ -78,9 +90,7 @@ Content-Length: 0 
 
 ###Read
 
-Reads the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
-Writes one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
-
+Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
 
 #####request
 
@@ -110,7 +120,7 @@ Content-Length: <length>
 
 ###Hybrid write/read
 
-Writes one or more dataports of alias `<alias w>` with given `<value>` and then reads the most recent value from one or more dataports with alias `<alias r>`. The client (e.g. device, portal) is identified by `<CIK>`. All writes occur before all reads.
+Write one or more dataports of alias `<alias w>` with given `<value>` and then read the most recent value from one or more dataports with alias `<alias r>`. The client (e.g. device, portal) to write to and read from is identified by `<CIK>`. All writes occur before all reads.
 
 #####request
 
@@ -139,3 +149,30 @@ Content-Length: <length>
 
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses.
+
+
+###IP 
+
+Return the IP address of the host server.
+
+#####request
+
+```
+GET /ip HTTP/1.1 
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK 
+Date: <date> 
+Server: <server>
+Connection: Close
+Content-Type: text/plain; charset=utf-8
+Content-Length: 19
+<blank line>
+173,255,209,28,0,80
+```
+
+
