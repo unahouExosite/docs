@@ -11,6 +11,9 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Notational Convention](#notational-convention)
 
+[HTTP Responses](#http-responses)
+
+
 ####Procedures
 
 [Write](#write) - write new data to a set of dataports
@@ -45,7 +48,7 @@ This document uses a few notational conventions:
 * `=` represents default value
 * `...` represents one or more of the previous item
 
-##HTTP Responses
+### HTTP Responses
 
 Typical HTTP response codes include:
 
