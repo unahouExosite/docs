@@ -650,7 +650,7 @@ is the result of the Condition.</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare</li>
+<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is the comparison to perform.
 </td></tr>
@@ -706,7 +706,7 @@ elapses, the Condition result is "true" and the Timeout restarts.</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>Constant</code> is a numerical constant used by Comparison</li>
 <li><code>Comparison</code> is any of "Comparisons"</li>
 <li><code>Timeout</code> is a timeout in seconds</li>
@@ -738,7 +738,7 @@ Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
@@ -771,7 +771,7 @@ the Timeout is canceled and the condition evaluates to "false".</p>
 <p><b>Internal logic configuration parameters:</b></p>
 
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare</li>
+<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
