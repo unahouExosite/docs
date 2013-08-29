@@ -651,8 +651,8 @@ is the result of the Condition.</p>
 
 <ul>
 <li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare</li>
-<li><code>Constant</code> is a numerical constant used by Comparison</li>
-<li><code>Comparison</code> is any of "Comparisons"
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is the comparison to perform.
 </td></tr>
 <tr><td>
 <pre><code>
