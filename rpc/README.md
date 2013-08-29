@@ -642,25 +642,17 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td>Input: Values
+</td><td><p><b>Input:</b> Values</p>
 
-Internal Logic:
+<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, and the Comparison result
+is the result of the Condition.</p>
 
-When a Value is received it is used in the Comparison, and the Comparison result
-is the result of the Condition.
+<p><b>Internal logic configuration parameters:</b></p>
 
-e.g. Condition = Comparison
-
-Internal logic configuration parameters:
-
- DataSourceID
-   Input resource identifier whose input data Values to compare
-
- Constant
-   Numerical constant used by Comparison
-
- Comparison
-   Any of "Comparisons"
+<ul>
+<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare</li>
+<li><code>Constant</code> is a numerical constant used by Comparison</li>
+<li><code>Comparison</code> is any of "Comparisons"
 </td></tr>
 <tr><td>
 <pre><code>
@@ -672,24 +664,20 @@ Internal logic configuration parameters:
 }
 </code></pre>
 </td><td>
-Input: Timeouts, Values
+<p><b>Input:</b> Timeouts, Values</p>
+<p><b>Internal Logic:</b> A Timeout is always running. If a Value is received, the Timeout is restarted,
+otherwise the Timeout repeatedly elapses and restarts. When a Value is received
+the Condition result is `"false"`. When a Timeout elapses, the Condition result is `"true"`.
 
-Internal Logic:
+<p>e.g. Condition = Timeout</p>
 
-A Timeout is always running.  If a Value is received, the Timeout is restarted,
-otherwise the Timeout repeatedly elapses and restarts.  When a Value is received
-the Condition result is "false". When a Timeout elapses, the Condition result is
-"true".
+<p><b>Internal logic configuration parameters:</b></p>
 
-eg. Condition = Timeout
+<ul>
+<li><p>`DataSourceID` is an input resource identifier whose input data Values to compare</p></li>
+</ul>
 
-Internal logic configuration parameters:
-
- DataSourceID
-   Input resource identifier whose input data Values to compare
-
- Timeout
-   Number of seconds
+<p>`Timeout` is in seconds</p>
 </td></tr>
 <tr><td>
 <pre><code>
@@ -705,30 +693,23 @@ Internal logic configuration parameters:
 }
 </code></pre>
 </td><td>
-Input: Timeouts, Values
+<p><b>Input:</b> Timeouts, Values</p>
 
-Internal Logic:
-
-When a Value is received it is used in the Comparison any running Timeout is
+<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison any running Timeout is
 canceled and the Comparison result is the result of the Condition.  If the
 Comparision result is "true" then a new Timeout is started.  When a Timeout
-elapses, the Condition result is "true" and the Timeout restarts.
+elapses, the Condition result is "true" and the Timeout restarts.</p>
 
-eg. Condition = Comparison; repeated while "true"
+<p>e.g. Condition = Comparison; repeated while "true"</p>
 
-Internal logic configuration parameters:
+<p><b>Internal logic configuration parameters:</b></p>
 
- DataSourceID
-   Input resource identifier whose input data Values to compare
-
- Constant
-   Numerical constant used by Comparison
-
- Comparison
-   Any of "Comparisons"
-
- Timeout
-   Number of seconds
+<ul>
+<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
+<li>`Constant` is a numerical constant used by Comparison</li>
+<li>`Comparison` is any of "Comparisons"</li>
+<li>`Timeout` is a timeout in seconds</li>
+</ul>
 </td></tr>
 <tr><td>
 <pre><code>
@@ -744,30 +725,22 @@ Internal logic configuration parameters:
 }
 </code></pre>
 </td><td>
-Input: Timeouts, Values
+<p><b>Input:</b> Timeouts, Values</p>
 
-Internal Logic:
-
-When a Value is received it is used in the Comparison, if the Comparison result
+<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, if the Comparison result
 is "true" then a Timeout is started.  If the Comparison is "false" then any
 existing Timeout is canceled and the Condition result is "false".  When a
-Timeout elapses, the Condition result is "true" and the timer is restarted.
+Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
 
-eg. Condition = Comparision && Timeout
+<p>e.g. Condition = Comparision && Timeout</p>
 
-Internal logic configuration parameters:
+<p><b>Internal logic configuration parameters:</b></p>
 
- DataSourceID
-   Input resource identifier whose input data Values to compare
-
- Constant
-   Numerical constant used by Comparison
-
- Comparison
-   Any of "Comparisons"
-
- Timeout
-   Number of seconds
+<ul>
+<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
+<li>`Constant` is a numerical constant used by Comparison</li>
+<li>`Comparison` is any of "Comparisons"</li>
+<li>`Timeout` is a timeout in seconds</li>
 </td></tr>
 <tr><td>
 <pre><code>
@@ -784,34 +757,25 @@ Internal logic configuration parameters:
 }
 </code></pre>
 </td><td>
-Input: Timeouts, Values
+<p><b>Input:</b>Timeouts, Values</p>
 
-Internal Logic:
-
-When a Value is received it is used in the Comparison, if the Comparison result
+<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, if the Comparison result
 is "true" and no there is no existing Timeout, then a Timeout is started and an
 internal counter is set to 1; if a Timeout already exists then increment the
 internal counter.  If the internal counter matches the Count configuration
 parameter, then Timeout is restarted, the internal counter is set to 0 and the
 Condition evaluates to "true".  If the Timeout elapses, the counter is set to 0,
-the Timeout is canceled and the condition evaluates to "false".
+the Timeout is canceled and the condition evaluates to "false".</p>
 
-Internal logic configuration parameters:
+<p><b>Internal logic configuration parameters:</b></p>
 
- DataSourceID
-   Input resource identifier whose input data Values to compare
-
- Constant
-   Numerical constant used by Comparison
-
- Comparison
-   Any of "Comparisons"
-
- Timeout
-   Number of seconds
-
- Count
-   Number of data points accumulated that satisfy the Comparison
+<ul>
+<li>`DataSourceID` is the input resource identifier whose input data Values to compare</li>
+<li>`Constant` is a numerical constant used by Comparison</li>
+<li>`Comparison` is any of "Comparisons"</li>
+<li>`Timeout` is a timeout in seconds</li>
+<li>`Count` is the aumber of data points accumulated that satisfy the Comparison</li>
+</ul>
 </td></tr>
 <tr><td>
 <pre><code>
