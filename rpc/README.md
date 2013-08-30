@@ -8,7 +8,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [API Libraries](#api-libraries)
 
-[Notational Convention](#notational-convention)
+[Notational Conventions](#notational-conventions)
 
 [HTTP Request/Response Example](#http-requestresponse-example)
 
@@ -21,8 +21,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [Request JSON](#request-json)
 
 [Response JSON](#response-json)
-
-[API Improvement](#api-improvement)
 
 ####Procedures
 
@@ -321,10 +319,6 @@ If the request message causes an error not associated with any given call, the r
 
     `501` means the application of the given arguments to the specified procedure is not supported.
 
-
-### API Improvement
-
-Please tell us how we can make the API better. If you have a specific feature request or if you found a bug, please use GitHub issues. Fork these docs and send a pull request with improvements. Thanks!
 
 
 ## Procedures

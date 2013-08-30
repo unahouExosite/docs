@@ -9,7 +9,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Libraries and Sample Code](#libraries-and-sample-code)
 
-[Notational Convention](#notational-convention)
+[Notational Conventions](#notational-conventions)
 
 [HTTP Responses](#http-responses)
 

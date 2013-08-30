@@ -1,8 +1,8 @@
-## One Platform APIs ##
+## One Platform APIs
 
 Are you looking to create an application that uses the One Platform API? You've come to the right place. Exosite provides APIs and libraries that make it possible to work with the platform from a variety of environments. 
 
-### APIs ###
+### APIs
 
 * [HTTP Data Interface API](data/) - low bandwidth API for reading from and writing to dataports
 * [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization
@@ -10,3 +10,9 @@ Are you looking to create an application that uses the One Platform API? You've 
 * [UDP Single Shot API](https://developers.exosite.com/display/DEV/UDP+Single+Shot) - very low bandwidth and overhead API for writing to a single dataport
 * [Commander API](https://developers.exosite.com/display/DEV/Commander+API) - XMPP chat interface for reading and writing data from an IM client
 * [Scripting API](https://developers.exosite.com/display/DEV/Scripting+API) - API providing access to the One Platform from Lua script
+
+### API Improvement
+
+Please tell us how we can make the API better. If you have a specific feature request or if you found a bug, please use GitHub issues. Fork these docs and send a pull request with improvements. Thanks!
+
+
