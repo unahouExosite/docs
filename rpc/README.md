@@ -706,9 +706,9 @@ elapses, the Condition result is "true" and the Timeout restarts.</p>
 
 <ul>
 <li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
-<li><code>Constant</code> is a numerical constant used by Comparison</li>
-<li><code>Comparison</code> is any of "Comparisons"</li>
-<li><code>Timeout</code> is a timeout in seconds</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is any of "Comparisons"</li>
+<li><code>"timeout"</code> is a timeout in seconds</li>
 </ul>
 </td></tr>
 <tr><td>
@@ -757,7 +757,7 @@ Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
 }
 </code></pre>
 </td><td>
-<p><b>Input:</b>Timeouts, Values</p>
+<p><b>Input:</b> Timeouts, Values</p>
 
 <p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, if the Comparison result
 is "true" and no there is no existing Timeout, then a Timeout is started and an
