@@ -1,8 +1,6 @@
 ## Exosite UDP API
 
-The UDP API provides a low-overhead interface that allows clients with strict data bandwidth requirements (e.g. cellular data) to send data to the One Platform. This API uses a simple UDP packet that encapsulates both identification information and data payload.
-
-If you're completely new to Exosite's APIs, you may want to read the [API       overview](../README.md) first.
+The UDP API provides a low-overhead interface that allows clients with strict data bandwidth requirements (e.g. cellular data) to send data to the One Platform. This API uses a simple UDP packet that encapsulates both identification information and data payload. If you're completely new to Exosite's APIs, you may want to read the [API       overview](../README.md) first.
 
 ### Table of Contents
 
@@ -12,11 +10,9 @@ If you're completely new to Exosite's APIs, you may want to read the [API       
 
 [Examples](#examples)
 
-[Libraries](#libraries)
-
 ### Conventions
 
-This document uses a few notational conventions:
+This document uses the following notational conventions:
 
 * A name in angle brackets, e.g. `<myvar>`, is a placeholder that you must define.
 
@@ -24,7 +20,7 @@ This document uses a few notational conventions:
 
 #### Write 
 
-This interface can be accessed on Port 18494 via m2.exosite.com and supported IP addresses.
+This interface can be accessed on Port 18494 via m2.exosite.com.
 
 ```
 Server: m2.exosite.com
@@ -41,11 +37,7 @@ Content format:
 cik=<CIK>&<alias 1>=<value 1>&<alias 2...>=<value 2...>&<alias n>=<value n>
 ```
 
-Response Format
-
-```
-None - no server responses are sent
-```
+Response Format: None - no server responses are sent.
 
 ### Examples
 
@@ -61,11 +53,7 @@ Our Github Exosite Garage Projects have a number of examples of using this inter
 
 Further reading: 
 
-* For general concepts refer to: [http://en.wikipedia.org/wiki/User_Datagram_Protocol](http://en.wikipedia.org/wiki/User_Datagram_Protocol)
+* [UDP general concepts](http://en.wikipedia.org/wiki/User_Datagram_Protocol)
 
 * [Exosite Learning Area](https://developers.exosite.com/display/DEV/UDP+Single+Shot#)
-
-### Libraries 
-
-This interface is simple enough that we didn’t see a need to create any libraries to simplify it further.
 
