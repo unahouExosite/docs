@@ -55,9 +55,3 @@ Our Github Exosite Garage Projects have a number of examples of using this inter
 
 * [Python](https://github.com/exosite-garage/udp_single_shot) - Write Example (Socket level code, useful reference for any code base)
 
-Further reading: 
-
-* [UDP general concepts](http://en.wikipedia.org/wiki/User_Datagram_Protocol)
-
-* [Exosite Learning Area](https://developers.exosite.com/display/DEV/UDP+Single+Shot#)
-
