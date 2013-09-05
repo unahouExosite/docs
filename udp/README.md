@@ -37,7 +37,11 @@ Content format:
 cik=<CIK>&<alias 1>=<value 1>&<alias 2...>=<value 2...>&<alias n>=<value n>
 ```
 
-Response Format: None - no server responses are sent.
+Response Format:
+
+```
+None - no server responses are sent.
+```
 
 ### Examples
 
