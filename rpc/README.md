@@ -76,9 +76,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [deactivate](#deactivate) - deactivate a share code or CIK
 
-[tag](#tag) - add or remove a tag to describe a public resource
-
-
 ### API Libraries
 
 Wrapper libraries are available for this API:
@@ -1431,36 +1428,6 @@ shared resource.
 
 --- 
 
-###tag
-
-Creates or deletes a tag for the resource specified by ResourceID.
-
-```
-{
-    "procedure": "unmap",
-    "arguments": [
-        <ResourceID>
-        "add" | "remove",
-        "mytag",
-    ], 
-    "id": 1
-}
-```
-
-
-#####response
-
-```
-{
-    "status": "ok",
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the tag was successfully added or deleted.
-
-
---- 
 
 ###unmap
 
