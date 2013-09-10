@@ -544,7 +544,7 @@ Creates a dataport.
     "arguments": [
         "dataport", 
         {
-            "format": "binary" | "boolean" | "float" | "integer" | "string",
+            "format": "float" | "integer" | "string",
             "meta": string = "",
             "name": string = "",
             "preprocess": list = [],
