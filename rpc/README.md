@@ -8,7 +8,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [API Libraries](#api-libraries)
 
-[Notational Conventions](#notational-conventions)
+[Conventions](#conventions)
 
 [HTTP Request/Response Example](#http-requestresponse-example)
 
@@ -88,7 +88,7 @@ Wrapper libraries are available for this API:
 * C++: [cpponep](https://github.com/exosite-labs/cpponep)
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 
-### Notational Conventions
+### Conventions
 
 This document uses a few notational conventions:
 
