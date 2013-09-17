@@ -13,8 +13,8 @@ client. Given sufficient access rights the client may perform some or part of
 the following functions through the Commander:
 
 * Read and write client resource values
-* Create, delete and list Data Sources for client resources
-* Count and read Data Source records
+* Create, delete and list data sources for client resources
+* Count and read data source records
 
 ### Common Responses
 
@@ -109,7 +109,7 @@ dslist, dsread, dswrite, help, read, setcik, version, write
 
 ```
 > help dswrite
-Write historical data to the named Portals Data Source
+Write historical data to the named Portals data source
 
 dswrite <alias> <timestamp> <value>
 ```
@@ -214,7 +214,7 @@ Response is a number of data points in CSV format.
 
 ### dscreate - create a data source 
 
-Creates a Data Source having a `<name>` for the `<alias>` to be stored. The 
+Creates a data source having a `<name>` for the `<alias>` to be stored. The 
 `<format>` of the data source may be specified. Before storing a reported 
 value, the value may be normalized with an `<operation>` one of `add`, `sub`, 
 `mul`, `div` or `mod` using the given `<constant>` value. To store data 
@@ -224,7 +224,7 @@ values without normalization, specify `na` for `<operation>`.
 dscreate <name> <alias> [<operation> <constant> <format>]
 ```
 
-* `<name>` is the friendly name of the Data Source to create.
+* `<name>` is the friendly name of the data source to create.
 * `<alias>` is the resource identifier used when reporting data from the 
 client.
 * `<operation>` is the preprocessing operation to be performed when data 
