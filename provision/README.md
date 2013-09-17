@@ -22,7 +22,7 @@ Code samples that use this API:
 * [Provision Examples](https://github.com/exosite-garage/provision_examples) - socket level code intended as a reference for implementation in other languages
 
 
-### Notational Conventions
+### Conventions
 
 This document uses a few notational conventions:
 
@@ -45,7 +45,7 @@ Typical HTTP response codes include:
 ## Procedures
 
 
-## Procedures for device provisioning
+## Device Provisioning
 
 ### POST /provision/activate - activate client
 
@@ -190,7 +190,7 @@ Response may also be:
 * `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
 
 
-## Procedures for model managers (factory or device owners)
+## Device Model Management
 
 ### GET /provision/manage/content/<model>/ - list content ids
 
@@ -480,7 +480,7 @@ Content-Type: text/csv; charset=utf-8
 
 Response may also be:
 
-* `HTTP/1.1 204` if content `<id>` is not a member of any group.
+* `HTTP/1.1 204 No Content` if content `<id>` is not a member of any group.
 
 ### POST /provision/manage/content/<model>/<id>?show=groups{&offset=<offset>&limit=<limit>} - upload content
 
@@ -540,9 +540,9 @@ Content-Length: 0
 
 ### GET /provision/manage/group/<model>/{?offset=<offset>&limit=<limit>}
 
-Returns list of `<group id>`s with `<description>` for `<model>`, if any, in
-paginated sets of size `<limit>` starting at `<offset>`, limit is enforced to
-be between 5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>`
+Returns list of `<group id>`s with `<description>` for `<model>` in
+paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced 
+to be between 5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>`
 defaults to 5.
 
 ```
@@ -570,7 +570,7 @@ Content-Type: text/csv; charset=utf-8
 
 Response may also be:
 
-* `HTTP/1.1 204` if there are no matching groups.
+* `HTTP/1.1 204 No Content` if there are no matching groups.
 
 ### POST /provision/manage/group/<model>/ - create group
 
@@ -685,7 +685,7 @@ Content-Type: text/csv; charset=utf-8
 
 Response may also be:
 
-* `HTTP/1.1 204` if the group is not a member of any other groups.
+* `HTTP/1.1 204 No Content` if the group is not a member of any other groups.
 
 ### DELETE /provision/manage/group/<model>/<id> - delete group
 
@@ -709,702 +709,1337 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/group/<model>/<id>/{?offset=<offset>&limit=<limit>} - get group member info
-
-Returns information of all members of this group, if any, in paginated sets
-of size 'limit' starting at 'offset', limit is enforced to be between 5 and
-1000. If omitted, 'offset' and 'limit' will respectively default to 0 and 5
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<memberid>,<expire>,<meta>
-     ...
-   status: 200
-   status: 204 (if no members)
-
-### GET /provision/manage/group/<model>/<id>/?type=<type>{&offset=<offset>&limit=<limit>}
-
-Returns information of all members of specified type in this group, if any,
-in paginated sets of size 'limit' starting at 'offset', limit is enforced
-to be between 5 and 1000. If omitted, 'offset' and 'limit' will
-respectively default to 0 and 5.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<memberid>,<expire>,<meta>
-     ...
-   status: 200
-   status: 204 (if no members of specified type)
-
-### GET /provision/manage/group/<model>/<id>/?id=<id> - get group member info
-
-Returns information of members with <id> in this group.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<memberid>,<expire>,<meta>
-     ...
-   status: 200
-   status: 204 (if no members with specified id)
-
-### GET /provision/manage/group/<model>/<id>/?type=<type>&id=<id> - get group member info
-
-Returns information of specified member in this group.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<memberid>,<expire>,<meta>
-   status: 200
-
-### POST /provision/manage/group/<model>/<id>/ - add or update members of group
-
-Adds or updates a member or members of specified type, with specified
-id(s), expiration and meta to this group. Note, that multiple
-members added will all share the same type, expiration and meta.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     type=<type>&id=<mid>&expire=<expire>&meta=<meta>
-     OR
-     type=<type>&id[]=<mid1>{...&id[]=<midN>}&expire=<expire>
-       &meta=<meta>
-
-   status: 205
-
-### POST /provision/manage/group/<model>/<id>/ - add members to group
-
-Adds members of specified type, with specified id, expiration and
-meta to this group.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<memberid>,<expire>,<meta>
-     ...
-
-   status: 205
-
-### POST /provision/manage/group/<model>/<id>/ - delete members of group
-
-Deletes a member or members of specified type, with specified id(s), from
-this group.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     type=<type>&id=<mid>&delete=true
-     OR
-     type=<type>&id[]=<mid1>{...&id[]=<midN>}&delete=true
-
-   status: 205
-
-### DELETE /provision/manage/group/<model>/<id>/ - delete members of group 
-
-Deletes members of type, matching id(s) from this group.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <type>,<id>
-     ...
-
-   status: 205
-
-### GET /provision/manage/model/ - list models
-
-Returns list of models added by the vendor.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <model>
-     ...
-   status: 200
-
-### GET /provision/manage/model/?show=shared - list shared models
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <vendorname>,<model>
-     ...
-   status: 200
-
-### POST /provision/manage/model/ - add model
-
-Adds a "model" entry, using <rid> OR <code> as the clone template.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     model=<model>&rid=<rid>&options[]=noaliases&options[]=nocomments
-       &options[]=nohistorical
-     OR
-     model=<model>&code=<code>&options[]=noaliases&options[]=nocomments
-       &options[]=nohistorical
-
-   status: 205
-
-### POST /provision/manage/model/ - delete model
-
-Deletes specified provisioning model and all associated serial numbers and
-content.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     delete=true&model=<model>
-
-   status: 205
-
-### GET /provision/manage/model/<model> - get model info
-
-Get model information.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     rid=<rid>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
-     OR
-     code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
-   status: 200
-
-### PUT /provision/manage/model/<model> - update model
-
-Updates <model> with new <option>s and <rid> OR <code>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     rid=<rid>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
-     OR
-     code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
-
-   status: 205
-
-### DELETE /provision/manage/model/<model> - update model
-
-Deletes specified provisioning model and all associated serial numbers and
-content.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   status: 205
-
-### GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} - list serial numbers
-
-Returns list of serial numbers from model with associated RID if any in
-paginated sets of size 'limit' starting at 'offset', limit is enforced to
-be between 5 and 1000. Optionally specify 'shared=<vendor>' to filter on
-serial numbers enabled by a particular shared vendor.  If calling with
-header 'X-Exosite-Vendor' specified, <extra> will always be empty.
-
-Note: Where accepted, if X-Exosite-Vendor header is provided, the given <model> is
-one associated to the provided <Vendorname>. The calling (as identified by
-VendorCIK) vendor must have authorized share access to the <model>.  Shared
-access only provides enable/disable/reenable controls, and view listings are
-only valid for serial numbers enabled by the calling vendor.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <sn>,<rid>,<extra>
-     ...
-   status: 200
-
-### GET /provision/manage/model/<model>/?show=ranges - get serial number json object (? TODO)
-
-Returns json object of configured serial number ranges for relevant model.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: application/javascript; charset=utf-8
-   body:
-     {
-       "ranges":[
-         {
-           "format":"base10" or "base16" or "mac:48" or "mac-48" or "mac.48"
-          ,"length":<number> (not applicable in mac?48 formats)
-          ,"casing":"upper" or "lower" (base16/mac?48 hexidecimal letter casing)
-          ,"first":<number>
-          ,"last":<number>
-         }
-        ,...
-       ]
-     }
-   status: 200
-
-### POST /provision/manage/model/<model>/ - add single serial number
-
-Adds a single serial number and extra data to relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     sn=<sn>&extra=<extra>
-
-   status: 205
-
-### POST /provision/manage/model/<model>/ - add multiple serial numbers
-
-Adds serial numbers to relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     sn[]=<sn1>&sn[]=<sn2>&sn[]=<snX>
-
-   status: 205
-
-### POST /provision/manage/model/<model>/ - delete single serial number
-
-Deletes a single serial number from relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     delete=true&sn=<sn>
-
-   status: 205
-
-### POST /provision/manage/model/<model>/ - delete multiple serial numbers
-
-Deletes serial numbers from relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     delete=true&sn[]=<sn1>&sn[]=<sn2>&sn[]=<snX>
-
-   status: 205
-
-### POST /provision/manage/model/<model>/ - add serial numbers
-
-Adds serial numbers to relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <sn>,<extra>
-     ...
-
-   status: 205
-
-### POST /provision/manage/model/<model>/ - add serial number ranges
-
-Adds serial number ranges to relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/javascript; charset=utf-8
-   body:
-     {
-       "ranges":[
-         {
-           "format":"base10" or "base16" or "mac:48" or "mac-48" or "mac.48"
-          ,"length":<number> (not applicable in mac?48 formats)
-          ,"casing":"upper" or "lower" (base16/mac?48 hexidecimal letter casing)
-          ,"first":<number>
-          ,"last":<number>
-         }
-        ,...
-       ]
-     }
-
-   status: 205
-
-### DELETE /provision/manage/model/<model>/ - delete serial numbers
-
-Deletes serial numbers from relevant model entry
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <sn>
-     ...
-
-   status: 205
-
-### DELETE /provision/manage/model/<model>/ - delete serial number ranges
-
-Deletes serial number ranges from relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/javascript; charset=utf-8
-   body:
-     {
-       "ranges":[
-         {
-           "format":"base10" or "base16" or "mac:48" or "mac-48" or "mac.48"
-          ,"length":<number> (not applicable in mac?48 formats)
-          ,"casing":"upper" or "lower" (base16/mac?48 hexidecimal letter casing)
-          ,"first":<number>
-          ,"last":<number>
-         }
-        ,...
-       ]
-     }
-
-   status: 205
-
-### GET /provision/manage/model/<model>/<sn> - get client RID
-
-Returns associated client <rid> if any, and extra serial number data.  If
-calling with header 'X-Exosite-Vendor' specified, <extra> will always be
-empty.
-
-NOTE: Where accepted, if X-Exosite-Vendor header is provided, the given <model> is
-one associated to the provided <Vendorname>. The calling (as identified by
-VendorCIK) vendor must have authorized share access to the <model>.  Shared
-access only provides enable/disable/reenable controls, and view listings are
-only valid for serial numbers enabled by the calling vendor.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <status>,<rid>,<extra>
-     ...
-   status: 200
-
-### GET /provision/manage/model/<model>/<sn>?show=groups{&offset=<offset>&limit=<limit>} - list serial number groups
-
-Returns the list of groups which this serialnumber is a member of, if any,
-in paginated sets of size 'limit' starting at 'offset', limit is enforced
-to be between 5 and 1000. If omitted, 'offset' and 'limit' will
-respectively default to 0 and 5.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <id>
-     ...
-   status: 200
-   status: 204 (if this serialnumber is not a member of any group)
-
-### GET /provision/manage/model/<model>/<sn>?show=log - get serial number activation log
-
-Show serial number activation log.
-
-   X-Exosite-Vendor: <VendorName> {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <timestamp>,<connection-info>,<log-entry>
-     ...
-   status: 200
-   status: 204 (when log is empty)
-
-### POST /provision/manage/model/<model>/<sn> - map client to serial number
-
-If <sn> does not have an associated client, then it provisions associated
-profile under specified owner if <rid> is a descendant of the <model>
-creator.  returns rid of client associated with <sn>.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     enable=true&owner=<rid>
-
-   Content-Type: text/plain; charset=utf-8
-   body:
-     <rid>
-   status: 200
-
-### POST /provision/manage/model/<model>/<sn> - remap client to a new serial number
-
-Remaps the client associated with <oldsn> to <sn>. 
-The <sn> must be activated after.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     enable=true&oldsn=<oldsn>
-
-   status: 205
-
-### POST /provision/manage/model/<model>/<sn> - regenerate cik for serial number
-
-Regenerates cik associated with <sn>. <sn> must have been previously enabled.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     enable=true
-
-   status: 205
-
-### POST /provision/manage/model/<model>/<sn> - disable cik
-
-Disables the cik associated with <sn>.  <sn> must be re-enabled before it
-can be used again.
-
-   X-Exosite-Vendor: <VendorName>  {optional - see NOTE at top of section}
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     disable=true
-
-   status: 205
-
-### DELETE /provision/manage/model/<model>/<sn> - delete serial number
-
-Delete serial number from relevant model entry.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   status: 205
-
-### GET /provision/manage/share/<model>/ - list vendors that share a model
-
-Returns list of <vendorname>s that have a share to the <model>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   Content-Type: text/csv; charset=utf-8
-   body:
-     <vendorname>
-     ...
-   status: 200
-   status: 204 (if no shares)
-
-### POST /provision/manage/share/<model>/ - share a model
-
-Shares the <model> with <vendorname>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     vendor=<vendorname>
-
-   status: 205
-
-### POST /provision/manage/share/<model>/ - unshare a model
-
-Deletes the <model> share with <vendorname>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     vendor=<vendorname>&delete=true
-
-   status: 205
-
-### GET /provision/manage/share/<model>/<vendorname> - find out if a model is shared
-
-Determine if <model> is shared with <vendorname>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   status: 204 (if shares exists)
-
-### DELETE /provision/manage/share/<model>/<vendorname> - unshare a model
-
-Deletes the <model> share with <vendorname>.
-
-   X-Exosite-CIK: <VendorCIK>
-   OR
-   X-Exosite-Token: <VendorToken>
-
-   status: 205
-
-### GET /provision/register - get vendor name for cik
-
-Returns vendor name associated with caller's CIK if any.
-
-   X-Exosite-CIK: <CIK>
-
-   Content-Type: text/plain; charset=utf-8
-   body:
-     <vendor>
-   status: 200
-
-### POST /provision/register - set vendor name for cik
-
-Vendor registration, make a vendor name with the caller's CIK.
-
-   X-Exosite-CIK: <CIK>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     vendor=<vendor>
-
-   status: 205
-
-### POST /provision/register - delete vendor name from cik
-
-Delete a vendor name with the caller's CIK.
-
-   X-Exosite-CIK: <CIK>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     delete=true&vendor=<vendor>
-
-   status: 205
-
-
-### GET /ip - get server IP
-
-Returns ip address and port encoded in 6 comma separated octets as a
-string, where the first 4 are the ip and the last 2 are the port.
-eg.  "192,168,0,1,0,80"
-
-   Content-Type: text/plain
-
-### GET /jsonp?token=<token>&callback=<callback>&show[]=data{&p=<p>} - get data for token
-
-Returns JSON structure holding timestamp-value lists for each 'alias'
-in timestamp-ascending order, starting at <p> * <limit> offset into
-'starttime' and 'endtime' window, limited to 'limit' count, as specified by
-the token, wrapped as the parameter to the 'callback' function. If <p> is
-not specified, it defaults to 0.
-
-  Content-Type: application/javascript
-  body:
-    <callback>({
-      "result":{
-          "<alias1>":{"data":[[<ts1>,<value1>]...,[<tsN>,<valueN>]]}
-         ,...
-         ,"<aliasN>":{"data":[[<ts1>,<value1>]...,[<tsN>,<valueN>]]}
-      }});
-  status: 200
-
-### POST /jsonp/register - get data access token
-
-Returns a 'token' that will be valid until <expire> timestamp and can be
-used to read lists of timestamp-value pairs from 'aliasX' between
-'starttime' and 'endtime', 'limit' count pairs at a time.
-
-   X-Exosite-CIK: <CIK>
-   Content-Type: application/x-www-form-urlencoded; charset=utf-8
-   body:
-     alias[]=<alias1>...&alias[]=<aliasN>&startime=<st>&endtime=<et>
-       &limit=<limit>&access[]=data&expire=<expire>
-
-   Content-Type: text/plain; charset=utf-8
-   body:
-     <token>
-   status: 200
-
-
-## Procedures for Vendor Management
-
-### GET /provision/admin/auth/ - list vendor tokens
-
-Returns list of vendor auth token <id>s for the VendorCIK.
+### GET /provision/manage/group/<model>/<id>/{?offset=<offset>&limit=<limit>} - list group info
+
+Returns information about all members of this group in paginated sets of 
+size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
+5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>` defaults to
+5.
 
 ```
-   X-Exosite-CIK: <VendorCIK>
-
+GET /provision/manage/group/<model>/<id>/?{?offset=<offset>&limit=<limit>} HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
 ```
 
 #####response
 
 ```
 HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+<blankline>
+<type 1>,<memberid 1>,<expire 1>,<description 1>
+<type 2>,<memberid 2>,<expire 2>,<description 2>
+...
+<type n>,<memberid n>,<expire n>,<description n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No Content` if the group does not have any members.
+
+
+### GET /provision/manage/group/<model>/<id>/?type=<type>{&offset=<offset>&limit=<limit>} - list types with group membership
+
+Returns information about all members of specified `<type>` in this group, in
+paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced
+to be between 5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>` 
+defaults to 5.
+
+```
+GET /provision/manage/group/<model>/<id>/?type=<type>{&offset=<offset>&limit=<limit>} HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+<blankline>
+<type 1>,<memberid 1>,<expire 1>,<description 1>
+<type 2>,<memberid 2>,<expire 2>,<description 2>
+...
+<type n>,<memberid n>,<expire n>,<description n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No Content` if the group does not have any members of specified type.
+
+### GET /provision/manage/group/<model>/<id>/?id=<id> - get group member info
+
+Returns information of members of `<id>` in the group.
+
+```
+GET /provision/manage/group/<model>/<id>/?id=<id> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<id>
+<type 1>,<memberid 1>,<expire 1>,<description 1>
+<type 2>,<memberid 2>,<expire 2>,<description 2>
 ...
+<type n>,<memberid n>,<expire n>,<description n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No Content` if the group does not have any members that match `<id>`.
+
+
+### GET /provision/manage/group/<model>/<id>/?type=<type>&id=<id> - get group member info
+
+Returns information about specified member in the group.
+
+```
+GET /provision/manage/group/<model>/<id>/?type=<type>&id=<id> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<type>,<memberid>,<expire>,<description>
+```
+
+### POST /provision/manage/group/<model>/<id>/ - add or update similar group members
+
+Adds or updates a member or members to a group, all with the same `<type>`,
+`<expire>` time and `<description>`, but with different `<member id>`s.
+
+```
+POST /provision/manage/group/<model>/<id>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+type=<type>&id=<member id>&expire=<expire>&description=<description>
+ OR
+type=<type>&id[]=<member id1>{...&id[]=<member idN>}&expire=<expire>&description=<description>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### POST /provision/manage/group/<model>/<id>/ - add or update dissimilar group members
+
+Adds or updates a member or members to a group, all with different `<type>`, 
+`<expire>` time, `<description>` and `<member id>`s.
+
+```
+POST /provision/manage/group/<model>/<id>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: text/csv; charset=utf-8
+Content-Length: <length>
+
+<type 1>,<memberid 1>,<expire 1>,<description 1>
+<type 2>,<memberid 2>,<expire 2>,<description 2>
+...
+<type n>,<memberid n>,<expire n>,<description n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### POST /provision/manage/group/<model>/<id>/ - delete similar group members
+
+Deletes a member or members of specified type, with specified id(s), from
+this group.
+
+```
+POST /provision/manage/group/<model>/<id>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+type=<type>&id=<member id>&delete=true
+OR
+type=<type>&id[]=<member id1>{...&id[]=<member idN>}&delete=true
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### DELETE /provision/manage/group/<model>/<id>/ - delete members of group 
+
+Deletes members matching specified <type>s & <id>s.
+
+```
+DELETE /provision/manage/group/<model>/<id>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: text/csv; charset=utf-8
+Content-Length: <length>
+
+<type 1>,<id 1>
+<type 2>,<id 2>
+...
+<type n>,<id n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /provision/manage/model/ - list models
+
+Returns list of models owned by the vendor.
+
+```
+GET /provision/manage/model/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<model 1>
+<model 2>
+...
+<model n>
+```
+
+### GET /provision/manage/model/?show=shared - list shared models
+
+Returns list of models that other vendors have shared to the calling vendor.
+
+```
+GET /provision/manage/model/?show=shared HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<vendorname 1>,<model 1>
+<vendorname 2>,<model 2>
+...
+<vendorname n>,<model n>
+```
+
+### POST /provision/manage/model/ - create model
+
+Adds a model, using `<rid>` OR `<code>` as the clone template.
+
+```
+POST /provision/manage/model/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+model=<model>&rid=<rid>&options[]=noaliases&options[]=nocomments
+   &options[]=nohistorical
+OR
+model=<model>&code=<code>&options[]=noaliases&options[]=nocomments
+   &options[]=nohistorical
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+Response may also be:
+
+* `HTTP/1.1 409 Conflict` if another model called `<model>` already exists.
+
+### POST /provision/manage/model/ - delete model
+
+Deletes specified provisioning model and all associated serial numbers and 
+content.
+
+```
+POST /provision/manage/model/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+delete=true&model=<model>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /provision/manage/model/<model> - get model info
+
+Get model information.
+
+```
+GET /provision/manage/model/<model> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+
+rid=<rid>&options[]=noaliases&options[]=nocomments&options=nohistorical
+OR
+code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
+```
+
+### PUT /provision/manage/model/<model> - update model
+
+Updates `<model>` with new `<option>`s and `<rid>` or `<code>`.
+
+```
+PUT /provision/manage/model/<model> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+rid=<rid>&options[]=noaliases&options[]=nocomments&options=nohistorical
+OR
+code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### DELETE /provision/manage/model/<model> - update model
+
+Deletes specified `<model>` and all associated serial numbers and content.
+
+```
+DELETE /provision/manage/model/<model> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} - list serial numbers
+
+Returns list of serial numbers `<sn>` from `<model>` with associated `<rid>` 
+in paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is 
+enforced to be between 5 and 1000. Optionally specify `shared=<vendor>` to 
+filter on serial numbers enabled by a particular shared vendor. If calling 
+with header `X-Exosite-Vendor` specified, `<extra>` will always be empty. 
+Note that `<rid>` may be blank if the `<sn>` has not yet been instantiated 
+as a client.
+
+Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
+associated to `<Vendorname>`. The calling vendor was identified by 
+`<VendorCIK>` OR `<VendorToken>`) must have authorized share access to the 
+`<model>`. Shared access only provides enable/disable/ reenable controls, 
+and view listings are only valid for serial numbers enabled by the calling 
+vendor.
+
+```
+GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+<blank line>
+<sn 1>,<rid 1>,<extra 1>
+<sn 2>,<rid 2>, <extra 2>
+...
+<sn n>,<rid n>,<extra n>
+```
+
+### GET /provision/manage/model/<model>/?show=ranges - get serial number json object (? TODO)
+
+Returns json object of configured serial number ranges for relevant model.
+
+```
+GET /provision/manage/model/<model>/?show=ranges HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: application/javascript; charset=utf-8
+
+{
+    "ranges":[
+        {
+            "format": "base10"|"base16"|"mac:48"|"mac-48"|"mac.48",
+            // not applicable in mac?48 formats
+            "length": <number>, 
+            // base16/mac?48 hexidecimal letter casing
+            "casing": "upper"|"lower", 
+            "first": <number>,
+            "last": <number>
+        },
+        ...
+    ]
+}
+```
+
+
+### POST /provision/manage/model/<model>/ - add single serial number
+
+Adds a single serial number `<sn>` to specified `<model>` entry, with
+`<extra>` information.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+sn=<sn>&extra=<extra>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+Response may also be:
+
+* `HTTP/1.1 409 Conflict` if `<sn>` already exists.
+
+
+### POST /provision/manage/model/<model>/ - add multiple serial numbers
+
+Adds serial numbers `<sn>` to `<model>`.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+sn[]=<sn 1>&sn[]=<sn 2>&sn[]=<sn n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+Response may also be:
+
+* `HTTP/1.1 409 Conflict` if `<sn>` already exists.
+
+
+### POST /provision/manage/model/<model>/ - add multiple serial numbers and extra information
+
+Adds serial numbers `<sn>` to `<model>`, with extra information `<extra>`.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: text/csv; charset=utf-8
+Content-Length: <length>
+
+<sn 1>,<extra 1>
+<sn 2>,<extra 2>
+...
+<sn n>,<extra n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+Response may also be:
+
+* `HTTP/1.1 409 Conflict` if `<sn>` already exists.
+
+
+### POST /provision/manage/model/<model>/ - add serial number ranges
+
+Adds serial number ranges to <model>.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/javascript; charset=utf-8
+Content-Length: <length>
+
+{
+    "ranges":[
+        {
+            "format": "base10"|"base16"|"mac:48"|"mac-48"|"mac.48",
+            // not applicable in mac?48 formats
+            "length": <number>, 
+            // base16/mac?48 hexidecimal letter casing
+            "casing": "upper"|"lower", 
+            "first": <number>,
+            "last": <number>
+        },
+        ...
+    ]
+}
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### POST /provision/manage/model/<model>/ - remove single serial number
+
+Removes a single serial number from relevant model entry.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+delete=true&sn=<sn>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### POST /provision/manage/model/<model>/ - remove multiple serial numbers
+
+Removes serial numbers from relevant model entry.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+delete=true&sn[]=<sn 1>&sn[]=<sn 2>&sn[]=<sn n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### DELETE /provision/manage/model/<model>/ - remove multiple serial numbers
+
+Remove serial numbers from `<model>`.
+
+```
+POST /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: text/csv; charset=utf-8
+Content-Length: <length>
+<blank line>
+<sn 1>
+<sn 2>
+...
+<sn n>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### DELETE /provision/manage/model/<model>/ - delete serial number ranges
+
+Deletes serial number ranges from relevant model entry.
+
+```
+DELETE /provision/manage/model/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/javascript; charset=utf-8
+Content-Length: <length>
+
+{
+    "ranges":[
+        {
+            "format": "base10"|"base16"|"mac:48"|"mac-48"|"mac.48",
+            // not applicable in mac?48 formats
+            "length": <number>, 
+            // base16/mac?48 hexidecimal letter casing
+            "casing": "upper"|"lower", 
+            "first": <number>,
+            "last": <number>
+        },
+        ...
+    ]
+}
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### GET /provision/manage/model/<model>/<sn> - get client RID
+
+Returns associated client `<rid>`, and extra serial number data. If calling 
+with header `X-Exosite-Vendor` specified, `<extra>` will always be empty.
+
+Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
+associated to `<Vendorname>`. The calling vendor was identified by 
+`<VendorCIK>` OR `<VendorToken>`) must have authorized share access to the 
+`<model>`. Shared access only provides enable/disable/ reenable controls, 
+and view listings are only valid for serial numbers enabled by the calling 
+vendor.
+
+```
+GET /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<status 1>,<rid 1>,<extra 1>
+<status 2>,<rid 2>,<extra 2>
+...
+<status n>,<rid n>,<extra n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No-Content` if `<sn>` is unused.
+
+
+### GET /provision/manage/model/<model>/<sn>?show=groups{&offset=<offset>&limit=<limit>} - list serial number groups
+
+Lists groups of which this serial number is a member, in paginated sets of 
+size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
+5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>` defaults to 5.
+
+```
+GET /provision/manage/model/<model>/<sn>?show=groups{&offset=<offset>&limit=<limit>} HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<group id 1>
+<group id 2>
+...
+<group id n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No-Content` if `<sn>` is not a member of any group.
+
+
+### GET /provision/manage/model/<model>/<sn>?show=log - get activation log for serial number
+
+Get activation log for serial number `<sn>`.
+
+```
+GET /provision/manage/model/<model>/<sn>?show=log HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<timestamp 1>,<connection-info 1>,<log-entry 1>
+<timestamp 2>,<connection-info 2>,<log-entry 2>
+...
+<timestamp n>,<connection-info n>,<log-entry n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No-Content` if log is empty.
+
+
+### POST /provision/manage/model/<model>/<sn> - create client from model
+
+Creates a client based on `<model>` under `owner`, associates it with `<sn>`,
+and returns its `<ClientRID>`. Owner `<rid>` must be a descendant of the 
+`<model>`'s creator, and `<sn>` must not already have an associated client.
+
+```
+POST /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+enable=true&owner=<rid>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<ClientRID>
+```
+
+Response may also be:
+
+* `HTTP/1.1 409 Conflict` if owner `<rid>` resources not sufficient to 
+instantiate a new client of this `<model>` type.
+
+
+### POST /provision/manage/model/<model>/<sn> - remap client to a new serial number
+
+Remaps the client associated with `<oldsn>` to `<sn>`. `<sn>` must subsequently
+be activated in order to use the client.
+
+```
+POST /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+enable=true&oldsn=<oldsn>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+
+### POST /provision/manage/model/<model>/<sn> - regenerate cik for serial number
+
+```Regenerates CIK for client associated with `<sn>`. `<sn>` must have been 
+previously enabled, and must subsequently be activated after in order to 
+download the new CIK and to use the client.```
+
+```
+POST /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+enable=true
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### POST /provision/manage/model/<model>/<sn> - disable cik
+
+Disables the CIK associated with `<sn>`.  `<sn>` must be re-enabled before
+it can be used again.
+
+```
+POST /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+{X-Exosite-Vendor: <VendorName>}
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+disable=true
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### DELETE /provision/manage/model/<model>/<sn> - delete serial number
+
+Delete a single serial number `<sn>` from `<model>`.
+
+```
+DELETE /provision/manage/model/<model>/<sn> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /provision/manage/share/<model>/ - list vendors that share a model
+
+Returns list of names of vendors that have a share to `<model>`.
+
+```
+GET /provision/manage/share/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<vendorname 1>
+<vendorname 2>
+...
+<vendorname n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 204 No-Content` if <model> is not shared to any other vendors.
+
+### POST /provision/manage/share/<model>/ - create model share
+
+Shares `<model>` with `<vendorname>`.
+
+```
+POST /provision/manage/share/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+vendor=<vendorname>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### POST /provision/manage/share/<model>/ - delete model share
+
+Deletes the `<model>` share so that `<vendorname>` no longer has share access.
+
+```
+POST /provision/manage/share/<model>/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+vendor=<vendorname>&delete=true
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /provision/manage/share/<model>/<vendorname> - find out if a model is shared
+
+Query `<model>` share status with `<vendorname>`.
+
+```
+GET /provision/manage/share/<model>/<vendorname> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 204 No Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+```
+
+The above response indicates that the `<model>` is shared with `<vendorname>`.
+
+### DELETE /provision/manage/share/<model>/<vendorname> - unshare a model
+
+Deletes the `<model>` share so that `<vendorname>` no longer has share access.
+
+```
+DELETE /provision/manage/share/<model>/<vendorname> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /provision/register - get registered vendor name for cik
+
+Returns vendor name registered to `<CIK>`.
+
+```
+GET /provision/register HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<vendor>
+```
+
+### POST /provision/register - register vendor name for cik
+
+Register a vendor name to `<CIK>`.
+
+```
+GET /provision/register HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+
+vendor=<vendor>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### POST /provision/register - delete vendor name from cik
+
+Unregister vendor name from `<CIK>`.
+
+```
+POST /provision/register HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+
+delete=true&vendor=<vendor>
+```
+
+#####response
+
+```
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
+<blank line>
+```
+
+### GET /ip - get server IP
+
+Returns ip address and port of the server, encoded in 6 comma separated octets
+as a string, where the first 4 are the ip and the last 2 are the port,
+e.g.,  "192,168,0,1,0,80".
+
+```
+GET /ip HTTP/1.1
+Host: m2.exosite.com
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<server ip and port>
+```
+
+### GET /jsonp?token=<token>&callback=<callback>&show[]=data{&p=<p>} - get data for token
+
+Returns data for a collection of aliases in timestamp-ascending order, 
+starting at `<p>` * `<limit>` offset into `<starttime>` and `<endtime>` 
+window, limited to `<limit>` count, as specified by the token, wrapped
+as the parameter to the 'callback' function. If `<p>` is not specified, it 
+defaults to 0. `<token>` is obtained by the `POST /jsonp/register` API.
+
+```
+GET /jsonp?token=<token>&callback=<callback>&show[]=data{&p=<p>} HTTP/1.1
+Host: m2.exosite.com
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<callback>({
+      "result":{
+          "<alias1>":{"data":[[<ts1>,<value1>]...,[<tsN>,<valueN>]]},
+          ...
+          "<aliasN>":{"data":[[<ts1>,<value1>]...,[<tsN>,<valueN>]]},
+      }});
+```
+
+
+### POST /jsonp/register - get data access token
+
+Returns a token that will be valid until `<expire>` timestamp and can be
+used to read lists of timestamp-value pairs from the specified aliases between
+`<starttime>` and `<endtime>`, `<limit>` count pairs at a time.
+
+```
+POST /provision/register HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+
+alias[]=<alias1>...&alias[]=<aliasN>&starttime=<starttime>&endtime=<endtime>
+&limit=<limit>&access[]=data&expire=<expire>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<token>
+```
+
+## Vendor Management
+
+### GET /provision/admin/auth/ - list vendor tokens
+
+Returns list of vendor auth token `<id>`s for `<VendorCIK>`.
+
+```
+GET /provision/admin/auth/ HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <VendorCIK>
+<blank line>
+```
+
+#####response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<id1>
+<id2>
+...
+<idN>
 ```
 
 ### POST /provision/admin/auth/ - create vendor token
 
-Generates a vendor auth token to be used in place of VendorCIK and associates the token with the given <id>.
+Generates a vendor auth token that may be used in place of `<VendorCIK>` and 
+associates the token with the given `<id>`.
 
 ```
+POST /provision/admin/auth/ HTTP/1.1
+Host: m2.exosite.com
 X-Exosite-CIK: <VendorCIK>
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 
@@ -1415,6 +2050,10 @@ id=<id>
 
 ```
 HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
 Content-Type: text/plain; charset=utf-8
 
 <VendorToken>
@@ -1425,6 +2064,8 @@ Content-Type: text/plain; charset=utf-8
 Deletes vendor auth token.
 
 ```
+POST /provision/admin/auth/ HTTP/1.1
+Host: m2.exosite.com
 X-Exosite-CIK: <VendorCIK>
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 
@@ -1434,15 +2075,21 @@ delete=true&id=<id>
 #####response
 
 ```
-HTTP/1.1 205 Reset Content 
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
 <blank line>
 ```
 
 ### GET /provision/admin/auth/<id> - get vendor token
 
-Returns the vendor auth token for the specified <id>.
+Returns the vendor auth token for the specified `<id>`.
 
 ```
+GET /provision/admin/auth/<id> HTTP/1.1
+Host: m2.exosite.com
 X-Exosite-CIK: <VendorCIK>
 <blank line>
 ```
@@ -1451,6 +2098,10 @@ X-Exosite-CIK: <VendorCIK>
 
 ```
 HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
 Content-Type: text/plain; charset=utf-8
 
 <VendorToken>
@@ -1458,9 +2109,11 @@ Content-Type: text/plain; charset=utf-8
 
 ### DELETE /provision/admin/auth/<id> - get vendor token
 
-Deletes vendor auth token
+Deletes vendor auth token for `<id>`.
 
 ```
+DELETE /provision/admin/auth/<id> HTTP/1.1
+Host: m2.exosite.com
 X-Exosite-CIK: <VendorCIK>
 <blank line>
 ```
@@ -1468,8 +2121,10 @@ X-Exosite-CIK: <VendorCIK>
 #####response
 
 ```
-HTTP/1.1 205 Reset Content 
+HTTP/1.1 205 Reset Content
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: 0
 <blank line>
 ```
-
-
