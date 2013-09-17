@@ -82,7 +82,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
 
 
-### GET /provision/download?vendor=<vendor>&model=<model> - list content ids
+### GET /provision/download?vendor=\<vendor\>&model=\<model\> - list content ids
 
 If caller with `<DeviceCIK>` has an activated serial number in given 
 `<vendor>` `<model>` name space then a list of authorized content `<id>`s 
