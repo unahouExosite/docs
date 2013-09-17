@@ -192,7 +192,7 @@ Response may also be:
 
 ## Device Model Management
 
-### /provision/manage/content/<model>/
+### /provision/manage/content/\<model\>/
 
 #### GET - list content ids
 
@@ -337,7 +337,7 @@ Content-Type: text/csv; charset=utf-8
 <content-type>,<byte-size>,<updated-timestamp>,<description>,<protected>
 ```
 
-### /provision/manage/content/<model>/<id>
+### /provision/manage/content/\<model\>/\<id\>
 
 #### GET - get content blob 
 
@@ -380,7 +380,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-#### GET /provision/manage/content/<model>/<id>?sn=<serialnumber> - get content info
+#### GET - get content info
 
 Returns information of the specified content `<id>` if `<serialnumber>` is 
 authorized to download it.
@@ -1682,7 +1682,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### POST - disable cik
+#### POST - disable CIK
 
 Disables the CIK associated with `<sn>`.  `<sn>` must be re-enabled before
 it can be used again.
