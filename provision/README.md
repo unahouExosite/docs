@@ -2,7 +2,7 @@
 
 This API allows devices to authenticate with the One Platform even if they are not pre-programmed with a CIK. It also allows device OEMs to create custom "cloud profiles" for devices so they can accomplish fleet-level management of large device fleets across different device models.
 
-The API uses the HTTP POST, GET, PUT and DELETE methods to configure the different facets of the provisioning system. It is important to note that the words "Client" and "Device" are interchangeable in the text below. There are various HTTP required headers that are inherent to the protocol, as such they are not specified below. As an example, all of the POST and PUT requests must also contain a correct Content-Length: header specifying the body payload size. And all responses having a status of 200 will also contain a Content-Length: response header.
+The API uses the HTTP POST, GET, PUT and DELETE methods to configure the different facets of the provisioning system. It is important to note that the words "client" and "device" are interchangeable in the text below. There are various HTTP required headers that are inherent to the protocol, as such they are not specified below. As an example, all of the POST and PUT requests must also contain a correct `Content-Length` header specifying the body payload size. And all responses having a status of 200 will also contain a `Content-Length` response header.
 
 API Version: 1.1
 
