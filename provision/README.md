@@ -44,7 +44,6 @@ Typical HTTP response codes include:
 
 ## Procedures
 
-
 ## Device Provisioning
 
 ### POST /provision/activate - activate client
@@ -82,11 +81,12 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
 
 
-### GET /provision/download?vendor=\<vendor\>&model=\<model\> - list content ids
+### /provision/download
 
-If caller with `<DeviceCIK>` has an activated serial number in given 
-`<vendor>` `<model>` name space then a list of authorized content `<id>`s 
-are returned.
+#### GET - list content IDs
+
+List content `<id>`s. Caller with `<DeviceCIK>` must have an activated 
+serial number in given `<vendor>` `<model>` name space.
 
 ```
 GET /provision/download?vendor=<vendor>&model=<model> HTTP/1.1
@@ -116,7 +116,7 @@ Response may also be:
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
 
-### GET /provision/download?vendor=<vendor>&model=<model>&id=<id> - get content
+#### GET - get content
 
 If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name 
 space, and is authorized for the content, then the `<id>` content blob, or its 
@@ -158,7 +158,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-### GET /provision/download?vendor=<vendor>&model=<model>&id=<id>&info=true - get content info
+#### GET - get content info
 
 If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name
 space, and is authorized for the content, then the `<id>` content information
@@ -192,7 +192,9 @@ Response may also be:
 
 ## Device Model Management
 
-### GET /provision/manage/content/<model>/ - list content ids
+### /provision/manage/content/<model>/
+
+#### GET - list content ids
 
 Returns list of content `<id>`s for `<model>`.
 
@@ -224,7 +226,7 @@ Response may also be:
 * `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
 
 
-### GET /provision/manage/content/<model>/?sn=<serialnumber> - list authorized content 
+#### GET - list authorized content 
 
 Returns list of content `<id>`s authorized for access by `<serialnumber>`.
 
@@ -256,7 +258,7 @@ Response may also be:
 * `HTTP/1.1 400 Bad Request` if the `<vendor>`, `<model>` and `<serialnumber>` combination is invalid.
 
 
-### POST /provision/manage/content/<model>/ - create content entity
+#### POST - create content entity
 
 Creates content entity bucket named `<id>`. If `protected` is not specified or
 `false` then the content entry is available to all model serial numbers.
@@ -286,7 +288,7 @@ Response may also be:
 
 * `HTTP/1.1 409 Conflict` if `<id>` already exists.
 
-### POST /provision/manage/content/<model>/ - delete content entry
+#### POST - delete content entry
 
 Deletes content management entry and associated content.
 
@@ -311,7 +313,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/content/<model>/<id> - get content info
+#### GET - get content info
 
 Returns information about the specified content `<id>`.
 
@@ -335,7 +337,9 @@ Content-Type: text/csv; charset=utf-8
 <content-type>,<byte-size>,<updated-timestamp>,<description>,<protected>
 ```
 
-### GET /provision/manage/content/<model>/<id>?download=true - get content blob 
+### /provision/manage/content/<model>/<id>
+
+#### GET - get content blob 
 
 Returns the `<blob>` of the specified content `<id>`. `Range` is optional –
 it allows the caller to request a chunk of bytes at a time. 
@@ -376,7 +380,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-### GET /provision/manage/content/<model>/<id>?sn=<serialnumber> - get content info
+#### GET /provision/manage/content/<model>/<id>?sn=<serialnumber> - get content info
 
 Returns information of the specified content `<id>` if `<serialnumber>` is 
 authorized to download it.
@@ -406,7 +410,7 @@ Response may also be:
 
 * `HTTP/1.1 400 Bad Request` if the `<vendor>`, `<model>` and `<serialnumber>` combination is invalid.
 
-### GET /provision/manage/content/<model>/<id>?download=true&sn=<serialnumber> - get content blob 
+#### GET - get content blob
 
 If `<serialnumber>` is authorized for the content, then the `<id>` content 
 blob, or its requested range, is returned. The `Range` header 
@@ -447,8 +451,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-
-### GET /provision/manage/content/<model>/<id>?show=groups{&offset=<offset>&limit=<limit>} - list groups
+#### GET - list groups
 
 Returns the list of `<group id>`s which this content is a member of, if any, 
 in paginated sets of size `<limit>` starting at `<offset>`, limit is 
@@ -482,7 +485,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if content `<id>` is not a member of any group.
 
-### POST /provision/manage/content/<model>/<id>?show=groups{&offset=<offset>&limit=<limit>} - upload content
+#### POST - upload content
 
 Stores `<blob>` as the payload for `<id>` under the given model. The given 
 `<content-type>` is used as the `Content-Type` in subsequent download requests
@@ -515,7 +518,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<id>` already exists.
 
 
-### DELETE /provision/manage/content/<model>/<id> - delete content
+#### DELETE - delete content
 
 Deletes content `<id>`, and all payload and information, under the given 
 `<model>`.
@@ -538,7 +541,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/group/<model>/{?offset=<offset>&limit=<limit>}
+#### GET - show groups
 
 Returns list of `<group id>`s with `<description>` for `<model>` in
 paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced 
@@ -572,7 +575,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if there are no matching groups.
 
-### POST /provision/manage/group/<model>/ - create group
+#### POST - create group
 
 Creates a new group with given `<id>` and `<description>`.
 
@@ -603,7 +606,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if group `<id>` already exists.
 
 
-### POST /provision/manage/group/<model>/ - delete group
+#### POST - delete group
 
 Deletes the group with given `<id>`.
 
@@ -628,7 +631,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/group/<model>/<id> - get group info
+### /provision/manage/group/\<model\>/\<id\>
+
+#### GET - get group info
 
 Returns the `<description>` and the number of members of group `<id>`.
 
@@ -653,7 +658,7 @@ Content-Type: text/csv; charset=utf-8
 ```
 
 
-### GET /provision/manage/group/<model>/<id>?show=groups{&offset=<offset>&limit=<limit>} - get group info
+#### GET - get group info
 
 Returns the list of `<group id>`s of which this group is a member,
 in paginated sets of size `<limit>` starting at `<offset>`, limit is enforced
@@ -687,7 +692,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if the group is not a member of any other groups.
 
-### DELETE /provision/manage/group/<model>/<id> - delete group
+#### DELETE - delete group
 
 Deletes group <id>.
 
@@ -709,7 +714,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/group/<model>/<id>/{?offset=<offset>&limit=<limit>} - list group info
+### /provision/manage/group/\<model\>/\<id\>/
+
+#### GET - list group info
 
 Returns information about all members of this group in paginated sets of 
 size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
@@ -744,7 +751,7 @@ Response may also be:
 * `HTTP/1.1 204 No Content` if the group does not have any members.
 
 
-### GET /provision/manage/group/<model>/<id>/?type=<type>{&offset=<offset>&limit=<limit>} - list types with group membership
+#### GET - list types with group membership
 
 Returns information about all members of specified `<type>` in this group, in
 paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced
@@ -778,7 +785,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if the group does not have any members of specified type.
 
-### GET /provision/manage/group/<model>/<id>/?id=<id> - get group member info
+#### GET - get group member info
 
 Returns information of members of `<id>` in the group.
 
@@ -810,7 +817,7 @@ Response may also be:
 * `HTTP/1.1 204 No Content` if the group does not have any members that match `<id>`.
 
 
-### GET /provision/manage/group/<model>/<id>/?type=<type>&id=<id> - get group member info
+#### GET - get group member info
 
 Returns information about specified member in the group.
 
@@ -834,7 +841,7 @@ Content-Type: text/csv; charset=utf-8
 <type>,<memberid>,<expire>,<description>
 ```
 
-### POST /provision/manage/group/<model>/<id>/ - add or update similar group members
+#### POST - add or update similar group members
 
 Adds or updates a member or members to a group, all with the same `<type>`,
 `<expire>` time and `<description>`, but with different `<member id>`s.
@@ -862,7 +869,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### POST /provision/manage/group/<model>/<id>/ - add or update dissimilar group members
+#### POST - add or update dissimilar group members
 
 Adds or updates a member or members to a group, all with different `<type>`, 
 `<expire>` time, `<description>` and `<member id>`s.
@@ -892,7 +899,7 @@ Content-Length: 0
 ```
 
 
-### POST /provision/manage/group/<model>/<id>/ - delete similar group members
+#### POST - delete similar group members
 
 Deletes a member or members of specified type, with specified id(s), from
 this group.
@@ -920,9 +927,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### DELETE /provision/manage/group/<model>/<id>/ - delete members of group 
+#### DELETE - delete members of group 
 
-Deletes members matching specified <type>s & <id>s.
+Deletes members matching specified `<type>`s and `<id>`s.
 
 ```
 DELETE /provision/manage/group/<model>/<id>/ HTTP/1.1
@@ -948,7 +955,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/model/ - list models
+### /provision/manage/model/
+
+#### GET - list models
 
 Returns list of models owned by the vendor.
 
@@ -975,7 +984,7 @@ Content-Type: text/csv; charset=utf-8
 <model n>
 ```
 
-### GET /provision/manage/model/?show=shared - list shared models
+#### GET - list shared models
 
 Returns list of models that other vendors have shared to the calling vendor.
 
@@ -1002,9 +1011,9 @@ Content-Type: text/csv; charset=utf-8
 <vendorname n>,<model n>
 ```
 
-### POST /provision/manage/model/ - create model
+#### POST - create model
 
-Adds a model, using `<rid>` OR `<code>` as the clone template.
+Adds a model, using `<rid>` or `<code>` as the clone template.
 
 ```
 POST /provision/manage/model/ HTTP/1.1
@@ -1035,7 +1044,7 @@ Response may also be:
 
 * `HTTP/1.1 409 Conflict` if another model called `<model>` already exists.
 
-### POST /provision/manage/model/ - delete model
+#### POST - delete model
 
 Deletes specified provisioning model and all associated serial numbers and 
 content.
@@ -1061,7 +1070,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/model/<model> - get model info
+### /provision/manage/model/\<model\> 
+
+#### GET - get model info
 
 Get model information.
 
@@ -1087,7 +1098,7 @@ OR
 code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
 ```
 
-### PUT /provision/manage/model/<model> - update model
+#### PUT - update model
 
 Updates `<model>` with new `<option>`s and `<rid>` or `<code>`.
 
@@ -1114,7 +1125,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### DELETE /provision/manage/model/<model> - update model
+#### DELETE - update model
 
 Deletes specified `<model>` and all associated serial numbers and content.
 
@@ -1136,8 +1147,16 @@ Content-Length: 0
 <blank line>
 ```
 
+### /provision/manage/model/\<model\>/
 
-### GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} - list serial numbers
+Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
+associated to `<Vendorname>`. The calling vendor was identified by 
+`<VendorCIK>` OR `<VendorToken>`) must have authorized share access to the 
+`<model>`. Shared access only provides enable/disable/ reenable controls, 
+and view listings are only valid for serial numbers enabled by the calling 
+vendor.
+
+#### GET - list serial numbers
 
 Returns list of serial numbers `<sn>` from `<model>` with associated `<rid>` 
 in paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is 
@@ -1146,13 +1165,6 @@ filter on serial numbers enabled by a particular shared vendor. If calling
 with header `X-Exosite-Vendor` specified, `<extra>` will always be empty. 
 Note that `<rid>` may be blank if the `<sn>` has not yet been instantiated 
 as a client.
-
-Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
-associated to `<Vendorname>`. The calling vendor was identified by 
-`<VendorCIK>` OR `<VendorToken>`) must have authorized share access to the 
-`<model>`. Shared access only provides enable/disable/ reenable controls, 
-and view listings are only valid for serial numbers enabled by the calling 
-vendor.
 
 ```
 GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} HTTP/1.1
@@ -1178,7 +1190,7 @@ Content-Type: text/csv; charset=utf-8
 <sn n>,<rid n>,<extra n>
 ```
 
-### GET /provision/manage/model/<model>/?show=ranges - get serial number json object (? TODO)
+#### GET - get serial number json object
 
 Returns json object of configured serial number ranges for relevant model.
 
@@ -1216,7 +1228,7 @@ Content-Type: application/javascript; charset=utf-8
 ```
 
 
-### POST /provision/manage/model/<model>/ - add single serial number
+#### POST - add single serial number
 
 Adds a single serial number `<sn>` to specified `<model>` entry, with
 `<extra>` information.
@@ -1247,7 +1259,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-### POST /provision/manage/model/<model>/ - add multiple serial numbers
+#### POST - add multiple serial numbers
 
 Adds serial numbers `<sn>` to `<model>`.
 
@@ -1278,7 +1290,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-### POST /provision/manage/model/<model>/ - add multiple serial numbers and extra information
+#### POST - add multiple serial numbers and extra information
 
 Adds serial numbers `<sn>` to `<model>`, with extra information `<extra>`.
 
@@ -1311,7 +1323,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-### POST /provision/manage/model/<model>/ - add serial number ranges
+#### POST - add serial number ranges
 
 Adds serial number ranges to <model>.
 
@@ -1350,7 +1362,7 @@ Content-Length: 0
 ```
 
 
-### POST /provision/manage/model/<model>/ - remove single serial number
+#### POST - remove single serial number
 
 Removes a single serial number from relevant model entry.
 
@@ -1376,7 +1388,7 @@ Content-Length: 0
 ```
 
 
-### POST /provision/manage/model/<model>/ - remove multiple serial numbers
+#### POST - remove multiple serial numbers
 
 Removes serial numbers from relevant model entry.
 
@@ -1401,7 +1413,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### DELETE /provision/manage/model/<model>/ - remove multiple serial numbers
+#### DELETE - remove multiple serial numbers
 
 Remove serial numbers from `<model>`.
 
@@ -1430,7 +1442,7 @@ Content-Length: 0
 ```
 
 
-### DELETE /provision/manage/model/<model>/ - delete serial number ranges
+#### DELETE - delete serial number ranges
 
 Deletes serial number ranges from relevant model entry.
 
@@ -1468,11 +1480,7 @@ Content-Length: 0
 <blank line>
 ```
 
-
-### GET /provision/manage/model/<model>/<sn> - get client RID
-
-Returns associated client `<rid>`, and extra serial number data. If calling 
-with header `X-Exosite-Vendor` specified, `<extra>` will always be empty.
+### /provision/manage/model/\<model\>/\<sn\> 
 
 Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
 associated to `<Vendorname>`. The calling vendor was identified by 
@@ -1480,6 +1488,11 @@ associated to `<Vendorname>`. The calling vendor was identified by
 `<model>`. Shared access only provides enable/disable/ reenable controls, 
 and view listings are only valid for serial numbers enabled by the calling 
 vendor.
+
+#### GET - get client RID
+
+Returns associated client `<rid>`, and extra serial number data. If calling 
+with header `X-Exosite-Vendor` specified, `<extra>` will always be empty.
 
 ```
 GET /provision/manage/model/<model>/<sn> HTTP/1.1
@@ -1510,7 +1523,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if `<sn>` is unused.
 
 
-### GET /provision/manage/model/<model>/<sn>?show=groups{&offset=<offset>&limit=<limit>} - list serial number groups
+#### GET - list serial number groups
 
 Lists groups of which this serial number is a member, in paginated sets of 
 size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
@@ -1544,7 +1557,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if `<sn>` is not a member of any group.
 
 
-### GET /provision/manage/model/<model>/<sn>?show=log - get activation log for serial number
+#### GET - get activation log for serial number
 
 Get activation log for serial number `<sn>`.
 
@@ -1577,7 +1590,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if log is empty.
 
 
-### POST /provision/manage/model/<model>/<sn> - create client from model
+#### POST - create client from model
 
 Creates a client based on `<model>` under `owner`, associates it with `<sn>`,
 and returns its `<ClientRID>`. Owner `<rid>` must be a descendant of the 
@@ -1613,7 +1626,7 @@ Response may also be:
 instantiate a new client of this `<model>` type.
 
 
-### POST /provision/manage/model/<model>/<sn> - remap client to a new serial number
+#### POST - remap client to a new serial number
 
 Remaps the client associated with `<oldsn>` to `<sn>`. `<sn>` must subsequently
 be activated in order to use the client.
@@ -1641,7 +1654,7 @@ Content-Length: 0
 ```
 
 
-### POST /provision/manage/model/<model>/<sn> - regenerate cik for serial number
+#### POST - regenerate cik for serial number
 
 ```Regenerates CIK for client associated with `<sn>`. `<sn>` must have been 
 previously enabled, and must subsequently be activated after in order to 
@@ -1669,7 +1682,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### POST /provision/manage/model/<model>/<sn> - disable cik
+#### POST - disable cik
 
 Disables the CIK associated with `<sn>`.  `<sn>` must be re-enabled before
 it can be used again.
@@ -1696,7 +1709,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### DELETE /provision/manage/model/<model>/<sn> - delete serial number
+#### DELETE - delete serial number
 
 Delete a single serial number `<sn>` from `<model>`.
 
@@ -1718,7 +1731,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/share/<model>/ - list vendors that share a model
+### /provision/manage/share/\<model\>/ 
+
+#### GET - list vendors that share a model
 
 Returns list of names of vendors that have a share to `<model>`.
 
@@ -1749,7 +1764,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No-Content` if <model> is not shared to any other vendors.
 
-### POST /provision/manage/share/<model>/ - create model share
+#### POST - create model share
 
 Shares `<model>` with `<vendorname>`.
 
@@ -1774,7 +1789,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### POST /provision/manage/share/<model>/ - delete model share
+#### POST - delete model share
 
 Deletes the `<model>` share so that `<vendorname>` no longer has share access.
 
@@ -1799,7 +1814,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/manage/share/<model>/<vendorname> - find out if a model is shared
+### /provision/manage/share/\<model\>/\<vendorname\>
+
+#### GET - find out if a model is shared
 
 Query `<model>` share status with `<vendorname>`.
 
@@ -1823,7 +1840,7 @@ Content-Type: text/csv; charset=utf-8
 
 The above response indicates that the `<model>` is shared with `<vendorname>`.
 
-### DELETE /provision/manage/share/<model>/<vendorname> - unshare a model
+#### DELETE - unshare a model
 
 Deletes the `<model>` share so that `<vendorname>` no longer has share access.
 
@@ -1845,7 +1862,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/register - get registered vendor name for cik
+### /provision/register
+
+#### GET - get registered vendor name for cik
 
 Returns vendor name registered to `<CIK>`.
 
@@ -1869,7 +1888,7 @@ Content-Type: text/plain; charset=utf-8
 <vendor>
 ```
 
-### POST /provision/register - register vendor name for cik
+#### POST - register vendor name for cik
 
 Register a vendor name to `<CIK>`.
 
@@ -1892,7 +1911,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### POST /provision/register - delete vendor name from cik
+#### POST - delete vendor name from CIK
 
 Unregister vendor name from `<CIK>`.
 
@@ -1916,7 +1935,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /ip - get server IP
+### /ip
+
+#### GET - get server IP
 
 Returns ip address and port of the server, encoded in 6 comma separated octets
 as a string, where the first 4 are the ip and the last 2 are the port,
@@ -1941,7 +1962,9 @@ Content-Type: text/plain; charset=utf-8
 <server ip and port>
 ```
 
-### GET /jsonp?token=<token>&callback=<callback>&show[]=data{&p=<p>} - get data for token
+### /jsonp
+
+#### GET - get data for token
 
 Returns data for a collection of aliases in timestamp-ascending order, 
 starting at `<p>` * `<limit>` offset into `<starttime>` and `<endtime>` 
@@ -1974,7 +1997,9 @@ Content-Type: text/plain; charset=utf-8
 ```
 
 
-### POST /jsonp/register - get data access token
+### /jsonp/register 
+
+#### POST - get data access token
 
 Returns a token that will be valid until `<expire>` timestamp and can be
 used to read lists of timestamp-value pairs from the specified aliases between
@@ -2005,7 +2030,9 @@ Content-Type: text/plain; charset=utf-8
 
 ## Vendor Management
 
-### GET /provision/admin/auth/ - list vendor tokens
+### /provision/admin/auth/
+
+#### GET - list vendor tokens
 
 Returns list of vendor auth token `<id>`s for `<VendorCIK>`.
 
@@ -2032,7 +2059,7 @@ Content-Type: text/csv; charset=utf-8
 <idN>
 ```
 
-### POST /provision/admin/auth/ - create vendor token
+### POST - create vendor token
 
 Generates a vendor auth token that may be used in place of `<VendorCIK>` and 
 associates the token with the given `<id>`.
@@ -2059,7 +2086,7 @@ Content-Type: text/plain; charset=utf-8
 <VendorToken>
 ```
 
-### POST /provision/admin/auth/ - delete vendor token
+### POST - delete vendor token
 
 Deletes vendor auth token.
 
@@ -2083,7 +2110,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### GET /provision/admin/auth/<id> - get vendor token
+### /provision/admin/auth/\<id\> 
+
+#### GET - get vendor token
 
 Returns the vendor auth token for the specified `<id>`.
 
@@ -2107,7 +2136,7 @@ Content-Type: text/plain; charset=utf-8
 <VendorToken>
 ```
 
-### DELETE /provision/admin/auth/<id> - get vendor token
+#### DELETE - delete vendor token
 
 Deletes vendor auth token for `<id>`.
 
