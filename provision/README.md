@@ -4,7 +4,7 @@ This API allows devices to authenticate with the One Platform even if they are n
 
 The API uses the HTTP POST, GET, PUT and DELETE methods to configure the different facets of the provisioning system. It is important to note that the words "client" and "device" are interchangeable in the text below. There are various HTTP required headers that are inherent to the protocol, as such they are not specified below. As an example, all of the POST and PUT requests must also contain a correct `Content-Length` header specifying the body payload size. And all responses having a status of 200 will also contain a `Content-Length` response header.
 
-API Version: 1.1
+API Version: `1.1`
 
 Host Address: `http://m2.exosite.com` or `https://m2.exosite.com`
 
@@ -1190,9 +1190,9 @@ Content-Type: text/csv; charset=utf-8
 <sn n>,<rid n>,<extra n>
 ```
 
-#### GET - get serial number json object
+#### GET - get serial number JSON object
 
-Returns json object of configured serial number ranges for relevant model.
+Returns JSON object of configured serial number ranges for relevant model.
 
 ```
 GET /provision/manage/model/<model>/?show=ranges HTTP/1.1
@@ -2027,8 +2027,6 @@ Content-Type: text/plain; charset=utf-8
 
 <token>
 ```
-
-## Vendor Management
 
 ### /provision/admin/auth/
 
