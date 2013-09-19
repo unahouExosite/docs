@@ -9,7 +9,7 @@ Are you looking to create an application that uses the One Platform API? You've 
 * [Provision/Device Management API](provision/) - API for working with device models and in field provisioning
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API for writing to a single dataport
 * [Commander API](commander/) - XMPP chat interface for reading and writing data from an IM client
-* [Scripting API](https://developers.exosite.com/display/DEV/Scripting+API) - API providing access to the One Platform from Lua script
+* [Lua Scripting API](lua/) - access to the One Platform from Lua scripts
 
 ### API Improvement
 
