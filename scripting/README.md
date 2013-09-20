@@ -242,7 +242,7 @@ with the aliased resource.
 
 * `manage.activate(type, code)`
 
-    Given an Activation Code, the associated entity is activated for the calling
+    Given an activation code, the associated entity is activated for the calling
     client.
 
 ```
