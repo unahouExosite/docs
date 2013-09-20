@@ -10,7 +10,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 ### Overview
 
 Scripts are written in Lua 5.2 scripting language. For general information
-about Lua 5.2, please reference the [online manual](http://www.lua.org/manual/5.2/).
+about Lua 5.2, please reference the [online Lua manual](http://www.lua.org/manual/5.2/).
 
 Scripts can be added to an application either using Portals, or by 
 using [RPC API](https://github.com/exosite/api/tree/master/rpc). In Portals,
