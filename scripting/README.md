@@ -42,39 +42,40 @@ as well as a set of OnePlatform API functions, the 'alias' table and Global
 properties and functions.
 
 
-#### Lua tables
+#### Lua tables and functions
 
-The following Lua tables have been made available to scripts. They operate
-exactly as described in the Lua 5.2 reference manual.
+The following global Lua tables and functions are available to Lua
+scripts. They operate exactly as described in the Lua 5.2 reference manual.
 
 * [`bit32`](http://www.lua.org/manual/5.2/manual.html#6.7)
 
-* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6)
-Note: The `math.randomseed` function is not available to scripts.
+* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6) (Note: 
+    the `math.randomseed` function is not available to scripts.)
 
-* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4)
-Note: The `string.dump` and `string.gsub` functions are not available to scripts.
+* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4) (Note: 
+    the `string.dump` and `string.gsub` functions are not available to scripts.)
 
-* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5)
-Note: The `table.sort` function is not available to scripts.
+* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5) (Note: 
+    the `table.sort` function is not available to scripts.)
 
-#### Lua functions
+* [`ipairs()`](http://www.lua.org/manual/5.2/manual.html#pdf-ipairs)
 
-The following global Lua functions have been made available to scripts. They
-operate exactly as described in the Lua 5.2 reference manual.
+* [`next()`](http://www.lua.org/manual/5.2/manual.html#pdf-next)
 
-* [`ipairs`](http://www.lua.org/manual/5.2/manual.html#pdf-ipairs)
-* [`next`](http://www.lua.org/manual/5.2/manual.html#pdf-next)
-* [`pairs`](http://www.lua.org/manual/5.2/manual.html#pdf-pairs)
-* [`select`](http://www.lua.org/manual/5.2/manual.html#pdf-select)
-* [`tonumber`](http://www.lua.org/manual/5.2/manual.html#pdf-tonumber)
-* [`tostring`](http://www.lua.org/manual/5.2/manual.html#pdf-tostring)
-* [`type`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
+* [`pairs()`](http://www.lua.org/manual/5.2/manual.html#pdf-pairs)
+
+* [`select()`](http://www.lua.org/manual/5.2/manual.html#pdf-select)
+
+* [`tonumber()`](http://www.lua.org/manual/5.2/manual.html#pdf-tonumber)
+
+* [`tostring()`](http://www.lua.org/manual/5.2/manual.html#pdf-tostring)
+
+* [`type()`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
 
 
 #### OnePlatform tables
 
-OnePlatform resources and features can be accessed via the following tables:
+The following One Platform resources and features are available to Lua scripts:
 
 * [`alias`](#the-alias-table)
 * [`dispatch`](#the-dispatch-table)
@@ -88,10 +89,10 @@ OnePlatform resources and features can be accessed via the following tables:
 
 #### Global functions
 
-* [`date`](#utilities)
-* [`debug`](#utilities) 
-* [`setlocale`](#utilities)
-* [`settimezone`](#utilities)
+* [`date()`](#utilities)
+* [`debug()`](#utilities) 
+* [`setlocale()`](#utilities)
+* [`settimezone()`](#utilities)
 
 
 #### Global tables
@@ -101,20 +102,18 @@ OnePlatform resources and features can be accessed via the following tables:
 
 ### The alias table
 
-In the OnePlatform, resources of a client are referenced using aliases. In the
-scripting environment, all of the script owner's aliases are accessible via
-the global 'alias' table. To access an alias, simply index the global 'alias'
-table using the alias name or resource ID.
+Every script is owned by a One Platform client, and has access to that client
+and all of its resources through the `alias` table. 
 
-```
-alias[Alias] or alias[{rid = ResourceID}]
-```
+* The client: `alias['']`
+* The client's owned resource (by alias): `alias['myAlias']`
+* The client's owned resource (by resource ID): `alias[{rid = '64c217b5243eeda29d4101234567890123456789'}]`
 
 It is a good idea to create a local reference to specific aliases used
 in the script, e.g.:
 
 ```
-local room_temp = alias["room_temp"]
+local room_temp = alias['room_temp']
 ```
 
 Each alias has properties and functions through which the script can interact
