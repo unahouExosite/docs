@@ -12,9 +12,9 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 Scripts are written in Lua 5.2 scripting language. For general information
 about Lua 5.2, please reference the [online manual](http://www.lua.org/manual/5.2/).
 
-It's possible to add scripts to your application either using Portals, or by 
+Scripts can be added to an application either using Portals, or by 
 using [RPC API](https://github.com/exosite/api/tree/master/rpc). In Portals,
-scripts are located at /manage/scripts, e.g.: 
+scripts are added on the script management page, e.g.: 
 
 ```
 https://portals.exosite.com/manage/scripts
@@ -24,14 +24,20 @@ To use the RPC to create a script, use the
 [create](https://github.com/exosite/api/tree/master/rpc#create-datarule) or 
 update RPC procedures. It's also possible to use the 
 [Exoline](https://github.com/dweaver/exoline) utility to upload a script from 
-the command line using Exoline's `script` command.
+the command line using the `script` Exoline command. Run this command for details:
 
-Scripts execute with the full permissions of the script's owner client having
-access to all resources that the script owner has. A script interacts with
-a resource using the client's Alias for that resource.
+```
+$ exo script --help
+```
 
-A script may read, write, record and subscribe to an aliased resource's data
-and operate on that data. A script may also dispatch messages.
+Scripts are associated with a client and may read, write, record and 
+subscribe to data for any resources that client owns. For example, in Portals,
+if a script A is added to a particular device client it may access 
+all of that device's datasources, but not the datasources of any other devices. 
+If script B is added to a portal, it will have access to portal-level 
+datasources as well as devices in that portal and their datasources. 
+
+A script may also dispatch messages.
 
 
 ### The script environment
@@ -82,22 +88,16 @@ The following One Platform resources and features are available to Lua scripts:
 * [`manage`](#the-manage-table)
 
 
-#### Global properties
+#### Global tables, functions, and properties
 
-* `now` holds the current UNIX timestamp.
+The following global resources and features are available to Lua scripts:
 
-
-#### Global functions
-
+* [`json`](#the-json-global-table)
 * [`date()`](#utilities)
 * [`debug()`](#utilities) 
 * [`setlocale()`](#utilities)
 * [`settimezone()`](#utilities)
-
-
-#### Global tables
-
-* [`json`](#the-json-global-table)
+* `now` holds the current UNIX timestamp.
 
 
 ### The alias table
