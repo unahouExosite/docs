@@ -1,6 +1,6 @@
 ## Exosite Lua Scripting API
 
-Exosite's OnePlatform can run Lua scripts on your behalf. These scripts have
+Exosite's One Platform can run Lua scripts on your behalf. These scripts have
 a rich set of capabilities and may be used to offload processing from your 
 device.
 
@@ -44,7 +44,7 @@ A script may also dispatch messages.
 
 Scripts are completely isolated from one another, each running in its own,
 secure environment, complete with access to a set of Lua tables and functions,
-as well as a set of OnePlatform API functions, the 'alias' table and Global
+as well as a set of One Platform API functions, the 'alias' table and Global
 properties and functions.
 
 
@@ -79,7 +79,7 @@ scripts. They operate exactly as described in the Lua 5.2 reference manual.
 * [`type()`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
 
 
-#### OnePlatform tables
+#### One Platform tables
 
 The following One Platform resources and features are available to Lua scripts:
 
@@ -252,7 +252,7 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:          true :: boolean - Activation was successful
-            false ,error :: boolean ,string - "badarg" | "invalid" | "noauth"
+            false, error :: boolean, string - "badarg" | "invalid" | "noauth"
 ```
 
 
@@ -268,90 +268,90 @@ with the aliased resource.
   "client" description ::
     {
       limits = {
-        client = <non_neg_integer> | "inherit"
-       ,dataport = <non_neg_integer> | "inherit"
-       ,datarule = <non_neg_integer> | "inherit"
-       ,disk = <non_neg_integer> | "inherit"
-       ,dispatch = <non_neg_integer> | "inherit"
-       ,email = <non_neg_integer> | "inherit"
-       ,email_bucket = <non_neg_integer> | "inherit"
-       ,http = <non_neg_integer> | "inherit"
-       ,http_bucket = <non_neg_integer> | "inherit"
-       ,share = <non_neg_integer> | "inherit"
-       ,sms = <non_neg_integer> | "inherit"
-       ,sms_bucket = <non_neg_integer> | "inherit"
-       ,xmpp = <non_neg_integer> | "inherit"
-       ,xmpp_bucket = <non_neg_integer> | "inherit"
-      }
-     ,locked = true | false
-     ,meta = <string>
-     ,name = <string>
-     ,public = true | false
+        client = <non_neg_integer> | "inherit",
+        dataport = <non_neg_integer> | "inherit",
+        datarule = <non_neg_integer> | "inherit",
+        disk = <non_neg_integer> | "inherit",
+        dispatch = <non_neg_integer> | "inherit",
+        email = <non_neg_integer> | "inherit",
+        email_bucket = <non_neg_integer> | "inherit",
+        http = <non_neg_integer> | "inherit",
+        http_bucket = <non_neg_integer> | "inherit",
+        share = <non_neg_integer> | "inherit",
+        sms = <non_neg_integer> | "inherit",
+        sms_bucket = <non_neg_integer> | "inherit",
+        xmpp = <non_neg_integer> | "inherit",
+        xmpp_bucket = <non_neg_integer> | "inherit"
+      },
+      locked = true | false,
+      meta = <string>,
+      name = <string>,
+      public = true | false,
     }
 
   "dataport" description ::
     {
-      format = "binary" | "boolean" | "float" | "integer" | "string"
-     ,meta = <string>
-     ,name = <string>
-     ,preprocess = {
+      format = "binary" | "boolean" | "float" | "integer" | "string",
+      meta = <string>,
+      name = <string>,
+      preprocess = {
         "add"|"sub"|"mod"|"div"|"mul"|"gt"|"lt"|"eq"|"geq"|"leq"|"neq"|"value" =
         <constant> ,...
-      }
-     ,public = true | false
-     ,retention = {
-        count = <non_neg_integer> | "infinity"
-       ,duration = <non_neg_integer> | "infinity"
-      }
-     ,subscribe = <rid> | ""
+      },
+      public = true | false,
+      retention = {
+        count = <non_neg_integer> | "infinity",
+        duration = <non_neg_integer> | "infinity"
+      },
+      subscribe = <rid> | ""
     }
 
   "datarule" description ::
     {
-      format = "boolean" | "float" | "integer" | "string"
-     ,meta = <string>
-     ,name = <string>
-     ,preprocess = {
+      format = "boolean" | "float" | "integer" | "string",
+      meta = <string>,
+      name = <string>,
+      preprocess = {
         "add"|"sub"|"mod"|"div"|"mul"|"gt"|"lt"|"eq"|"geq"|"leq"|"neq"|"value" =
         <constant> ,...
-      }
-     ,public = true | false
-     ,retention = {
-        count = <non_neg_integer> | "infinity"
-       ,duration = <non_neg_integer> | "infinity"
-      }
-     ,rule = {
+      },
+      public = true | false,
+      retention = {
+        count = <non_neg_integer> | "infinity",
+        duration = <non_neg_integer> | "infinity"
+      },
+      rule = {
         simple = {
-          comparision = "gt" | "lt" | "eq" | "geq" | "leq" | "neq"
-         ,constant = <number>
-         ,repeat = true | false
+          comparision = "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+          constant = <number>,
+          repeat = true | false
         }
         |
         timeout = {
-          repeat = true | false
-         ,timeout = <number>
+          repeat = true | false,
+          timeout = <number>
         }
         |
         interval = {
-          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq"
-         ,constant = <number>
-         ,repeat = true | false
-         ,timeout = <number>
+          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+          constant = <number>,
+          repeat = true | false,
+          timeout = <number>
         }
         |
         duration = {
-          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq"
-         ,constant = <number>
-         ,repeat = true | false
-         ,timeout = <number>
+          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+          constant = <number>,
+          repeat = true | false,
+          timeout = <number>
         }
         |
         count = {
-          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq"
-         ,constant = <number>
-         ,count = <number>
-         ,repeat = true | false
-         ,timeout = <number>
+          comparison = "gt" | "lt" | "eq" | "geq" | "leq" | "neq",
+          constant = <number>,
+          count = <number>,
+          repeat = true | false,
+          timeout = <number>
         }
         |
         script = <string>
@@ -361,27 +361,27 @@ with the aliased resource.
 
   "dispatch" description ::
     {
-      locked = true | false
-     ,message = <string>
-     ,meta = <string>
-     ,method = "email" | "http_get" | "http_post" | "http_put" | "sms" | "xmpp"
-     ,name = <string>
-     ,preprocess = {
+      locked = true | false,
+      message = <string>,
+      meta = <string>,
+      method = "email" | "http_get" | "http_post" | "http_put" | "sms" | "xmpp",
+      name = <string>,
+      preprocess = {
         "add"|"sub"|"mod"|"div"|"mul"|"gt"|"lt"|"eq"|"geq"|"leq"|"neq"|"value" =
         <constant> ,...
-      }
-     ,public = true | false
-     ,retention = {
-        count = <non_neg_integer> | "infinity"
-       ,duration = <non_neg_integer> | "infinity"
-      }
-     ,subject = <string>
-     ,subscribe = <rid> | ""
+      },
+      public = true | false,
+      retention = {
+        count = <non_neg_integer> | "infinity",
+        duration = <non_neg_integer> | "infinity"
+      },
+      subject = <string>,
+      subscribe = <rid> | ""
     }
 
   ------------------------------------------------------------------------------
-  Returns:    true ,rid :: boolean ,string - Resource created, id returned.
-           false ,error :: boolean ,string - "badarg" | "invalid" | "limit" |
+  Returns:    true, rid :: boolean, string - Resource created, id returned.
+           false, error :: boolean, string - "badarg" | "invalid" | "limit" |
                                               "restricted"
 ```
 
@@ -398,7 +398,7 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean - Deactivation was successful
-           false ,error :: boolean ,string - "badarg" | "invalid" | "noauth"
+           false, error :: boolean, string - "badarg" | "invalid" | "noauth"
 ```
 
 * `manage.drop (rid | {alias = <alias>})`
@@ -412,13 +412,13 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean - Drop was successful
-           false ,error :: boolean ,string - "badarg" | "invalid" | "restricted"
+           false, error :: boolean, string - "badarg" | "invalid" | "restricted"
 ```
 
-* `manage.info (rid | {alias = <alias>} ,options)`
+* `manage.info (rid | {alias = <alias>}, options)`
 
     Provide creation and usage information of specified resource according to the
-    specified Options (eg, Options could specify to only return the Description)
+    specified Options (e.g., options could specify to only return the description)
 
 ```
   ------------------------------------------------------------------------------
@@ -428,17 +428,17 @@ with the aliased resource.
 
     options - Specify one or more. Not all are valid for every resource type.
     {
-      "aliases"
-     ,"basic"
-     ,"counts"
-     ,"description"
-     ,"key"
-     ,"shares"
-     ,"storage"
-     ,"subscribers"
-     ,"tagged"
-     ,"tags"
-     ,"usage"
+      "aliases",
+      "basic",
+      "counts",
+      "description",
+      "key",
+      "shares",
+      "storage",
+      "subscribers",
+      "tagged",
+      "tags",
+      "usage"
     }
 
   ------------------------------------------------------------------------------
@@ -449,78 +449,78 @@ with the aliased resource.
     {
       -- for all resource types
       basic = {
-        created = <timestamp>
-       ,modified = <timestamp>
-       ,subscribers = <number>
-       ,type = "client" | "dataport" | "datarule" | "dispatch"
-      }
-     ,description = <description> - See 'create' function.
-     ,shares = {
+        created = <timestamp>,
+        modified = <timestamp>,
+        subscribers = <number>,
+        type = "client" | "dataport" | "datarule" | "dispatch"
+      },
+      -- see 'create' function for details about description
+      description = <description>,
+      shares = {
         {
-          activator = <rid>
-         ,code = <code_string>
-         ,meta = <string>
+          activator = <rid>,
+          code = <code_string>,
+          meta = <string>
         }
         ,...
-      }
-     ,storage = {
-        count = <number>
-       ,first = <timestamp>
-       ,last = <timestamp>
-       ,size = <number>
-      }
-     ,subscribers = {
-        {client | dataport | datarule | dispatch = {<rid> ,...}} ,...
-      }
-     ,tags = {
-        <string> ,...
-      }
-
+      },
+      storage = {
+        count = <number>,
+        first = <timestamp>,
+        last = <timestamp>,
+        size = <number>
+      },
+      subscribers = {
+        {client | dataport | datarule | dispatch = {<rid>, ...}}, ...
+      },
+      tags = {
+        <string>, ...
+      },
       -- for clients:
-     ,aliases = {
-        {<rid> ,{<string> ,...}} ,...
-      }
-     ,basic = {
+      aliases = {
+        {<rid>, {<string>, ...}}, ...
+      },
+      basic = {
         status = "activated" | "locked" | "notactivated" | "expired"
-      }
-     ,counts = {
-        client = <number>
-       ,dataport = <number>
-       ,datarule = <number>
-       ,disk = <number>
-       ,dispatch = <number>
-       ,email = <number>
-       ,http = <number>
-       ,share = <number>
-       ,sms = <number>
-       ,xmpp = <number>
-      }
-     ,key = <cik_string>
-     ,usage = {
-        client = <number>
-       ,dataport = <number>
-       ,datarule = <number>
-       ,disk = <number>
-       ,dispatch = <number>
-       ,email = <number>
-       ,http = <number>
-       ,share = <number>
-       ,sms = <number>
-       ,xmpp = <number>
-      }
-     ,tagged = {
+      },
+      counts = {
+        client = <number>,
+        dataport = <number>,
+        datarule = <number>,
+        disk = <number>,
+        dispatch = <number>,
+        email = <number>,
+        http = <number>,
+        share = <number>,
+        sms = <number>,
+        xmpp = <number>
+      },
+      key = <cik_string>,
+      usage = {
+        client = <number>,
+        dataport = <number>,
+        datarule = <number>,
+        disk = <number>,
+        dispatch = <number>,
+        email = <number>,
+        http = <number>,
+        share = <number>,
+        sms = <number>,
+        xmpp = <number>
+      },
+      tagged = {
         <string> ,...
-      }
+      },
 
       -- for datarules (scripts only):
-     ,basic = {
-        status = "completed" | "error" | "running" | "waiting"
-       ,activity = {{<timestamp> = {<status> ,...}} ,...}
-      }
+      basic = {
+        status = "completed" | "error" | "running" | "waiting",
+        activity = {{<timestamp> = {<status>, ...}}, ...}
+      },
 
       -- for dispatches:
-     ,basic = {
-        status = "normal" | "locked"
+      basic = {
+        status = "normal" | "locked",
       }
     }
 ```
@@ -538,19 +538,19 @@ with the aliased resource.
 
     type - Specify one or more.
     {
-      "client"
-     ,"dataport"
-     ,"datarule"
-     ,"dispatch"
+      "client",
+      "dataport",
+      "datarule",
+      "dispatch"
     }
 
     options - Specify none or more.
     {
-      "activated"
-     ,"aliased"
-     ,"owned"
-     ,"public"
-     ,"tagged"
+      "activated",
+      "aliased",
+      "owned",
+      "public",
+      "tagged"
     }
 
   ------------------------------------------------------------------------------
@@ -593,7 +593,7 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - Successful, resource id mapped.
-           false ,error :: boolean ,string - "badarg" | "inuse" | "invalid" |
+           false, error :: boolean, string - "badarg" | "inuse" | "invalid" |
                                              "notfound" | "restricted"
 ```
 
@@ -609,7 +609,7 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - Successful, code revoked.
-           false ,error :: boolean ,string - "badarg" | "invalid" | "noauth"
+           false, error :: boolean, string - "badarg" | "invalid" | "noauth"
 ```
 
 * `manage.share(rid | {alias = <alias>}, options)`
@@ -628,14 +628,14 @@ with the aliased resource.
     }
 
   ------------------------------------------------------------------------------
-  Returns:   true ,code :: boolean ,string - Successful, share code returned.
-           false ,error :: boolean ,string - "badarg" | "invalid" | "limit" |
+  Returns:   true, code :: boolean, string - Successful, share code returned.
+           false, error :: boolean, string - "badarg" | "invalid" | "limit" |
                                              "restricted"
 ```
 
 * `manage.tag(rid | {alias = <alias>}, action, name)`
 
-    Add or remove tag
+    Add or remove tag.
 
 ```
   ------------------------------------------------------------------------------
@@ -646,7 +646,7 @@ with the aliased resource.
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - Successful, resource id tagged or
                                              tag removed.
-           false ,error :: boolean ,string - "badarg"
+           false, error :: boolean, string - "badarg"
 ```
 
 * `manage.unmap(type, mapping)`
@@ -662,14 +662,13 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - Successful, resource id mapped.
-           false ,error :: boolean ,string - "badarg"
+           false, error :: boolean, string - "badarg"
 ```
 
 * `manage.update(rid | {alias = <alias>}, description)`
 
     Updates the description of specified resource. See 'create' for description
     parameter content, however that content may be restricted as described below:
-
 
     Client resource limits must not be lowered below current use level.  Resources must
     be dropped prior to lowering the limits. For daily limits, those may be
@@ -685,7 +684,7 @@ with the aliased resource.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - Successful, resource updated.
-           false ,error :: boolean ,string - "badarg" | "invalid" | "limit" |
+           false, error :: boolean, string - "badarg" | "invalid" | "limit" |
                                              "restricted"
 ```
 
@@ -711,8 +710,8 @@ with the aliased resource.
             | "email" | "http" | "sms" | "xmpp"
 
   ------------------------------------------------------------------------------
-  Returns:  true ,value :: boolean ,number - Successful, usage value returned.
-           false ,error :: boolean ,string - "badarg" | "invalid" | "restricted"
+  Returns:  true, value :: boolean, number - Successful, usage value returned.
+           false, error :: boolean, string - "badarg" | "invalid" | "restricted"
 ```
 
 ### The JSON global table
@@ -744,7 +743,7 @@ http://www.json.org/
 
   ------------------------------------------------------------------------------
   Returns: decoded_value :: string | number | table | true | false | json.null
-          nil, error_msg :: nil ,string - error description encountered during
+          nil, error_msg :: nil, string - error description encountered during
                                           decode
 ```
 
@@ -758,7 +757,7 @@ http://www.json.org/
 
   ------------------------------------------------------------------------------
   Returns:  encoded_json :: string      - successfully encoded JSON string
-          nil, error_msg :: nil ,string - error description encountered during
+          nil, error_msg :: nil, string - error description encountered during
                                           encode
 ```
 
@@ -776,7 +775,7 @@ http://www.json.org/
 
   ------------------------------------------------------------------------------
   Returns:        object :: table       - Lua table initialized as 'object'
-          nil, error_msg :: nil ,string - error if table could not be
+          nil, error_msg :: nil, string - error if table could not be
                                           initialized as a JSON-compliant object
 ```
 
@@ -797,7 +796,7 @@ http://www.json.org/
 
 ### The dispatch table
 
-The OnePlatform supports sending messages to external recipients over several
+The One Platform supports sending messages to external recipients over several
 transports as 'dispatches' which are available via the 'dispatch' table.
 
 The dispatch table can be referenced globally and on client type alias
@@ -807,8 +806,8 @@ will operate on behalf of that client.
 
 * `dispatch.email(address, subject, message, type)
 
-Sends an email 'message' to 'address' with 'subject' line. 'type' is optional
-and specifies the email 'Content-Type' header, and defaults to:
+Sends an email `message` to `address` with `subject` line. `type` is optional
+and specifies the email `Content-Type` header, and defaults to:
 
 ```
     "text/plain; charset=UTF-8"
@@ -823,12 +822,12 @@ and specifies the email 'Content-Type' header, and defaults to:
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - email was successfully sent
-          false ,reason :: boolean ,string - email was not successfully sent
+          false, reason :: boolean, string - email was not successfully sent
 ```
 
 * `dispatch.headline(address, subject, message)`
 
-    Sends an xmpp headline 'message' to 'address' with 'subject' line.
+    Sends an xmpp headline `message` to `address` with `subject` line.
 
 ```
   ------------------------------------------------------------------------------
@@ -838,13 +837,13 @@ and specifies the email 'Content-Type' header, and defaults to:
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - headline was successfully sent
-          false ,reason :: boolean ,string - headline was not successfully sent
+          false, reason :: boolean, string - headline was not successfully sent
 ```
 
 * `dispatch.http(url, "post", body, contenttype, headers, timeout)`
 
-    Makes a 'POST' http request on the specified url with the given 'body' of
-    'contenttype'.  Optional request specific 'headers' and 'timeout' may be set.
+    Makes a HTTP POST request on the specified url with the given `body` of
+    `contenttype`.  Optional request-specific `headers` and `timeout` may be set.
 
 ```
   ------------------------------------------------------------------------------
@@ -853,25 +852,25 @@ and specifies the email 'Content-Type' header, and defaults to:
                    body :: string - text message
             contenttype :: string - 'Content-Type' header value
                 headers :: table | nil  - custom header table or nil
-                           eg. {'custom_1'="value_1",'custom_2'='value_2'}
+                           e.g. {'custom_1'="value_1",'custom_2'='value_2'}
                 timeout :: number | nil - number of seconds before the request
                                           times out or nil
 
   ------------------------------------------------------------------------------
-  Returns: true ,result :: boolean ,table  - request was successfully made
-          false ,reason :: boolean ,string - request was not successfully made
+  Returns: true, result :: boolean, table  - request was successfully made
+          false, reason :: boolean, string - request was not successfully made
 
     result
     {
-      status = <number>
-      headers = {<header> = <string> ,...}
+      status = <number>,
+      headers = {<header> = <string> ,...},
       body = <string>
     }
 ```
 
 * `dispatch.sms(number, message)`
 
-    Sends an sms 'message' to phone 'number'. Phone number must include country
+    Sends an sms `message` to phone `number`. Phone number must include country
     code.
 
 ```
@@ -881,13 +880,12 @@ and specifies the email 'Content-Type' header, and defaults to:
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - sms was successfully sent
-          false ,reason :: boolean ,string - sms was not successfully sent
+          false, reason :: boolean, string - sms was not successfully sent
 ```
 
 * `dispatch.tweet(auth, message)`
 
-    Sends a 'message' to www.twitter.com on behalf of the authenticated twitter
-    user application.
+    Sends a `message` on behalf of the authenticated twitter user application.
 
 ```
   ------------------------------------------------------------------------------
@@ -903,16 +901,16 @@ and specifies the email 'Content-Type' header, and defaults to:
 
   Authentication with www.twitter.com requires that a user have a twitter.com
   account and, under their user account, a twitter application, on behalf of
-  which, the OnePlatform script will be able to send tweets. Follow the process
+  which, the One Platform script will be able to send tweets. Follow the process
   described on www.twitter.com to set up an account and an application for your
   account. Then, under the new application's settings, obtain the above four
   values.
 
   ------------------------------------------------------------------------------
   Returns:         true :: boolean         - tweet was successfully sent
-          false ,reason :: boolean ,string - tweet was not successfully sent
+          false, reason :: boolean, string - tweet was not successfully sent
 
-  Twitter.com rejects subsequent, identical tweets. This can result in failure
+  twitter.com rejects subsequent, identical tweets. This can result in failure
   reason "undelivered".
 ```
 
@@ -946,7 +944,7 @@ The scripting system has access to utilities functions in the global scope.
                                      .wday  - weekday              (Sun=1-7)
                                      .yday  - days since January 1 (1-366)
 
-    nil ,"badspecifier" :: nil ,string - if invalid format specifier was given
+    nil, "badspecifier" :: nil, string - if invalid format specifier was given
 ```
 
 * `debug(message)`
@@ -965,8 +963,8 @@ The scripting system has access to utilities functions in the global scope.
 * `setlocale(locale)`
 
 Locale controls formatting and internationalization of various outputs. In the
-One Platform scripting environment, these are the 'date' function and some of
-the built in Lua functions, such as 'tonumber'.
+One Platform scripting environment, these are the `date` function and some of
+the built in Lua functions, such as `tonumber`.
 
 By default, scripts use the en_US.utf8 locale. Scripts can switch to another
 locale by calling this function and specifying the new locale. The new locale
@@ -1001,7 +999,7 @@ remains in effect until a subsequent invocation of this function.
 
 * `settimezone(timezone)`
 
-    The timezone set for the script affects the output of the 'date' function.
+    The timezone set for the script affects the output of the `date` function.
 
     By default, scripts use the UTC timezone. Scripts can call this function to
     switch to a different timezone. The new timezone setting will remain in effect
