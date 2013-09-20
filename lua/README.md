@@ -1,23 +1,37 @@
 ## Exosite Lua Scripting API
 
+Exosite's OnePlatform can run Lua scripts on your behalf. These scripts have
+a rich set of capabilities and may be used to offload processing from your 
+device.
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
+
 
 ### Overview
 
 Scripts are written in Lua 5.2 scripting language. For general information
 about Lua 5.2, please reference the [online manual](http://www.lua.org/manual/5.2/).
 
-The scripting capabilities of the OnePlatform are accessible via the 'script'
-type datarule. For more information about how to create a datarule, please
-refer to the [RPC documentation](https://github.com/exosite/api/tree/master/rpc#create-datarule).
+It's possible to add scripts to your application either using Portals, or by 
+using [RPC API](https://github.com/exosite/api/tree/master/rpc). In Portals,
+scripts are located at /manage/scripts, e.g.: 
+
+```
+https://portals.exosite.com/manage/scripts
+```
+
+To use the RPC to create a script, use the 
+[create](https://github.com/exosite/api/tree/master/rpc#create-datarule) or 
+update RPC procedures. It's also possible to use the 
+[Exoline](https://github.com/dweaver/exoline) utility to upload a script from 
+the command line using Exoline's `script` command.
 
 Scripts execute with the full permissions of the script's owner client having
-access to all resources that the script owner has.  A script interacts with
+access to all resources that the script owner has. A script interacts with
 a resource using the client's Alias for that resource.
 
-A script may read, write, record and subscribe to an Aliased resource's data
-and operate on that data.  A script may also dispatch messages.
+A script may read, write, record and subscribe to an aliased resource's data
+and operate on that data. A script may also dispatch messages.
 
 
 ### The script environment
