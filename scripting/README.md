@@ -42,23 +42,23 @@ as well as a set of OnePlatform API functions, the 'alias' table and Global
 properties and functions.
 
 
-### Lua tables
+#### Lua tables
 
 The following Lua tables have been made available to scripts. They operate
 exactly as described in the Lua 5.2 reference manual.
 
-* `bit32` [http://www.lua.org/manual/5.2/manual.html#6.7]
+* [`bit32`](http://www.lua.org/manual/5.2/manual.html#6.7)
 
-* `math` [http://www.lua.org/manual/5.2/manual.html#6.6]
+* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6)
 Note: The `math.randomseed` function is not available to scripts.
 
-* `string` [http://www.lua.org/manual/5.2/manual.html#6.4]
+* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4)
 Note: The `string.dump` and `string.gsub` functions are not available to scripts.
 
-* `table` [http://www.lua.org/manual/5.2/manual.html#6.5]
+* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5)
 Note: The `table.sort` function is not available to scripts.
 
-### Lua functions
+#### Lua functions
 
 The following global Lua functions have been made available to scripts. They
 operate exactly as described in the Lua 5.2 reference manual.
@@ -72,7 +72,7 @@ operate exactly as described in the Lua 5.2 reference manual.
 * [`type`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
 
 
-### OnePlatform tables
+#### OnePlatform tables
 
 OnePlatform resources and features can be accessed via the following tables:
 
@@ -81,12 +81,12 @@ OnePlatform resources and features can be accessed via the following tables:
 * [`manage`](#the-manage-table)
 
 
-### Global properties
+#### Global properties
 
 * `now` holds the current UNIX timestamp.
 
 
-### Global functions
+#### Global functions
 
 * [`date`](#utilities)
 * [`debug`](#utilities) 
@@ -94,7 +94,7 @@ OnePlatform resources and features can be accessed via the following tables:
 * [`settimezone`](#utilities)
 
 
-### Global tables
+#### Global tables
 
 * [`json`](#the-json-global-table)
 
