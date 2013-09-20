@@ -13,7 +13,7 @@ Scripts are written in Lua 5.2 scripting language. For general information
 about Lua 5.2, please reference the [online Lua manual](http://www.lua.org/manual/5.2/).
 
 Scripts may be added to an application either using Portals, or by 
-using [RPC API](https://github.com/exosite/api/tree/master/rpc). In Portals,
+using the [Remote Procedure Call API](https://github.com/exosite/api/tree/master/rpc). In Portals,
 scripts are added on the script management page, e.g.: 
 
 ```
@@ -21,8 +21,8 @@ https://portals.exosite.com/manage/scripts
 ```
 
 To use the RPC to create a script, use the 
-[create](https://github.com/exosite/api/tree/master/rpc#create-datarule) or 
-update RPC procedures. It's also possible to use the 
+[create](https://github.com/exosite/api/tree/master/rpc#create-datarule) RPC 
+procedures. It's also possible to use the 
 [Exoline](https://github.com/dweaver/exoline) utility to upload a script from 
 the command line using the `script` Exoline command. Run this command for details:
 

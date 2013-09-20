@@ -633,13 +633,8 @@ Creates a datarule.
     }
 }
 </code></pre>
-</td><td><p><b>Input:</b> Values</p>
-
-<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, and the Comparison result
-is the result of the Condition.</p>
-
-<p><b>Internal logic configuration parameters:</b></p>
-
+</td><td>
+<p>Values received by this datarule are compared to a numerical constant (`"constant"`), and the result is the boolean result of the comparison.
 <ul>
 <li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"constant"</code> is a numerical constant used by Comparison</li>
