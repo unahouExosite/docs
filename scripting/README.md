@@ -117,14 +117,7 @@ local room_temp = alias['room_temp']
 ```
 
 Each alias has properties and functions through which the script can interact
-with the aliased resource. The available properties and functions of each
-alias are described in the following section.
-
-### Aliases
-
-As described in the previous section, an alias is accessed through the `alias` 
-table, indexed by the alias name. Each alias has the following properties and 
-functions.
+with the aliased resource. 
 
 * `alias.alias` 
 
@@ -135,29 +128,29 @@ functions.
 * `alias.manage`
 
     The manage table is only available if the referenced alias is a client. For
-    the functionality provided, see 'The manage table' chapter.
+    the functionality provided, see [The manage table](#the-manage-table).
 
 * `alias.meta` 
 
-    This provides read-only access to the `meta` field of the alias' resource.
+    This provides read-only access to the `meta` field of the resource.
 
 * `alias.name` 
 
-    This provides read-only access to the `name` field of the alias' resource.
+    This provides read-only access to the `name` field of the resource.
 
 * `alias.status` 
 
     Indicates the outcome of the most recent activity performed on the Alias.
     Actions include the reading or writing of any of the Alias properties and
-    functions, excluding .last and .status itself.
+    functions, excluding `.last` and `.status` itself.
 
     The actual values this property can return are listed with each property and
-    function that can affect the value of .status. This property is read only.
+    function that can affect the value of `.status`. This property is read only.
 
 * `alias.timestamp`
 
     The timestamp of the most recent datapoint written to the resource. If the
-    resource contains no datapoints, .timestamp will read 'nil'.
+    resource contains no datapoints, `.timestamp` will read `nil`.
 
 ```
   ------------------------------------------------------------------------------
@@ -170,7 +163,7 @@ functions.
 * `alias.value`
 
     When read, it returns the value of the most recent datapoint written to the
-    resource. If the resource contains no datapoints, .value will read 'nil'.
+    resource. If the resource contains no datapoints, `.value` will read `nil`.
     When written, the given value gets written to the resource with the current
     timestamp.
 
@@ -185,11 +178,11 @@ functions.
 
 * `alias.last`
 
-    When read, it returns the timestamp returned by the most recent call to .wait
-    function.  When written, the current time, as the script percieves it, will be
-    changed to the given timestamp. Thus it is possible to set .last to a point in
-    the past and iterate through historical data using .wait.  When the script
-    starts .last is initialized to the current time.
+    When read, it returns the timestamp returned by the most recent call to 
+    `.wait` function.  When written, the current time, as the script perceives 
+    it, will be changed to the given timestamp. Thus it is possible to set 
+    `.last` to a point in the past and iterate through historical data using 
+    `.wait`. When the script starts `.last` is initialized to the current time.
 
 ```
   ------------------------------------------------------------------------------
@@ -199,9 +192,9 @@ functions.
 * `alias.wait([expire])`
 
     Returns the timestamp for the next unprocessed datapoint. Next being relative
-    to the timestamp held by .last property. If there is no datapoint available,
-    the call will block. The 'expire' parameter sets the wait expiration timestamp
-    in case no datapoint becomes available. When the call returns, .last property
+    to the timestamp held by `.last` property. If there is no datapoint available,
+    the call will block. The `expire` parameter sets the wait expiration timestamp
+    in case no datapoint becomes available. When the call returns, `.last` property
     will be updated to the timestamp of the next unprocessed datapoint or the wait
     expiration timestamp.
 
@@ -221,11 +214,11 @@ functions.
 
 * `alias[<timestamp>]`
 
-    Indexing the Alias with a numerical timestamp gives the ability to read and
+    Indexing an alias with a numerical timestamp makes it possible to read and
     record historical data.
 
     When read, the value of the datapoint with the given timestamp. If no value
-    exists for the given timestamp then 'nil' will be returned.
+    exists for the given timestamp then `nil` will be returned.
 
     When written, the given non-nil value gets recorded to the resource at the
     given timestamp.
