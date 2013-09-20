@@ -191,7 +191,7 @@ the CIK of the portal that owns that device, all the way up to the
 root node of the OneP tree.
 
 Authentication information is placed in the JSON body of a request, in
-`"auth"`. The value of the `"auth"` key can have one of three forms:
+`"auth"`. The value of the `"auth"` key can take any of these forms:
 
 * `{"cik": CIK}` authenticates as the client identified by the given CIK. This is the most common form.
 
@@ -202,13 +202,13 @@ Authentication information is placed in the JSON body of a request, in
 
 ### Identifying Resources
 
-Many procedures in the API include an argument for identifying a resource to act upon. In this documentation, that resource is identified by `<ResourceID>`. This argument can take any of three forms:
+Many procedures in the API include an argument for identifying a resource to act upon. In this documentation, that resource is identified by `<ResourceID>`. This argument can take any of these forms:
 
-1.) `"34eaae237988167d90bfc2ffeb666daaaaaaaaaa"` directly identifies a resource ID. The resource must be in the [calling client](#authentication)'s subhierarchy.
+* `"34eaae237988167d90bfc2ffeb666daaaaaaaaaa"` directly identifies a resource ID. The resource must be in the [calling client](#authentication)'s subhierarchy.
 
-2.) `{"alias": "temperature"}` looks up an immediate child of the [calling client](#authentication) by alias (`"temperature"` in this example).
+* `{"alias": "temperature"}` looks up an immediate child of the [calling client](#authentication) by alias (`"temperature"` in this example).
 
-3.) `{"alias": ""}` identifies the calling client itself. So, for example, if `"auth"` was set to `{"cik":"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`, the procedure would act upon the client whose CIK is `"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`.
+* `{"alias": ""}` identifies the calling client itself. So, for example, if `"auth"` was set to `{"cik":"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`, the procedure would act upon the client whose CIK is `"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`.
 
 
 ### Request JSON
