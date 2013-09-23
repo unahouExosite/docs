@@ -634,34 +634,35 @@ Creates a datarule.
 }
 </code></pre>
 </td><td>
-<p>Values received by this datarule are compared to a numerical constant (`"constant"`), and the result is the boolean result of the comparison.
+<p>Values received by this rule are compared to a numerical constant and the result is the boolean result of that comparison.
 <ul>
-<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"constant"</code> is a numerical constant used by Comparison</li>
-<li><code>"comparison"</code> is the comparison to perform.
+<li><code>"comparison"</code> is the comparison to perform.</li>
+<li><code>"repeat"</code> specifies whether new inputs that would not change 
+the output should be written to the output data stack anyway. If set to 
+<code>true</code>, the output of this rule is always written to the rule's
+data stack. If set to <code>false</code>, a output is only written if it's 
+different from the previous value.</li>
 </td></tr>
 <tr><td>
 <pre><code>
 {
     "timeout": {
-        "repeat": boolean,
-        "timeout": number
+        "timeout": number,
+        "repeat": boolean
     }
 }
 </code></pre>
 </td><td>
-<p><b>Input:</b> Timeouts, Values</p>
-<p><b>Internal Logic:</b> A Timeout is always running. If a Value is received, the Timeout is restarted,
-otherwise the Timeout repeatedly elapses and restarts. When a Value is received
-the Condition result is <code>"false"</code>. When a Timeout elapses, the Condition result is <code>"true"</code>.
-
-<p>e.g. Condition = Timeout</p>
-
-<p><b>Internal logic configuration parameters:</b></p>
+<p>Output <code>true</code> if no input value is received within a timeout period. If an input value is received within the period, output <code>false</code>. The timer is restarted when an input value is received, when the timeout elapses and when the script is first started.
 
 <ul>
-<li><code>DataSourceID</code> is an input resource identifier whose input data Values to compare (TODO)</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"repeat"</code> specifies whether new inputs that would not change 
+the output should be written to the output data stack anyway. If set to 
+<code>true</code>, the output of this rule is always written to the rule's
+data stack. If set to <code>false</code>, a output is only written if it's 
+different from the previous value.</li>
 </ul>
 
 </td></tr>
@@ -673,28 +674,27 @@ the Condition result is <code>"false"</code>. When a Timeout elapses, the Condit
                       "eq" | "geq" | 
                       "leq" | "neq",
         "constant": number,
-        "repeat": boolean,
-        "timeout": number
+        "timeout": number,
+        "repeat": boolean
     }
 }
 </code></pre>
 </td><td>
-<p><b>Input:</b> Timeouts, Values</p>
-
-<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison any running Timeout is
-canceled and the Comparison result is the result of the Condition.  If the
-Comparision result is "true" then a new Timeout is started.  When a Timeout
-elapses, the Condition result is "true" and the Timeout restarts.</p>
-
-<p>e.g. Condition = Comparison; repeated while "true"</p>
-
-<p><b>Internal logic configuration parameters:</b></p>
+<p>This rule outputs the result of the comparison any time an input value is received.
+Additionally, if the comparison result is <code>true</code>, a timer is
+started. If the timer elapses, the rule output becomes <code>true</code>,
+and the timer is restarted. If a input value is received that makes the comparison
+<code>false</code>, <code>false</code> is output and the timer is canceled.</p>
 
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"repeat"</code> specifies whether new inputs that would not change 
+the output should be written to the output data stack anyway. If set to 
+<code>true</code>, the output of this rule is always written to the rule's
+data stack. If set to <code>false</code>, a output is only written if it's 
+different from the previous value.</li>
 </ul>
 </td></tr>
 <tr><td>
@@ -705,29 +705,31 @@ elapses, the Condition result is "true" and the Timeout restarts.</p>
                       "eq" | "geq" |
                       "leq" | "neq",
         "constant": number,
-        "repeat": boolean,
-        "timeout": number
+        "timeout": number,
+        "repeat": boolean
     }
 }
 </code></pre>
 </td><td>
-<p><b>Input:</b> Timeouts, Values</p>
-
-<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, if the Comparison result
-is "true" then a Timeout is started.  If the Comparison is "false" then any
-existing Timeout is canceled and the Condition result is "false".  When a
-Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
-
-<p>e.g. Condition = Comparison && Timeout</p>
-
-<p><b>Internal logic configuration parameters:</b></p>
-
+<p>When a value is received, it is immediately used in the configured 
+comparison.  If the comparison result is <code>true</code>, the rule waits for 
+the specified timeout period before setting its output to <code>true</code>. 
+If instead the comparison result is <code>false</code>, then 
+<code>false</code> becomes the output of the rule immediately, cancelling
+any existing timeout.</p>
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"repeat"</code> specifies whether output from this rule should
+be written to its data stack if it is the same as the latest
+value already on the data stack. If set to <code>true</code>, the output of 
+this rule is always written to the rule's data stack. If set to 
+<code>false</code>, a output is only written if it is different from the 
+previous value.</li>
+</ul>
 </td></tr>
+
 <tr><td>
 <pre><code>
 {
@@ -737,30 +739,34 @@ Timeout elapses, the Condition result is "true" and the timer is restarted.</p>
                       "leq" | "neq",
         "constant": number,
         "count": number,
-        "repeat": boolean,
         "timeout": number,
+        "repeat": boolean
     }
 }
 </code></pre>
 </td><td>
-<p><b>Input:</b> Timeouts, Values</p>
-
-<p><b>Internal Logic:</b> When a Value is received it is used in the Comparison, if the Comparison result
-is "true" and no there is no existing Timeout, then a Timeout is started and an
-internal counter is set to 1; if a Timeout already exists then increment the
-internal counter.  If the internal counter matches the Count configuration
-parameter, then Timeout is restarted, the internal counter is set to 0 and the
-Condition evaluates to "true".  If the Timeout elapses, the counter is set to 0,
-the Timeout is canceled and the condition evaluates to "false".</p>
-
-<p><b>Internal logic configuration parameters:</b></p>
-
+<p>
+When a value is received it is used in the comparison. If the comparison 
+result is <code>true</code> and no there is no existing timeout then a timeout
+is started and an internal counter is set to <code>1</code>. If a timeout 
+already exists then the internal counter is incremented. If the internal 
+counter matches the count configuration parameter, then the timeout is 
+restarted, the internal counter is set to <code>0</code> and the condition 
+evaluates to <code>true</code>. If the timeout elapses, the counter is set 
+to <code>0</code>, the timeout is cancelled and the rule outputs 
+<code>false<code>.
+</p>
 <ul>
-<li><code>DataSourceID</code> is the input resource identifier whose input data Values to compare (TODO)</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
-<li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"constant"</code> is a numerical constant used by Comparison</li>
 <li><code>"count"</code> is the aumber of data points accumulated that satisfy the Comparison</li>
+<li><code>"timeout"</code> is a timeout in seconds</li>
+<li><code>"repeat"</code> specifies whether output from this rule should
+be written to its data stack if it is the same as the latest
+value already on the data stack. If set to <code>true</code>, the output of 
+this rule is always written to the rule's data stack. If set to 
+<code>false</code>, a output is only written if it is different from the 
+previous value.</li>
 </ul>
 </td></tr>
 <tr><td>
@@ -773,7 +779,6 @@ the Timeout is canceled and the condition evaluates to "false".</p>
 <code>"script"</code> is a string containing Lua source code to run on the server.
 </td></tr>
 </table>
-
 #####response
 
 ```
