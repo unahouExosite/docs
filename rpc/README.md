@@ -754,7 +754,7 @@ counter matches the count configuration parameter, then the timeout is
 restarted, the internal counter is set to <code>0</code> and the condition 
 evaluates to <code>true</code>. If the timeout elapses, the counter is set 
 to <code>0</code>, the timeout is cancelled and the rule outputs 
-<code>false<code>.
+<code>false</code>.
 </p>
 <ul>
 <li><code>"comparison"</code> is any of "Comparisons"</li>
