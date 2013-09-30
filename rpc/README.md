@@ -249,13 +249,7 @@ The body of a request has the following structure:
                  {
                      "alias": "temperature"
                  },
-                 {
-                     "starttime":1376709504,
-                      "endtime":1376709527,
-                      "limit":1,
-                      "sort":"desc",
-                      "selection":"all"
-                 }
+                 65.4
             ]
         ]
     ]
