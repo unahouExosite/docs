@@ -46,7 +46,9 @@ Typical HTTP response codes include:
 
 ## Device Provisioning
 
-### POST /provision/activate - activate client
+### /provision/activate
+
+#### POST - activate client
 
 Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
 model type `<model>` associated with Serial Number `<sn>`. Client must be 
