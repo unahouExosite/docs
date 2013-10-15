@@ -20,9 +20,9 @@ For general information about accessing this API, see the [main section](README.
 
 [/provision/manage/model/\<model\>](#provisionmanagemodelmodel) - get model info, update model, delete model
 
-[/provision/manage/model/\<model\>/](#provisionmanagemodelmodel-01) - list serial numbers, get serial number JSON object, add serial number(s), remove serial number(s)
+[/provision/manage/model/\<model\>/](#provisionmanagemodelmodel-1) - list serial numbers, get serial number JSON object, add serial number(s), remove serial number(s)
 
-[/provision/manage/model/\<model\>/\<sn\>](#provisionmanagemodelsn) - get client RID, list serial number groups, get serial number activation log, create client from model, map client to new serial number, regenerate CIK, disable CIK, delete serial number
+[/provision/manage/model/\<model\>/\<sn\>](#provisionmanagemodelmodelsn) - get client RID, list serial number groups, get serial number activation log, create client from model, map client to new serial number, regenerate CIK, disable CIK, delete serial number
 
 [/provision/manage/share/\<model\>/](#provisionmanagesharemodel) - list vendors that share a model, create a model share, delete a model share.
 
