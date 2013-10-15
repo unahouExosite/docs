@@ -2,7 +2,7 @@
 
 The following procedures are general purpose utilities on the One Platform.
 
-For general information about accessing this API, see the [main section](../provision/README.md).
+For general information about accessing these procedures, see the [provisioning API](../provision/README.md).
 
 ### Table of Contents
 
