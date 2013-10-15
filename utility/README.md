@@ -1,3 +1,18 @@
+## Utility API procedures
+
+The following procedures are general purpose utilities on the One Platform.
+
+For general information about accessing this API, see the [main section](../provision/README.md).
+
+### Table of Contents
+
+[/ip](#ip) - get the server IP
+
+[/jsonp](#jsonp) - get data using token
+
+[/jsonp/register](#jsonpregister) - create data access token
+
+[/timestamp](#timestamp) - get server timestamp
 
 ### /ip
 
