@@ -1806,7 +1806,7 @@ Content-Type: text/csv; charset=utf-8
 <idN>
 ```
 
-### POST - create vendor token
+#### POST - create vendor token
 
 Generates a vendor auth token that may be used in place of `<VendorCIK>` and 
 associates the token with the given `<id>`.
@@ -1833,7 +1833,7 @@ Content-Type: text/plain; charset=utf-8
 <VendorToken>
 ```
 
-### POST - delete vendor token
+#### POST - delete vendor token
 
 Deletes vendor auth token.
 
