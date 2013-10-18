@@ -1001,6 +1001,7 @@ returned.
             "aliases": true,
             "basic": true,
             "comments: true,
+            "count": true,
             "description": true,
             "key": true,
             "shares": true,
