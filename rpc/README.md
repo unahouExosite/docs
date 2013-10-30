@@ -1052,8 +1052,8 @@ returned.
 
 ```
 {
-    "status": string,
-    "id": 1
+    "status": "ok",
+    "id": 1,
     "result": {
         "aliases": {
             // Resource to alias mapping. If calling client is not
@@ -1079,7 +1079,7 @@ returned.
             "subscribers": 0,
             // Type of resource
             // "client" | "dataport" | "datarule" | "dispatch"
-            "type": "client 
+            "type": "client"
         },
         // Private and public comments associated with this resource that are 
         // visible to the calling client.
@@ -1235,14 +1235,14 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 {
     "procedure": "lookup",
     "arguments": [
-        "aliased" | "owner" | "shared",
+        "alias" | "owner" | "shared",
         <alias> | <ResourceID> | <Code>
     ], 
     "id": 1
 }
 ```
 
-* If the first argument is `"aliased"`, the second argument is a string alias, or `""` to 
+* If the first argument is `"alias"`, the second argument is a string alias, or `""` to 
     look up the caller client's Resource ID.
 
 * If the first argument is `"owner"`, the second argument is a ResourceID whose owner will 
