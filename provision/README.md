@@ -2,8 +2,8 @@
 
 Procedures in this API fall into one of two categories:
 
-- [Device Provisioning](DEVICE.md) procedures enable devices to authenticate with the One Platform even if they are not pre-programmed with a CIK.
-- [Fleet Management](MANAGEMENT.md) procedures enable device OEMs to create custom "cloud profiles" for devices so they can accomplish fleet-level management of devices across different device models. 
+- [Device Provisioning](device.md) procedures enable devices to authenticate with the One Platform even if they are not pre-programmed with a CIK.
+- [Fleet Management](management.md) procedures enable device OEMs to create custom "cloud profiles" for devices so they can accomplish fleet-level management of devices across different device models. 
 
 Both APIs use the HTTP POST, GET, PUT and DELETE methods to configure the different facets of the provisioning system. Note that the terms "client" and "device" are interchangeable in the text below. There are various HTTP required headers that are inherent to the protocol that are not repeated in each API procedure description. As an example, all of the POST and PUT requests must also contain a correct `Content-Length` header specifying the body payload size. Also, all responses having a status of 200 will also contain a `Content-Length` response header.
 
@@ -46,6 +46,6 @@ Typical HTTP response codes include:
 
 ### Procedures
 
-See the [Device Provisioning](DEVICE.md) and [Fleet Management](MANAGEMENT.md) pages for information of API procedures.
+See the [Device Provisioning](device.md) and [Fleet Management](management.md) pages for information of API procedures.
 
 
