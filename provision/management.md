@@ -14,7 +14,7 @@ For general information about accessing this API, see the [main section](README.
 
 [/provision/manage/group/\<model\>/\<id\>](#provisionmanagegroupmodelid) - get group description, get group membership, delete group    
 
-[/provision/manage/group/\<model\>/\<id\>/](#provisionmanagegroupmodelid-1) - list group info, list types with group membership, get group member info, get group mmber id, add or update group members, delete group members
+[/provision/manage/group/\<model\>/\<id\>/](#provisionmanagegroupmodelid-1) - list group info, list types with group membership, get group member info, get group member id, add or update group members, delete group members
  
 [/provision/manage/model/](#provisionmanagemodel) - list models, list shared models, create model, delete model
 
