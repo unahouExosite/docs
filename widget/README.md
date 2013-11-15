@@ -72,11 +72,11 @@ function(container, portal) {
 }
 ```
 
-The widget function takes two parameters: `container` and `portalresources`.
+The widget function takes two parameters: `container` and `portal`.
 
 - `container` is an HTMLDivElement container for the widget. It can be used to write widget content.
 
-- `portal` contains a snapshot of device and dataport information, including datapoints. See [Portal Resources](#portal-resources) for more.
+- `portal` is a Javascript object containing a snapshot of device and dataport information, including datapoints. See [Portal Resources](#portal-resources) for more.
 
 ### Portal Resources
 
