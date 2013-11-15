@@ -80,7 +80,7 @@ The widget function takes two parameters: `container` and `portalresources`.
 
 ### Portal Resources
 
-The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. Its contents vary based on what dataports and time periods are configured in the widget configuration. (In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.) The object has this format:
+The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. Its contents are based on what dataports and time periods are configured in the widget configuration. (In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.) The object has this format:
 
 ```
 { 
@@ -157,7 +157,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 }
 ```
 
-- `Unit` is a string set by the user input in the device popup.
+- `unit` is a string set by the user input in the device popup.
 
 
 #### Portal Resources Example
