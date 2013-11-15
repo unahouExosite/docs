@@ -84,7 +84,7 @@ The second argument to the widget function is a Javascript object containing a s
 
 Here's an example custom widget configuration based on the example device that comes in community Portals.
 
-!(Widget Config Example)[images/widget_config_example.png]
+![Widget Config Example](images/widget_config_example.png)
 
 In the example widget code, the line `console.log(JSON.stringify(portal, null, 2));` converts the portal object to a string so that we can see its contents in the browser console. Here's the output of that script, with comments added.
 

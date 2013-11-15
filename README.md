@@ -10,6 +10,7 @@ Are you looking to create an application that uses the One Platform API? You've 
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API for writing to a single dataport
 * [Commander API](commander/) - XMPP chat interface for reading and writing data from an IM client
 * [Lua Scripting API](scripting/) - the server-side Lua scripting environment
+* [Portals Custom Widget API)(widget/) - a Javascript API for creating custom Portals widgets.
 
 ### API Improvement
 
