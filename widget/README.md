@@ -30,7 +30,7 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 [Google Loader API](#google-loader-api)
 
-[Examples](#examples)
+[Widget Examples](#widget-examples)
 
 
 ### Create a Widget
@@ -540,6 +540,8 @@ The Google Loader API is available in the widget sandbox. Please see this link f
 [https://developers.google.com/loader/](https://developers.google.com/loader/)
 
 ### Widget Examples
+
+There are a number of widget examples available in the "Script Template" drop down available when editing a widget.
 
 More information about example codes can be found on the [Custom Widget Example Code](https://github.com/exosite-garage/custom_widget_scripts).
 
