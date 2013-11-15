@@ -80,7 +80,87 @@ The widget function takes two parameters: `container` and `portalresources`.
 
 ### Portal Resources
 
-The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. Its contents vary based on what dataports and time periods are configured in the widget configuration. (In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.)
+The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. Its contents vary based on what dataports and time periods are configured in the widget configuration. (In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.) The object has this format:
+
+```
+{ 
+  "clients": [Client,...],
+  "dataports": [Dataport,...] 
+} 
+```
+
+#### Client
+
+Each `Client` contains JSON formatted information from the client in the One Platform including its alias, name, meta, and array of dataports (data sources).
+
+```
+{
+  "alias":string :: null 
+ ,"dataports":[Dataport,...] 
+ ,"info":{
+    "description":{
+      "meta":DeviceMeta
+     ,"name":string :: "" 
+    }
+  }
+}
+```
+
+##### DeviceMeta
+
+`DeviceMeta` is a JSON string that may be parsed with [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse). It contains the meta information for the client in the One Platform.
+
+```
+{
+  "activetime":ActiveTimeRange,
+  "timezone":Timezone,
+  "location":Location,
+  "device":{
+    "type":"generic" | "vendor"
+  }
+}
+```
+
+- `"ActiveTimeRange"` is a string set by the number of minutes user input in the device popup. If the device received any data source within the last N minutes, the device is considered to be active. N here is the ActiveTimeRange.
+
+- `"Timezone"` is a string set by the timezone user chose in the device popup.
+
+- `"Location"` is a string set by the location user input in the device popup.
+
+#### Dataport
+
+`Dataport` contains JSON formatted information from the dataport in the One Platform including its alias, name, meta, format, and array of data values.  
+
+```
+{
+  "alias":string :: null,
+  "data":[[Timestamp ,Value],...],
+  "info":{
+    "description":{
+      "format":"binary" | "boolean" | "float" | "integer" | "string",
+      "meta":DataSourceMeta,
+      "name":string :: ""
+    }
+  }
+}
+```
+
+##### DataSourceMeta
+
+`DeviceMeta` is a JSON string that may be parsed with [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse). It contains the meta information for the dataport in the One Platform.
+
+```
+{
+  "datasource":{
+    "unit": string :: ""
+  }
+}
+```
+
+- `Unit` is a string set by the user input in the device popup.
+
+
+#### Portal Resources Example
 
 Here's an example custom widget configuration based on the example device that comes in community Portals.
 
@@ -151,47 +231,6 @@ In the example widget code, the line `console.log(JSON.stringify(portal, null, 2
 
 In the example, we learn that the temperature in Antarctica on Nov 15, 2013 at 5:25PM UTC was -8°C. The name of the device producing this data is "Exosite Device".
 
-- At the top level, `"dataports"` is a list of portal level dataports (a.k.a. datasources). In the example there are no dataports at the portal level. 
-
-- `"clients"` is a list of devices configured in the in the portal. Each client contains `"info"` about the device's configuration, the device's `"alias"`, and a list of `"dataports"` associated with the device.
-
-- Inside the `"clients"` object, `"dataports"` contains an array of the device's dataports. Each dataport includes its `"alias"`, `"info"` about the dataport, and `"data"` points associated with the point. `"data"` is a list of datapoints, each of which contains a unix timestamp and value. 
-
-- `"info"` contains information about a resource (a portal, device, or dataport). To learn more about the contents of `"info"` see the [documentation for the `info` procedure](https://github.com/exosite/api/tree/master/rpc#info). 
-
-- Note that `"meta"` contains Portals-specific information data as a JSON string. You can use `JSON.parse()` to decode it as a Javascript object. When decoded, the device metadata has the following format: 
-
-```
-{
-  "activetime":ActiveTimeRange,
-  "timezone":Timezone,
-  "location":Location,
-  "device":{
-    "type":"generic" | "vendor"
-  }
-}
-```
-
-- `"activetime"` is a string set by the number of minutes user input in the device popup. If the device received any data source within the last N minutes, the device is considered to be active. N here is the ActiveTimeRange.
-
-- `"timezone"` is a string set by the timezone user chose in the device popup.
-
-- `"location"` is a string set by the location user input in the device popup.
-
-- `"device"` contains information about the device's type, including whether it is based on a vendor-specific client model, or is a generic device.
-
-In dataports, `"meta"` has the following format:
-
-```
-datasource": {
-    "unit": ""
-  }
-}
-```
-
-- `"unit"` is a string set by the user input in the device popup.
-
-
 ### Procedures
 
 The custom widget sandbox environment exposes an API of functions for interacting with Portals and the One Platform. 
@@ -233,7 +272,7 @@ getWidgetInfo(PropertyName) -> PropertyValue
 
 - `"PropertyName"` may take any of the following:
 
-    `"id"` is the identifier of the current widget in this page. This is useful if two custom widgets shares the same code and they both subscribe to a certain event providing an ID. In this case, only one widget can successfully subscribe to the event. With this function, they both can subscribe to the same event.
+    `"id"` gets the identifier of the current widget in this page. This is useful if two custom widgets shares the same code and they both subscribe to a certain event providing an ID. In this case, only one widget can successfully subscribe to the event. With this function, they both can subscribe to the same event.
 
 - `"PropertyValue"` is the value of the property
 
@@ -259,7 +298,7 @@ publish("color");
 #### publish
 
 ```
-publish(Event[, Message1, Message2, ...])
+publish(Event[, Message1, Message2, ...]) -> undefined
 ```
 
 - `"Event"` is the name of the event to subscribe to
@@ -322,7 +361,7 @@ read(["some_device", "some_data_source"])
 #### subscribe
 
 ```
-subscribe(Event, Callback[, SubscribeOptions]) -> Undefined
+subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 ```
 
 - `"Event"` is the name of the event to subscribe to.
@@ -333,7 +372,7 @@ subscribe(Event, Callback[, SubscribeOptions]) -> Undefined
 
 ```
 {
-  "context": anything :: Undefined
+  "context": anything :: undefined
   ,"id":string :: ""
 }
 ```
