@@ -1,6 +1,6 @@
 ## Portals Custom Widget API
 
-Custom widgets in [Portals](https://portals.exosite.com) dashboards run inside a Javascript sandbox that provides an API to access the One Platform. 
+Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the structure of the data passed to widgets when it loads
 
 ### Table of Contents
 
@@ -14,19 +14,19 @@ Custom widgets in [Portals](https://portals.exosite.com) dashboards run inside a
 
 #### API
 
-[drop](#drop)
-
-[getWidgetInfo](#getwidgetinfo)
-
-[publish](#publish)
-
 [read](#read)
 
-[subscribe](#subscribe)
+[write](#write)
 
 [update](#update)
 
-[write](#write)
+[drop](#drop)
+
+[publish](#publish)
+
+[subscribe](#subscribe)
+
+[getWidgetInfo](#getwidgetinfo)
 
 [Google Loader API](#google-loader-api)
 
@@ -243,89 +243,6 @@ In the case of a domain widget, a domain administrator may additionally select a
 
 The custom widget sandbox environment exposes an API of functions for interacting with Portals and the One Platform. 
 
-#### drop 
-
-Drop a device. This throws an exception if there is any error in the arguments.
-
-```
-drop(TargetResource) -> Deferred
-```
-
-- `TargetResource` is an array of device aliases
-
-- `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition.
-
-Example:
-
-```
-drop(["some_device"])
-  .done(function()
-  {
-    // succeeded to drop a device
-  })
-  .fail(function()
-  {
-    // failed to drop a device
-  })
-;
-```
-
-#### getWidgetInfo
-
-Get information about of the current widget. If the info of the `PropertyName` doesn’t exist, `undefined` is returned.
-
-```
-getWidgetInfo(PropertyName) -> PropertyValue
-```
-
-- `"PropertyName"` may take any of the following:
-
-    `"id"` gets the identifier of the current widget in this page. This is useful if two custom widgets shares the same code and they both subscribe to a certain event providing an ID. In this case, only one widget can successfully subscribe to the event. With this function, they both can subscribe to the same event.
-
-- `"PropertyValue"` is the value of the property
-
-Example:
-
-```
-// this example demonstrates how the getWidgetInfo works
-var callback,
-    options;
-options =
-{
-  id: "color" + getWidgetInfo("id")
-};
-callback = function()
-{
-  console.log("yellow");
-};
-subscribe("color", callback, options);
-// this shows "yellow" in the debug console.
-publish("color");
-```
-
-#### publish
-
-```
-publish(Event[, Message1, Message2, ...]) -> undefined
-```
-
-- `"Event"` is the name of the event to subscribe to
-- `"Message"` may be anything. These arguments ae passed to the subscriber callbacks as parameters
-
-Example:
-
-```
-// this example demonstrates how the callback parameter works.
-var callback;
-callback = function(papasDinner, mamasDinner)
-{
-  console.log(papasDinner, mamasDinner);
-};
-subscribe("dinner", callback);
-// this shows "Rice noodle" "Stinky tofu" in the debug console.
-publish("dinner", "Rice noodle", "Stinky tofu");
-```
-
 #### read
 
 Reads data from the resource specified. This throws an exception if there is any error in the arguments.
@@ -364,6 +281,136 @@ read(["some_device", "some_data_source"])
     // means failed to read data from a resource
   })
 ;
+```
+
+
+#### write
+
+Writes a single value to the resource specified. This throws an exception if there is any error in the arguments.
+
+```
+write(TargetResource, Value) -> Deferred
+```
+
+- `"TargetResource"` is an array of resource aliases
+- `"Value"` may be a boolean, number, or string value
+
+Example:
+```
+try
+{
+  write(["blog", "message"], "hello")
+    .done(function()
+    {
+      // means succeeded to write to the data source, message, owned by the
+      // device, blog.
+    })
+    .fail(function()
+    {
+      // means failed to write to the data source, message, owned by the
+      // device, blog.
+    })
+  ;
+}
+catch ()
+{
+  // means error in the arguments e.g. ["blog", "message"] is not accessible
+  // for this widget or doesn't exist.
+}
+```
+
+#### update
+
+Update a device’s description. This throws an exception if there is any error in the arguments.
+
+```
+update(TargetResource, Description) -> Deferred
+```
+
+- `"TargetResource"` is an array of device aliases.
+- `"Description"` is an object containing `"meta"` (device metadata as a JSON string) and `"name"` (name of device). Note that custom widgets may only modify `"location"` in `"meta"`.
+
+```
+{
+  "meta":Meta :: "",
+  "name":string :: ""
+}
+``` 
+
+Example:
+
+```
+var description =
+    {
+      "meta":
+      {
+        "location": "new location"
+      },
+      "name": "new name"
+    };
+description.meta = JSON.stringify(description.meta);
+update(["some_device"], description)
+  .done(function()
+  {
+    // means succeeded to update a device
+  })
+  .fail(function()
+  {
+    // means failed to update a device
+  })
+;
+```
+
+
+
+#### drop 
+
+Drop a device. This throws an exception if there is any error in the arguments.
+
+```
+drop(TargetResource) -> Deferred
+```
+
+- `TargetResource` is an array of device aliases
+
+- `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition.
+
+Example:
+
+```
+drop(["some_device"])
+  .done(function()
+  {
+    // succeeded to drop a device
+  })
+  .fail(function()
+  {
+    // failed to drop a device
+  })
+;
+```
+
+#### publish
+
+```
+publish(Event[, Message1, Message2, ...]) -> undefined
+```
+
+- `"Event"` is the name of the event to subscribe to
+- `"Message"` may be anything. These arguments ae passed to the subscriber callbacks as parameters
+
+Example:
+
+```
+// this example demonstrates how the callback parameter works.
+var callback;
+callback = function(papasDinner, mamasDinner)
+{
+  console.log(papasDinner, mamasDinner);
+};
+subscribe("dinner", callback);
+// this shows "Rice noodle" "Stinky tofu" in the debug console.
+publish("dinner", "Rice noodle", "Stinky tofu");
 ```
 
 #### subscribe
@@ -453,81 +500,37 @@ subscribe("season", callback, options);
 publish("season");
 ```
 
-#### update
+#### getWidgetInfo
 
-Update a device’s description. This throws an exception if there is any error in the arguments.
-
-```
-update(TargetResource, Description) -> Deferred
-```
-
-- `"TargetResource"` is an array of device aliases.
-- `"Description"` is an object containing `"meta"` (device metadata as a JSON string) and `"name"` (name of device). Note that custom widgets may only modify `"location"` in `"meta"`.
+Get information about of the current widget. If the info of the `PropertyName` doesn’t exist, `undefined` is returned.
 
 ```
-{
-  "meta":Meta :: "",
-  "name":string :: ""
-}
-``` 
+getWidgetInfo(PropertyName) -> PropertyValue
+```
+
+- `"PropertyName"` may take any of the following:
+
+    `"id"` gets the identifier of the current widget in this page. This is useful if two custom widgets shares the same code and they both subscribe to a certain event providing an ID. In this case, only one widget can successfully subscribe to the event. With this function, they both can subscribe to the same event.
+
+- `"PropertyValue"` is the value of the property
 
 Example:
 
 ```
-var description =
-    {
-      "meta":
-      {
-        "location": "new location"
-      },
-      "name": "new name"
-    };
-description.meta = JSON.stringify(description.meta);
-update(["some_device"], description)
-  .done(function()
-  {
-    // means succeeded to update a device
-  })
-  .fail(function()
-  {
-    // means failed to update a device
-  })
-;
-```
-
-#### write
-
-Writes a single value to the resource specified. This throws an exception if there is any error in the arguments.
-
-```
-write(TargetResource, Value) -> Deferred
-```
-
-- `"TargetResource"` is an array of resource aliases
-- `"Value"` may be a boolean, number, or string value
-
-Example:
-```
-try
+// this example demonstrates how the getWidgetInfo works
+var callback,
+    options;
+options =
 {
-  write(["blog", "message"], "hello")
-    .done(function()
-    {
-      // means succeeded to write to the data source, message, owned by the
-      // device, blog.
-    })
-    .fail(function()
-    {
-      // means failed to write to the data source, message, owned by the
-      // device, blog.
-    })
-  ;
-}
-catch ()
+  id: "color" + getWidgetInfo("id")
+};
+callback = function()
 {
-  // means error in the arguments e.g. ["blog", "message"] is not accessible
-  // for this widget or doesn't exist.
-}
+  console.log("yellow");
+};
+subscribe("color", callback, options);
+// this shows "yellow" in the debug console.
+publish("color");
 ```
 
 #### Google Loader API
