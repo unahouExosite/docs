@@ -95,9 +95,9 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 
 ```
 {
-  "alias":string :: null 
- ,"dataports":[Dataport,...] 
- ,"info":{
+  "alias":string :: null,
+  "dataports":[Dataport,...],
+  "info":{
     "description":{
       "meta":DeviceMeta
      ,"name":string :: "" 
