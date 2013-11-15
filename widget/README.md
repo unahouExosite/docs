@@ -1,6 +1,6 @@
 ## Portals Custom Widget API
 
-Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the data Portals passes to widgets when they load, and the API widgets can use to interact with the One Platform.
+Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the data Portals passes to widgets when they load, and the API widgets can use to interact with Portals and the One Platform.
 
 ### Table of Contents
 
@@ -535,7 +535,7 @@ publish("color");
 
 #### Google Loader API
 
-The Google loader API is available. Please see this link for more information:
+The Google Loader API is available in the widget sandbox. Please see this link for more information:
 
 [https://developers.google.com/loader/](https://developers.google.com/loader/)
 
