@@ -543,5 +543,5 @@ The Google Loader API is available in the widget sandbox. Please see this link f
 
 There are a number of widget examples available in the "Script Template" drop down available when editing a widget.
 
-More information about example codes can be found on the [Custom Widget Example Code](https://github.com/exosite-garage/custom_widget_scripts).
+More example code can be found here: [Custom Widget Example Code](https://github.com/exosite-garage/custom_widget_scripts).
 
