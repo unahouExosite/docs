@@ -1,6 +1,6 @@
 ## Portals Custom Widget API
 
-Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the structure of the data passed to widgets when it loads
+Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the data Portals passes to widgets when they load, and the API widgets can use to interact with the One Platform.
 
 ### Table of Contents
 
@@ -168,7 +168,7 @@ Here's an example custom widget configuration based on the example device that c
 
 ![Widget Config Example](images/widget_config_example.png)
 
-In the example widget code, the line `console.log(JSON.stringify(portal, null, 2));` converts the portal object to a string so that we can see its contents in the browser console. Here's the output of that script, with comments added.
+In the example widget code, the line `console.log(JSON.stringify(portal, null, 2));` converts `portal` to a string so that we can see its contents in the browser console. Here's the output of that script, with comments added.
 
 ```
 {
