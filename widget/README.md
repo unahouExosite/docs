@@ -10,6 +10,8 @@ Custom widgets in [Portals](https://portals.exosite.com) dashboards run inside a
 
 [Portal Resources](#portal-resources)
 
+[Portal Resources Example](#portal-resources-example)
+
 #### API
 
 [drop](#drop)
@@ -80,7 +82,7 @@ The widget function takes two parameters: `container` and `portal`.
 
 ### Portal Resources
 
-The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. Its contents are based on what dataports and time periods are configured in the widget configuration. (In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.) The object has this format:
+The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. The object has this format:
 
 ```
 { 
@@ -230,6 +232,12 @@ In the example widget code, the line `console.log(JSON.stringify(portal, null, 2
 ```
 
 In the example, we learn that the temperature in Antarctica on Nov 15, 2013 at 5:25PM UTC was -8°C. The name of the device producing this data is "Exosite Device".
+
+#### Data Availability
+
+The contents of the `portal` parameter are are based on what dataports and time periods are set in the widget configuration. 
+
+In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.
 
 ### Procedures
 
