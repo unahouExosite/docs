@@ -164,7 +164,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 
 #### Portal Resources Example
 
-Here's an example custom widget configuration based on the example device that comes in community Portals.
+The above section defines the individual parts of the portals resources object passed to the widget function. Let's bring that together by looking at a concrete example. Here's an custom widget configured to load the temperature in Antarctica from the virtual device that comes with a new Portals Community account.
 
 ![Widget Config Example](images/widget_config_example.png)
 
