@@ -434,7 +434,8 @@ function(container, portal)
 ```
 function(container, portal)
 {
-  // subscribe to 'myevent'
+  // when a message is published, change the widget
+  // content to display it.
   subscribe('myevent', function(msg) {
     $(container).html(msg);
   });
