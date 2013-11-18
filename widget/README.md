@@ -22,9 +22,9 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 [drop](#drop)
 
-[publish](#publish)
-
 [subscribe](#subscribe)
+
+[publish](#publish)
 
 [getWidgetInfo](#getwidgetinfo)
 
@@ -101,8 +101,8 @@ Each `Client` contains JSON formatted information from the client in the One Pla
   "dataports":[Dataport,...],
   "info":{
     "description":{
-      "meta":DeviceMeta
-     ,"name":string :: "" 
+      "meta":DeviceMeta,
+      "name":string :: "" 
     }
   }
 }
@@ -245,7 +245,7 @@ The custom widget sandbox environment exposes an API of functions for interactin
 
 #### read
 
-Reads data from the resource specified. This throws an exception if there is any error in the arguments.
+Reads data from the One Platform resource(s) specified. This throws an exception if there is any error in the arguments.
 
 ```
 read(TargetResource, Options) -> Deferred
@@ -257,10 +257,10 @@ read(TargetResource, Options) -> Deferred
 
 ```
 {
-  "starttime":number
-  ,"endtime":number
-  ,"limit":number
-  ,"sort":"asc" | "desc"
+  "starttime":number,
+  "endtime":number,
+  "limit":number,
+  "sort":"asc" | "desc"
 }
 ```
 
@@ -286,7 +286,7 @@ read(["some_device", "some_data_source"])
 
 #### write
 
-Writes a single value to the resource specified. This throws an exception if there is any error in the arguments.
+Writes a single value to the One Platform resource(s) specified. This throws an exception if there is any error in the arguments.
 
 ```
 write(TargetResource, Value) -> Deferred
@@ -390,58 +390,36 @@ drop(["some_device"])
 ;
 ```
 
-#### publish
-
-```
-publish(Event[, Message1, Message2, ...]) -> undefined
-```
-
-- `"Event"` is the name of the event to subscribe to
-- `"Message"` may be anything. These arguments ae passed to the subscriber callbacks as parameters
-
-Example:
-
-```
-// this example demonstrates how the callback parameter works.
-var callback;
-callback = function(papasDinner, mamasDinner)
-{
-  console.log(papasDinner, mamasDinner);
-};
-subscribe("dinner", callback);
-// this shows "Rice noodle" "Stinky tofu" in the debug console.
-publish("dinner", "Rice noodle", "Stinky tofu");
-```
-
 #### subscribe
+
+Register a callback function to handle a named event. Once registered, the function is called when [`publish`](#publish) is called for the named event. This may be used to react to user interface events that occur in another custom widget.
 
 ```
 subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 ```
 
-- `"Event"` is the name of the event to subscribe to.
+- `Event` is the name of the event to subscribe to. This should match the name passed to `publish`.
 
-- `"Callback"` is a function to invoke when the event occurs. When this function is invoked, its arguments are the messages passed to the publish function.
+- `Callback` is a function to invoke when the event occurs. When this function is invoked, its arguments are the messages passed to the publish function.
 
-- `"SubscribeOptions"` is an optional object: 
+- `SubscribeOptions` is an optional object like this:
 
 ```
 {
-  "context": anything :: undefined
-  ,"id":string :: ""
+  "context": anything :: undefined,
+  "id":string :: ""
 }
 ```
 
 - `"context"` is the context of the callback. If specified, this provides the value of the keyword `this` in the callback.
-- `"id"` defines the id of the callback. This id is unique among all callbacks of each event. This is useful to prevent a callback from subscribing the same event multiple times.
+- `"id"` defines the id of the callback. This id is unique among all callbacks of each event. This may be used to prevent a callback from subscribing the same event multiple times.
 
 Example 1:
 
 ```
 // this example demonstrates how the callback parameter works.
 var callback;
-callback = function(papasDinner, mamasDinner)
-{
+callback = function(papasDinner, mamasDinner) {
   console.log(papasDinner, mamasDinner);
 };
 subscribe("dinner", callback);
@@ -456,16 +434,13 @@ Example 2:
 var callback,
     context,
     options;
-callback = function()
-{
+callback = function() {
   console.log(this.name);
 };
-context =
-{
+context = {
   name: "Exosite Pidgin"
 };
-options =
-{
+options = {
   context: context
 };
 subscribe("birthday", callback, options);
@@ -477,20 +452,17 @@ Example 3:
 
 ```
 // this example demonstrates how the id option works.
-var callback,
-    options;
-options =
-{
+var callback;
+var options;
+options = {
   id: "birthday"
 };
-callback = function()
-{
+callback = function() {
   console.log("Spring");
 };
 // this call is replaced later. Thus it won't work.
 subscribe("season", callback, options);
-callback = function()
-{
+callback = function() {
   console.log("Autumn");
 };
 // this call replaces the callback with the same id among the subscribers of
@@ -498,6 +470,31 @@ callback = function()
 subscribe("season", callback, options);
 // this shows "Autumn" in the debug console.
 publish("season");
+```
+
+#### publish
+
+Publish to a named event. The optional parameters to `publish` following the event name are passed as parameters to all callback functions that have been registered using [`subscribe`](#subscribe).
+
+```
+publish(Event[, Message1, Message2, ...]) -> undefined
+```
+
+- `Event` is the name of the event to subscribe to
+- `Message` may be anything. These arguments ae passed to the subscriber callbacks as parameters
+
+Example:
+
+```
+// this example demonstrates how the callback parameter works.
+var callback;
+callback = function(papasDinner, mamasDinner)
+{
+  console.log(papasDinner, mamasDinner);
+};
+subscribe("dinner", callback);
+// this shows "Rice noodle" "Stinky tofu" in the debug console.
+publish("dinner", "Rice noodle", "Stinky tofu");
 ```
 
 #### getWidgetInfo
