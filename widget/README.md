@@ -84,7 +84,7 @@ The widget function takes two parameters: `container` and `portal`.
 
 ### Widget Container
 
-The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of the One Platform. The following examples illustrate techniques for working with the widget container.
+The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of data from the One Platform. The following examples illustrate techniques for working with the widget container.
 
 To display HTML content in a widget, write the HTML as a string to the container.
 
@@ -96,7 +96,7 @@ function(container, portal) {
 
 ![HTML Output Example](images/html_output_example.png)
 
-To style the HTML contents using CSS, you can inject the `<style>` section in the HTML. With a whitelabel account, you also have the option of defining styles separately in your domain level CSS.
+To style the HTML contents using CSS, you can inject a `<style>` element in the HTML. With a whitelabel account, you also have the option of defining styles separately in the domain level CSS.
 
 ```javascript
 function(container, portal) {
@@ -135,7 +135,7 @@ function(container, portal) {
 
 ![User Input Example 1](images/user_input_example1.png) ![User Input Example 2](images/user_input_example2.png)
 
-To read data from the platform, a widget may read data passed from the [portal resources](#portal-resources) argument to the widget function. Note that you have to select a Data Source to see any output listed.
+To read data from the platform, a widget may read data passed from the [portal resources](#portal-resources) argument to the widget function. Note that you have to select a Data Source in the widget configuration to see any output listed.
 
 ```javascript
 function(container, portal) {
@@ -177,7 +177,7 @@ It's also possible to use the [read](#read) widget API to get data from the One 
 
 ### Portal Resources
 
-The second argument to the widget function is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. The object has this format:
+The second argument to the [widget function](#widget-function) is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. The object has this format:
 
 ```
 { 
@@ -259,7 +259,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 
 #### Portal Resources Example
 
-The above section defines the individual parts of the portals resources object passed to the widget function. Let's bring that together by looking at a concrete example. Here's an custom widget configured to load the temperature in Antarctica from the virtual device that comes with a new Portals Community account.
+The above section defines the individual parts of the portals resources object passed to the [widget function](#widget-function). Let's bring that together by looking at a concrete example. Here's an custom widget configured to load the temperature in Antarctica from the virtual device that comes with a new Portals Community account.
 
 ![Widget Config Example](images/widget_config_example.png)
 
