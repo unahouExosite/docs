@@ -84,9 +84,9 @@ The widget function takes two parameters: `container` and `portal`.
 
 ### Widget Container
 
-The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of the One Platform. The widget sandbox environment makes [jQuery](http://jquery.com/) available.
+The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of the One Platform. The following examples illustrate techniques for working with the widget container.
 
-To display HTML content in a widget, write it as a string to the container.
+To display HTML content in a widget, write the HTML as a string to the container.
 
 ```javascript
 function(container, portal) {
