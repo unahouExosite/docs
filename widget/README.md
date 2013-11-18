@@ -8,7 +8,7 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 [Widget Function](#widget-function)
 
-[Widget Container](#portal-resources)
+[Widget Container](#widget-container)
 
 [Portal Resources](#portal-resources)
 
