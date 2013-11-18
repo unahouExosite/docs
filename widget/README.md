@@ -414,61 +414,80 @@ subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 - `"context"` is the context of the callback. If specified, this provides the value of the keyword `this` in the callback.
 - `"id"` defines the id of the callback. This id is unique among all callbacks of each event. This may be used to prevent a callback from subscribing the same event multiple times.
 
-Example 1:
+Examples
+
+`subscribe` and `publish` may be used to communicate between widgets. For example, one widget can publish to a named event:
 
 ```
+function(container, portal)
+{
+  $(container).html('<a id="publish_button" href="javascript:void(0);">Publish "Hello subscribers!"</a>');
+  $('a#publish_button').click(function () {
+    // publish to 'myevent'
+    publish('myevent', 'Hello, subscribers!');
+  });
+}
+```
+
+...and another widget can subscribe to that event:
+
+```
+function(container, portal)
+{
+  // subscribe to 'myevent'
+  subscribe('myevent', function(msg) {
+    $(container).html(msg);
+  });
+}
+```
+
+Multiple arguments may be published:
+
+```
+
 // this example demonstrates how the callback parameter works.
-var callback;
-callback = function(papasDinner, mamasDinner) {
+subscribe("dinner", function(papasDinner, mamasDinner) {
   console.log(papasDinner, mamasDinner);
-};
-subscribe("dinner", callback);
+});
 // this shows "Rice noodle" "Stinky tofu" in the debug console.
 publish("dinner", "Rice noodle", "Stinky tofu");
 ```
 
-Example 2:
+Here's an example of the context option:
 
 ```
-// this example demonstrates how the context option works.
-var callback,
-    context,
-    options;
-callback = function() {
-  console.log(this.name);
-};
-context = {
-  name: "Exosite Pidgin"
-};
-options = {
-  context: context
-};
-subscribe("birthday", callback, options);
-// this shows "Exosite Pidgin" in the debug console.
+subscribe("birthday", function() {
+    console.log(this.name);
+  }, 
+  { 
+    context: { name: 'My context' }  
+  }
+);
+
+// this displays "My context" in the debug console.
 publish("birthday");
 ```
 
-Example 3:
+Here's an example of the id option:
 
 ```
-// this example demonstrates how the id option works.
-var callback;
-var options;
-options = {
-  id: "birthday"
-};
-callback = function() {
-  console.log("Spring");
-};
-// this call is replaced later. Thus it won't work.
-subscribe("season", callback, options);
-callback = function() {
-  console.log("Autumn");
-};
-// this call replaces the callback with the same id among the subscribers of
-// the event.
-subscribe("season", callback, options);
-// this shows "Autumn" in the debug console.
+var options = { id: "widgetA" };
+
+// this registers a callback for "season" event, 
+// identifying the widget making the call
+subscribe("season", function() { console.log("Spring"); }, options);
+
+// this registers another callback for "season" event,
+// without an id set in options. 
+subscribe("season", function() { console.log("Summer"); });
+
+// this registers a callback that prints "Autumn"
+// because options.id matches the earlier call, it replaces the
+// earlier callback.
+subscribe("season", function() { console.log("Autumn"); }, options);
+
+// this shows Autumn and Summer in the debug console, but not 
+// Spring since that callback was replaced
 publish("season");
 ```
 
@@ -483,19 +502,7 @@ publish(Event[, Message1, Message2, ...]) -> undefined
 - `Event` is the name of the event to subscribe to
 - `Message` may be anything. These arguments ae passed to the subscriber callbacks as parameters
 
-Example:
-
-```
-// this example demonstrates how the callback parameter works.
-var callback;
-callback = function(papasDinner, mamasDinner)
-{
-  console.log(papasDinner, mamasDinner);
-};
-subscribe("dinner", callback);
-// this shows "Rice noodle" "Stinky tofu" in the debug console.
-publish("dinner", "Rice noodle", "Stinky tofu");
-```
+See [`subscribe`](#subscribe) for examples of the `publish` command.
 
 #### getWidgetInfo
 
