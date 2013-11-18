@@ -346,7 +346,7 @@ Reads data from the One Platform resource(s) specified. This throws an exception
 read(TargetResource, Options) -> Deferred
 ```
 
-- `TargetResource` is an array with the following format:
+- `TargetResource` is an array with the following format, where `DeviceAlias` and `DataportAlias` are strings.
 ```
 [
   DeviceAlias,
@@ -355,7 +355,6 @@ read(TargetResource, Options) -> Deferred
 ```
 
 - `Options` has the following format: 
-
 ```
 {
   "starttime":number,
@@ -454,7 +453,6 @@ update(TargetResource, Description) -> Deferred
 
 - `"TargetResource"` is an array of device aliases.
 - `"Description"` is an object containing `"meta"` (device metadata as a JSON string) and `"name"` (name of device). Note that custom widgets may only modify `"location"` in `"meta"`.
-
 ```
 {
   "meta":Meta :: "",
@@ -485,8 +483,6 @@ update(["some_device"], description)
   })
 ;
 ```
-
-
 
 #### drop 
 
@@ -528,7 +524,6 @@ subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 - `Callback` is a function to invoke when the event occurs. When this function is invoked, its arguments are the messages passed to the publish function.
 
 - `SubscribeOptions` is an optional object like this:
-
 ```
 {
   "context": anything :: undefined,
