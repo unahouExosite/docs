@@ -171,7 +171,7 @@ function(container, portal) {
 
 ![Read Portal Resources Example](images/read_portal_resources_example.png)
 
-It's also possible to use the [read](#read) widget API to get data from the One Platform. The advantage of this method is that you can do it after the script has been loaded. For an example, see the [read](#read) API docs below. 
+It's also possible to use the `read` widget API function to get data from the One Platform. The advantage of this method is that you can do it after the script has been loaded. For an example, see the documentation for [`read`](#read).
 
 
 
