@@ -8,6 +8,8 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 [Widget Function](#widget-function)
 
+[Widget Container](#portal-resources)
+
 [Portal Resources](#portal-resources)
 
 [Portal Resources Example](#portal-resources-example)
@@ -76,9 +78,102 @@ function(container, portal) {
 
 The widget function takes two parameters: `container` and `portal`.
 
-- `container` is an HTMLDivElement container for the widget. It can be used to write widget content.
+- `container` is an HTMLDivElement container for the widget. It can be used to write widget content. For more information, see [Widget Container](#widget-container).
 
-- `portal` is a Javascript object containing a snapshot of device and dataport information, including datapoints. See [Portal Resources](#portal-resources) for more.
+- `portal` is a Javascript object containing a snapshot of device and dataport information, including datapoints. For more information, see [Portal Resources](#portal-resources).
+
+### Widget Container
+
+The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of the One Platform. The widget sandbox environment makes [jQuery](http://jquery.com/) available.
+
+To display HTML content in a widget, write it as a string to the container.
+
+```javascript
+function(container, portal) {
+    $(container).html("<h2>Hello, World!</h2>");
+}
+```
+
+![HTML Output Example](images/html_output_example.png)
+
+To style the HTML contents using CSS, you can inject the `<style>` section in the HTML. With a whitelabel account, you also have the option of defining styles separately in your domain level CSS.
+
+```javascript
+function(container, portal) {
+    // set h2 header style to green
+    var html = '<style type="text/css">';
+    html += 'h2 { color: #0000EE; }';
+    html += '</style>';
+
+    html += '<h2>Hello, World!</h2>';
+
+    $(container).html(html);
+}
+```
+
+![CSS Output Example](images/css_output_example.png)
+
+To react to a user action, attach a Javascript event handler to an element.
+
+```javascript
+function(container, portal) {
+  function showPage1() {
+    $(container).html('<h2>Hello</h2><br><a id="next_button" href="javascript:void(0)">Next</a>');
+    $("a#next_button").click(function() {
+      showPage2();
+    });
+  }
+  function showPage2() {
+    $(container).html('<h2>World</h2><br><a id="prev_button" href="javascript:void(0)">Previous</a>');
+    $("a#prev_button").click(function() {
+      showPage1();
+    });
+  }
+  showPage1();
+}
+```
+
+![User Input Example 1](images/user_input_example1.png) ![User Input Example 2](images/user_input_example2.png)
+
+To read data from the platform, a widget may read data passed from the [portal resources](#portal-resources) argument to the widget function. Note that you have to select a Data Source to see any output listed.
+
+```javascript
+function(container, portal) {
+    var html = '<p>Custom widget function was called with ';
+    html += portal.dataports.length;
+    html += ' portal datasource(s) and ';
+    html += portal.clients.length;
+    html += ' device(s).</p>';
+
+    html += '<p>';
+    $.each(portal.clients, function(idx, client) {
+       html += '<h5>' + client.info.description.name + ':</h5>'; 
+       html += '<ul>';
+       $.each(client.dataports, function(idx, dataport) {
+         // display dataport name
+         html += '<li>' + dataport.info.description.name + ': ';
+         if (dataport.data.length > 0) {
+           var latest_point = dataport.data[dataport.data.length - 1]; 
+           html += latest_point[1];
+           html += ' (' + new Date(latest_point[0] * 1000) + ')';
+         } else {
+           html += 'no data points available';
+         }
+         html += '</li>';
+       });
+       html += '</ul>';
+    });
+    html += '</p>';
+    
+    $(container).html(html);
+}   
+``` 
+
+![Read Portal Resources Example](images/read_portal_resources_example.png)
+
+It's also possible to use the [read](#read) widget API to get data from the One Platform. The advantage of this method is that you can do it after the script has been loaded. For an example, see the [read](#read) API docs below. 
+
+
 
 ### Portal Resources
 
@@ -251,7 +346,13 @@ Reads data from the One Platform resource(s) specified. This throws an exception
 read(TargetResource, Options) -> Deferred
 ```
 
-- `TargetResource` is an array of resource aliases
+- `TargetResource` is an array with the following format:
+```
+[
+  DeviceAlias,
+  DataportAlias
+] 
+```
 
 - `Options` has the following format: 
 
@@ -268,21 +369,45 @@ read(TargetResource, Options) -> Deferred
 
 ##### Example
 
-```
-read(["some_device", "some_data_source"])
-  .done(function()
-  {
-    var data = arguments;
-    // means succeeded to read data from a resource
-    // and data is the result you requested
-  })
-  .fail(function()
-  {
-    // means failed to read data from a resource
-  })
-;
+Here's an example of using `read` to read from the device provided with a Portals Community account. (Note that for this example it is necessary to first assign an alias to the device by clicking on Devices -> Exosite Device, setting Alias to `exosite_device`, and pressing the Update button.
+
+```javascript
+function(container, portal) {
+  var html = 'Latest temperature in Antarctica: <div id="temperature">loading...</div>';
+  html += '<div><a class="reload" href="javascript:void(0);">reload</a></div>';
+  function reload() {
+    // call the read widget API
+    var options = {
+      starttime: 1,                          // beginning of epoch
+      endtime: (new Date).getTime() / 1000,  // current time
+      limit: 1,                              // single point
+      sort: "desc"                           // latest point
+    };
+       
+    read(['exosite_device', 'Antarctica Temperature'], options)
+      .done(function() {
+        var data = arguments;
+        // update the data.
+        var latest_point = data['0'];
+        var html = latest_point[1] + ' (' + new Date(latest_point[0] * 1000)  + ')';
+        $(container).find('div#temperature').html(html);
+      })
+      .fail(function() {
+        $(container).find('span#temperature').html(data);
+      });
+  } 
+  $(container).html(html);
+  $(container).find('a.reload').click(function() {
+    // read value again when user clicks on "reload" link
+    alert("loading!");
+    reload();
+  });
+  // read value when widget loads
+  reload();
+}
 ```
 
+![Read Example](images/read_example.png)
 
 #### write
 
