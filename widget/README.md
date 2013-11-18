@@ -482,8 +482,8 @@ subscribe("season", function() { console.log("Spring"); }, options);
 // without an id set in options. 
 subscribe("season", function() { console.log("Summer"); });
 
-// this registers a callback that prints "Autumn"
-// because options.id matches the earlier call, it replaces the
+// this registers a callback that prints "Autumn".
+// options.id matches the earlier call, so it replaces the
 // earlier callback.
 subscribe("season", function() { console.log("Autumn"); }, options);
 
