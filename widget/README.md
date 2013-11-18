@@ -266,7 +266,7 @@ read(TargetResource, Options) -> Deferred
 
 - `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition. The callback passed to the deferred object’s done method will get the data passed as arguments.
 
-Example: 
+##### Example
 
 ```
 read(["some_device", "some_data_source"])
@@ -295,7 +295,7 @@ write(TargetResource, Value) -> Deferred
 - `"TargetResource"` is an array of resource aliases
 - `"Value"` may be a boolean, number, or string value
 
-Example:
+##### Example
 ```
 try
 {
@@ -337,7 +337,7 @@ update(TargetResource, Description) -> Deferred
 }
 ``` 
 
-Example:
+##### Example
 
 ```
 var description =
@@ -375,7 +375,7 @@ drop(TargetResource) -> Deferred
 
 - `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition.
 
-Example:
+##### Example
 
 ```
 drop(["some_device"])
@@ -414,7 +414,7 @@ subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 - `"context"` is the context of the callback. If specified, this provides the value of the keyword `this` in the callback.
 - `"id"` defines the id of the callback. This id is unique among all callbacks of each event. This may be used to prevent a callback from subscribing the same event multiple times.
 
-Examples
+##### Examples
 
 `subscribe` and `publish` may be used to communicate between widgets. For example, one widget can publish to a named event:
 
@@ -518,7 +518,7 @@ getWidgetInfo(PropertyName) -> PropertyValue
 
 - `"PropertyValue"` is the value of the property
 
-Example:
+##### Example
 
 ```
 // this example demonstrates how the getWidgetInfo works
