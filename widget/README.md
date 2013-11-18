@@ -416,7 +416,7 @@ subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 
 ##### Examples
 
-`subscribe` and `publish` may be used to communicate between widgets. For example, one widget can publish to a named event:
+`subscribe` and `publish` may be used to communicate between widgets. For example, one widget can publish a message to a named event when a link is clicked:
 
 ```
 function(container, portal)
@@ -429,13 +429,11 @@ function(container, portal)
 }
 ```
 
-...and another widget can subscribe to that event:
+...and another widget can subscribe to the event and update its content when it receives a callback:
 
 ```
 function(container, portal)
 {
-  // when a message is published, change the widget
-  // content to display it.
   subscribe('myevent', function(msg) {
     $(container).html(msg);
   });
