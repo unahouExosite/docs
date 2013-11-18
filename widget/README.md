@@ -503,7 +503,7 @@ publish(Event[, Message1, Message2, ...]) -> undefined
 - `Event` is the name of the event to subscribe to
 - `Message` may be anything. These arguments ae passed to the subscriber callbacks as parameters
 
-See [`subscribe`](#subscribe) for examples of the `publish` command.
+For examples of the `publish` command, see [`subscribe`](#subscribe).
 
 #### getWidgetInfo
 
