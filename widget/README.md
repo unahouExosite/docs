@@ -392,13 +392,13 @@ drop(["some_device"])
 
 #### subscribe
 
-Register a callback function to handle a named event. Once registered, the function is called when [`publish`](#publish) is called for the named event. This may be used to react to user interface events that occur in another custom widget.
+Register a callback function to handle a widget event. Once registered, the callback function is called when [`publish`](#publish) is called for the widget event. This may be used to react to user interface events that occur in another custom widget.
 
 ```
 subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 ```
 
-- `Event` is the name of the event to subscribe to. This should match the name passed to `publish`.
+- `Event` is the name of the event to subscribe to. This should match the name passed to `publish`. Note that `Event` is not related to Portals events or One Platform datarules. It is an string identifier that is made up by the widget developer for identifying user interface events at the level of an individual dashboard.
 
 - `Callback` is a function to invoke when the event occurs. When this function is invoked, its arguments are the messages passed to the publish function.
 
@@ -492,14 +492,15 @@ publish("season");
 
 #### publish
 
-Publish to a named event. The optional parameters to `publish` following the event name are passed as parameters to all callback functions that have been registered using [`subscribe`](#subscribe).
+Publish a widget event. The optional parameters to `publish` following the event name are passed as parameters to all callback functions that have been registered using [`subscribe`](#subscribe).
 
 ```
 publish(Event[, Message1, Message2, ...]) -> undefined
 ```
 
-- `Event` is the name of the event to subscribe to
-- `Message` may be anything. These arguments ae passed to the subscriber callbacks as parameters
+- `Event` is the name of the event to publish. It is be made up by the widget developer and, for code clarity, should describe the event being published. Note that `Event` is not related to Portals events or One Platform datarules. It is an string identifier that is made up by the widget developer for identifying user interface events at the level of an individual dashboard.
+
+- `Message` may be anything. These arguments are passed to the subscriber callbacks as parameters.
 
 For examples of the `publish` command, see [`subscribe`](#subscribe).
 
