@@ -1,8 +1,4 @@
-## Commander API 
-
-##### Exosite XMPP Chat Interface Command Set v0.2
-
-### Overview
+# Commander API
 
 The Commander is a XMPP Bot which allows any authenticated XMPP client 
 (typically a remote user) to initiate a XMPP Chat in order to issue commands
@@ -16,7 +12,7 @@ the following functions through the Commander:
 * Create, delete and list data sources for client resources
 * Count and read data source records
 
-### Common Responses
+## Common Responses
 
 When an XMPP Chat session is started with the Commander, all commands will 
 receive a response. If a command fails for any reason, the bot replies with 
@@ -29,11 +25,11 @@ error: <reason>
 If a command is successful the bot will reply with a command-specific 
 response value.
 
-#### Common Success Responses
+### Common Success Responses
 
 * `ok`
 
-#### Common Error Responses
+### Common Error Responses
 
 * `error: no identity`
 * `error: invalid parameters`
@@ -41,9 +37,9 @@ response value.
 * `error: not implemented`
 
 
-## Command Set
+# Command Set
 
-### commanderid - commander ID string
+## commanderid - commander ID string
 
 Gets the ID string of the running XMPP Commander instance.
 
@@ -54,7 +50,7 @@ may be sent in either a XMPP Chat or XMPP Message body.
 commanderid
 ```
 
-#####response
+####response
 
 Response is the bot name and version.
 
@@ -62,7 +58,7 @@ Response is the bot name and version.
 XMPP Commander 0.2
 ```
 
-### version - get API version
+## version - get API version
 
 Gets the version number of the running XMPP Commander instance.
 
@@ -73,7 +69,7 @@ may be sent in either a XMPP Chat or XMPP Message body.
 version
 ```
 
-#####response
+####response
 
 Response is the version string.
 
@@ -81,7 +77,7 @@ Response is the version string.
 0.2
 ```
 
-### help
+## help
 
 Lists commands and help command syntax.
 
@@ -95,11 +91,11 @@ help [<command>]
 * `<command>` specifies the command for which to request help. It is optional.
 
 
-#####response
+####response
 
 Response is help information, either for a specified command, or general information.
 
-#####examples 
+####examples 
 
 ```
 > help
@@ -114,7 +110,7 @@ Write historical data to the named Portals data source
 dswrite <alias> <timestamp> <value>
 ```
 
-### setcik - set client interface key
+## setcik - set client interface key
 
 Sets the Client Interface Key (CIK) to the specified value. Setting the CIK 
 starts a chat session. Chat sessions timeout after 5 minutes of inactivity. 
@@ -133,7 +129,7 @@ setcik <value>
 commands may not be available depending on the access rights associated with 
 the given CIK.
 
-#####response
+####response
 
 ```
 ok
@@ -143,14 +139,14 @@ Response may also be:
 
 * `error: Invalid key`
 
-#####examples
+####examples
 
 ```
 >setcik 19cbdefad0b8e90b4d691376d5997f04c1acc18e
 ok
 ```
 
-### write
+## write
 
 Sends a data value for a specific client resource to the One Platform for 
 storage and processing.
@@ -162,7 +158,7 @@ write <alias> <value>
 * `<alias>` is the client resource identifier.
 * `<value>` is the data value to write.
 
-#####response
+####response
 
 ```
 ok
@@ -172,7 +168,7 @@ Response may also be:
 
 * `error: duplicate timestamp`
 
-#####examples
+####examples
 
 To post the value 1043 for resource 1:
 
@@ -181,7 +177,7 @@ To post the value 1043 for resource 1:
 ok
 ```
 
-### read
+## read
 
 Reads up to the last 24 hours of written values for the specified client 
 resource.
@@ -194,7 +190,7 @@ read <alias> [<count>]
 * `<count>` is the maximum number of data points to return, beginning at the
 most recent to the least recent. If not specified, it defaults to 1.
 
-#####response
+####response
 
 Response is a number of data points in CSV format.
 
@@ -205,14 +201,14 @@ Response is a number of data points in CSV format.
 * `<timestamp>` is the UNIX timestamp
 * `<value>` is the value
 
-#####examples
+####examples
 
 ```
 > read 1
 1267806955,1043
 ```
 
-### dscreate - create a data source 
+## dscreate - create a data source 
 
 Creates a data source having a `<name>` for the `<alias>` to be stored. The 
 `<format>` of the data source may be specified. Before storing a reported 
@@ -248,7 +244,7 @@ is specified, otherwise defaults to `string`.
     `float`
     `string`
 
-#####response
+####response
 
 ```
 ok
@@ -259,7 +255,7 @@ Response may also be:
 * `error: invalid or duplicate data source`
 * `error: too many data sources`
 
-#####examples
+####examples
 
 ```
 > dscreate “office temp” temp div 20
@@ -271,7 +267,7 @@ ok
 ok
 ```
 
-### dsdelete - delete data source
+## dsdelete - delete data source
 
 Deletes the specified data source and all associated data. Warning: once data 
 is deleted, it may not be recovered.
@@ -282,7 +278,7 @@ dsdelete <alias>
 
 * `<alias>` is the resource identifier of the datasource to delete.
 
-#####response
+####response
 
 ```
 ok
@@ -292,14 +288,14 @@ Response may also be:
 * `error: invalid data source`
 
 
-#####examples
+####examples
 
 ```
 > dsdelete temp
 ok
 ```
 
-### dswrite - write data source
+## dswrite - write data source
 
 Write data records to the data source identified by `<alias>` and timestamp 
 `<timestamp>`.
@@ -312,20 +308,20 @@ dswrite <alias> <timestamp> <value>
 * `<timestamp>` is the UNIX timestamp to index the data by.
 * `<value>` is the data value to write.
 
-#####response
+####response
 
 ```
 ok
 ```
 
-#####examples
+####examples
 
 ```
 > dswrite temp 1300777704 1067
 ok
 ```
 
-### dsread - read data source
+## dsread - read data source
 
 Reads historical data records from the data source identified by `<alias>`.
 
@@ -339,7 +335,7 @@ most recent to the least recent.
 * `<start>` and `<end>` are the earliest and latest timestamp for which to
 retrieve historical data records.
 
-#####response
+####response
 
 Response is unix timestamp and data value pairs in CSV format.
 
@@ -349,7 +345,7 @@ Response is unix timestamp and data value pairs in CSV format.
 ...
 ```
 
-#####examples
+####examples
 
 ```
 > dsread temp 3
@@ -358,7 +354,7 @@ Response is unix timestamp and data value pairs in CSV format.
 1300777704,53.35
 ```
 
-### dslist - list data sources
+## dslist - list data sources
 
 Lists all created data sources.
 
@@ -371,7 +367,7 @@ dslist [<detail>]
     `full` returns the data source name, resource, operation, and constant 
     values.
 
-#####response
+####response
 
 A list of data source information is returned in CSV format.
 
@@ -381,7 +377,7 @@ A list of data source information is returned in CSV format.
 ...
 ```
 
-#####examples
+####examples
 
 ```
 > dslist
@@ -400,7 +396,7 @@ outside humidity,11,div,100
 ```
 
 
-### dscount - count data source records
+## dscount - count data source records
 
 Counts the number of historical data records from the data source identified 
 by `<alias>`.
@@ -417,12 +413,12 @@ historical data records. This parameter is optional.
 * `<end>` is the latest UNIX timestamp for which to stop counting 
 historical data records. This parameter is optional.
 
-#####response
+####response
 
 The number of historical records that exist in the range specified. If no 
 range is given, then all records are counted.
 
-#####examples
+####examples
 
 
 ```

@@ -1,4 +1,4 @@
-## Exosite Device Provisioning and Fleet Management API
+# Device Provisioning and Fleet Management API
 
 Procedures in this API fall into one of two categories:
 
@@ -14,7 +14,7 @@ Host Address: `http://m2.exosite.com` or `https://m2.exosite.com`
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
-### Libraries and Sample Code
+## Libraries and Sample Code
 
 Wrapper libraries for this API:
 
@@ -25,7 +25,7 @@ Code samples that use this API:
 * [Provision Examples](https://github.com/exosite-garage/provision_examples) - socket level code intended as a reference for implementation in other languages
 
 
-### Conventions
+## Conventions
 
 This document uses a few notational conventions:
 
@@ -33,7 +33,7 @@ This document uses a few notational conventions:
 * Items in curly braces, e.g., `{vendor=<id>}`, are optional.
 * `...` indicates the previous content is repeated.
 
-### HTTP Responses
+## HTTP Responses
 
 Typical HTTP response codes include:
 
@@ -44,7 +44,7 @@ Typical HTTP response codes include:
 | 4xx    | Client Error  | There was an error with the request by the client |
 | 5xx    | Server Error  | There way an error with the request on the server |
 
-### Procedures
+## Procedures
 
 See the [Device Provisioning](device.md) and [Fleet Management](management.md) pages for information of API procedures.
 

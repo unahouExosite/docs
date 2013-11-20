@@ -1,30 +1,10 @@
-## Exosite JSON RPC API
+# Remote Procedure Call API
 
 The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points.
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
-### Table of Contents
-
-[API Libraries](#api-libraries)
-
-[Conventions](#conventions)
-
-[HTTP Request/Response Example](#http-requestresponse-example)
-
-[Making a Request](#making-a-request)
-
-[Authentication](#authentication)
-
-[Identifying Resources](#identifying-resources)
-
-[Request JSON](#request-json)
-
-[Response JSON](#response-json)
-
-####Procedures
-
-#####Time Series Data
+####Time Series Data
 
 [read](#read) - read time series data
 
@@ -34,7 +14,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [flush](#flush) - remove time series data
 
-#####Resources
+####Resources
 
 [create (client)](#create-client) - create a resource that can contain other resources
 
@@ -56,7 +36,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [usage](#usage) - get usage information for a resource
 
-#####Aliases
+####Aliases
 
 [map](#map) - create an alias that can be used to refer to a resource
 
@@ -64,7 +44,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [unmap](#unmap) - remove an alias for a resource
 
-#####Shares and Keys 
+####Shares and Keys 
 
 [share](#share) - generate a code that can allows non-owners to access resources
 
@@ -76,7 +56,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [deactivate](#deactivate) - deactivate a share code or CIK
 
-### API Libraries
+## API Libraries
 
 Wrapper libraries are available for this API:
 
@@ -85,14 +65,14 @@ Wrapper libraries are available for this API:
 * C++: [cpponep](https://github.com/exosite-labs/cpponep)
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 
-### Conventions
+## Conventions
 
 This document uses a few notational conventions:
 
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
 * Comments (`//`) are occasionally included in JSON to give hints or provide detail. These comments are not included in actual requests or responses.
 * A name in angle brackets, e.g. `<myvar>`, is a placeholder that will be defined elsewhere.
-* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee2f4cc5172e6d8a1628bee"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`. See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` is a placeholder that may be either a 40 digit resource identifier (e.g., `"879542b837bfac5beee201234567890123456789"`) or an alias reference (e.g., `{"alias": "myalias"}`). It may also be a self reference: `{"alias": ""}`. See [Identifying Resources](#identifying-resources) for details.
 
 * `number` indicates a number, e.g. 42
 * `string` represents a string, e.g. "MySensor"
@@ -100,7 +80,7 @@ This document uses a few notational conventions:
 * `=` represents default value
 * `...` represents one or more of the previous item
 
-### HTTP Request/Response Example
+## HTTP Request/Response Example
   
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
 
@@ -169,14 +149,14 @@ Server: nginx
 ]
 ```
 
-### Making a Request
+## Making a Request
 
 Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
 
-### Authentication
+## Authentication
 
 Requests to the JSON RPC are made on behalf of a particular client in the system, 
 called the "calling client". Every request passes a client key, called a 
@@ -200,7 +180,7 @@ Authentication information is placed in the JSON body of a request, in
 * `{"cik": CIK, "resource_id": RID}` authenticate as the owner of the given resource if the CIK identifies as an ancestor of the given resource.
 
 
-### Identifying Resources
+## Identifying Resources
 
 Many procedures in the API include an argument for identifying a resource to act upon. In this documentation, that resource is identified by `<ResourceID>`. This argument can take any of these forms:
 
@@ -211,7 +191,7 @@ Many procedures in the API include an argument for identifying a resource to act
 * `{"alias": ""}` identifies the calling client itself. So, for example, if `"auth"` was set to `{"cik":"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`, the procedure would act upon the client whose CIK is `"e469e336ff9c8ed9176bc05ed7fa40daaaaaaaaa"`.
 
 
-### Request JSON
+## Request JSON
 
 The body of a request has the following structure:
 
@@ -262,7 +242,7 @@ The body of a request has the following structure:
 
 `"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures-1). 
 
-### Response JSON
+## Response JSON
 
 The response body is always JSON, but its format varies based on error handling conditions. If a call succeeds, the body of the response is a JSON list of responses to the calls made in the request:
 
@@ -312,9 +292,9 @@ If the request message causes an error not associated with any given call, the r
 
 
 
-## Procedures
+# Procedures
 
-###read 
+##read 
 
 Read data from a resource.
 
@@ -342,7 +322,7 @@ Read data from a resource.
 * `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation.
 
 
-#####response
+####response
 
 Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
 
@@ -379,7 +359,7 @@ Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value
 
 ---
 
-###write
+##write
 
 Writes a single value to the resource specified.
 
@@ -398,7 +378,7 @@ Writes a single value to the resource specified.
 
 * `<value>` is the value to write.
 
-#####response
+####response
 
 ```
 {
@@ -409,7 +389,7 @@ Writes a single value to the resource specified.
 
 ---
 
-##activate
+#activate
 
 Given an activation code, activate an entity for the calling client.
 
@@ -438,7 +418,7 @@ TODO: what does it mean to activate an entity? Does entity mean the same thing a
 
 * `<code>` is a CIK or share code
 
-#####response
+####response
 
 ```
 {
@@ -459,7 +439,7 @@ TODO: what does it mean to activate an entity? Does entity mean the same thing a
 
 ---
  
-###create (client)
+##create (client)
 
 Creates a client.
 
@@ -517,7 +497,7 @@ Creates a client.
 
 * `"public"` needs to be documented (TODO)
 
-#####response
+####response
 
 ```
 {
@@ -528,7 +508,7 @@ Creates a client.
 
 ---
 
-###create (dataport)
+##create (dataport)
 
 Creates a dataport.
 
@@ -571,7 +551,7 @@ Creates a dataport.
 * `"subscribe"` is an RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
 
 
-#####response
+####response
 
 ```
 {
@@ -582,7 +562,7 @@ Creates a dataport.
 
 ---
 
-###create (datarule)
+##create (datarule)
 
 Creates a datarule.
 
@@ -773,7 +753,7 @@ previous value.</li>
 <code>"script"</code> is a string containing Lua source code to run on the server.
 </td></tr>
 </table>
-#####response
+####response
 
 ```
 {
@@ -784,7 +764,7 @@ previous value.</li>
 
 ---
 
-###create (dispatch)
+##create (dispatch)
 
 Creates a dispatch.
 
@@ -823,7 +803,7 @@ Creates a dispatch.
 * `"subject"` is the subject string for delivery methods that support a subject line, such as email.
 
 
-#####response
+####response
 
 ```
 {
@@ -834,7 +814,7 @@ Creates a dispatch.
 
 ---
 
-###create (clone)
+##create (clone)
 
 Create a clone from an existing One Platform resource given its RID or a non-activated sharecode for that resource.
 
@@ -860,7 +840,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 * `"noaliases"` specifies whether to create clone aliases
 * `"nohistorical"` specifies whether to clone historical data
 
-#####response
+####response
 
 ```
 {
@@ -871,7 +851,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ---
 
-###deactivate
+##deactivate
 
 Given an activation code, deactivate an entity for the calling client.
 
@@ -897,7 +877,7 @@ Given an activation code, deactivate an entity for the calling client.
 * `<RIDOrCode>` is the client or share activation code or the shared resource ID to be deactivated
 
 
-#####response
+####response
 
 ```
 {
@@ -908,7 +888,7 @@ Given an activation code, deactivate an entity for the calling client.
 
 ---
 
-###drop
+##drop
 
 Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
 the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
@@ -927,7 +907,7 @@ be terminated.
 * `<ResourceID>` specifies the resource to drop.  See [Identifying Resources](#identifying-resources) for details.
 
 
-#####response
+####response
 
 ```
 {
@@ -942,7 +922,7 @@ be terminated.
 
 ---
 
-###flush
+##flush
 
 Empties the specified resource of data per specified constraints. If no constraints are specified, all data gets flushed.  
 
@@ -966,7 +946,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 * `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
 
 
-#####response
+####response
 
 ```
 {
@@ -984,7 +964,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ---
 
-###info
+##info
 
 Request creation and usage information of specified resource according 
 to the specified options. Information is returned for the options
@@ -1048,7 +1028,7 @@ returned.
 
 
 
-#####response
+####response
 
 ```
 {
@@ -1172,7 +1152,7 @@ returned.
 
 --- 
 
-###listing
+##listing
 
 Returns an ordered list, in the same order as the input TypeList order, of resource id lists, filtered by any provided options.
 
@@ -1201,7 +1181,7 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 
     `"tagged"` resources that have been tagged by any client, and the caller client has read access to
 
-#####response
+####response
 
 ```
 {
@@ -1227,7 +1207,7 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 
 --- 
 
-###lookup
+##lookup
 
 Look up a Resource ID by alias, owned Resource ID, or share activation code. 
 
@@ -1254,7 +1234,7 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 * If the first argument is `"shared"`, the second argument is a share activation code whose
     Resource ID will be looked up. 
 
-#####response
+####response
 
 ```
 {
@@ -1269,7 +1249,7 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 
 --- 
 
-###map
+##map
 
 Creates an alias for a resource. Subsequently the resource can be looked up using the "lookup" method.
 
@@ -1289,7 +1269,7 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 
 * `string` is an alias string to map to `<ResourceID>`.
 
-#####response
+####response
 
 ```
 {
@@ -1303,7 +1283,7 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 
 --- 
 
-###record
+##record
 
 Records a list of historical entries to the resource specified.
 
@@ -1324,7 +1304,7 @@ Records a list of historical entries to the resource specified.
     `<timestamp>` is a negative value, it means an offset back into the past from the current time.
 * The third argument is currently unused.
 
-#####response
+####response
 
 ```
 {
@@ -1337,7 +1317,7 @@ Records a list of historical entries to the resource specified.
 
 --- 
 
-###revoke
+##revoke
 
 Given an activation code, the associated entity is revoked after which
 the activation code can no longer be used. The calling client must be
@@ -1367,7 +1347,7 @@ the owner of the resource with which the activation code is associated.
 
 * `<code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
 
-#####response
+####response
 
 ```
 {
@@ -1385,7 +1365,7 @@ the owner of the resource with which the activation code is associated.
 
 --- 
 
-###share
+##share
 
 Generates a share code for the given resource. The share code can
 subsequently be used to activate the share and gain read access to the
@@ -1409,7 +1389,7 @@ shared resource.
     activated or 'infinity' to indicate no limit
 * `"count"` is the number of times this share can be activated
 
-#####response
+####response
 
 ```
 {
@@ -1424,7 +1404,7 @@ shared resource.
 --- 
 
 
-###unmap
+##unmap
 
 Removes a mapping of specified type. After the removal, the previously
 mapped resource will not be able to be looked up by the mapping.
@@ -1442,7 +1422,7 @@ mapped resource will not be able to be looked up by the mapping.
 
 * `<alias>` is the alias string to unmap.
 
-#####response
+####response
 
 ```
 {
@@ -1456,7 +1436,7 @@ mapped resource will not be able to be looked up by the mapping.
 
 ---
 
-###update
+##update
 
 Updates the description of the resource. 
 
@@ -1482,7 +1462,7 @@ Updates the description of the resource.
     Dataport and datarule format may not be changed.
 
 
-#####response
+####response
 
 ```
 {
@@ -1496,7 +1476,7 @@ Updates the description of the resource.
 
 ---
 
-###usage
+##usage
 
 Returns metric usage for client and its subhierarchy.
 
@@ -1522,7 +1502,7 @@ Returns metric usage for client and its subhierarchy.
 * `<starttime>` and `<endtime>` specify the window in which to measure usage
 
 
-#####response
+####response
 
 ```
 {

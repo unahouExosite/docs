@@ -1,11 +1,11 @@
-## Exosite Data API
+# Data API
 
 This is a lightweight HTTP-based API for writing to and reading from the Exosite One Platform. It is intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point.
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
-### Table of Contents
+## Table of Contents
 
 [Libraries and Sample Code](#libraries-and-sample-code)
 
@@ -25,7 +25,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [IP](#ip) - get the IP address of the host server 
 
 
-### Libraries and Sample Code
+## Libraries and Sample Code
 
 Sample code is available that uses this API.
 
@@ -35,7 +35,7 @@ Sample code is available that uses this API.
 * [Python read and write example with socket](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_read_write_socket_example.py), [Python - Get IP Address Example](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_get_ip_socket_example.py) - socket level code intended as a reference for implementation in other languages
 * [Python read and write example with httplib](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_read_write_example.py)
 
-### Notational Conventions
+## Notational Conventions
 
 This document uses a few notational conventions:
 
@@ -48,7 +48,7 @@ This document uses a few notational conventions:
 * `=` represents default value
 * `...` represents one or more of the previous item
 
-### HTTP Responses
+## HTTP Responses
 
 Typical HTTP response codes include:
 
@@ -60,9 +60,9 @@ Typical HTTP response codes include:
 | 5xx    | Server Error  | There way an error with the request on the server |
 
 
-## Procedures
+# Procedures
 
-###Write
+##Write
 
 Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
 
@@ -91,7 +91,7 @@ Content-Length: 0 
 
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
-###Read
+##Read
 
 Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
 
@@ -121,7 +121,7 @@ Content-Length: <length>
 * See [HTTP Responses](#http-responses) for a full list of responses
 
 
-###Hybrid write/read
+##Hybrid write/read
 
 Write one or more dataports of alias `<alias w>` with given `<value>` and then read the most recent value from one or more dataports with alias `<alias r>`. The client (e.g. device, portal) to write to and read from is identified by `<CIK>`. All writes occur before all reads.
 
@@ -154,7 +154,7 @@ Content-Length: <length>
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
 
-###IP 
+##IP 
 
 Return the IP address of the host server.
 

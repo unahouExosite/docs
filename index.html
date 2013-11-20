@@ -1,17 +1,4 @@
 <!doctype html>
-<!--
-
-  Instructions:
-
-  - Save this file.
-  - Replace "USER" with your GitHub username.
-  - Replace "REPO" with your GitHub repo name.
-  - Replace "Your Project" with your project name.
-  - Upload this file (or commit to GitHub Pages).
-
-  Customize as you see fit!
-
--->
 <html>
 <head>
   <meta charset='utf-8'>
@@ -23,11 +10,16 @@
   <!-- Flatdoc -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src='http://rstacruz.github.io/flatdoc/v/0.8.0/legacy.js'></script>
-  <script src='http://rstacruz.github.io/flatdoc/v/0.8.0/flatdoc.js'></script>
+  <script src='assets/flatdoc-mod.js'></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon.ico">
 
   <!-- Flatdoc theme -->
   <link  href='http://rstacruz.github.io/flatdoc/v/0.8.0/theme-white/style.css' rel='stylesheet'>
   <script src='http://rstacruz.github.io/flatdoc/v/0.8.0/theme-white/script.js'></script>
+
+  <link href='assets/style.css' rel='stylesheet'>
 
   <!-- Meta -->
   <meta content="Exosite API" property="og:title">
@@ -36,23 +28,29 @@
   <!-- Initializer -->
   <script>
     Flatdoc.run({
-      fetcher: Flatdoc.github('exosite/api')
+      fetcher: Flatdoc.file('/README.md')
     });
   </script>
 </head>
-<body role='flatdoc'>
-
+<body role='flatdoc' class="no-literate">
   <div class='header'>
     <div class='left'>
-      <h1>Exosite APIs</h1>
+      <a href="/">
+        <img src="assets/logo.png" id="logo">
+      </a>
       <ul>
-        <li><a href='https://github.com/exosite/api'>View on GitHub</a></li>
-        <li><a href='https://github.com/exosite/api/issues'>Issues</a></li>
+        <li><a href='#data/README'>Data</a></li>
+        <li><a href='#rpc/README'>Remote Procedure Call</a></li>
+        <li><a href='#provision/device'>Device Provisioning</a></li>
+        <li><a href='#provision/management'>Fleet Management</a></li>
+        <li><a href='#udp/README'>UDP Single Shot</a></li>
+        <li><a href='#commander/README'>Commander</a></li>
+        <li><a href='#scripting/README'>Lua Scripting</a></li>
+        <li><a href='#widget/README'>Custom Widget</a></li>
       </ul>
     </div>
     <div class='right'>
-      <!-- GitHub buttons: see http://ghbtns.com -->
-      <iframe src="http://ghbtns.com/github-btn.html?user=exosite&amp;repo=api&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+      <li><a href='https://github.com/exosite/api'>Contribute</a></li>
     </div>
   </div>
 
@@ -62,6 +60,13 @@
     </div>
     <div role='flatdoc-content' class='content'></div>
   </div>
+
+  <div id="markdown" style="display:none;">
+
+  <div>
+
+  <!-- Custom -->
+  <script src='assets/main.js'></script>
 
 </body>
 </html>

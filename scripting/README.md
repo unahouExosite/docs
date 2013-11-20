@@ -1,4 +1,4 @@
-## Exosite Lua Scripting API
+# Lua Scripting API
 
 Exosite's One Platform can run Lua scripts on your behalf. These scripts have
 a rich set of capabilities and may be used to offload processing from your 
@@ -7,7 +7,7 @@ device.
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
-### Overview
+## Overview
 
 Scripts are written in Lua 5.2 scripting language. For general information
 about Lua 5.2, please reference the [online Lua manual](http://www.lua.org/manual/5.2/).
@@ -40,7 +40,7 @@ datasources as well as devices in that portal and their datasources.
 A script may also dispatch messages.
 
 
-### The script environment
+## The script environment
 
 Scripts are completely isolated from one another, each running in its own,
 secure environment, complete with access to a set of Lua tables and functions,
@@ -48,7 +48,7 @@ as well as a set of One Platform API functions, the 'alias' table and Global
 properties and functions.
 
 
-#### Lua tables and functions
+### Lua tables and functions
 
 The following global Lua tables and functions are available to Lua
 scripts. They operate exactly as described in the Lua 5.2 reference manual.
@@ -79,7 +79,7 @@ scripts. They operate exactly as described in the Lua 5.2 reference manual.
 * [`type()`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
 
 
-#### One Platform tables
+### One Platform tables
 
 The following One Platform resources and features are available to Lua scripts:
 
@@ -88,7 +88,7 @@ The following One Platform resources and features are available to Lua scripts:
 * [`manage`](#the-manage-table)
 
 
-#### Global tables, functions, and properties
+### Global tables, functions, and properties
 
 The following global resources and features are available to Lua scripts:
 
@@ -100,7 +100,7 @@ The following global resources and features are available to Lua scripts:
 * `now` holds the current UNIX timestamp.
 
 
-### The alias table
+## The alias table
 
 Every script is owned by a One Platform client, and has access to that client
 and all of its resources through the `alias` table. 
@@ -231,7 +231,7 @@ with the aliased resource.
   Status:           'ok' :: string - accessing [<timestamp>] was successful
 ```
 
-### The manage table
+## The manage table
 
     The manage table provides resource management functionality.
 
@@ -714,7 +714,7 @@ with the aliased resource.
            false, error :: boolean, string - "badarg" | "invalid" | "restricted"
 ```
 
-### The JSON global table
+## The JSON global table
 
 Supports the encoding to and decoding from JSON format as specified at:
 http://www.json.org/
@@ -794,7 +794,7 @@ http://www.json.org/
                      nil :: nil    - the type of value is not a valid JSON type
 ```
 
-### The dispatch table
+## The dispatch table
 
 The One Platform supports sending messages to external recipients over several
 transports as 'dispatches' which are available via the 'dispatch' table.
@@ -914,7 +914,7 @@ and specifies the email `Content-Type` header, and defaults to:
   reason "undelivered".
 ```
 
-### Utilities
+## Utilities
 
 The scripting system has access to utilities functions in the global scope.
 
@@ -1020,6 +1020,6 @@ remains in effect until a subsequent invocation of this function.
                   false :: boolean - the new timezone was not successfully set
 ```
 
-### Examples
+## Examples
 
 TODO

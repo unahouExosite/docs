@@ -1,10 +1,10 @@
-## Fleet Management API Procedures
+# Fleet Management API Procedures
 
 The following procedures allow device OEMs to create custom fleet management applications. For many applications they do not need to be used since Portals wraps their functionality with a user interface.
 
 For general information about accessing this API, see the [main section](README.md).
 
-### Table of Contents
+## Table of Contents
 
 [/provision/manage/content/\<model\>/](#provisionmanagecontentmodel) - list, create, or delete content 
 
@@ -34,9 +34,9 @@ For general information about accessing this API, see the [main section](README.
 
 [/provision/admin/auth/\<id\>](#provisionadminauthid) - get vendor token, delete vendor token
 
-### /provision/manage/content/\<model\>/
+## /provision/manage/content/\<model\>/
 
-#### GET - list content ids
+### GET - list content ids
 
 Returns list of content `<id>`s for `<model>`.
 
@@ -47,7 +47,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -68,7 +68,7 @@ Response may also be:
 * `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
 
 
-#### GET - list authorized content 
+### GET - list authorized content 
 
 Returns list of content `<id>`s authorized for access by `<serialnumber>`.
 
@@ -79,7 +79,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -100,7 +100,7 @@ Response may also be:
 * `HTTP/1.1 400 Bad Request` if the `<vendor>`, `<model>` and `<serialnumber>` combination is invalid.
 
 
-#### POST - create content entity
+### POST - create content entity
 
 Creates content entity bucket named `<id>`. If `protected` is not specified or
 `false` then the content entry is available to all model serial numbers.
@@ -115,7 +115,7 @@ Content-Length: <length>
 id=<id>&description=<description>{&protected=true}
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -130,7 +130,7 @@ Response may also be:
 
 * `HTTP/1.1 409 Conflict` if `<id>` already exists.
 
-#### POST - delete content entry
+### POST - delete content entry
 
 Deletes content management entry and associated content.
 
@@ -144,7 +144,7 @@ Content-Length: <length>
 delete=true&id=<id>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -155,9 +155,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/content/\<model\>/\<id\>
+## /provision/manage/content/\<model\>/\<id\>
 
-#### GET - get content info
+### GET - get content info
 
 Returns information about the specified content `<id>`.
 
@@ -168,7 +168,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -181,7 +181,7 @@ Content-Type: text/csv; charset=utf-8
 <content-type>,<byte-size>,<updated-timestamp>,<description>,<protected>
 ```
 
-#### GET - get content blob 
+### GET - get content blob 
 
 Returns the `<blob>` of the specified content `<id>`. `Range` is optional –
 it allows the caller to request a chunk of bytes at a time. 
@@ -202,7 +202,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -222,7 +222,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-#### GET - get content info
+### GET - get content info
 
 Returns information of the specified content `<id>` if `<serialnumber>` is 
 authorized to download it.
@@ -235,7 +235,7 @@ Content-Length: <length>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -252,7 +252,7 @@ Response may also be:
 
 * `HTTP/1.1 400 Bad Request` if the `<vendor>`, `<model>` and `<serialnumber>` combination is invalid.
 
-#### GET - get content blob
+### GET - get content blob
 
 If `<serialnumber>` is authorized for the content, then the `<id>` content 
 blob, or its requested range, is returned. The `Range` header 
@@ -273,7 +273,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -293,7 +293,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-#### GET - list groups
+### GET - list groups
 
 Returns the list of `<group id>`s which this content is a member of, if any, 
 in paginated sets of size `<limit>` starting at `<offset>`, limit is 
@@ -307,7 +307,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -327,7 +327,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if content `<id>` is not a member of any group.
 
-#### POST - upload content
+### POST - upload content
 
 Stores `<blob>` as the payload for `<id>` under the given model. The given 
 `<content-type>` is used as the `Content-Type` in subsequent download requests
@@ -344,7 +344,7 @@ Content-Length: <length>
 <blob>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -360,7 +360,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<id>` already exists.
 
 
-#### DELETE - delete content
+### DELETE - delete content
 
 Deletes content `<id>`, and all payload and information, under the given 
 `<model>`.
@@ -372,7 +372,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -383,9 +383,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/group/\<model\>/
+## /provision/manage/group/\<model\>/
 
-#### GET - show groups
+### GET - show groups
 
 Returns list of `<group id>`s with `<description>` for `<model>` in
 paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced 
@@ -399,7 +399,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -419,7 +419,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if there are no matching groups.
 
-#### POST - create group
+### POST - create group
 
 Creates a new group with given `<id>` and `<description>`.
 
@@ -433,7 +433,7 @@ Content-Length: <length>
 id=<id>&description=<description>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -450,7 +450,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if group `<id>` already exists.
 
 
-#### POST - delete group
+### POST - delete group
 
 Deletes the group with given `<id>`.
 
@@ -464,7 +464,7 @@ Content-Length: <length>
 id=<id>&delete=true
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -475,9 +475,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/group/\<model\>/\<id\>
+## /provision/manage/group/\<model\>/\<id\>
 
-#### GET - get group description 
+### GET - get group description 
 
 Returns the `<description>` and the number of members of group `<id>`.
 
@@ -488,7 +488,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -502,7 +502,7 @@ Content-Type: text/csv; charset=utf-8
 ```
 
 
-#### GET - get group membership 
+### GET - get group membership 
 
 Returns the list of `<group id>`s of which this group is a member,
 in paginated sets of size `<limit>` starting at `<offset>`, limit is enforced
@@ -516,7 +516,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -536,7 +536,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if the group is not a member of any other groups.
 
-#### DELETE - delete group
+### DELETE - delete group
 
 Deletes group <id>.
 
@@ -547,7 +547,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -558,9 +558,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/group/\<model\>/\<id\>/
+## /provision/manage/group/\<model\>/\<id\>/
 
-#### GET - list group info
+### GET - list group info
 
 Returns information about all members of this group in paginated sets of 
 size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
@@ -574,7 +574,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -595,7 +595,7 @@ Response may also be:
 * `HTTP/1.1 204 No Content` if the group does not have any members.
 
 
-#### GET - list types with group membership
+### GET - list types with group membership
 
 Returns information about all members of specified `<type>` in this group, in
 paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced
@@ -609,7 +609,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -629,7 +629,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No Content` if the group does not have any members of specified type.
 
-#### GET - get group member info
+### GET - get group member info
 
 Returns information of members of `<id>` in the group.
 
@@ -640,7 +640,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -661,7 +661,7 @@ Response may also be:
 * `HTTP/1.1 204 No Content` if the group does not have any members that match `<id>`.
 
 
-#### GET - get group member info
+### GET - get group member info
 
 Returns information about specified member in the group.
 
@@ -672,7 +672,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -685,7 +685,7 @@ Content-Type: text/csv; charset=utf-8
 <type>,<memberid>,<expire>,<description>
 ```
 
-#### POST - add or update similar group members
+### POST - add or update similar group members
 
 Adds or updates a member or members to a group, all with the same `<type>`,
 `<expire>` time and `<description>`, but with different `<member id>`s.
@@ -702,7 +702,7 @@ type=<type>&id=<member id>&expire=<expire>&description=<description>
 type=<type>&id[]=<member id1>{...&id[]=<member idN>}&expire=<expire>&description=<description>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -713,7 +713,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### POST - add or update dissimilar group members
+### POST - add or update dissimilar group members
 
 Adds or updates a member or members to a group, all with different `<type>`, 
 `<expire>` time, `<description>` and `<member id>`s.
@@ -731,7 +731,7 @@ Content-Length: <length>
 <type n>,<memberid n>,<expire n>,<description n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -743,7 +743,7 @@ Content-Length: 0
 ```
 
 
-#### POST - delete similar group members
+### POST - delete similar group members
 
 Deletes a member or members of specified type, with specified id(s), from
 this group.
@@ -760,7 +760,7 @@ OR
 type=<type>&id[]=<member id1>{...&id[]=<member idN>}&delete=true
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -771,7 +771,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### DELETE - delete members of group 
+### DELETE - delete members of group 
 
 Deletes members matching specified `<type>`s and `<id>`s.
 
@@ -788,7 +788,7 @@ Content-Length: <length>
 <type n>,<id n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -799,9 +799,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/model/
+## /provision/manage/model/
 
-#### GET - list models
+### GET - list models
 
 Returns list of models owned by the vendor.
 
@@ -812,7 +812,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -828,7 +828,7 @@ Content-Type: text/csv; charset=utf-8
 <model n>
 ```
 
-#### GET - list shared models
+### GET - list shared models
 
 Returns list of models that other vendors have shared to the calling vendor.
 
@@ -839,7 +839,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -855,7 +855,7 @@ Content-Type: text/csv; charset=utf-8
 <vendorname n>,<model n>
 ```
 
-#### POST - create model
+### POST - create model
 
 Adds a model, using `<rid>` or `<code>` as the clone template.
 
@@ -873,7 +873,7 @@ model=<model>&code=<code>&options[]=noaliases&options[]=nocomments
    &options[]=nohistorical
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -888,7 +888,7 @@ Response may also be:
 
 * `HTTP/1.1 409 Conflict` if another model called `<model>` already exists.
 
-#### POST - delete model
+### POST - delete model
 
 Deletes specified provisioning model and all associated serial numbers and 
 content.
@@ -903,7 +903,7 @@ Content-Length: <length>
 delete=true&model=<model>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -914,9 +914,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/model/\<model\> 
+## /provision/manage/model/\<model\> 
 
-#### GET - get model info
+### GET - get model info
 
 Get model information.
 
@@ -927,7 +927,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -942,7 +942,7 @@ OR
 code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
 ```
 
-#### PUT - update model
+### PUT - update model
 
 Updates `<model>` with new `<option>`s and `<rid>` or `<code>`.
 
@@ -958,7 +958,7 @@ OR
 code=<code>&options[]=noaliases&options[]=nocomments&options[]=nohistorical
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -969,7 +969,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### DELETE - delete model
+### DELETE - delete model
 
 Deletes specified `<model>` and all associated serial numbers and content.
 
@@ -980,7 +980,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -991,7 +991,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/model/\<model\>/
+## /provision/manage/model/\<model\>/
 
 Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
 associated to `<Vendorname>`. The calling vendor was identified by 
@@ -1000,7 +1000,7 @@ associated to `<Vendorname>`. The calling vendor was identified by
 and view listings are only valid for serial numbers enabled by the calling 
 vendor.
 
-#### GET - list serial numbers
+### GET - list serial numbers
 
 Returns list of serial numbers `<sn>` from `<model>` with associated `<rid>` 
 in paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is 
@@ -1018,7 +1018,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1034,7 +1034,7 @@ Content-Type: text/csv; charset=utf-8
 <sn n>,<rid n>,<extra n>
 ```
 
-#### GET - get serial number JSON object
+### GET - get serial number JSON object
 
 Returns JSON object of configured serial number ranges for relevant model.
 
@@ -1045,7 +1045,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1072,7 +1072,7 @@ Content-Type: application/javascript; charset=utf-8
 ```
 
 
-#### POST - add single serial number
+### POST - add single serial number
 
 Adds a single serial number `<sn>` to specified `<model>` entry, with
 `<extra>` information.
@@ -1087,7 +1087,7 @@ Content-Length: <length>
 sn=<sn>&extra=<extra>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1103,7 +1103,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-#### POST - add multiple serial numbers
+### POST - add multiple serial numbers
 
 Adds serial numbers `<sn>` to `<model>`.
 
@@ -1117,7 +1117,7 @@ Content-Length: <length>
 sn[]=<sn 1>&sn[]=<sn 2>&sn[]=<sn n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1134,7 +1134,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-#### POST - add multiple serial numbers and extra information
+### POST - add multiple serial numbers and extra information
 
 Adds serial numbers `<sn>` to `<model>`, with extra information `<extra>`.
 
@@ -1151,7 +1151,7 @@ Content-Length: <length>
 <sn n>,<extra n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1167,7 +1167,7 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
 
-#### POST - add serial number ranges
+### POST - add serial number ranges
 
 Adds serial number ranges to <model>.
 
@@ -1194,7 +1194,7 @@ Content-Length: <length>
 }
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1206,7 +1206,7 @@ Content-Length: 0
 ```
 
 
-#### POST - remove single serial number
+### POST - remove single serial number
 
 Removes a single serial number from relevant model entry.
 
@@ -1220,7 +1220,7 @@ Content-Length: <length>
 delete=true&sn=<sn>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1232,7 +1232,7 @@ Content-Length: 0
 ```
 
 
-#### POST - remove multiple serial numbers
+### POST - remove multiple serial numbers
 
 Removes serial numbers from relevant model entry.
 
@@ -1246,7 +1246,7 @@ Content-Length: <length>
 delete=true&sn[]=<sn 1>&sn[]=<sn 2>&sn[]=<sn n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1257,7 +1257,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### DELETE - remove multiple serial numbers
+### DELETE - remove multiple serial numbers
 
 Remove serial numbers from `<model>`.
 
@@ -1274,7 +1274,7 @@ Content-Length: <length>
 <sn n>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1286,7 +1286,7 @@ Content-Length: 0
 ```
 
 
-#### DELETE - delete serial number ranges
+### DELETE - delete serial number ranges
 
 Deletes serial number ranges from relevant model entry.
 
@@ -1313,7 +1313,7 @@ Content-Length: <length>
 }
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1324,7 +1324,7 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/model/\<model\>/\<sn\> 
+## /provision/manage/model/\<model\>/\<sn\> 
 
 Note: If `X-Exosite-Vendor` header is provided, the given `<model>` is one 
 associated to `<Vendorname>`. The calling vendor was identified by 
@@ -1333,7 +1333,7 @@ associated to `<Vendorname>`. The calling vendor was identified by
 and view listings are only valid for serial numbers enabled by the calling 
 vendor.
 
-#### GET - get client RID
+### GET - get client RID
 
 Returns associated client `<rid>`, and extra serial number data. If calling 
 with header `X-Exosite-Vendor` specified, `<extra>` will always be empty.
@@ -1346,7 +1346,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1367,7 +1367,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if `<sn>` is unused.
 
 
-#### GET - list serial number groups
+### GET - list serial number groups
 
 Lists groups of which this serial number is a member, in paginated sets of 
 size `<limit>` starting at `<offset>`. `<limit>` is enforced to be between 
@@ -1380,7 +1380,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1401,7 +1401,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if `<sn>` is not a member of any group.
 
 
-#### GET - get activation log for serial number
+### GET - get activation log for serial number
 
 Get activation log for serial number `<sn>`.
 
@@ -1413,7 +1413,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1434,7 +1434,7 @@ Response may also be:
 * `HTTP/1.1 204 No-Content` if log is empty.
 
 
-#### POST - create client from model
+### POST - create client from model
 
 Creates a client based on `<model>` under `owner`, associates it with `<sn>`,
 and returns its `<ClientRID>`. Owner `<rid>` must be a descendant of the 
@@ -1451,7 +1451,7 @@ Content-Length: <length>
 enable=true&owner=<rid>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1470,7 +1470,7 @@ Response may also be:
 instantiate a new client of this `<model>` type.
 
 
-#### POST - remap client to a new serial number
+### POST - remap client to a new serial number
 
 Remaps the client associated with `<oldsn>` to `<sn>`. `<sn>` must subsequently
 be activated in order to use the client.
@@ -1486,7 +1486,7 @@ Content-Length: <length>
 enable=true&oldsn=<oldsn>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1498,7 +1498,7 @@ Content-Length: 0
 ```
 
 
-#### POST - regenerate cik for serial number
+### POST - regenerate cik for serial number
 
 ```Regenerates CIK for client associated with `<sn>`. `<sn>` must have been 
 previously enabled, and must subsequently be activated after in order to 
@@ -1515,7 +1515,7 @@ Content-Length: <length>
 enable=true
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1526,7 +1526,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### POST - disable CIK
+### POST - disable CIK
 
 Disables the CIK associated with `<sn>`.  `<sn>` must be re-enabled before
 it can be used again.
@@ -1542,7 +1542,7 @@ Content-Length: <length>
 disable=true
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1553,7 +1553,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### DELETE - delete serial number
+### DELETE - delete serial number
 
 Delete a single serial number `<sn>` from `<model>`.
 
@@ -1564,7 +1564,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1575,9 +1575,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/share/\<model\>/ 
+## /provision/manage/share/\<model\>/ 
 
-#### GET - list vendors that share a model
+### GET - list vendors that share a model
 
 Returns list of names of vendors that have a share to `<model>`.
 
@@ -1588,7 +1588,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1608,7 +1608,7 @@ Response may also be:
 
 * `HTTP/1.1 204 No-Content` if <model> is not shared to any other vendors.
 
-#### POST - create model share
+### POST - create model share
 
 Shares `<model>` with `<vendorname>`.
 
@@ -1622,7 +1622,7 @@ Content-Length: <length>
 vendor=<vendorname>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1633,7 +1633,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### POST - delete model share
+### POST - delete model share
 
 Deletes the `<model>` share so that `<vendorname>` no longer has share access.
 
@@ -1647,7 +1647,7 @@ Content-Length: <length>
 vendor=<vendorname>&delete=true
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1658,9 +1658,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/manage/share/\<model\>/\<vendorname\>
+## /provision/manage/share/\<model\>/\<vendorname\>
 
-#### GET - find out if a model is shared
+### GET - find out if a model is shared
 
 Query `<model>` share status with `<vendorname>`.
 
@@ -1671,7 +1671,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 204 No Content
@@ -1684,7 +1684,7 @@ Content-Type: text/csv; charset=utf-8
 
 The above response indicates that the `<model>` is shared with `<vendorname>`.
 
-#### DELETE - delete model share
+### DELETE - delete model share
 
 Deletes the `<model>` share so that `<vendorname>` no longer has share access.
 
@@ -1695,7 +1695,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1706,9 +1706,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/register
+## /provision/register
 
-#### GET - get registered vendor name for CIK
+### GET - get registered vendor name for CIK
 
 Returns vendor name registered to `<CIK>`.
 
@@ -1719,7 +1719,7 @@ X-Exosite-CIK: <CIK>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1732,7 +1732,7 @@ Content-Type: text/plain; charset=utf-8
 <vendor>
 ```
 
-#### POST - register vendor name for CIK
+### POST - register vendor name for CIK
 
 Register a vendor name to `<CIK>`.
 
@@ -1744,7 +1744,7 @@ X-Exosite-CIK: <CIK>
 vendor=<vendor>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1755,7 +1755,7 @@ Content-Length: 0
 <blank line>
 ```
 
-#### POST - unregister vendor name from CIK
+### POST - unregister vendor name from CIK
 
 Unregister vendor name from `<CIK>`.
 
@@ -1768,7 +1768,7 @@ Content-Type: application/x-www-form-urlencoded; charset=utf-8
 delete=true&vendor=<vendor>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1779,9 +1779,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/admin/auth/
+## /provision/admin/auth/
 
-#### GET - list vendor tokens
+### GET - list vendor tokens
 
 Returns list of vendor auth token `<id>`s for `<VendorCIK>`.
 
@@ -1792,7 +1792,7 @@ X-Exosite-CIK: <VendorCIK>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1808,7 +1808,7 @@ Content-Type: text/csv; charset=utf-8
 <idN>
 ```
 
-#### POST - create vendor token
+### POST - create vendor token
 
 Generates a vendor auth token that may be used in place of `<VendorCIK>` and 
 associates the token with the given `<id>`.
@@ -1822,7 +1822,7 @@ Content-Type: application/x-www-form-urlencoded; charset=utf-8
 id=<id>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1835,7 +1835,7 @@ Content-Type: text/plain; charset=utf-8
 <VendorToken>
 ```
 
-#### POST - delete vendor token
+### POST - delete vendor token
 
 Deletes vendor auth token.
 
@@ -1848,7 +1848,7 @@ Content-Type: application/x-www-form-urlencoded; charset=utf-8
 delete=true&id=<id>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content
@@ -1859,9 +1859,9 @@ Content-Length: 0
 <blank line>
 ```
 
-### /provision/admin/auth/\<id\> 
+## /provision/admin/auth/\<id\> 
 
-#### GET - get vendor token
+### GET - get vendor token
 
 Returns the vendor auth token for the specified `<id>`.
 
@@ -1872,7 +1872,7 @@ X-Exosite-CIK: <VendorCIK>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -1885,7 +1885,7 @@ Content-Type: text/plain; charset=utf-8
 <VendorToken>
 ```
 
-#### DELETE - delete vendor token
+### DELETE - delete vendor token
 
 Deletes vendor auth token for `<id>`.
 
@@ -1896,7 +1896,7 @@ X-Exosite-CIK: <VendorCIK>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 205 Reset Content

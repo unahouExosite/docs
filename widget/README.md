@@ -1,8 +1,8 @@
-## Portals Custom Widget API
+# Custom Widget API
 
 Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the data Portals passes to widgets when they load, and the API widgets can use to interact with Portals and the One Platform.
 
-### Table of Contents
+## Table of Contents
 
 [Create a Widget](#create-a-widget)
 
@@ -14,7 +14,7 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 [Portal Resources Example](#portal-resources-example)
 
-#### API
+### API
 
 [read](#read)
 
@@ -35,7 +35,7 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 [Widget Examples](#widget-examples)
 
 
-### Create a Widget
+## Create a Widget
 
 To create a custom widget on a Portals dashboard:
 
@@ -65,7 +65,7 @@ Note that the maximum width of a widget is 4 grid units, since that is the defau
 
 Note that the these setup instructions cover portal-level widgets. With a [whitelabel account](http://exosite.com/platform/oem-whitelabel/) you can also create widgets at the domain level and that can operate on types of devices (client models in Exosite terminology) without needing to be configured with a concrete device. The API for domain widgets is identical to portal widgets, but the setup process is somewhat different and not covered here.
 
-### Widget Function
+## Widget Function
 
 Custom widgets define a function that is called by their containing sandbox environment when they are loaded. The following example displays "Hello World" inside its widget container area.
 
@@ -82,7 +82,7 @@ The widget function takes two parameters: `container` and `portal`.
 
 - `portal` is a Javascript object containing a snapshot of device and dataport information, including datapoints. For more information, see [Portal Resources](#portal-resources).
 
-### Widget Container
+## Widget Container
 
 The first argument to the [widget function](#widget-function) is a HTMLDivElement container. By injecting HTML, CSS, and Javascript into this container, it's possible to create a wide variety of custom widgets that make use of data from the One Platform. The following examples illustrate techniques for working with the widget container.
 
@@ -175,7 +175,7 @@ It's also possible to use the `read` widget API function to get data from the On
 
 
 
-### Portal Resources
+## Portal Resources
 
 The second argument to the [widget function](#widget-function) is a Javascript object containing a snapshot of device and dataport information at the time the widget loaded. The object has this format:
 
@@ -186,7 +186,7 @@ The second argument to the [widget function](#widget-function) is a Javascript o
 } 
 ```
 
-#### Client
+### Client
 
 Each `Client` contains JSON formatted information from the client in the One Platform including its alias, name, meta, and array of dataports (data sources).
 
@@ -203,10 +203,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 }
 ```
 
-##### DeviceMeta
-
 `DeviceMeta` is a JSON string that may be parsed with [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse). It contains the meta information for the client in the One Platform.
-
 ```
 {
   "activetime":ActiveTimeRange,
@@ -224,7 +221,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 
 - `"Location"` is a string set by the location user input in the device popup.
 
-#### Dataport
+### Dataport
 
 `Dataport` contains JSON formatted information from the dataport in the One Platform including its alias, name, meta, format, and array of data values.  
 
@@ -242,10 +239,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 }
 ```
 
-##### DataSourceMeta
-
-`DeviceMeta` is a JSON string that may be parsed with [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse). It contains the meta information for the dataport in the One Platform.
-
+`DataSourceMeta` is a JSON string that may be parsed with [`JSON.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse). It contains the meta information for the dataport in the One Platform.
 ```
 {
   "datasource":{
@@ -257,7 +251,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
 - `unit` is a string set by the user input in the device popup.
 
 
-#### Portal Resources Example
+## Portal Resources Example
 
 The above section defines the individual parts of the portals resources object passed to the [widget function](#widget-function). Let's bring that together by looking at a concrete example. Here's an custom widget configured to load the temperature in Antarctica from the virtual device that comes with a new Portals Community account.
 
@@ -328,17 +322,17 @@ In the example widget code, the line `console.log(JSON.stringify(portal, null, 2
 
 In the example, we learn that the temperature in Antarctica on Nov 15, 2013 at 5:25PM UTC was -8°C. The name of the device producing this data is "Exosite Device".
 
-#### Data Availability
+## Data Availability
 
 The contents of the `portal` parameter are are based on what dataports and time periods are set in the widget configuration. 
 
 In the case of a domain widget, a domain administrator may additionally select a client model whose data should be included.
 
-### Procedures
+## Procedures
 
 The custom widget sandbox environment exposes an API of functions for interacting with Portals and the One Platform. 
 
-#### read
+### read
 
 Reads data from the One Platform resource(s) specified. This throws an exception if there is any error in the arguments.
 
@@ -366,7 +360,7 @@ read(TargetResource, Options) -> Deferred
 
 - `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition. The callback passed to the deferred object’s done method will get the data passed as arguments.
 
-##### Example
+#### Example
 
 Here's an example of using `read` to read from the device provided with a Portals Community account. (Note that for this example it is necessary to first assign an alias to the device by clicking on Devices -> Exosite Device, setting Alias to `exosite_device`, and pressing the Update button.
 
@@ -408,7 +402,7 @@ function(container, portal) {
 
 ![Read Example](images/read_example.png)
 
-#### write
+### write
 
 Writes a single value to the One Platform resource(s) specified. This throws an exception if there is any error in the arguments.
 
@@ -419,7 +413,7 @@ write(TargetResource, Value) -> Deferred
 - `"TargetResource"` is an array of resource aliases
 - `"Value"` may be a boolean, number, or string value
 
-##### Example
+#### Example
 ```
 try
 {
@@ -443,7 +437,7 @@ catch ()
 }
 ```
 
-#### update
+### update
 
 Update a device’s description. This throws an exception if there is any error in the arguments.
 
@@ -460,7 +454,7 @@ update(TargetResource, Description) -> Deferred
 }
 ``` 
 
-##### Example
+#### Example
 
 ```
 var description =
@@ -484,7 +478,7 @@ update(["some_device"], description)
 ;
 ```
 
-#### drop 
+### drop 
 
 Drop a device. This throws an exception if there is any error in the arguments.
 
@@ -496,7 +490,7 @@ drop(TargetResource) -> Deferred
 
 - `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition.
 
-##### Example
+#### Example
 
 ```
 drop(["some_device"])
@@ -511,7 +505,7 @@ drop(["some_device"])
 ;
 ```
 
-#### subscribe
+### subscribe
 
 Register a callback function to handle a widget event. Once registered, the callback function is called when [`publish`](#publish) is called for the widget event. This may be used to react to user interface events that occur in another custom widget.
 
@@ -534,7 +528,7 @@ subscribe(Event, Callback[, SubscribeOptions]) -> undefined
 - `"context"` is the context of the callback. If specified, this provides the value of the keyword `this` in the callback.
 - `"id"` defines the id of the callback. This id is unique among all callbacks of each event. This may be used to prevent a callback from subscribing the same event multiple times.
 
-##### Examples
+#### Examples
 
 `subscribe` and `publish` may be used to communicate between widgets. For example, one widget can publish a message to a named event when a link is clicked:
 
@@ -610,7 +604,7 @@ subscribe("season", function() { console.log("Autumn"); }, options);
 publish("season");
 ```
 
-#### publish
+### publish
 
 Publish a widget event. The optional parameters to `publish` following the event name are passed as parameters to all callback functions that have been registered using [`subscribe`](#subscribe).
 
@@ -624,7 +618,7 @@ publish(Event[, Message1, Message2, ...]) -> undefined
 
 For examples of the `publish` command, see [`subscribe`](#subscribe).
 
-#### getWidgetInfo
+### getWidgetInfo
 
 Get information about of the current widget. If the info of the `PropertyName` doesn’t exist, `undefined` is returned.
 
@@ -638,7 +632,7 @@ getWidgetInfo(PropertyName) -> PropertyValue
 
 - `"PropertyValue"` is the value of the property
 
-##### Example
+#### Example
 
 ```
 // this example demonstrates how the getWidgetInfo works
@@ -657,13 +651,13 @@ subscribe("color", callback, options);
 publish("color");
 ```
 
-#### Google Loader API
+### Google Loader API
 
 The Google Loader API is available in the widget sandbox. Please see this link for more information:
 
 [https://developers.google.com/loader/](https://developers.google.com/loader/)
 
-### Widget Examples
+## Widget Examples
 
 There are a number of widget examples available in the "Script Template" drop down available when editing a widget.
 

@@ -1,18 +1,18 @@
-## Device Provisioning API Procedures
+# Device Provisioning API Procedures
 
 The following procedures are intended to be accessed from devices to get API keys and initialization content (e.g., firmware images) so that they can access the One Platform from other APIs.
 
 For general information about accessing this API, see the [main section](README.md).
 
-### Table of Contents
+## Table of Contents
 
 [/provision/activate](#provisionactivate) - get a CIK for a device and activate it
 
 [/provision/download](#provisiondownload) - list content, get content, get content information
 
-### /provision/activate
+## /provision/activate
 
-#### POST - activate client
+### POST - activate client
 
 Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
 model type `<model>` associated with Serial Number `<sn>`. Client must be 
@@ -28,7 +28,7 @@ Content-Length: <length>
 vendor=<vendor>&model=<model>&sn=<sn>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -47,9 +47,9 @@ Response may also be:
 * `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
 
 
-### /provision/download
+## /provision/download
 
-#### GET - list content IDs
+### GET - list content IDs
 
 List content `<id>`s. Caller with `<DeviceCIK>` must have an activated 
 serial number in given `<vendor>` `<model>` name space.
@@ -62,7 +62,7 @@ Content-Length: <length>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -82,7 +82,7 @@ Response may also be:
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
 
-#### GET - get content
+### GET - get content
 
 If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name 
 space, and is authorized for the content, then the `<id>` content blob, or its 
@@ -104,7 +104,7 @@ X-Exosite-CIK: <CIK>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
@@ -124,7 +124,7 @@ Response may also be:
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
 
-#### GET - get content info
+### GET - get content info
 
 If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name
 space, and is authorized for the content, then the `<id>` content information
@@ -138,7 +138,7 @@ Content-Length: <length>
 <blank line>
 ```
 
-#####response
+####response
 
 ```
 HTTP/1.1 200 OK
