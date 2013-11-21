@@ -1107,16 +1107,6 @@ returned.
         // Activation timestamps and platform RIDs. 
         //  "activated":[[Timestamp,ClientID], ...]} 
         "shares": [],
-        "storage": {
-            // The number of data entries in the resource's datastack.
-            "count": 2681,
-            // The timestamp of the oldest entry in the resource's datastack.
-            "first": 1372449660,
-            // The timestamp of the newest entry in the resource's datastack.
-            "last": 1377005537,
-            // The total space in bytes of this resource's datastack.
-            "size": 40215
-        },
         "subscribers": [],
         "tagged": [],
         "tags": [],
