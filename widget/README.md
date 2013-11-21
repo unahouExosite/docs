@@ -43,7 +43,7 @@ To create a custom widget on a Portals dashboard:
 
 - Set the Widget Type to Custom Widget, enter a title of your choice, and click Continue.
 
-- Set the Widget Size. Portals dashboards are laid out in a grid, and the Widget Size is defined in grid units. Each grid unit in Portals is 248px wide and 204px tall, with default spacing of 16px. So, for example, the default setting of 2x2 defines a widget that is 2 * 248px + 16px wide and 2 * 204px + 16px tall. Here's an illustration of the dashboard layout:
+- Set the Widget Size. Portals dashboards are laid out in a grid, and the Widget Size is defined in grid units. Each grid unit in Portals is 248px wide and 204px tall, with default spacing of 16px. The spacing is included in the widget's width, but not its height. So, for example, the default setting of 2x2 defines a widget that is 2 * 248px + 16px = 512px wide but only 2 * 204px = 408px tall. Here's an illustration of the dashboard layout:
 
 ![Portals Dashboard Layout](images/layout.png)
 
