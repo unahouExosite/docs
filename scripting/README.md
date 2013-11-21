@@ -1022,4 +1022,4 @@ remains in effect until a subsequent invocation of this function.
 
 ## Examples
 
-TODO
+Examples of Lua scripts are available on the [Exosite support site](http://support.exosite.com/hc/en-us/sections/200029008).
