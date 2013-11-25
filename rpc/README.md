@@ -1261,7 +1261,7 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 
 ##map
 
-Creates an alias for a resource. Subsequently the resource can be looked up using the "lookup" method.
+Creates an alias for a resource. Subsequently the resource can be looked up using the [lookup](#lookup) method.
 
 ```
 {
