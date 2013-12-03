@@ -97,7 +97,7 @@ The following global resources and features are available to Lua scripts:
 * [`debug()`](#utilities) 
 * [`setlocale()`](#utilities)
 * [`settimezone()`](#utilities)
-* `now` holds the current UNIX timestamp.
+* `now` holds the current UNIX timestamp. Note that `now` causes a One Platform API call behind the scenes so that it says in step with the One Platform time. For best performance we recommend calling this at most once per iteration of a looping script. For example, if three different variables are to be initialized to the current timestamp in a row, `now` should be called once, its value stored in a local variable and subsequently used to initialize the variables.
 
 
 ## The alias table
