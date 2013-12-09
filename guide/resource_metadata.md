@@ -25,19 +25,3 @@ aliases.
 
 ![](alias.png)
 
-### comment
-
-Comments provide a way for users to describe their resources in human
-comprehensible terms. Comments have no functional role in the operation
-of the One Platform and resources can not be looked up by comments. They
-are purely a note to users that can access the resource. Multiple
-clients can maintain their own comments for the same resource. Comments
-can be private or public. Every client can associate one private and one
-public comment per resource. Private comments can only be viewed by the
-client that had created the comment in the first place. Public comments
-are visible to any client that has at least read-only access to the
-commented resource. Use the 'comment' API to comment resources up to
-1000 characters in length. The diagram "The Comment" visualizes how
-comments work.
-
-![](comment.png)
