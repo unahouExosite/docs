@@ -11,5 +11,5 @@ individually discussed in the 'Processing' section for each resource.
 -   [Datarule](resource_type_datarule.md)
 -   [Dispatch](resource_type_dispatch.md)
 
-Output from the main processing stage is stored in time-series database
+Output from the main processing stage is stored in time series database
 and published to subscribing resources.

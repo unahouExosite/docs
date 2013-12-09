@@ -1,39 +1,20 @@
-One Platform
-============
+One Platform User Guide
+=======================
 
-About
------
-
-This document explains the One Platform concepts, terminology, operation
-and serves as a User Guide. It references the 'One Platform Reference'
-document where applicable.
-
-Revision
---------
-
-The contents of this document are applicable to the following and future
-releases of the One Platform v1, unless noted otherwise:
-
--   2011-09-23
-
-Overview
---------
-
-The One Platform is a highly scalable, distributed system for
-aggregating, processing, manipulating, converting, analyzing, publishing
+The One Platform is a highly scalable system for aggregating, 
+processing, manipulating, converting, analyzing, publishing
 and sharing data.
 
 The concepts behind the One Platform can be summarized as follows:
 
 -   It accepts data over the Internet, using secure, standard protocols
-    and it processes and stores data according to user specified
-    definitions.
+-   It processes and stores data according to user specified definitions.
 -   Incoming data is timestamped and processed real-time as received
-    which allows users to specify so-called 'rules' to act upon the
-    processing outcome of their data in virtually real-time.
+    which allows users to specify 'rules' to act upon the
+    processing outcome of their data virtually in real-time.
 -   The results of the processing can optionally be fed into other
     processing definitions. This allows for complex processing.
--   The processed data is stored in time-series databases allowing users
+-   The processed data is stored in time series databases allowing users
     to read back and run analytics on their historical data, or include
     it in further processing definitions.
 -   It allows users to package their data and send it to email, sms and
@@ -44,16 +25,15 @@ The concepts behind the One Platform can be summarized as follows:
 Terminology
 -----------
 
-Terms used throughout this document are collected in this chapter for
-quick reference.
+Terms used throughout this document are collected here for quick reference.
 
 -   [Terminology](terminology.md)
 
 Resource
 --------
 
-The operation of the One Platform relies on a solid, distributed and
-scalable software framework and the invented concept of 'resources'.
+The operation of the One Platform relies on a distributed and
+scalable software framework and the invented concept of *resources*.
 Connecting to, and leveraging the services of, the One Platform is
 enabled by a set of interfacing technologies, but from the user's
 standpoint, the use of the One Platform revolves around resources.

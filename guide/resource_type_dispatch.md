@@ -4,7 +4,7 @@ The Dispatch
 The resource type 'dispatch' takes an input value, applies the
 configured preprocessing to it, sends the configured value to the
 configured recipient, using the configured dispatch method and stores
-the dispatch delivery status in the associated time-series database. The
+the dispatch delivery status in the associated time series database. The
 dispatch delivery status will also get published to subscribed
 resources.
 
@@ -52,7 +52,7 @@ Processing
 The processing role of dispatch resources is to send out a preset, or
 dynamic, message to the configured recipient using the configured
 delivery method. The result of the processing stored in the associated
-time-series database, and published, is either 'delivered' or
+time series database, and published, is either 'delivered' or
 'undelivered'.
 
 ### Activation (future only)

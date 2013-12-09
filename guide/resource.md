@@ -69,7 +69,7 @@ values fed to the resource are passed through zero, one or more
 preprocessing step. These steps are generic, independent of the resource
 type. Next, the preprocessed values reach the main processing phase,
 which is resource type specific operation. Results produced by the main
-processing phase are stored in a dedicated time-series database and,
+processing phase are stored in a dedicated time series database and,
 upon successful storage, they are output from the resource.
 
 -   [Input](resource_input.md)

@@ -28,6 +28,6 @@ Platform.
 A resource that automatically receives output values from a
 publishing resource.
 
-##time-series database
+##time series database
 A sequence of datapoints collected over time.
 

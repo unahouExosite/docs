@@ -2,7 +2,7 @@ Storage
 =======
 
 Fully processed values, output from the main processing stage, will get
-stored in a time-series database which is an integral part of each
+stored in a time series database which is an integral part of each
 resource. Two features of the database are of interest to the user,
 explained below.
 
@@ -14,7 +14,7 @@ data to be stored in the database must be specified via the 'format'
 description property. Exceptions to this are certain restrictions which
 are noted in the respective resource pages. During normal operation of a
 resource, the processing output will be converted to that format before
-storing the value in the database. Note, that the format of the database
+storing the value in the database. Note that the format of the database
 can not be altered via the 'update' API. The following database formats
 are supported currently.
 
