@@ -26,7 +26,7 @@ chapter. Additional, resource type specific description fields are
 discussed under the respective resource headings accessible from 'Types'
 section.
 
--   [Description](resource_description.html)
+-   [Description](resource_description.md)
 
 Metadata
 --------
@@ -34,7 +34,7 @@ Metadata
 Clients that have access to a resource can associate metadata with the
 resource.
 
--   [Metadata](resource_metadata.html)
+-   [Metadata](resource_metadata.md)
 
 Types
 -----
@@ -44,10 +44,10 @@ entity it represents, shares a common internal structure and external
 set of hooks, four types have been designed to optimize the overall
 operation of the One Platform.
 
--   [Client](resource_type_client.html)
--   [Dataport](resource_type_dataport.html)
--   [Datarule](resource_type_datarule.html)
--   [Dispatch](resource_type_dispatch.html)
+-   [Client](resource_type_client.md)
+-   [Dataport](resource_type_dataport.md)
+-   [Datarule](resource_type_datarule.md)
+-   [Dispatch](resource_type_dispatch.md)
 
 Organization and Management
 ---------------------------
@@ -56,10 +56,10 @@ Various aspects of the One Platform operation, such as resource
 identification and enumeration, access control and sharing, are based on
 the internal organization and management of resources.
 
--   [Identification](resource_identification.html)
--   [Hierarchy](resource_hierarchy.html)
--   [Access control](resource_access.html)
--   [Sharing](resource_sharing.html)
+-   [Identification](resource_identification.md)
+-   [Hierarchy](resource_hierarchy.md)
+-   [Access control](resource_access.md)
+-   [Sharing](resource_sharing.md)
 
 Data Processing
 ---------------
@@ -72,9 +72,9 @@ which is resource type specific operation. Results produced by the main
 processing phase are stored in a dedicated time-series database and,
 upon successful storage, they are output from the resource.
 
--   [Input](resource_input.html)
--   [Preprocessing](resource_preprocessing.html)
--   [Processing](resource_processing.html)
--   [Storage](resource_storage.html)
--   [Output](resource_output.html)
+-   [Input](resource_input.md)
+-   [Preprocessing](resource_preprocessing.md)
+-   [Processing](resource_processing.md)
+-   [Storage](resource_storage.md)
+-   [Output](resource_output.md)
 

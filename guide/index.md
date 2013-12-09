@@ -47,7 +47,7 @@ Terminology
 Terms used throughout this document are collected in this chapter for
 quick reference.
 
--   [Terminology](terminology.html)
+-   [Terminology](terminology.md)
 
 Resource
 --------
@@ -58,7 +58,7 @@ Connecting to, and leveraging the services of, the One Platform is
 enabled by a set of interfacing technologies, but from the user's
 standpoint, the use of the One Platform revolves around resources.
 
--   [Resource](resource.html)
+-   [Resource](resource.md)
 
 Interfaces
 ----------
@@ -82,7 +82,7 @@ shelf. A full device model and serial number management and infield
 firmware content delivery system is exposed over a simple HTTP control
 interface.
 
--   [Provisioning](provisioning.html)
+-   [Provisioning](provisioning.md)
 
 Customization
 -------------
