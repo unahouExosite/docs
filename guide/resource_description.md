@@ -76,10 +76,3 @@ is. It can take one of the following values: client, dataport, datarule
 or dispatch. For further details on each of the resource types,
 reference the respective resource under 'Types' section.
 
-### visibility
-
-The visibility of a resource controls which other resources in the
-hierarchy tree has what type of access to this resource. This property
-holds the visibility for the resource and can take one of the following
-values: ancestor, parent, private or public. Reference 'Access control'
-for further details.

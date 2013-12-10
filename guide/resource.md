@@ -58,7 +58,7 @@ the internal organization and management of resources.
 
 -   [Identification](resource_identification.md)
 -   [Hierarchy](resource_hierarchy.md)
--   [Access control](resource_access.md)
+-   Access control (TODO)
 -   [Sharing](resource_sharing.md)
 
 Data Processing
