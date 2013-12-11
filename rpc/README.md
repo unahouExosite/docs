@@ -66,7 +66,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 ####Shares and Keys 
 
-[share](#share) - generate a code that can allows non-owners to access resources
+[share](#share) - generate a code that allows non-owners to access resources
 
 [revoke](#revoke) - revoke a share code or CIK
 
