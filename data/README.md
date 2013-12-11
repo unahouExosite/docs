@@ -153,29 +153,3 @@ Content-Length: <length>
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
-
-##IP 
-
-Return the IP address of the host server.
-
-#####request
-
-```
-GET /ip HTTP/1.1 
-<blank line>
-```
-
-#####response
-
-```
-HTTP/1.1 200 OK 
-Date: <date> 
-Server: <server>
-Connection: Close
-Content-Type: text/plain; charset=utf-8
-Content-Length: 19
-<blank line>
-173,255,209,28,0,80
-```
-
-
