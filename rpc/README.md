@@ -56,6 +56,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [usage](#usage) - get usage information for a resource
 
+[tag](#tag) - add or remove tag
+
 ####Aliases
 
 [map](#map) - create an alias that can be used to refer to a resource
@@ -409,11 +411,9 @@ Writes a single value to the resource specified.
 
 ---
 
-#activate
+##activate
 
 Given an activation code, activate an entity for the calling client.
-
-TODO: what does it mean to activate an entity? Does entity mean the same thing as resource?
 
 ```
 {
@@ -879,14 +879,14 @@ Given an activation code, deactivate an entity for the calling client.
 {
     "procedure": "deactivate",
     "arguments": [
-        <CodeType>,
-        <RIDOrCode> 
+        "client" | "share", 
+        <code>
     ], 
     "id": 1
 }
 ```
 
-* `<CodeType>` specifies what type of One Platform entity is to be deactivated. It can have one of these values:
+* The first argument indicates the type of thing to deactivate:
 
     `"client"` deactivate and expire the specified client interface 
     key (CIK) if it was previously activated. If the key was not previously 
@@ -894,7 +894,7 @@ Given an activation code, deactivate an entity for the calling client.
 
     `"share"` deactivate a previous activation of a resource share for the specified activator
 
-* `<RIDOrCode>` is the client or share activation code or the shared resource ID to be deactivated
+* `<code>` is the client or share activation code or the shared resource ID to be deactivated
 
 
 ####response
@@ -1164,14 +1164,14 @@ returned.
 
 ##listing
 
-Returns an ordered list, in the same order as the input TypeList order, of resource id lists, filtered by any provided options.
+Returns an object containing types specified in `<type_list>`, filtered by any provided options.
 
 ```
 {
     "procedure": "listing",
     "arguments": [
         <type_list>,
-        <filter_list>
+        <options>
     ], 
     "id": 1
 }
@@ -1179,19 +1179,37 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
 
 * `<type_list>` is a list of resource types, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
-* `<filter_list>` is a list of filter options. If no option is provided, it default to as if the "owned" option is specified.
+* `<options>` is an object describing what should be returned. If options is set to `{}`, it defaults to `{"owned":true}`.
 
-    `"activated"` includes resources that have been shared with and activated by caller client
+    `"activated": true` includes resources that have been shared with and activated by caller client
 
-    `"aliased"` includes resources that have been aliased by caller client
+    `"aliased": true` includes resources that have been aliased by caller client
 
-    `"owned"` includes resources owned by caller client
+    `"owned": true` includes resources owned by caller client
 
-    `"public"` public resources
+    `"public": true` includes public resources
 
-    `"tagged"` resources that have been tagged by any client, and the caller client has read access to
+    `"tagged": ["tag1", "tag2"]` includes resources that have been tagged with "tag1" or "tag2" by any client.
 
 ####response
+
+```
+{
+    "status": string,
+    "id": 1
+    "result": {
+        "client": [],
+        "dataport": [   
+            "85a85bd51361b976260d01234567890123456789",
+            "ba423f0dd8c62039239601234567890123456789",
+        ],
+        "datarule": [],
+        "dispatch": []
+    }
+}
+```
+
+<strong>DEPRECATED</strong> If the `<filter_list>` argument is omitted entirely, the result is instead a list of resource IDs in the same order as the input type list. This form of the `listing` command is deprecated.
 
 ```
 {
@@ -1202,8 +1220,6 @@ Returns an ordered list, in the same order as the input TypeList order, of resou
         [
             "85a85bd51361b976260d01234567890123456789",
             "ba423f0dd8c62039239601234567890123456789",
-            "c10a68d3a35464c0308b01234567890123456789",
-            "df82c362433a2b0df6dc01234567890123456789"
         ],
         [],
         []
@@ -1387,7 +1403,7 @@ shared resource.
     "arguments": [
         <ResourceID>,
         {
-            "duration": 'infinity',
+            "duration": "infinity",
             "count": 1
         }
     ], 
@@ -1396,7 +1412,7 @@ shared resource.
 ```
 
 * `"duration"` is the duration, in seconds, for which this share can be 
-    activated or 'infinity' to indicate no limit
+    activated or "infinity" to indicate no limit
 * `"count"` is the number of times this share can be activated
 
 ####response
@@ -1530,5 +1546,41 @@ Returns metric usage for client and its subhierarchy.
 
     For entities, `"result"` is the sum of the number of that entity used in one second for
     each second in the given window
+
+---
+
+##tag
+
+Add or remove a tag.
+
+```
+{
+    "procedure": "usage",
+    "arguments": [
+        <ResourceID>
+        "add" | "remove"
+        <tag>
+    ], 
+    "id": 1
+}
+```
+
+* `<ResourceID>` identifies the resource on which to add or remove a tag. See [Identifying Resources](#identifying-resources) for details.
+
+* `"add"` or `"remove"` specifies the action to perform
+ 
+* `<tag>` is a string tag name
+
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the tag was added or removed
 
 
