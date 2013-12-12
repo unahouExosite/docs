@@ -1164,7 +1164,7 @@ returned.
 
 ##listing
 
-Returns an object containing types specified in `<type_list>`, filtered by any provided options.
+Returns lists of RIDs of types specified in `<type_list>`, filtered by options.
 
 ```
 {
@@ -1177,7 +1177,7 @@ Returns an object containing types specified in `<type_list>`, filtered by any p
 }
 ```
 
-* `<type_list>` is a list of resource types, in the order they should be returned. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
+* `<type_list>` is a list of resource types. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
 * `<options>` is an object describing what should be returned. If options is set to `{}`, it defaults to `{"owned":true}`.
 
@@ -1208,8 +1208,12 @@ Returns an object containing types specified in `<type_list>`, filtered by any p
     }
 }
 ```
+* `"status": "ok"` means `"result"` contains an object containing list(s) of resource IDs.
 
-<strong>DEPRECATED</strong> If the `<filter_list>` argument is omitted entirely, the result is instead a list of resource IDs in the same order as the input type list. This form of the `listing` command is deprecated.
+* `"status": "error"` means one or more specified resource types are invalid, and `"result"` contains an error string.
+
+
+<strong>DEPRECATED</strong> If the `<options>` argument is left out, the result is instead a list of resource IDs in the same order as the input type list. This form of the `listing` command is deprecated and should not be used for new code.
 
 ```
 {
@@ -1226,10 +1230,6 @@ Returns an object containing types specified in `<type_list>`, filtered by any p
     ]
 }
 ```
-
-* `"status": "ok"` means `"result"` contains a list of lists of resource IDs.
-
-* `"status": "error"` means one or more specified resource types are invalid, and `"result"` contains an error string.
 
 --- 
 
