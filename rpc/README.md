@@ -1164,7 +1164,7 @@ returned.
 
 ##listing
 
-Returns lists of RIDs of types specified in `<type_list>`, filtered by options.
+Returns lists of RIDs of types specified in `<type_list>`.
 
 ```
 {
