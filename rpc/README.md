@@ -1189,7 +1189,7 @@ Returns lists of RIDs of types specified in `<type_list>`.
 
     `"public": true` includes public resources
 
-    `"tagged": ["tag1", "tag2"]` includes resources that have been tagged with "tag1" or "tag2" by any client.
+    `"tagged"` specifies a list of tags and includes only resources that have tags in the list. For example, `"tagged": ["tag1", "tag2"]` would include resources that have been tagged with "tag1" or "tag2" by any client.
 
 ####response
 
