@@ -175,56 +175,14 @@ Server: nginx
 
 RPC API requests are HTTP POSTs and may contain the following headers.
 
-<table>
-<tr>
-<table><tr><th>Header</th><th>Description</th><th>Required?</th></tr>
-
-<tr><td>
-<pre><code>
-POST /api:v1/rpc/process
-</code></pre>
-</td><td>
-Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. 
-</td><td>Yes</td></tr>
-
-<tr><td>
-<pre><code>
-Host: m2.exosite.com:80
-</code></pre>
-</td><td>
-The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported.</td><td>Yes</td></tr> 
-
-<tr><td>
-<pre><code>
-Content-Type: application/json; charset=utf-8
-</code></pre>
-</td><td>
-</td><td>Yes</td></tr>
-
-<tr><td>
-<pre><code>
-User-Agent: API Example (danweaver@exosite.com)
-</code></pre>
-</td><td>
-If possible your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
-</td><td>No</td></tr>
-
-<tr><td>
-<pre><code>
-Content-Length: 235
-</code></pre>
-</td><td>
-<pre>Content-Length</pre> contains the number of bytes in the body of the request.
-</td><td>Yes</td></tr>
-
-<tr><td>
-<pre><code>
-Accept-Encoding: identity
-</code></pre>
-</td><td>
-</td><td>No</td></tr>
-
-</table>
+| Header | Description | Required? |
+| ------ | ----------- |:---------:|
+| `POST /api:v1/rpc/process` | Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. | Yes |
+| `Host: m2.exosite.com:80` | The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. | Yes |
+| `Content-Type: application/json; charset=utf-8` | | Yes |
+| `User-Agent: API Example (danweaver@exosite.com)` | If possible your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. | No |
+| `Content-Length: 235` | `Content-Length` contains the number of bytes in the body of the request. | Yes |
+| `Accept-Encoding: identity` | | No |
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
