@@ -112,7 +112,6 @@ Host: m2.exosite.com:80
 Content-Type: application/json; charset=utf-8
 User-Agent: API Example (danweaver@exosite.com)
 Content-Length: 235
-Accept-Encoding: identity
 
 {
     "auth": {
@@ -179,10 +178,9 @@ RPC API requests are HTTP POSTs and may contain the following headers.
 | ------ | ----------- |:---------:|
 | `POST /api:v1/rpc/process` | Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. | Yes |
 | `Host: m2.exosite.com:80` | The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. | Yes |
-| `Content-Type: application/json; charset=utf-8` | | Yes |
-| `User-Agent: API Example (danweaver@exosite.com)` | If possible your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. | No |
+| `Content-Type: application/json; charset=utf-8` | Describes the content type of the body. For the JSON RPC, this is always `application/json; charset=utf-8` | Yes |
+| `User-Agent: API Example (danweaver@exosite.com)` | If possible your application should identify itself by putting contact information in the `User-Agent` header. This also is not enforced, but will help us with any support requests you have. | No |
 | `Content-Length: 235` | `Content-Length` contains the number of bytes in the body of the request. | Yes |
-| `Accept-Encoding: identity` | | No |
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
