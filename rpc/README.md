@@ -173,7 +173,58 @@ Server: nginx
 
 ## Making a Request
 
-Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. Your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
+RPC API requests are HTTP POSTs and may contain the following headers.
+
+<table>
+<tr>
+<table><tr><th>Header</th><th>Description</th><th>Required?</th></tr>
+
+<tr><td>
+<pre><code>
+POST /api:v1/rpc/process
+</code></pre>
+</td><td>
+Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. 
+</td><td>Yes</td></tr>
+
+<tr><td>
+<pre><code>
+Host: m2.exosite.com:80
+</code></pre>
+</td><td>
+The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported.</td><td>Yes</td></tr> 
+
+<tr><td>
+<pre><code>
+Content-Type: application/json; charset=utf-8
+</code></pre>
+</td><td>
+</td><td>Yes</td></tr>
+
+<tr><td>
+<pre><code>
+User-Agent: API Example (danweaver@exosite.com)
+</code></pre>
+</td><td>
+If possible your application should identify itself by putting contact information in the User-Agent header. This also is not enforced, but will help us with any support requests you have. 
+</td><td>No</td></tr>
+
+<tr><td>
+<pre><code>
+Content-Length: 235
+</code></pre>
+</td><td>
+<pre>Content-Length</pre> contains the number of bytes in the body of the request.
+</td><td>Yes</td></tr>
+
+<tr><td>
+<pre><code>
+Accept-Encoding: identity
+</code></pre>
+</td><td>
+</td><td>No</td></tr>
+
+</table>
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
@@ -1213,7 +1264,7 @@ Returns lists of RIDs of types specified in `<type_list>`.
 * `"status": "error"` means one or more specified resource types are invalid, and `"result"` contains an error string.
 
 
-<strong>DEPRECATED</strong> If the `<options>` argument is left out, the result is instead a list of resource IDs in the same order as the input type list. This form of the `listing` command is deprecated and should not be used for new code.
+<strong>DEPRECATED</strong> If the `<options>` argument is left out, the result is instead a list of resource IDs in the same order as the input type list. This form of the `listing` command is deprecated and should not be used.
 
 ```
 {
@@ -1283,7 +1334,7 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 {
     "procedure": "map",
     "arguments": [
-        'alias',
+        "alias",
         <ResourceID>,
         string  
     ], 
@@ -1403,17 +1454,14 @@ shared resource.
     "arguments": [
         <ResourceID>,
         {
-            "duration": "infinity",
-            "count": 1
+            "meta": <string>
         }
     ], 
     "id": 1
 }
 ```
 
-* `"duration"` is the duration, in seconds, for which this share can be 
-    activated or "infinity" to indicate no limit
-* `"count"` is the number of times this share can be activated
+* `"meta"` is a string that describes the share. It defaults to `""`. `"meta"` may be updated for an existing share by passing a previous share code `"code"` in options.
 
 ####response
 
@@ -1546,41 +1594,3 @@ Returns metric usage for client and its subhierarchy.
 
     For entities, `"result"` is the sum of the number of that entity used in one second for
     each second in the given window
-
----
-
-##tag
-
-Add or remove a tag.
-
-```
-{
-    "procedure": "usage",
-    "arguments": [
-        <ResourceID>
-        "add" | "remove"
-        <tag>
-    ], 
-    "id": 1
-}
-```
-
-* `<ResourceID>` identifies the resource on which to add or remove a tag. See [Identifying Resources](#identifying-resources) for details.
-
-* `"add"` or `"remove"` specifies the action to perform
- 
-* `<tag>` is a string tag name
-
-
-####response
-
-```
-{
-    "status": "ok",
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the tag was added or removed
-
-
