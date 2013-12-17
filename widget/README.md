@@ -16,19 +16,19 @@ Portals provides a Javascript API for developing custom dashboard widgets. If yo
 
 ### API
 
-[read](#read)
+[read](#read) - read data from a One Platform resource
 
-[write](#write)
+[write](#write) - write a single point to a One Platform resource
 
-[update](#update)
+[update](#update) - update a One Platform client (e.g. device) description
 
-[drop](#drop)
+[drop](#drop) - delete a client (e.g. device)
 
-[subscribe](#subscribe)
+[subscribe](#subscribe) - register a callback function to handle a widget UI event
 
-[publish](#publish)
+[publish](#publish) - publish a widget UI event to registered callback functions 
 
-[getWidgetInfo](#getwidgetinfo)
+[getWidgetInfo](#getwidgetinfo) - get information about the current widget
 
 [Google Loader API](#google-loader-api)
 
