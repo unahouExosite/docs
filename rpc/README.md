@@ -377,13 +377,6 @@ Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value
     "result": [[1376950410,11],[1376950405,10]],
     "id": 1
 }
-
-// boolean resource 
-{
-    "status": "ok",
-    "result": [[1376950566,"false"],[1376950563,"true"],[1376950561,"true"],[1376950559,"true"]],
-    "id": 1
-}
 ```
 
 ---
@@ -599,7 +592,7 @@ Creates a datarule.
     "arguments": [
         "datarule", 
         {
-            "format": "boolean" | "float" | "integer",
+            "format": "float" | "integer",
             "meta": string = "",
             "name": string = "",
             "preprocess": list = [],
