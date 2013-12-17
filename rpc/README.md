@@ -1394,8 +1394,8 @@ the owner of the resource with which the activation code is associated.
 ##share
 
 Generates a share code for the given resource. The share code can
-subsequently be used to activate the share and gain read access to the
-shared resource.
+subsequently be used to [activate](#activate) the share and gain access 
+to the shared resource.
 
 ```
 {
