@@ -231,7 +231,7 @@ Each `Client` contains JSON formatted information from the client in the One Pla
   "data":[[Timestamp ,Value],...],
   "info":{
     "description":{
-      "format":"binary" | "boolean" | "float" | "integer" | "string",
+      "format": "float" | "integer" | "string",
       "meta":DataSourceMeta,
       "name":string :: ""
     }
@@ -411,7 +411,7 @@ write(TargetResource, Value) -> Deferred
 ```
 
 - `"TargetResource"` is an array of resource aliases
-- `"Value"` may be a boolean, number, or string value
+- `"Value"` may be a number or string value
 
 #### Example
 ```
