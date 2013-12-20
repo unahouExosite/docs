@@ -120,6 +120,13 @@ Content-Length: <length>
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses
 
+#####example
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> -H 'X-Exosite-CIK: <CIK>' -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
+dataport1=myvalue
+```
+
 
 ##Hybrid write/read
 
