@@ -47,6 +47,17 @@ secure environment, complete with access to a set of Lua tables and functions,
 as well as a set of One Platform API functions, the 'alias' table and Global
 properties and functions.
 
+Scripts are scheduled to run with a limited number of execution ticks.
+When these ticks are consumed, the script is suspended until subsequently 
+rescheduled.
+
+Scripts also have memory usage limits, which if completely consumed
+terminates the script with a 'not enough memory' error.  Please reference the
+Lua 5.2 manual for how Lua manages memory. In particular:
+
+- [Garbage Collection](http://www.lua.org/manual/5.2/manual.html#2.5)
+
+- [Visibility Rules](http://www.lua.org/manual/5.2/manual.html#3.5)
 
 ### Lua tables and functions
 
