@@ -314,7 +314,7 @@ with the aliased resource.
         count = <non_neg_integer> | "infinity",
         duration = <non_neg_integer> | "infinity"
       },
-      subscribe = <rid> | ""
+      subscribe = <rid> | nil 
     }
 
   "datarule" description ::
@@ -367,7 +367,7 @@ with the aliased resource.
         |
         script = <string>
      }
-     ,subscribe = <rid> | ""
+     ,subscribe = <rid> | nil
     }
 
   "dispatch" description ::
@@ -387,7 +387,7 @@ with the aliased resource.
         duration = <non_neg_integer> | "infinity"
       },
       subject = <string>,
-      subscribe = <rid> | ""
+      subscribe = <rid> | nil 
     }
 
   ------------------------------------------------------------------------------
@@ -571,7 +571,7 @@ with the aliased resource.
     list :: {{client | dataport | datarule | dispatch = {<rid> ,...}} ,...}
 ```
 
-* `manage.lookup(type, rid | {alias = <alias>} | code)`
+* `manage.lookup(type, rid | alias | code)`
 
     Lookup an aliased resource, a resource's owner or a shared resource.
 
@@ -815,7 +815,7 @@ objects. When invoked globally, the functions in the table operate on behalf
 of the script owner client. When invoked through a client alias object, they
 will operate on behalf of that client.
 
-* `dispatch.email(address, subject, message, type)
+* `dispatch.email(address, subject, message, type)`
 
 Sends an email `message` to `address` with `subject` line. `type` is optional
 and specifies the email `Content-Type` header, and defaults to:
