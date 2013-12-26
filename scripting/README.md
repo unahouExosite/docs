@@ -475,12 +475,6 @@ with the aliased resource.
         }
         ,...
       },
-      storage = {
-        count = <number>,
-        first = <timestamp>,
-        last = <timestamp>,
-        size = <number>
-      },
       subscribers = {
         {client | dataport | datarule | dispatch = {<rid>, ...}}, ...
       },
@@ -521,6 +515,14 @@ with the aliased resource.
       },
       tagged = {
         <string> ,...
+      },
+
+      -- for non-clients (dataport ,datarule ,dispatch)
+      storage = {
+        count = <number>,
+        first = <timestamp>,
+        last = <timestamp>,
+        size = <number>
       },
 
       -- for datarules (scripts only):
