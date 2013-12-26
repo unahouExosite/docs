@@ -589,7 +589,7 @@ with the aliased resource.
            false ,error :: boolean ,string - "badarg" | "invalid" | "restricted"
 ```
 
-* `manage.map(type, rid | {alias = <alias>}, mapping)`
+* `manage.map(type, rid | alias, mapping)`
 
     Give the specified ResourceID an alias or a tag.
 
