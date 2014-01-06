@@ -55,10 +55,11 @@ Typical HTTP response codes include:
 | Code   | Response      | Description                                       |
 | ------ |:--------------|:------------------------------------------------- |
 | 200    | OK            | Successful request, returning requested values    |
-| 204    | No Content    | Successful request, nothing will be returned      |
+| 204    | No Content    | Successful request \*, nothing will be returned      |
 | 4xx    | Client Error  | There was an error with the request by the client |
 | 5xx    | Server Error  | There way an error with the request on the server |
 
+\* Note: The One Platform will return '204' on any successful HTTP request that has correct format, the CIK is good, and the server succesfully gets the request.  If the request includes an alias that does not exist for example the response will still be '204' as long as the format and CIK are good.
 
 # Procedures
 
