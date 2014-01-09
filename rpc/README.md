@@ -231,7 +231,7 @@ The body of a request has the following structure:
     },
     "calls": [
         // first call is a read
-        [
+        {
             "id": 1, 
             "procedure": "read", 
             "arguments": [
@@ -246,9 +246,9 @@ The body of a request has the following structure:
                       "selection":"all"
                  }
             ]
-        ],
+        },
         // second call is a write
-        [
+        {
             "id": 2, 
             "procedure": "write", 
             "arguments": [
@@ -260,7 +260,7 @@ The body of a request has the following structure:
                  },
                  65.4
             ]
-        ]
+        }
     ]
 }
 ```
