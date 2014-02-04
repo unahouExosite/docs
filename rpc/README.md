@@ -333,11 +333,11 @@ Read data from a resource.
     "arguments": [
         <ResourceID>,
         {
-            "starttime": 1
-            "endtime": 1376951491,
-            "sort": "desc",
-            "limit": 1,
-            "selection": "all",
+            "starttime": number = 0
+            "endtime": number = <current unix time>,
+            "sort": "asc" | "desc" = "desc"
+            "limit": number = 1,
+            "selection": "all" | "givenwindow" | "autowindow" = "all",
         }
     ],
     "id": 1
@@ -345,11 +345,10 @@ Read data from a resource.
 ```
 
 * `<ResourceID>` is the identifier of the device to read. See [Identifying Resources](#identifying-resources) for details.
-* `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read.
-* `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. 
-* `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points.
-* `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation.
-
+* `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read. `"starttime"` defaults to `0` and `"endtime"` defaults to the current time.
+* `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. Defaults to `"asc"`.
+* `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points. Defaults to `1`.
+* `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation. Defaults to `"all"`.
 
 ####response
 
@@ -379,7 +378,23 @@ Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value
 }
 ```
 
----
+#### Example
+
+Read the most recent single value for a datasource:
+
+```
+$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
+"log"}, {}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/api:v1/rpc/process
+[{"id":0,"status":"ok","result":[[1390622248,"test value"]]}]
+```
+
+Read the earliest two points for a datasource:
+
+```
+$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
+"log"}, {"sort":"asc", "limit":2}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/api:v1/rpc/process
+[{"id":0,"status":"ok","result":[[1390622242,"second value"],[1390622240,"first value"]]}]
+```
 
 ##write
 
