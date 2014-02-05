@@ -734,7 +734,9 @@ http://www.json.org/
 
 * `json.array(table)`
 
-    Initializes a Lua table to represent a JSON array.
+    Initializes a Lua table to represent a JSON array.  A JSON array is
+    represented as a Lua table having a sequence `{1..N}`, such that the 
+    only keys in the table are the numerical set `{1..N}`.
 
 ```
   ------------------------------------------------------------------------------
@@ -780,7 +782,8 @@ http://www.json.org/
 
 * `json.object(table)`
 
-    Initializes a Lua table to represent a JSON object.
+    Initializes a Lua table to represent a JSON object.  A JSON Object is
+    represented as a Lua table having only keys of string type.
 
 ```
   ------------------------------------------------------------------------------
