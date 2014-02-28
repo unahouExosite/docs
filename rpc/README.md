@@ -346,7 +346,7 @@ Read data from a resource.
 
 * `<ResourceID>` is the identifier of the device to read. See [Identifying Resources](#identifying-resources) for details.
 * `"starttime"` and `"endtime"` are [Unix timestamps](http://en.wikipedia.org/wiki/Unix_time) that specify the window of time to read. `"starttime"` defaults to `0` and `"endtime"` defaults to the current time.
-* `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. Defaults to `"asc"`.
+* `"sort"` defines the order in which points should ordered, ascending (`"asc"`) or descending (`"desc"`) timestamp order. Defaults to `"desc"`.
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points. Defaults to `1`.
 * `"selection"` supports downsampling. Specify `"all"` to return all datapoints. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation. Defaults to `"all"`.
 
