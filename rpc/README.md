@@ -851,7 +851,7 @@ Creates a dispatch.
 
 ##create (clone)
 
-Create a clone from an existing One Platform resource given its RID or a non-activated sharecode for that resource.
+Create a clone from an existing One Platform resource given its RID or a non-activated sharecode for that resource. The resource to clone must be a client.
 
 ```
 {
