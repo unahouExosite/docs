@@ -107,7 +107,7 @@ This document uses a few notational conventions:
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
 
 ```
-POST /api:v1/rpc/process
+POST /onep:v1/rpc/process
 Host: m2.exosite.com:80
 Content-Type: application/json; charset=utf-8
 User-Agent: API Example (danweaver@exosite.com)
@@ -176,7 +176,7 @@ RPC API requests are HTTP POSTs and may contain the following headers.
 
 | Header | Description | Required? |
 | ------ | ----------- |:---------:|
-| `POST /api:v1/rpc/process` | Requests to the JSON RPC are always HTTP POSTs to `/api:v1/rpc/process`. | Yes |
+| `POST /onep:v1/rpc/process` | Requests to the JSON RPC are always HTTP POSTs to `/onep:v1/rpc/process`. | Yes |
 | `Host: m2.exosite.com:80` | The host should be either `m2.exosite.com` for normal Portals accounts or `<your domain>.m2.exosite.com` for whitebox accounts. At the moment `m2.exosite.com` works for all types of accounts, but this is not guaranteed to be supported in the future. Both HTTP and HTTPS are supported. | Yes |
 | `Content-Type: application/json; charset=utf-8` | Describes the content type of the body. For the JSON RPC, this is always `application/json; charset=utf-8` | Yes |
 | `User-Agent: API Example (danweaver@exosite.com)` | If possible your application should identify itself by putting contact information in the `User-Agent` header. This also is not enforced, but will help us with any support requests you have. | No |
@@ -384,7 +384,7 @@ Read the most recent single value for a datasource:
 
 ```
 $ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
-"log"}, {}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/api:v1/rpc/process
+"log"}, {}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/onep:v1/rpc/process
 [{"id":0,"status":"ok","result":[[1390622248,"test value"]]}]
 ```
 
@@ -392,7 +392,7 @@ Read the earliest two points for a datasource:
 
 ```
 $ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
-"log"}, {"sort":"asc", "limit":2}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/api:v1/rpc/process
+"log"}, {"sort":"asc", "limit":2}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/onep:v1/rpc/process
 [{"id":0,"status":"ok","result":[[1390622242,"second value"],[1390622240,"first value"]]}]
 ```
 
