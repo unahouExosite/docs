@@ -49,23 +49,23 @@ This document uses a few notational conventions:
 
 CoAP makes use of (a subset of) the HTTP status codes defined in [RFC2616] plus some CoAP-specific status codes.  The HTTP status code is encoded into an 8-bit unsigned integer code with the mapping defined in Table 3.  The use of these codes is defined throughout this document using the HTTP Name (except for CoAP-specific codes).
 
- | Code | HTTP Name                               |
- | ---- | --------------------------------------- |
- | 40   | 100 Continue                            |
- | 80   | 200 OK                                  |
- | 81   | 201 Created                             |
- | 124  | 304 Not Modified                        |
- | 160  | 400 Bad Request                         |
- | 164  | 404 Not Found                           |
- | 165  | 405 Method Not Allowed                  |
- | 175  | 415 Unsupported Media Type              |
- | 200  | 500 Internal Server Error               |
- | 202  | 502 Bad Gateway                         |
- | 203  | 503 Service Unavailable                 |
- | 204  | 504 Gateway Timeout                     |
- | 240  | Token Option required by server         |
- | 241  | Uri-Authority Option required by server |
- | 242  | Critical Option not supported           |
+| Code | HTTP Name                               |
+| ---- | --------------------------------------- |
+| 40   | 100 Continue                            |
+| 80   | 200 OK                                  |
+| 81   | 201 Created                             |
+| 124  | 304 Not Modified                        |
+| 160  | 400 Bad Request                         |
+| 164  | 404 Not Found                           |
+| 165  | 405 Method Not Allowed                  |
+| 175  | 415 Unsupported Media Type              |
+| 200  | 500 Internal Server Error               |
+| 202  | 502 Bad Gateway                         |
+| 203  | 503 Service Unavailable                 |
+| 204  | 504 Gateway Timeout                     |
+| 240  | Token Option required by server         |
+| 241  | Uri-Authority Option required by server |
+| 242  | Critical Option not supported           |
 
 # Procedures
 
@@ -108,27 +108,27 @@ column indicates what type of data is originating from the device under test
 (simulated by coap_client.py), and the "Cloud" column indicates the data format
 of the data source on the ONE Platform that is being written to.
 
- +---------+---------+-------+-------+----------------------------------------+
- | Device  | Cloud   | Write | Read  | Notes                                  |
- +=========|=========================+========================================+
- | Integer | Integer | Yes   | Yes   | NA                                     |
- +---------+---------+-------+-------+----------------------------------------+
- | Integer | String  | Yes   | Yes   | NA                                     |
- +---------+---------+-------+-------+----------------------------------------+
- | Integer | Float   | Yes   | Yes   | NA                                     |
- +---------+---------+-------+-------+----------------------------------------+
- | Float   | Float   | No    | No    | Float not yet supported                |
- +---------+---------+-------+-------+----------------------------------------+
- | Float   | Integer | No    | No    | Float not yet supported                |
- +---------+---------+-------+-------+----------------------------------------+
- | Float   | String  | No    | No    | Float not yet supported                |
- +---------+---------+-------+-------+----------------------------------------+
- | String  | String  | Yes   | Yes   | NA                                     |
- +---------+---------+-------+-------+----------------------------------------+
- | String  | Integer | Yes   | Yes   | String coerced to integer before write |
- +---------+---------+-------+-------+----------------------------------------+
- | String  | Float   | Yes   | Yes   | String coerced to integer before write |
- +---------+---------+-------+-------+----------------------------------------+
++---------+---------+-------+-------+----------------------------------------+
+| Device  | Cloud   | Write | Read  | Notes                                  |
++=========|=========================+========================================+
+| Integer | Integer | Yes   | Yes   | NA                                     |
++---------+---------+-------+-------+----------------------------------------+
+| Integer | String  | Yes   | Yes   | NA                                     |
++---------+---------+-------+-------+----------------------------------------+
+| Integer | Float   | Yes   | Yes   | NA                                     |
++---------+---------+-------+-------+----------------------------------------+
+| Float   | Float   | No    | No    | Float not yet supported                |
++---------+---------+-------+-------+----------------------------------------+
+| Float   | Integer | No    | No    | Float not yet supported                |
++---------+---------+-------+-------+----------------------------------------+
+| Float   | String  | No    | No    | Float not yet supported                |
++---------+---------+-------+-------+----------------------------------------+
+| String  | String  | Yes   | Yes   | NA                                     |
++---------+---------+-------+-------+----------------------------------------+
+| String  | Integer | Yes   | Yes   | String coerced to integer before write |
++---------+---------+-------+-------+----------------------------------------+
+| String  | Float   | Yes   | Yes   | String coerced to integer before write |
++---------+---------+-------+-------+----------------------------------------+
 
 # Known Issues
 
