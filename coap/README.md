@@ -132,13 +132,18 @@ Future features that will become available:
 
 April 1st, 2014:
 
-* Moved from beta status to production status.
-* Limited support for blob transfers
+* Moved from beta status to production status and given a permanent location.
+
+* Limited support for block-wise transfers. In this case, "limited" may mean that blocks written
+to the One Platform using the CoAP API can only be retrieved via the CoAP API. More details
+will follow as the block-wise transfer feature gets rolled out.
 
 Beyond:
 
-* Resource Discovery 
-* Observe
+* Resource Discovery. The ability for resource features to be auto-discovered.
+
+* Observe. The ability for devices to observe a condition and be notified when
+the thing observed has changed.
 
 More information about the Exosite roadmap for CoAP can be made available
 upon request. Further details about CoAP can be found with the
