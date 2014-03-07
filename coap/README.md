@@ -12,7 +12,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Libraries and Sample Code](#libraries-and-sample-code)
 
-[Conventions](#conventions)
+[Notational Conventions](#notational-conventions)
 
 [CoAP Responses](#coap-responses)
 
@@ -23,12 +23,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [Known Issues](#known-issues)
 
 [Roadmap](#roadmap)
-
-####Procedures
-
-[Write](#write) - write new data to a set of dataports
-
-[Read](#read) - read the latest data from a set of dataports
 
 ## Libraries and Sample Code
 
@@ -47,7 +41,7 @@ This document uses a few notational conventions:
 
 ## CoAP Responses
 
-CoAP makes use of (a subset of) the HTTP status codes defined in [RFC2616] plus some CoAP-specific status codes.  The HTTP status code is encoded into an 8-bit unsigned integer code with the mapping defined in Table 3.  The use of these codes is defined throughout this document using the HTTP Name (except for CoAP-specific codes).
+CoAP makes use of (a subset of) the HTTP status codes defined in [RFC2616](https://www.ietf.org/rfc/rfc2616.txt) plus some CoAP-specific status codes.  The HTTP status code is encoded into an 8-bit unsigned integer code with the mapping defined in Table 3.  The use of these codes is defined throughout this document using the HTTP Name (except for CoAP-specific codes).
 
 | Code | HTTP Name                               |
 | ---- | --------------------------------------- |
@@ -127,7 +121,7 @@ Known issues:
 * Uses pre-production server at '65.49.60.152' - this server may not be
   available at all times.
 
-* Only One Platform data source types of "string" and "integer" are supported.
+* Only One Platform data source types of "string" and "integer" are currently supported.
 
 * Float types and CoAP block data transfers are not yet supported.
 
@@ -143,7 +137,7 @@ April 1st, 2014:
 
 Beyond:
 
-* Discovery 
+* Resource Discovery 
 * Observe
 
 More information about the Exosite roadmap for CoAP can be made available
