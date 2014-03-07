@@ -111,21 +111,13 @@ of the data source on the ONE Platform that is being written to.
 | Device  | Cloud   | Write | Read  | Notes                                  |
 | ------- | ------- | ----- | ----- | -------------------------------------- |
 | Integer | Integer | Yes   | Yes   | NA                                     |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | Integer | String  | Yes   | Yes   | NA                                     |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | Integer | Float   | Yes   | Yes   | NA                                     |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | Float   | Float   | No    | No    | Float not yet supported                |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | Float   | Integer | No    | No    | Float not yet supported                |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | Float   | String  | No    | No    | Float not yet supported                |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | String  | String  | Yes   | Yes   | NA                                     |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | String  | Integer | Yes   | Yes   | String coerced to integer before write |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
 | String  | Float   | Yes   | Yes   | String coerced to integer before write |
 
 # Known Issues
