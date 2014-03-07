@@ -18,6 +18,12 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Procedures](#procedures)
 
+[Supported Features](#supported-features)
+
+[Known Issues](#known-issues)
+
+[Roadmap](#roadmap)
+
 ####Procedures
 
 [Write](#write) - write new data to a set of dataports
@@ -43,9 +49,8 @@ This document uses a few notational conventions:
 
 CoAP makes use of (a subset of) the HTTP status codes defined in [RFC2616] plus some CoAP-specific status codes.  The HTTP status code is encoded into an 8-bit unsigned integer code with the mapping defined in Table 3.  The use of these codes is defined throughout this document using the HTTP Name (except for CoAP-specific codes).
 
- +------+-----------------------------------------+
  | Code | HTTP Name                               |
- +------+-----------------------------------------+
+ | ---- | --------------------------------------- |
  | 40   | 100 Continue                            |
  | 80   | 200 OK                                  |
  | 81   | 201 Created                             |
@@ -61,7 +66,6 @@ CoAP makes use of (a subset of) the HTTP status codes defined in [RFC2616] plus 
  | 240  | Token Option required by server         |
  | 241  | Uri-Authority Option required by server |
  | 242  | Critical Option not supported           |
- +------+-----------------------------------------+
 
 # Procedures
 
