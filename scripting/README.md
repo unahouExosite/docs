@@ -210,7 +210,7 @@ with the aliased resource.
     expiration timestamp.
 
     Note that the `expire` period is non deterministic. Although the One Platform
-    honors the `expire` parameter, under high load there may be small fluctuations
+    honors the `expire` parameter, there may be small fluctuations
     of up to a few seconds beyond what is specified by the `expire` parameter.
 
 ```
