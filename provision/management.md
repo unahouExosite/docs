@@ -30,7 +30,7 @@ For general information about accessing this API, see the [main section](README.
 
 [/provision/register](#provisionregister) - get registered vendor name for cik, register vendor name for CIK, unregister vendor name from CIK
 
-[/provision/admin/auth](#provisionadminauth) - list vendor tokens, create vendor token, delete vendor token
+[/provision/admin/auth](#provisionadminauth) - list vendor token ids, create vendor token, delete vendor token
 
 [/provision/admin/auth/\<id\>](#provisionadminauthid) - get vendor token, delete vendor token
 
@@ -1781,7 +1781,7 @@ Content-Length: 0
 
 ## /provision/admin/auth/
 
-### GET - list vendor tokens
+### GET - list vendor token ids
 
 Returns list of vendor auth token `<id>`s for `<VendorCIK>`.
 
