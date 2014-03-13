@@ -1554,7 +1554,7 @@ Returns metric usage for client and its subhierarchy.
 }
 ```
 
-* `<ResourceID>` identifies the resource whose usage will be measured (TODO: must it be a client?). See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` identifies the client resource whose usage will be measured. See [Identifying Resources](#identifying-resources) for details.
 
 * `<metric>` is the usage metric to measure. It may be:
     ...an entity: "client" | "dataport" | "datarule" | dispatch"
