@@ -518,7 +518,7 @@ Creates a client.
 
     `"email"`, `"http"`, `"sms"`, `"xmpp"` is the number of each type of dispatch this client can use on a daily basis.
 
-    `"email_bucket"`, `"http_buckket"`, `"sms_bucket"`, `"xmpp_bucket"` TODO
+    `"email_bucket"`, `"http_bucket"`, `"sms_bucket"`, `"xmpp_bucket"` TODO
 
     `"io"` is the number of One Platform API calls this client can make on a daily basis.
 
@@ -571,7 +571,7 @@ Creates a dataport.
 
 * `"format"` is the format in which the dataport will store its data.
 * `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
-* `"preprocess"` is a list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data. For more information, refer to the Platform User Guide (TODO: link?)
+* `"preprocess"` is a list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data.
 
     `<operation>` may be `"add"`, `"sub"`, `"mul"`, `"div"`, `"mod"`, `"gt"`, `"geq"`, `"lt"`, `"leq"`, `"eq"`, `"neq"`, or `"value"`
 
@@ -1043,7 +1043,7 @@ returned.
 
     `"comments"` returns all comments associated with the resource that 
     are visible to the calling client. See the One Platform User Guide for 
-    'visibility' definition.
+    'visibility' definition. `"comments"` are deprecated and should not be used.
 
     `"description"` returns the description of the resource that was used to create 
     or last update the resource.
@@ -1055,11 +1055,34 @@ returned.
     times and for what duration this resource has been shared and which clients the 
     activators are.
 
-    `"tagged"` needs to be documented (TODO)
+    `"tagged"` is reserved for future use.
 
-    `"tags"` needs to be documented (TODO)
+    `"tags"` is reserved for future use.
 
     `"usage"` returns current usage information for the resource.
+
+Clients can call `info` on any resource in their sub-hierarchy, including themselves. The type of info available to the caller depends on whether the caller is the client itself on which info is being called or the resource's direct owner or some other client up the hierarchy. For information about making a call on behalf of a particular client, see [Authentication](#authentication).
+
+Available to any client up the hierarchy:
+
+    - `"basic"`
+    - `"counts"`
+    - `"usage"`
+    - `"comments"`
+    - `"description"`
+    - `"storage"`
+    - `"subscribers"`
+    - `"tags"`
+
+Available only to the client's direct owner and itself:
+
+    - `"aliases"`
+    - `"tagged"`
+    - `"shares"`
+
+Available only to the client's direct owner.
+
+    - `"key"`
 
 
 
