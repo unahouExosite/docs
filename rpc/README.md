@@ -296,7 +296,7 @@ If a particular call fails, the response body is still a list, but `"status"` fo
   "status": "fail",
   "error": {"code": 501,
             "message": "Error",
-            "context": TODO}]
+            "context": "arguments"}]
 ```
 
 If the request message causes an error not associated with any given call, the response body is a JSON object like this:
@@ -304,7 +304,7 @@ If the request message causes an error not associated with any given call, the r
 ```
 {"error": {"code": 401,
            "message": "Invalid",
-           "context": TODO}}
+           "context": "auth"}}
 ```
 
 * `"code"` may have one of the following values:
@@ -319,6 +319,16 @@ If the request message causes an error not associated with any given call, the r
 
     `501` means the application of the given arguments to the specified procedure is not supported.
 
+
+* `"context"` indicates where the failure happened. If present, it may have one of the following values:
+
+    `"arguments"` if arguments for a procedure are missing
+
+    `"auth"` if the auth field is of invalid format
+
+    `"calls"` if the calls field is of invalid format, i.e. not a list
+
+    `"procedure"` if the procedure is missing
 
 
 # Procedures
@@ -516,9 +526,9 @@ Creates a client.
     
     `"disk"` is the amount of disk space this client can occupy. Currently this limit is not enforced. 
 
-    `"email"`, `"http"`, `"sms"`, `"xmpp"` is the number of each type of dispatch this client can use on a daily basis.
+    `"email"`, `"http"`, `"sms"`, `"xmpp"` is the number of each type of consumable this client can use in each UTC day. These throttle the rate that a client may draw from their corresponding `_bucket` limits.
 
-    `"email_bucket"`, `"http_bucket"`, `"sms_bucket"`, `"xmpp_bucket"` TODO
+    `"email_bucket"`, `"http_bucket"`, `"sms_bucket"`, `"xmpp_bucket"` is the number of each type of consumable this client can use. The bucket can be refilled when depleted by updating the client's description. Updating the limit in the description draws from the client's parent's bucket for as long as the parent (or other ancestor, in the case of a parent bucket set to `"inherit"`) has anything left in its bucket.
 
     `"io"` is the number of One Platform API calls this client can make on a daily basis.
 
@@ -530,7 +540,7 @@ Creates a client.
 
 * `"name"` is a descriptive name. This field has no further function and the One Platform does not use this name to identify the resource.
 
-* `"public"` needs to be documented (TODO)
+* `"public"` provides public read-only access to the resource. If set to `true`, it makes the resource readable by any client. If set to `false`, the resource is readable only by ancestors of the resource or any client with which the resource has been shared.
 
 ####response
 
@@ -583,7 +593,7 @@ Creates a dataport.
 
     `"duration"` is the maximum number of hours this resource will retain its data.
 
-* `"subscribe"` is an RID to which this resource is subscribed, or `""` if it is not subscribed to another resource.
+* `"subscribe"` is an RID to which this resource is subscribed, or `""` if it is not subscribed to another resource. If set to an RID, this resource will receive a publication whenever a value is written to the specified RID. 
 
 
 ####response
@@ -1113,7 +1123,7 @@ Available only to the client's direct owner.
             // and dispatch type resources only.
             // "activated" | "locked" | "notactivated"
             "status": "activated",
-            // TODO
+            // the number of resources subscribed to this one 
             "subscribers": 0,
             // Type of resource
             // "client" | "dataport" | "datarule" | "dispatch"
@@ -1122,7 +1132,9 @@ Available only to the client's direct owner.
         // Private and public comments associated with this resource that are 
         // visible to the calling client.
         "comments": [],
-        // TODO
+        // The actual count of the resources/consumables used by the client on which info 
+        // was called. This is different from "usage" in that "counts" does not include
+        // resources allocated to subresources but not actually used by them.
         "counts": {
             "client": 3,
             "dataport": 14,
@@ -1165,6 +1177,7 @@ Available only to the client's direct owner.
         // Activation timestamps and platform RIDs. 
         //  "activated":[[Timestamp,ClientID], ...]} 
         "shares": [],
+        // List of resources that are subscribed to this one in the form {Type, RID}
         "subscribers": [],
         "tagged": [],
         "tags": [],
