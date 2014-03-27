@@ -96,54 +96,22 @@ Payload: 99
 
 # Supported Features
 
-The CoAP API supports reads and writes to data sources on the ONE Platform. The
-following table depicts specific scenarios that have been tested. The "Device"
-column indicates what type of data is originating from the device under test
-(simulated by coap_client.py), and the "Cloud" column indicates the data format
-of the data source on the ONE Platform that is being written to.
+The CoAP API supports reads and writes to data sources on the One Platform.
+It also supports reading and writing blockwise-transfers to/from the One Platform.
 
-| Device  | Cloud   | Write | Read  | Notes                                  |
-| ------- | ------- | ----- | ----- | -------------------------------------- |
-| Integer | Integer | Yes   | Yes   | NA                                     |
-| Integer | String  | Yes   | Yes   | NA                                     |
-| Integer | Float   | Yes   | Yes   | NA                                     |
-| Float   | Float   | No    | No    | Float not yet supported                |
-| Float   | Integer | No    | No    | Float not yet supported                |
-| Float   | String  | No    | No    | Float not yet supported                |
-| String  | String  | Yes   | Yes   | NA                                     |
-| String  | Integer | Yes   | Yes   | String coerced to integer before write |
-| String  | Float   | Yes   | Yes   | String coerced to integer before write |
+CoAP features not supported:
+
+* Publish/subscribe (Observe)
 
 # Known Issues
 
 Known issues:
 
-* Uses pre-production server at '65.49.60.152' - this server may not be
-  available at all times.
-
-* Only One Platform data source types of "string" and "integer" are currently supported.
-
-* Float types and CoAP block data transfers are not yet supported.
-
-# Roadmap
-
-Today, the Exosite CoAP API supports read/write to data sources on the platform. 
-Future features that will become available:
-
-April 1st, 2014:
-
-* Moved from beta status to production status and given a permanent location.
-
-* Limited support for block-wise transfers. In this case, "limited" may mean that blocks written
-to the One Platform using the CoAP API can only be retrieved via the CoAP API. More details
-will follow as the block-wise transfer feature gets rolled out.
-
-Beyond:
-
-* Resource Discovery. The ability for resource features to be auto-discovered.
-
-* Observe. The ability for devices to observe a condition and be notified when
-the thing observed has changed.
+* Known issues:
+    - Production server IP address (173.255.243.158) is used. Please note that
+      this will become a DNS name instead. In the future, the IP address for the API
+      endpoint may change.
+    - Publish/subscribe (observe) patterns are not yet supported.
 
 More information about the Exosite roadmap for CoAP can be made available
 upon request. Further details about CoAP can be found with the
