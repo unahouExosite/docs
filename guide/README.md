@@ -5,15 +5,11 @@ The One Platform is a highly scalable system for aggregating,
 processing, manipulating, converting, analyzing, publishing
 and sharing data.
 
-The concepts behind the One Platform can be summarized as follows:
+One Platform features include:
 
--   It accepts data over the Internet, using secure, standard protocols
--   It processes and stores data according to user specified definitions.
--   Incoming data is timestamped and processed real-time as received
-    which allows users to specify 'rules' to act upon the
-    processing outcome of their data virtually in real-time.
--   The results of the processing can optionally be fed into other
-    processing definitions. This allows for complex processing.
+-   Accept data over the Internet using secure, standard protocols
+-   Store data according to user specified definitions.
+-   Transform data according to user specified rules.
 -   The processed data is stored in time series databases allowing users
     to read back and run analytics on their historical data, or include
     it in further processing definitions.
@@ -21,6 +17,8 @@ The concepts behind the One Platform can be summarized as follows:
     other protocol recipients.
 -   It allows users to share their data with other users in a secure,
     controlled manner.
+
+This guide serves as a taxonomy of concepts used in the One Platform.
 
 Terminology
 -----------
