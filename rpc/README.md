@@ -1046,7 +1046,7 @@ returned.
     are set to `true` Not all resource types have the same set of options. Valid 
     options are the following:
 
-    `"aliases"` returns all aliases associated with the calling client's resources.
+    `"aliases"` returns all aliases associated with the calling client's child resources.
 
     `"basic"` returns basic information about a resource, such as its type, when 
     it was created, last modified and, for 'client' and 'dispatch' type resources, its current status.
@@ -1104,7 +1104,7 @@ Available only to the client's direct owner.
     "id": 1,
     "result": {
         "aliases": {
-            // Resource to alias mapping. If calling client is not
+            // Child resource to alias mapping. If calling client is not
             // the aliased resource or its owner, the value is "undefined"
             // rather than a list of aliases.
             "1b1ae80c224b4df0c74401234567890123456789": [
