@@ -1379,6 +1379,8 @@ Records a list of historical entries to the resource specified.
 * `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
 * The second argument is a list of timestamp, value entries to record to the resource. If 
     `<timestamp>` is a negative value, it means an offset back into the past from the current time.
+  
+* The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
 * The third argument is currently unused.
 
 ####response
