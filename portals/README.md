@@ -20,7 +20,7 @@ The API uses a REST-style API, which means that:
 
 ### Request and Response Format
 
-Request and response bodies, when present, are formatted using JSON. For more see [http://json.org]
+Request and response bodies, when present, are formatted using JSON. For more see http://json.org
 
 Note that the JSON examples below are sometimes formatted with extra whitespace for clarity.
 
@@ -28,7 +28,7 @@ Note that the JSON examples below are sometimes formatted with extra whitespace 
 
 Some API endpoints require a Portals email and password combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
 
-[http://en.wikipedia.org/wiki/Basic_access_authentication]
+http://en.wikipedia.org/wiki/Basic_access_authentication
 
 ### Domain
 
