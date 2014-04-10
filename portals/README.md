@@ -1,18 +1,18 @@
 # Portals API
 
-__This API is currently undergoing beta testing and may be to subject to the occasional tweaks. Any such tweaks will be documented here.__
+__This API is currently undergoing beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
 
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required. 
 
-The following actions are supported:
+### API Endpoints
 
-* List domains of authenticated user
-* List portals of authenticated user
-* Register new user account
-* Reset user account password via registered email confirmation
-* Create new device under a portal of authenticated user
+* [List domains of authenticated user](#list-domains-of-authenticated-user)
+* [List portals of authenticated user](#list-portals-of-authenticated-user)
+* [Register new user account](#register-new-user-account)
+* [Reset user account password via registered email confirmation](#reset-user-account-password)
+* [Create new device under a portal of authenticated user](#create-new-device-under-a-portal-of-authenticated-user)
 
-## REST API
+## REST
 
 The API uses a REST-style API, which means that:
 * HTTP verbs in the request indicate the type of action the client wants to take (e.g. GET, POST)
