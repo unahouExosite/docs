@@ -1,6 +1,6 @@
 # Portals API
 
-__This API is currently undergoing beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
+__This API is in beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
 
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required. 
 
@@ -12,25 +12,25 @@ Portals provides a user authentication and management system on top of the One P
 * [Reset user account password via registered email confirmation](#reset-user-account-password)
 * [Create new device under a portal of authenticated user](#create-new-device-under-a-portal-of-authenticated-user)
 
-## REST
+### REST
 
 The API uses a REST-style API, which means that:
 * HTTP verbs in the request indicate the type of action the client wants to take (e.g. GET, POST)
 * HTTP status in the response indicate (e.g. 200 for success, 400 for bad request or 401 for authentication error)
 
-## Request and Response Format
+### Request and Response Format
 
 Request and response bodies, when present, are formatted using JSON. For more see [http://json.org]
 
 Note that the JSON examples below are sometimes formatted with extra whitespace for clarity.
 
-## Authentication
+### Authentication
 
 Some API endpoints require a Portals email and password combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
 
 [http://en.wikipedia.org/wiki/Basic_access_authentication]
 
-## Domain
+### Domain
 
 For some API endpoints, the domain of the request URL indicates information about which domain should be affected. For example, a GET request to:
 
@@ -45,7 +45,7 @@ Also, the domain is used for user authentication. Endpoints that are affected by
 ## API Endpoints
 
 ### List domains of authenticated user
-GET /api/portals/v1/domain/
+`GET /api/portals/v1/domain/`
 
 Returns a list of domains to which the user’s account is added.
 
@@ -80,7 +80,7 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 ```
 
 ### List portals of authenticated user
-GET /api/portals/v1/portal/
+`GET /api/portals/v1/portal/`
 
 Get a list of portals for the specified user on the domain specified in the URL of the request.
 
@@ -120,7 +120,7 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
 ```
 
 ### Register New User Account
-POST /api/portals/v1/user
+`POST /api/portals/v1/user`
 
 Signs up a new user account, sending an activation email to the specified address.
 
@@ -155,7 +155,7 @@ $ curl https://janesdomain.exosite.com/api/portals/v1/user -d '{"email": "jane+t
 ```
 
 ### Reset user account password
-POST /api/portals/v1/user/password
+`POST /api/portals/v1/user/password`
 
 Sends a password reset email for this user.
 
@@ -183,7 +183,7 @@ $ curl https://portals.exosite.com/api/portals/v1/user/password -d '{"action":"r
 ```
 
 ### Create new device under a portal of authenticated user
-POST /api/portals/v1/device
+`POST /api/portals/v1/device`
 
 Creates a new device based on a client model, returning the CIK and RID of the new device.
 
