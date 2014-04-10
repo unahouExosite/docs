@@ -34,11 +34,11 @@ Some API endpoints require a Portals email and password combination for authenti
 
 For some API endpoints, the domain of the request URL indicates information about which domain should be affected. For example, a GET request to:
 
-    https://__mydomain__.exosite.com/api/portals/v1/portal/ 
+    https://mydomain.exosite.com/api/portals/v1/portal/ 
 
 ...will return a different list of portals than a GET request to:
 
-    https://__portals__.exosite.com/api/portals/v1/portal/
+    https://portals.exosite.com/api/portals/v1/portal/
 
 Also, the domain is used for user authentication. Endpoints that are affected by the querying domain are indicated below.
 
