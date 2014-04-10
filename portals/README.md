@@ -4,7 +4,7 @@ __This API is in beta testing and may be to subject to the occasional tweak. Any
 
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required. 
 
-### API Endpoints
+### Actions
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [List portals of authenticated user](#list-portals-of-authenticated-user)
