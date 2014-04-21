@@ -381,7 +381,7 @@ function(container, portal) {
       .done(function() {
         var data = arguments;
         // update the data.
-        var latest_point = data['0'];
+        var latest_point = data[0];
         var html = latest_point[1] + ' (' + new Date(latest_point[0] * 1000)  + ')';
         $(container).find('div#temperature').html(html);
       })
