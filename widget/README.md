@@ -358,7 +358,7 @@ read(TargetResource, Options) -> Deferred
 }
 ```
 
-- `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition. The callback passed to the deferred object’s done method will get the data passed as arguments.
+- `Deferred` is an object that may be called with `done()` and/or `fail()` callbacks to handle success or failure condition. The callback passed to the deferred object’s done method will get the array of points that were read passed as arguments (each point as one argument).
 
 #### Example
 
