@@ -2,8 +2,12 @@
   $(document).ready(
     function(){
       $('.header ul a').on('click', function(event) {
-        event.preventDefault();
         var href = $(this).attr('href');
+        // don't touch absolute addresses
+        if (href.indexOf('http') == 0) {
+          return;
+        }
+        event.preventDefault();
         href = href.replace('#', '');
         var file = '';
         Flatdoc.run({
@@ -11,9 +15,6 @@
         });
       });
       $(document).on('flatdoc:ready', function() {
-        $('.content a').each(function() {
-          console.log($(this).attr('href'));
-        });
         // make content links work in flatdoc
         $('.content a').on('click', function(event) {
           var href = $(this).attr('href');

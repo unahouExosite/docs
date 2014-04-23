@@ -94,9 +94,12 @@ On success, HTTP status is 200 and HTTP response body is a JSON list of portal o
 * `"key"` - Portal CIK (returned only if user has "owner" or "manager" level access to the portal)
 * `"rid"` - Portal resource ID
 * `"role"` - User’s role for this portal. Possible values are:
-* `"owner"` - user is the portal’s direct owner
-* `"manager"` - user has manager access to the portal
-* `"domain"` - Portal domain
+
+    * `"owner"` - user is the portal’s direct owner
+
+    * `"manager"` - user has manager access to the portal
+
+    * `"domain"` - Portal domain
 
 On failure, response has a HTTP status code of 400 or greater.
 
