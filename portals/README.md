@@ -98,7 +98,7 @@ On success, HTTP status is 200 and HTTP response body is a JSON list of portal o
 
     * `"owner"` - user is the portal’s direct owner
 
-    * `"manager"` - user has manager access to the portal
+    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though. 
 
 On failure, response has a HTTP status code of 400 or greater.
 
@@ -110,11 +110,13 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
     "name":"MyPortal1",
     "domain":"mydomain.exosite.com"
     "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b", 
-    "role":"user"
+    "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b", 
+    "role":"owner"
   }, 
   {
     "name":"MyPortal2",
     "domain":"mydomain.exosite.com"
+    "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb", 
     "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa", 
     "role":"manager"
   }
