@@ -44,30 +44,30 @@ This document uses a few notational conventions:
 
 CoAP makes use of so called CoAP Response Codes which resemble the HTTP status codes defined in [RFC2616](https://www.ietf.org/rfc/rfc2616.txt) plus some CoAP-specific status codes. The Response Code is encoded into an 8-bit unsigned integer code as defined in [section 3 of the specification](http://tools.ietf.org/html/draft-ietf-core-coap-18#section-3)). 
 
-Exosite's API will only return a subset of the response codes as defined in the table below.
+Exosite's API currently only return a subset of the response codes as defined in the table below, however we may start using any other code at any time. You should, at a minimum, support every code class if you don't handle each code individually.
 
 | Code | Description                  | Used |
 |------|------------------------------|------|
 | 2.01 | Created                      |   Y  |
 | 2.02 | Deleted                      |   N  |
 | 2.03 | Valid                        |   N  |
-| 2.04 | Changed                      |   N  |
+| 2.04 | Changed                      |   Y  |
 | 2.05 | Content                      |   Y  |
-| 4.00 | Bad Request                  |   Y  |
+| 4.00 | Bad Request                  |   N  |
 | 4.01 | Unauthorized                 |   Y  |
 | 4.02 | Bad Option                   |   Y  |
 | 4.03 | Forbidden                    |   Y  |
 | 4.04 | Not Found                    |   Y  |
-| 4.05 | Method Not Allowed           |   Y  |
+| 4.05 | Method Not Allowed           |   N  |
 | 4.06 | Not Acceptable               |   N  |
-| 4.12 | Precondition Failed          |   N  |
+| 4.12 | Precondition Failed          |   Y  |
 | 4.13 | Request Entity Too Large     |   N  |
-| 4.15 | Unsupported Content-Format   |   Y  |
-| 5.00 | Internal Server Error        |   Y  |
-| 5.01 | Not Implemented              |   Y  |
-| 5.02 | Bad Gateway                  |   Y  |
-| 5.03 | Service Unavailable          |   Y  |
-| 5.04 | Gateway Timeout              |   Y  |
+| 4.15 | Unsupported Content-Format   |   N  |
+| 5.00 | Internal Server Error        |   N  |
+| 5.01 | Not Implemented              |   N  |
+| 5.02 | Bad Gateway                  |   N  |
+| 5.03 | Service Unavailable          |   N  |
+| 5.04 | Gateway Timeout              |   N  |
 | 5.05 | Proxying Not Supported       |   N  |
 
 # Procedures
