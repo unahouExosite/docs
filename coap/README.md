@@ -77,7 +77,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`, which is binary value, not a UTF-8 string. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
 
 ```
-POST: coap://coap.exosite.com/a1/<alias>?<CIK>
+POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 <value>
 ```
 
@@ -110,7 +110,7 @@ Binary Message (34 bytes of data):
 Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
 
 ```
-GET: coap://coap.exosite.com/a1/<alias>?<CIK>
+GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 Send CoAP GET to read data from alias '1':
