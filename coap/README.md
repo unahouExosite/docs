@@ -74,35 +74,33 @@ Exosite's API currently only return a subset of the response codes as defined in
 
 ##Write
 
-Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`, which is binary value, not a UTF-8 string. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
+Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`, which is a UTF-8 string or the raw binary value. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
 
 ```
 POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 <value>
 ```
 
-Send CoAP POST to write data '37' to alias '1':
+Send CoAP POST to write '37' to alias 'temp':
     
 ```
-Version:       01
+Version:       1
 Type:          CON
 Code:          POST (0.02)
-Message_id:    9d
+Message_id:    f6
 Token Length:  0
 Options Count: 3
 Option Number: URI_PATH (11)
        Value:  1a
 Option Number: URI_PATH (11)
-       Value:  1
+       Value:  temp
 Option Number: URI_QUERY (15)
        Value:  \xa3,\x85\xba\x9d\xdaE\x82;\xe4\x16$l\xf8\xb43\xba\xa0h\xd7
 Payload: 37
-
-Binary Message (34 bytes of data): 
-0000: 40 02 00 9d b2 31 61 01 31 4d 07 a3 2c 85 ba 9d    @����1a�1M��,��
-0016: da 45 82 3b e4 16 24 6c f8 b4 33 ba a0 68 d7 ff    �E�;��$l��3��h�
-0032: 33 37                                              37
-
+Message as Received (37 bytes of data): 
+0000: 40 02 00 f6 b2 31 61 04 74 65 6d 70 4d 07 a3 2c    @��7�1a�tempM��,
+0016: 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba a0    ����E�;��$l��3�
+0032: 68 d7 ff 33 37                                     h��37
 ```
 
 ##Read
@@ -113,28 +111,26 @@ Read the most recent value from one or more dataports with alias `<alias>`. The 
 GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
-Send CoAP GET to read data from alias '1':
+Send CoAP GET to read latest value from alias 'temp':
 
 ```
-Version:       01
+Version:       1
 Type:          CON
-Code:          0.01
-Message_id:    ec0e
-Token Length:  4
+Code:          GET (0.01)
+Message_id:    9d
+Token Length:  0
 Options Count: 3
 Option Number: URI_PATH (11)
-      - Value:  1a
+       Value:  1a
 Option Number: URI_PATH (11)
-      - Value:  1
+       Value:  temp
 Option Number: URI_QUERY (15)
-      - Value:  \xa3,\x85\xba\x9d\xdaE\x82;\xe4\x16$l\xf8\xb43\xba\xa0h\xd7
+       Value:  \xa3,\x85\xba\x9d\xdaE\x82;\xe4\x16$l\xf8\xb43\xba\xa0h\xd7
 Payload: 
-
-Binary Message (35 bytes of data): 
-0000: 44 01 ec 0e 7a 5f 6b 53 b2 31 61 01 31 4d 07 a3    D���z_kS�1a�1M�
-0016: 2c 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba    ,����E�;��$l��3
-0032: a0 68 d7                                           �h
-
+Message as Received (34 bytes of data): 
+0000: 40 01 00 9d b2 31 61 04 74 65 6d 70 4d 07 a3 2c    @��7�1a�tempM��,
+0016: 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba a0    ����E�;��$l��3�
+0032: 68 d7                                              h
 ```
 
 * See [CoAP Responses](#coap-responses) for a full list of responses.
