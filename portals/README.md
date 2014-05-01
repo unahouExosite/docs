@@ -147,10 +147,15 @@ On success, HTTP status code is 200 and HTTP response body is empty.
 On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys: 
 
 * `"errors"` - list of error identifier strings
-* `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
-* `"wrong_password"` - email is already registered with Portals and the password is incorrect
-* `"user_exists_wrong_domain”` - user exists on another domain
-* `"user_exists"` - user already exists on this domain
+
+    * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+
+    * `"wrong_password"` - email is already registered with Portals and the password is incorrect
+
+    * `"user_exists_wrong_domain”` - user exists on another domain
+
+    * `"user_exists"` - user already exists on this domain
+
 * `"notices"` - list of user-readable error strings
 
 #### Example
