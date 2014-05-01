@@ -181,8 +181,11 @@ On success, HTTP status code is 200 and HTTP response body is empty.
 On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys: 
 
 * `"errors"` - list of error identifier strings
-* `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
-* `"failed"` - some other error occurred
+
+    * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+
+    * `"failed"` - some other error occurred
+
 * `"notices"` - list of user-readable error strings
 
 #### Example
@@ -235,14 +238,23 @@ The RID and CIK may then be used with Exosite’s other APIs to interact with th
 On failure, response has a HTTP status code of 400 or greater. The response body contains a JSON formatted response object. The response object may contain the following keys: 
 
 * `"errors"` - list of error identifier strings
-* `"limit"` - portal’s device limit has been reached
-* `"invalid_sn"` - serial number is invalid
-* `"unavailable_sn"` - serial number is not available
-* `"forbidden_model"` - model is not available in this domain
-* `"require_purchase"` - creating this type of device requires a purchase
-* `"insufficient_resources"` - device could not be added due to insufficient resources in the portal
-* `"portal_not_found"` - portal_rid could not be found 
-* `"missing\_*"` - some required input was missing. E.g. missing_portal_rid indicates missing or empty (blank) portal_rid.
+
+    * `"limit"` - portal’s device limit has been reached
+
+    * `"invalid_sn"` - serial number is invalid
+
+    * `"unavailable_sn"` - serial number is not available
+
+    * `"forbidden_model"` - model is not available in this domain
+
+    * `"require_purchase"` - creating this type of device requires a purchase
+
+    * `"insufficient_resources"` - device could not be added due to insufficient resources in the portal
+
+    * `"portal_not_found"` - portal_rid could not be found 
+
+    * `"missing\_*"` - some required input was missing. E.g. missing_portal_rid indicates missing or empty (blank) portal_rid.
+
 * `"notices"` - list of user-readable error strings
 
 #### Example
