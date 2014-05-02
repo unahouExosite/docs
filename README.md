@@ -1,10 +1,5 @@
 # Get Started
 
-* [Connect a device with Exosite](/tutorials/start/README.md)
-* [More tutorials](tutorials/)
-
-## API
-
 Are you looking to create an application that uses the One Platform API? You've come to the right place. Exosite provides APIs and libraries that make it possible to work with the platform from a variety of environments. 
 
 * [CoAP API](coap/) - small speclalized protocol for low-power nodes and lossy networks
