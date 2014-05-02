@@ -35,7 +35,7 @@ This document uses a few notational conventions:
 
 ## CoAP Responses
 
-CoAP makes use of so called CoAP Response Codes which resemble the HTTP status codes defined in [RFC2616](https://www.ietf.org/rfc/rfc2616.txt) plus some CoAP-specific status codes. The Response Code is encoded into an 8-bit unsigned integer code as defined in [section 3 of the specification](http://tools.ietf.org/html/draft-ietf-core-coap-18#section-3)). 
+CoAP makes use of so called CoAP Response Codes which resemble the HTTP status codes defined in [RFC2616](https://www.ietf.org/rfc/rfc2616.txt) plus some CoAP-specific status codes. The Response Code is encoded into an 8-bit unsigned integer code as defined in [section 3 of the specification](http://tools.ietf.org/html/draft-ietf-core-coap-18#section-3). 
 
 Exosite's API currently only return a subset of the response codes as defined in the table below, however we may start using any other code at any time. You should, at a minimum, support every code class if you don't handle each code individually.
 
