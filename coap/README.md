@@ -4,9 +4,7 @@ The Constrained Application Protocol (CoAP) is a specialized web transfer protoc
 
 CoAP provides a request/response interaction model between application endpoints, supports built-in discovery of services and resources, and includes key concepts of the Web such as URIs and Internet media types. CoAP is designed to easily interface with HTTP for integration with the Web while meeting specialized requirements such as multicast support, very low overhead and simplicity for constrained environments.
 
-The Exosite CoAP API allows for writing to and reading from data sources on the Exosite One Platform.
-
-If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
+This api currently uses [draft 18](http://tools.ietf.org/html/draft-ietf-core-coap-18) of the CoAP protocol and may be updated as further protocol modifications are published by the IETF.
 
 ## Table of Contents
 
@@ -33,11 +31,6 @@ A sample CoAP client written in python is available in the [CoAPExample](https:/
 This document uses a few notational conventions:
 
 * A name in angle brackets, e.g. `<myvar>`, is a placeholder that will be defined elsewhere.
-* `number` indicates a number, e.g. 42
-* `string` represents a string, e.g. "MySensor"
-* `|` represents multiple choice
-* `=` represents default value
-* `...` represents one or more of the previous item
 * CoAP request packets are shown in a text format with the format `METHOD: URI\nPAYLOAD`.
 
 ## CoAP Responses
@@ -74,12 +67,18 @@ Exosite's API currently only return a subset of the response codes as defined in
 
 ##Write
 
-Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`, which is a UTF-8 string or the raw binary value. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second with this API.
+Write one or more dataports of alias `<alias>` with given `<value>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second.
 
 ```
 POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 <value>
 ```
+
+`<alias>`: The alias of the datasource that is being written to.  
+`<value>`: The value to be written at the current time.  
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary represnetation of the cik as a hexidecimal value sent in network byte order.
+
+### Example
 
 Send CoAP POST to write '37' to alias 'temp':
     
@@ -105,11 +104,16 @@ Message as Received (37 bytes of data):
 
 ##Read
 
-Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
+Read the most recent value from the dataport with alias `<alias>`. If at `<alias>` is found and has data, data will be returned.
 
 ```
 GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
+
+`<alias>`: The alias of the datasource that is to have the latest value read.  
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary represnetation of the cik as a hexidecimal value sent in network byte order.
+
+### Example
 
 Send CoAP GET to read latest value from alias 'temp':
 
