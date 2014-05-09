@@ -193,8 +193,8 @@ with the aliased resource.
     `.wait` function.  When written, the current time, as the script perceives 
     it, will be changed to the given timestamp. Thus it is possible to set 
     `.last` to a point in the past and iterate through historical data using 
-    `.wait`. When the script starts `.last` is initialized to the current time.
-
+    `.wait`. When the script starts `.last` is initialized to the value of
+    `.timestamp`.
 ```
   ------------------------------------------------------------------------------
   Values:           last :: number
