@@ -1527,7 +1527,7 @@ Updates the description of the resource.
 }
 ```
 
-* `<ResourceID>` identifies the resource to update.  See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` identifies the resource to update. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not update itself.
 
 * `<description>` is a JSON object and is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
