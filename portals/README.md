@@ -142,7 +142,7 @@ A permission object describes a level of access to a particular Portals resource
 
 - `<access>` is a constant string. Possible values are:
 
-    - `"\_\_\_admin"`
+    - "___admin"
 
 - `<id>` is an integer identifier between 10000000000 and 4294967295.
 
