@@ -2,7 +2,7 @@
 
 __This API is in beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
 
-Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required. 
+Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required.
 
 ### Actions
 
@@ -34,7 +34,7 @@ http://en.wikipedia.org/wiki/Basic_access_authentication
 
 For some API endpoints, the domain of the request URL indicates information about which domain should be affected. For example, a GET request to:
 
-    https://mydomain.exosite.com/api/portals/v1/portal/ 
+    https://mydomain.exosite.com/api/portals/v1/portal/
 
 ...will return a different list of portals than a GET request to:
 
@@ -76,7 +76,7 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
  {"role":"admin",
   "domain":"joesdomain.exosite.com",
   "name":"joesdomain",
-  "token":"01233fb43edeb3557b5ef46b987385abcdef0123"}] 
+  "token":"01233fb43edeb3557b5ef46b987385abcdef0123"}]
 ```
 
 ### List portals of authenticated user
@@ -85,7 +85,7 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 Get a list of portals for the specified user on the domain specified in the URL of the request.
 
 #### Request
-Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed. 
+Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
 
 #### Response
 On success, HTTP status is 200 and HTTP response body is a JSON list of portal objects. Portal objects contain the following keys:
@@ -98,7 +98,7 @@ On success, HTTP status is 200 and HTTP response body is a JSON list of portal o
 
     * `"owner"` - user is the portal’s direct owner
 
-    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though. 
+    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though.
 
 On failure, response has a HTTP status code of 400 or greater.
 
@@ -109,15 +109,15 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
   {
     "name":"MyPortal1",
     "domain":"mydomain.exosite.com"
-    "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b", 
-    "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b", 
+    "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
+    "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
     "role":"owner"
-  }, 
+  },
   {
     "name":"MyPortal2",
     "domain":"mydomain.exosite.com"
-    "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb", 
-    "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa", 
+    "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
+    "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
     "role":"manager"
   }
 ]
@@ -137,14 +137,14 @@ Request body is a JSON object with the following keys:
 * `"first_name"` - user’s first name (optional)
 * `"last_name"` - user’s last name (optional)
 
-If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"` and `"User"`, respectively. 
+If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"` and `"User"`, respectively.
 
-The domain name in the HTTP request is used to indicate which domain the user should be signed up in. 
+The domain name in the HTTP request is used to indicate which domain the user should be signed up in.
 
 #### Response
-On success, HTTP status code is 200 and HTTP response body is empty. 
+On success, HTTP status code is 200 and HTTP response body is empty.
 
-On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys: 
+On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
 
 * `"errors"` - list of error identifier strings
 
@@ -169,16 +169,16 @@ $ curl https://janesdomain.exosite.com/api/portals/v1/user -d '{"email": "jane+t
 Sends a password reset email for this user.
 
 #### Request
-Request contains a JSON object with the following keys: 
+Request contains a JSON object with the following keys:
 
 * `"email"` - email address of a Portals user
 * `"action"` - what to do. Supported values:
 * `"reset"` - send user a password reset request
 
 #### Response
-On success, HTTP status code is 200 and HTTP response body is empty. 
+On success, HTTP status code is 200 and HTTP response body is empty.
 
-On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys: 
+On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
 
 * `"errors"` - list of error identifier strings
 
@@ -235,7 +235,7 @@ After creating a device, it is necessary to activate it using the provisioning A
 
 The RID and CIK may then be used with Exosite’s other APIs to interact with the device.
 
-On failure, response has a HTTP status code of 400 or greater. The response body contains a JSON formatted response object. The response object may contain the following keys: 
+On failure, response has a HTTP status code of 400 or greater. The response body contains a JSON formatted response object. The response object may contain the following keys:
 
 * `"errors"` - list of error identifier strings
 
@@ -251,7 +251,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
     * `"insufficient_resources"` - device could not be added due to insufficient resources in the portal
 
-    * `"portal_not_found"` - portal_rid could not be found 
+    * `"portal_not_found"` - portal_rid could not be found
 
     * `"missing\_*"` - some required input was missing. E.g. missing_portal_rid indicates missing or empty (blank) portal_rid.
 
@@ -264,7 +264,7 @@ Create the device:
 ```
 $ curl https://joesdomain.exosite.com/api/portals/v1/device -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' --user joe@gmail.com:joep4ssword
 {
-  "cik": "ef123475183fb435ef46b987385abcdedeb3557b", 
+  "cik": "ef123475183fb435ef46b987385abcdedeb3557b",
   "rid": "987385abcdedeef123475183fb435ef46baf367b"
 }
 ```
