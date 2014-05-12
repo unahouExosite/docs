@@ -2,29 +2,40 @@
 
 __This API is in beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
 
-Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where Portals account is required.
+Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where a Portals account is required.
 
 ## Overview
 
-### Actions
+### API Endpoints 
 
-* [List domains of authenticated user](#list-domains-of-authenticated-user)
-* [List portals of authenticated user](#list-portals-of-authenticated-user)
+#### Users 
+
+* [Get user](#get-user)
+* [Create user](#create-user)
+* [Update user](#update-user)
 * [Register new user account](#register-new-user-account)
 * [Reset user account password via registered email confirmation](#reset-user-account-password)
+
+#### Portals, Devices, Data
+
+* [List portals of authenticated user](#list-portals-of-authenticated-user)
+* [Create portal devices](#create-portal-devices)
 * [Create new device under a portal of authenticated user](#create-new-device-under-a-portal-of-authenticated-user)
 * [Get data source](#get-data-source)
 * [Get data source data](#get-data-source-data)
 * [Get device](#get-device)
-* [Get group](#get-group)
-* [Get user](#get-user)
-* [Create portal devices](#create-portal-devices)
-* [Create user](#create-user)
-* [Create group under user](#create-group-under-user)
-* [Update group](#update-group)
 * [Update device](#update-device)
+
+#### Groups 
+
+* [Create group under user](#create-group-under-user)
+* [Get group](#get-group)
+* [Update group](#update-group)
+
+#### Domain 
+
+* [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [Update domain](#update-domain)
-* [Update user](#update-user)
 
 ### REST
 
@@ -50,7 +61,7 @@ For some API endpoints, the domain of the request URL indicates information abou
 
     https://mydomain.exosite.com/api/portals/v1/portal/
 
-...will return a different list of portals than a GET request to:
+...will return a different array of portals than a GET request to:
 
     https://portals.exosite.com/api/portals/v1/portal/
 
@@ -58,268 +69,130 @@ Also, the domain is used for user authentication. Endpoints that are affected by
 
 ## Types
 
-### access
-
-Access is a constant string. Possible values are:
-
-* \_\_\_admin
-
-### data
-
-	[
-		datum
-	]
-
-Data object is an array of datum object.
-
-See datum in the types section for more detail.
-
-### data-source
-
-	{
-		"data": data,
-		"info": data-source-info,
-		"rid": data-source-id
-	}
-
-Data source is an object containing only these three keys.
-
-See data object, data-source-info object and rid in the types section for more detail.
-
-### data-source-id
-
-data-source-id is rid
-
-### data-source-ids
-
-    [
-        data-source-id
-    ]
-
-Data-source-ids is an array of data-source-id.
-
-See data-source-id in the types section for more detail.
-
-### data-source-info
-
-	{
-		"basic": see below,
-		"description": see below,
-		"shares": see below,
-		"storage": see below,
-		"subscribers": see below,
-		"tags": see below
-	}
-
-Data source info is an object containing only these six keys.
-
-See [info section in Remote Procedure Call API](https://github.com/exosite/docs/tree/master/rpc#info) for more details.
-
-### datum
-
-	[
-		datum-id,
-		datum-value
-	]
-
-Datum object is an array with two items.
-
-See datum-id and datum-value in the types section for more details.
-
-### datum-id
-
-Datum id is a [Unit time](http://en.wikipedia.org/wiki/Unix_time).
-
-### datum-value
-
-Datum value depends on the setup of the data source, possible types are:
-
-* float
-* int
-* string
-
-### device
-
-	{
-		"dataSources": data-source-ids,
-		"info": device-info,
-		"members": permissions,
-		"model": model-id,
-		"rid": rid,
-		"sn": sn,
-		"type": device-type,
-		"vendor": vendor-id
-	}
-
-Devices is an object containing only these eight keys.
-
-See data-source-ids, device-info, permissions, model-id, rid, sn, device-type, vendor-id in the types section for more detail.
-
-### device-info
-
-	{
-		"aliases": see below,
-		"basic": see below,
-		"description": see below,
-		"shares": see below,
-		"subscribers": see below,
-		"tagged": see below,
-		"tags": see below
-	}
-
-Devices info is an object containing only these seven keys.
-
-See [info section in Remote Procedure Call API](https://github.com/exosite/docs/tree/master/rpc#info) for more details.
-
-### device-type
-
-Device type is a constant string. Possible values are:
-
-* vendor
-
-### domain
-
-	{
-		"members": permissions
-	}
-
-Domain is an object containing only this key.
-
-See permissions in the types section for more details.
-
-### email
-
-Email is an [email address](https://en.wikipedia.org/wiki/Email_address).
-
-### group
-
-	{
-		"id": group-id,
-		"meta": meta,
-		"members": permissions,
-		"name": short-text,
-		"permissions": permissions,
-		"userId": user-id
-	}
-
-Group is an object containing only these six keys.
-
-See gruop-id, meta, permissions, short-text, user-id in the types section for more detail.
-
-### group-id
-
-Group ID is an id.
-
-### group-ids
-
-	[
-		group-id
-	]
-
-Group IDs is an array of group-id.
-
-See group-id in the types section for more detail.
+The following types are common to several API endpoints.
 
 ### id
 
-ID is an integer between 10000000000 and 4294967295.
+`<id>` is an integer between 10000000000 and 4294967295.
 
-### meta
+### device object
 
-Meta can be anything.
+A device object describes a device in Portals.
 
-### model-id
+```
+{
+    "dataSources": [<data-source-id-1>, <data-source-id-2>, ...],
+    "info": <device-info>,
+    "members": [<permission-1>, <permission-2>, ...],
+    "model": <model-id>,
+    "rid": <rid>,
+    "sn": <sn>,
+    "type": <device-type>,
+    "vendor": <vendor-id>
+}
+```
 
-Model ID is a string.
+* `<data-source-id-N>` is a 40 character hex string representing the datasource's RID in the One Platform
 
-### oid
+* `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info)
 
-	{
-		"id": id,
-		"type": oid-type
-	}
+* `<permissions>` is an array of [permission objects](#permission-object)
 
-OID is an object containing these two keys.
+* `<sn>` is a string representing the serial number of the device
 
-See id, oid-type in the types section for more detail.
+* `<type>` is a constant string representing the device type.  Possible values are:
 
-### oid-type
+    * `"vendor"`
 
-OID type is a constant string. Possible values are:
+* `<vendor-id>` is a string identifying the vendor
 
-* Device
-* Domain
-* Group
-* Portal
-* User
+### group object
 
-### permission
+A group object describes a Portals permissions group.
 
-	{
-		"access": access,
-		"oid": oid
-	}
+```
+{
+    "id": <group-id>,
+    "meta": <meta>,
+    "members": [<permission-1>, ...],
+    "name": <short-text>,
+    "permissions": [<permission-1>, ...],
+    "userId": <user-id>
+}
+```
 
-Permission is an object containing only these two keys.
+* `<group-id>` is a number identifying the group.
+* `<meta>` is a string containing application-specific information describing the group. It must be be less then 2 megabytes long.
+* `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
+* `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 
-See access and oid in the types section for more detail.
+### permission object
 
-### permissions
+A permission object describes a level of access to a particular Portals resource identified by `"oid"`.
 
-	[
-		permission
-	]
+```
+{
+    "access": <access>,
+    "oid": {
+        "id": <id>,
+        "type": <oid-type>
+    }
+}
+```
 
-Permissions is an array of permission object.
+- `<access>` is a constant string. Possible values are:
 
-See permission in the types section for more detail.
+    - `"\_\_\_admin"`
 
-### rid
+- `<id>` is an integer identifier between 10000000000 and 4294967295.
 
-RID is a hexadecimal number, 40 digits long stored as a string.
+- `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
-### short-text
+    * `"device"`
 
-Short text is a string less than 256 characters.
+    * `"domain"`
 
-### sn
+    * `"group"`
 
-SN is a string.
+    * `"portal"`
 
-### user
+    * `"User"`
 
-	{
-		"email": email,
-		"fullName": short-text,
-		"groups": group-ids
-		"id": user-id,
-		"phoneNumber": short-text
-	}
 
-User object is an object containing only these five keys.
+### user object
 
-See email, group-ids, short-text and user-id in the types section for more details.
+An object containing information about a Portals user.
 
-### user-id
+```
+{
+    "email": <email>,
+    "fullName": <short-string>,
+    "groups": [<group-id-1>, <group-id-2>, ...],
+    "id": <id>,
+    "phoneNumber": <short-string>
+}
+```
 
-User ID is an id.
+* `"email"` is the user's email address
+* `"fullName"` is a string of fewer than 256 characters
+* `"groups"` is an array of identifiers for groups of which the user is a member
+* `"id"` is a numeric identifier for the user
+* `"phoneNumber"` is the user's phone number
 
-### vendor-id
-
-Vendor ID is a string.
 
 ## API Endpoints
 
 ### List domains of authenticated user
 `GET /api/portals/v1/domain/`
 
-Returns a list of domains to which the user’s account is added.
+Returns an array of domains to which the user’s account is added.
 
 #### Request
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and JSON list of domain objects. Domain objects contain the following keys:
+On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
+
 * `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
 * `"role"` - the user’s role on this domain. Has one of the following values:
 
@@ -348,13 +221,13 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 ### List portals of authenticated user
 `GET /api/portals/v1/portal/`
 
-Get a list of portals for the specified user on the domain specified in the URL of the request.
+Get a array of portals for the specified user on the domain specified in the URL of the request.
 
 #### Request
 Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
 
 #### Response
-On success, HTTP status is 200 and HTTP response body is a JSON list of portal objects. Portal objects contain the following keys:
+On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
 
 * `"name"` - Portal name
 * `"domain"` - Portal domain
@@ -412,7 +285,7 @@ On success, HTTP status code is 200 and HTTP response body is empty.
 
 On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
 
-* `"errors"` - list of error identifier strings
+* `"errors"` - array of error identifier strings
 
     * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
 
@@ -422,7 +295,7 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 
     * `"user_exists"` - user already exists on this domain
 
-* `"notices"` - list of user-readable error strings
+* `"notices"` - array of user-readable error strings
 
 #### Example
 ```
@@ -446,13 +319,13 @@ On success, HTTP status code is 200 and HTTP response body is empty.
 
 On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
 
-* `"errors"` - list of error identifier strings
+* `"errors"` - array of error identifier strings
 
     * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
 
     * `"failed"` - some other error occurred
 
-* `"notices"` - list of user-readable error strings
+* `"notices"` - array of user-readable error strings
 
 #### Example
 
@@ -503,7 +376,7 @@ The RID and CIK may then be used with Exosite’s other APIs to interact with th
 
 On failure, response has a HTTP status code of 400 or greater. The response body contains a JSON formatted response object. The response object may contain the following keys:
 
-* `"errors"` - list of error identifier strings
+* `"errors"` - array of error identifier strings
 
     * `"limit"` - portal’s device limit has been reached
 
@@ -521,7 +394,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
     * `"missing\_*"` - some required input was missing. E.g. missing_portal_rid indicates missing or empty (blank) portal_rid.
 
-* `"notices"` - list of user-readable error strings
+* `"notices"` - array of user-readable error strings
 
 #### Example
 
@@ -551,7 +424,22 @@ Return a infomation of data source
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and data source object. See [data-source](#data-source) in the type section for more details.
+On success, response has HTTP status 200 and data source object.
+
+```
+	{
+		"data": [[<unix timestamp 1>, <value 1>],
+                 [<unix timestamp 2>, <value 2>],
+                 ...],
+		"info": <data source info>,
+		"rid": <data source id>
+	}
+```
+
+- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info).
+- `<data-source-id>` is the RID of a datasource.
+- `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+- `<value N>` may be a string, int, or float depending on the datasource type.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -572,6 +460,7 @@ Request body is empty.
 #### Response
 On success, response has HTTP status 200 and data source data object. See [data](#data) in the type section for more details.
 
+
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
@@ -583,13 +472,13 @@ TODO
 ### Get device
 `GET /api/portals/v1/devices/{device-id}`
 
-Return a infomation of device
+Get information for a device.
 
 #### Request
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and device object. See [device](#device) in the type section for more details.
+On success, response has HTTP status 200 and a [device object](#device-object):
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -602,13 +491,13 @@ TODO
 ### Get group
 `GET /api/portals/v1/groups/{group-id}`
 
-Return a infomation of group
+Get information about a group.
 
 #### Request
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and group object. See group in the type section for more details.
+On success, response has HTTP status 200 and body is a [group object](#group-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -621,13 +510,13 @@ TODO
 ### Get user
 `GET /api/portals/v1/users/{user-id}`
 
-Return a infomation of user
+Get information about a user.
 
 #### Request
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and user object. See user in the type section for more details.
+On success, response has HTTP status 200 and a body containing a [user object](#user-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -640,21 +529,21 @@ TODO
 ### Create portal devices
 `POST /api/portals/v1/portals/{portal-id}/devices`
 
-Create a infomation of portal device
+Create a device inside a portal
 
 #### Request
-Please reference [device](#device) in the type section.
 
-But now just can send the following keys:
+Request body is a [device object](#device-object). Currently only the following keys are supported:
+
 * `"sn"` - Serial number (required)
 * `"vendor"` - Vendor name (required)
 * `"model"` - Model name (required)
 * `"type"` - Device type, must be 'vendor' for this moment (required)
 
-If you send the other keys which not support now, it will do nothing.
+If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 201 and portal device object. See portal device in the type section for more details.
+On success, response has HTTP status 201 and the created device object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -667,18 +556,17 @@ TODO
 ### Create user
 `POST /api/portals/v1/users`
 
-Create a infomation of user
+Create a user.
 
 #### Request
-Please reference [user](#user) in the type session.
+Request body is a [user object](#user-object).  Currently only the following keys may be included:
 
-But now just can send the following keys:
 * `"email"` - User email (required)
 
-If you send the other keys which not support now, it will do nothing.
+If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 201 and user object. See user in the type section for more details.
+On success, response has HTTP status 201 and the created user object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -691,18 +579,17 @@ TODO
 ### Create group under user
 `POST /api/portals/v1/users/{user-id}/groups`
 
-Create a infomation of group under the user
+Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
 #### Request
-Please reference [group under user](#group-under-user) in the type session.
+The request body is a [group object](#group). Currently, only the following keys are supported:
 
-But now just can send the following keys:
-* `"name"` - Group name (optional)
+* `"name"` - group name (optional)
 
-If you send the other keys which not support now, it will do nothing.
+If you send keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 201 and group under user object. See group under user in the type section for more details.
+On success, response has HTTP status 201 and the created group object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -715,21 +602,20 @@ TODO
 ### Update group
 `PUT /api/portals/v1/groups/{group-id}`
 
-Update a infomation of group
+Update a group
 
 #### Request
-Please reference [update group](#update-group) in the type session.
+Body contains a [group object](#group-object). Currently only the following keys may be updated:
 
-But now just can send the following keys:
-* `"meta"` - Group meta, ned to less then 2 mega (optional)
-* `"members"` - Group membrs (optional)
-* `"name"` - Group name (optional)
-* `"permissions"` - Group permissions (optional)
+* `"meta"` - group meta (optional)
+* `"members"` - group members (optional)
+* `"name"` - group name (optional)
+* `"permissions"` - group permissions (optional)
 
-If you send the other keys which not support now, it will do nothing.
+If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 200 and group object. See group in the type section for more details.
+On success, response has HTTP status 200 and group object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -742,18 +628,18 @@ TODO
 ### Update device
 `PUT /api/portals/v1/devices/{device-id}`
 
-Update a infomation of device
+Update a device
 
 #### Request
-Please reference [update device](#update-device) in the type session.
 
-But now just can send the following keys:
-* `"info" - "description"` - Description under info (optional)
+Please reference [update device](#update-device) in the type session. Currently only the following keys may be updated:
 
-If you send the other keys which not support now, it will do nothing.
+* `"info": {"description": ...}` - description under info (optional)
+
+If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 200 and device object. See device in the type section for more details.
+On success, response has HTTP status of 200 and body is the updated device object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -766,18 +652,22 @@ TODO
 ### Update domain
 `PUT /api/portals/v1/domains/{domain-id}`
 
-Update a infomation of domain
+Update a domain
 
 #### Request
-Please reference [update domain](#update-domain) in the type session.
 
-But now just can send the following keys:
-* `"members"` - Domain members (optional)
+Request body is a domain object:
 
-If you send the other keys which not support now, it will do nothing.
+```
+{
+    "members": [<permission-1>, <permission-2>, ...]
+}
+```
+
+* `"members"` is an array of [permissions objects](#permission-object).
 
 #### Response
-On success, response has HTTP status 200 and domain object. See domain in the type section for more details.
+On success, response has HTTP status 200 and the updated domain object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -790,20 +680,20 @@ TODO
 ### Update user
 `PUT /api/portals/v1/users/{user-id}`
 
-Update a infomation of user
+Update a user
 
 #### Request
-Please reference [update user](#update-user) in the type session.
+Please reference the [user object](#user-object) documentation. At the moment, only the following keys may be updated:
 
-But now just can send the following keys:
-* `"email"` - User email (optional)
-* `"fullName"` - User full name (optional)
-* `"phoneNumber"` - User phone number (optional)
+* `"email"` - user email (optional)
+* `"fullName"` - user full name (optional)
+* `"phoneNumber"` - user phone number (optional)
 
-If you send the other keys which not support now, it will do nothing.
+If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 200 and user object. See user in the type section for more details.
+
+On success, response has HTTP status 200 and the updated user object.
 
 On failure, response has HTTP status of 400 or greater.
 
