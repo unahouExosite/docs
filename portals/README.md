@@ -49,6 +49,10 @@ Request and response bodies, when present, are formatted using JSON. For more se
 
 Note that the JSON examples below are sometimes formatted with extra whitespace for clarity.
 
+The header MUST include:
+
+    Content-type: application/json; charset=utf-8
+
 ### Authentication
 
 Some API endpoints require a Portals email and password combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
