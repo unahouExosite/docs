@@ -303,7 +303,7 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 
 * `"errors"` - array of error identifier strings
 
-    * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+    * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
 
     * `"wrong_password"` - email is already registered with Portals and the password is incorrect
 
@@ -337,7 +337,7 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 
 * `"errors"` - array of error identifier strings
 
-    * `"missing\_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+    * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
 
     * `"failed"` - some other error occurred
 
@@ -408,7 +408,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
     * `"portal_not_found"` - portal_rid could not be found
 
-    * `"missing\_*"` - some required input was missing. E.g. `missing_portal_rid` indicates missing or empty (blank) portal_rid.
+    * `"missing_*"` - some required input was missing. E.g. `missing_portal_rid` indicates missing or empty (blank) portal_rid.
 
 * `"notices"` - array of user-readable error strings
 
