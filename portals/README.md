@@ -49,6 +49,10 @@ Request and response bodies, when present, are formatted using JSON. For more se
 
 Note that the JSON examples below are sometimes formatted with extra whitespace for clarity.
 
+The header MUST include:
+
+    Content-type: application/json; charset=utf-8
+
 ### Authentication
 
 Some API endpoints require a Portals email and password combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
@@ -164,13 +168,13 @@ A permission object describes a level of access to a particular Portals resource
 
 - `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
-    * `"device"`
+    * `"Device"`
 
-    * `"domain"`
+    * `"Domain"`
 
-    * `"group"`
+    * `"Group"`
 
-    * `"portal"`
+    * `"Portal"`
 
     * `"User"`
 
