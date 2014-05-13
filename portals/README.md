@@ -175,7 +175,7 @@ A permission object describes a level of access to a particular Portals resource
     * `"User"`
 
 
-### user object
+### User object
 
 An object containing information about a Portals user.
 
@@ -408,7 +408,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
     * `"portal_not_found"` - portal_rid could not be found
 
-    * `"missing\_*"` - some required input was missing. E.g. missing_portal_rid indicates missing or empty (blank) portal_rid.
+    * `"missing\_*"` - some required input was missing. E.g. `missing_portal_rid` indicates missing or empty (blank) portal_rid.
 
 * `"notices"` - array of user-readable error strings
 
@@ -459,8 +459,8 @@ Return data
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and data source data object. See [data](#data) in the type section for more details.
 
+On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"` from a [data source object](#data-source-object) for details.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -633,7 +633,7 @@ Update a device
 
 #### Request
 
-Please reference [update device](#update-device) in the type session. Currently only the following keys may be updated:
+Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
 * `"info": {"description": ...}` - description under info (optional)
 
@@ -681,10 +681,10 @@ TODO
 ### Update user
 `PUT /api/portals/v1/users/{user-id}`
 
-Update a user
+Update a Portals user
 
 #### Request
-Please reference the [user object](#user-object) documentation. At the moment, only the following keys may be updated:
+Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
 
 * `"email"` - user email (optional)
 * `"fullName"` - user full name (optional)
