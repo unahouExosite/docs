@@ -71,11 +71,27 @@ Also, the domain is used for user authentication. Endpoints that are affected by
 
 The following types are common to several API endpoints.
 
-### id
+### Data source object
 
-`<id>` is an integer between 10000000000 and 4294967295.
+A data source object describes a Portals time series data source.
 
-### device object
+```
+{
+    "data": [[<unix timestamp 1>, <value 1>],
+             [<unix timestamp 2>, <value 2>],
+             ...],
+    "info": <data source info>,
+    "rid": <data source id>
+}
+```
+
+- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info).
+- `<data-source-id>` is the RID of a datasource.
+- `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+- `<value N>` may be a string, int, or float depending on the datasource type.
+
+
+### Device object
 
 A device object describes a device in Portals.
 
@@ -106,7 +122,7 @@ A device object describes a device in Portals.
 
 * `<vendor-id>` is a string identifying the vendor
 
-### group object
+### Group object
 
 A group object describes a Portals permissions group.
 
@@ -126,7 +142,7 @@ A group object describes a Portals permissions group.
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 
-### permission object
+### Permission object
 
 A permission object describes a level of access to a particular Portals resource identified by `"oid"`.
 
@@ -418,28 +434,13 @@ ef123475183fb435ef46b987385abcdedeb3557b
 ### Get data source
 `GET /api/portals/v1/data-sources/{data-source-id}`
 
-Return a infomation of data source
+Get information about a Portals data source.
 
 #### Request
 Request body is empty.
 
 #### Response
-On success, response has HTTP status 200 and data source object.
-
-```
-	{
-		"data": [[<unix timestamp 1>, <value 1>],
-                 [<unix timestamp 2>, <value 2>],
-                 ...],
-		"info": <data source info>,
-		"rid": <data source id>
-	}
-```
-
-- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info).
-- `<data-source-id>` is the RID of a datasource.
-- `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-- `<value N>` may be a string, int, or float depending on the datasource type.
+On success, response has HTTP status 200 and a body containing a [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -582,7 +583,7 @@ TODO
 Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
 #### Request
-The request body is a [group object](#group). Currently, only the following keys are supported:
+The request body is a [group object](#group-object). Currently, only the following keys are supported:
 
 * `"name"` - group name (optional)
 
