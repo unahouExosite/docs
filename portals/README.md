@@ -200,6 +200,22 @@ An object containing information about a Portals user.
 * `"phoneNumber"` is the user's phone number
 
 
+### User ID ###
+
+When you use user id in an endpoint, you can use \_this as an alias for the user id of the authenticated user.
+
+#### example ####
+
+Given a request is authenticated as a user with id being 1234.
+
+`GET /api/portals/v1/users/1234`
+
+yields the same result as
+
+`GET /api/portals/v1/users/_this`
+
+
+
 ## API Endpoints
 
 ### List domains of authenticated user
