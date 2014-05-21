@@ -6,9 +6,9 @@ Portals provides a user authentication and management system on top of the One P
 
 ## Overview
 
-### API Endpoints 
+### API Endpoints
 
-#### Users 
+#### Users
 
 * [Get user](#get-user)
 * [Create user](#create-user)
@@ -26,13 +26,13 @@ Portals provides a user authentication and management system on top of the One P
 * [Get device](#get-device)
 * [Update device](#update-device)
 
-#### Groups 
+#### Groups
 
 * [Create group under user](#create-group-under-user)
 * [Get group](#get-group)
 * [Update group](#update-group)
 
-#### Domain 
+#### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [Update domain](#update-domain)
