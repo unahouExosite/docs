@@ -23,6 +23,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create new device under a portal of authenticated user](#create-new-device-under-a-portal-of-authenticated-user)
 * [Get data source](#get-data-source)
 * [Get data source data](#get-data-source-data)
+* [Append to data source data](#append-to-data-source-data)
 * [Get device](#get-device)
 * [Update device](#update-device)
 
@@ -481,6 +482,26 @@ Request body is empty.
 #### Response
 
 On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"` from a [data source object](#data-source-object) for details.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Append to data source data
+`POST /api/portals/v1/data-sources/{data-source-id}/data`
+
+Write data
+
+#### Request
+Request body is a [value](#data-source-object).
+
+#### Response
+
+On success, response has HTTP status 201 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
