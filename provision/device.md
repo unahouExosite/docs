@@ -46,6 +46,13 @@ Response may also be:
 * `HTTP/1.1 404 Not Found` if the client described by `<vendor>`, `<model>`, `<sn>` is not found on the system.
 * `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
 
+####example
+
+This command activates a device with serial number 12345678 and returns its CIK.
+
+```
+$ curl http://m2.exosite.com/provision/activate -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -d "vendor=mysubdomain&model=myclientmodel&sn=12345678"
+```
 
 ## /provision/download
 
