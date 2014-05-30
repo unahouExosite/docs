@@ -1034,6 +1034,15 @@ Content-Type: text/csv; charset=utf-8
 <sn n>,<rid n>,<extra n>
 ```
 
+####example
+
+This command white lists the individual serial numbers whitelisted for the model MY_CLIENT_MODEL_ID.
+
+```
+$ curl http://m2.exosite.com/provision/manage/model/MY_CLIENT_MODEL_ID/ \
+    -H "X-Exosite-Token: MY_VENDOR_TOKEN"
+```
+
 ### GET - get serial number JSON object
 
 Returns JSON object of configured serial number ranges for relevant model.
@@ -1074,7 +1083,7 @@ Content-Type: application/javascript; charset=utf-8
 
 ### POST - add single serial number
 
-Adds a single serial number `<sn>` to specified `<model>` entry, with
+Adds/whitelists a single serial number `<sn>` to specified `<model>` entry, with
 `<extra>` information.
 
 ```
@@ -1102,10 +1111,21 @@ Response may also be:
 
 * `HTTP/1.1 409 Conflict` if `<sn>` already exists.
 
+####example
+
+This command white lists the serial number 12345678 for use with the model MY_CLIENT_MODEL_ID.
+
+```
+$ curl http://m2.exosite.com/provision/manage/model/MY_CLIENT_MODEL_ID/ \
+    -H "X-Exosite-Token: MY_VENDOR_TOKEN" \
+    -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+    -d "sn=12345678&extra="
+```
+
 
 ### POST - add multiple serial numbers
 
-Adds serial numbers `<sn>` to `<model>`.
+Adds/whitelists serial numbers for `<model>`.
 
 ```
 POST /provision/manage/model/<model>/ HTTP/1.1
