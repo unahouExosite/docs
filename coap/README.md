@@ -76,7 +76,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 
 `<alias>`: The alias of the datasource that is being written to.  
 `<value>`: The value to be written at the current time.  
-`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary represnetation of the cik as a hexidecimal value sent in network byte order.
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order.
 
 ### Example
 
@@ -111,7 +111,7 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 `<alias>`: The alias of the datasource that is to have the latest value read.  
-`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary represnetation of the cik as a hexidecimal value sent in network byte order.
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order.
 
 ### Example
 
@@ -136,6 +136,43 @@ Message as Received (34 bytes of data):
 0016: 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba a0    ����E�;��$l��3�
 0032: 68 d7                                              h
 ```
+
+## Activate
+
+Request an activation of the given device, returns the CIK (as a string) if activated successfully.
+
+```
+POST: coap://coap.exosite.com/provision/activate/<vendor>/<model>/<sn>
+```
+
+### Responses
+* 2.05 Content: Activated, CIK Returned as UTF-8 String
+* 4.04 Not Found: No device waiting activation found with given information.
+
+## List Content IDs
+
+Fetch the list of available content IDs for the given device.
+
+```
+GET coap://coap.exosite.com/provision/download/<vendor>/<model>?<CIK>
+```
+
+### Responses
+* 2.05 Content: Content List Returned as UTF-8 Strings Separated by Newlines
+* 4.04 Not Found: No device or no content found with given information.
+
+## Download Content
+
+Download the given content using a blockwise transfer.
+
+```
+GET coap://coap.exosite.com/provision/download/<vendor>/<model>/<id>?<CIK>
+Block Option: Block2
+```
+
+### Responses
+* 2.05 Content: Content Returned as Uploaded.
+* 4.04 Not Found: No device or no content found with given information.
 
 * See [CoAP Responses](#coap-responses) for a full list of responses.
 
