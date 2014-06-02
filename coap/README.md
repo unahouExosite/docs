@@ -137,6 +137,43 @@ Message as Received (34 bytes of data):
 0032: 68 d7                                              h
 ```
 
+## Activate
+
+Request an activation of the given device, returns the CIK (as a string) if activated successfully.
+
+```
+POST: coap://coap.exosite.com/provision/activate/<vendor>/<model>/<sn>
+```
+
+### Responses
+* 2.05 Content: Activated, CIK Returned as UTF-8 String
+* 4.04 Not Found: No device waiting activation found with given information.
+
+## List Content IDs
+
+Fetch the list of available content IDs for the given device.
+
+```
+GET coap://coap.exosite.com/provision/download/<vendor>/<model>?<CIK>
+```
+
+### Responses
+* 2.05 Content: Content List Returned as UTF-8 Strings Separated by Newlines
+* 4.04 Not Found: No device or no content found with given information.
+
+## Download Content
+
+Download the given content using a blockwise transfer.
+
+```
+GET coap://coap.exosite.com/provision/download/<vendor>/<model>/<id>?<CIK>
+Block Option: Block2
+```
+
+### Responses
+* 2.05 Content: Content Returned as Uploaded.
+* 4.04 Not Found: No device or no content found with given information.
+
 * See [CoAP Responses](#coap-responses) for a full list of responses.
 
 # Supported Features
