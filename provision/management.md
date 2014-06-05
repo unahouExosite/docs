@@ -12,7 +12,7 @@ For general information about accessing this API, see the [main section](README.
 
 [/provision/manage/group/\<model\>/](#provisionmanagegroupmodel) - show groups, create group, delete group
 
-[/provision/manage/group/\<model\>/\<id\>](#provisionmanagegroupmodelid) - get group description, get group membership, delete group    
+[/provision/manage/group/\<model\>/\<id\>](#provisionmanagegroupmodelid) - get group meta, get group membership, delete group    
 
 [/provision/manage/group/\<model\>/\<id\>/](#provisionmanagegroupmodelid-1) - list group info, list types with group membership, get group member info, get group member id, add or update group members, delete group members
  
@@ -112,7 +112,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: <length>
 
-id=<id>&description=<description>{&protected=true}
+id=<id>&meta=<meta>{&protected=true}
 ```
 
 ####response
@@ -178,7 +178,7 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 <blank line>
-<content-type>,<byte-size>,<updated-timestamp>,<description>,<protected>
+<content-type>,<byte-size>,<updated-timestamp>,<meta>,<protected>
 ```
 
 ### GET - get content blob 
@@ -245,7 +245,7 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<content-type>,<byte-size>,<updated-timestamp>,<description>
+<content-type>,<byte-size>,<updated-timestamp>,<meta>
 ```
 
 Response may also be:
@@ -387,7 +387,7 @@ Content-Length: 0
 
 ### GET - show groups
 
-Returns list of `<group id>`s with `<description>` for `<model>` in
+Returns list of `<group id>`s with `<meta>` for `<model>` in
 paginated sets of size `<limit>` starting at `<offset>`. `<limit>` is enforced 
 to be between 5 and 1000. If omitted, `<offset>` defaults to 0 and `<limit>`
 defaults to 5.
@@ -409,10 +409,10 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 <blankline>
-<group id 1>,<description 1>
-<group id 2>,<description 2>
+<group id 1>,<meta 1>
+<group id 2>,<meta 2>
 ...
-<group id n>,<description n>
+<group id n>,<meta n>
 ```
 
 Response may also be:
@@ -421,7 +421,7 @@ Response may also be:
 
 ### POST - create group
 
-Creates a new group with given `<id>` and `<description>`.
+Creates a new group with given `<id>` and `<meta>`.
 
 ```
 POST /provision/manage/group/<model>/ HTTP/1.1
@@ -430,7 +430,7 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: <length>
 
-id=<id>&description=<description>
+id=<id>&meta=<meta>
 ```
 
 ####response
@@ -477,9 +477,9 @@ Content-Length: 0
 
 ## /provision/manage/group/\<model\>/\<id\>
 
-### GET - get group description 
+### GET - get group meta 
 
-Returns the `<description>` and the number of members of group `<id>`.
+Returns the `<meta>` and the number of members of group `<id>`.
 
 ```
 GET /provision/manage/group/<model>/<id> HTTP/1.1
@@ -498,7 +498,7 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<description>,<count>
+<meta>,<count>
 ```
 
 
@@ -584,10 +584,10 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 <blankline>
-<type 1>,<memberid 1>,<expire 1>,<description 1>
-<type 2>,<memberid 2>,<expire 2>,<description 2>
+<type 1>,<memberid 1>,<expire 1>,<meta 1>
+<type 2>,<memberid 2>,<expire 2>,<meta 2>
 ...
-<type n>,<memberid n>,<expire n>,<description n>
+<type n>,<memberid n>,<expire n>,<meta n>
 ```
 
 Response may also be:
@@ -619,10 +619,10 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 <blankline>
-<type 1>,<memberid 1>,<expire 1>,<description 1>
-<type 2>,<memberid 2>,<expire 2>,<description 2>
+<type 1>,<memberid 1>,<expire 1>,<meta 1>
+<type 2>,<memberid 2>,<expire 2>,<meta 2>
 ...
-<type n>,<memberid n>,<expire n>,<description n>
+<type n>,<memberid n>,<expire n>,<meta n>
 ```
 
 Response may also be:
@@ -650,10 +650,10 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<type 1>,<memberid 1>,<expire 1>,<description 1>
-<type 2>,<memberid 2>,<expire 2>,<description 2>
+<type 1>,<memberid 1>,<expire 1>,<meta 1>
+<type 2>,<memberid 2>,<expire 2>,<meta 2>
 ...
-<type n>,<memberid n>,<expire n>,<description n>
+<type n>,<memberid n>,<expire n>,<meta n>
 ```
 
 Response may also be:
@@ -682,13 +682,13 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<type>,<memberid>,<expire>,<description>
+<type>,<memberid>,<expire>,<meta>
 ```
 
 ### POST - add or update similar group members
 
 Adds or updates a member or members to a group, all with the same `<type>`,
-`<expire>` time and `<description>`, but with different `<member id>`s.
+`<expire>` time and `<meta>`, but with different `<member id>`s.
 
 ```
 POST /provision/manage/group/<model>/<id>/ HTTP/1.1
@@ -697,9 +697,9 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
 Content-Length: <length>
 
-type=<type>&id=<member id>&expire=<expire>&description=<description>
+type=<type>&id=<member id>&expire=<expire>&meta=<meta>
  OR
-type=<type>&id[]=<member id1>{...&id[]=<member idN>}&expire=<expire>&description=<description>
+type=<type>&id[]=<member id1>{...&id[]=<member idN>}&expire=<expire>&meta=<meta>
 ```
 
 ####response
@@ -716,7 +716,7 @@ Content-Length: 0
 ### POST - add or update dissimilar group members
 
 Adds or updates a member or members to a group, all with different `<type>`, 
-`<expire>` time, `<description>` and `<member id>`s.
+`<expire>` time, `<meta>` and `<member id>`s.
 
 ```
 POST /provision/manage/group/<model>/<id>/ HTTP/1.1
@@ -725,10 +725,10 @@ X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
 Content-Type: text/csv; charset=utf-8
 Content-Length: <length>
 
-<type 1>,<memberid 1>,<expire 1>,<description 1>
-<type 2>,<memberid 2>,<expire 2>,<description 2>
+<type 1>,<memberid 1>,<expire 1>,<meta 1>
+<type 2>,<memberid 2>,<expire 2>,<meta 2>
 ...
-<type n>,<memberid n>,<expire n>,<description n>
+<type n>,<memberid n>,<expire n>,<meta n>
 ```
 
 ####response
