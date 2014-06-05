@@ -157,7 +157,7 @@ Connection: Keep-Alive
 Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 
-<content-type>,<byte-size>,<updated-timestamp>,<description>
+<content-type>,<byte-size>,<updated-timestamp>,<meta>
 ```
 
 Response may also be:
