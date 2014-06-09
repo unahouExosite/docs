@@ -10,6 +10,7 @@ Are you looking to create an application that uses the One Platform API? You've 
 * [Commander API](commander/) - XMPP chat interface for reading and writing data from an IM client
 * [Lua Scripting API](scripting/) - the server-side Lua scripting environment
 * [Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
+* [Portals API](portals/) - an API for interacting with the Portals application (beta)
 
 ## Contribution
 
