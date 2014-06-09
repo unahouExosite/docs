@@ -46,6 +46,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 | 2.03 | Valid                        |   N  |
 | 2.04 | Changed                      |   Y  |
 | 2.05 | Content                      |   Y  |
+| 2.31 | Continue                     |   Y  |
 | 4.00 | Bad Request                  |   N  |
 | 4.01 | Unauthorized                 |   Y  |
 | 4.02 | Bad Option                   |   Y  |
@@ -53,6 +54,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 | 4.04 | Not Found                    |   Y  |
 | 4.05 | Method Not Allowed           |   N  |
 | 4.06 | Not Acceptable               |   N  |
+| 4.08 | Request Entity Incomplete    |   Y  |
 | 4.12 | Precondition Failed          |   Y  |
 | 4.13 | Request Entity Too Large     |   N  |
 | 4.15 | Unsupported Content-Format   |   N  |
