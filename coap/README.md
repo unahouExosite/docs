@@ -99,7 +99,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 ### Responses
 * 2.04 Changed: The value has been written.
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
-* 4.04 Not Found: The given alias couldn't be found.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
 
 ##Read
@@ -131,7 +131,7 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ### Responses
 * 2.05 Content: The value is returned.
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
-* 4.04 Not Found: The given alias couldn't be found.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
 
 ## Activate
