@@ -46,6 +46,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 | 2.03 | Valid                        |   N  |
 | 2.04 | Changed                      |   Y  |
 | 2.05 | Content                      |   Y  |
+| 2.31 | Continue                     |   Y  |
 | 4.00 | Bad Request                  |   N  |
 | 4.01 | Unauthorized                 |   Y  |
 | 4.02 | Bad Option                   |   Y  |
@@ -53,6 +54,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 | 4.04 | Not Found                    |   Y  |
 | 4.05 | Method Not Allowed           |   N  |
 | 4.06 | Not Acceptable               |   N  |
+| 4.08 | Request Entity Incomplete    |   Y  |
 | 4.12 | Precondition Failed          |   Y  |
 | 4.13 | Request Entity Too Large     |   N  |
 | 4.15 | Unsupported Content-Format   |   N  |
@@ -62,6 +64,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 | 5.03 | Service Unavailable          |   N  |
 | 5.04 | Gateway Timeout              |   N  |
 | 5.05 | Proxying Not Supported       |   N  |
+
 
 # Procedures
 
@@ -74,33 +77,30 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 <value>
 ```
 
+```
+  Client                            Server
+      |                                 |
+      |           CON [0x15df]          |
+      | POST uri_path:/1a/<alias>?<CIK> |
+      |          (Token 0x1259)         |
+      |            "<value>"            |
+      +-------------------------------->|
+      |                                 |
+      |           ACK [0x15df]          |
+      |           2.04 Changed          |
+      |          (Token 0x1259)         |
+      |<--------------------------------+
+```
+
 `<alias>`: The alias of the datasource that is being written to.  
 `<value>`: The value to be written at the current time.  
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order.
 
-### Example
+### Responses
+* 2.04 Changed: The value has been written.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
-Send CoAP POST to write '37' to alias 'temp':
-    
-```
-Version:       1
-Type:          CON
-Code:          POST (0.02)
-Message_id:    f6
-Token Length:  0
-Options Count: 3
-Option Number: URI_PATH (11)
-       Value:  1a
-Option Number: URI_PATH (11)
-       Value:  temp
-Option Number: URI_QUERY (15)
-       Value:  \xa3,\x85\xba\x9d\xdaE\x82;\xe4\x16$l\xf8\xb43\xba\xa0h\xd7
-Payload: 37
-Message as Received (37 bytes of data): 
-0000: 40 02 00 f6 b2 31 61 04 74 65 6d 70 4d 07 a3 2c    @��7�1a�tempM��,
-0016: 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba a0    ����E�;��$l��3�
-0032: 68 d7 ff 33 37                                     h��37
-```
 
 ##Read
 
@@ -110,32 +110,29 @@ Read the most recent value from the dataport with alias `<alias>`. If at `<alias
 GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
+```
+  Client                           Server
+      |                                |
+      |          CON [0xf35a]          |
+      | GET uri_path:/1a/<alias>?<CIK> |
+      |         (Token 0xefc1)         |
+      +------------------------------->|
+      |                                |
+      |          ACK [0xf35a]          |
+      |          2.05 Content          |
+      |         (Token 0xefc1)         |
+      |           "<value>"            |
+      |<-------------------------------+
+```
+
 `<alias>`: The alias of the datasource that is to have the latest value read.  
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order.
 
-### Example
+### Responses
+* 2.05 Content: The value is returned.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
-Send CoAP GET to read latest value from alias 'temp':
-
-```
-Version:       1
-Type:          CON
-Code:          GET (0.01)
-Message_id:    9d
-Token Length:  0
-Options Count: 3
-Option Number: URI_PATH (11)
-       Value:  1a
-Option Number: URI_PATH (11)
-       Value:  temp
-Option Number: URI_QUERY (15)
-       Value:  \xa3,\x85\xba\x9d\xdaE\x82;\xe4\x16$l\xf8\xb43\xba\xa0h\xd7
-Payload: 
-Message as Received (34 bytes of data): 
-0000: 40 01 00 9d b2 31 61 04 74 65 6d 70 4d 07 a3 2c    @��7�1a�tempM��,
-0016: 85 ba 9d da 45 82 3b e4 16 24 6c f8 b4 33 ba a0    ����E�;��$l��3�
-0032: 68 d7                                              h
-```
 
 ## Activate
 
@@ -145,9 +142,25 @@ Request an activation of the given device, returns the CIK (as a string) if acti
 POST: coap://coap.exosite.com/provision/activate/<vendor>/<model>/<sn>
 ```
 
+```
+   Client                                            Server
+      |                                                  |
+      |                   CON [0xf245]                   |
+      |  POST /provision/activate/<vendor>/<model>/<sn>  |
+      |                   (Token 0x7492)                 |
+      +------------------------------------------------->|
+      |                                                  |
+      |                    ACK [0xf245]                  |
+      |                    2.05 Content                  |
+      |                   (Token 0x7492)                 |
+      |                      "<cik>"                     |
+      |<-------------------------------------------------+
+```
+
 ### Responses
 * 2.05 Content: Activated, CIK Returned as UTF-8 String
 * 4.04 Not Found: No device waiting activation found with given information.
+
 
 ## List Content IDs
 
@@ -157,9 +170,55 @@ Fetch the list of available content IDs for the given device.
 GET coap://coap.exosite.com/provision/download/<vendor>/<model>?<CIK>
 ```
 
+```
+   Client                                            Server
+      |                                                  |
+      |                   CON [0xbf34]                   |
+      | GET /provision/download/<vendor>/<model>/?<CIK>  |
+      |                  (Token 0x13f4)                  |
+      +------------------------------------------------->|
+      |                                                  |
+      |                   ACK [0xbf34]                   |
+      |                   2.05 Content                   |
+      |                  (Token 0x13f4)                  |
+      |            "<id1>, <id2>, <id3>, ..."            |
+      |<-------------------------------------------------+
+```
+
 ### Responses
 * 2.05 Content: Content List Returned as UTF-8 Strings Separated by Newlines
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.04 Not Found: No device or no content found with given information.
+
+
+## Get Content Info
+
+Fetch information about the given content.
+
+```
+GET coap://coap.exosite.com/provision/download/<vendor>/<model>/<id>/info?<CIK>
+```
+
+```
+   Client                                                     Server
+      |                                                           |
+      |                     CON [0x7a10]                          |
+      | GET /provision/download/<vendor>/<model>/<id>/info?<CIK>  |
+      |                     (Token 0x73)                          |
+      +---------------------------------------------------------->|
+      |                                                           |
+      |                      ACK [0x7a10]                         |
+      |                      2.05 Content                         |
+      |                      (Token 0x73)                         |
+      | "<content-type>,<byte-size>,<updated-timestamp>,<meta>"   |
+      |<----------------------------------------------------------+
+```
+
+### Responses
+* 2.05 Content: Content Info Returned as UTF-8 String
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.04 Not Found: No device or no content found with given information.
+
 
 ## Download Content
 
@@ -170,11 +229,51 @@ GET coap://coap.exosite.com/provision/download/<vendor>/<model>/<id>?<CIK>
 Block Option: Block2
 ```
 
+```
+   Client                                                     Server
+     |                                                            |
+     |                       CON [0x342a]                         |
+     |    GET /provision/download/<vendor>/<model>/<id>?<CIK>     |
+     |                       2:0/0/128                            |
+     +----------------------------------------------------------->|
+     |                                                            |
+     |                      ACK [0x342a]                          |
+     |                      2.05 Content                          |
+     |                      "<payload>"                           |
+     |                      2:0/1/128                             |
+     |<-----------------------------------------------------------+
+     |                                                            |
+     |                       CON [0x342b]                         |
+     |    GET /provision/download/<vendor>/<model>/<id>?<CIK>     |
+     |                       2:1/0/128                            |
+     +----------------------------------------------------------->|
+     |                                                            |
+     |                      ACK [0x342b]                          |
+     |                      2.05 Content                          |
+     |                      "<payload>"                           |
+     |                      2:1/1/128                             |
+     |<-----------------------------------------------------------+
+     |                                                            |
+     |                       CON [0x342c]                         |
+     |    GET /provision/download/<vendor>/<model>/<id>?<CIK>     |
+     |                       2:2/0/128                            |
+     +----------------------------------------------------------->|
+     |                                                            |
+     |                      ACK [0x342c]                          |
+     |                      2.05 Content                          |
+     |                      "<payload>"                           |
+     |                      2:2/0/128                             |
+     |<-----------------------------------------------------------+
+```
+
+For more information about blockwise transfers, see:
+http://wiki.tools.ietf.org/html/draft-ietf-core-block
+
 ### Responses
 * 2.05 Content: Content Returned as Uploaded.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.04 Not Found: No device or no content found with given information.
 
-* See [CoAP Responses](#coap-responses) for a full list of responses.
 
 # Supported Features
 
