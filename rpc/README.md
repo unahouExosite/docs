@@ -1075,24 +1075,24 @@ Clients can call `info` on any resource in their sub-hierarchy, including themse
 
 Available to any client up the hierarchy:
 
-    - `"basic"`
-    - `"counts"`
-    - `"usage"`
-    - `"comments"`
-    - `"description"`
-    - `"storage"`
-    - `"subscribers"`
-    - `"tags"`
+- `"basic"`
+- `"counts"`
+- `"usage"`
+- `"comments"`
+- `"description"`
+- `"storage"`
+- `"subscribers"`
+- `"tags"`
 
 Available only to the client's direct owner and itself:
 
-    - `"aliases"`
-    - `"tagged"`
-    - `"shares"`
+- `"aliases"`
+- `"tagged"`
+- `"shares"`
 
 Available only to the client's direct owner.
 
-    - `"key"`
+- `"key"`
 
 
 
