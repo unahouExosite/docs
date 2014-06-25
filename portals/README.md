@@ -38,6 +38,16 @@ Portals provides a user authentication and management system on top of the One P
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [Update domain](#update-domain)
 
+#### [Themes](#themes)
+
+* [List themes](#list-themes)
+* [Create theme](#create-theme)
+* [Get theme](#get-theme)
+* [Update theme](#update-theme)
+* [Delete theme](#delete-theme)
+
+
+
 ### REST
 
 The API uses a REST-style API, which means that:
@@ -885,3 +895,94 @@ On failure, response has HTTP status of 400 or greater.
 ```
 TODO
 ```
+
+
+
+## Themes
+
+Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: /api/portals/v1/themes/.
+**Note: Image data can currently not be modified using this API**
+A sample theme object looks like this:
+
+```
+{
+  "id": "3077881923",
+  "name": "sample_theme",
+  "description": "this is a description",
+  ":default": true,
+  "config": {
+    "dashboard_background": {
+      "background_color": "F9F9F9",
+      "background_image": "",
+      "background_attachment": "scroll",
+      "background_repeat": "repeat-y",
+      "background_position": "left top"
+    },
+    "header_logo": "https:\/\/portals.yourdomain.com\/cache\/theme\/0_1923506535_header_logo.png",
+    "header_bkimage": "https:\/\/portals.yourdomain.com\/static\/png\/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
+    "header_title_color": "D5E04D",
+    "header_subtitle_color": "FFFFFF",
+    "header_titles_position_top": "1.375em",
+    "header_linktext_color": "E5E5E5",
+    "header_linktextover_color": "D5E04D",
+    "header_dropdown_text_color": "FFFFFF",
+    "header_linktext_position_top": "1.5em",
+    "header_portalmenu_current_color": "0000FF",
+    "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
+    "footer_text_color": "D5E04D",
+    "footer_bar_color": "D5E04D",
+    "footer_linktext_color": "5C5D60",
+    "footer_linktextover_color": "000000",
+    "block_title_text_color": "000000",
+    "block_title_linkover_color": "010101",
+    "block_title_back_color": "D5E04D",
+    "block_invert_icons": "",
+    "managepage_highlight_text_color": "0000FF",
+    "dashboard_thumbnail": "",
+    "thankyoupage_title_text_color": "D5E04D",
+    "browser_tab_text": "Exosite Portals",
+    "browser_tab_icon": "https:\/\/portals.yourdomain.com\/static\/png\/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
+    "admin_menu_style": {
+      "admin_menu_title": "Domain Admin",
+      "manage_menu_title": "Manage",
+      "secondary_menu_title": "Portal Menu",
+      "account_menu_title": "Account",
+      "menu_title_color": "E5E5E5",
+      "background_color": "5C5D60",
+      "background_hover_color": "A6A6A6",
+      "text_color": "FFFFFF",
+      "sub_background_color": "FFFFFF",
+      "sub_background_hover_color": "A6A6A6",
+      "sub_text_color": "5C5D60",
+      "text_active_color": "D5E04D"
+    },
+    "jsCode": ""
+  },
+  "code": ""
+}
+```
+
+### List themes
+`GET /api/portals/v1/themes/`
+
+### Get theme
+`GET /api/portals/v1/themes/{themeid}`
+
+### Create theme
+`POST /api/portals/v1/themes/`
+
+The post body needs to be json encoded and at least include the required fields:
+
+* name
+* description
+
+### Update theme
+`PUT /api/portals/v1/themes/{themeid}`
+
+The post body needs to be json encoded.
+
+### Delete theme
+`DELETE /api/portals/v1/themes/{themeid}`
+
+When deleting the current default theme the exosite system theme will be applied to the domain.
+
