@@ -986,3 +986,62 @@ The post body needs to be json encoded.
 
 When deleting the current default theme the exosite system theme will be applied to the domain.
 
+
+
+## Client-Models
+
+Client models represent a class of devices. All devices of the same client model have the same behaviour attributes and pricing. Only the domain administrator can use the client model APIs.
+**Note: Image data can currently not be modified using this API**
+A sample client-model object looks like this:
+
+```
+{
+  "id": "samplevendor\/samplemodel",
+  "domainID": "0000000000",
+  "vendor": "samplevendor",
+  "friendly": "dfhg",
+  "name": "samplemodel",
+  "cloneRID": "29770f4f96122ffd33af1f6edb1b875810c7844a",
+  "viewID": "0000000000",
+  "exampleSN": "",
+  "sharedSN": "",
+  "convertSN": "no",
+  "alternateSN": "",
+  "noteSetup": "",
+  "noteName": "",
+  "noteLocation": "(optional - can be a string or GPS decimal degrees)",
+  "pictureDevice": "https:\/\/portals.yourdomain.com\/cache\/model\/samplevendor\/samplemodel_PictureDevice.png",
+  "description": "",
+  "pictureSN": "",
+  "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK\u003Cbr\/\u003E[device cik]\u003Cbr\/\u003E\u003Cbr\/\u003EYour [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:\u003Cbr\/\u003E\u003Cbr\/\u003E\u003Cb\u003ECompany name:\u003C\/b\u003E [company name]\u003Cbr\/\u003E\u003Cb\u003ECompany email contact information:\u003C\/b\u003E [company email]\u003Cbr\/\u003E",
+  "companyName": "",
+  "contactEmail": "",
+  ":published": true
+}
+```
+
+### List client-models
+`GET /api/portals/v1/client-models/`
+
+### Get client-model
+`GET /api/portals/v1/client-models/{vendor}/{name}`
+
+### Create client-model
+`POST /api/portals/v1/client-models/`
+
+The post body needs to be json encoded and at least include the required fields:
+
+* friendly
+* name
+* cloneRID
+
+### Update client-model
+`PUT /api/portals/v1/client-models/{vendor}/{name}`
+
+The post body needs to be json encoded.
+
+### Delete client-model
+`DELETE /api/portals/v1/client-models/{vendor}/{name}`
+
+When deleting the current default client-model the exosite system client-model will be applied to the domain.
+
