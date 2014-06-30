@@ -1,10 +1,12 @@
 # CoAP API
 
+This api is currently released as a beta and may be updated at any time.
+
 The Constrained Application Protocol (CoAP) is a specialized web transfer protocol for use with constrained nodes and constrained (e.g., low-power, lossy) networks. The nodes often have 8-bit microcontrollers with small amounts of ROM and RAM, while constrained networks such as 6LoWPAN often have high packet error rates and a typical throughput of 10s of kbit/s. The protocol is designed for machine-to-machine (M2M) applications such as smart energy and building automation.
 
 CoAP provides a request/response interaction model between application endpoints, supports built-in discovery of services and resources, and includes key concepts of the Web such as URIs and Internet media types. CoAP is designed to easily interface with HTTP for integration with the Web while meeting specialized requirements such as multicast support, very low overhead and simplicity for constrained environments.
 
-This api currently uses [draft 18](http://tools.ietf.org/html/draft-ietf-core-coap-18) of the CoAP protocol and may be updated as further protocol modifications are published by the IETF.
+For more information on the CoAP protocol see [RFC7252](https://tools.ietf.org/html/rfc7252).
 
 ## Table of Contents
 
