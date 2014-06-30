@@ -608,14 +608,14 @@ Request body is a [user object](#user-object).  Currently only the following key
 If you send any keys besides these, it will do nothing.
 
 #### Response
-On success, response has HTTP status 201 and the created user object.
+On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-TODO
+curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
 ```
 
 ### Create group under user
