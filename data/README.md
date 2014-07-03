@@ -92,6 +92,16 @@ Content-Length: 0 
 
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
+#####example
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' \
+    -d '<alias>=<value>'
+```
+
+
 ##Read
 
 Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
@@ -124,8 +134,9 @@ Content-Length: <length>
 #####example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> -H 'X-Exosite-CIK: <CIK>' -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
-dataport1=myvalue
+$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
 ```
 
 
@@ -160,4 +171,14 @@ Content-Length: <length>
 
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses.
+
+#####example
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' \
+    -d '<alias_to_write>=<value>'
+```
+
 
