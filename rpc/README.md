@@ -34,6 +34,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [flush](#flush) - remove time series data
 
+[wait](#wait) - long polling, i.e., wait a data and get response when the data is updated
+
 ####Resources
 
 [create (client)](#create-client) - create a resource that can contain other resources
@@ -1006,6 +1008,44 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 * `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
 
+---
+
+##wait
+
+This is a HTTP Long Polling API which allows a user to wait on a specific resource to be updated. It will return a timestamp which is the time the resource was updated.
+
+```
+{
+    "procedure": "wait",
+    "arguments": [
+        <ResourceID>,
+        timeout: number
+    ], 
+    "id": 1
+}
+```
+
+* `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
+
+* `timeout` is number value to specify how many seconds to be the timeout value for this request. You can refer to [Timeouts, RFC 6202](http://tools.ietf.org/html/rfc6202#section-5.5) to choose your timeout value.
+
+####response
+
+```
+{
+    "status": string,
+    "result": Timestamp,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was updated
+
+* `"status": "expire"` means the long poll request is expired. You may need to contineously send anohter long poll request.
+
+* `"status": "error"` means there is something wrong for this request. You have to check the returned error message.
+
+* `"result": "timestamp"` this will be a timestamp if the waiting resource is updated. Then, you can then read the newest value.
 
 ---
 
