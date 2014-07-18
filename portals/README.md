@@ -116,13 +116,9 @@ A device object describes a device in Portals.
 ```
 
 * `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
-
 * `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
-
 * `<permissions>` is an array of [permission objects](#permission-object)
-
 * `<sn>` is a string representing the serial number of the device
-
 * `<type>` is a constant string representing the device type.  Possible values are:
 
     * `"vendor"`
@@ -168,7 +164,6 @@ A permission object describes a level of access to a particular Portals resource
     * `"___admin"`
 
 * `<id>` is an integer identifier between 10000000000 and 4294967295.
-
 * `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
     * `"Device"`
