@@ -193,6 +193,7 @@ An object containing information about a Portals user.
     "fullName": <short-string>,
     "groups": [<group-id-1>, <group-id-2>, ...],
     "id": <id>,
+    "meta": <user meta>,
     "phoneNumber": <short-string>
 }
 ```
@@ -202,6 +203,7 @@ An object containing information about a Portals user.
 * `"fullName"` is a string of fewer than 256 characters
 * `"groups"` is an array of identifiers for groups of which the user is a member
 * `"id"` is a numeric identifier for the user
+* `"user meta"` is a generic storage for storing user related information
 * `"phoneNumber"` is the user's phone number
 
 
