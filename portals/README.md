@@ -136,8 +136,8 @@ A group object describes a Portals permissions group.
 ```
 {
     "id": <group-id>,
-    "meta": <meta>,
     "members": [<permission-1>, ...],
+    "meta": <meta>,
     "name": <short-text>,
     "permissions": [<permission-1>, ...],
     "userId": <user-id>
