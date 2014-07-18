@@ -91,11 +91,11 @@ A data source object describes a Portals time series data source.
 }
 ```
 
-- `<unix-timestamp-N>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-- `<value-N>` may be a string, int, or float depending on the data source type.
-- `<data-source-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
-- `<data-source-id>` is the RID of a data source.
-- `<data-source-unit>` is the unit of a data source.
+* `<unix-timestamp-N>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+* `<value-N>` may be a string, int, or float depending on the data source type.
+* `<data-source-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
+* `<data-source-id>` is the RID of a data source.
+* `<data-source-unit>` is the unit of a data source.
 
 
 ### Device object
@@ -163,13 +163,13 @@ A permission object describes a level of access to a particular Portals resource
 }
 ```
 
-- `<access>` is a constant string. Possible values are:
+* `<access>` is a constant string. Possible values are:
 
-    - `"___admin"`
+    * `"___admin"`
 
-- `<id>` is an integer identifier between 10000000000 and 4294967295.
+* `<id>` is an integer identifier between 10000000000 and 4294967295.
 
-- `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
+* `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
     * `"Device"`
 
