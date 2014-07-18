@@ -87,14 +87,14 @@ A data source object describes a Portals time series data source.
              ...],
     "info": <data source info>,
     "rid": <data source id>,
-    "Unit": <data source unit>
+    "unit": <data source unit>
 }
 ```
 
-- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
-- `<data-source-id>` is the RID of a datasource.
 - `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-- `<value N>` may be a string, int, or float depending on the datasource type.
+- `<value N>` may be a string, int, or float depending on the data source type.
+- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
+- `<data-source-id>` is the RID of a data source.
 - `<data source unit>` is the unit of a data source.
 
 
@@ -115,7 +115,7 @@ A device object describes a device in Portals.
 }
 ```
 
-* `<data-source-id-N>` is a 40 character hex string representing the datasource's RID in the One Platform
+* `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
 
 * `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
 
