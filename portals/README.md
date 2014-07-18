@@ -91,7 +91,7 @@ A data source object describes a Portals time series data source.
 }
 ```
 
-- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info).
+- `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
 - `<data-source-id>` is the RID of a datasource.
 - `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
 - `<value N>` may be a string, int, or float depending on the datasource type.
