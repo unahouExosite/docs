@@ -117,7 +117,7 @@ A device object describes a device in Portals.
 
 * `<data-source-id-N>` is a 40 character hex string representing the datasource's RID in the One Platform
 
-* `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info)
+* `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
 
 * `<permissions>` is an array of [permission objects](#permission-object)
 
