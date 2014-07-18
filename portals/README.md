@@ -83,9 +83,17 @@ A data source object describes a Portals time series data source.
 
 ```
 {
-    "data": [[<unix-timestamp-1>, <value-1>],
-             [<unix-timestamp-2>, <value-2>],
-             ...],
+    "data": [
+        [
+            <unix-timestamp-1>,
+            <value-1>
+        ],
+        [
+            <unix-timestamp-2>,
+            <value-2>
+        ],
+        ...
+    ],
     "info": <data-source-info>,
     "rid": <data-source-id>,
     "unit": <data-source-unit>
