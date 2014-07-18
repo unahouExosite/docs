@@ -223,14 +223,17 @@ yields the same result as
 ## API Endpoints
 
 ### List domains of authenticated user
+
 `GET /api/portals/v1/domain/`
 
 Returns an array of domains to which the user’s account is added.
 
 #### Request
+
 Request body is empty.
 
 #### Response
+
 On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
 
 * `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
@@ -259,14 +262,17 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 ```
 
 ### List portals of authenticated user
+
 `GET /api/portals/v1/portal/`
 
 Get a array of portals for the specified user on the domain specified in the URL of the request.
 
 #### Request
+
 Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
 
 #### Response
+
 On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
 
 * `"name"` - Portal name
@@ -282,6 +288,7 @@ On success, HTTP status is 200 and HTTP response body is a JSON array of portal 
 On failure, response has a HTTP status code of 400 or greater.
 
 #### Example
+
 ```
 $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:joep4ssword
 [
@@ -303,11 +310,13 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
 ```
 
 ### Register New User Account
+
 `POST /api/portals/v1/user`
 
 Signs up a new user account, sending an activation email to the specified address.
 
 #### Request
+
 Request body is a JSON object with the following keys:
 
 * `"email"` - new user’s email address (required)
@@ -321,6 +330,7 @@ If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"`
 The domain name in the HTTP request is used to indicate which domain the user should be signed up in.
 
 #### Response
+
 On success, HTTP status code is 200 and HTTP response body is empty.
 
 On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
@@ -338,16 +348,19 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 * `"notices"` - array of user-readable error strings
 
 #### Example
+
 ```
 $ curl https://janesdomain.exosite.com/api/portals/v1/user -d '{"email": "jane+testuser123@gmail.com", "password":"testuserP4ssword", "plan":"3676938388"}'
 ```
 
 ### Reset user account password
+
 `POST /api/portals/v1/user/password`
 
 Sends a password reset email for this user.
 
 #### Request
+
 Request contains a JSON object with the following keys:
 
 * `"email"` - email address of a Portals user
@@ -355,6 +368,7 @@ Request contains a JSON object with the following keys:
 * `"reset"` - send user a password reset request
 
 #### Response
+
 On success, HTTP status code is 200 and HTTP response body is empty.
 
 On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
@@ -374,11 +388,13 @@ $ curl https://portals.exosite.com/api/portals/v1/user/password -d '{"action":"r
 ```
 
 ### Create new device under a portal of authenticated user
+
 `POST /api/portals/v1/device`
 
 Creates a new device based on a client model, returning the CIK and RID of the new device.
 
 #### Request
+
 The following keys are passed:
 
 * `"portal_rid"` - resource ID of portal where the device is to be created. User creating the device must have at least manager level access to this portal. This may be found in the output of the /portal/ api call, or in Portals here: https://<subdomain>.exosite.com/admin/portallist
@@ -404,6 +420,7 @@ The following keys are passed:
 The domain name in the HTTP request indicates which domain to authenticate the user, and must be the same domain in which portal_rid is registered.
 
 #### Response
+
 On success, response has a HTTP status code 200. The response body contains a JSON object with the following keys:
 * `"rid"` - resource identifier for created device
 * `"cik"` - key for created device
@@ -456,14 +473,17 @@ ef123475183fb435ef46b987385abcdedeb3557b
 ```
 
 ### Get data source
+
 `GET /api/portals/v1/data-sources/{data-source-id}`
 
 Get information about a Portals data source.
 
 #### Request
+
 Request body is empty.
 
 #### Response
+
 On success, response has HTTP status 200 and a body containing a [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
@@ -475,11 +495,13 @@ TODO
 ```
 
 ### Get data source data
+
 `GET /api/portals/v1/data-sources/{data-source-id}/data`
 
 Return data
 
 #### Request
+
 Request body is empty.
 
 #### Response
@@ -495,11 +517,13 @@ TODO
 ```
 
 ### Append to data source data
+
 `POST /api/portals/v1/data-sources/{data-source-id}/data`
 
 Write data
 
 #### Request
+
 Request body is a [value](#data-source-object).
 
 #### Response
@@ -515,14 +539,17 @@ TODO
 ```
 
 ### Get device
+
 `GET /api/portals/v1/devices/{device-id}`
 
 Get information for a device.
 
 #### Request
+
 Request body is empty.
 
 #### Response
+
 On success, response has HTTP status 200 and a [device object](#device-object):
 
 On failure, response has HTTP status of 400 or greater.
@@ -534,14 +561,17 @@ TODO
 ```
 
 ### Get group
+
 `GET /api/portals/v1/groups/{group-id}`
 
 Get information about a group.
 
 #### Request
+
 Request body is empty.
 
 #### Response
+
 On success, response has HTTP status 200 and body is a [group object](#group-object).
 
 On failure, response has HTTP status of 400 or greater.
@@ -553,14 +583,17 @@ TODO
 ```
 
 ### Get user
+
 `GET /api/portals/v1/users/{user-id}`
 
 Get information about a user.
 
 #### Request
+
 Request body is empty.
 
 #### Response
+
 On success, response has HTTP status 200 and a body containing a [user object](#user-object).
 
 On failure, response has HTTP status of 400 or greater.
@@ -572,6 +605,7 @@ TODO
 ```
 
 ### Create portal devices
+
 `POST /api/portals/v1/portals/{portal-id}/devices`
 
 Create a device inside a portal
@@ -588,6 +622,7 @@ Request body is a [device object](#device-object). Currently only the following 
 If you send any keys besides these, it will do nothing.
 
 #### Response
+
 On success, response has HTTP status 201 and the created device object.
 
 On failure, response has HTTP status of 400 or greater.
@@ -599,11 +634,13 @@ TODO
 ```
 
 ### Create user
+
 `POST /api/portals/v1/users`
 
 Create a user.
 
 #### Request
+
 Request body is a [user object](#user-object).  Currently only the following keys may be included:
 
 * `"email"` - User email (required)
@@ -611,6 +648,7 @@ Request body is a [user object](#user-object).  Currently only the following key
 If you send any keys besides these, it will do nothing.
 
 #### Response
+
 On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
@@ -622,11 +660,13 @@ curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new
 ```
 
 ### Create group under user
+
 `POST /api/portals/v1/users/{user-id}/groups`
 
 Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
 #### Request
+
 The request body is a [group object](#group-object). Currently, only the following keys are supported:
 
 * `"name"` - group name (optional)
@@ -634,6 +674,7 @@ The request body is a [group object](#group-object). Currently, only the followi
 If you send keys besides these, it will do nothing.
 
 #### Response
+
 On success, response has HTTP status 201 and the created group object.
 
 On failure, response has HTTP status of 400 or greater.
@@ -645,11 +686,13 @@ TODO
 ```
 
 ### Update group
+
 `PUT /api/portals/v1/groups/{group-id}`
 
 Update a group
 
 #### Request
+
 Body contains a [group object](#group-object). Currently only the following keys may be updated:
 
 * `"meta"` - group meta (optional)
@@ -660,6 +703,7 @@ Body contains a [group object](#group-object). Currently only the following keys
 If you send any keys besides these, it will do nothing.
 
 #### Response
+
 On success, response has HTTP status 200 and group object.
 
 On failure, response has HTTP status of 400 or greater.
@@ -671,6 +715,7 @@ TODO
 ```
 
 ### Update device
+
 `PUT /api/portals/v1/devices/{device-id}`
 
 Update a device
@@ -684,6 +729,7 @@ Request body is a [device object](#device-object). Currently only the following 
 If you send any keys besides these, it will do nothing.
 
 #### Response
+
 On success, response has HTTP status of 200 and body is the updated device object.
 
 On failure, response has HTTP status of 400 or greater.
@@ -695,6 +741,7 @@ TODO
 ```
 
 ### Update domain
+
 `PUT /api/portals/v1/domains/{domain-id}`
 
 Update a domain
@@ -712,6 +759,7 @@ Request body is a domain object:
 * `"members"` is an array of [permissions objects](#permission-object).
 
 #### Response
+
 On success, response has HTTP status 200 and the updated domain object.
 
 On failure, response has HTTP status of 400 or greater.
@@ -723,11 +771,13 @@ TODO
 ```
 
 ### Update user
+
 `PUT /api/portals/v1/users/{user-id}`
 
 Update a Portals user
 
 #### Request
+
 Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
 
 * `"email"` - user email (optional)
