@@ -188,6 +188,7 @@ An object containing information about a Portals user.
 
 ```
 {
+    "activated": <activated>,
     "email": <email>,
     "fullName": <short-string>,
     "groups": [<group-id-1>, <group-id-2>, ...],
@@ -196,6 +197,7 @@ An object containing information about a Portals user.
 }
 ```
 
+* `"activated"` indicates whether a user is activated in the domain or not.
 * `"email"` is the user's email address
 * `"fullName"` is a string of fewer than 256 characters
 * `"groups"` is an array of identifiers for groups of which the user is a member
