@@ -10,22 +10,34 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Users
 
-* [Get user](#get-user)
 * [Create user](#create-user)
+* [Get all users](#get-all-users)
+* [Get user](#get-user)
 * [Update user](#update-user)
 * [Register new user account](#register-new-user-account)
 * [Reset user account password via registered email confirmation](#reset-user-account-password)
 
-#### Portals, Devices, Data
+#### Portals
 
 * [List portals of authenticated user](#list-portals-of-authenticated-user)
-* [Create portal devices](#create-portal-devices)
+* [Get portal](#get-portal)
+* [Create portal](#create-portal)
+* [Delete portal](#delete-portal)
+* [Delete portal by rid](#delete-portal-by-rid)
+
+#### Devices
+
 * [Create new device under a portal of authenticated user](#create-new-device-under-a-portal-of-authenticated-user)
+* [Create device](#create-device)
+* [Get device](#get-device)
+* [Update device](#update-device)
+
+#### Data Source
+
+* [Create portal data source](#create-portal-data-source)
 * [Get data source](#get-data-source)
 * [Get data source data](#get-data-source-data)
 * [Append to data source data](#append-to-data-source-data)
-* [Get device](#get-device)
-* [Update device](#update-device)
 
 #### Groups
 
@@ -692,7 +704,7 @@ On failure, response has HTTP status of 400 or greater.
 TODO
 ```
 
-### Create portal devices
+### Create device
 
 `POST /api/portals/v1/portals/{portal-id}/devices`
 
