@@ -82,20 +82,20 @@ A data source object describes a Portals time series data source.
 
 ```
 {
-    "data": [[<unix timestamp 1>, <value 1>],
-             [<unix timestamp 2>, <value 2>],
+    "data": [[<unix-timestamp-1>, <value-1>],
+             [<unix-timestamp-2>, <value-2>],
              ...],
-    "info": <data source info>,
-    "rid": <data source id>,
-    "unit": <data source unit>
+    "info": <data-source-info>,
+    "rid": <data-source-id>,
+    "unit": <data-source-unit>
 }
 ```
 
-- `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-- `<value N>` may be a string, int, or float depending on the data source type.
+- `<unix-timestamp-1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+- `<value-N>` may be a string, int, or float depending on the data source type.
 - `"info"` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
 - `<data-source-id>` is the RID of a data source.
-- `<data source unit>` is the unit of a data source.
+- `<data-source-unit>` is the unit of a data source.
 
 
 ### Device object
