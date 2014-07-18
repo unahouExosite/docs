@@ -194,6 +194,7 @@ An object containing information about a Portals user.
     "groups": [<group-id-1>, <group-id-2>, ...],
     "id": <id>,
     "meta": <user meta>,
+    "permissions": [<permission-1>, ...],
     "phoneNumber": <short-string>
 }
 ```
@@ -204,6 +205,7 @@ An object containing information about a Portals user.
 * `"groups"` is an array of identifiers for groups of which the user is a member
 * `"id"` is a numeric identifier for the user
 * `"user meta"` is a generic storage for storing user related information
+* `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 * `"phoneNumber"` is the user's phone number
 
 
