@@ -104,9 +104,17 @@ A device object describes a device in Portals.
 
 ```
 {
-    "dataSources": [<data-source-id-1>, <data-source-id-2>, ...],
+    "dataSources": [
+        <data-source-id-1>,
+        <data-source-id-2>,
+        ...
+    ],
     "info": <device-info>,
-    "members": [<permission-1>, <permission-2>, ...],
+    "members": [
+        <permission-1>,
+        <permission-2>,
+        ...
+    ],
     "model": <model-id>,
     "rid": <rid>,
     "sn": <sn>,
@@ -132,10 +140,16 @@ A group object describes a Portals permissions group.
 ```
 {
     "id": <group-id>,
-    "members": [<permission-1>, ...],
+    "members": [
+        <permission-1>,
+        ...
+    ],
     "meta": <meta>,
     "name": <short-text>,
-    "permissions": [<permission-1>, ...],
+    "permissions": [
+        <permission-1>,
+        ...
+    ],
     "userId": <user-id>
 }
 ```
@@ -186,10 +200,17 @@ An object containing information about a Portals user.
     "activated": <activated>,
     "email": <email>,
     "fullName": <short-string>,
-    "groups": [<group-id-1>, <group-id-2>, ...],
+    "groups": [
+        <group-id-1>,
+        <group-id-2>,
+        ...
+    ],
     "id": <id>,
     "meta": <user meta>,
-    "permissions": [<permission-1>, ...],
+    "permissions": [
+        <permission-1>,
+        ...
+    ],
     "phoneNumber": <short-string>
 }
 ```
@@ -252,13 +273,19 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:joep4ssword
-[{"role":"user",
-  "name":"exosite_portals",
-  "domain":"portals.exosite.com"},
- {"role":"admin",
-  "domain":"joesdomain.exosite.com",
-  "name":"joesdomain",
-  "token":"01233fb43edeb3557b5ef46b987385abcdef0123"}]
+[
+    {
+        "role":"user",
+        "name":"exosite_portals",
+        "domain":"portals.exosite.com"
+    },
+    {
+        "role":"admin",
+        "domain":"joesdomain.exosite.com",
+        "name":"joesdomain",
+        "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
+    }
+]
 ```
 
 ### List portals of authenticated user
@@ -292,20 +319,20 @@ On failure, response has a HTTP status code of 400 or greater.
 ```
 $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:joep4ssword
 [
-  {
-    "name":"MyPortal1",
-    "domain":"mydomain.exosite.com"
-    "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
-    "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
-    "role":"owner"
-  },
-  {
-    "name":"MyPortal2",
-    "domain":"mydomain.exosite.com"
-    "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
-    "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
-    "role":"manager"
-  }
+    {
+        "name":"MyPortal1",
+        "domain":"mydomain.exosite.com"
+        "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
+        "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
+        "role":"owner"
+    },
+    {
+        "name":"MyPortal2",
+        "domain":"mydomain.exosite.com"
+        "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
+        "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
+        "role":"manager"
+    }
 ]
 ```
 
@@ -752,7 +779,11 @@ Request body is a domain object:
 
 ```
 {
-    "members": [<permission-1>, <permission-2>, ...]
+    "members": [
+        <permission-1>,
+        <permission-2>,
+        ...
+    ]
 }
 ```
 
