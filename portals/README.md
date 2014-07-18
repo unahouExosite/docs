@@ -94,18 +94,28 @@ A data source object describes a Portals time series data source.
         ],
         ...
     ],
-    "info": <data-source-info>,
-    "rid": <data-source-id>,
-    "unit": <data-source-unit>
+    "info": {
+        "basic": <basic>,
+        "description": <description>,
+        "shares": <shares>,
+        "storage": <storage>,
+        "subscribers": <subscribers>,
+        "tags": <tags>
+    },
+    "rid": <rid>,
+    "unit": <unit>
 }
 ```
 
-* `<unix-timestamp-N>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-* `<value-N>` may be a string, int, or float depending on the data source type.
-* `<data-source-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
-* `<data-source-id>` is the RID of a data source.
-* `<data-source-unit>` is the unit of a data source.
+* `"data"` is an array of data points. A data point has a unit timestamp and a value.
 
+    * `<unix-timestamp-N>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+
+    * `<value-N>` may be a string, int, or float depending on the data source type.
+
+* `"info"` is a dataport object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
+* `"rid"` is the RID of a data source.
+* `"unit"` is the unit of a data source.### Device object
 
 ### Device object
 
@@ -118,7 +128,15 @@ A device object describes a device in Portals.
         <data-source-id-2>,
         ...
     ],
-    "info": <device-info>,
+    "info": {
+        "aliases": <aliases>,
+        "basic": <basic>,
+        "description": <description>,
+        "shares": <shares>,
+        "subscribers": <subscribers>,
+        "tagged": <tagged>,
+        "tags": <tags>,
+    },
     "members": [
         <permission-1>,
         <permission-2>,
@@ -132,15 +150,35 @@ A device object describes a device in Portals.
 }
 ```
 
-* `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
-* `<device-info>` is an object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
-* `<permissions>` is an array of [permission objects](#permission-object)
-* `<sn>` is a string representing the serial number of the device
-* `<type>` is a constant string representing the device type.  Possible values are:
+* `"dataSources"` is an array of data source ids a device has.
+
+    * `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
+
+* `"info"` is an client object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
+* `"members"` is an array of [permission objects](#permission-object) listing the members of the device.
+* `"model"` is a string identifying the model
+* `"rid"` is the RID of a device.
+* `"sn"` is a string representing the serial number of the device
+* `"type"` is a constant string representing the device type.  Possible values are:
 
     * `"vendor"`
 
-* `<vendor-id>` is a string identifying the vendor
+* `"vendor-id"` is a string identifying the vendor
+
+### Domain object
+
+A domain object describes a Portals domain.
+
+```
+{
+    "members": [
+        <permission-1>,
+        ...
+    ]
+}
+```
+
+* `"members"` is an array of [permission objects](#permission-object) listing the members of the domain.
 
 ### Group object
 
@@ -163,10 +201,12 @@ A group object describes a Portals permissions group.
 }
 ```
 
-* `<group-id>` is a number identifying the group.
-* `<meta>` is a string containing application-specific information describing the group. It must be be less then 2 megabytes long.
+* `"id"` is a number identifying the group.
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
+* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"name"` is the group name. It is a string of fewer than 256 characters. It MUST be unique among the same user in a domain.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
+* `"userId"` is a number identifying the owner of the group.
 
 ### Permission object
 
@@ -177,28 +217,30 @@ A permission object describes a level of access to a particular Portals resource
     "access": <access>,
     "oid": {
         "id": <id>,
-        "type": <oid-type>
+        "type": <type>
     }
 }
 ```
 
-* `<access>` is a constant string. Possible values are:
+* `"access"` is a constant string. Possible values are:
 
     * `"___admin"`
 
-* `<id>` is an integer identifier between 10000000000 and 4294967295.
-* `<oid-type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
+* `"oid"` is an object identifying the resource with the permission.
 
-    * `"Device"`
+    * `<id>` is a number identifying the resource.
 
-    * `"Domain"`
+    * `<type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
-    * `"Group"`
+        * `"Device"`
 
-    * `"Portal"`
+        * `"Domain"`
 
-    * `"User"`
+        * `"Group"`
 
+        * `"Portal"`
+
+        * `"User"`
 
 ### User object
 
@@ -206,8 +248,8 @@ An object containing information about a Portals user.
 
 ```
 {
-    "activated": <activated>,
-    "email": <email>,
+    "activated": <boolean>,
+    "email": <short-string>,
     "fullName": <short-string>,
     "groups": [
         <group-id-1>,
@@ -215,7 +257,7 @@ An object containing information about a Portals user.
         ...
     ],
     "id": <id>,
-    "meta": <user meta>,
+    "meta": <meta>,
     "permissions": [
         <permission-1>,
         ...
@@ -225,14 +267,16 @@ An object containing information about a Portals user.
 ```
 
 * `"activated"` indicates whether a user is activated in the domain or not.
-* `"email"` is the user's email address
-* `"fullName"` is a string of fewer than 256 characters
-* `"groups"` is an array of identifiers for groups of which the user is a member
-* `"id"` is a numeric identifier for the user
-* `"user meta"` is a generic storage for storing user related information
-* `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
-* `"phoneNumber"` is the user's phone number
+* `"email"` is the user's email address. It is a string of fewer than 256 characters.
+* `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
+* `"groups"` is an array of identifiers for groups of which the user is a member.
 
+    * `<group-id-N>` is a number identifying the group.
+
+* `"id"` is a numeric identifier for the user.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
+* `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.### User ID ###
 
 ### User ID ###
 
@@ -247,8 +291,6 @@ Given a request is authenticated as a user with id being 1234.
 yields the same result as
 
 `GET /api/portals/v1/users/_this`
-
-
 
 ## API Endpoints
 
@@ -731,8 +773,8 @@ Update a group
 
 Body contains a [group object](#group-object). Currently only the following keys may be updated:
 
-* `"meta"` - group meta (optional)
 * `"members"` - group members (optional)
+* `"meta"` - group meta (optional)
 * `"name"` - group name (optional)
 * `"permissions"` - group permissions (optional)
 
@@ -760,6 +802,7 @@ Update a device
 
 Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
+* `"info": {"description": ...}` - description under info (optional)
 * `"info": {"description": ...}` - description under info (optional)
 
 If you send any keys besides these, it will do nothing.
@@ -820,8 +863,11 @@ Update a Portals user
 
 Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
 
+* `"activated"` - whether a user is activated (optional)
 * `"email"` - user email (optional)
 * `"fullName"` - user full name (optional)
+* `"meta"` - meta (optional)
+* `"permissions"` - user permissions (optional)
 * `"phoneNumber"` - user phone number (optional)
 
 If you send any keys besides these, it will do nothing.
