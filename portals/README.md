@@ -86,7 +86,8 @@ A data source object describes a Portals time series data source.
              [<unix timestamp 2>, <value 2>],
              ...],
     "info": <data source info>,
-    "rid": <data source id>
+    "rid": <data source id>,
+    "Unit": <data source unit>
 }
 ```
 
@@ -94,6 +95,7 @@ A data source object describes a Portals time series data source.
 - `<data-source-id>` is the RID of a datasource.
 - `<unix timestamp 1>` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
 - `<value N>` may be a string, int, or float depending on the datasource type.
+- `<data source unit>` is the unit of a data source.
 
 
 ### Device object
