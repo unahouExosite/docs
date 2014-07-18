@@ -41,6 +41,7 @@ Portals provides a user authentication and management system on top of the One P
 ### REST
 
 The API uses a REST-style API, which means that:
+
 * HTTP verbs in the request indicate the type of action the client wants to take (e.g. GET, POST)
 * HTTP status in the response indicate (e.g. 200 for success, 400 for bad request or 401 for authentication error)
 
