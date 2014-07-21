@@ -140,6 +140,7 @@ A device object describes a device in Portals.
         "aliases": <aliases>,
         "basic": <basic>,
         "description": <description>,
+        "key": <key>,
         "shares": <shares>,
         "subscribers": <subscribers>,
         "tagged": <tagged>,
@@ -162,7 +163,10 @@ A device object describes a device in Portals.
 
     * `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
 
-* `"info"` is an client object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, shares, subscribers, tagged and tags are exposed.
+* `"info"` is an client object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, key, shares, subscribers, tagged and tags are exposed.
+
+    * `<key>` is a 40 character hex string representing the client's CIK in the One Platform or null if the authorized user doesn't have \_\_\_admin permission to this device.
+
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the device.
 * `"model"` is a string identifying the model
 * `"rid"` is the RID of a device.
