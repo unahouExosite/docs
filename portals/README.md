@@ -413,7 +413,7 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
 ]
 ```
 
-### Register New User Account
+### Register new user account
 
 `POST /api/portals/v1/user`
 
