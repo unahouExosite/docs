@@ -441,6 +441,10 @@ Create a user.
 Request body is a [user object](#user-object).  Currently only the following keys may be included:
 
 * `"email"` - User email (required)
+* `"userName"` - User name.(optional)(If has no this attributes then userName will same as email.)
+* `"password"` - User password.(optional)(If has this attributes then email will not send.)
+* `"Firstname"` - User first name.(optional)
+* `"Lastname"` - User last name.(optional)(If has Firstname and Lastname then Fullname will be Firstname + Lastname.)
 
 If you send any keys besides these, it will do nothing.
 
@@ -512,7 +516,9 @@ Request body is a [user object](#user-object). At the moment, only the following
 
 * `"activated"` - whether a user is activated (optional)
 * `"email"` - user email (optional)
+* `"userName"` - User name.(optional)
 * `"fullName"` - user full name (optional)
+* `"password"` - User password.(optional)
 * `"meta"` - meta (optional)
 * `"permissions"` - user permissions (optional)
 * `"phoneNumber"` - user phone number (optional)
