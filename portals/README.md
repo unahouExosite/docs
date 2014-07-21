@@ -58,6 +58,14 @@ Portals provides a user authentication and management system on top of the One P
 * [Update theme](#update-theme)
 * [Delete theme](#delete-theme)
 
+#### [Client-Models](#themes)
+
+* [List client-models](#list-client-models)
+* [Create client-model](#create-client-model)
+* [Get client-model](#get-client-model)
+* [Update client-model](#update-client-model)
+* [Delete client-model](#delete-client-model)
+
 ### REST
 
 The API uses a REST-style API, which means that:
@@ -320,99 +328,6 @@ yields the same result as
 
 ## API Endpoints
 
-### List domains of authenticated user
-
-`GET /api/portals/v1/domain/`
-
-Returns an array of domains to which the user’s account is added.
-
-#### Request
-
-Request body is empty.
-
-#### Response
-
-On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
-
-* `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
-* `"role"` - the user’s role on this domain. Has one of the following values:
-
-    * `"user"` - non-admin
-
-    * `"admin"` - global admin, network admin, or domain admin
-
-* `"name"` - vendor name (for provisioning API)
-* `"token"` - vendor token (for provisioning API)
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-$ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:joep4ssword
-[
-    {
-        "role":"user",
-        "name":"exosite_portals",
-        "domain":"portals.exosite.com"
-    },
-    {
-        "role":"admin",
-        "domain":"joesdomain.exosite.com",
-        "name":"joesdomain",
-        "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
-    }
-]
-```
-
-### List portals of authenticated user
-
-`GET /api/portals/v1/portal/`
-
-Get a array of portals for the specified user on the domain specified in the URL of the request.
-
-#### Request
-
-Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
-
-#### Response
-
-On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
-
-* `"name"` - Portal name
-* `"domain"` - Portal domain
-* `"key"` - Portal CIK (returned only if user has "owner" or "manager" level access to the portal)
-* `"rid"` - Portal resource ID
-* `"role"` - User’s role for this portal. Possible values are:
-
-    * `"owner"` - user is the portal’s direct owner
-
-    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though.
-
-On failure, response has a HTTP status code of 400 or greater.
-
-#### Example
-
-```
-$ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:joep4ssword
-[
-    {
-        "name":"MyPortal1",
-        "domain":"mydomain.exosite.com"
-        "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
-        "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
-        "role":"owner"
-    },
-    {
-        "name":"MyPortal2",
-        "domain":"mydomain.exosite.com"
-        "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
-        "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
-        "role":"manager"
-    }
-]
-```
-
 ### Register new user account
 
 `POST /api/portals/v1/user`
@@ -489,6 +404,133 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 
 ```
 $ curl https://portals.exosite.com/api/portals/v1/user/password -d '{"action":"reset", "email": "joe@gmail.com"}'
+```
+
+### Create user
+
+`POST /api/portals/v1/users`
+
+Create a user.
+
+#### Request
+
+Request body is a [user object](#user-object).  Currently only the following keys may be included:
+
+* `"email"` - User email (required)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+```
+
+### Get user
+
+`GET /api/portals/v1/users/{user-id}`
+
+Get information about a user.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing a [user object](#user-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Update user
+
+`PUT /api/portals/v1/users/{user-id}`
+
+Update a Portals user
+
+#### Request
+
+Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
+
+* `"activated"` - whether a user is activated (optional)
+* `"email"` - user email (optional)
+* `"fullName"` - user full name (optional)
+* `"meta"` - meta (optional)
+* `"permissions"` - user permissions (optional)
+* `"phoneNumber"` - user phone number (optional)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 200 and the updated user object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### List portals of authenticated user
+
+`GET /api/portals/v1/portal/`
+
+Get a array of portals for the specified user on the domain specified in the URL of the request.
+
+#### Request
+
+Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
+
+#### Response
+
+On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
+
+* `"name"` - Portal name
+* `"domain"` - Portal domain
+* `"key"` - Portal CIK (returned only if user has "owner" or "manager" level access to the portal)
+* `"rid"` - Portal resource ID
+* `"role"` - User’s role for this portal. Possible values are:
+
+    * `"owner"` - user is the portal’s direct owner
+
+    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though.
+
+On failure, response has a HTTP status code of 400 or greater.
+
+#### Example
+
+```
+$ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:joep4ssword
+[
+    {
+        "name":"MyPortal1",
+        "domain":"mydomain.exosite.com"
+        "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
+        "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
+        "role":"owner"
+    },
+    {
+        "name":"MyPortal2",
+        "domain":"mydomain.exosite.com"
+        "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
+        "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
+        "role":"manager"
+    }
+]
 ```
 
 ### Create new device under a portal of authenticated user
@@ -576,6 +618,84 @@ $ curl https://m2.exosite.com/provision/activate -d 'vendor=joevendor&model=myDe
 ef123475183fb435ef46b987385abcdedeb3557b
 ```
 
+### Create device
+
+`POST /api/portals/v1/portals/{portal-id}/devices`
+
+Create a device inside a portal
+
+#### Request
+
+Request body is a [device object](#device-object). Currently only the following keys are supported:
+
+* `"sn"` - Serial number (required)
+* `"vendor"` - Vendor name (required)
+* `"model"` - Model name (required)
+* `"type"` - Device type, must be 'vendor' for this moment (required)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 201 and the created device object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Get device
+
+`GET /api/portals/v1/devices/{device-id}`
+
+Get information for a device.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a [device object](#device-object):
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Update device
+
+`PUT /api/portals/v1/devices/{device-id}`
+
+Update a device
+
+#### Request
+
+Request body is a [device object](#device-object). Currently only the following keys may be updated:
+
+* `"info": {"description": ...}` - description under info (optional)
+* `"info": {"description": ...}` - description under info (optional)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status of 200 and body is the updated device object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
 ### Get data source
 
 `GET /api/portals/v1/data-sources/{data-source-id}`
@@ -642,19 +762,23 @@ On failure, response has HTTP status of 400 or greater.
 TODO
 ```
 
-### Get device
+### Create group under user
 
-`GET /api/portals/v1/devices/{device-id}`
+`POST /api/portals/v1/users/{user-id}/groups`
 
-Get information for a device.
+Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
 #### Request
 
-Request body is empty.
+The request body is a [group object](#group-object). Currently, only the following keys are supported:
+
+* `"name"` - group name (optional)
+
+If you send keys besides these, it will do nothing.
 
 #### Response
 
-On success, response has HTTP status 200 and a [device object](#device-object):
+On success, response has HTTP status 201 and the created group object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -677,109 +801,6 @@ Request body is empty.
 #### Response
 
 On success, response has HTTP status 200 and body is a [group object](#group-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
-```
-
-### Get user
-
-`GET /api/portals/v1/users/{user-id}`
-
-Get information about a user.
-
-#### Request
-
-Request body is empty.
-
-#### Response
-
-On success, response has HTTP status 200 and a body containing a [user object](#user-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
-```
-
-### Create device
-
-`POST /api/portals/v1/portals/{portal-id}/devices`
-
-Create a device inside a portal
-
-#### Request
-
-Request body is a [device object](#device-object). Currently only the following keys are supported:
-
-* `"sn"` - Serial number (required)
-* `"vendor"` - Vendor name (required)
-* `"model"` - Model name (required)
-* `"type"` - Device type, must be 'vendor' for this moment (required)
-
-If you send any keys besides these, it will do nothing.
-
-#### Response
-
-On success, response has HTTP status 201 and the created device object.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
-```
-
-### Create user
-
-`POST /api/portals/v1/users`
-
-Create a user.
-
-#### Request
-
-Request body is a [user object](#user-object).  Currently only the following keys may be included:
-
-* `"email"` - User email (required)
-
-If you send any keys besides these, it will do nothing.
-
-#### Response
-
-On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
-```
-
-### Create group under user
-
-`POST /api/portals/v1/users/{user-id}/groups`
-
-Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
-
-#### Request
-
-The request body is a [group object](#group-object). Currently, only the following keys are supported:
-
-* `"name"` - group name (optional)
-
-If you send keys besides these, it will do nothing.
-
-#### Response
-
-On success, response has HTTP status 201 and the created group object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -818,31 +839,49 @@ On failure, response has HTTP status of 400 or greater.
 TODO
 ```
 
-### Update device
+### List domains of authenticated user
 
-`PUT /api/portals/v1/devices/{device-id}`
+`GET /api/portals/v1/domain/`
 
-Update a device
+Returns an array of domains to which the user’s account is added.
 
 #### Request
 
-Request body is a [device object](#device-object). Currently only the following keys may be updated:
-
-* `"info": {"description": ...}` - description under info (optional)
-* `"info": {"description": ...}` - description under info (optional)
-
-If you send any keys besides these, it will do nothing.
+Request body is empty.
 
 #### Response
 
-On success, response has HTTP status of 200 and body is the updated device object.
+On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
+
+* `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
+* `"role"` - the user’s role on this domain. Has one of the following values:
+
+    * `"user"` - non-admin
+
+    * `"admin"` - global admin, network admin, or domain admin
+
+* `"name"` - vendor name (for provisioning API)
+* `"token"` - vendor token (for provisioning API)
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-TODO
+$ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:joep4ssword
+[
+    {
+        "role":"user",
+        "name":"exosite_portals",
+        "domain":"portals.exosite.com"
+    },
+    {
+        "role":"admin",
+        "domain":"joesdomain.exosite.com",
+        "name":"joesdomain",
+        "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
+    }
+]
 ```
 
 ### Update domain
@@ -870,37 +909,6 @@ Request body is a domain object:
 #### Response
 
 On success, response has HTTP status 200 and the updated domain object.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
-```
-
-### Update user
-
-`PUT /api/portals/v1/users/{user-id}`
-
-Update a Portals user
-
-#### Request
-
-Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
-
-* `"activated"` - whether a user is activated (optional)
-* `"email"` - user email (optional)
-* `"fullName"` - user full name (optional)
-* `"meta"` - meta (optional)
-* `"permissions"` - user permissions (optional)
-* `"phoneNumber"` - user phone number (optional)
-
-If you send any keys besides these, it will do nothing.
-
-#### Response
-
-On success, response has HTTP status 200 and the updated user object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -978,10 +986,6 @@ A sample theme object looks like this:
 
 `GET /api/portals/v1/themes/`
 
-### Get theme
-
-`GET /api/portals/v1/themes/{themeid}`
-
 ### Create theme
 
 `POST /api/portals/v1/themes/`
@@ -990,6 +994,10 @@ The post body needs to be json encoded and at least include the required fields:
 
 * name
 * description
+
+### Get theme
+
+`GET /api/portals/v1/themes/{themeid}`
 
 ### Update theme
 
@@ -1039,10 +1047,6 @@ A sample client-model object looks like this:
 
 `GET /api/portals/v1/client-models/`
 
-### Get client-model
-
-`GET /api/portals/v1/client-models/{vendor}/{name}`
-
 ### Create client-model
 
 `POST /api/portals/v1/client-models/`
@@ -1052,6 +1056,10 @@ The post body needs to be json encoded and at least include the required fields:
 * friendly
 * name
 * cloneRID
+
+### Get client-model
+
+`GET /api/portals/v1/client-models/{vendor}/{name}`
 
 ### Update client-model
 
