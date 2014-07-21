@@ -10,12 +10,12 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Users
 
+* [Register new user account](#register-new-user-account)
+* [Reset user account password via registered email confirmation](#reset-user-account-password)
 * [Create user](#create-user)
 * [Get all users](#get-all-users)
 * [Get user](#get-user)
 * [Update user](#update-user)
-* [Register new user account](#register-new-user-account)
-* [Reset user account password via registered email confirmation](#reset-user-account-password)
 
 #### Portals
 
