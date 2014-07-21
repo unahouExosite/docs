@@ -232,6 +232,8 @@ A permission object describes a level of access to a particular Portals resource
 
     * `<type>` is a string identifying the thing to which the permission provides access. It may have one of the following values:
 
+        * `"DataSource"`
+
         * `"Device"`
 
         * `"Domain"`
