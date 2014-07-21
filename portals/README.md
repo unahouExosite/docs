@@ -85,7 +85,7 @@ The header MUST include:
 
 ### Authentication
 
-Some API endpoints require a Portals email and password combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
+Some API endpoints require a Portals email and password also username and password to combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
 
 http://en.wikipedia.org/wiki/Basic_access_authentication
 
