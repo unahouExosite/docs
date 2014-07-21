@@ -276,6 +276,30 @@ A permission object describes a level of access to a particular Portals resource
 
         * `"User"`
 
+### Portal object
+
+An object containing information about a portal.
+
+```
+{
+    "devices": [
+        <device-id-1>,
+        <device-id-2>,
+        ...
+    ],
+    "id": <id>,
+    "planId": <plan-id>,
+}
+```
+
+* `"devices"` is an array of identifiers for devices of which the portal owns.
+
+    * `<device-id-N>` is a 40 character hex string representing the device's RID in the One Platform
+
+* `"id"` is a numeric identifier for the portal.
+
+* `"planId"` is a numeric identifier for the plan of the portal.
+
 ### User object
 
 An object containing information about a Portals user.
@@ -432,6 +456,28 @@ On failure, response has HTTP status of 400 or greater.
 curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
 ```
 
+### Get all users
+
+`GET /api/portals/v1/users`
+
+Get information about all users.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing an array of [user object](#user-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
 ### Get user
 
 `GET /api/portals/v1/users/{user-id}`
@@ -532,6 +578,52 @@ $ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:
     }
 ]
 ```
+
+### Get portal
+
+`GET /api/portals/v1/portals/{portal-id}`
+
+Get information about a portal.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing a [portal object](#portal-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Create portal
+
+`POST /api/portals/v1/users/{user-id}/portals`
+
+Create a portal under a user.
+
+#### Request
+
+Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
+
+* `"planId"` - portal plan (optional)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 201 and the created portal object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+TODO
 
 ### Create new device under a portal of authenticated user
 
@@ -687,6 +779,34 @@ If you send any keys besides these, it will do nothing.
 #### Response
 
 On success, response has HTTP status of 200 and body is the updated device object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Create portal data source
+
+`POST /api/portals/v1/portals/{portal-id}/data-sources`
+
+Create a data source inside a portal
+
+#### Request
+
+Request body is a [data-source object](#data-source-object). Currently only the following keys are supported:
+
+* `"format"` - data source format (optional)
+* `"name"` - data source name (optional)
+* `"unit"` - data source unit (optional)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 201 and the created data-source object.
 
 On failure, response has HTTP status of 400 or greater.
 
