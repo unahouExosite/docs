@@ -1,4 +1,4 @@
-# Device Provisioning API Procedures
+# Device Provisioning API
 
 The following procedures are intended to be accessed from devices to get API keys and initialization content (e.g., firmware images) so that they can access the One Platform from other APIs.
 

@@ -1,4 +1,4 @@
-# Fleet Management API Procedures
+# Fleet Management API
 
 The following procedures allow device OEMs to create custom fleet management applications. For many applications they do not need to be used since Portals wraps their functionality with a user interface.
 
