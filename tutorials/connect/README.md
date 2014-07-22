@@ -199,7 +199,9 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
     3. Under the *View Data By *heading*, *select the radio button labeled "Count." The count number indicates the number of datapoints that should be displayed by the widget. For this example, enter 1 in the field.
     4. Enter 5 seconds in the *Refresh Rate* field. This indicates how often the widget will fetch new data.
     5. Click Submit.
-        ![image alt text](images/image_30.png)
+
+    ![image alt text](images/image_30.png)
+
 5. You should see a *Widget added successfully* message. Click Quit to return to your dashboard.
     ![image alt text](images/image_31.png)
 
