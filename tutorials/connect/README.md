@@ -8,7 +8,7 @@ This tutorial will explain how to set up a free Portals™ account, create a hyp
 
 * Active email address
 
-**NOTE: **A physical device will not be used in this tutorial and is not necessary for the completion of the procedures herein. 
+__NOTE:__ A physical device will not be used in this tutorial and is not necessary for the completion of the procedures herein. 
 
 ## Create Portals Account
 
