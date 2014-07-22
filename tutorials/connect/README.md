@@ -15,36 +15,28 @@ __NOTE:__ A physical device will not be used in this tutorial and is not necessa
 To begin, you will need to create a Portals account. If you already have an account, you can proceed to the "Create New Device" section of this document.
 
 1. Point a web browser to Exosite’s [Account Sign Up web page](http://portals.exosite.com/signup).
-
 2. Complete the form and click Create Account. 
-
-![image alt text](images/image_0.png)
-
+    ![image alt text](images/image_0.png)
 3. You will receive an email from portals.exosite.com that asks you to activate your account. Click on the appropriate link in the email to activate your account.
-
 4. When complete, log in to your account on the [Portals login page](https://portals.exosite.com/login) using your email address and the password you just created.
-
- ![image alt text](images/image_1.png)
-
+    ![image alt text](images/image_1.png)
 You should now see your Portals community account dashboard homepage.
+    ![image alt text](images/image_2.png)
 
-![image alt text](images/image_2.png)
-
- 
 
 Below are descriptions of the main features of the Portals dashboard homepage, as shown in the figure above.
 
-* **Portal**** menu** - Provides links to manage features of the devices in the selected portal.
+* __Portal menu__ - Provides links to manage features of the devices in the selected portal.
 
-* **Portal name** - Identifies the portal you are currently viewing. Your new community account is the default portal that opens when you log in. If you have access to another user’s portals, click the arrow beside your portal name to access them.
+* __Portal name__ - Identifies the portal you are currently viewing. Your new community account is the default portal that opens when you log in. If you have access to another user’s portals, click the arrow beside your portal name to access them.
 
-* **Dashboard name** - Identifies the dashboard you are currently viewing. Dashboards are a customizable view of a portal.
+* __Dashboard name__ - Identifies the dashboard you are currently viewing. Dashboards are a customizable view of a portal.
 
-* **Main menu** - Provides a top-level menu to access the home page, view your account information, or log out.
+* __Main menu__ - Provides a top-level menu to access the home page, view your account information, or log out.
 
-* **Widgets - **Three widgets appear on the dashboard by default. The Welcome widget describes how to use your account. The Portal Data Source List** **widget displays a list of data sources for the default "Exosite Device" automatically created for you with your account; the data sources are current temperature readings from Antarctica, Minneapolis, and Taiwan. Finally, the Gauge widget displays the current temperature in Antarctica.
+* __Widgets__ - Three widgets appear on the dashboard by default. The Welcome widget describes how to use your account. The Portal Data Source List widget displays a list of data sources for the default "Exosite Device" automatically created for you with your account; the data sources are current temperature readings from Antarctica, Minneapolis, and Taiwan. Finally, the Gauge widget displays the current temperature in Antarctica.
 
-* **Help and feedback - **Allows you to search Exosite’s knowledge base for helpful articles or contact Exosite directly for support.
+* __Help and feedback__ - Allows you to search Exosite’s knowledge base for helpful articles or contact Exosite directly for support.
 
 ## Create New Device
 
@@ -64,7 +56,7 @@ Now that you have a Portals account, you will create a new device in your portal
 
 A generic device is one that does not follow a pre-existing model; in other words, it is a device you set up from scratch. Since you want to define what data will go in the device you are creating, choose this option.
 
-**NOTE: **Generic and unlisted devices are both private. The term "unlisted" here indicates that you want to add a device based on a model that is unlisted. For example, you would choose an unlisted device if you had a hardware development kit that already had a model name created on Exosite. In this case, the manufacturer would provide you with an unlisted model identifier created specifically to work with the kit’s firmware.
+__NOTE:__ Generic and unlisted devices are both private. The term "unlisted" here indicates that you want to add a device based on a model that is unlisted. For example, you would choose an unlisted device if you had a hardware development kit that already had a model name created on Exosite. In this case, the manufacturer would provide you with an unlisted model identifier created specifically to work with the kit’s firmware.
 
 4. On the *Device Setup* tab:
 
@@ -98,9 +90,9 @@ In order to write data to the wind turbine device you just created, you first ne
 
 1. Select "Data" from the Portal menu to display a list of all the devices in your portal and their associated dataports.
 
-**NOTE: **Portals may refer to dataports as data sources. The term dataport and data source refer to the same thing and can be used interchangeably.
+__NOTE:__ Portals may refer to dataports as data sources. The term dataport and data source refer to the same thing and can be used interchangeably.
 
-2. On the *Data *page, click "+ Add Data."
+2. On the *Data* page, click "+ Add Data."
 
 ![image alt text](images/image_10.png)
 
