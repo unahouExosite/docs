@@ -23,7 +23,6 @@ To begin, you will need to create a Portals account. If you already have an acco
 You should now see your Portals community account dashboard homepage.
     ![image alt text](images/image_2.png)
 
-
 Below are descriptions of the main features of the Portals dashboard homepage, as shown in the figure above.
 
 * __Portal menu__ - Provides links to manage features of the devices in the selected portal.
@@ -38,11 +37,11 @@ Below are descriptions of the main features of the Portals dashboard homepage, a
 Now that you have a Portals account, you will create a new device in your portal. For the purposes of this tutorial, this device will be a hypothetical wind turbine to which you can write wind speed data.
 
 1. Select "Devices" from the Portal menu to display a list of the devices in your portal.
-![image alt text](images/image_3.png)
+    ![image alt text](images/image_3.png)
 2. On the *Devices *page, click "+ Add Device."
-![image alt text](images/image_4.png)
+    ![image alt text](images/image_4.png)
 3. A *Device Setup *window will open. On the *Setup Type* tab, select the radio button labeled "I want to create a generic device." Click Continue.
-![image alt text](images/image_5.png)
+    ![image alt text](images/image_5.png)
     A generic device is one that does not follow a pre-existing model; in other words, it is a device you set up from scratch. Since you want to define what data will go in the device you are creating, choose this option.
     __NOTE:__ Generic and unlisted devices are both private. The term "unlisted" here indicates that you want to add a device based on a model that is unlisted. For example, you would choose an unlisted device if you had a hardware development kit that already had a model name created on Exosite. In this case, the manufacturer would provide you with an unlisted model identifier created specifically to work with the kit’s firmware.
 4. On the *Device Setup* tab:
@@ -53,11 +52,11 @@ Now that you have a Portals account, you will create a new device in your portal
     5. Click Continue.
     ![image alt text](images/image_6.png)
 5. On the *Confirm* tab, enter a name for your device in the *New Device Name *field. Since this device will be a hypothetical wind turbine, it is named Turbine 1 in the example below. Click Submit.
-![image alt text](images/image_7.png)
+    ![image alt text](images/image_7.png)
 6. You should see a *Device Successfully Created *message. Click the "x" in the window to return to your device list. 
-![image alt text](images/image_8.png)
+    ![image alt text](images/image_8.png)
     You should now see the device you just created on the *Devices* page. To view pertinent information about the device, click on the device to open the *Device Information* window.
-![image alt text](images/image_9.png)
+    ![image alt text](images/image_9.png)
 
 ## Create Device Dataport
 
@@ -66,7 +65,7 @@ In order to write data to the wind turbine device you just created, you first ne
 1. Select "Data" from the Portal menu to display a list of all the devices in your portal and their associated dataports.
     __NOTE:__ Portals may refer to dataports as data sources. The term dataport and data source refer to the same thing and can be used interchangeably.
 2. On the *Data* page, click "+ Add Data."
-![image alt text](images/image_10.png)
+    ![image alt text](images/image_10.png)
 3. A *Data Setup* window will open. On the *Origin *tab:
     1. Select the radio button labeled "From a Device" since you are adding a dataport for the device you just created.
     2. Select the wind turbine device from the drop-down menu.
@@ -81,28 +80,28 @@ In order to write data to the wind turbine device you just created, you first ne
     5. Click Submit.
     ![image alt text](images/image_12.png)
 5. You should see a *Data Source Successfully Created* message. Click Quit to return to your dataport list. 
-![image alt text](images/image_13.png)
+    ![image alt text](images/image_13.png)
 You should now see the dataport you just created on the *Data* page. 
-![image alt text](images/image_14.png)
+    ![image alt text](images/image_14.png)
 6. Select "Home" from the Portal menu to return to the dashboard homepage.
-![image alt text](images/image_15.png)
+    ![image alt text](images/image_15.png)
 7. You may notice that the dataport you just added is not listed in the Portal Data Source List widget; that widget has not been configured to display this dataport. Click the arrow in the corner of the widget and select Edit to add the dataport.
-![image alt text](images/image_16.png)
+    ![image alt text](images/image_16.png)
 8. Select the checkbox for the new dataport in the *Data Sources* list. Leave the *Selectable*, *Set Caller*, and *Refresh Rate* fields at their defaults. Click Save.
-![image alt text](images/image_17.png)
+    ![image alt text](images/image_17.png)
 You should now see the dataport value listed in the Portal Data Source List widget on your dashboard homepage.
-![image alt text](images/image_18.png)
+    ![image alt text](images/image_18.png)
 
 ## Read and Write Data with Portals
 
 Now, you will add wind-speed data for the turbine using Portals. 
 1. Select "Data" from the Portal menu and click the Wind Speed dataport you just created.
 2. In the *Data Information *window, you will see that the new dataport is empty. In order to write data to a device, enter a value in the *Data value *field. For this example, enter 15 and click Update.
-![image alt text](images/image_19.png)
+    ![image alt text](images/image_19.png)
 3. You should see a *Data written successfully* message. Click the "x" in the upper right corner of the window to exit.
-![image alt text](images/image_20.png)
+    ![image alt text](images/image_20.png)
 4. Select "Home" from the Portal menu to return to the dashboard homepage. You should now see the value you just wrote to the Wind Speed dataport in the Portal Data Source List widget.
-![image alt text](images/image_21.png)
+    ![image alt text](images/image_21.png)
 
 This method of writing data from within Portals is generally only used for debugging during development. 
 
@@ -123,11 +122,11 @@ Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing 
 
 __Mac/UNIX/Linux:__ cURL is already installed on most Mac or UNIX/Linux systems. To open a command line window, press **⌘ + Spacebar**, type *terminal* in the Spotlight search bar, and select Terminal from the list.
 
-![image alt text](images/image_23.png)
+    ![image alt text](images/image_23.png)
 
 __Windows:__ Windows users who are not already familiar with cURL may want to skip to the "Read and Write with Exoline" section below. However, you can download cURL by entering information about your version of Windows on the cURL Download Wizard web page. Once cURL is installed, select Start > All Programs > Accessories > Command Prompt to access the Windows command prompt.
     
-![image alt text](images/image_24.png)
+    ![image alt text](images/image_24.png)
 
 Use the command below to write a new wind speed of 11 kilometers per hour to the turbine device. __NOTE:__ Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
 ```
@@ -151,7 +150,7 @@ __Mac/UNIX/Linux:__ To open a command line window, press __⌘ + Spacebar__, typ
 
 __Windows:__ To access the Windows command prompt, select Start > All Programs > Accessories > Command Prompt.
 
-![image alt text](images/image_26.png)
+    ![image alt text](images/image_26.png)
 
 Use the commands below to write and read values from the turbine device. **NOTE: **Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
 
@@ -182,7 +181,7 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
 
 1. Select "Home" from the Portal menu to return to the dashboard homepage.
 2. Click "Add Widget" to add a new widget. 
-![image alt text](images/image_27.png)
+    ![image alt text](images/image_27.png)
 3. An *Add widget *window will open. On the *Type* tab:
     1. Select Big Number in the *Widget Type* drop-down menu; this is a widget that displays a large numeric value that is suitable for a dashboard. There are many predefined widgets to choose from. You can also select Custom Widget to develop your own.
     ![image alt text](images/image_28.png)
@@ -197,10 +196,10 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
     5. Click Submit.
     ![image alt text](images/image_30.png)
 5. You should see a *Widget added successfully* message. Click Quit to return to your dashboard.
-![image alt text](images/image_31.png)
+    ![image alt text](images/image_31.png)
 
 Your dashboard should now look similar to the example below. By default, the new widget occupies the first empty space on the dashboard. You can use the move tool to drag the widget into a more prominent position on your dashboard.
-![image alt text](images/image_32.png)
+    ![image alt text](images/image_32.png)
 Notice that the Big Number widget reports data using the units you specified when you set up the Wind Speed dataport. It also reloads based on the refresh timing you set. You can use cURL or Exoline to write data and the widget will automatically update the number it displays when it reloads.
 
 ## What’s Next?
