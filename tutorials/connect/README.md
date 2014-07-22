@@ -81,7 +81,7 @@ In order to write data to the wind turbine device you just created, you first ne
     ![image alt text](images/image_12.png)
 5. You should see a *Data Source Successfully Created* message. Click Quit to return to your dataport list. 
     ![image alt text](images/image_13.png)
-You should now see the dataport you just created on the *Data* page. 
+    You should now see the dataport you just created on the *Data* page. 
     ![image alt text](images/image_14.png)
 6. Select "Home" from the Portal menu to return to the dashboard homepage.
     ![image alt text](images/image_15.png)
@@ -90,7 +90,7 @@ You should now see the dataport you just created on the *Data* page.
     ![image alt text](images/image_16.png)
 8. Select the checkbox for the new dataport in the *Data Sources* list. Leave the *Selectable*, *Set Caller*, and *Refresh Rate* fields at their defaults. Click Save.
     ![image alt text](images/image_17.png)
-You should now see the dataport value listed in the Portal Data Source List widget on your dashboard homepage.
+    You should now see the dataport value listed in the Portal Data Source List widget on your dashboard homepage.
     ![image alt text](images/image_18.png)
 
 ## Read and Write Data with Portals
