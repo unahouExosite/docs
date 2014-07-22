@@ -1,4 +1,4 @@
-# Connect to Exosite
+# Get Started
 
 This tutorial will explain how to set up a free Portals™ account, create a hypothetical device and associated dataport, send data to that hypothetical device, and display that data in a widget on your dashboard homepage. 
 
@@ -10,9 +10,9 @@ This tutorial will explain how to set up a free Portals™ account, create a hyp
 
 __NOTE:__ A physical device will not be used in this tutorial and is not necessary for the completion of the procedures herein. 
 
-## Create Portals Account
+## Create a Portals Account
 
-To begin, you will need to create a Portals account. If you already have an account, you can proceed to the "Create New Device" section of this document.
+To begin, you will need to create a Portals account. If you already have an account, you can proceed to the "Create a New Device" section of this document.
 
 1. Point a web browser to Exosite’s [Account Sign Up web page](http://portals.exosite.com/signup).
 2. Complete the form and click Create Account. 
@@ -32,7 +32,7 @@ Below are descriptions of the main features of the Portals dashboard homepage, a
 * __Widgets__ - Three widgets appear on the dashboard by default. The Welcome widget describes how to use your account. The Portal Data Source List widget displays a list of data sources for the default "Exosite Device" automatically created for you with your account; the data sources are current temperature readings from Antarctica, Minneapolis, and Taiwan. Finally, the Gauge widget displays the current temperature in Antarctica.
 * __Help and feedback__ - Allows you to search Exosite’s knowledge base for helpful articles or contact Exosite directly for support.
 
-## Create New Device
+## Create a New Device
 
 Now that you have a Portals account, you will create a new device in your portal. For the purposes of this tutorial, this device will be a hypothetical wind turbine to which you can write wind speed data.
 
@@ -58,7 +58,7 @@ Now that you have a Portals account, you will create a new device in your portal
     You should now see the device you just created on the *Devices* page. To view pertinent information about the device, click on the device to open the *Device Information* window.
     ![image alt text](images/image_9.png)
 
-## Create Device Dataport
+## Create a Device Dataport
 
 In order to write data to the wind turbine device you just created, you first need to create a dataport to contain the data. A dataport contains a series of time-stamped points and can live inside a device or a portal. 
 
@@ -97,7 +97,9 @@ In order to write data to the wind turbine device you just created, you first ne
 
     ![image alt text](images/image_18.png)
 
-## Read and Write Data with Portals
+## Read and Write Data 
+
+### Use Portals
 
 Now, you will add wind-speed data for the turbine using Portals. 
 1. Select "Data" from the Portal menu and click the Wind Speed dataport you just created.
@@ -110,7 +112,9 @@ Now, you will add wind-speed data for the turbine using Portals.
 
 This method of writing data from within Portals is generally only used for debugging during development. 
 
-## Basics of API Access
+### Use APIs
+
+#### Basics of API Access
 
 This section explains how to write data to Exosite from an external device using an API. Note that this process is optional and will require installing at least one program, as well as entering commands at the command prompt. If this doesn’t interest you, you can proceed to the "Dashboards and Widgets" section of this document.
 
@@ -121,7 +125,7 @@ Exosite provides several APIs that allow access to data and device information f
     ![image alt text](images/image_22.png)
 Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing firmware to use the API from a piece of physical hardware is out of the scope of this tutorial, but the information below will discuss two ways to access these APIs from your computer’s command line. 
 
-### Read and Write with cURL 
+#### Read and Write with cURL 
 
 [cURL](http://curl.haxx.se/) is a command line tool that may be used to generate HTTP requests. Read and write commands for the Exosite API can be called with cURL. 
 
@@ -145,7 +149,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?windspeed -H "X-Exosite-CIK: YO
 windspeed=11
 ```
 
-### Read and Write with Exoline 
+#### Read and Write with Exoline 
 
 [Exoline](https://github.com/exosite/exoline) is a command line tool that works with Exosite’s services. Exoline provides access to a wide range of APIs that are possible with cURL, but Exoline provides a less verbose syntax. Exoline supports most platforms, including Linux, Mac, and Windows. Refer to the Exoline [Installation Instructions](https://github.com/exosite/exoline/blob/master/README.md#installation-) for additional information. 
 
