@@ -122,11 +122,11 @@ Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing 
 
 __Mac/UNIX/Linux:__ cURL is already installed on most Mac or UNIX/Linux systems. To open a command line window, press **⌘ + Spacebar**, type *terminal* in the Spotlight search bar, and select Terminal from the list.
 
-    ![image alt text](images/image_23.png)
+![image alt text](images/image_23.png)
 
 __Windows:__ Windows users who are not already familiar with cURL may want to skip to the "Read and Write with Exoline" section below. However, you can download cURL by entering information about your version of Windows on the cURL Download Wizard web page. Once cURL is installed, select Start > All Programs > Accessories > Command Prompt to access the Windows command prompt.
     
-    ![image alt text](images/image_24.png)
+![image alt text](images/image_24.png)
 
 Use the command below to write a new wind speed of 11 kilometers per hour to the turbine device. __NOTE:__ Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
 ```
@@ -146,11 +146,11 @@ windspeed=11
 
 __Mac/UNIX/Linux:__ To open a command line window, press __⌘ + Spacebar__, type *terminal* in the Spotlight search bar, and select Terminal from the list.
     
-    ![image alt text](images/image_25.png)
+![image alt text](images/image_25.png)
 
 __Windows:__ To access the Windows command prompt, select Start > All Programs > Accessories > Command Prompt.
 
-    ![image alt text](images/image_26.png)
+![image alt text](images/image_26.png)
 
 Use the commands below to write and read values from the turbine device. **NOTE: **Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
 
