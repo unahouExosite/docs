@@ -86,6 +86,7 @@ You should now see the dataport you just created on the *Data* page.
 6. Select "Home" from the Portal menu to return to the dashboard homepage.
     ![image alt text](images/image_15.png)
 7. You may notice that the dataport you just added is not listed in the Portal Data Source List widget; that widget has not been configured to display this dataport. Click the arrow in the corner of the widget and select Edit to add the dataport.
+
     ![image alt text](images/image_16.png)
 8. Select the checkbox for the new dataport in the *Data Sources* list. Leave the *Selectable*, *Set Caller*, and *Refresh Rate* fields at their defaults. Click Save.
     ![image alt text](images/image_17.png)
