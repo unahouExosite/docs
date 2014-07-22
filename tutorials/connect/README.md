@@ -78,7 +78,9 @@ In order to write data to the wind turbine device you just created, you first ne
     3. Enter kph in the *Unit *field. This indicates the type of measurement for the data. In the example below, the wind speed will be measured in kilometers per hour.
     4. Enter windspeed in the *Alias *field. This s the name devices will use to identify this dataport when accessing Exosite’s application programming interfaces (APIs).
     5. Click Submit.
+
     ![image alt text](images/image_12.png)
+
 5. You should see a *Data Source Successfully Created* message. Click Quit to return to your dataport list. 
     ![image alt text](images/image_13.png)
     You should now see the dataport you just created on the *Data* page. 
