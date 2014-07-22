@@ -20,7 +20,7 @@ To begin, you will need to create a Portals account. If you already have an acco
 3. You will receive an email from portals.exosite.com that asks you to activate your account. Click on the appropriate link in the email to activate your account.
 4. When complete, log in to your account on the [Portals login page](https://portals.exosite.com/login) using your email address and the password you just created.
     ![image alt text](images/image_1.png)
-You should now see your Portals community account dashboard homepage.
+    You should now see your Portals community account dashboard homepage.
     ![image alt text](images/image_2.png)
 
 Below are descriptions of the main features of the Portals dashboard homepage, as shown in the figure above.
@@ -192,9 +192,9 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
     1. Under the *Widget Size *heading*, *set the *Width* and *Height* to 2 grid units.
     2. Under the *Data Source *heading, select the checkbox for your dataport. 
     3. Under the *View Data By *heading*, *select the radio button labeled "Count." The count number indicates the number of datapoints that should be displayed by the widget. For this example, enter 1 in the field.
-    4. Enter 5 seconds in the *Refresh Rate *field. This indicates how often the widget will fetch new data.
+    4. Enter 5 seconds in the *Refresh Rate* field. This indicates how often the widget will fetch new data.
     5. Click Submit.
-    ![image alt text](images/image_30.png)
+        ![image alt text](images/image_30.png)
 5. You should see a *Widget added successfully* message. Click Quit to return to your dashboard.
     ![image alt text](images/image_31.png)
 
