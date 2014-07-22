@@ -4,7 +4,7 @@ The following procedures are intended to be accessed from devices to get API key
 
 For general information about accessing this API, see the [main section](README.md).
 
-## Table of Contents
+## Endpoints
 
 [/provision/activate](#provisionactivate) - get a CIK for a device and activate it
 

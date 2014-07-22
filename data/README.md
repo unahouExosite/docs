@@ -5,15 +5,6 @@ This is a lightweight HTTP-based API for writing to and reading from the Exosite
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
-## Table of Contents
-
-[Libraries and Sample Code](#libraries-and-sample-code)
-
-[Conventions](#conventions)
-
-[HTTP Responses](#http-responses)
-
-
 ####Procedures
 
 [Write](#write) - write new data to a set of dataports

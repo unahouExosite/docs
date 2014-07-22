@@ -4,7 +4,7 @@ The following procedures allow device OEMs to create custom fleet management app
 
 For general information about accessing this API, see the [main section](README.md).
 
-## Table of Contents
+## Endpoints
 
 [/provision/manage/content/&lt;model&gt;/](#provisionmanagecontentmodel) - list, create, or delete content 
 

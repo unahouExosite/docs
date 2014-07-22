@@ -8,22 +8,6 @@ CoAP provides a request/response interaction model between application endpoints
 
 For more information on the CoAP protocol see [RFC7252](https://tools.ietf.org/html/rfc7252).
 
-## Table of Contents
-
-[Libraries and Sample Code](#libraries-and-sample-code)
-
-[Notational Conventions](#notational-conventions)
-
-[CoAP Responses](#coap-responses)
-
-[Procedures](#procedures)
-
-[Supported Features](#supported-features)
-
-[Known Issues](#known-issues)
-
-[Roadmap](#roadmap)
-
 ## Libraries and Sample Code
 
 A sample CoAP client written in python is available in the [CoAPExample](https://github.com/exosite-garage/CoAPExample) repository.
