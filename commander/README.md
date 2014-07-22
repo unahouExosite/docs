@@ -1,6 +1,6 @@
-# Commander API
+# Commander Chat
 
-The Commander is a XMPP Bot which allows any authenticated XMPP client 
+The Commander is a XMPP bot that allows any authenticated XMPP client 
 (typically a remote user) to initiate a XMPP Chat in order to issue commands
 to the One Platform through the Commander.
 
