@@ -121,37 +121,55 @@ Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing 
 [cURL](http://curl.haxx.se/) is a command line tool that may be used to generate HTTP requests. Read and write commands for the Exosite API can be called with cURL. 
 
 __Mac/UNIX/Linux:__ cURL is already installed on most Mac or UNIX/Linux systems. To open a command line window, press **⌘ + Spacebar**, type *terminal* in the Spotlight search bar, and select Terminal from the list.
-    ![image alt text](images/image_23.png)
+
+![image alt text](images/image_23.png)
 
 __Windows:__ Windows users who are not already familiar with cURL may want to skip to the "Read and Write with Exoline" section below. However, you can download cURL by entering information about your version of Windows on the cURL Download Wizard web page. Once cURL is installed, select Start > All Programs > Accessories > Command Prompt to access the Windows command prompt.
-    ![image alt text](images/image_24.png)
-Use the command below to write a new wind speed of 11 kilometers per hour to the turbine device. **NOTE: **Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
-```$ curl http://m2.exosite.com/onep:v1/stack/alias -H "X-Exosite-CIK: YOUR_CIK_HERE" -H "Accept: application/x-www-form-urlencoded; charset=utf-8" -d "windspeed=11"```
+    
+![image alt text](images/image_24.png)
+
+Use the command below to write a new wind speed of 11 kilometers per hour to the turbine device. __NOTE:__ Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias -H "X-Exosite-CIK: YOUR_CIK_HERE" -H "Accept: application/x-www-form-urlencoded; charset=utf-8" -d "windspeed=11"
+```
+
 Use the command below to read back the latest wind speed from the turbine device. Again, be sure to replace YOUR_CIK_HERE with the CIK for your device.
-```$ curl http://m2.exosite.com/onep:v1/stack/alias?windspeed -H "X-Exosite-CIK: YOUR_CIK_HERE" -H "Accept: application/x-www-form-urlencoded; charset=utf-8"
-windspeed=11```
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias?windspeed -H "X-Exosite-CIK: YOUR_CIK_HERE" -H "Accept: application/x-www-form-urlencoded; charset=utf-8"
+windspeed=11
+```
 
 ### Read and Write with Exoline 
 
 [Exoline](https://github.com/exosite/exoline) is a command line tool that works with Exosite’s services. Exoline provides access to a wide range of APIs that are possible with cURL, but Exoline provides a less verbose syntax. Exoline supports most platforms, including Linux, Mac, and Windows. Refer to the Exoline [Installation Instructions](https://github.com/exosite/exoline/blob/master/README.md#installation-) for additional information. 
 
 __Mac/UNIX/Linux:__ To open a command line window, press __⌘ + Spacebar__, type *terminal* in the Spotlight search bar, and select Terminal from the list.
+    
     ![image alt text](images/image_25.png)
+
 __Windows:__ To access the Windows command prompt, select Start > All Programs > Accessories > Command Prompt.
-    ![image alt text](images/image_26.png)
+
+![image alt text](images/image_26.png)
 
 Use the commands below to write and read values from the turbine device. **NOTE: **Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
 
-```$ exo write YOUR_CIK_HERE windspeed --value="12"```
+```
+$ exo write YOUR_CIK_HERE windspeed --value="12"
+```
 
-```$ exo read YOUR_CIK_HERE windspeed
-2014-07-03 18:14:02-05:00,12```
+```
+$ exo read YOUR_CIK_HERE windspeed
+2014-07-03 18:14:02-05:00,12
+```
 
 Use the command below to see the tree of the turbine device. Again, be sure to replace YOUR_CIK_HERE with the CIK for your device.
 
-```$ exo tree YOUR_CIK_HERE
+```
+$ exo tree YOUR_CIK_HERE
 Turbine 1  client cik: 8c295ee636ad2192f8a208245eec124274a59551 (aliases: see parent)
-  └─Wind Speed  integer dataport rid: acd8c59a7428a2cbcc258c43b3ecafb8d13a95b4 (aliases: ["windspeed"])``
+  └─Wind Speed  integer dataport rid: acd8c59a7428a2cbcc258c43b3ecafb8d13a95b4 (aliases: ["windspeed"])
+```
 
 In the output above, you can see both the Turbine 1 device and Wind Speed dataport you created, as well as the hierarchical relationship between them - the dataport is "inside" the device. The Exosite One Platform™ stores domains, users, portals, devices, and dataports in a hierarchy, and Exoline’s *tree* command can show you those relationships. 
 
@@ -163,7 +181,7 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
 
 1. Select "Home" from the Portal menu to return to the dashboard homepage.
 2. Click "Add Widget" to add a new widget. 
-    ![image alt text](images/image_27.png)
+![image alt text](images/image_27.png)
 3. An *Add widget *window will open. On the *Type* tab:
     1. Select Big Number in the *Widget Type* drop-down menu; this is a widget that displays a large numeric value that is suitable for a dashboard. There are many predefined widgets to choose from. You can also select Custom Widget to develop your own.
     ![image alt text](images/image_28.png)
@@ -178,7 +196,7 @@ Now that you have a datapoint written to the Wind Speed dataport, you can create
     5. Click Submit.
     ![image alt text](images/image_30.png)
 5. You should see a *Widget added successfully* message. Click Quit to return to your dashboard.
-    ![image alt text](images/image_31.png)
+![image alt text](images/image_31.png)
 
 Your dashboard should now look similar to the example below. By default, the new widget occupies the first empty space on the dashboard. You can use the move tool to drag the widget into a more prominent position on your dashboard.
 ![image alt text](images/image_32.png)
