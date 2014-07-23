@@ -4,8 +4,6 @@ The JSON RPC API provides full featured access to data and resources on the One 
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
-### Procedures
-
 ####Time Series Data
 
 [read](#read) - read time series data
@@ -37,8 +35,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 [drop](#drop) - delete a resource
 
 [usage](#usage) - get usage information for a resource
-
-[tag](#tag) - add or remove tag
 
 ####Aliases
 
@@ -313,7 +309,7 @@ If the request message causes an error not associated with any given call, the r
     `"procedure"` if the procedure is missing
 
 
-# Procedures
+# Time Series Data
 
 ##read 
 
@@ -418,32 +414,65 @@ Writes a single value to the resource specified.
 
 ---
 
-##activate
+##record
 
-Given an activation code, activate an entity for the calling client.
+Records a list of historical entries to the resource specified.
 
 ```
 {
-    "procedure": "activate",
+    "procedure": "record",
     "arguments": [
-        "client" | "share", 
-        <code>
+        <ResourceID>,
+        [[<timestamp>, <value>], ...],
+        {}
     ], 
-    "id": 1 
+    "id": 1
 }
 ```
 
-* The first argument indicates the type of thing to activate:
+* `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
+* The second argument is a list of timestamp, value entries to record to the resource. If 
+    `<timestamp>` is a negative value, it means an offset back into the past from the current time.
+  
+* The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
+* The third argument is currently unused.
 
-    `"client"` activates the specified client
-    interface key (CIK) if it is not already activated or expired. Only the
-    owner of the client associated with the CIK can activate it.
+####response
 
-    `"share"` activates the specified share code
-    for the specified activator if the activator has not already activated
-    a share for the same resource, either using this share code or another.
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
 
-* `<code>` is a CIK or share code
+* `"status": "ok"` means the entries were successfully recorded.
+
+--- 
+
+##flush
+
+Empties the specified resource of data per specified constraints. If no constraints are specified, all data gets flushed.  
+
+```
+{
+    "procedure": "flush",
+    "arguments": [
+        <ResourceID>,
+        {
+            "newerthan": number,
+            "olderthan": number
+        }
+    ], 
+    "id": 1
+}
+```
+
+* `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
+
+
+* `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
+
 
 ####response
 
@@ -454,18 +483,17 @@ Given an activation code, activate an entity for the calling client.
 }
 ```
 
-* `"status": "ok"` means the activation was successful.
+* `"status": "ok"` means the resource was successfully flushed 
 
-* `"status": "invalid"` means the specified activation code was not found or already activated
-    (client only) or expired (client only) or activated by another client
-    (share only).  Or, the resource associated with the activation code has already been
-    activated either via this or another activation code (share only).
+* `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp
 
-* `"status": "noauth"` means the calling client does not own the client associated with the 
-    specified activation code (client only).
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
+
 
 ---
- 
+
+# Resources
+
 ##create (client)
 
 Creates a client.
@@ -878,30 +906,30 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ---
 
-##deactivate
+##update
 
-Given an activation code, deactivate an entity for the calling client.
+Updates the description of the resource. 
 
 ```
 {
-    "procedure": "deactivate",
+    "procedure": "update",
     "arguments": [
-        "client" | "share", 
-        <code>
+        <ResourceID>,
+        <description> 
     ], 
     "id": 1
 }
 ```
 
-* The first argument indicates the type of thing to deactivate:
+* `<ResourceID>` identifies the resource to update. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not update itself.
 
-    `"client"` deactivate and expire the specified client interface 
-    key (CIK) if it was previously activated. If the key was not previously 
-    activated, the call will expire the key.
+* `<description>` is a JSON object and is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
 
-    `"share"` deactivate a previous activation of a resource share for the specified activator
+    Client limits must not be lowered below current use level. Resources
+    must be dropped prior to lowering the limits. For daily limits, those
+    may be lowered at any point and take immediate affect.
 
-* `<code>` is the client or share activation code or the shared resource ID to be deactivated
+    Dataport and datarule format may not be changed.
 
 
 ####response
@@ -913,80 +941,7 @@ Given an activation code, deactivate an entity for the calling client.
 }
 ```
 
----
-
-##drop
-
-Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
-the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
-be terminated.  
-
-```
-{
-    "procedure": "drop",
-    "arguments": [
-        <ResourceID>,
-    ], 
-    "id": 1
-}
-```
-
-* `<ResourceID>` specifies the resource to drop.  See [Identifying Resources](#identifying-resources) for details.
-
-
-####response
-
-```
-{
-    "status": string,
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the resource was successfully dropped
-
-* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
-
----
-
-##flush
-
-Empties the specified resource of data per specified constraints. If no constraints are specified, all data gets flushed.  
-
-```
-{
-    "procedure": "flush",
-    "arguments": [
-        <ResourceID>,
-        {
-            "newerthan": number,
-            "olderthan": number
-        }
-    ], 
-    "id": 1
-}
-```
-
-* `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
-
-
-* `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
-
-
-####response
-
-```
-{
-    "status": string,
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the resource was successfully flushed 
-
-* `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp
-
-* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
+* `"status": "ok"` means the resource was updated
 
 
 ---
@@ -1266,6 +1221,119 @@ Returns lists of RIDs of types specified in `<type_list>`.
 
 --- 
 
+##drop
+
+Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
+the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
+be terminated.  
+
+```
+{
+    "procedure": "drop",
+    "arguments": [
+        <ResourceID>,
+    ], 
+    "id": 1
+}
+```
+
+* `<ResourceID>` specifies the resource to drop.  See [Identifying Resources](#identifying-resources) for details.
+
+
+####response
+
+```
+{
+    "status": string,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was successfully dropped
+
+* `"status": "restricted"` means the resource specified to be dropped is not owned by the caller client
+
+---
+
+##usage
+
+Returns metric usage for client and its subhierarchy.
+
+```
+{
+    "procedure": "usage",
+    "arguments": [
+        <ResourceID>,
+        <metric>,
+        <starttime>,
+        <endtime>,
+    ], 
+    "id": 1
+}
+```
+
+* `<ResourceID>` identifies the client resource whose usage will be measured. See [Identifying Resources](#identifying-resources) for details.
+
+* `<metric>` is the usage metric to measure. It may be:
+    ...an entity: "client" | "dataport" | "datarule" | dispatch"
+    ...or a consumable: "share" | "email" | "http" | "sms" | "xmpp"
+
+* `<starttime>` and `<endtime>` specify the window in which to measure usage
+
+
+####response
+
+```
+{
+    "status": "ok",
+    "result": number, 
+    "id": 1
+}
+```
+
+* `"status": "ok"` means `"result"` contains the value for the metric
+
+* `"result"` depends on usage metric being measured.
+
+    For consumables, `"result"` is the sum of the consumable used during the given window.
+
+    For entities, `"result"` is the sum of the number of that entity used in one second for
+    each second in the given window
+
+# Aliases
+
+##unmap
+
+Removes a mapping of specified type. After the removal, the previously
+mapped resource will not be able to be looked up by the mapping.
+
+```
+{
+    "procedure": "unmap",
+    "arguments": [
+        "alias",
+        <alias> 
+    ], 
+    "id": 1
+}
+```
+
+* `<alias>` is the alias string to unmap.
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the alias was successfully unmapped
+
+
+---
+
 ##lookup
 
 Look up a Resource ID by alias, owned Resource ID, or share activation code. 
@@ -1308,73 +1376,42 @@ Look up a Resource ID by alias, owned Resource ID, or share activation code.
 
 --- 
 
-##map
 
-Creates an alias for a resource. Subsequently the resource can be looked up using the [lookup](#lookup) method.
+
+# Shares and Keys
+
+##share
+
+Generates a share code for the given resource. The share code can
+subsequently be used to [activate](#activate) the share and gain access 
+to the shared resource.
 
 ```
 {
-    "procedure": "map",
+    "procedure": "share",
     "arguments": [
-        "alias",
         <ResourceID>,
-        string  
+        {
+            "meta": <string>
+        }
     ], 
     "id": 1
 }
 ```
 
-* `<ResourceID>` identifies the resource to which the alias should map. See [Identifying Resources](#identifying-resources) for details.
-
-* `string` is an alias string to map to `<ResourceID>`.
+* `"meta"` is a string that describes the share. It defaults to `""`. `"meta"` may be updated for an existing share by passing a previous share code `"code"` in options.
 
 ####response
 
 ```
 {
     "status": "ok",
+    "result": "ab24f30dd8c62039239601234567890123456789" 
     "id": 1
 }
 ```
 
-* `"status": "ok"` means the mapping was successfully created
-
-
---- 
-
-##record
-
-Records a list of historical entries to the resource specified.
-
-```
-{
-    "procedure": "record",
-    "arguments": [
-        <ResourceID>,
-        [[<timestamp>, <value>], ...],
-        {}
-    ], 
-    "id": 1
-}
-```
-
-* `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
-* The second argument is a list of timestamp, value entries to record to the resource. If 
-    `<timestamp>` is a negative value, it means an offset back into the past from the current time.
-  
-* The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
-* The third argument is currently unused.
-
-####response
-
-```
-{
-    "status": "ok",
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the entries were successfully recorded.
+* `"status": "ok"` means the share code was successfully generated and returned in `"result"`
 
 --- 
 
@@ -1426,99 +1463,115 @@ the owner of the resource with which the activation code is associated.
 
 --- 
 
-##share
+##activate
 
-Generates a share code for the given resource. The share code can
-subsequently be used to [activate](#activate) the share and gain access 
-to the shared resource.
+Given an activation code, activate an entity for the calling client.
 
 ```
 {
-    "procedure": "share",
+    "procedure": "activate",
     "arguments": [
-        <ResourceID>,
-        {
-            "meta": <string>
-        }
+        "client" | "share", 
+        <code>
+    ], 
+    "id": 1 
+}
+```
+
+* The first argument indicates the type of thing to activate:
+
+    `"client"` activates the specified client
+    interface key (CIK) if it is not already activated or expired. Only the
+    owner of the client associated with the CIK can activate it.
+
+    `"share"` activates the specified share code
+    for the specified activator if the activator has not already activated
+    a share for the same resource, either using this share code or another.
+
+* `<code>` is a CIK or share code
+
+####response
+
+```
+{
+    "status": string,
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the activation was successful.
+
+* `"status": "invalid"` means the specified activation code was not found or already activated
+    (client only) or expired (client only) or activated by another client
+    (share only).  Or, the resource associated with the activation code has already been
+    activated either via this or another activation code (share only).
+
+* `"status": "noauth"` means the calling client does not own the client associated with the 
+    specified activation code (client only).
+
+---
+
+##deactivate
+
+Given an activation code, deactivate an entity for the calling client.
+
+```
+{
+    "procedure": "deactivate",
+    "arguments": [
+        "client" | "share", 
+        <code>
     ], 
     "id": 1
 }
 ```
 
-* `"meta"` is a string that describes the share. It defaults to `""`. `"meta"` may be updated for an existing share by passing a previous share code `"code"` in options.
+* The first argument indicates the type of thing to deactivate:
+
+    `"client"` deactivate and expire the specified client interface 
+    key (CIK) if it was previously activated. If the key was not previously 
+    activated, the call will expire the key.
+
+    `"share"` deactivate a previous activation of a resource share for the specified activator
+
+* `<code>` is the client or share activation code or the shared resource ID to be deactivated
+
 
 ####response
 
 ```
 {
     "status": "ok",
-    "result": "ab24f30dd8c62039239601234567890123456789" 
     "id": 1
 }
 ```
 
-* `"status": "ok"` means the share code was successfully generated and returned in `"result"`
-
---- 
+---
 
 
-##unmap
 
-Removes a mapping of specified type. After the removal, the previously
-mapped resource will not be able to be looked up by the mapping.
+
+
+
+##map
+
+Creates an alias for a resource. Subsequently the resource can be looked up using the [lookup](#lookup) method.
 
 ```
 {
-    "procedure": "unmap",
+    "procedure": "map",
     "arguments": [
         "alias",
-        <alias> 
-    ], 
-    "id": 1
-}
-```
-
-* `<alias>` is the alias string to unmap.
-
-####response
-
-```
-{
-    "status": "ok",
-    "id": 1
-}
-```
-
-* `"status": "ok"` means the alias was successfully unmapped
-
-
----
-
-##update
-
-Updates the description of the resource. 
-
-```
-{
-    "procedure": "update",
-    "arguments": [
         <ResourceID>,
-        <description> 
+        string  
     ], 
     "id": 1
 }
 ```
 
-* `<ResourceID>` identifies the resource to update. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not update itself.
+* `<ResourceID>` identifies the resource to which the alias should map. See [Identifying Resources](#identifying-resources) for details.
 
-* `<description>` is a JSON object and is documented in [create (client)](#create-client), [create (dataport)](#create-dataport), [create (datarule)](#create-datarule), and [create (dispatch)](#create-dispatch), but its use for update has some limitations:
-
-    Client limits must not be lowered below current use level. Resources
-    must be dropped prior to lowering the limits. For daily limits, those
-    may be lowered at any point and take immediate affect.
-
-    Dataport and datarule format may not be changed.
-
+* `string` is an alias string to map to `<ResourceID>`.
 
 ####response
 
@@ -1529,52 +1582,5 @@ Updates the description of the resource.
 }
 ```
 
-* `"status": "ok"` means the resource was updated
+* `"status": "ok"` means the mapping was successfully created
 
-
----
-
-##usage
-
-Returns metric usage for client and its subhierarchy.
-
-```
-{
-    "procedure": "usage",
-    "arguments": [
-        <ResourceID>,
-        <metric>,
-        <starttime>,
-        <endtime>,
-    ], 
-    "id": 1
-}
-```
-
-* `<ResourceID>` identifies the client resource whose usage will be measured. See [Identifying Resources](#identifying-resources) for details.
-
-* `<metric>` is the usage metric to measure. It may be:
-    ...an entity: "client" | "dataport" | "datarule" | dispatch"
-    ...or a consumable: "share" | "email" | "http" | "sms" | "xmpp"
-
-* `<starttime>` and `<endtime>` specify the window in which to measure usage
-
-
-####response
-
-```
-{
-    "status": "ok",
-    "result": number, 
-    "id": 1
-}
-```
-
-* `"status": "ok"` means `"result"` contains the value for the metric
-
-* `"result"` depends on usage metric being measured.
-
-    For consumables, `"result"` is the sum of the consumable used during the given window.
-
-    For entities, `"result"` is the sum of the number of that entity used in one second for
-    each second in the given window
