@@ -5,7 +5,7 @@ authentication from a client to a server.
 
 # Status
 
-This draft specification has been sent to the IANA for review.
+* This draft specification has been sent to the IANA for review. (2014-07-22)
 
 # Option Number Definition
 
