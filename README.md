@@ -1,7 +1,12 @@
-# Get Started
+# Documentation Overview
 
-Are you looking to create an application that uses the One Platform API? You've come to the right place. Exosite provides APIs and libraries that make it possible to work with the platform from a variety of environments. 
 
+
+###Tutorials
+
+* [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
+
+### API
 * [CoAP API](coap/) - small speclalized protocol for low-power nodes and lossy networks
 * [HTTP Data Interface API](data/) - low bandwidth API for reading from and writing to dataports
 * [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization
@@ -11,6 +16,13 @@ Are you looking to create an application that uses the One Platform API? You've 
 * [Lua Scripting API](scripting/) - the server-side Lua scripting environment
 * [Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
 * [Portals API](portals/) - an API for interacting with the Portals application (beta)
+
+###External Links
+* [One Platform Reference](https://support.exosite.com/hc/en-us/sections/200072527)
+* [Portals Web Application Reference](https://support.exosite.com/hc/en-us/categories/200035036)
+* [Portals Subdomain (Whitelabel) Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
+* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, CoCoa, C++, .....
+
 
 ## Contribution
 
