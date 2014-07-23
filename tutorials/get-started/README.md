@@ -219,17 +219,16 @@ You have created a free Portals community account, created a hypothetical device
 
 Devices in the real world often have more dataports, require some processing of their data, or must send notifications to the users of the system. You may also be ready to start writing firmware to make your product communicate with the cloud. Exosite provides support articles on each of these topics, as well as libraries and sample applications for a variety of languages and hardware platforms.
 
-* To complete server-side processing of data using scripting: [https://support.exosite.com/hc/en-us/articles/200513440-Scripting](https://support.exosite.com/hc/en-us/articles/200513440-Scripting)
+* [Server-side processing of data using scripting](https://support.exosite.com/hc/en-us/articles/200513440-Scripting)
 
-* To create events and alerts in Portals: [https://support.exosite.com/hc/en-us/articles/200679420-Manage-Pages-Events-Alerts](https://support.exosite.com/hc/en-us/articles/200679420-Manage-Pages-Events-Alerts)
+* [Create events and alerts in Portals](https://support.exosite.com/hc/en-us/articles/200679420-Manage-Pages-Events-Alerts)
 
-* To use Exosite’s APIs from your device firmware: 
+* [Use Exosite’s APIs from your device firmware](https://support.exosite.com/hc/en-us/articles/200095868-Device-Client-Support-Checklist)
 
-[https://support.exosite.com/hc/en-us/articles/200095868-Device-Client-Support-Checklist](https://support.exosite.com/hc/en-us/articles/200095868-Device-Client-Support-Checklist)
+* [Develop custom dashboards](https://support.exosite.com/hc/en-us/articles/200382634-Dashboards)
 
-* To develop custom dashboards: [https://support.exosite.com/hc/en-us/articles/200382634-Dashboards](https://support.exosite.com/hc/en-us/articles/200382634-Dashboards)
+* [Build your own custom theme with a Whitelabel account](https://support.exosite.com/hc/en-us/articles/200419544-What-is-a-Whitelabel-account-)
 
-* To build your own custom theme with a Whitelabel account:
 
-[https://support.exosite.com/hc/en-us/articles/200419544-What-is-a-Whitelabel-account-](https://support.exosite.com/hc/en-us/articles/200419544-What-is-a-Whitelabel-account-)
+
 
