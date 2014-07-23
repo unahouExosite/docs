@@ -37,7 +37,12 @@ all of that device's datasources, but not the datasources of any other devices.
 If script B is added to a portal, it will have access to portal-level 
 datasources as well as devices in that portal and their datasources. 
 
-A script may also dispatch messages.
+A script may also dispatch messages using transports such as HTTP, SMS, Email, and XMPP.
+
+## Examples
+
+Examples of One Platform Lua scripts are made available in this repository:
+[Example Platform Scripts Repository](https://github.com/exosite-garage/PlatformScripts)
 
 
 ## The script environment
@@ -1040,6 +1045,4 @@ remains in effect until a subsequent invocation of this function.
                   false :: boolean - the new timezone was not successfully set
 ```
 
-## Examples
 
-Examples of Lua scripts are available on the [Exosite support site](http://support.exosite.com/hc/en-us/sections/200029008).
