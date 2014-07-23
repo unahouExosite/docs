@@ -2,12 +2,11 @@
 
 
 
-###Tutorials
-
+### Tutorials
 * [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
 
 ### API
-* [CoAP API](coap/) - small speclalized protocol for low-power nodes and lossy networks
+* [CoAP API](coap/) - small specialized protocol for low-power nodes and lossy networks
 * [HTTP Data Interface API](data/) - low bandwidth API for reading from and writing to dataports
 * [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization
 * [Provision/Device Management API](provision/) - API for working with device models and in field provisioning
@@ -17,11 +16,11 @@
 * [Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
 * [Portals API](portals/) - an API for interacting with the Portals application (beta)
 
-###External Links
+### External Links
 * [One Platform Reference](https://support.exosite.com/hc/en-us/sections/200072527)
 * [Portals Web Application Reference](https://support.exosite.com/hc/en-us/categories/200035036)
 * [Portals Subdomain (Whitelabel) Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
-* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, CoCoa, C++, .....
+* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
 
 
 ## Contribution
