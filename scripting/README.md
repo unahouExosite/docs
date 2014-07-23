@@ -14,11 +14,7 @@ about Lua 5.2, please reference the [online Lua manual](http://www.lua.org/manua
 
 Scripts may be added to an application either using Portals, or by 
 using the [Remote Procedure Call API](https://github.com/exosite/docs/tree/master/rpc). In Portals,
-scripts are added on the script management page, e.g.: 
-
-```
-https://portals.exosite.com/manage/scripts
-```
+scripts are added on the [script management page](https://portals.exosite.com/manage/scripts).
 
 To use the RPC to create a script, use the 
 [create](https://github.com/exosite/docs/tree/master/rpc#create-datarule) RPC 
@@ -200,6 +196,7 @@ with the aliased resource.
     `.last` to a point in the past and iterate through historical data using 
     `.wait`. When the script starts `.last` is initialized to the value of
     `.timestamp`.
+
 ```
   ------------------------------------------------------------------------------
   Values:           last :: number
@@ -1044,5 +1041,3 @@ remains in effect until a subsequent invocation of this function.
   Returns:         true :: boolean - the new timezone was successfully set
                   false :: boolean - the new timezone was not successfully set
 ```
-
-
