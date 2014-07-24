@@ -16,6 +16,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users](#get-all-users)
 * [Get user](#get-user)
 * [Update user](#update-user)
+* [Get user token](#get-user-token)
 
 #### Portals
 
@@ -535,6 +536,29 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 TODO
+```
+
+### Get user token
+
+`GET /api/portals/v1/users/{user-id}/token`
+
+Get a portals user log in token
+
+#### Request
+Request string.
+* `"reDirect"` - URL when login fail reDirect to where.
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the updated user object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
 ```
 
 ### List portals of authenticated user
