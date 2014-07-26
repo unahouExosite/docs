@@ -13,9 +13,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Hybrid write/read](#hybrid-writeread) - read a set of dataports, then write a set of dataports
 
-[IP](#ip) - get the IP address of the host server 
-
-
 ## Libraries and Sample Code
 
 Sample code is available that uses this API.
