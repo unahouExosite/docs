@@ -17,6 +17,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user](#get-user)
 * [Update user](#update-user)
 * [Get user token](#get-user-token)
+* [Get user portals](#get-user-portals)
 
 #### Portals
 
@@ -551,7 +552,7 @@ Request body is empty.
 
 #### Response
 
-On success, response has HTTP status 200 and the updated user object.
+On success, response has HTTP status 200.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -559,6 +560,44 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+```
+
+### Get user portals
+
+`GET /api/portals/v1/users/{user-id}/portals`
+`GET /api/portals/v1/users/{user-id}/portals/{portal-id}`
+
+Get user have access to as a manager or private viewer. 
+
+#### Request
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the portals object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+[
+  {
+    "PortalName": "Steve....",
+    "PortalID": "3438636XXX",
+    "PortalRID": "................................",
+    "UserEmail": "stevelo@XXXXXX",
+    "Description": "Steve XXXXXXX"
+  },
+  {
+    "PortalName": "steve......",
+    "PortalID": "111646XXX",
+    "PortalRID": "................................",
+    "UserEmail": "stevelo@XXXXXXX",
+    "Description": "Default XXXXX"
+  }
+]
 ```
 
 ### List portals of authenticated user
