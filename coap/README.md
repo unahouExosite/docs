@@ -158,7 +158,7 @@ POST: coap://coap.exosite.com/provision/activate/<vendor>/<model>/<sn>
 ```
 
 ```
-  Client                    Server
+  Client                      Server
       |                           |
       |   CON POST                |
       |   uri_path: "provision"   |
@@ -187,7 +187,7 @@ GET coap://coap.exosite.com/provision/download/<vendor>/<model>?<CIK>
 ```
 
 ```
-  Client                    Server
+  Client                      Server
       |                           |
       |   CON GET                 |
       |   uri_path: "provision"   |
