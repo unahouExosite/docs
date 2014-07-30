@@ -64,23 +64,21 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 ```
-  Client                            Server
-      |                                 |
-      |           CON [0x15df]          |
-      | POST uri_path:/1a/<alias>?<CIK> |
-      |          (Token 0x1259)         |
-      |            "<value>"            |
-      +-------------------------------->|
-      |                                 |
-      |           ACK [0x15df]          |
-      |           2.04 Changed          |
-      |          (Token 0x1259)         |
-      |<--------------------------------+
+  Client                    Server
+      |                        |
+      |   CON POST             |
+      |   uri_path: "1a"       |
+      |   uri_path: "<alias>"  |
+      |   uri_query: "<CIK>"   |
+      +----------------------->|
+      |                        |
+      |   ACK Changed (2.04)   |
+      |<-----------------------+
 ```
 
 `<alias>`: The alias of the datasource that is being written to.  
 `<value>`: The value to be written at the current time.  
-`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order.
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
 * 2.04 Changed: The value has been written.
@@ -97,22 +95,53 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 ```
-  Client                           Server
-      |                                |
-      |          CON [0xf35a]          |
-      | GET uri_path:/1a/<alias>?<CIK> |
-      |         (Token 0xefc1)         |
-      +------------------------------->|
-      |                                |
-      |          ACK [0xf35a]          |
-      |          2.05 Content          |
-      |         (Token 0xefc1)         |
-      |           "<value>"            |
-      |<-------------------------------+
+  Client                    Server
+      |                        |
+      |   CON GET              |
+      |   uri_path: "1a"       |
+      |   uri_path: "<alias>"  |
+      |   uri_query: "<CIK>"   |
+      +----------------------->|
+      |                        |
+      |   ACK Content (2.05)   |
+      |   "<value>"            |
+      |<-----------------------+
 ```
 
 `<alias>`: The alias of the datasource that is to have the latest value read.  
-`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order.
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
+
+### Responses
+* 2.05 Content: The value is returned.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
+
+##Multiple Read and Write
+
+Read the most recent value from the given dataports and write a value to the given dataports with the given value. The server will look in the first uri query option for the CIK.
+
+```
+POST: coap://coap.exosite.com/1a?<CIK>
+```
+
+```
+  Client                              Server
+      |                                 |
+      |   CON POST                      |
+      |   uri_path: "1a"                |
+      |   uri_query: "<CIK>"            |
+      |   uri_query: "<alias1>"         |
+      |   uri_query: "<alias2>"         |
+      |   "<alias3>=26.1&<alias4>=on"   |
+      +-------------------------------->|
+      |                                 |
+      |   ACK Content (2.05)            |
+      |   "<alias1>=99&<alias>=0"       |
+      |<--------------------------------+
+```
+
+`<alias#>`: The alias of the datasource that is to have the latest value read.  
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
 * 2.05 Content: The value is returned.
@@ -129,18 +158,19 @@ POST: coap://coap.exosite.com/provision/activate/<vendor>/<model>/<sn>
 ```
 
 ```
-   Client                                            Server
-      |                                                  |
-      |                   CON [0xf245]                   |
-      |  POST /provision/activate/<vendor>/<model>/<sn>  |
-      |                   (Token 0x7492)                 |
-      +------------------------------------------------->|
-      |                                                  |
-      |                    ACK [0xf245]                  |
-      |                    2.05 Content                  |
-      |                   (Token 0x7492)                 |
-      |                      "<cik>"                     |
-      |<-------------------------------------------------+
+  Client                    Server
+      |                           |
+      |   CON POST                |
+      |   uri_path: "provision"   |
+      |   uri_path: "activate"    |
+      |   uri_path: "<vendor>"    |
+      |   uri_path: "<model>"     |
+      |   uri_path: "<sn>"        |
+      +-------------------------->|
+      |                           |
+      |   ACK Content (2.05)      |
+      |   "<CIK>"                 |
+      |<--------------------------+
 ```
 
 ### Responses
@@ -157,18 +187,19 @@ GET coap://coap.exosite.com/provision/download/<vendor>/<model>?<CIK>
 ```
 
 ```
-   Client                                            Server
-      |                                                  |
-      |                   CON [0xbf34]                   |
-      | GET /provision/download/<vendor>/<model>/?<CIK>  |
-      |                  (Token 0x13f4)                  |
-      +------------------------------------------------->|
-      |                                                  |
-      |                   ACK [0xbf34]                   |
-      |                   2.05 Content                   |
-      |                  (Token 0x13f4)                  |
-      |            "<id1>, <id2>, <id3>, ..."            |
-      |<-------------------------------------------------+
+  Client                    Server
+      |                           |
+      |   CON GET                 |
+      |   uri_path: "provision"   |
+      |   uri_path: "download"    |
+      |   uri_path: "<vendor>"    |
+      |   uri_path: "<model>"     |
+      |   uri_query: "<CIK>"      |
+      +-------------------------->|
+      |                           |
+      |   ACK Content (2.05)      |
+      |   "<id1>, <id2>, ..."     |
+      |<--------------------------+
 ```
 
 ### Responses
@@ -186,18 +217,21 @@ GET coap://coap.exosite.com/provision/download/<vendor>/<model>/<id>/info?<CIK>
 ```
 
 ```
-   Client                                                     Server
-      |                                                           |
-      |                     CON [0x7a10]                          |
-      | GET /provision/download/<vendor>/<model>/<id>/info?<CIK>  |
-      |                     (Token 0x73)                          |
-      +---------------------------------------------------------->|
-      |                                                           |
-      |                      ACK [0x7a10]                         |
-      |                      2.05 Content                         |
-      |                      (Token 0x73)                         |
-      | "<content-type>,<byte-size>,<updated-timestamp>,<meta>"   |
-      |<----------------------------------------------------------+
+  Client                                                        Server
+      |                                                             |
+      |   CON GET                                                   |
+      |   uri_path: "provision"                                     |
+      |   uri_path: "download"                                      |
+      |   uri_path: "<vendor>"                                      |
+      |   uri_path: "<model>"                                       |
+      |   uri_path: "<id>"                                          |
+      |   uri_path: "info"                                          |
+      |   uri_query: "<CIK>"                                        |
+      +------------------------------------------------------------>|
+      |                                                             |
+      |   ACK Content (2.05)                                        |
+      |   "<content-type>,<byte-size>,<updated-timestamp>,<meta>"   |
+      |<------------------------------------------------------------+
 ```
 
 ### Responses
@@ -250,6 +284,53 @@ Block Option: Block2
      |                      "<payload>"                           |
      |                      2:2/0/128                             |
      |<-----------------------------------------------------------+
+
+  Client                       Server
+      |                            |
+      |   CON GET                  |
+      |   uri_path: "provision"    |
+      |   uri_path: "download"     |
+      |   uri_path: "<vendor>"     |
+      |   uri_path: "<model>"      |
+      |   uri_path: "<id>"         |
+      |   uri_query: "<CIK>"       |
+      |   block2: 0/0/128          |
+      +--------------------------->|
+      |                            |
+      |   ACK Content (2.05)       |
+      |   block2: 0/1/128          |
+      |   "<content-block>"        |
+      |<---------------------------+
+      |                            |
+      |   CON GET                  |
+      |   uri_path: "provision"    |
+      |   uri_path: "download"     |
+      |   uri_path: "<vendor>"     |
+      |   uri_path: "<model>"      |
+      |   uri_path: "<id>"         |
+      |   uri_query: "<CIK>"       |
+      |   block2: 1/0/128          |
+      +--------------------------->|
+      |                            |
+      |   ACK Content (2.05)       |
+      |   block2: 1/1/128          |
+      |   "<content-block>"        |
+      |<---------------------------+
+      |                            |
+      |   CON GET                  |
+      |   uri_path: "provision"    |
+      |   uri_path: "download"     |
+      |   uri_path: "<vendor>"     |
+      |   uri_path: "<model>"      |
+      |   uri_path: "<id>"         |
+      |   uri_query: "<CIK>"       |
+      |   block2: 2/0/128          |
+      +--------------------------->|
+      |                            |
+      |   ACK Content (2.05)       |
+      |   block2: 2/0/128          |
+      |   "<last-content-block>"   |
+      |<---------------------------+
 ```
 
 For more information about blockwise transfers, see:
