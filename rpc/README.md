@@ -1034,7 +1034,11 @@ This is a HTTP Long Polling API which allows a user to wait on a specific resour
 ```
 {
     "status": string,
-    "result": Timestamp,
+    "result": [
+        [
+            timestamp, 
+            value
+        ], 
     "id": 1
 }
 ```
@@ -1045,7 +1049,7 @@ This is a HTTP Long Polling API which allows a user to wait on a specific resour
 
 * `"status": "error"` means there is something wrong for this request. You have to check the returned error message.
 
-* `"result": "timestamp"` this will be a timestamp if the waiting resource is updated. Then, you can then read the newest value.
+* `"result"`: `timestamp` is the time that the resource is updated. `value` is the corresponding updated value.
 
 ---
 
