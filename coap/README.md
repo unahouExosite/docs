@@ -118,6 +118,8 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 
 ##Multiple Read and Write
 
+**Note: This api will be changing in a backwards-incompatible way in an upcoming release. We do not recommend using it.**
+
 Read the most recent value from the given dataports and write a value to the given dataports with the given value. The server will look in the first uri query option for the CIK.
 
 ```
