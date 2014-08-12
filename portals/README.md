@@ -244,7 +244,7 @@ A group object describes a Portals permissions group.
 
 ### Permission object
 
-A permission object describes a level of access to a particular Portals resource identified by `"oid"`.
+A permission object describes a level of access to a particular Portals resource identified by `"oid"`, and is filtered by current domain of its resource, which means a permission list never contains resources which not belong to current domain.
 
 ```
 {
