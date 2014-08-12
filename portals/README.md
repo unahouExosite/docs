@@ -24,6 +24,7 @@ Portals provides a user authentication and management system on top of the One P
 * [List portals of authenticated user](#list-portals-of-authenticated-user)
 * [Get portal](#get-portal)
 * [Create portal](#create-portal)
+* [Update portal](#update-portal)
 * [Delete portal](#delete-portal)
 * [Delete portal by rid](#delete-portal-by-rid)
 
@@ -290,6 +291,16 @@ An object containing information about a portal.
         ...
     ],
     "id": <id>,
+    "info": {
+        "aliases": <aliases>,
+        "basic": <basic>,
+        "description": <description>,
+        "key": <key>,
+        "shares": <shares>,
+        "subscribers": <subscribers>,
+        "tagged": <tagged>,
+        "tags": <tags>,
+    },
     "planId": <plan-id>,
 }
 ```
@@ -299,6 +310,10 @@ An object containing information about a portal.
     * `<device-id-N>` is a 40 character hex string representing the device's RID in the One Platform
 
 * `"id"` is a numeric identifier for the portal.
+
+* `"info"` is an client object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, key, shares, subscribers, tagged and tags are exposed.
+
+    * `<key>` is a 40 character hex string representing the client's CIK in the One Platform or null if the authorized user doesn't have \_\_\_admin permission to this portal.
 
 * `"planId"` is a numeric identifier for the plan of the portal.
 
@@ -459,7 +474,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+curl https://<joes domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
 ```
 
 ### Get all users
@@ -567,7 +582,7 @@ curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>/token\?reDirect
 `GET /api/portals/v1/users/{user-id}/portals`
 `GET /api/portals/v1/users/{user-id}/portals/{portal-id}`
 
-Get user have access to as a manager or private viewer. 
+Get user have access to as a manager or private viewer.
 
 #### Request
 Request body is empty.
@@ -692,7 +707,35 @@ On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
+```
 TODO
+```
+
+### Update portal
+
+`PUT /api/portals/v1/portals/{portal-id}`
+
+Update information about a portal.
+
+#### Request
+
+Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
+
+* `"info": {"aliases": ...}` - aliases under info (optional)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 200 and the updated portal object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
 
 ### Create new device under a portal of authenticated user
 
