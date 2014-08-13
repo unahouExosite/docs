@@ -24,6 +24,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [IP](#ip) - get the IP address of the host server 
 
+[Wait](#wait) - wait on a dataport until its data has been updated
 
 ## Libraries and Sample Code
 
@@ -182,3 +183,44 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 ```
 
 
+##Wait
+
+Wait one dataports with alias `<alias>`. The client (e.g. device or portal) to wait is identified by `<CIK>`. If the data of `<alias>` is updated, the new data will be returned immediately.
+
+#####request
+
+```
+POST /onep:v1/stack/waitalias?<alias 1> HTTP/1.1 
+Host: m2.exosite.com 
+X-Exosite-CIK: <CIK> 
+Accept: application/x-www-form-urlencoded; charset=utf-8 
+<blank line>
+timeout=<milliseconds>
+```
+
+* `timeout` is a millisecond value to specify how long to wait on `alias 1`.  It cannot be more than 300 seconds (300,000).
+
+#####response
+
+```
+HTTP/1.1 200 OK 
+Date: <date> 
+Server: <server> 
+Connection: Close
+Content-Length: <length> 
+<blank line>
+<alias 1>=<value>
+```
+
+* Response is `HTTP/1.1 200 OK` with the content is `alias 1=value`.  If the dataport does not be updated in `timeout`, `value` would be `expire:timestamp`.  Otherwise, `value` will be the updated data when the dataport is updated.
+
+* See [HTTP Responses](#http-responses) for a full list of responses
+
+#####example
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/waitalias?<dataport-alias> \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
+    -d 'timeout=<millionseconds>'
+```
