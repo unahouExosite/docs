@@ -18,7 +18,7 @@
 
 ### External Links
 * [One Platform Reference](https://support.exosite.com/hc/en-us/sections/200072527)
-* [Portals Web Application Reference](https://support.exosite.com/hc/en-us/categories/200035036)
+* [Portals Web Application Reference](https://support.exosite.com/hc/en-us/sections/200072708)
 * [Portals Subdomain (Whitelabel) Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
 * [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
 
