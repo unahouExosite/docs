@@ -190,17 +190,21 @@ Wait one dataports with alias `<alias>`. The client (e.g. device or portal) to w
 #####request
 
 ```
-POST /onep:v1/stack/waitalias?<alias 1> HTTP/1.1 
+GET /onep:v1/stack/waitalias?<alias 1> HTTP/1.1 
 Host: m2.exosite.com 
 X-Exosite-CIK: <CIK> 
 Accept: application/x-www-form-urlencoded; charset=utf-8 
+Request-Timeout: <timeout>
+If-Modified-Since: <timestamp>
 <blank line>
-timeout=<milliseconds>
 ```
 
-* `timeout` is a millisecond value to specify how long to wait on `alias 1`.  It cannot be more than 300 seconds (300,000).
+* `Request-Timeout` specifies the how long to wait on `<alias 1>`.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300,000).  If you don't specify this in header, the default value, 30 seconds, will be taken.
+* `If-Modified-Since` specifies waiting on `<alias `>` since the `<timestamp>`.  `<timestamp>` is seconds since 1970-01-01 00:00:00 UTC.
 
 #####response
+
+Get value returned when the dataport is updated.
 
 ```
 HTTP/1.1 200 OK 
@@ -212,9 +216,16 @@ Content-Length: <length>
 <alias 1>=<value>
 ```
 
-* Response is `HTTP/1.1 200 OK` with the content is `alias 1=value`.  If the dataport does not be updated in `timeout`, `value` would be `expire:timestamp`.  Otherwise, `value` will be the updated data when the dataport is updated.
+The dataport is not updated until timeout.
 
-* See [HTTP Responses](#http-responses) for a full list of responses
+```
+HTTP/1.1 304 Not Modified
+Date: <date> 
+Server: <server> 
+Connection: Close
+Content-Length: <length> 
+<blank line>
+```
 
 #####example
 
@@ -222,5 +233,6 @@ Content-Length: <length>
 $ curl http://m2.exosite.com/onep:v1/stack/waitalias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
-    -d 'timeout=<millionseconds>'
+    -H 'Request-Timeout: 30000 
+    -H 'If-Modified-Since: 1408088308
 ```
