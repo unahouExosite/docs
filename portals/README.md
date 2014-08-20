@@ -1201,19 +1201,7 @@ Update a domain
 
 #### Request
 
-Request body is a domain object:
-
-```
-{
-    "members": [
-        <permission-1>,
-        <permission-2>,
-        ...
-    ]
-}
-```
-
-* `"members"` is an array of [permissions objects](#permission-object).
+Request body is a domain object.
 
 #### Response
 
