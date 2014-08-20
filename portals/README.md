@@ -55,6 +55,7 @@ Portals provides a user authentication and management system on top of the One P
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [create domain](#create-domain)
 * [Update domain](#update-domain)
+* [Delete domain](#delete-domain)
 
 #### Themes
 
@@ -1225,6 +1226,28 @@ Request body is a domain object.
 #### Response
 
 On success, response has HTTP status 200 and the updated domain object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Delete domain
+
+`DELETE /api/portals/v1/domains/{domain-id}`
+
+Delete a domain if it doesn't have any user
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+On success, response has HTTP status 204.
 
 On failure, response has HTTP status of 400 or greater.
 
