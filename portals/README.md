@@ -53,6 +53,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
+* [create domain](#create-domain)
 * [Update domain](#update-domain)
 
 #### Themes
@@ -1192,6 +1193,24 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
     }
 ]
 ```
+
+### Create domain
+
+`PUT /api/portals/v1/domains/_this`
+
+Create a domain if it doesn't already exist
+
+This requires `___admin` permission to the global domain.
+
+#### Request
+
+Request body is a domain object.
+
+#### Response
+
+On success, response has HTTP status 201 and the created domain object.
+
+On failure, response has HTTP status of 400 or greater.
 
 ### Update domain
 
