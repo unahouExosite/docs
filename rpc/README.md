@@ -1016,18 +1016,72 @@ This is a HTTP Long Polling API which allows a user to wait on a specific resour
 
 ```
 {
-    "procedure": "wait",
-    "arguments": [
-        <ResourceID>,
-        timeout: number
-    ], 
-    "id": 1
+    "auth": {
+        "cik": <CIK>
+    },
+    "calls": [
+        {
+            "procedure": "wait",
+            "arguments": [
+                <ResourceID>,
+                {
+                    "timeout": <Number>
+                    "since": <Timestamp>
+                }
+            ], 
+            "id": 1
+        }
+    ]
 }
 ```
 
 * `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
 
-* `timeout` is number value to specify how many seconds to be the timeout value for this request. You can refer to [Timeouts, RFC 6202](http://tools.ietf.org/html/rfc6202#section-5.5) to choose your timeout value.
+* `timeout` is a number value to specify how many milliseconds to be the timeout value for this wait request.  If you don't provide `timeout` key, it will take 30 seconds to be a default timeout value.
+
+* `since` is a Unix timestamp to specify when you want to wait from.  If you wait since a timestamp, the first updated value will be responsed.  If you don't provide `since` key or set <Timestamp> to be "null" that you wait from now.
+
+The following is an JSON example of the wait API.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+        {"alias": "wait_dataport"},
+        {
+          "timeout": 5000,
+          "since": "undefined"
+        }
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
+
+The following is an example to wait on an alias with default timeout, 30 seconds, from now.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+        {"alias": "wait_dataport"}, {}
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
 
 ####response
 
