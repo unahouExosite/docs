@@ -1,4 +1,4 @@
-# Portals API
+# Portals API (BETA)
 
 __This API is in beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
 
