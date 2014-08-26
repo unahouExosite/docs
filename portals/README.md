@@ -457,7 +457,8 @@ Request contains a JSON object with the following keys:
 
 * `"email"` - email address of a Portals user
 * `"action"` - what to do. Supported values:
-* `"reset"` - send user a password reset request
+
+    * `"reset"` - send user a password reset request
 
 #### Response
 
