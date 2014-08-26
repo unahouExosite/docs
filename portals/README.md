@@ -900,8 +900,8 @@ TODO
 
 ## Themes
 
-Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: /api/portals/v1/themes/.
-**Note: Image data can currently not be modified using this API**
+Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
+**Note: Image data can not be modified using this API**
 A sample theme object looks like this:
 
 ```
