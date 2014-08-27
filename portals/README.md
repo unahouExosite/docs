@@ -226,6 +226,7 @@ A domain object describes a Portals domain.
         <permission-1>,
         ...
     ],
+	"networkId": <network-id>
     "planAccesses": [
         <plan-access-1>,
         ...
@@ -234,6 +235,7 @@ A domain object describes a Portals domain.
 ```
 
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the domain.
+* `"networkId"` is a number identifying the network the domain belongs to.
 * `"planAccesses"` is an array of plan access objects listing the plans the domain has access to.
 
     * `<plan-access-N>` is an object:
@@ -1236,13 +1238,17 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 
 `PUT /api/portals/v1/domains/_this`
 
-Create a domain if it doesn't already exist
+Create a domain if it doesn't already exist.
 
 This requires `___admin` permission to the global domain.
 
 #### Request
 
-Request body is a domain object.
+Request body is a domain object. Currently only the following keys are supported:
+
+* `"networkId"` - Network ID (required)
+
+If you send any keys besides these, it will do nothing.
 
 #### Response
 
