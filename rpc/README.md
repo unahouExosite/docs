@@ -64,6 +64,7 @@ Wrapper libraries are available for this API:
 * Java: [javaonep](https://github.com/exosite-labs/javaonep)
 * C++: [cpponep](https://github.com/exosite-labs/cpponep)
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
+* Cocoa: [cocoaonep](https://github.com/exosite-labs/cocoaonep)
 
 ## Conventions
 
