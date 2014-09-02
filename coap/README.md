@@ -118,7 +118,7 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 
 ##Multiple Read and Write
 
-Read the most recent value from zero or more dataports and write a values to zero or more dataports with the given values in one call. The server will look in the first uri query option for the CIK.
+Read the most recent value from zero or more dataports and write a value to zero or more dataports with the given values in one call. The server will look in the first uri query option for the CIK.
 
 The payloads for both writing and the returned values for reading are in the CBOR (Concise Binary Object Representation) format. It is shown in this document in a JSON-like format for display purposes. See http://cbor.io for more information.
 
