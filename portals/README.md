@@ -222,6 +222,19 @@ A domain object describes a Portals domain.
 
 ```
 {
+    "config": {
+      "pricing_planidN": <pricing-plan-id>,
+      "pricing_plannameN": <pricing-plan-name>,
+      "pricing_descriptionN": <pricing-description>,
+      "pricing_priceN": <pricing-price>,
+      "pricing_sharingN": <pricing-sharing>,
+      "pricing_viewerN": <pricing-viewer>,
+      "pricing_devicesN": <pricing-device>,
+      "pricing_emailN": <pricing-email>,
+      "pricing_smsN": <pricing-sms>,
+      "pricing_managerN": <pricing-manager>,
+      "whitebox_mainadmin": <user-id>
+    },
     "members": [
         <permission-1>,
         ...
@@ -233,6 +246,44 @@ A domain object describes a Portals domain.
     ]
 }
 ```
+
+* `"config"` is an object of storing the settings of the domain.
+
+    * In the `"Pricing Page Plans"` table in the `"Domain Pricing"` section in the `"/admin/configuration"` page:
+
+      * `"pricing_sharing_name"` is a string. It maps to the first cell in the `"Sharing"` column.
+
+      * `"pricing_viewer_name"` is a string. It maps to the first cell in the `"Private viewer"` column.
+
+      * `"pricing_devices_name"` is a string. It maps to the first cell in the `"Devices"` column.
+
+      * `"pricing_email_name"` is a string. It maps to the first cell in the `"Email alert"` column.
+
+      * `"pricing_sms_name"` is a string. It maps to the first cell in the `"SMS alert"` column.
+
+      * `"pricing_manager_name"` is a string. It maps to the first cell in the `"Account Managers"` column.
+
+      * `"pricing_planidN"` is a plan id. (N is from 1 to 4) It maps to the `"Plan ID"` column.
+
+      * `"pricing_plannameN"` is a string. (N is from 1 to 4) It maps to the `"Plan Name"` column.
+
+      * `"pricing_descriptionN"` is a string. (N is from 1 to 4) It maps to the `"Description"` column.
+
+      * `"pricing_priceN"` is a numeric string. (N is from 1 to 4) It maps to the `"Display Price"` column.
+
+      * `"pricing_sharingN"` is a string. (N is from 1 to 4) It maps to the `"Sharing"` column.
+
+      * `"pricing_viewerN"` is a string. (N is from 1 to 4) It maps to the `"Private viewer"` column.
+
+      * `"pricing_devicesN"` is a string. (N is from 1 to 4) It maps to the `"Devices"` column.
+
+      * `"pricing_emailN"` is a string. (N is from 1 to 4) It maps to the `"Email alert"` column.
+
+      * `"pricing_smsN"` is a string. (N is from 1 to 4) It maps to the `"SMS alert"` column.
+
+      * `"pricing_managerN"` is a string. (N is from 1 to 4) It maps to the `"Account Managers"` column.
+
+    * `"whitebox_mainadmin"` is a user id. It maps to `"Bill to Account"` in the `"Domain Billing Configuration"` section in the `"/global/billing"` page.
 
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the domain.
 * `"networkId"` is a number identifying the network the domain belongs to.
