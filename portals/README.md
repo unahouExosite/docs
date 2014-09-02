@@ -53,7 +53,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
-* [create domain](#create-domain)
+* [Create domain](#create-domain)
 * [Update domain](#update-domain)
 * [Delete domain](#delete-domain)
 
@@ -240,7 +240,7 @@ A domain object describes a Portals domain.
 
     * `<plan-access-N>` is an object:
 
-```
+      ```
         {
             "access": <plan-access-permission>,
             "oid": {
@@ -252,7 +252,7 @@ A domain object describes a Portals domain.
                 ...
             ]
         }
-```
+      ```
 
         * "access" is either 0, 1 or 2. 0 means domain is charged. 1 means domain can purchase. 2 means user can purchase.
 
@@ -262,7 +262,7 @@ A domain object describes a Portals domain.
 
             * <plan-access-dependant-N> is an object
 
-```
+              ```
                 {
                     "access": <plan-access-permission>,
                     "oid": {
@@ -270,7 +270,7 @@ A domain object describes a Portals domain.
                         "id": <plan-id>
                     }
                 }
-```
+              ```
 
                 See above for definition of each field.
 
