@@ -310,10 +310,15 @@ http://wiki.tools.ietf.org/html/draft-ietf-core-block
 * 4.04 Not Found: No device or no content found with given information.
 
 
-# Supported Features
+# Remote Procedure Call Proxy
 
-The CoAP API supports reads and writes to data sources on the One Platform.
-It also supports reading and writing blockwise-transfers to/from the One Platform.
+If you need to do more with your data than read the latest value and write new values at the current time, you'll need to use the [RPC API](https://github.com/exosite/docs/blob/master/rpc). Generally devices don't use this API since it is relatively complicated and the JSON format is rather heavy and hard to parse and construct, but luckily for you, we've setup a proxy that will translate the HTTP + JSON format that that API uses into a CoAP + CBOR format which drastically brings down the requirements needed to use it.
+
+See the [RPC API docs](https://github.com/exosite/docs/blob/master/rpc) for more information about using this API. The JSON of that API maps one to one the CBOR that you will receive and be expected to send.
+
+You can also request that the JSON be passed straight through by sending an 'Accept' option with 'application/json'.
+
+*NOTE: This API has a know issue with responses larger than about 1500 bytes which results in you not receiving any response. This will be fixed in the future using block transfers.*
 
 # Known Issues
 
