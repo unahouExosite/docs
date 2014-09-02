@@ -118,31 +118,32 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 
 ##Multiple Read and Write
 
-**Note: This api will be changing in a backwards-incompatible way in an upcoming release. We do not recommend using it.**
+Read the most recent value from zero or more dataports and write a values to zero or more dataports with the given values in one call. The server will look in the first uri query option for the CIK.
 
-Read the most recent value from the given dataports and write a value to the given dataports with the given value. The server will look in the first uri query option for the CIK.
+The payloads for both writing and the returned values for reading are in the CBOR (Concise Binary Object Representation) format. It is shown in this document in a JSON-like format for display purposes. See http://cbor.io for more information.
 
 ```
 POST: coap://coap.exosite.com/1a?<CIK>
 ```
 
 ```
-  Client                              Server
-      |                                 |
-      |   CON POST                      |
-      |   uri_path: "1a"                |
-      |   uri_query: "<CIK>"            |
-      |   uri_query: "<alias1>"         |
-      |   uri_query: "<alias2>"         |
-      |   "<alias3>=26.1&<alias4>=on"   |
-      +-------------------------------->|
-      |                                 |
-      |   ACK Content (2.05)            |
-      |   "<alias1>=99&<alias>=0"       |
-      |<--------------------------------+
+  Client                                                   Server
+      |                                                      |
+      |   CON POST                                           |
+      |   uri_path: "1a"                                     |
+      |   uri_query: "<CIK>"                                 |
+      |   uri_query: "<alias r1>"                            |
+      |   ...                                                |
+      |   uri_query: "<alias rN>"                            |
+      |   {"<alias w1>": "26.1", ..., "<alias wN>": "on"}    |
+      +----------------------------------------------------->|
+      |                                                      |
+      |   ACK Content (2.05)                                 |
+      |   {"<alias r1>": "99", ..., "<alias rN>": "0"}       |
+      |<-----------------------------------------------------+
 ```
 
-`<alias#>`: The alias of the datasource that is to have the latest value read.  
+`<alias#>`: The alias of the datasource that is to have the latest value read or written.  
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
