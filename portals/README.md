@@ -18,6 +18,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Update user](#update-user)
 * [Get user token](#get-user-token)
 * [Get user portals](#get-user-portals)
+* [Get user account by email](#get-user-account-by-email)
 
 #### Portals
 
@@ -729,6 +730,24 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
   }
 ]
 ```
+
+### Get user account by email
+
+```
+GET /api/portals/v1/accounts/{email}
+```
+
+Get user account by email.
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+Respond 200, if user exists in some domain.
+
+Respond 404, if user doesn't exist in any domain.
 
 ### List portals of authenticated user
 
