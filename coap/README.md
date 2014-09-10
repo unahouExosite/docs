@@ -320,6 +320,77 @@ You can also request that the JSON be passed straight through by sending an 'Acc
 
 *NOTE: This API has a know issue with responses larger than about 1500 bytes which results in you not receiving any response. This will be fixed in the future using block transfers.*
 
+The payloads for both writing and the returned values for reading are in the CBOR (Concise Binary Object Representation) format. It is shown in this document in a JSON-like format for display purposes. See http://cbor.io for more information.
+
+```
+POST: coap://coap.exosite.com/rpc
+```
+
+```
+  Client                                                   Server
+      |                                                      |
+      |   CON POST                                           |
+      |   uri_path: "rpc"                                    |
+      |   { "auth" : {"cik" : "<CIK>"},                      |
+      | 	   "calls" : [{                                  |
+      |		        "id" : 1,                             |
+      |		        "procedure" : "read",                 |
+      |		        "arguments" : [                       |
+      |			        {"alias" : "<alias r1>"},         |
+      |			        {"limit" : 1}                     |
+      |		        ]                                     |
+      |		    },                                        |
+      |		    {                                         |
+      |		        "id" : 2,                             |
+      |		        "procedure" : "write",                |
+      |		        "arguments" : [{                      |
+      |		            "alias" : "<alias w1>"            |
+      |		        },                                    |
+      |		        65.4]                                 |
+      |		    },                                        |
+      |		    {                                         |
+      |		        "id" : 3,                             |
+      |		        "procedure" : "record",               |
+      |		        "arguments" : [{                      |
+      |		            "alias" : "<alias w2>"            |
+      |		        },                                    |
+      |		        [[1410360812,65.4],                   |
+      |		        [1410360813,66.3],                    |
+      |		        [1410360815,67.9]],                   |
+      |		        {}]                                   |
+      |		    }]                                        |
+      |		}                                             |
+      |                                                      | 
+      +----------------------------------------------------->|
+      |                                                      |
+      |   ACK Content (2.05)                                 |
+      |   [{                   					          |
+      |         "id": 1,       			                  |
+      |         "status": "ok",                              |
+      |        "result": [[1410360840, 64.2]]                |
+      |     },                                               |
+      |     {                                                |
+      |         "id": 2,                                     |
+      |         "status": "ok",                              |
+      |     },                                               |
+      |     {                                                |
+      |         "id": 3,                                     | 
+      |         "status": "ok",                              |
+      |     }]                                               |
+      |<-----------------------------------------------------+
+```
+
+`<alias #>`: The alias of the datasource that is to have the latest value read or written.  
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
+
+### Responses
+* 2.05 Content: The value is returned.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
+
+
+
+
 # Known Issues
 
 * The `/.well-known/core/` discovery endpoint is not yet supported.
