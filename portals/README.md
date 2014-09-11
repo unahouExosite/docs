@@ -527,6 +527,8 @@ Request body is a [user object](#user-object). At the moment, only the following
 
 If you send any keys besides these, it will do nothing.
 
+When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
+
 #### Response
 
 On success, response has HTTP status 200 and the updated user object.
