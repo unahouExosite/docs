@@ -1012,7 +1012,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ##wait
 
-This is a HTTP Long Polling API which allows a user to wait on a specific resource to be updated. It will return a timestamp which is the time the resource was updated.
+This is a HTTP Long Polling API which allows a user to wait on specific resources to be updated. It will return a timestamp which is the time the resource was updated.
 
 ```
 {
@@ -1023,7 +1023,7 @@ This is a HTTP Long Polling API which allows a user to wait on a specific resour
         {
             "procedure": "wait",
             "arguments": [
-                <ResourceID>,
+                [<ResourceID1>, <ResourceID2> ...]
                 {
                     "timeout": <Number>
                     "since": <Timestamp>
@@ -1035,7 +1035,7 @@ This is a HTTP Long Polling API which allows a user to wait on a specific resour
 }
 ```
 
-* `<ResourceID>` specifies what resource to flush. See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` specifies what resources to flush. See [Identifying Resources](#identifying-resources) for details.
 
 * `timeout` is a number value to specify how many milliseconds to be the timeout value for this wait request.  If you don't provide `timeout` key, it will take 30 seconds to be a default timeout value.
 
@@ -1052,7 +1052,7 @@ The following is an JSON example of the wait API.
     {
       "procedure": "wait",
       "arguments": [
-        {"alias": "wait_dataport"},
+        [{"alias": "wait_dataport"}],
         {
           "timeout": 5000,
           "since": "undefined"
@@ -1064,7 +1064,7 @@ The following is an JSON example of the wait API.
 }
 ```
 
-The following is an example to wait on an alias with default timeout, 30 seconds, from now.
+The following is an example to wait on multiple aliases with default timeout, 30 seconds, from now.
 
 ```
 {
@@ -1075,7 +1075,28 @@ The following is an example to wait on an alias with default timeout, 30 seconds
     {
       "procedure": "wait",
       "arguments": [
-        {"alias": "wait_dataport"}, {}
+          [{"alias": ["wait_dataport", "wait_dataport2", ...]}],
+          {}
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
+
+The following is an example to wait on multiple aliases by Rid with default timeout, 30 seconds, from now.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+          [Rid1 ,Rid2],
+          {}
       ],  
       "id": 1
     }
@@ -1090,9 +1111,10 @@ The following is an example to wait on an alias with default timeout, 30 seconds
     "status": string,
     "result": [
         [
-            timestamp, 
-            value
-        ], 
+            <ResourceID1>: value1,
+            <ResourceID2>: value2,
+            ...
+        ],
     "id": 1
 }
 ```
