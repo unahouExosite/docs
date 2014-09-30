@@ -260,6 +260,8 @@ A permission object describes a level of access to a particular Portals resource
 
     * `"___admin"`
 
+    * `"d_____fs"`
+
 * `"oid"` is an object identifying the resource with the permission.
 
     * `<id>` is a number identifying the resource.
