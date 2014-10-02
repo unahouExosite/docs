@@ -24,7 +24,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [IP](#ip) - get the IP address of the host server 
 
-[Wait](#wait) - wait on a dataport until its data has been updated
+[Wait](#wait) - wait on dataport(s) until there are new data been updated
 
 ## Libraries and Sample Code
 
@@ -185,12 +185,12 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 
 ##Wait
 
-Wait one dataports with alias `<alias>`. The client (e.g. device or portal) to wait is identified by `<CIK>`. If the data of `<alias>` is updated, the new data will be returned immediately.
+Wait dataports with alias `<alias>`. The client (e.g. device or portal) to wait is identified by `<CIK>`. If the data of `<alias>` is updated, the new data will be returned immediately.
 
 #####request
 
 ```
-GET /onep:v1/stack/waitalias?<alias 1> HTTP/1.1 
+GET /onep:v1/stack/alias?<alias 1><alias 2><...> HTTP/1.1 
 Host: m2.exosite.com 
 X-Exosite-CIK: <CIK> 
 Accept: application/x-www-form-urlencoded; charset=utf-8 
@@ -199,12 +199,13 @@ If-Modified-Since: <timestamp>
 <blank line>
 ```
 
-* `Request-Timeout` specifies the how long to wait on `<alias 1>`.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300,000).  If you don't specify this in header, the default value, 30 seconds, will be taken.
-* `If-Modified-Since` specifies waiting on `<alias `>` since the `<timestamp>`.  `<timestamp>` is seconds since 1970-01-01 00:00:00 UTC.
+* `<alias 1> ... <alias N>` are the aliases you wait for data update.
+* `Request-Timeout` specifies the how long to wait on aliases.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300,000).  If you don't specify this in header, the default value, 30 seconds, will be taken.
+* `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC and <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a>.
 
 #####response
 
-Get value returned when the dataport is updated.
+Once any data of the waiting aliases get updated, it returnes the newest value.
 
 ```
 HTTP/1.1 200 OK 
@@ -213,7 +214,7 @@ Server: <server>
 Connection: Close
 Content-Length: <length> 
 <blank line>
-<alias 1>=<value>
+<alias 1>=<value 1>&<alias 2>=<value 2>...
 ```
 
 The dataport is not updated until timeout.
@@ -230,7 +231,7 @@ Content-Length: <length>
 #####example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/waitalias?<dataport-alias> \
+$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
     -H 'Request-Timeout: 30000 

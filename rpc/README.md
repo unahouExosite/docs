@@ -1106,13 +1106,25 @@ The following is an example to wait on multiple aliases by Rid with default time
 
 ####response
 
+Response for single wait.
+
+```
+{
+    "status": string,
+    "result": [timestamp, value], 
+    "id": 1
+}
+```
+
+Response for multiple wait.
+
 ```
 {
     "status": string,
     "result": [
         [
-            <ResourceID1>: value1,
-            <ResourceID2>: value2,
+            {<ResourceID1>: [timestamp1, value1]},
+            {<ResourceID2>: [timestamp2, value2]},
             ...
         ],
     "id": 1
