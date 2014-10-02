@@ -749,7 +749,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl https://<joe's domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
 ```
 
 ### Create group under user
