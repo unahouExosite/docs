@@ -190,7 +190,7 @@ Wait dataports with alias `<alias>`. The client (e.g. device or portal) to wait 
 #####request
 
 ```
-GET /onep:v1/stack/alias?<alias 1><alias 2><...> HTTP/1.1 
+GET /onep:v1/stack/alias?<alias 1>&<alias 2>&<...> HTTP/1.1 
 Host: m2.exosite.com 
 X-Exosite-CIK: <CIK> 
 Accept: application/x-www-form-urlencoded; charset=utf-8 
