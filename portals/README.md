@@ -49,6 +49,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create group under user](#create-group-under-user)
 * [Get group](#get-group)
 * [Update group](#update-group)
+* [Delete group](#delete-group)
 
 #### Domain
 
@@ -883,6 +884,28 @@ Request body is empty.
 #### Response
 
 On success, response has HTTP status 200 and a [device object](#device-object):
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Delete group
+
+`DELETE /api/portals/v1/groups/{group-id}`
+
+Delete a group
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 204 and empty body.
 
 On failure, response has HTTP status of 400 or greater.
 
