@@ -1112,7 +1112,8 @@ Available only to the client's direct owner.
         // {"activator": Activator,  client that activated the code
         //                           or null if the code has not yet 
         //                           been activated.
-        //  "code": Code             The code to be used to activate the share.
+        //  "code": Code,            The code to be used to activate 
+        //                           the share.
         //  "meta": Meta}            Meta information string, similar to 
         //                           the meta field in resource descriptions.
         "shares": [],
