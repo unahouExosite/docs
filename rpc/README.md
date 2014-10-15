@@ -1109,11 +1109,12 @@ Available only to the client's direct owner.
             "public": false
         },
         // List of shares in this format:
-        // {"code":Code,   // The code for activating this share
-        //  "count":Count, // How many times this share can be activated
-        //  "duration":Duration,  // How many seconds this share can be activated
-        // Activation timestamps and platform RIDs. 
-        //  "activated":[[Timestamp,ClientID], ...]} 
+        // {"activator": Activator,  client that activated the code
+        //                           or null if the code has not yet 
+        //                           been activated.
+        //  "code": Code             The code to be used to activate the share.
+        //  "meta": Meta}            Meta information string, similar to 
+        //                           the meta field in resource descriptions.
         "shares": [],
         // List of resources that are subscribed to this one in the form {Type, RID}
         "subscribers": [],
