@@ -69,6 +69,11 @@ Portals provides a user authentication and management system on top of the One P
 * [Update client-model](#update-client-model)
 * [Delete client-model](#delete-client-model)
 
+#### FileSystem
+
+* [Append to a directory](#append-to-a-directory)
+* [Get a file](#get-a-file)
+
 ### REST
 
 The API uses a REST-style API, which means that:
@@ -245,7 +250,7 @@ A group object describes a Portals permissions group.
 
 ### Permission object
 
-A permission object describes a level of access to a particular Portals resource identified by `"oid"`.
+A permission object describes a level of access to a particular Portals resource identified by `"oid"`, and is filtered by current domain of its resource, which means a permission list never contains resources which not belong to current domain.
 
 ```
 {
@@ -541,6 +546,8 @@ Request body is a [user object](#user-object). At the moment, only the following
 * `"phoneNumber"` - user phone number (optional)
 
 If you send any keys besides these, it will do nothing.
+
+When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
 
 #### Response
 
@@ -1304,3 +1311,51 @@ The post body needs to be json encoded.
 `DELETE /api/portals/v1/client-models/{vendor}/{name}`
 
 When deleting the current default client-model the exosite system client-model will be applied to the domain.
+
+## FileSystem
+
+### Append to a directory
+
+Require `___admin` permission to the domain to access this end point.
+
+```
+<form action="/api/portals/v1/fs{directory-path}" enctype="multipart/form-data" method="POST">
+    <div>
+        <input name="{field-name-1}" type="file">
+        <input name="{field-name-2}" type="text">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+```
+
+* `<directory-path>` can be `[\/\-_0-9A-Za-z]*`.
+* `<field-name-*>` is `^[\-0-9_A-Za-z]*$`.
+
+Submission of this form redirects the page to "/api/portals/v1/fs{directory-path}/{subdirectory}".
+
+The response entity body is:
+
+```
+{
+    {field-name-1}: {field-content-type-1},
+    {field-name-2}: {field-value-2}
+}
+```
+
+* `{field-name-*}` is the literal send in the request.
+* `{field-content-type-1}` is the content type of the file as the value of field 1.
+* `{field-value-2}` is the value of `{field-name-2}`.
+
+### Get a file
+
+Require no permission to access this end point.
+
+Following [Append to a directory](#append-to-a-directory).
+
+`GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-1}`
+
+Returns the content of the file as the value of field 1.
+
+`GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-2}`
+
+Returns the value of field 2 as a JSON string.
