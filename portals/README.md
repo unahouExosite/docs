@@ -1100,7 +1100,7 @@ On success, response has HTTP status 200 and JSON array of domain objects. Domai
 
     * `"user"` - non-admin
 
-    * `"admin"` - global admin, network admin, or domain admin
+    * `"admin"` - domain admin
 
 * `"name"` - vendor name (for provisioning API)
 * `"token"` - vendor token (for provisioning API)
