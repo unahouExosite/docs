@@ -14,6 +14,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [flush](#flush) - remove time series data
 
+[wait](#wait) - long polling, i.e., wait a data and get response when the data is updated
+
 ####Resources
 
 [create (client)](#create-client) - create a resource that can contain other resources
@@ -944,6 +946,136 @@ Updates the description of the resource.
 
 * `"status": "ok"` means the resource was updated
 
+---
+
+##wait
+
+This is a HTTP Long Polling API which allows a user to wait on specific resources to be updated. It will return a timestamp which is the time the resource was updated.
+
+```
+{
+    "auth": {
+        "cik": <CIK>
+    },
+    "calls": [
+        {
+            "procedure": "wait",
+            "arguments": [
+                [<ResourceID1>, <ResourceID2> ...]
+                {
+                    "timeout": <Number>
+                    "since": <Timestamp>
+                }
+            ], 
+            "id": 1
+        }
+    ]
+}
+```
+
+* `<ResourceID>` specifies what resources to flush. See [Identifying Resources](#identifying-resources) for details.
+
+* `timeout` is a number value to specify how many milliseconds to be the timeout value for this wait request.  If you don't provide `timeout` key, it will take 30 seconds to be a default timeout value.
+
+* `since` is a Unix timestamp to specify when you want to wait from.  If you wait since a timestamp, the first updated value will be responsed.  If you don't provide `since` key or set <Timestamp> to be "null" that you wait from now.
+
+The following is an JSON example of the wait API.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+        [{"alias": "wait_dataport"}],
+        {
+          "timeout": 5000,
+          "since": "undefined"
+        }
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
+
+The following is an example to wait on multiple aliases with default timeout, 30 seconds, from now.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+          [{"alias": ["wait_dataport", "wait_dataport2", ...]}],
+          {}
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
+
+The following is an example to wait on multiple aliases by Rid with default timeout, 30 seconds, from now.
+
+```
+{
+  "auth": {
+    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
+  },
+  "calls": [
+    {
+      "procedure": "wait",
+      "arguments": [
+          [Rid1 ,Rid2],
+          {}
+      ],  
+      "id": 1
+    }
+  ]
+}
+```
+
+####response
+
+Response for single wait.
+
+```
+{
+    "status": string,
+    "result": [timestamp, value], 
+    "id": 1
+}
+```
+
+Response for multiple wait.
+
+```
+{
+    "status": string,
+    "result": [
+        [
+            {<ResourceID1>: [timestamp1, value1]},
+            {<ResourceID2>: [timestamp2, value2]},
+            ...
+        ],
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was updated
+
+* `"status": "expire"` means the long poll request is expired. You may need to contineously send anohter long poll request.
+
+* `"status": "error"` means there is something wrong for this request. You have to check the returned error message.
+
+* `"result"`: `timestamp` is the time that the resource is updated. `value` is the corresponding updated value.
 
 ---
 
