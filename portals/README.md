@@ -41,6 +41,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source](#get-data-source)
 * [Get data source data](#get-data-source-data)
 * [Append to data source data](#append-to-data-source-data)
+* [Get data source json data](#get-json-data-from-source-data)
+* [Append to data source json data](#append-json-data-to-source-data)
 
 #### Groups
 
@@ -73,6 +75,13 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Append to a directory](#append-to-a-directory)
 * [Get a file](#get-a-file)
+
+#### Collection (bulk api)
+
+* [Get Multiple of Users](#collections-bulk-request)
+* [Get Multiple of Groups](#collections-bulk-request)
+* [Get Multiple of Devices](#collections-bulk-request)
+* [Get Multiple of Datasources](#collections-bulk-request)
 
 ### REST
 
@@ -1001,6 +1010,64 @@ On failure, response has HTTP status of 400 or greater.
 TODO
 ```
 
+### Get json data from source data
+
+`GET /api/portals/v1/data-sources/{data-source-id}/json`
+
+This is identical to `GET /api/portals/v1/data-sources/{data-source-id}/data`
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"` from a [data source object](#data-source-object) for details.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+$ curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
+    -X GET 
+    -u 'testing@exosite.com:1234' 
+    -k -i
+```
+
+### Append json data to source data
+
+`POST /api/portals/v1/data-sources/{data-source-id}/json`
+
+Write json data
+
+#### Querystring
+
+* safe  
+    safe write, server will wait for 1s and scan the data again for safety
+
+#### Request
+
+Request body is a valid json.
+
+#### Response
+
+On success, response has HTTP status 201 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+When `safe` is passed in querystring, failure will response 409
+
+#### Example
+
+```
+curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
+    -X POST 
+    -d '{"how":"are","you":"?"}'
+    -u 'testing@exosite.com:1234' 
+    -k -i
+```
+
 ### Create group under user
 
 `POST /api/portals/v1/users/{user-id}/groups`
@@ -1359,3 +1426,46 @@ Returns the content of the file as the value of field 1.
 `GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-2}`
 
 Returns the value of field 2 as a JSON string.
+
+## Collections (bulk request)
+
+*   Get Multiple Users  
+    `GET /users/_this/users/[{user-id},{user-id},...]`
+*   Get Multiple Groups  
+    `GET /users/_this/groups/[{group-id},{group-id},...]`
+*   Get Multiple Devices  
+    `GET /users/_this/devices/[{device-rid},device-rid},...]`
+*   Get Multiple Data-Sources  
+    `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
+
+#### Querystring
+
+* limit  
+    Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
+    `/users/_this/users/[{user-id},{user-id},...]?limit=10`
+* offset  
+    numbers of items to skip.
+    `/users/_this/users/[{user-id},{user-id},...]?offset=10`
+
+#### Response
+
+```
+[ 
+    {object1}, {object2}, ...
+]
+```
+
+Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data-sources](#get-data-source)
+
+* 200 success and all items are fetched.
+* 206 When request id is over the response limit, link will appear in header.  
+    `Link=<{url}>; rel="previous", <{url}>; rel="next"`
+
+#### Example
+
+```
+$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]' 
+    -X GET 
+    -u 'testing@exosite.com:1234' 
+    -k -i
+```
