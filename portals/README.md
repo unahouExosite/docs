@@ -1285,7 +1285,6 @@ A sample client-model object looks like this:
 }
 ```
 
-<<<<<<< HEAD
 ## Themes
 
 Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
