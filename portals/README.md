@@ -19,6 +19,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user token](#get-user-token)
 * [Get user portals](#get-user-portals)
 * [Get user account by email](#get-user-account-by-email)
+* [Get all user accounts](#get-user-accounts)
 
 #### Portals
 
@@ -466,6 +467,26 @@ An object containing information about a Portals user.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 
+### Account object
+
+An object containing information about a Portals user.
+
+```
+{
+    "email": <short-string>,
+    "fullName": <short-string>,
+    "id": <id>,
+    "meta": <meta>,
+    "phoneNumber": <short-string>
+}
+```
+
+* `"email"` is the user's email address. It is a string of fewer than 256 characters.
+* `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
+* `"id"` is a numeric identifier for the user.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
+
 ### User ID ###
 
 Anywhere an API endpoint takes a user ID, you can instead use \_this as an alias for the user ID of the authenticated user.
@@ -733,9 +754,7 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
 
 ### Get user account by email
 
-```
-GET /api/portals/v1/accounts/{email}
-```
+`GET /api/portals/v1/accounts/{email}`
 
 Get user account by email.
 
@@ -748,6 +767,22 @@ Request body is empty
 Respond 200, if user exists in some domain.
 
 Respond 404, if user doesn't exist in any domain.
+
+### Get all user accounts
+
+`GET /api/portals/v1/accounts`
+
+Get account information about all users.
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing an array of [account object](#account-object).
+
+On failure, response has HTTP status of 400 or greater.
 
 ### List portals of authenticated user
 
@@ -1148,8 +1183,8 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 $ curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X GET 
-    -u 'testing@exosite.com:1234' 
+    -X GET
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
 
@@ -1161,7 +1196,7 @@ Write json data
 
 #### Querystring
 
-* safe  
+* safe
     safe write, server will wait for 1s and scan the data again for safety
 
 #### Request
@@ -1180,9 +1215,9 @@ When `safe` is passed in querystring, failure will response 409
 
 ```
 curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X POST 
+    -X POST
     -d '{"how":"are","you":"?"}'
-    -u 'testing@exosite.com:1234' 
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
 
@@ -1672,28 +1707,28 @@ Returns the value of field 2 as a JSON string.
 
 ## Collections (bulk request)
 
-*   Get multiple users  
+*   Get multiple users
     `GET /users/_this/users/[{user-id},{user-id},...]`
-*   Get multiple groups  
+*   Get multiple groups
     `GET /users/_this/groups/[{group-id},{group-id},...]`
-*   Get multiple devices  
+*   Get multiple devices
     `GET /users/_this/devices/[{device-rid},device-rid},...]`
-*   Get multiple data sources  
+*   Get multiple data sources
     `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
 
 #### Querystring
 
-* limit  
+* limit
     Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
     `/users/_this/users/[{user-id},{user-id},...]?limit=10`
-* offset  
+* offset
     numbers of items to skip.
     `/users/_this/users/[{user-id},{user-id},...]?offset=10`
 
 #### Response
 
 ```
-[ 
+[
     {object1}, {object2}, ...
 ]
 ```
@@ -1701,14 +1736,14 @@ Returns the value of field 2 as a JSON string.
 Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data sources](#get-data-source)
 
 * 200 if all items are fetched.
-* 206 if request ID is over the response limit, link will appear in header.  
+* 206 if request ID is over the response limit, link will appear in header.
     `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 #### Example
 
 ```
-$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]' 
-    -X GET 
-    -u 'testing@exosite.com:1234' 
+$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]'
+    -X GET
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
