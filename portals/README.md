@@ -18,6 +18,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Update user](#update-user)
 * [Get user token](#get-user-token)
 * [Get user portals](#get-user-portals)
+* [Delete user](#delete-user)
 
 #### Portals
 
@@ -633,6 +634,22 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
   }
 ]
 ```
+
+### Delete user
+
+`GET /api/portals/v1/users/{user-id}`
+
+Delete a user who has no Braintree ID, no portal, no discount.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 204 and empty response.
+
+On failure, response has HTTP status of 400 or greater.
 
 ### List portals of authenticated user
 
