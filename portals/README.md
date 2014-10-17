@@ -41,8 +41,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source](#get-data-source)
 * [Get data source data](#get-data-source-data)
 * [Append to data source data](#append-to-data-source-data)
-* [Get data source json data](#get-json-data-from-source-data)
-* [Append to data source json data](#append-json-data-to-source-data)
+* [Get data source JSON data](#get-json-data-from-source-data)
+* [Append to data source JSON data](#append-json-data-to-source-data)
 
 #### Groups
 
@@ -55,7 +55,7 @@ Portals provides a user authentication and management system on top of the One P
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 * [Update domain](#update-domain)
 
-#### [Themes](#themes)
+#### Themes
 
 * [List themes](#list-themes)
 * [Create theme](#create-theme)
@@ -63,25 +63,25 @@ Portals provides a user authentication and management system on top of the One P
 * [Update theme](#update-theme)
 * [Delete theme](#delete-theme)
 
-#### [Client-Models](#themes)
+#### Client Models
 
-* [List client-models](#list-client-models)
-* [Create client-model](#create-client-model)
-* [Get client-model](#get-client-model)
-* [Update client-model](#update-client-model)
-* [Delete client-model](#delete-client-model)
+* [List client models](#list-client-models)
+* [Create client model](#create-client-model)
+* [Get client model](#get-client-model)
+* [Update client model](#update-client-model)
+* [Delete client model](#delete-client-model)
 
-#### FileSystem
+#### File System
 
 * [Append to a directory](#append-to-a-directory)
 * [Get a file](#get-a-file)
 
-#### Collection (bulk api)
+#### Collection (Bulk API)
 
-* [Get Multiple of Users](#collections-bulk-request)
-* [Get Multiple of Groups](#collections-bulk-request)
-* [Get Multiple of Devices](#collections-bulk-request)
-* [Get Multiple of Datasources](#collections-bulk-request)
+* [Get multiple users](#collections-bulk-request)
+* [Get multiple groups](#collections-bulk-request)
+* [Get multiple devices](#collections-bulk-request)
+* [Get multiple data sources](#collections-bulk-request)
 
 ### REST
 
@@ -160,7 +160,7 @@ A data source object describes a Portals time series data source.
 
 * `"info"` is a dataport object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only basic, description, shares, storage, subscribers and tags are exposed.
 * `"rid"` is the RID of a data source.
-* `"unit"` is the unit of a data source.### Device object
+* `"unit"` is the unit of a data source.
 
 ### Device object
 
@@ -196,7 +196,7 @@ A device object describes a device in Portals.
 }
 ```
 
-* `"dataSources"` is an array of data source ids a device has.
+* `"dataSources"` is an array of data source IDs a device has.
 
     * `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
 
@@ -367,15 +367,15 @@ An object containing information about a Portals user.
 * `"id"` is a numeric identifier for the user.
 * `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
-* `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.### User ID ###
+* `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 
 ### User ID ###
 
-When you use user id in an endpoint, you can use \_this as an alias for the user id of the authenticated user.
+Anywhere an API endpoint takes a user ID, you can instead use \_this as an alias for the user ID of the authenticated user.
 
 #### example ####
 
-Given a request is authenticated as a user with id being 1234.
+Given a request is authenticated as a user with ID being 1234.
 
 `GET /api/portals/v1/users/1234`
 
@@ -766,7 +766,7 @@ Creates a new device based on a client model, returning the CIK and RID of the n
 
 The following keys are passed:
 
-* `"portal_rid"` - resource ID of portal where the device is to be created. User creating the device must have at least manager level access to this portal. This may be found in the output of the /portal/ api call, or in Portals here: https://<subdomain>.exosite.com/admin/portallist
+* `"portal_rid"` - resource ID of portal where the device is to be created. User creating the device must have at least manager level access to this portal. This may be found in the output of the /portal/ API call, or in Portals here: https://<subdomain>.exosite.com/admin/portallist
 
 ![Find Portal RID](images/find_portal_rid.png)
 
@@ -927,7 +927,7 @@ Create a data source inside a portal
 
 #### Request
 
-Request body is a [data-source object](#data-source-object). Currently only the following keys are supported:
+Request body is a [data source object](#data-source-object). Currently only the following keys are supported:
 
 * `"format"` - data source format (optional)
 * `"name"` - data source name (optional)
@@ -937,7 +937,7 @@ If you send any keys besides these, it will do nothing.
 
 #### Response
 
-On success, response has HTTP status 201 and the created data-source object.
+On success, response has HTTP status 201 and the created data source object.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1013,7 +1013,7 @@ On failure, response has HTTP status of 400 or greater.
 TODO
 ```
 
-### Get json data from source data
+### Get JSON data from source data
 
 `GET /api/portals/v1/data-sources/{data-source-id}/json`
 
@@ -1038,7 +1038,7 @@ $ curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa
     -k -i
 ```
 
-### Append json data to source data
+### Append JSON data to data source
 
 `POST /api/portals/v1/data-sources/{data-source-id}/json`
 
@@ -1051,7 +1051,7 @@ Write json data
 
 #### Request
 
-Request body is a valid json.
+Request body is a valid JSON.
 
 #### Response
 
@@ -1299,7 +1299,7 @@ A sample theme object looks like this:
 
 `POST /api/portals/v1/themes/`
 
-The post body needs to be json encoded and at least include the required fields:
+The post body needs to be JSON encoded and at least include the required fields:
 
 * name
 * description
@@ -1312,7 +1312,7 @@ The post body needs to be json encoded and at least include the required fields:
 
 `PUT /api/portals/v1/themes/{themeid}`
 
-The post body needs to be json encoded.
+The post body needs to be JSON encoded.
 
 ### Delete theme
 
@@ -1320,11 +1320,11 @@ The post body needs to be json encoded.
 
 When deleting the current default theme the exosite system theme will be applied to the domain.
 
-## Client-Models
+## Client Models
 
 Client models represent a class of devices. All devices of the same client model have the same behaviour attributes and pricing. Only the domain administrator can use the client model APIs.
 **Note: Image data can currently not be modified using this API**
-A sample client-model object looks like this:
+A sample client model object looks like this:
 
 ```
 {
@@ -1429,7 +1429,7 @@ A sample theme object looks like this:
 
 `POST /api/portals/v1/themes/`
 
-The post body needs to be json encoded and at least include the required fields:
+The post body needs to be JSON encoded and at least include the required fields:
 
 * name
 * description
@@ -1438,44 +1438,45 @@ The post body needs to be json encoded and at least include the required fields:
 
 `PUT /api/portals/v1/themes/{themeid}`
 
-The post body needs to be json encoded.
+The post body needs to be JSON encoded.
 
 ### Delete theme
 
 `DELETE /api/portals/v1/themes/{themeid}`
 
 When deleting the current default theme the exosite system theme will be applied to the domain.
-### List client-models
+
+### List client models
 
 `GET /api/portals/v1/client-models/`
 
-### Create client-model
+### Create client model
 
 `POST /api/portals/v1/client-models/`
 
-The post body needs to be json encoded and at least include the required fields:
+The post body needs to be JSON encoded and at least include the required fields:
 
 * friendly
 * name
 * cloneRID
 
-### Get client-model
+### Get client model
 
 `GET /api/portals/v1/client-models/{vendor}/{name}`
 
-### Update client-model
+### Update client model
 
 `PUT /api/portals/v1/client-models/{vendor}/{name}`
 
-The post body needs to be json encoded.
+The post body needs to be JSON encoded.
 
-### Delete client-model
+### Delete client model
 
 `DELETE /api/portals/v1/client-models/{vendor}/{name}`
 
-When deleting the current default client-model the exosite system client-model will be applied to the domain.
+When deleting the current default client model the exosite system client model will be applied to the domain.
 
-## FileSystem
+## File System
 
 ### Append to a directory
 
@@ -1525,13 +1526,13 @@ Returns the value of field 2 as a JSON string.
 
 ## Collections (bulk request)
 
-*   Get Multiple Users  
+*   Get multiple users  
     `GET /users/_this/users/[{user-id},{user-id},...]`
-*   Get Multiple Groups  
+*   Get multiple groups  
     `GET /users/_this/groups/[{group-id},{group-id},...]`
-*   Get Multiple Devices  
+*   Get multiple devices  
     `GET /users/_this/devices/[{device-rid},device-rid},...]`
-*   Get Multiple Data-Sources  
+*   Get multiple data sources  
     `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
 
 #### Querystring
@@ -1551,10 +1552,10 @@ Returns the value of field 2 as a JSON string.
 ]
 ```
 
-Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data-sources](#get-data-source)
+Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data sources](#get-data-source)
 
-* 200 success and all items are fetched.
-* 206 When request id is over the response limit, link will appear in header.  
+* 200 if all items are fetched.
+* 206 if request ID is over the response limit, link will appear in header.  
     `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 #### Example
