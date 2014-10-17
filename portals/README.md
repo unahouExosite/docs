@@ -34,6 +34,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create device](#create-device)
 * [Get device](#get-device)
 * [Update device](#update-device)
+* [Delete device](#delete-device)
 
 #### Data Source
 
@@ -910,6 +911,28 @@ If you send any keys besides these, it will do nothing.
 #### Response
 
 On success, response has HTTP status of 200 and body is the updated device object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+```
+
+### Delete device
+
+`DELETE /api/portals/v1/devices/{device-id}`
+
+Delete a device
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status of 204 and body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
