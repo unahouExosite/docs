@@ -1479,7 +1479,7 @@ When deleting the current default client model the exosite system client model w
 
 ### Append to a directory
 
-Require `___admin` permission to the domain to access this end point.
+Require `___admin` or `d_____fs` permission to the domain to access this end point.
 
 ```
 <form action="/api/portals/v1/fs{directory-path}" enctype="multipart/form-data" method="POST">
@@ -1508,6 +1508,33 @@ The response entity body is:
 * `{field-name-*}` is the literal send in the request.
 * `{field-content-type-1}` is the content type of the file as the value of field 1.
 * `{field-value-2}` is the value of `{field-name-2}`.
+
+### Append to a directory with text/html response
+
+Require `___admin` or `d_____fs` permission to the domain to access this end point.
+
+```
+<form action="/api/portals/v1/fs{directory-path}?accept=text%2Fhtml" enctype="multipart/form-data" method="POST">
+    <div>
+        <input name="{field-name-1}" type="file">
+        <button type="submit">Submit</button>
+    </div>
+</form>
+```
+
+* `<directory-path>` can be `[\/\-_0-9A-Za-z]*`.
+* `<field-name-*>` is `^[\-0-9_A-Za-z]*$`.
+
+Submission of this form redirects the page to "/api/portals/v1/fs{directory-path}/{subdirectory}?accept=text%2Fhtml".
+
+The response entity body is:
+
+```
+<dl><dt>{field-name-1}</dt><dd>{field-content-type-1}</dd></dl>
+```
+
+* `{field-name-*}` is the literal send in the request.
+* `{field-content-type-1}` is the content type of the file as the value of field 1.
 
 ### Get a file
 
