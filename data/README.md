@@ -49,6 +49,7 @@ Typical HTTP response codes include:
 | 200    | OK            | Successful request, returning requested values       |
 | 204    | No Content    | Successful request, nothing will be returned         |
 | 4xx    | Client Error  | There was an error\* with the request by the client  |
+| 401    | Unauthorized  | No or invalid CIK                                    |
 | 5xx    | Server Error  | There way an error with the request on the server    |
 
 _\* Note: aliases that are not found are not considered errors in the request. See the documentation for [read](#read), and [write](#write) and [Hybrid write/read](#hybrid-writeread) for details._
