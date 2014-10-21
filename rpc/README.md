@@ -10,7 +10,11 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [write](#write) - write new data into a time series
 
+[writegroup](#writegroup) - write new data into multiple time series
+
 [record](#record) - write time series data that has already been timestamped
+
+[recordbatch](#recordbatch) - write multiple time series data at specific timestamps
 
 [flush](#flush) - remove time series data
 
@@ -417,6 +421,35 @@ Writes a single value to the resource specified.
 
 ---
 
+##writegroup
+
+Writes the given values for the respective resources in the list.
+
+```
+{
+    "procedure": "writegroup",
+    "arguments": [
+        [[<ResourceID>, <value>], ...]
+    ],
+    "id": 1
+}
+```
+
+* `<ResourceID>` is the identifier of the device to write. See [Identifying Resources](#identifying-resources) for details.
+
+* `<value>` is the value to write.
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+---
+
 ##record
 
 Records a list of historical entries to the resource specified.
@@ -451,7 +484,41 @@ Records a list of historical entries to the resource specified.
 
 * `"status": "ok"` means the entries were successfully recorded.
 
---- 
+---
+
+##recordbatch
+
+Records a list of historical entries to the resources specified.
+
+```
+{
+    "procedure": "recordbatch",
+    "arguments": [
+        <ResourceID>,
+        [[<timestamp>, <value>], ...]
+    ],
+    "id": 1
+}
+```
+
+* `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
+* The second argument is a list of timestamp, value entries to record to the resource. If
+    `<timestamp>` is a negative value, it means an offset back into the past from the current time.
+
+* The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the entries were successfully recorded.
+
+---
 
 ##flush
 
