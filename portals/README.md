@@ -18,6 +18,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Update user](#update-user)
 * [Get user token](#get-user-token)
 * [Get user portals](#get-user-portals)
+* [Get user account by email](#get-user-account-by-email)
+* [Delete user](#delete-user)
 
 #### Portals
 
@@ -34,6 +36,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create device](#create-device)
 * [Get device](#get-device)
 * [Update device](#update-device)
+* [Delete device](#delete-device)
 
 #### Data Source
 
@@ -54,7 +57,9 @@ Portals provides a user authentication and management system on top of the One P
 #### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
+* [Create domain](#create-domain)
 * [Update domain](#update-domain)
+* [Delete domain](#delete-domain)
 
 #### Themes
 
@@ -221,14 +226,108 @@ A domain object describes a Portals domain.
 
 ```
 {
+    "config": {
+      "pricing_planidN": <pricing-plan-id>,
+      "pricing_plannameN": <pricing-plan-name>,
+      "pricing_descriptionN": <pricing-description>,
+      "pricing_priceN": <pricing-price>,
+      "pricing_sharingN": <pricing-sharing>,
+      "pricing_viewerN": <pricing-viewer>,
+      "pricing_devicesN": <pricing-device>,
+      "pricing_emailN": <pricing-email>,
+      "pricing_smsN": <pricing-sms>,
+      "pricing_managerN": <pricing-manager>,
+      "whitebox_mainadmin": <user-id>
+    },
     "members": [
         <permission-1>,
+        ...
+    ],
+    "networkId": <network-id>,
+    "planAccesses": [
+        <plan-access-1>,
         ...
     ]
 }
 ```
 
+* `"config"` is an object of storing the settings of the domain.
+
+    * In the `"Pricing Page Plans"` table in the `"Domain Pricing"` section in the `"/admin/configuration"` page:
+
+      * `"pricing_sharing_name"` is a string. It maps to the first cell in the `"Sharing"` column.
+
+      * `"pricing_viewer_name"` is a string. It maps to the first cell in the `"Private viewer"` column.
+
+      * `"pricing_devices_name"` is a string. It maps to the first cell in the `"Devices"` column.
+
+      * `"pricing_email_name"` is a string. It maps to the first cell in the `"Email alert"` column.
+
+      * `"pricing_sms_name"` is a string. It maps to the first cell in the `"SMS alert"` column.
+
+      * `"pricing_manager_name"` is a string. It maps to the first cell in the `"Account Managers"` column.
+
+      * `"pricing_planidN"` is a plan id. (N is from 1 to 4) It maps to the `"Plan ID"` column.
+
+      * `"pricing_plannameN"` is a string. (N is from 1 to 4) It maps to the `"Plan Name"` column.
+
+      * `"pricing_descriptionN"` is a string. (N is from 1 to 4) It maps to the `"Description"` column.
+
+      * `"pricing_priceN"` is a numeric string. (N is from 1 to 4) It maps to the `"Display Price"` column.
+
+      * `"pricing_sharingN"` is a string. (N is from 1 to 4) It maps to the `"Sharing"` column.
+
+      * `"pricing_viewerN"` is a string. (N is from 1 to 4) It maps to the `"Private viewer"` column.
+
+      * `"pricing_devicesN"` is a string. (N is from 1 to 4) It maps to the `"Devices"` column.
+
+      * `"pricing_emailN"` is a string. (N is from 1 to 4) It maps to the `"Email alert"` column.
+
+      * `"pricing_smsN"` is a string. (N is from 1 to 4) It maps to the `"SMS alert"` column.
+
+      * `"pricing_managerN"` is a string. (N is from 1 to 4) It maps to the `"Account Managers"` column.
+
+    * `"whitebox_mainadmin"` is a user id. It maps to `"Bill to Account"` in the `"Domain Billing Configuration"` section in the `"/global/billing"` page.
+
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the domain.
+* `"networkId"` is a number identifying the network the domain belongs to.
+* `"planAccesses"` is an array of plan access objects listing the plans the domain has access to.
+
+    * `<plan-access-N>` is an object:
+
+        ```
+        {
+            "access": <plan-access-permission>,
+            "oid": {
+                "type": "Plan"
+                "id": <plan-id>
+            },
+            "planAccesses": [
+                <plan-access-dependant-1>,
+                ...
+            ]
+        }
+        ```
+
+        * `"access"` is either 0, 1 or 2. 0 means domain is charged. 1 means domain can purchase. 2 means user can purchase.
+
+        * `"oid"` is a plan the domain has access to.
+
+        * `"planAccesses"` is an array of dependant plan accesses.
+
+            * `<plan-access-dependant-N>` is an object
+
+                ```
+                {
+                    "access": <plan-access-permission>,
+                    "oid": {
+                        "type": "Plan"
+                        "id": <plan-id>
+                    }
+                }
+                ```
+
+                See above for definition of each field.
 
 ### Group object
 
@@ -635,6 +734,40 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
 ]
 ```
 
+### Get user account by email
+
+```
+GET /api/portals/v1/accounts/{email}
+```
+
+Get user account by email.
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+Respond 200, if user exists in some domain.
+
+Respond 404, if user doesn't exist in any domain.
+
+### Delete user
+
+`GET /api/portals/v1/users/{user-id}`
+
+Delete a user who has no Braintree ID, no portal, no discount.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 204 and empty response.
+
+On failure, response has HTTP status of 400 or greater.
+
 ### List portals of authenticated user
 
 `GET /api/portals/v1/portal/`
@@ -942,6 +1075,28 @@ On failure, response has HTTP status of 400 or greater.
 curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
 ```
 
+### Delete device
+
+`DELETE /api/portals/v1/devices/{device-id}`
+
+Delete a device
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status of 204 and body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+```
+
 ### Create portal data source
 
 `POST /api/portals/v1/portals/{portal-id}/data-sources`
@@ -1056,8 +1211,8 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 $ curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X GET 
-    -u 'testing@exosite.com:1234' 
+    -X GET
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
 
@@ -1069,7 +1224,7 @@ Write json data
 
 #### Querystring
 
-* safe  
+* safe
     safe write, server will wait for 1s and scan the data again for safety
 
 #### Request
@@ -1088,9 +1243,9 @@ When `safe` is passed in querystring, failure will response 409
 
 ```
 curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X POST 
+    -X POST
     -d '{"how":"are","you":"?"}'
-    -u 'testing@exosite.com:1234' 
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
 
@@ -1216,6 +1371,28 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 ]
 ```
 
+### Create domain
+
+`PUT /api/portals/v1/domains/_this`
+
+Create a domain if it doesn't already exist.
+
+This requires `___admin` permission to the global domain.
+
+#### Request
+
+Request body is a domain object. Currently only the following keys are supported:
+
+* `"networkId"` - Network ID (required)
+
+If you send any keys besides these, it will do nothing.
+
+#### Response
+
+On success, response has HTTP status 201 and the created domain object.
+
+On failure, response has HTTP status of 400 or greater.
+
 ### Update domain
 
 `PUT /api/portals/v1/domains/{domain-id}`
@@ -1224,23 +1401,33 @@ Update a domain
 
 #### Request
 
-Request body is a domain object:
-
-```
-{
-    "members": [
-        <permission-1>,
-        <permission-2>,
-        ...
-    ]
-}
-```
-
-* `"members"` is an array of [permissions objects](#permission-object).
+Request body is a domain object.
 
 #### Response
 
 On success, response has HTTP status 200 and the updated domain object.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+TODO
+```
+
+### Delete domain
+
+`DELETE /api/portals/v1/domains/{domain-id}`
+
+Delete a domain if it doesn't have any user
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+On success, response has HTTP status 204.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1548,28 +1735,28 @@ Returns the value of field 2 as a JSON string.
 
 ## Collections (bulk request)
 
-*   Get multiple users  
+*   Get multiple users
     `GET /users/_this/users/[{user-id},{user-id},...]`
-*   Get multiple groups  
+*   Get multiple groups
     `GET /users/_this/groups/[{group-id},{group-id},...]`
-*   Get multiple devices  
+*   Get multiple devices
     `GET /users/_this/devices/[{device-rid},device-rid},...]`
-*   Get multiple data sources  
+*   Get multiple data sources
     `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
 
 #### Querystring
 
-* limit  
+* limit
     Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
     `/users/_this/users/[{user-id},{user-id},...]?limit=10`
-* offset  
+* offset
     numbers of items to skip.
     `/users/_this/users/[{user-id},{user-id},...]?offset=10`
 
 #### Response
 
 ```
-[ 
+[
     {object1}, {object2}, ...
 ]
 ```
@@ -1577,14 +1764,14 @@ Returns the value of field 2 as a JSON string.
 Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data sources](#get-data-source)
 
 * 200 if all items are fetched.
-* 206 if request ID is over the response limit, link will appear in header.  
+* 206 if request ID is over the response limit, link will appear in header.
     `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 #### Example
 
 ```
-$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]' 
-    -X GET 
-    -u 'testing@exosite.com:1234' 
+$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]'
+    -X GET
+    -u 'testing@exosite.com:1234'
     -k -i
 ```
