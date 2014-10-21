@@ -627,7 +627,8 @@ Creates a client.
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
