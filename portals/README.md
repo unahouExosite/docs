@@ -39,7 +39,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Create portal data source](#create-portal-data-source)
 * [Get data source](#get-data-source)
-* [Get data source data](#get-data-source-data)
+* [f](#get-data-source-data)
 * [Append to data source data](#append-to-data-source-data)
 * [Get data source JSON data](#get-json-data-from-source-data)
 * [Append to data source JSON data](#append-json-data-to-source-data)
@@ -976,11 +976,13 @@ TODO
 This api can retrieve multiple data points.
 The options below can be included to modify the results of an api call:
 
-* `starttime` and `endtime` are Unix timestamps that specify the window of time to read. `starttime` defaults to `0` and `endtime` defaults to the current time.
+* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read. 
 
-* `sort` defines the order in which data points will be displayed, in ascending(`asc`) or descending(`desc`) order. `sort` defaults to descending(`desc`).
+* `"sort"` defines the order in which data points will be displayed.
 
-* `limit` sets the a maximum on the number of data points to return. `limit` is applied after the results have been sorted, therefore different values of `sort` will return different sets of data points. `limit` defaults to `1`.
+* `"limit"` sets the a maximum on the number of data points to return.
+
+Details of these options are documented in the [Remote Procedure Call API documentation] (https://github.com/exosite/docs/tree/master/rpc#info).
 
 #### Request
 
@@ -994,7 +996,7 @@ On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
-api/portals/v1/data-sources/`RID`/data?starttime=`Timestamp for starttime`&endtime=`Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
 ```
 api/portals/v1/data-sources/610487b9e01c67d4b3dc68574b839b08783c737b/data?starttime=1413517485&endtime=1413517487&limit=2&sort=desc
 ```
