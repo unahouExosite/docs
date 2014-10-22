@@ -58,9 +58,6 @@ Portals provides a user authentication and management system on top of the One P
 #### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
-* [Create domain](#create-domain)
-* [Update domain](#update-domain)
-* [Delete domain](#delete-domain)
 
 #### Themes
 
@@ -220,115 +217,6 @@ A device object describes a device in Portals.
     * `"vendor"`
 
 * `"vendor-id"` is a string identifying the vendor
-
-### Domain object
-
-A domain object describes a Portals domain.
-
-```
-{
-    "config": {
-      "pricing_planidN": <pricing-plan-id>,
-      "pricing_plannameN": <pricing-plan-name>,
-      "pricing_descriptionN": <pricing-description>,
-      "pricing_priceN": <pricing-price>,
-      "pricing_sharingN": <pricing-sharing>,
-      "pricing_viewerN": <pricing-viewer>,
-      "pricing_devicesN": <pricing-device>,
-      "pricing_emailN": <pricing-email>,
-      "pricing_smsN": <pricing-sms>,
-      "pricing_managerN": <pricing-manager>,
-      "whitebox_mainadmin": <user-id>
-    },
-    "members": [
-        <permission-1>,
-        ...
-    ],
-    "networkId": <network-id>,
-    "planAccesses": [
-        <plan-access-1>,
-        ...
-    ]
-}
-```
-
-* `"config"` is an object of storing the settings of the domain.
-
-    * In the `"Pricing Page Plans"` table in the `"Domain Pricing"` section in the `"/admin/configuration"` page:
-
-      * `"pricing_sharing_name"` is a string. It maps to the first cell in the `"Sharing"` column.
-
-      * `"pricing_viewer_name"` is a string. It maps to the first cell in the `"Private viewer"` column.
-
-      * `"pricing_devices_name"` is a string. It maps to the first cell in the `"Devices"` column.
-
-      * `"pricing_email_name"` is a string. It maps to the first cell in the `"Email alert"` column.
-
-      * `"pricing_sms_name"` is a string. It maps to the first cell in the `"SMS alert"` column.
-
-      * `"pricing_manager_name"` is a string. It maps to the first cell in the `"Account Managers"` column.
-
-      * `"pricing_planidN"` is a plan id. (N is from 1 to 4) It maps to the `"Plan ID"` column.
-
-      * `"pricing_plannameN"` is a string. (N is from 1 to 4) It maps to the `"Plan Name"` column.
-
-      * `"pricing_descriptionN"` is a string. (N is from 1 to 4) It maps to the `"Description"` column.
-
-      * `"pricing_priceN"` is a numeric string. (N is from 1 to 4) It maps to the `"Display Price"` column.
-
-      * `"pricing_sharingN"` is a string. (N is from 1 to 4) It maps to the `"Sharing"` column.
-
-      * `"pricing_viewerN"` is a string. (N is from 1 to 4) It maps to the `"Private viewer"` column.
-
-      * `"pricing_devicesN"` is a string. (N is from 1 to 4) It maps to the `"Devices"` column.
-
-      * `"pricing_emailN"` is a string. (N is from 1 to 4) It maps to the `"Email alert"` column.
-
-      * `"pricing_smsN"` is a string. (N is from 1 to 4) It maps to the `"SMS alert"` column.
-
-      * `"pricing_managerN"` is a string. (N is from 1 to 4) It maps to the `"Account Managers"` column.
-
-    * `"whitebox_mainadmin"` is a user id. It maps to `"Bill to Account"` in the `"Domain Billing Configuration"` section in the `"/global/billing"` page.
-
-* `"members"` is an array of [permission objects](#permission-object) listing the members of the domain.
-* `"networkId"` is a number identifying the network the domain belongs to.
-* `"planAccesses"` is an array of plan access objects listing the plans the domain has access to.
-
-    * `<plan-access-N>` is an object:
-
-        ```
-        {
-            "access": <plan-access-permission>,
-            "oid": {
-                "type": "Plan"
-                "id": <plan-id>
-            },
-            "planAccesses": [
-                <plan-access-dependant-1>,
-                ...
-            ]
-        }
-        ```
-
-        * `"access"` is either 0, 1 or 2. 0 means domain is charged. 1 means domain can purchase. 2 means user can purchase.
-
-        * `"oid"` is a plan the domain has access to.
-
-        * `"planAccesses"` is an array of dependant plan accesses.
-
-            * `<plan-access-dependant-N>` is an object
-
-                ```
-                {
-                    "access": <plan-access-permission>,
-                    "oid": {
-                        "type": "Plan"
-                        "id": <plan-id>
-                    }
-                }
-                ```
-
-                See above for definition of each field.
 
 ### Group object
 
@@ -1402,72 +1290,6 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
         "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
     }
 ]
-```
-
-### Create domain
-
-`PUT /api/portals/v1/domains/_this`
-
-Create a domain if it doesn't already exist.
-
-This requires `___admin` permission to the global domain.
-
-#### Request
-
-Request body is a domain object. Currently only the following keys are supported:
-
-* `"networkId"` - Network ID (required)
-
-If you send any keys besides these, it will do nothing.
-
-#### Response
-
-On success, response has HTTP status 201 and the created domain object.
-
-On failure, response has HTTP status of 400 or greater.
-
-### Update domain
-
-`PUT /api/portals/v1/domains/{domain-id}`
-
-Update a domain
-
-#### Request
-
-Request body is a domain object.
-
-#### Response
-
-On success, response has HTTP status 200 and the updated domain object.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
-```
-
-### Delete domain
-
-`DELETE /api/portals/v1/domains/{domain-id}`
-
-Delete a domain if it doesn't have any user
-
-#### Request
-
-Request body is empty
-
-#### Response
-
-On success, response has HTTP status 204.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
 ```
 
 ## Themes
