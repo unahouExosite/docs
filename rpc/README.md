@@ -423,7 +423,7 @@ Writes a single value to the resource specified.
 
 ##writegroup
 
-Writes the given values for the respective resources in the list.
+Writes the given values for the respective resources in the list. This provides a more compact way of writing to multiple resources compared with combining multiple `write` calls into a single request. The values are not necessarily written at the same timestamp.
 
 ```
 {
@@ -488,7 +488,8 @@ Records a list of historical entries to the resource specified.
 
 ##recordbatch
 
-Records a list of historical entries to the resources specified.
+Records a list of historical entries to the resources specified. This is a more compact way of writing to multiple resources compared with combining multiple `record` calls into a single request.
+
 
 ```
 {
