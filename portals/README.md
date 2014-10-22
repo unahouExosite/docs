@@ -973,7 +973,14 @@ TODO
 
 `GET /api/portals/v1/data-sources/{data-source-id}/data`
 
-Return data
+This api can retrieve multiple data points.
+The options below can be included to modify the results of an api call:
+
+* `starttime` and `endtime` are Unix timestamps that specify the window of time to read. `starttime` defaults to `0` and `endtime` defaults to the current time.
+
+* `sort` defines the order in which data points will be displayed, in ascending(`asc`) or descending(`desc`) order. `sort` defaults to descending(`desc`).
+
+* `limit` sets the a maximum on the number of data points to return. `limit` is applied after the results have been sorted, therefore different values of `sort` will return different sets of data points. `limit` defaults to `1`.
 
 #### Request
 
@@ -987,8 +994,9 @@ On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
+api/portals/v1/data-sources/`RID`/data?starttime=`Timestamp for starttime`&endtime=`Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
 ```
-TODO
+api/portals/v1/data-sources/610487b9e01c67d4b3dc68574b839b08783c737b/data?starttime=1413517485&endtime=1413517487&limit=2&sort=desc
 ```
 
 ### Append to data source data
@@ -998,7 +1006,6 @@ TODO
 Write data
 
 #### Request
-
 Request body is a [value](#data-source-object).
 
 #### Response
