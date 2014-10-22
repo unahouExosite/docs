@@ -973,8 +973,7 @@ TODO
 
 `GET /api/portals/v1/data-sources/{data-source-id}/data`
 
-This api can retrieve multiple data points.
-The options below can be included to modify the results of an api call:
+This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
 
 * `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read. 
 
@@ -982,7 +981,7 @@ The options below can be included to modify the results of an api call:
 
 * `"limit"` sets the a maximum on the number of data points to return.
 
-Details of these options are documented in the [Remote Procedure Call API documentation] (https://github.com/exosite/docs/tree/master/rpc#info).
+For more details about these options, see the [read API](https://github.com/exosite/docs/tree/master/rpc#read).
 
 #### Request
 
