@@ -39,7 +39,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Create portal data source](#create-portal-data-source)
 * [Get data source](#get-data-source)
-* [f](#get-data-source-data)
+* [Get data source data](#get-data-source-data)
 * [Append to data source data](#append-to-data-source-data)
 * [Get data source JSON data](#get-json-data-from-source-data)
 * [Append to data source JSON data](#append-json-data-to-source-data)
