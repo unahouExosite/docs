@@ -20,6 +20,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user portals](#get-user-portals)
 * [Get user account by email](#get-user-account-by-email)
 * [Delete user](#delete-user)
+* [Get all user accounts](#get-user-accounts)
 
 #### Portals
 
@@ -469,6 +470,26 @@ An object containing information about a Portals user.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 
+### Account object
+
+An object containing information about a Portals user.
+
+```
+{
+    "email": <short-string>,
+    "fullName": <short-string>,
+    "id": <id>,
+    "meta": <meta>,
+    "phoneNumber": <short-string>
+}
+```
+
+* `"email"` is the user's email address. It is a string of fewer than 256 characters.
+* `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
+* `"id"` is a numeric identifier for the user.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
+
 ### User ID ###
 
 Anywhere an API endpoint takes a user ID, you can instead use \_this as an alias for the user ID of the authenticated user.
@@ -736,9 +757,7 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
 
 ### Get user account by email
 
-```
-GET /api/portals/v1/accounts/{email}
-```
+`GET /api/portals/v1/accounts/{email}`
 
 Get user account by email.
 
@@ -765,6 +784,20 @@ Request body is empty.
 #### Response
 
 On success, response has HTTP status 204 and empty response.
+
+### Get all user accounts
+
+`GET /api/portals/v1/accounts`
+
+Get account information about all users.
+
+#### Request
+
+Request body is empty
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing an array of [account object](#account-object).
 
 On failure, response has HTTP status of 400 or greater.
 
