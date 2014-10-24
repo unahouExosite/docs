@@ -655,9 +655,9 @@ Request body is empty
 
 #### Response
 
-Respond 200, if user exists in some domain.
+Responds with HTTP status 200 if user exists in some domain.
 
-Respond 404, if user doesn't exist in any domain.
+Responds with HTTP status 404 if user doesn't exist in any domain.
 
 ### Delete user
 
