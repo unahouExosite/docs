@@ -1000,7 +1000,7 @@ curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@
 
 `DELETE /api/portals/v1/devices/{device-id}`
 
-Delete a device
+Delete a device not a clone template of a model, not a pay per use device. This also resets the status of the associated serial number.
 
 #### Request
 
