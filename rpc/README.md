@@ -654,7 +654,7 @@ Creates a dataport.
                 "count": number | "infinity",
                 "duration": number | "infinity"
             },
-            "subscribe": <ResourceID> = ""
+            "subscribe": <ResourceID> |  null = null
        }
     ], 
     "id": 1
@@ -675,7 +675,7 @@ Creates a dataport.
 
     `"duration"` is the maximum number of hours this resource will retain its data.
 
-* `"subscribe"` is an RID to which this resource is subscribed, or `""` if it is not subscribed to another resource. If set to an RID, this resource will receive a publication whenever a value is written to the specified RID. 
+* `"subscribe"` is an RID to which this resource is subscribed, or null if it is not subscribed to another resource. If set to an RID, this resource will receive a publication whenever a value is written to the specified RID. 
 
 
 ####response
@@ -709,7 +709,7 @@ Creates a datarule.
                 "duration": number | "infinity"
             }
             "rule": object,            
-            "subscribe": <ResourceID> = ""
+            "subscribe": <ResourceID> | null = null
         }
     ], 
     "id": 1
@@ -914,7 +914,7 @@ Creates a dispatch.
                 "duration": number | "infinity"
             },
             "subject": string,
-            "subscribe": <ResourceID> = ""
+            "subscribe": <ResourceID> | null = null
         }
     ], 
     "id": 1
