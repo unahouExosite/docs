@@ -1322,7 +1322,7 @@ Available only to the client's direct owner.
         // List of resources that are subscribed to this one in the form {Type, RID}
         "subscribers": [],
         // Numbers for the resource storage retention
-        // Availalbe for dataport, datarule, dispatch only
+        // Available for dataport, datarule, dispatch only
         "storage":{
             "count":0
            ,"first":0
