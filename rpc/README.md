@@ -611,8 +611,6 @@ Creates a client.
 
     `"email_bucket"`, `"http_bucket"`, `"sms_bucket"`, `"xmpp_bucket"` is the number of each type of consumable this client can use. The bucket can be refilled when depleted by updating the client's description. Updating the limit in the description draws from the client's parent's bucket for as long as the parent (or other ancestor, in the case of a parent bucket set to `"inherit"`) has anything left in its bucket.
 
-    `"io"` is the number of One Platform API calls this client can make on a daily basis.
-
     `"share"` is the number of shares this client can create.
 
 * `"locked"`, if set to `true`, prevents this client from interacting with the One Platform. Every API call will return the error code "locked".
@@ -1164,11 +1162,12 @@ returned.
         {
             "aliases": true,
             "basic": true,
-            "comments: true,
             "counts": true,
             "description": true,
             "key": true,
             "shares": true,
+            "storage":true,
+            "subscribers":true,
             "tagged": true,
             "tags": true,
             "usage": true
@@ -1190,9 +1189,10 @@ returned.
     `"basic"` returns basic information about a resource, such as its type, when 
     it was created, last modified and, for 'client' and 'dispatch' type resources, its current status.
 
-    `"comments"` returns all comments associated with the resource that 
-    are visible to the calling client. See the One Platform User Guide for 
-    'visibility' definition. `"comments"` are deprecated and should not be used.
+    `"comments"` are deprecated and should not be used.
+
+    `"counts"` returns the actual count of the resources/consumables used by the client, does not include
+    resources/consumables by subresources.
 
     `"description"` returns the description of the resource that was used to create 
     or last update the resource.
@@ -1203,21 +1203,25 @@ returned.
     `"shares"` returns share activation codes along with information about how many 
     times and for what duration this resource has been shared and which clients the 
     activators are.
-
+    
+    `"storage"` Available for dataport,datarule, and dispatch resources. Returns the numbers for
+    "count", "first", "last", and "size.
+    
+    `"subscribers"` returns the resources subscribed to this resource.
+    
     `"tagged"` is reserved for future use.
 
     `"tags"` is reserved for future use.
 
     `"usage"` returns current usage information for the resource.
 
-Clients can call `info` on any resource in their sub-hierarchy, including themselves. The type of info available to the caller depends on whether the caller is the client itself on which info is being called or the resource's direct owner or some other client up the hierarchy. For information about making a call on behalf of a particular client, see [Authentication](#authentication).
+Clients can call `info` on any resource in their sub-hierarchy, including themselves. The type of info available to the caller depends on whether the caller is the client itself on which info is being called or the resource's direct owner or some other client up the hierarchy. For information about making a io on behalf of a particular client, see [Authentication](#authentication).
 
 Available to any client up the hierarchy:
 
 - `"basic"`
 - `"counts"`
 - `"usage"`
-- `"comments"`
 - `"description"`
 - `"storage"`
 - `"subscribers"`
@@ -1268,9 +1272,6 @@ Available only to the client's direct owner.
             // "client" | "dataport" | "datarule" | "dispatch"
             "type": "client"
         },
-        // Private and public comments associated with this resource that are 
-        // visible to the calling client.
-        "comments": [],
         // The actual count of the resources/consumables used by the client on which info 
         // was called. This is different from "usage" in that "counts" does not include
         // resources allocated to subresources but not actually used by them.
@@ -1320,6 +1321,14 @@ Available only to the client's direct owner.
         "shares": [],
         // List of resources that are subscribed to this one in the form {Type, RID}
         "subscribers": [],
+        // Numbers for the resource storage retention
+        // Availalbe for dataport, datarule, dispatch only
+        "storage":{
+            "count":0
+           ,"first":0
+           ,"last":0
+           ,"size":0
+        },
         "tagged": [],
         "tags": [],
         "usage": {
