@@ -681,7 +681,8 @@ Creates a dataport.
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -884,7 +885,8 @@ previous value.</li>
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -934,7 +936,8 @@ Creates a dispatch.
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -971,7 +974,8 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
