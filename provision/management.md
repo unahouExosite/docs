@@ -1520,9 +1520,9 @@ Content-Length: 0
 
 ### POST - regenerate cik for serial number
 
-```Regenerates CIK for client associated with `<sn>`. `<sn>` must have been 
+Regenerates CIK for client associated with `<sn>`. `<sn>` must have been 
 previously enabled, and must subsequently be activated after in order to 
-download the new CIK and to use the client.```
+download the new CIK and to use the client.
 
 ```
 POST /provision/manage/model/<model>/<sn> HTTP/1.1
