@@ -681,7 +681,8 @@ Creates a dataport.
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -697,7 +698,7 @@ Creates a datarule.
     "arguments": [
         "datarule", 
         {
-            "format": "float" | "integer",
+            "format": "float" | "integer" | "string",
             "meta": string = "",
             "name": string = "",
             "preprocess": list = [],
@@ -706,15 +707,16 @@ Creates a datarule.
                 "count": number | "infinity",
                 "duration": number | "infinity"
             }
-            "rule": object,            
+            "rule": object,
+            "script":string,
             "subscribe": <ResourceID> | null = null
         }
     ], 
     "id": 1
 }
 ```
-
-* `"format"` is the format in which the datarule will store its data.
+ 
+* `"format"` is the format in which the datarule will store its data.  Script (Lua Script) datarules should be format 'string'.
 * `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
 * `"preprocess"`, `"retention"`, and `"subscribe"` are described in [create (dataport)](#create-dataport)
 * `"rule"` is a JSON object describing the main processing this resource will do on each incoming datapoint. It may be one of the following:
@@ -883,7 +885,8 @@ previous value.</li>
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -933,7 +936,8 @@ Creates a dispatch.
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
@@ -970,7 +974,8 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 ```
 {
     "status": "ok",
-    "id": 1
+    "id": 1,
+    "result": "<ResourceID>"
 }
 ```
 
