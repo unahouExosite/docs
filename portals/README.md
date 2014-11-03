@@ -644,7 +644,7 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
 ```
 #### Example Options
 ```
-curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>" 
 [
   {
     "PortalName": "Steve....",
@@ -652,7 +652,7 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals?options=
     "PortalRID": "................................",
     "UserEmail": "stevelo@XXXXXX",
     "Description": "Steve XXXXXXX",
-    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"]
+    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"] //enclosed in square brackets are Devices RIDs 
   },
   {
     "PortalName": "steve......",
