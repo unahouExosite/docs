@@ -644,7 +644,7 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
 ```
 #### Example Options
 ```
-curl https://&lt;domain&gt;.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>" 
+curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>" 
 [
   {
     "PortalName": "Steve....",
