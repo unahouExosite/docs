@@ -613,7 +613,7 @@ curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>/token\?reDirect
 Get user have access to as a manager or private viewer.
 
 #### Request
-Request body is empty.
+* `"options"` - Options now support `devices` to get devices-rid.
 
 #### Response
 
@@ -639,6 +639,28 @@ curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H '
     "PortalRID": "................................",
     "UserEmail": "stevelo@XXXXXXX",
     "Description": "Default XXXXX"
+  }
+]
+```
+#### Example Options
+```
+curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+[
+  {
+    "PortalName": "Steve....",
+    "PortalID": "3438636XXX",
+    "PortalRID": "................................",
+    "UserEmail": "stevelo@XXXXXX",
+    "Description": "Steve XXXXXXX",
+    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"]
+  },
+  {
+    "PortalName": "steve......",
+    "PortalID": "111646XXX",
+    "PortalRID": "................................",
+    "UserEmail": "stevelo@XXXXXXX",
+    "Description": "Default XXXXX",
+    "Devices":[]
   }
 ]
 ```
