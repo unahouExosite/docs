@@ -1033,10 +1033,10 @@ This is a HTTP Long Polling API which allows a user to wait on specific resource
         {
             "procedure": "wait",
             "arguments": [
-                [<ResourceID1>, <ResourceID2> ...]
+                <ResourceID>,
                 {
-                    "timeout": <Number>
-                    "since": <Timestamp>
+                    "timeout": <Number> = 30000
+                    "since": <Timestamp> = null
                 }
             ], 
             "id": 1
@@ -1045,11 +1045,11 @@ This is a HTTP Long Polling API which allows a user to wait on specific resource
 }
 ```
 
-* `<ResourceID>` specifies what resources to flush. See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` specifies what resource to wait on. See [Identifying Resources](#identifying-resources) for details.
 
-* `timeout` is a number value to specify how many milliseconds to be the timeout value for this wait request.  If you don't provide `timeout` key, it will take 30 seconds to be a default timeout value.
+* `timeout` is a number that specifies a timeout value, in milliseconds. If you don't provide `timeout` key, it will default to 30000 (30 seconds).
 
-* `since` is a Unix timestamp to specify when you want to wait from.  If you wait since a timestamp, the first updated value will be responsed.  If you don't provide `since` key or set <Timestamp> to be "null" that you wait from now.
+* `since` is a Unix timestamp to specify when you want to wait from.  If you wait since a timestamp, the first updated value after that timestamp will be returned.  If you don't provide `since` key or if you set <Timestamp> `null`, you wait from the time the wait call is received.
 
 The following is an JSON example of the wait API.
 
@@ -1062,7 +1062,7 @@ The following is an JSON example of the wait API.
     {
       "procedure": "wait",
       "arguments": [
-        [{"alias": "wait_dataport"}],
+        {"alias": "wait_dataport"},
         {
           "timeout": 5000,
           "since": "undefined"
@@ -1074,7 +1074,7 @@ The following is an JSON example of the wait API.
 }
 ```
 
-The following is an example to wait on multiple aliases with default timeout, 30 seconds, from now.
+The following is an example to wait with default timeout, 30 seconds from now.
 
 ```
 {
@@ -1085,27 +1085,7 @@ The following is an example to wait on multiple aliases with default timeout, 30
     {
       "procedure": "wait",
       "arguments": [
-          [{"alias": ["wait_dataport", "wait_dataport2", ...]}],
-          {}
-      ],  
-      "id": 1
-    }
-  ]
-}
-```
-
-The following is an example to wait on multiple aliases by Rid with default timeout, 30 seconds, from now.
-
-```
-{
-  "auth": {
-    "cik": "1c5410607e30469aeedfe899b56011f5ce51ffed",
-  },
-  "calls": [
-    {
-      "procedure": "wait",
-      "arguments": [
-          [Rid1 ,Rid2],
+          {"alias": "wait_dataport"},
           {}
       ],  
       "id": 1
@@ -1116,8 +1096,6 @@ The following is an example to wait on multiple aliases by Rid with default time
 
 ####response
 
-Response for single wait.
-
 ```
 {
     "status": string,
@@ -1126,28 +1104,13 @@ Response for single wait.
 }
 ```
 
-Response for multiple wait.
-
-```
-{
-    "status": string,
-    "result": [
-        [
-            {<ResourceID1>: [timestamp1, value1]},
-            {<ResourceID2>: [timestamp2, value2]},
-            ...
-        ],
-    "id": 1
-}
-```
-
 * `"status": "ok"` means the resource was updated
 
-* `"status": "expire"` means the long poll request is expired. You may need to contineously send anohter long poll request.
+* `"status": "expire"` means the long poll request is expired. You may need to send another wait request.
 
-* `"status": "error"` means there is something wrong for this request. You have to check the returned error message.
+* `"status": "error"` means there is something wrong in the request. You have to check the returned error message.
 
-* `"result"`: `timestamp` is the time that the resource is updated. `value` is the corresponding updated value.
+* `"result"`: `timestamp` is the time that the resource is updated. `value` is the corresponding value for that timestamp.
 
 ---
 
