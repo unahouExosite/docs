@@ -423,7 +423,7 @@ Writes a single value to the resource specified.
 
 ##writegroup
 
-Writes the given values for the respective resources in the list. This provides a more compact way of writing to multiple resources compared with combining multiple `write` calls into a single request. The values are not necessarily written at the same timestamp.
+Writes the given values for the respective resources in the list. The difference between calling `writegroup` and combining multiple `write` calls into a single request is that `writegroup` guarantees the points are written at the same timestamp.
 
 ```
 {
@@ -435,7 +435,7 @@ Writes the given values for the respective resources in the list. This provides 
 }
 ```
 
-* `<ResourceID>` is the identifier of the device to write. See [Identifying Resources](#identifying-resources) for details.
+* `<ResourceID>` is the identifier of the resource to which to write. See [Identifying Resources](#identifying-resources) for details.
 
 * `<value>` is the value to write.
 
@@ -488,7 +488,7 @@ Records a list of historical entries to the resource specified.
 
 ##recordbatch
 
-Records a list of historical entries to the resources specified. This is a more compact way of writing to multiple resources compared with combining multiple `record` calls into a single request.
+Records a list of historical entries to the resource specified. This is a more compact way of recording multiple points compared with combining multiple `record` calls into a single request.
 
 
 ```
@@ -503,6 +503,7 @@ Records a list of historical entries to the resources specified. This is a more 
 ```
 
 * `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
+
 * The second argument is a list of timestamp, value entries to record to the resource. If
     `<timestamp>` is a negative value, it means an offset back into the past from the current time.
 

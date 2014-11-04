@@ -2,7 +2,7 @@
 
 The UDP API provides a low-overhead interface that allows clients with strict data bandwidth requirements (e.g. cellular data) to send data to the One Platform. This API uses a simple UDP packet that encapsulates both identification information and data payload. If you're completely new to Exosite's APIs, you may want to read the [API       overview](../README.md) first.
 
-Note: This API does not include a response from the server.  For this reason it's not recommended for applications where the device needs to take action when the server may not be receiving messages or if a device's CIK may have changed.  
+Note: This API does not include a response from the server.  For this reason it is not recommended for applications where the device needs to take action when the server may not be receiving messages or if a device's CIK may have changed.  
 
 ## Conventions
 
@@ -21,9 +21,9 @@ Server: m2.exosite.com
 Port: 18494
 ```
 
-Data being sent from the client device is sent over a UDP socket. An Exosite client identification key <CIK> and one or more alias (resource) names <alias>es & <value>s are included as the body of the UDP packet.
+Data being sent from the client device is sent over a UDP socket. An Exosite client identification key `<CIK>` and one or more alias (resource) names `<alias>`es & `<value>`s are included as the body of the UDP packet.
 
-Multiple client resource values can be written in the body of a single UDP packet, each client resource is listed by its resource alias name, ‘=’, and it’s value. For example "1=453" or "temp=74.3". To separate each resource the ‘&’ symbol is used.
+Multiple client resource values can be written in the body of a single UDP packet, each client resource is listed by its resource alias name, `=`, and its value. For example `1=453` or `temp=74.3`. To separate each resource the `&` symbol is used. Multiple writes are written to the same timestamp.
 
 Content format:
 
@@ -39,7 +39,7 @@ None - no server responses are sent.
 
 ## Examples
 
-The following example updates the alias "temperature" with a value of "22" for CIK fff51d1a260b4b258fefffd9a9313c433e419fff using the netcat command from the command line:
+The following example updates the alias `temperature` with a value of `22` for CIK fff51d1a260b4b258fefffd9a9313c433e419fff using the netcat command from the command line:
 
 ```
 $ echo "cik=fff51d1a260b4b258fefffd9a9313c433e419fff&temperature=22" | nc -w 1 -u m2.exosite.com 18494
