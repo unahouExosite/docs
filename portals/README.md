@@ -173,8 +173,8 @@ A device object describes a device in Portals.
 ```
 {
     "dataSources": [
-        <data-source-id-1>,
-        <data-source-id-2>,
+        <data-source-rid-1>,
+        <data-source-rid-2>,
         ...
     ],
     "info": {
@@ -202,7 +202,7 @@ A device object describes a device in Portals.
 
 * `"dataSources"` is an array of data source IDs a device has.
 
-    * `<data-source-id-N>` is a 40 character hex string representing the data source's RID in the One Platform
+    * `<data-source-rid-N>` is a 40 character hex string representing the data source's RID in the One Platform
 
 * `"info"` is an client object documented in the [remote procedure call documentation](https://github.com/exosite/docs/tree/master/rpc#info). But only aliases, basic, description, key, shares, subscribers, tagged and tags are exposed.
 
@@ -291,8 +291,8 @@ An object containing information about a portal.
 ```
 {
     "devices": [
-        <device-id-1>,
-        <device-id-2>,
+        <device-rid-1>,
+        <device-rid-2>,
         ...
     ],
     "id": <id>,
@@ -312,7 +312,7 @@ An object containing information about a portal.
 
 * `"devices"` is an array of identifiers for devices of which the portal owns.
 
-    * `<device-id-N>` is a 40 character hex string representing the device's RID in the One Platform
+    * `<device-rid-N>` is a 40 character hex string representing the device's RID in the One Platform
 
 * `"id"` is a numeric identifier for the portal.
 
@@ -435,7 +435,7 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 #### Example
 
 ```
-$ curl https://janesdomain.exosite.com/api/portals/v1/user -d '{"email": "jane+testuser123@gmail.com", "password":"testuserP4ssword", "plan":"3676938388"}'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/user' -d '{"email": "jane+testuser123@gmail.com", "password":"testuserP4ssword", "plan":"3676938388"}'
 ```
 
 ### Reset user account password
@@ -470,7 +470,7 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 #### Example
 
 ```
-$ curl https://portals.exosite.com/api/portals/v1/user/password -d '{"action":"reset", "email": "joe@gmail.com"}'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' -d '{"action":"reset", "email": "joe@gmail.com"}'
 ```
 
 ### Create user
@@ -500,29 +500,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl https://<joes domain>.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
-```
-
-### Get all users
-
-`GET /api/portals/v1/users`
-
-Get information about all users.
-
-#### Request
-
-Request body is empty.
-
-#### Response
-
-On success, response has HTTP status 200 and a body containing an array of [user object](#user-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/users' -X POST -d '{"email":"newuseremail@gmail.com"}' -u 'adminuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get user
@@ -544,7 +522,29 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
+### Get all users
+
+`GET /api/portals/v1/users`
+
+Get information about all users.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing an array of [user object](#user-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' -X GET -d '{"email":"newuseremail@gmail.com"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Update user
@@ -579,7 +579,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/users/012345679' -X PUT -d '{"email":"updatedemail@gmail.com"}'-u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get user token
@@ -602,12 +602,11 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+curl  'https://mydomain.exosite.com/api/portals/v1/users/012345679/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
-### Get user portals
+### Get user portal
 
-`GET /api/portals/v1/users/{user-id}/portals`
 `GET /api/portals/v1/users/{user-id}/portals/{portal-id}`
 
 Get user have access to as a manager or private viewer.
@@ -617,30 +616,42 @@ Get user have access to as a manager or private viewer.
 
 #### Response
 
-On success, response has HTTP status 200 and the portals object.
+On success, response has HTTP status 200 and a body containing a [portal object](#portal-object).
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-curl https://<domain>.portalsapp/api/portals/v1/users/<user id>/portals -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
-[
-  {
-    "PortalName": "Steve....",
-    "PortalID": "3438636XXX",
-    "PortalRID": "................................",
-    "UserEmail": "stevelo@XXXXXX",
-    "Description": "Steve XXXXXXX"
-  },
-  {
-    "PortalName": "steve......",
-    "PortalID": "111646XXX",
-    "PortalRID": "................................",
-    "UserEmail": "stevelo@XXXXXXX",
-    "Description": "Default XXXXX"
-  }
-]
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals/0123456789' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
+### Get user all portals
+
+`GET /api/portals/v1/users/{user-id}/portals`
+
+Get user have access to as a manager or private viewer.
+
+#### Request
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and a body containing an array of portal object.
+Portal objects contain the following keys:
+
+* `"PortalName"` - Portal name
+* `"PortalID"` - Portal ID
+* `"PortalRID"` - Portal RID
+* `"UserEmail"` - The portal’s direct owner's email
+* `"Description"` - Portal description
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 #### Example Options
 ```
@@ -667,7 +678,7 @@ curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?opti
 
 ### Get user account by email
 
-`GET /api/portals/v1/accounts/{email}`
+`GET /api/portals/v1/accounts/{user-email}`
 
 Get user account by email.
 
@@ -677,13 +688,26 @@ Request body is empty
 
 #### Response
 
-Responds with HTTP status 200 if user exists in some domain.
+On success, responds with HTTP status 200 if user exists in some domain and the body containing user object.
+user objects contain the following keys:
 
-Responds with HTTP status 404 if user doesn't exist in any domain.
+* `"email"` - User email
+* `"fullName"` - User full name
+* `"id"` - User ID
+* `"meta"` - User meta
+* `"phoneNumber"` - User phonenumber
+
+On failure, responds with HTTP status 404 if user doesn't exist in any domain.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' -X GET -u 'adminuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Delete user
 
-`GET /api/portals/v1/users/{user-id}`
+`DELETE /api/portals/v1/users/{user-id}`
 
 Delete a user who has no Braintree ID, no portal, no discount.
 
@@ -694,6 +718,13 @@ Request body is empty.
 #### Response
 
 On success, response has HTTP status 204 and empty response.
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Get all user accounts
 
@@ -710,6 +741,12 @@ Request body is empty
 On success, response has HTTP status 200 and a body containing an array of [account object](#account-object).
 
 On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### List portals of authenticated user
 
@@ -740,23 +777,7 @@ On failure, response has a HTTP status code of 400 or greater.
 #### Example
 
 ```
-$ curl https://mydomain.exosite.com/api/portals/v1/portal/ --user joe@gmail.com:joep4ssword
-[
-    {
-        "name":"MyPortal1",
-        "domain":"mydomain.exosite.com"
-        "rid":"5ef46b987385aaaaaaaaaa75183fb43edeb3557b",
-        "key":"7ef46b987385bbbbbbbbbb75183fb43edeb3557b",
-        "role":"owner"
-    },
-    {
-        "name":"MyPortal2",
-        "domain":"mydomain.exosite.com"
-        "rid":"46b987385aaaaaaaaaa75183fb43edeb3557bbbb",
-        "key":"070bdbf63f50f1e8dbbeb8f5aa9ba9aaaaaaaaaa",
-        "role":"manager"
-    }
-]
+$ curl 'https://mydomain.exosite.com/api/portals/v1/portal' -u 'domainuseremail@gmail.com:adminuserP4ssword'
 ```
 
 ### Get portal
@@ -778,7 +799,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Create portal
@@ -791,20 +812,20 @@ Create a portal under a user.
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
 
-* `"planId"` - portal plan (optional)
+* `"planId"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups.(optional)
 
 If you send any keys besides these, it will do nothing.
 
 #### Response
 
-On success, response has HTTP status 201 and the created portal object.
+On success, response has HTTP status 201 and the created [portal object](#portal-object).
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals' -X POST -d '{"planId":"3676938388"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Update portal
@@ -817,7 +838,13 @@ Update information about a portal.
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
-* `"info": {"aliases": ...}` - aliases under info (optional)
+* `"info"` - Portal's Info is a array. Possible values are:
+    
+    * `"aliases"` - Aliases under info is a array.(optional) Possible values are:
+
+        * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
+
+            * `"{aliases}"` - The under this portal's data-sources/ device aliases is a array.
 
 If you send any keys besides these, it will do nothing.
 
@@ -825,12 +852,10 @@ If you send any keys besides these, it will do nothing.
 
 On success, response has HTTP status 200 and the updated portal object.
 
-On failure, response has HTTP status of 400 or greater.
-
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789' -X PUT -d '{"info":{"aliases":{"ba5595d9f3d87c371bd49f25f61d01b62e0afe3f":["update aliases"]}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Create new device under a portal of authenticated user
@@ -904,17 +929,15 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 Create the device:
 
 ```
-$ curl https://joesdomain.exosite.com/api/portals/v1/device -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' --user joe@gmail.com:joep4ssword
-{
-  "cik": "ef123475183fb435ef46b987385abcdedeb3557b",
-  "rid": "987385abcdedeef123475183fb435ef46baf367b"
-}
+$ curl 'https://mydomain.exosite.com/api/portals/v1/device' -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' -u 
+'domainuseremail@gmail.com:adminuserP4ssword'
 ```
 
 Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
 
 ```
-$ curl https://m2.exosite.com/provision/activate -d 'vendor=joevendor&model=myDeviceModel&sn=ABC-123'
+$ curl 'https://m2.exosite.com/provision/activate' -d 'vendor=joevendor&model=myDeviceModel&sn=ABC-123'
+
 ef123475183fb435ef46b987385abcdedeb3557b
 ```
 
@@ -944,12 +967,12 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789/devices' -X POST -d '{"sn":"123", "vendor":"mydomain", "model":"apimodel", "type":"vendor"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get device
 
-`GET /api/portals/v1/devices/{device-id}`
+`GET /api/portals/v1/devices/{device-rid}`
 
 Get information for a device.
 
@@ -966,7 +989,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Delete group
@@ -988,12 +1011,12 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Update device
 
-`PUT /api/portals/v1/devices/{device-id}`
+`PUT /api/portals/v1/devices/{device-rid}`
 
 Update a device
 
@@ -1015,12 +1038,12 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X PUT -d '{"info": {"description": {"name": "device update name"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Delete device
 
-`DELETE /api/portals/v1/devices/{device-id}`
+`DELETE /api/portals/v1/devices/{device-rid}`
 
 Delete a device not a clone template of a model, not a pay per use device. This also resets the status of the associated serial number.
 
@@ -1037,7 +1060,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl https://mydomain.exosite.com/api/portals/v1/users -d '{"email":"a_new_user@gmail.com"}' -H 'Content-Type: application/json' --user joe_subdomainadmin@gmail.com:joep4ssword
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X DELETE -d '{"info": {"description": {"name": "device update name"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Create portal data source
@@ -1050,9 +1073,9 @@ Create a data source inside a portal
 
 Request body is a [data source object](#data-source-object). Currently only the following keys are supported:
 
-* `"format"` - data source format (optional)
-* `"name"` - data source name (optional)
-* `"unit"` - data source unit (optional)
+* `"format"` - Data source format under info description.(optional)
+* `"name"` - Data source name under info description.(optional)
+* `"unit"` - Data source unit under info description.(optional)
 
 If you send any keys besides these, it will do nothing.
 
@@ -1065,12 +1088,12 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789/data-sources' -X POST -d '{"info":{"description":{"name": "new data"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get data source
 
-`GET /api/portals/v1/data-sources/{data-source-id}`
+`GET /api/portals/v1/data-sources/{data-source-rid}`
 
 Get information about a Portals data source.
 
@@ -1087,12 +1110,12 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get data source data
 
-`GET /api/portals/v1/data-sources/{data-source-id}/data`
+`GET /api/portals/v1/data-sources/{data-source-rid}/data`
 
 This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
 
@@ -1110,7 +1133,13 @@ Request body is empty.
 
 #### Response
 
-On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"` from a [data source object](#data-source-object) for details.
+On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
+
+* `"data"` is an array of data points. A data point has a unit timestamp and a value.
+
+    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+
+    * `{value}` may be a string, int, or float depending on the data source type.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1118,12 +1147,12 @@ On failure, response has HTTP status of 400 or greater.
 
 api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
 ```
-api/portals/v1/data-sources/610487b9e01c67d4b3dc68574b839b08783c737b/data?starttime=1413517485&endtime=1413517487&limit=2&sort=desc
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/data?starttime=1415157643&endtime=1415157646&limit=2&sort=desc' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Append to data source data
 
-`POST /api/portals/v1/data-sources/{data-source-id}/data`
+`POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
 Write data
 
@@ -1139,14 +1168,14 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/data' -X POST -d '"1000"'-u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get JSON data from source data
 
-`GET /api/portals/v1/data-sources/{data-source-id}/json`
+`GET /api/portals/v1/data-sources/{data-source-rid}/json`
 
-This is identical to `GET /api/portals/v1/data-sources/{data-source-id}/data`
+This is identical to `GET /api/portals/v1/data-sources/{data-source-rid}/data`
 
 #### Request
 
@@ -1154,22 +1183,25 @@ Request body is empty.
 
 #### Response
 
-On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"` from a [data source object](#data-source-object) for details.
+On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
+
+* `"data"` is an array of data points. A data point has a unit timestamp and a value.
+
+    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+
+    * `{value}` may be a string, int, or float depending on the data source type.
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-$ curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X GET
-    -u 'testing@exosite.com:1234'
-    -k -i
+$ curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/json' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Append JSON data to data source
 
-`POST /api/portals/v1/data-sources/{data-source-id}/json`
+`POST /api/portals/v1/data-sources/{data-source-rid}/json`
 
 Write json data
 
@@ -1193,11 +1225,7 @@ When `safe` is passed in querystring, failure will response 409
 #### Example
 
 ```
-curl 'https://testing.signoff.portalsapp/api/portals/v1/data-sources/902974faa4c14e36a6331cc991ff78a3b5121ff7/data
-    -X POST
-    -d '{"how":"are","you":"?"}'
-    -u 'testing@exosite.com:1234'
-    -k -i
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44/json' -X POST -d '{"how":"are","you":"?"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Create group under user
@@ -1223,7 +1251,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/groups' -X POST -d '{"name":"new group"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Get group
@@ -1245,7 +1273,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### Update group
@@ -1274,7 +1302,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-TODO
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X PUT -d  '{"name":"update group name"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
 
 ### List domains of authenticated user
@@ -1306,7 +1334,8 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-$ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:joep4ssword
+$ curl 'https://mydomain.exosite.com/api/portals/v1/domain' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+
 [
     {
         "role":"user",
@@ -1324,8 +1353,11 @@ $ curl https://portals.exosite.com/api/portals/v1/domain/ --user joe@gmail.com:j
 
 ## Themes
 
-Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: /api/portals/v1/themes/.
+Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
 **Note: Image data can currently not be modified using this API**
+
+### Theme object
+
 A sample theme object looks like this:
 
 ```
@@ -1386,39 +1418,13 @@ A sample theme object looks like this:
 }
 ```
 
-### List themes
-
-`GET /api/portals/v1/themes/`
-
-### Create theme
-
-`POST /api/portals/v1/themes/`
-
-The post body needs to be JSON encoded and at least include the required fields:
-
-* name
-* description
-
-### Get theme
-
-`GET /api/portals/v1/themes/{themeid}`
-
-### Update theme
-
-`PUT /api/portals/v1/themes/{themeid}`
-
-The post body needs to be JSON encoded.
-
-### Delete theme
-
-`DELETE /api/portals/v1/themes/{themeid}`
-
-When deleting the current default theme the exosite system theme will be applied to the domain.
-
 ## Client Models
 
 Client models represent a class of devices. All devices of the same client model have the same behaviour attributes and pricing. Only the domain administrator can use the client model APIs.
 **Note: Image data can currently not be modified using this API**
+
+### Client models object
+
 A sample client model object looks like this:
 
 ```
@@ -1447,92 +1453,94 @@ A sample client model object looks like this:
 }
 ```
 
-## Themes
-
-Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
-**Note: Image data can not be modified using this API**
-A sample theme object looks like this:
-
-```
-{
-    "id": "3077881923",
-    "name": "sample_theme",
-    "description": "this is a description",
-    ":default": true,
-    "config": {
-        "dashboard_background": {
-            "background_color": "F9F9F9",
-            "background_image": "",
-            "background_attachment": "scroll",
-            "background_repeat": "repeat-y",
-            "background_position": "left top"
-        },
-        "header_logo": "https:\/\/portals.yourdomain.com\/cache\/theme\/0_1923506535_header_logo.png",
-        "header_bkimage": "https:\/\/portals.yourdomain.com\/static\/png\/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
-        "header_title_color": "D5E04D",
-        "header_subtitle_color": "FFFFFF",
-        "header_titles_position_top": "1.375em",
-        "header_linktext_color": "E5E5E5",
-        "header_linktextover_color": "D5E04D",
-        "header_dropdown_text_color": "FFFFFF",
-        "header_linktext_position_top": "1.5em",
-        "header_portalmenu_current_color": "0000FF",
-        "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
-        "footer_text_color": "D5E04D",
-        "footer_bar_color": "D5E04D",
-        "footer_linktext_color": "5C5D60",
-        "footer_linktextover_color": "000000",
-        "block_title_text_color": "000000",
-        "block_title_linkover_color": "010101",
-        "block_title_back_color": "D5E04D",
-        "block_invert_icons": "",
-        "managepage_highlight_text_color": "0000FF",
-        "dashboard_thumbnail": "",
-        "thankyoupage_title_text_color": "D5E04D",
-        "browser_tab_text": "Exosite Portals",
-        "browser_tab_icon": "https:\/\/portals.yourdomain.com\/static\/png\/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
-        "admin_menu_style": {
-            "admin_menu_title": "Domain Admin",
-            "manage_menu_title": "Manage",
-            "secondary_menu_title": "Portal Menu",
-            "account_menu_title": "Account",
-            "menu_title_color": "E5E5E5",
-            "background_color": "5C5D60",
-            "background_hover_color": "A6A6A6",
-            "text_color": "FFFFFF",
-            "sub_background_color": "FFFFFF",
-            "sub_background_hover_color": "A6A6A6",
-            "sub_text_color": "5C5D60",
-            "text_active_color": "D5E04D"
-        },
-        "jsCode": ""
-    },
-    "code": ""
-}
-```
-
 ### List themes
 
 `GET /api/portals/v1/themes/`
+
+Returns an array of themes which in this domain.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and an array of [theme object](#theme-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
+### Create theme (Not provide)
+
+`POST /api/portals/v1/themes/`
+
+#### Request
+
+The post body needs to be JSON encoded and at least include the required fields:
+
+* `"name"`
+* `"description"`
+
+#### Response
+
+On success, response has HTTP status 200 and [theme object](#theme-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X POST -d '{"name": "sample_theme","description": "theme description"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Get theme
 
 `GET /api/portals/v1/themes/{themeid}`
 
-### Create theme
+Get information about a theme.
 
-`POST /api/portals/v1/themes/`
+#### Request
 
-The post body needs to be JSON encoded and at least include the required fields:
+Request body is empty.
 
-* name
-* description
+#### Response
+
+On success, response has HTTP status 200 and body is a [theme object](#theme-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Update theme
 
 `PUT /api/portals/v1/themes/{themeid}`
 
-The post body needs to be JSON encoded.
+Update information about a theme.
+
+#### Request
+
+The body needs to be JSON encoded contains a [theme object](#theme-object). 
+
+#### Response
+
+On success, response has HTTP status 200 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -X PUT -d '{"name": "update_theme"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Delete theme
 
@@ -1540,35 +1548,134 @@ The post body needs to be JSON encoded.
 
 When deleting the current default theme the exosite system theme will be applied to the domain.
 
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -X PUT -d '{"name": "update_theme"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
 ### List client models
 
 `GET /api/portals/v1/client-models/`
 
-### Create client model
+Returns an array of client models which in this domain.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
+### Create client model (Not provide)
 
 `POST /api/portals/v1/client-models/`
 
+
+#### Request
+
 The post body needs to be JSON encoded and at least include the required fields:
 
-* friendly
-* name
-* cloneRID
+* `"friendly"`
+* `"name"`
+* `"cloneRID"` - Cloned device rid.
+
+#### Response
+
+On success, response has HTTP status 200 and [client models object](#client-models-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X POST -d '{"friendly": "midel friendly", "name":"model name", "cloneRID": "acfe55f98b8e6f31f1e32e8eb58130581b528f9e"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Get client model
 
 `GET /api/portals/v1/client-models/{vendor}/{name}`
 
+Get information about a client model.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and body is a [client model object](#client-model-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
 ### Update client model
 
 `PUT /api/portals/v1/client-models/{vendor}/{name}`
 
-The post body needs to be JSON encoded.
+Update information about a theme.
+
+#### Request
+
+The body needs to be JSON encoded contains a [client model object](#client-model-object). 
+
+#### Response
+
+On success, response has HTTP status 200 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X PUT -d '{"description": "sample model"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ### Delete client model
 
 `DELETE /api/portals/v1/client-models/{vendor}/{name}`
 
 When deleting the current default client model the exosite system client model will be applied to the domain.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 ## File System
 
@@ -1639,11 +1746,40 @@ Following [Append to a directory](#append-to-a-directory).
 
 `GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-1}`
 
-Returns the content of the file as the value of field 1.
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and returns the content of the file as the value of field 1.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400/file-name-1' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
 
 `GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-2}`
 
-Returns the value of field 2 as a JSON string.
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and returns the value of field 2 as a JSON string.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/file-name-2' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+```
+
 
 ## Collections (bulk request)
 
@@ -1682,8 +1818,5 @@ Please refer to their single endpoint. [User](#user-object), [Groups](#get-group
 #### Example
 
 ```
-$ curl 'https://testing.signoff.portalsapp/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]'
-    -X GET
-    -u 'testing@exosite.com:1234'
-    -k -i
+$ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
 ```
