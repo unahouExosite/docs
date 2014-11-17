@@ -435,7 +435,20 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 #### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/user' -d '{"email": "jane+testuser123@gmail.com", "password":"testuserP4ssword", "plan":"3676938388"}'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/user' \
+       -X POST \
+       -d '{"email": "jane+testuser123@gmail.com", "password":"testuserP4ssword", "plan":"3676938388"}' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 06:24:51 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: text/html
 ```
 
 ### Reset user account password
@@ -470,7 +483,20 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 #### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' -d '{"action":"reset", "email": "joe@gmail.com"}'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' \ 
+       -X POST \
+       -d '{"action":"reset", "email": "joe@gmail.com"}' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:16:12 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: text/html
 ```
 
 ### Create user
@@ -500,7 +526,33 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' -X POST -d '{"email":"newuseremail@gmail.com"}' -u 'adminuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 17 Nov 2014 08:12:25 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "newuseremail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions": []
+}
 ```
 
 ### Get user
@@ -522,7 +574,32 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 Created
+Date: Mon, 17 Nov 2014 08:18:40 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 Created
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "newuseremail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions": []
+}
 ```
 
 ### Get all users
@@ -544,7 +621,54 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' -X GET -d '{"email":"newuseremail@gmail.com"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X GET \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:21:47 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "newuseremail@gmail.com",
+        "fullName": "",
+        "id": "3167859736",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+        "permissions": []
+    },
+    {
+        "email": "olduseremail@gmail.com",
+        "fullName": "olduser",
+        "id": "3407735538",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+        "permissions": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "Domain",
+                    "id": "0000000000"
+                }
+            }
+        ]
+    },
+    ...
+]
 ```
 
 ### Update user
@@ -579,7 +703,33 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/012345679' -X PUT -d '{"email":"updatedemail@gmail.com"}'-u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
+     -X PUT \
+     -d '{"email":"updatedemail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions": []
+}
 ```
 
 ### Get user token
@@ -602,7 +752,22 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl  'https://mydomain.exosite.com/api/portals/v1/users/012345679/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:39:27 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 16
+Content-Type: application/json; charset=UTF-8
+
+MzE2Nzg1OTczNq==
 ```
 
 ### Get user portal
@@ -616,14 +781,35 @@ Get user have access to as a manager or private viewer.
 
 #### Response
 
-On success, response has HTTP status 200 and a body containing a [portal object](#portal-object).
+On success, response has HTTP status 200 and the portals object.
 
 On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals/0123456789' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/2853566858' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:45:53 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 168
+Content-Type: application/json; charset=UTF-8
+
+{
+    "PortalName": "",
+    "PortalID": "2853566858",
+    "PortalRID": "6800e1ee0948d39744625990d28d360f78ac2e4d",
+    "UserEmail": "updatedemail@gmail.com",
+    "Description": "Default Portal"
+}
 ```
 
 ### Get user all portals
@@ -651,7 +837,38 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:36:45 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 339
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "PortalName": "",
+        "PortalID": "2853566858",
+        "PortalRID": "6800e1ee0948d39744625990d28d360f78ac2e4d",
+        "UserEmail": "updatedemail@gmail.com",
+        "Description": "Default Portal"
+    },
+    {
+        "PortalName": "",
+        "PortalID": "2978406756",
+        "PortalRID": "dd6e30fe1a00a9718b919ccd93601ff10310238b",
+        "UserEmail": "updatedemail@gmail.com",
+        "Description": "Default Portal"
+    }
+    ...
+]
 ```
 #### Example Options
 ```
@@ -702,7 +919,29 @@ On failure, responds with HTTP status 404 if user doesn't exist in any domain.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' -X GET -u 'adminuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' \
+     -X GET \
+     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:40:58 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 99
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": ""
+}
 ```
 
 ### Delete user
@@ -723,7 +962,21 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 07:34:30 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Get all user accounts
@@ -745,7 +998,40 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/accounts' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:42:30 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+
+[
+    {
+        "email": "updatedemail@gmail.com",
+        "fullName": "",
+        "id": "3167859736",
+        "meta": null,
+        "phoneNumber": ""
+    },
+    {
+        "email": "olduseremail@gmail.com",
+        "fullName": "olduseremail",
+        "id": "3407735538",
+        "meta": null,
+        "phoneNumber": ""
+    },
+    ...
+]
 ```
 
 ### List portals of authenticated user
@@ -777,7 +1063,38 @@ On failure, response has a HTTP status code of 400 or greater.
 #### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/portal' -u 'domainuseremail@gmail.com:adminuserP4ssword'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/portal' \
+       -X GET \
+       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:45:50 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Vary: Accept-Encoding
+Content-Length: 1442
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "name": "Test Sighoff 2014-06-19 16:47:21",
+        "rid": "845e50e84fae7fe3d680f56ab79c7db31e7ab9b3",
+        "key": "18279f186f23aea867eaadc1e2af4010017e1dba",
+        "role": "owner",
+        "domain": "mydomain.exosite.com"
+    },
+    {
+        "name": "Test Sighoff 2014-06-19 16:47:21",
+        "rid": "9dd0f4bf2e3a55553cfae85e3b61dcae178e0544",
+        "key": "5fbf1cd65803a8b2eeb823eeaf4a92b0bf5f2bd2",
+        "role": "owner",
+        "domain": "mydomain.exosite.com"
+    },
+    ...
+]
 ```
 
 ### Get portal
@@ -799,7 +1116,64 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:49:38 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 578
+Content-Type: application/json; charset=UTF-8
+
+{
+    "devices": [
+        "5d4bacb783b10600e12b759bb1ae80b43666085b"
+    ],
+    "id": "2853566858",
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1416213843,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 5,
+                "dataport": 50,
+                "datarule": 50,
+                "disk": "inherit",
+                "dispatch": 50,
+                "email": 10,
+                "email_bucket": "inherit",
+                "http": 100,
+                "http_bucket": "inherit",
+                "share": 100,
+                "sms": 10,
+                "sms_bucket": "inherit",
+                "xmpp": 100,
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "",
+            "name": "",
+            "public": false
+        },
+        "key": "607be8f93031588b7be6985a16808a7c669413d7",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    }
+}
 ```
 
 ### Create portal
@@ -825,7 +1199,66 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/portals' -X POST -d '{"planId":"3676938388"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
+     -X POST \
+     -d '{"planId":"3676938388"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 17 Nov 2014 09:52:58 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 Created
+Location: https://mydomain.exosite.com/api/portals/v1/portals/3882920427
+Vary: Accept-Encoding
+Content-Length: 578
+Content-Type: application/json; charset=UTF-8
+
+{
+    "devices": [
+        "3fb37448bc68d4c84d58c755fd29f187edc74694"
+    ],
+    "id": "3882920427",
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1416217920,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 5,
+                "dataport": 50,
+                "datarule": 50,
+                "disk": "inherit",
+                "dispatch": 50,
+                "email": 10,
+                "email_bucket": "inherit",
+                "http": 100,
+                "http_bucket": "inherit",
+                "share": 100,
+                "sms": 10,
+                "sms_bucket": "inherit",
+                "xmpp": 100,
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "",
+            "name": "",
+            "public": false
+        },
+        "key": "9ebc9f396e86995fe52cc77a9533675c0ac8876d",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    }
+}
 ```
 
 ### Update portal
@@ -855,7 +1288,69 @@ On success, response has HTTP status 200 and the updated portal object.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789' -X PUT -d '{"info":{"aliases":{"ba5595d9f3d87c371bd49f25f61d01b62e0afe3f":["update aliases"]}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/3882920427' \
+     -X PUT \
+     -d '{"info":{"aliases":{"3fb37448bc68d4c84d58c755fd29f187edc74694":["update aliases"]}}}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 10:03:21 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 639
+Content-Type: application/json; charset=UTF-8
+
+{
+    "devices": [
+        "3fb37448bc68d4c84d58c755fd29f187edc74694"
+    ],
+    "id": "3882920427",
+    "info": {
+        "aliases": {
+            "3fb37448bc68d4c84d58c755fd29f187edc74694": [
+                "update aliases"
+            ]
+        },
+        "basic": {
+            "modified": 1416217920,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 5,
+                "dataport": 50,
+                "datarule": 50,
+                "disk": "inherit",
+                "dispatch": 50,
+                "email": 10,
+                "email_bucket": "inherit",
+                "http": 100,
+                "http_bucket": "inherit",
+                "share": 100,
+                "sms": 10,
+                "sms_bucket": "inherit",
+                "xmpp": 100,
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "",
+            "name": "",
+            "public": false
+        },
+        "key": "9ebc9f396e86995fe52cc77a9533675c0ac8876d",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    }
+}
 ```
 
 ### Create new device under a portal of authenticated user
@@ -929,16 +1424,37 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 Create the device:
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/device' -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' -u 
-'domainuseremail@gmail.com:adminuserP4ssword'
+$ curl 'https://mydomain.exosite.com/api/portals/v1/device' \
+       -X POST \
+       -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' \
+       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 01:45:37 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Vary: Accept-Encoding
+Content-Length: 99
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "1767af3da6283354eb4818a709db4a0c15756eel",
+    "cik": "a148dd4b498cf18c8f1b066af0dab8d671a79a5l"
+}
 ```
 
 Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
 
 ```
-$ curl 'https://m2.exosite.com/provision/activate' -d 'vendor=joevendor&model=myDeviceModel&sn=ABC-123'
+$ curl 'https://m2.exosite.com/provision/activate' \
+       -d 'vendor=joevendor&model=myDeviceModel&sn=ABC-123'
+```
 
-ef123475183fb435ef46b987385abcdedeb3557b
+```
+a148dd4b498cf18c8f1b066af0dab8d671a79a5l
 ```
 
 ### Create device
@@ -967,7 +1483,76 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789/devices' -X POST -d '{"sn":"123", "vendor":"mydomain", "model":"apimodel", "type":"vendor"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/devices' \
+     -X POST \
+     -d '{"sn":"123", "vendor":"mydomain", "model":"apimodel", "type":"vendor"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 OK
+Date: Tue, 18 Nov 2014 02:14:27 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 OK
+Vary: Accept-Encoding
+Content-Length: 1113
+Content-Type: application/json; charset=UTF-8
+
+{
+    "dataSources": [],
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1416276786,
+            "subscribers": 0,
+            "type": "client",
+            "status": "notactivated"
+        },
+        "description": {
+            "limits": {
+                "client": 0,
+                "dataport": "inherit",
+                "datarule": "inherit",
+                "disk": "inherit",
+                "dispatch": "inherit",
+                "email": "inherit",
+                "email_bucket": "inherit",
+                "http": "inherit",
+                "http_bucket": "inherit",
+                "share": "inherit",
+                "sms": "inherit",
+                "sms_bucket": "inherit",
+                "xmpp": "inherit",
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "{\"DeviceType\":\"generic\",\"DeviceTypeID\":\"0000000002\",\"Timezone\":\"Asia\\/Taipei\",\"Location\":\"Taiwan\",\"activetime\":\"\",\"DeviceTypeName\":\"generic\",\"timezone\":\"\",\"location\":\"\",\"device\":{\"type\":\"vendor\",\"model\":\"apimodel\",\"vendor\":\"mydomain\",\"sn\":\"123\"}}",
+            "name": "New Device@2014-11-18T02:14:27+00:00 1416276867.8066",
+            "public": false
+        },
+        "key": "32e5952d4891f2a5e03433080a36fae46e79bd2b",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    },
+    "members": [
+        {
+            "access": "___admin",
+            "oid": {
+                "type": "User",
+                "id": "1026285982"
+            }
+        }
+    ],
+    "model": "apimodel",
+    "rid": "bd89188973b18826c99a287f4c43880b0643a757",
+    "sn": "123",
+    "type": "vendor",
+    "vendor": "mydomain"
+}
 ```
 
 ### Get device
@@ -989,7 +1574,67 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b'\
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:19:42 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 776
+Content-Type: application/json; charset=UTF-8
+
+{
+    "dataSources": [],
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1416213844,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 0,
+                "dataport": "inherit",
+                "datarule": "inherit",
+                "disk": "inherit",
+                "dispatch": "inherit",
+                "email": "inherit",
+                "email_bucket": "inherit",
+                "http": "inherit",
+                "http_bucket": "inherit",
+                "share": "inherit",
+                "sms": "inherit",
+                "sms_bucket": "inherit",
+                "xmpp": "inherit",
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "{\"timezone\":\"\",\"location\":\"\",\"device\":{\"type\":\"generic\"}}",
+            "name": "Exosite Device",
+            "public": false
+        },
+        "key": "36e4df531973d866f5ded2b99704672321cc5d7a",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    },
+    "members": [],
+    "model": null,
+    "rid": "5d4bacb783b10600e12b759bb1ae80b43666085b",
+    "sn": null,
+    "type": "generic",
+    "vendor": null
+}
 ```
 
 ### Delete group
@@ -1011,7 +1656,21 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/3065555968' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 07:42:00 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Update device
@@ -1038,7 +1697,68 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X PUT -d '{"info": {"description": {"name": "device update name"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
+     -X PUT \
+     -d '{"info": {"description": {"name": "device update name"}}}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:22:12 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 780
+Content-Type: application/json; charset=UTF-8
+
+{
+    "dataSources": [],
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1416277250,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 0,
+                "dataport": "inherit",
+                "datarule": "inherit",
+                "disk": "inherit",
+                "dispatch": "inherit",
+                "email": "inherit",
+                "email_bucket": "inherit",
+                "http": "inherit",
+                "http_bucket": "inherit",
+                "share": "inherit",
+                "sms": "inherit",
+                "sms_bucket": "inherit",
+                "xmpp": "inherit",
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "{\"timezone\":\"\",\"location\":\"\",\"device\":{\"type\":\"generic\"}}",
+            "name": "device update name",
+            "public": false
+        },
+        "key": "36e4df531973d866f5ded2b99704672321cc5d7a",
+        "shares": [],
+        "subscribers": [],
+        "tagged": [],
+        "tags": []
+    },
+    "members": [],
+    "model": null,
+    "rid": "5d4bacb783b10600e12b759bb1ae80b43666085b",
+    "sn": null,
+    "type": "generic",
+    "vendor": null
+}
 ```
 
 ### Delete device
@@ -1060,7 +1780,21 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/devices/ba5595d9f3d87c371bd49f25f61d01b62e0afe3f' -X DELETE -d '{"info": {"description": {"name": "device update name"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 07:45:09 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Create portal data source
@@ -1088,7 +1822,56 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/0123456789/data-sources' -X POST -d '{"info":{"description":{"name": "new data"}}}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/data-sources' \
+     -X POST \
+     -d '{"info":{"description":{"name": "new data"}}}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 OK
+Date: Tue, 18 Nov 2014 02:25:20 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 OK
+Vary: Accept-Encoding
+Content-Length: 452
+Content-Type: application/json; charset=UTF-8
+
+{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1416277438,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "string",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+            "name": "new data",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "4f39859d41a66468cf1e5e28d08ad2cab45b498f",
+    "unit": ""
+}
 ```
 
 ### Get data source
@@ -1110,7 +1893,55 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:32:43 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 452
+Content-Type: application/json; charset=UTF-8
+
+{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1416277438,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "string",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+            "name": "new data",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "4f39859d41a66468cf1e5e28d08ad2cab45b498f",
+    "unit": ""
+}
 ```
 
 ### Get data source data
@@ -1145,9 +1976,49 @@ On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
-api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+##### Get data with no option
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/data?starttime=1415157643&endtime=1415157646&limit=2&sort=desc' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:39:23 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 21
+Content-Type: application/json; charset=UTF-8
+
+[[1416278080,"1000"]]
+```
+
+##### Get data with options
+
+api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:43:35 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 41
+Content-Type: application/json; charset=UTF-8
+
+[[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
 ### Append to data source data
@@ -1168,7 +2039,22 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/data' -X POST -d '"1000"'-u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+     -X POST \
+     -d '"1000"' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 OK
+Date: Tue, 18 Nov 2014 02:36:02 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Get JSON data from source data
@@ -1196,7 +2082,23 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/455ceba9bbe01c1be4cc0decfecea586cdf94dd4/json' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+$ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
+       -X GET \
+       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:45:30 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 21
+Content-Type: application/json; charset=UTF-8
+
+[[1416278417,"5.00"]]
 ```
 
 ### Append JSON data to data source
@@ -1225,7 +2127,22 @@ When `safe` is passed in querystring, failure will response 409
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44/json' -X POST -d '{"how":"are","you":"?"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
+     -X POST \
+     -d '{"how":"are","you":"?"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 OK
+Date: Tue, 18 Nov 2014 02:46:49 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Create group under user
@@ -1251,7 +2168,40 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/0123456789/groups' -X POST -d '{"name":"new group"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/groups' \
+     -X POST \
+     -d '{"name":"new group"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 Created
+Location: https://mydomain.exosite.com/api/portals/v1/groups/1206252898
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "1206252898",
+    "userId": "3167859736",
+    "members": [
+        {
+            "access": "___admin",
+            "oid": {
+                "type": "User",
+                "id": "3167859736"
+            }
+        }
+    ],
+    "meta": null,
+    "name": "new group",
+    "permissions": []
+}
 ```
 
 ### Get group
@@ -1273,7 +2223,38 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "1206252898",
+    "userId": "3167859736",
+    "members": [
+        {
+            "access": "___admin",
+            "oid": {
+                "type": "User",
+                "id": "3167859736"
+            }
+        }
+    ],
+    "meta": null,
+    "name": "new group",
+    "permissions": []
+}
 ```
 
 ### Update group
@@ -1302,7 +2283,39 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/groups/0123456789' -X PUT -d  '{"name":"update group name"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
+     -X PUT \
+     -d '{"name":"update group name"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:52:44 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 171
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "1206252898",
+    "userId": "3167859736",
+    "members": [
+        {
+            "access": "___admin",
+            "oid": {
+                "type": "User",
+                "id": "3167859736"
+            }
+        }
+    ],
+    "meta": null,
+    "name": "update group name",
+    "permissions": []
+}
 ```
 
 ### List domains of authenticated user
@@ -1334,7 +2347,20 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/domain' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+$ curl 'https://mydomain.exosite.com/api/portals/v1/domain' \
+       -X GET \
+       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:54:40 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
 
 [
     {
@@ -1472,10 +2498,138 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
 ```
 
-### Create theme (Not provide)
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 05:56:40 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 3676
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "id": "1083890176",
+        "name": "-1408691077",
+        "description": "123",
+        ":default": true,
+        "config": {
+            "dashboard_background": {
+                "background_color": "D9E4F9",
+                "background_image": "",
+                "background_attachment": "fixed",
+                "background_repeat": "repeat",
+                "background_position": "left top"
+            },
+            "header_logo": "https://testing.signoff.https://mydomain.exosite.com/static/png/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2",
+            "header_bkimage": "https://mydomain.exosite.com/static/png/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
+            "header_title_color": "D5E04D",
+            "header_subtitle_color": "FFFFFF",
+            "header_titles_position_top": "1.375em",
+            "header_linktext_color": "E5E5E5",
+            "header_linktextover_color": "D5E04D",
+            "header_dropdown_text_color": "FFFFFF",
+            "header_linktext_position_top": "1.5em",
+            "header_portalmenu_current_color": "0000FF",
+            "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
+            "footer_text_color": "D5E04D",
+            "footer_bar_color": "D5E04D",
+            "footer_linktext_color": "5C5D60",
+            "footer_linktextover_color": "000000",
+            "block_title_text_color": "000000",
+            "block_title_linkover_color": "010101",
+            "block_title_back_color": "D5E04D",
+            "block_invert_icons": "0",
+            "managepage_highlight_text_color": "0000FF",
+            "dashboard_thumbnail": "https://mydomain.exosite.com/cache/theme/0_2110723926_dashboard_thumbnail.png",
+            "thankyoupage_title_text_color": "D5E04D",
+            "browser_tab_text": "Exosite Portals",
+            "browser_tab_icon": "https://mydomain.exosite.com/static/png/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
+            "admin_menu_style": {
+                "admin_menu_title": "Domain Admin",
+                "manage_menu_title": "Manage",
+                "secondary_menu_title": "Portal Menu",
+                "account_menu_title": "Account",
+                "menu_title_color": "E5E5E5",
+                "background_color": "5C5D60",
+                "background_hover_color": "A6A6A6",
+                "text_color": "FFFFFF",
+                "sub_background_color": "FFFFFF",
+                "sub_background_hover_color": "A6A6A6",
+                "sub_text_color": "5C5D60",
+                "text_active_color": "D5E04D"
+            },
+            "jsCode": ""
+        },
+        "code": ""
+    },
+    {
+        "id": "1272623304",
+        "name": "default",
+        "description": "default",
+        ":default": false,
+        "config": {
+            "dashboard_background": {
+                "background_color": "F9F8DE",
+                "background_image": "",
+                "background_attachment": "fixed",
+                "background_repeat": "repeat",
+                "background_position": "left top"
+            },
+            "header_logo": "https://mydomain.exosite.com/static/png/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2",
+            "header_bkimage": "https://mydomain.exosite.com/static/png/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
+            "header_title_color": "D5E04D",
+            "header_subtitle_color": "FFFFFF",
+            "header_titles_position_top": "1.375em",
+            "header_linktext_color": "E5E5E5",
+            "header_linktextover_color": "D5E04D",
+            "header_dropdown_text_color": "FFFFFF",
+            "header_linktext_position_top": "1.5em",
+            "header_portalmenu_current_color": "0000FF",
+            "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
+            "footer_text_color": "D5E04D",
+            "footer_bar_color": "D5E04D",
+            "footer_linktext_color": "5C5D60",
+            "footer_linktextover_color": "000000",
+            "block_title_text_color": "000000",
+            "block_title_linkover_color": "010101",
+            "block_title_back_color": "D5E04D",
+            "block_invert_icons": "0",
+            "managepage_highlight_text_color": "0000FF",
+            "dashboard_thumbnail": "",
+            "thankyoupage_title_text_color": "D5E04D",
+            "browser_tab_text": "Exosite Portals",
+            "browser_tab_icon": "https://mydomain.exosite.com/static/png/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
+            "admin_menu_style": {
+                "admin_menu_title": "Domain Admin",
+                "manage_menu_title": "Manage",
+                "secondary_menu_title": "Portal Menu",
+                "account_menu_title": "Account",
+                "menu_title_color": "E5E5E5",
+                "background_color": "5C5D60",
+                "background_hover_color": "A6A6A6",
+                "text_color": "FFFFFF",
+                "sub_background_color": "FFFFFF",
+                "sub_background_hover_color": "A6A6A6",
+                "sub_text_color": "5C5D60",
+                "text_active_color": "D5E04D"
+            },
+            "jsCode": ""
+        },
+        "code": ""
+    },
+    ...
+]
+```
+
+### Create theme (Not ready)
 
 `POST /api/portals/v1/themes/`
 
@@ -1485,18 +2639,6 @@ The post body needs to be JSON encoded and at least include the required fields:
 
 * `"name"`
 * `"description"`
-
-#### Response
-
-On success, response has HTTP status 200 and [theme object](#theme-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X POST -d '{"name": "sample_theme","description": "theme description"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
-```
 
 ### Get theme
 
@@ -1517,7 +2659,76 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 05:59:28 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 1880
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "1083890176",
+    "name": "-1408691077",
+    "description": "123",
+    ":default": true,
+    "config": {
+        "dashboard_background": {
+            "background_color": "D9E4F9",
+            "background_image": "",
+            "background_attachment": "fixed",
+            "background_repeat": "repeat",
+            "background_position": "left top"
+        },
+        "header_logo": "https://mydomain.exosite.com/static/png/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2",
+        "header_bkimage": "https://mydomain.exosite.com/static/png/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
+        "header_title_color": "D5E04D",
+        "header_subtitle_color": "FFFFFF",
+        "header_titles_position_top": "1.375em",
+        "header_linktext_color": "E5E5E5",
+        "header_linktextover_color": "D5E04D",
+        "header_dropdown_text_color": "FFFFFF",
+        "header_linktext_position_top": "1.5em",
+        "header_portalmenu_current_color": "0000FF",
+        "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
+        "footer_text_color": "D5E04D",
+        "footer_bar_color": "D5E04D",
+        "footer_linktext_color": "5C5D60",
+        "footer_linktextover_color": "000000",
+        "block_title_text_color": "000000",
+        "block_title_linkover_color": "010101",
+        "block_title_back_color": "D5E04D",
+        "block_invert_icons": "0",
+        "managepage_highlight_text_color": "0000FF",
+        "dashboard_thumbnail": "https://mydomain.exosite.com/cache/theme/0_2110723926_dashboard_thumbnail.png",
+        "thankyoupage_title_text_color": "D5E04D",
+        "browser_tab_text": "Exosite Portals",
+        "browser_tab_icon": "https://mydomain.exosite.com/static/png/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
+        "admin_menu_style": {
+            "admin_menu_title": "Domain Admin",
+            "manage_menu_title": "Manage",
+            "secondary_menu_title": "Portal Menu",
+            "account_menu_title": "Account",
+            "menu_title_color": "E5E5E5",
+            "background_color": "5C5D60",
+            "background_hover_color": "A6A6A6",
+            "text_color": "FFFFFF",
+            "sub_background_color": "FFFFFF",
+            "sub_background_hover_color": "A6A6A6",
+            "sub_text_color": "5C5D60",
+            "text_active_color": "D5E04D"
+        },
+        "jsCode": ""
+    },
+    "code": ""
+}
 ```
 
 ### Update theme
@@ -1539,7 +2750,22 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -X PUT -d '{"name": "update_theme"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
+     -X PUT \
+     -d '{"name": "update_theme"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:01:39 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Delete theme
@@ -1561,7 +2787,22 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes/0123456789' -X PUT -d '{"name": "update_theme"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
+     -X PUT \
+     -d '{"name": "update_theme"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:06:39 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### List client models
@@ -1583,10 +2824,74 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
 ```
 
-### Create client model (Not provide)
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:10:30 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[
+       {
+        "id": "myvendor/myname",
+        "domainID": "3481377489",
+        "vendor": "myvendor",
+        "friendly": "myname",
+        "name": "myname",
+        "cloneRID": "96436ca6874ce01d0dd1f41001d71e75c3aebd6f",
+        "viewID": "0000000000",
+        "exampleSN": "",
+        "sharedSN": "",
+        "convertSN": "no",
+        "alternateSN": "",
+        "noteSetup": "",
+        "noteName": "",
+        "noteLocation": "(optional - can be a string or GPS decimal degrees)",
+        "pictureDevice": "",
+        "description": "",
+        "pictureSN": "",
+        "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK<br/>[device cik]<br/><br/>Your [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:<br/><br/><b>Company name:</b> [company name]<br/><b>Company email contact information:</b> [company email]<br/>",
+        "companyName": "",
+        "contactEmail": "",
+        ":published": false
+    },
+    {
+        "id": "myvendor/testing%2B1412320409837",
+        "domainID": "3481377489",
+        "vendor": "myvendor",
+        "friendly": "testing+1412320546880",
+        "name": "testing+1412320409837",
+        "cloneRID": "fc03f70ea93a2b8e65ac96e9ad71fbb79bbbd7ad",
+        "viewID": "0000000000",
+        "exampleSN": "",
+        "sharedSN": "",
+        "convertSN": "no",
+        "alternateSN": "",
+        "noteSetup": "",
+        "noteName": "",
+        "noteLocation": "(optional - can be a string or GPS decimal degrees)",
+        "pictureDevice": "",
+        "description": "testing+1412320409837",
+        "pictureSN": "",
+        "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK<br/>[device cik]<br/><br/>Your [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:<br/><br/><b>Company name:</b> [company name]<br/><b>Company email contact information:</b> [company email]<br/>",
+        "companyName": "testing+1412320546880",
+        "contactEmail": "testing+1412320546880@email.com",
+        ":published": true
+    },
+    ...
+]
+```
+
+### Create client model (Not ready)
 
 `POST /api/portals/v1/client-models/`
 
@@ -1598,18 +2903,6 @@ The post body needs to be JSON encoded and at least include the required fields:
 * `"friendly"`
 * `"name"`
 * `"cloneRID"` - Cloned device rid.
-
-#### Response
-
-On success, response has HTTP status 200 and [client models object](#client-models-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes' -X POST -d '{"friendly": "midel friendly", "name":"model name", "cloneRID": "acfe55f98b8e6f31f1e32e8eb58130581b528f9e"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
-```
 
 ### Get client model
 
@@ -1630,7 +2923,45 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/myname' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:21:14 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 1071
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "myvendor/myname",
+    "domainID": "3481377489",
+    "vendor": "myvendor",
+    "friendly": "myname",
+    "name": "myname",
+    "cloneRID": "96436ca6874ce01d0dd1f41001d71e75c3aebd6f",
+    "viewID": "0000000000",
+    "exampleSN": "",
+    "sharedSN": "",
+    "convertSN": "no",
+    "alternateSN": "",
+    "noteSetup": "",
+    "noteName": "",
+    "noteLocation": "(optional - can be a string or GPS decimal degrees)",
+    "pictureDevice": "",
+    "description": "",
+    "pictureSN": "",
+    "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK<br/>[device cik]<br/><br/>Your [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:<br/><br/><b>Company name:</b> [company name]<br/><b>Company email contact information:</b> [company email]<br/>",
+    "companyName": "",
+    "contactEmail": "",
+    ":published": false
+}
 ```
 
 ### Update client model
@@ -1652,7 +2983,22 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X PUT -d '{"description": "sample model"}' -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
+     -X PUT \
+     -d '{"description": "sample model"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 08:14:01 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ### Delete client model
@@ -1674,7 +3020,21 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' -X DELETE -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:26:52 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 ## File System
@@ -1759,7 +3119,25 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400/file-name-1' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400/file-name-1' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:41:13 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Content-Length: 82
+Content-Type: image/png
+
+▒PNG
+
+IHDR%▒V▒PLTEA▒▒▒▒V▒
+IDATx▒cb67|▒IEND▒B`▒
 ```
 
 `GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-2}`
@@ -1777,22 +3155,28 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/file-name-2' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/file-name-2' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
 ```
 
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:58:14 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 43
+Content-Type: application/json
+
+{"info":[{"description":{"name":"hello"}}]}
+```
 
 ## Collections (bulk request)
 
-*   Get multiple users
-    `GET /users/_this/users/[{user-id},{user-id},...]`
-*   Get multiple groups
-    `GET /users/_this/groups/[{group-id},{group-id},...]`
-*   Get multiple devices
-    `GET /users/_this/devices/[{device-rid},device-rid},...]`
-*   Get multiple data sources
-    `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
-
-#### Querystring
+### Querystring
 
 * limit
     Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
@@ -1801,22 +3185,737 @@ curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/fil
     numbers of items to skip.
     `/users/_this/users/[{user-id},{user-id},...]?offset=10`
 
+### Get multiple users
+
+`GET /users/_this/users/[{user-id},{user-id},...]`
+
+Get information about users.
+
+#### Request
+
+Request body is empty.
+
 #### Response
 
-```
-[
-    {object1}, {object2}, ...
-]
-```
+On success,
+If all items are fetched, response has HTTP status 200 and body is a [user object](#user-object).
+If request ID is over the response limit, response has HTTP status 206 and body is a [user object](#user-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
 
-Please refer to their single endpoint. [User](#user-object), [Groups](#get-group), [Devices](#get-device), [Data sources](#get-data-source)
-
-* 200 if all items are fetched.
-* 206 if request ID is over the response limit, link will appear in header.
-    `Link=<{url}>; rel="previous", <{url}>; rel="next"`
+On failure, response has HTTP status of 400 or greater.
 
 #### Example
 
+##### If all items are fetched
+
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/[929df3b005cc908f9b742c239b043fc63c0c0be7,ece4343f05bc486c11dd1f28b25eca60501fafda,902974faa4c14e36a6331cc991ff78a3b5121ff7]' -X GET -u 'domainuseremail@gmail.com:adminuserP4ssword' -i
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
 ```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 03:43:14 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 648
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "testing+2014+0805+0309+0953+7449@exosite.com",
+        "fullName": "",
+        "id": "2014970789",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+        "permissions": [
+            {
+                "access": "d_update",
+                "oid": {
+                    "type": "Device",
+                    "id": "27a9414bc2999a8d975a9c65a1195acde7ec3f4b"
+                }
+            }
+        ]
+    },
+    {
+        "email": "testing+2014+0805+0310+0635+2749@exosite.com",
+        "fullName": "",
+        "id": "2308265000",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [
+            "2053728508",
+            "2705108658",
+            "3415641988"
+        ],
+        "permissions": [
+            {
+                "access": "g_modera",
+                "oid": {
+                    "type": "Group",
+                    "id": "2053728508"
+                }
+            },
+            {
+                "access": "g_update",
+                "oid": {
+                    "type": "Group",
+                    "id": "2705108658"
+                }
+            },
+            {
+                "access": "g_modera",
+                "oid": {
+                    "type": "Group",
+                    "id": "3415641988"
+                }
+            }
+        ]
+    }
+]
+```
+
+##### If request ID is over the response limit
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 206 Partial Content
+Date: Mon, 17 Nov 2014 03:44:42 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/users/[2014970789,2308265000]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 258
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "testing+2014+0805+0309+0953+7449@exosite.com",
+        "fullName": "",
+        "id": "2014970789",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+        "permissions": [
+            {
+                "access": "d_update",
+                "oid": {
+                    "type": "Device",
+                    "id": "27a9414bc2999a8d975a9c65a1195acde7ec3f4b"
+                }
+            }
+        ]
+    }
+]
+```
+###   Get multiple groups
+
+`GET /users/_this/groups/[{group-id},{group-id},...]`
+
+Get information about groups.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success,
+If all items are fetched, response has HTTP status 200 and body is a [group object](#group-object).
+If request ID is over the response limit, response has HTTP status 206 and body is a [group object](#group-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+##### If all items are fetched
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 03:35:46 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 343
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "id": "2581071857",
+        "userId": "1026285982",
+        "members": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "User",
+                    "id": "1026285982"
+                }
+            }
+        ],
+        "meta": null,
+        "name": "test group 10883",
+        "permissions": []
+    },
+    {
+        "id": "2937453355",
+        "userId": "1026285982",
+        "members": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "User",
+                    "id": "1026285982"
+                }
+            }
+        ],
+        "meta": null,
+        "name": "test group 13553",
+        "permissions": []
+    }
+]
+```
+
+##### If request ID is over the response limit
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]?limit=1' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 206 Partial Content
+Date: Mon, 17 Nov 2014 03:39:28 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/groups/[2937453355,2581071857]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 172
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "id": "2937453355",
+        "userId": "1026285982",
+        "members": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "User",
+                    "id": "1026285982"
+                }
+            }
+        ],
+        "meta": null,
+        "name": "test group 13553",
+        "permissions": []
+    }
+]
+```
+
+###   Get multiple devices
+
+`GET /users/_this/devices/[{device-rid},device-rid},...]`
+
+Get information for devices.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success,
+If all items are fetched, response has HTTP status 200 and body is a [device object](#device-object).
+If request ID is over the response limit, response has HTTP status 206 and body is a [device object](#device-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+##### If all items are fetched
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 03:29:42 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 2742
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "dataSources": [
+            "561d1c757bdafd2c7fb3196e5a35558317045876",
+            "8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44"
+        ],
+        "info": {
+            "aliases": {
+                "0798132e5e5def5decc7129430112086f1448b39": [
+                    "temp"
+                ],
+                "8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44": [
+                    "shared data"
+                ],
+                "561d1c757bdafd2c7fb3196e5a35558317045876": [
+                    "public"
+                ]
+            },
+            "basic": {
+                "modified": 1407985593,
+                "subscribers": 0,
+                "type": "client",
+                "status": "activated"
+            },
+            "description": {
+                "limits": {
+                    "client": 0,
+                    "dataport": "inherit",
+                    "datarule": "inherit",
+                    "disk": "inherit",
+                    "dispatch": "inherit",
+                    "email": "inherit",
+                    "email_bucket": "inherit",
+                    "http": "inherit",
+                    "http_bucket": "inherit",
+                    "share": "inherit",
+                    "sms": "inherit",
+                    "sms_bucket": "inherit",
+                    "xmpp": "inherit",
+                    "xmpp_bucket": "inherit"
+                },
+                "locked": false,
+                "meta": "{\"timezone\":\"Asia\\/Taipei\",\"location\":\"Taichung\",\"device\":{\"type\":\"generic\"},\"activetime\":\"30\"}",
+                "name": "device Apple",
+                "public": false
+            },
+            "shares": [
+                {
+                    "code": "8a7bfcfb3db340d23cdafc599107e16088075b38",
+                    "meta": "[\"testing\",\"1\"]",
+                    "activator": null
+                },
+                {
+                    "code": "3fcfb90db1210878510c4cd67e06324eb862efb4",
+                    "meta": "[\"testing\",\"Fruit+20140807\"]",
+                    "activator": null
+                },
+                {
+                    "code": "4b467a56d7b2f5c546d1bcfeab91690bf1e98f24",
+                    "meta": "[\"testing\",\"test\"]",
+                    "activator": null
+                },
+                {
+                    "code": "98010735f04f1f50ee57251f7342370cbe40d841",
+                    "meta": "[\"testing\",\"testing+20140814-1\"]",
+                    "activator": null
+                },
+                {
+                    "code": "85c060851a07de239da1159d6294751885afdc9e",
+                    "meta": "[\"testing\",\"restfulapi\"]",
+                    "activator": null
+                },
+                {
+                    "code": "cd64dfd210e9eb18a403bd04b92901e96c72cc37",
+                    "meta": "[\"testing\",\"2\"]",
+                    "activator": null
+                },
+                {
+                    "code": "e146db1b2ea1397ce67c02ddf7e876941e137fc5",
+                    "meta": "[\"testing\",\"testing+20140822-1\"]",
+                    "activator": null
+                }
+            ],
+            "subscribers": [],
+            "tagged": [
+                "public"
+            ],
+            "tags": []
+        },
+        "members": [],
+        "model": null,
+        "rid": "47ab21c6e169ca4f749128fb00a4bf077f4a463f",
+        "sn": null,
+        "type": "generic",
+        "vendor": null
+    },
+    {
+        "dataSources": [],
+        "info": {
+            "aliases": [],
+            "basic": {
+                "modified": 1415769574,
+                "subscribers": 0,
+                "type": "client",
+                "status": "expired"
+            },
+            "description": {
+                "limits": {
+                    "client": 0,
+                    "dataport": "inherit",
+                    "datarule": "inherit",
+                    "disk": "inherit",
+                    "dispatch": "inherit",
+                    "email": "inherit",
+                    "email_bucket": "inherit",
+                    "http": "inherit",
+                    "http_bucket": "inherit",
+                    "share": "inherit",
+                    "sms": "inherit",
+                    "sms_bucket": "inherit",
+                    "xmpp": "inherit",
+                    "xmpp_bucket": "inherit"
+                },
+                "locked": false,
+                "meta": "{\"DeviceType\":\"generic\",\"DeviceTypeID\":\"0000000002\",\"Timezone\":\"Asia\\/Taipei\",\"Location\":\"Taiwan\",\"activetime\":\"\",\"DeviceTypeName\":\"generic\",\"timezone\":\"Asia\\/Taipei\",\"location\":\"Taiwan\",\"device\":{\"type\":\"vendor\",\"model\":\"testAPI\",\"vendor\":\"testing\",\"sn\":\"888\"}}",
+                "name": "888",
+                "public": false
+            },
+            "shares": [],
+            "subscribers": [],
+            "tagged": [],
+            "tags": []
+        },
+        "members": [],
+        "model": "testAPI",
+        "rid": "96436ca6874ce01d0dd1f41001d71e75c3aebd6f",
+        "sn": "888",
+        "type": "vendor",
+        "vendor": "testing"
+    }
+]
+```
+
+##### If request ID is over the response limit
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]?limit=1' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 206 Partial Content
+Date: Mon, 17 Nov 2014 03:24:46 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/devices/[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 1772
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "dataSources": [
+            "561d1c757bdafd2c7fb3196e5a35558317045876",
+            "8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44"
+        ],
+        "info": {
+            "aliases": {
+                "0798132e5e5def5decc7129430112086f1448b39": [
+                    "temp"
+                ],
+                "8840cd68dfcef3c20c8bc4821f0c670ba2d2eb44": [
+                    "shared data"
+                ],
+                "561d1c757bdafd2c7fb3196e5a35558317045876": [
+                    "public"
+                ]
+            },
+            "basic": {
+                "modified": 1407985593,
+                "subscribers": 0,
+                "type": "client",
+                "status": "activated"
+            },
+            "description": {
+                "limits": {
+                    "client": 0,
+                    "dataport": "inherit",
+                    "datarule": "inherit",
+                    "disk": "inherit",
+                    "dispatch": "inherit",
+                    "email": "inherit",
+                    "email_bucket": "inherit",
+                    "http": "inherit",
+                    "http_bucket": "inherit",
+                    "share": "inherit",
+                    "sms": "inherit",
+                    "sms_bucket": "inherit",
+                    "xmpp": "inherit",
+                    "xmpp_bucket": "inherit"
+                },
+                "locked": false,
+                "meta": "{\"timezone\":\"Asia\\/Taipei\",\"location\":\"Taichung\",\"device\":{\"type\":\"generic\"},\"activetime\":\"30\"}",
+                "name": "device Apple",
+                "public": false
+            },
+            "shares": [
+                {
+                    "code": "8a7bfcfb3db340d23cdafc599107e16088075b38",
+                    "meta": "[\"testing\",\"1\"]",
+                    "activator": null
+                },
+                {
+                    "code": "3fcfb90db1210878510c4cd67e06324eb862efb4",
+                    "meta": "[\"testing\",\"Fruit+20140807\"]",
+                    "activator": null
+                },
+                {
+                    "code": "4b467a56d7b2f5c546d1bcfeab91690bf1e98f24",
+                    "meta": "[\"testing\",\"test\"]",
+                    "activator": null
+                },
+                {
+                    "code": "98010735f04f1f50ee57251f7342370cbe40d841",
+                    "meta": "[\"testing\",\"testing+20140814-1\"]",
+                    "activator": null
+                },
+                {
+                    "code": "85c060851a07de239da1159d6294751885afdc9e",
+                    "meta": "[\"testing\",\"restfulapi\"]",
+                    "activator": null
+                },
+                {
+                    "code": "cd64dfd210e9eb18a403bd04b92901e96c72cc37",
+                    "meta": "[\"testing\",\"2\"]",
+                    "activator": null
+                },
+                {
+                    "code": "e146db1b2ea1397ce67c02ddf7e876941e137fc5",
+                    "meta": "[\"testing\",\"testing+20140822-1\"]",
+                    "activator": null
+                }
+            ],
+            "subscribers": [],
+            "tagged": [
+                "public"
+            ],
+            "tags": []
+        },
+        "members": [],
+        "model": null,
+        "rid": "47ab21c6e169ca4f749128fb00a4bf077f4a463f",
+        "sn": null,
+        "type": "generic",
+        "vendor": null
+    }
+]
+```
+
+###    Get multiple data sources
+
+`GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
+
+Get information about portals data sources.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success,
+If all items are fetched, response has HTTP status 200 and body is a [data source object](#data-source-object).
+If request ID is over the response limit, response has HTTP status 206 and body is a [data source object](#data-source-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+##### If all items are fetched
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 02:49:17 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 648
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "data": [
+            [
+                1416190810,
+                100
+            ]
+        ],
+        "info": {
+            "basic": {
+                "modified": 1416190782,
+                "subscribers": 0,
+                "type": "dataport"
+            },
+            "description": {
+                "format": "integer",
+                "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+                "name": "test",
+                "preprocess": [],
+                "public": false,
+                "retention": {
+                    "count": "infinity",
+                    "duration": "infinity"
+                },
+                "subscribe": null
+            },
+            "shares": [],
+            "storage": {
+                "count": 1,
+                "first": 1416190810,
+                "last": 1416190810,
+                "size": 12
+            },
+            "subscribers": [],
+            "tags": []
+        },
+        "rid": "a3fc4e5a6fbc20fcb14091ba0735580e56060e9a",
+        "unit": ""
+    },
+    {
+        "data": [
+            [
+                1416190822,
+                300
+            ]
+        ],
+        "info": {
+            "basic": {
+                "modified": 1416190793,
+                "subscribers": 0,
+                "type": "dataport"
+            },
+            "description": {
+                "format": "integer",
+                "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+                "name": "test1",
+                "preprocess": [],
+                "public": false,
+                "retention": {
+                    "count": "infinity",
+                    "duration": "infinity"
+                },
+                "subscribe": null
+            },
+            "shares": [],
+            "storage": {
+                "count": 1,
+                "first": 1416190822,
+                "last": 1416190822,
+                "size": 12
+            },
+            "subscribers": [],
+            "tags": []
+        },
+        "rid": "a90f263111b05088a3c78aef511f14275bba6cc5",
+        "unit": ""
+    }
+]
+```
+
+##### If request ID is over the response limit
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]?limit=1' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+Date: Mon, 17 Nov 2014 03:18:57 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 486
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "data": [
+            [
+                1416190810,
+                100
+            ]
+        ],
+        "info": {
+            "basic": {
+                "modified": 1416190782,
+                "subscribers": 0,
+                "type": "dataport"
+            },
+            "description": {
+                "format": "integer",
+                "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+                "name": "test",
+                "preprocess": [],
+                "public": false,
+                "retention": {
+                    "count": "infinity",
+                    "duration": "infinity"
+                },
+                "subscribe": null
+            },
+            "shares": [],
+            "storage": {
+                "count": 1,
+                "first": 1416190810,
+                "last": 1416190810,
+                "size": 12
+            },
+            "subscribers": [],
+            "tags": []
+        },
+        "rid": "a3fc4e5a6fbc20fcb14091ba0735580e56060e9a",
+        "unit": ""
+    }
+]
+```
+
