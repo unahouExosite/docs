@@ -183,8 +183,6 @@ You may also optionally add an `If-Modified-Since` header to specify a start tim
 
 Note: Only one dataport may be read at a time when using long polling.
 
-##Example
-
 #####request
 
 ```
