@@ -865,7 +865,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
     * `"unavailable_sn"` - serial number is not available
 
-    * `"forbidden_model"` - model is not available in this domain
+    * `"forbidden_model"` - model is not available in this domain (this also results if `"vendor"` is invalid or otherwise does not correspond to `"model"`)
 
     * `"require_purchase"` - creating this type of device requires a purchase
 
