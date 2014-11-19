@@ -15,7 +15,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Client Models
 
-* [Create client model](#create-client-model)
+* [Create client model](#create-client-model)(Not ready)
 * [Update client model](#update-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
@@ -80,7 +80,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Create theme](#create-theme)
+* [Create theme](#create-theme)(Not ready)
 * [Update theme](#update-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
@@ -502,6 +502,7 @@ yields the same result as
 
 ## API Endpoints
 
+
 ## Accounts
 
 ### Get all user accounts
@@ -609,6 +610,7 @@ Content-Type: application/json; charset=UTF-8
     "phoneNumber": ""
 }
 ```
+
 
 ## Client Models
 
@@ -906,6 +908,7 @@ Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
+
 
 ## Collections (bulk request)
 
@@ -1675,6 +1678,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+
 ## Data Source
 
 ### Create portal data source
@@ -1753,6 +1757,7 @@ Content-Type: application/json; charset=UTF-8
     "unit": ""
 }
 ```
+
 
 ## Data Sources
 
@@ -2028,6 +2033,7 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"]]
 ```
 
+
 ## Device
 
 ### Create new device under a portal of authenticated user
@@ -2133,6 +2139,7 @@ $ curl 'https://m2.exosite.com/provision/activate' \
 ```
 a148dd4b498cf18c8f1b066af0dab8d671a79a5l
 ```
+
 
 ## Devices
 
@@ -2440,6 +2447,7 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+
 ## Domain
 
 ### List domains of authenticated user
@@ -2500,6 +2508,7 @@ Content-Type: application/json; charset=UTF-8
     }
 ]
 ```
+
 
 ## File Systems
 
@@ -2610,6 +2619,7 @@ Content-Type: application/json
 
 {"info":[{"description":{"name":"hello"}}]}
 ```
+
 
 ## Groups
 
@@ -2822,6 +2832,7 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+
 ## Portal
 
 ### List portals of authenticated user
@@ -2886,6 +2897,7 @@ Content-Type: application/json; charset=UTF-8
     ...
 ]
 ```
+
 
 ## Portals
 
@@ -3144,6 +3156,7 @@ Content-Type: application/json; charset=UTF-8
     }
 }
 ```
+
 
 ## Themes
 
@@ -3476,6 +3489,7 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+
 ## User
 
 ### Register new user account
@@ -3582,6 +3596,7 @@ Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: text/html
 ```
+
 
 ## Users
 
