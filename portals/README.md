@@ -5,6 +5,7 @@ __This API is in beta testing and may be to subject to the occasional tweak. Any
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where a Portals account is required.
 
 ## Overview
+---
 
 ### API Endpoints
 
@@ -28,12 +29,9 @@ Portals provides a user authentication and management system on top of the One P
 * [Get multiple groups](#collections-bulk-request)
 * [Get multiple users](#collections-bulk-request)
 
-#### Data Source
-
-* [Create portal data source](#create-portal-data-source)
-
 #### Data Sources
 
+* [Create portal data source](#create-portal-data-source)
 * [Get data source](#get-data-source)
 * [Append to data source data](#append-to-data-source-data)
 * [Get data source data](#get-data-source-data)
@@ -59,6 +57,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Append to a directory](#append-to-a-directory)
 * [Get a file](#get-a-file)
+* [Get a file content](#get-a-file-content)
 
 #### Groups
 
@@ -102,6 +101,96 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user portal](#get-user-portal)
 * [Delete user](#delete-user)
 
+### API Index
+
+#### /accounts
+
+* [GET] [/api/portals/v1/accounts](#get-user-accounts)
+* [GET] [/api/portals/v1/accounts/{user-email}](#get-user-account-by-email)
+
+#### /client-models
+
+* [GET] [/api/portals/v1/client-models/](#get-client-model)
+* [POST] [/api/portals/v1/client-models/](#create-client-model) (Not ready)
+* [GET] [/api/portals/v1/client-models/{vendor}/{name}](#list-client-models)
+* [PUT] [/api/portals/v1/client-models/{vendor}/{name}](#update-client-model)
+* [DELETE] [/api/portals/v1/client-models/{vendor}/{name}](#delete-client-model)
+
+#### /data-sources
+
+* [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
+* [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-to-data-source-data)
+* [GET] [/api/portals/v1/data-sources/{data-source-rid}/json](#get-json-data-from-data-source)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-json-data-to-data-source)
+
+#### /device
+
+* [POST] [/api/portals/v1/device](#create-new-device-under-a-portal-of-authenticated-user)
+
+#### /devices
+
+* [GET] [/api/portals/v1/devices/{device-rid}](#get-device)
+* [PUT] [/api/portals/v1/devices/{device-rid}](#update-device)
+* [DELETE] [/api/portals/v1/devices/{device-rid}](#delete-device)
+
+#### /domain
+
+* [GET] [/api/portals/v1/domain/](#list-domains-of-authenticated-user)
+
+#### /fs
+
+* [GET] [/api/portals/v1/fs{directory-path}/{subdirectory}](#get-a-file)
+* [GET] [/api/portals/v1/fs{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
+
+#### /groups
+
+* [GET] [/api/portals/v1/groups/{group-id}](#get-group)
+* [PUT] [/api/portals/v1/groups/{group-id}](#update-group)
+* [DELETE] [/api/portals/v1/groups/{group-id}](#delete-group)
+
+#### /portal
+
+* [GET] [/api/portals/v1/portal/ ](#list-portals-of-authenticated-user)
+
+#### /portals
+* [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
+* [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
+* [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
+* [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
+* [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
+* [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
+
+#### /themes
+
+* [GET] [/api/portals/v1/themes/](#list-themes)
+* [POST] [/api/portals/v1/themes/](#create-theme) (Not ready)
+* [GET] [/api/portals/v1/themes/{themeid}](#get-theme)
+* [PUT] [/api/portals/v1/themes/{themeid}](#update-theme)
+* [DELETE][/api/portals/v1/themes/{themeid}](#delete-theme)
+
+#### /user
+
+* [POST] [/api/portals/v1/user](#register-new-user-account)
+* [POST] [/api/portals/v1/user/password](#reset-user-account-password)
+
+#### /users
+
+* [GET] [/api/portals/v1/users](#get-all-users)
+* [POST] [/api/portals/v1/users](#create-user)
+* [GET] [/api/portals/v1/users/{user-id}](#get-user)
+* [PUT] [/api/portals/v1/users/{user-id}](#update-user)
+* [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
+* [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
+* [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
+* [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
+* [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
+* [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
+* [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
+* [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
+* [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
+* [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
+
 ### REST
 
 The API uses a REST-style API, which means that:
@@ -138,6 +227,7 @@ For some API endpoints, the domain of the request URL indicates information abou
 Also, the domain is used for user authentication. Endpoints that are affected by the querying domain are indicated below.
 
 ## Types
+---
 
 The following types are common to several API endpoints.
 
@@ -190,7 +280,6 @@ A sample client model object looks like this:
     ":published": true
 }
 ```
-
 
 ### Data source object
 
@@ -501,27 +590,26 @@ yields the same result as
 `GET /api/portals/v1/users/_this`
 
 ## API Endpoints
+---
+### Accounts
 
-
-## Accounts
-
-### Get all user accounts
+#### Get all user accounts
 
 `GET /api/portals/v1/accounts`
 
 Get account information about all users.
 
-#### Request
+##### Request
 
 Request body is empty
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing an array of [account object](#account-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/accounts' \
@@ -539,7 +627,6 @@ Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
 Content-Type: application/json; charset=UTF-8
-
 
 [
     {
@@ -560,17 +647,17 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Get user account by email
+#### Get user account by email
 
 `GET /api/portals/v1/accounts/{user-email}`
 
 Get user account by email.
 
-#### Request
+##### Request
 
 Request body is empty
 
-#### Response
+##### Response
 
 On success, responds with HTTP status 200 if user exists in some domain and the body containing user object.
 user objects contain the following keys:
@@ -583,7 +670,7 @@ user objects contain the following keys:
 
 On failure, responds with HTTP status 404 if user doesn't exist in any domain.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' \
@@ -611,18 +698,16 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-
-## Client Models
+### Client Models
 
 Client models represent a class of devices. All devices of the same client model have the same behaviour attributes and pricing. Only the domain administrator can use the client model APIs.
 **Note: Image data can currently not be modified using this API**
 
-### Create client model (Not ready)
+#### Create client model (Not ready)
 
 `POST /api/portals/v1/client-models/`
 
-
-#### Request
+##### Request
 
 The post body needs to be JSON encoded and at least include the required fields:
 
@@ -630,23 +715,23 @@ The post body needs to be JSON encoded and at least include the required fields:
 * `"name"`
 * `"cloneRID"` - Cloned device rid.
 
-### Get client model
+#### Get client model
 
 `GET /api/portals/v1/client-models/{vendor}/{name}`
 
 Get information about a client model.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and body is a [client model object](#client-model-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/myname' \
@@ -690,23 +775,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Update client model
+#### Update client model
 
 `PUT /api/portals/v1/client-models/{vendor}/{name}`
 
 Update information about a theme.
 
-#### Request
+##### Request
 
 The body needs to be JSON encoded contains a [client model object](#client-model-object). 
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
@@ -727,23 +812,23 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-### Get client model
+#### Get client model
 
 `GET /api/portals/v1/client-models/{vendor}/{name}`
 
 Get information about a client model.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
@@ -787,23 +872,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### List client models
+#### List client models
 
 `GET /api/portals/v1/client-models/`
 
 Returns an array of client models which in this domain.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models' \
@@ -873,23 +958,23 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Delete client model
+#### Delete client model
 
 `DELETE /api/portals/v1/client-models/{vendor}/{name}`
 
 When deleting the current default client model the exosite system client model will be applied to the domain.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
@@ -909,10 +994,9 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+### Collections (bulk request)
 
-## Collections (bulk request)
-
-### Querystring
+#### Querystring
 
 * limit
     Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
@@ -921,17 +1005,17 @@ Content-Type: application/json; charset=UTF-8
     numbers of items to skip.
     `/users/_this/users/[{user-id},{user-id},...]?offset=10`
 
-### Get multiple data sources
+#### Get multiple data sources
 
 `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
 
 Get information about portals data sources.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [data source object](#data-source-object).
@@ -939,9 +1023,9 @@ If request ID is over the response limit, response has HTTP status 206 and body 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
-##### If all items are fetched
+###### If all items are fetched
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]' \
@@ -1040,7 +1124,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-##### If request ID is over the response limit
+###### If request ID is over the response limit
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]?limit=1' \
@@ -1101,17 +1185,17 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Get multiple devices
+#### Get multiple devices
 
 `GET /users/_this/devices/[{device-rid},device-rid},...]`
 
 Get information for devices.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [device object](#device-object).
@@ -1119,9 +1203,9 @@ If request ID is over the response limit, response has HTTP status 206 and body 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
-##### If all items are fetched
+###### If all items are fetched
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]' \
@@ -1305,7 +1389,7 @@ curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?opti
 ]
 ```
 
-##### If request ID is over the response limit
+###### If request ID is over the response limit
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]?limit=1' \
@@ -1424,17 +1508,17 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-###   Get multiple groups
+####   Get multiple groups
 
 `GET /users/_this/groups/[{group-id},{group-id},...]`
 
 Get information about groups.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [group object](#group-object).
@@ -1442,9 +1526,9 @@ If request ID is over the response limit, response has HTTP status 206 and body 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
-##### If all items are fetched
+###### If all items are fetched
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]' \
@@ -1499,7 +1583,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-##### If request ID is over the response limit
+###### If request ID is over the response limit
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]?limit=1' \
@@ -1539,17 +1623,17 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Get multiple users
+#### Get multiple users
 
 `GET /users/_this/users/[{user-id},{user-id},...]`
 
 Get information about users.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [user object](#user-object).
@@ -1557,9 +1641,9 @@ If request ID is over the response limit, response has HTTP status 206 and body 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
-##### If all items are fetched
+###### If all items are fetched
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]' \
@@ -1636,7 +1720,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-##### If request ID is over the response limit
+###### If request ID is over the response limit
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1' \
@@ -1678,16 +1762,15 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+### Data Sources
 
-## Data Source
-
-### Create portal data source
+#### Create portal data source
 
 `POST /api/portals/v1/portals/{portal-id}/data-sources`
 
 Create a data source inside a portal
 
-#### Request
+##### Request
 
 Request body is a [data source object](#data-source-object). Currently only the following keys are supported:
 
@@ -1697,13 +1780,13 @@ Request body is a [data source object](#data-source-object). Currently only the 
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the created data source object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/data-sources' \
@@ -1758,26 +1841,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-
-## Data Sources
-
-### Get data source
+#### Get data source
 
 `GET /api/portals/v1/data-sources/{data-source-rid}`
 
 Get information about a Portals data source.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing a [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f' \
@@ -1831,22 +1911,22 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Append to data source data
+#### Append to data source data
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
 Write data
 
-#### Request
+##### Request
 Request body is a [value](#data-source-object).
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
@@ -1867,7 +1947,7 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-### Get data source data
+#### Get data source data
 
 `GET /api/portals/v1/data-sources/{data-source-rid}/data`
 
@@ -1881,11 +1961,11 @@ This API can retrieve multiple data points. The options below can be included to
 
 For more details about these options, see the [read API](https://github.com/exosite/docs/tree/master/rpc#read).
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
 
@@ -1897,7 +1977,7 @@ On success, response has HTTP status 200 and body is a list of data points. See 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 * Get data with no option
 
@@ -1945,22 +2025,22 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
-### Append JSON data to data source
+#### Append JSON data to data source
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/json`
 
 Write json data
 
-#### Querystring
+##### Querystring
 
 * safe
     safe write, server will wait for 1s and scan the data again for safety
 
-#### Request
+##### Request
 
 Request body is a valid JSON.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the body is empty.
 
@@ -1968,7 +2048,7 @@ On failure, response has HTTP status of 400 or greater.
 
 When `safe` is passed in querystring, failure will response 409
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
@@ -1989,17 +2069,17 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-### Get JSON data from data source 
+#### Get JSON data from data source 
 
 `GET /api/portals/v1/data-sources/{data-source-rid}/json`
 
 This is identical to `GET /api/portals/v1/data-sources/{data-source-rid}/data`
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
 
@@ -2011,7 +2091,7 @@ On success, response has HTTP status 200 and body is a list of data points. See 
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
@@ -2033,16 +2113,15 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"]]
 ```
 
+### Device
 
-## Device
-
-### Create new device under a portal of authenticated user
+#### Create new device under a portal of authenticated user
 
 `POST /api/portals/v1/device`
 
 Creates a new device based on a client model, returning the CIK and RID of the new device.
 
-#### Request
+##### Request
 
 The following keys are passed:
 
@@ -2068,7 +2147,7 @@ The following keys are passed:
 
 The domain name in the HTTP request indicates which domain to authenticate the user, and must be the same domain in which portal_rid is registered.
 
-#### Response
+##### Response
 
 On success, response has a HTTP status code 200. The response body contains a JSON object with the following keys:
 * `"rid"` - resource identifier for created device
@@ -2102,7 +2181,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
 * `"notices"` - array of user-readable error strings
 
-#### Example
+##### Example
 
 Create the device:
 
@@ -2140,16 +2219,15 @@ $ curl 'https://m2.exosite.com/provision/activate' \
 a148dd4b498cf18c8f1b066af0dab8d671a79a5l
 ```
 
+### Devices
 
-## Devices
-
-### Create device
+#### Create device
 
 `POST /api/portals/v1/portals/{portal-id}/devices`
 
 Create a device inside a portal
 
-#### Request
+##### Request
 
 Request body is a [device object](#device-object). Currently only the following keys are supported:
 
@@ -2160,13 +2238,13 @@ Request body is a [device object](#device-object). Currently only the following 
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the created device object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/devices' \
@@ -2241,13 +2319,13 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Update device
+#### Update device
 
 `PUT /api/portals/v1/devices/{device-rid}`
 
 Update a device
 
-#### Request
+##### Request
 
 Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
@@ -2256,13 +2334,13 @@ Request body is a [device object](#device-object). Currently only the following 
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status of 200 and body is the updated device object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
@@ -2329,23 +2407,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Get device
+#### Get device
 
 `GET /api/portals/v1/devices/{device-rid}`
 
 Get information for a device.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a [device object](#device-object):
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b'\
@@ -2411,23 +2489,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Delete device
+#### Delete device
 
 `DELETE /api/portals/v1/devices/{device-rid}`
 
 Delete a device not a clone template of a model, not a pay per use device. This also resets the status of the associated serial number.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status of 204 and body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
@@ -2447,20 +2525,19 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+### Domain
 
-## Domain
-
-### List domains of authenticated user
+#### List domains of authenticated user
 
 `GET /api/portals/v1/domain/`
 
 Returns an array of domains to which the user’s account is added.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
 
@@ -2476,7 +2553,7 @@ On success, response has HTTP status 200 and JSON array of domain objects. Domai
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/domain' \
@@ -2509,15 +2586,14 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+### File Systems
 
-## File Systems
-
-### Append to a directory
+#### Append to a directory
 
 Require `___admin` permission to the domain to access this end point.
 
 ```
-<form action="/api/portals/v1/fs{directory-path}" enctype="multipart/form-data" method="POST">
+<form action="/api/portals/v1/fs/{directory-path}" enctype="multipart/form-data" method="POST">
     <div>
         <input name="{field-name-1}" type="file">
         <input name="{field-name-2}" type="text">
@@ -2544,28 +2620,73 @@ The response entity body is:
 * `{field-content-type-1}` is the content type of the file as the value of field 1.
 * `{field-value-2}` is the value of `{field-name-2}`.
 
-### Get a file
+#### Get a file
+
+`GET /api/portals/v1/fs/{directory-path}/{subdirectory}`
 
 Require no permission to access this end point.
 
 Following [Append to a directory](#append-to-a-directory).
 
-`GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-1}`
-
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
-On success, response has HTTP status 200 and returns the content of the file as the value of field 1.
+On success, response has HTTP status 200 and returns response json entity.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400/file-name-1' \
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Wed, 19 Nov 2014 09:09:03 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 21
+Content-Type: application/json
+
+{
+    {field-name-1}: {field-content-type-1},
+    {field-name-2}: {field-value-2}
+}
+```
+
+#### Get a file content
+
+Require no permission to access this end point.
+
+Following [Append to a directory](#append-to-a-directory).
+
+`GET /api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}`
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and returns the content of the file as the value of field.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+* IF the myfile is a image file:
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/141517041216756400/myfile' \
      -X GET \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
@@ -2586,22 +2707,10 @@ IHDR%▒V▒PLTEA▒▒▒▒V▒
 IDATx▒cb67|▒IEND▒B`▒
 ```
 
-`GET /api/portals/v1/fs{directory-path}/{subdirectory}/{field-name-2}`
-
-#### Request
-
-Request body is empty.
-
-#### Response
-
-On success, response has HTTP status 200 and returns the value of field 2 as a JSON string.
-
-On failure, response has HTTP status of 400 or greater.
-
-#### Example
+* IF the myfile is a text file:
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/file-name-2' \
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/myfile' \
      -X GET \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
@@ -2620,16 +2729,15 @@ Content-Type: application/json
 {"info":[{"description":{"name":"hello"}}]}
 ```
 
+### Groups
 
-## Groups
-
-### Create group under user
+#### Create group under user
 
 `POST /api/portals/v1/users/{user-id}/groups`
 
 Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
-#### Request
+##### Request
 
 The request body is a [group object](#group-object). Currently, only the following keys are supported:
 
@@ -2637,13 +2745,13 @@ The request body is a [group object](#group-object). Currently, only the followi
 
 If you send keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the created group object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/groups' \
@@ -2682,13 +2790,13 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Update group
+#### Update group
 
 `PUT /api/portals/v1/groups/{group-id}`
 
 Update a group
 
-#### Request
+##### Request
 
 Body contains a [group object](#group-object). Currently only the following keys may be updated:
 
@@ -2699,13 +2807,13 @@ Body contains a [group object](#group-object). Currently only the following keys
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and group object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
@@ -2743,23 +2851,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Get group
+#### Get group
 
 `GET /api/portals/v1/groups/{group-id}`
 
 Get information about a group.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and body is a [group object](#group-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
@@ -2796,23 +2904,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Delete group
+#### Delete group
 
 `DELETE /api/portals/v1/groups/{group-id}`
 
 Delete a group
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 204 and empty body.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/3065555968' \
@@ -2832,20 +2940,19 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+### Portal
 
-## Portal
-
-### List portals of authenticated user
+#### List portals of authenticated user
 
 `GET /api/portals/v1/portal/`
 
 Get a array of portals for the specified user on the domain specified in the URL of the request.
 
-#### Request
+##### Request
 
 Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
 
-#### Response
+##### Response
 
 On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
 
@@ -2861,7 +2968,7 @@ On success, HTTP status is 200 and HTTP response body is a JSON array of portal 
 
 On failure, response has a HTTP status code of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/portal' \
@@ -2898,16 +3005,15 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+### Portals
 
-## Portals
-
-### Create portal
+#### Create portal
 
 `POST /api/portals/v1/users/{user-id}/portals`
 
 Create a portal under a user.
 
-#### Request
+##### Request
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
 
@@ -2915,13 +3021,13 @@ Request body is a [portal object](#portal-object).  Currently only the following
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the created [portal object](#portal-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
@@ -2986,13 +3092,13 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Update portal
+#### Update portal
 
 `PUT /api/portals/v1/portals/{portal-id}`
 
 Update information about a portal.
 
-#### Request
+##### Request
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
@@ -3006,11 +3112,11 @@ Request body is a [portal object](#portal-object).  Currently only the following
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the updated portal object.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/3882920427' \
@@ -3078,23 +3184,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Get portal
+#### Get portal
 
 `GET /api/portals/v1/portals/{portal-id}`
 
 Get information about a portal.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing a [portal object](#portal-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858' \
@@ -3157,23 +3263,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Delete portal by id
+#### Delete portal by id
 
 `DELETE /api/portals/v1/portals/{portal-id}`
 
 delete a portal through portal ID.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the deleting successful message.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1156616498' \
@@ -3195,23 +3301,23 @@ Content-Type: application/json; charset=UTF-8
 ["myportal has been successfully deleted."]
 ```
 
-### Delete portal by rid
+#### Delete portal by rid
 
 `DELETE /api/portals/v1/portals/{portal-rid}/ByRid`
 
 delete a portal through portal ID.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the deleting successful message.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/de3d88a4c15a341d386e7c1cfa0fa2a3a4cf2dcb/ByRid' \
@@ -3233,39 +3339,39 @@ Content-Type: application/json; charset=UTF-8
 ["myportal has been successfully deleted."]
 ```
 
-## Themes
+### Themes
 
 Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
 **Note: Image data can currently not be modified using this API**
 
-### Create theme (Not ready)
+#### Create theme (Not ready)
 
 `POST /api/portals/v1/themes/`
 
-#### Request
+##### Request
 
 The post body needs to be JSON encoded and at least include the required fields:
 
 * `"name"`
 * `"description"`
 
-### Update theme
+#### Update theme
 
 `PUT /api/portals/v1/themes/{themeid}`
 
 Update information about a theme.
 
-#### Request
+##### Request
 
 The body needs to be JSON encoded contains a [theme object](#theme-object). 
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
@@ -3286,23 +3392,23 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-### Get theme
+#### Get theme
 
 `GET /api/portals/v1/themes/{themeid}`
 
 Get information about a theme.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and body is a [theme object](#theme-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
@@ -3377,23 +3483,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### List themes
+#### List themes
 
 `GET /api/portals/v1/themes/`
 
 Returns an array of themes which in this domain.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and an array of [theme object](#theme-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
@@ -3527,23 +3633,23 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Delete theme
+#### Delete theme
 
 `DELETE /api/portals/v1/themes/{themeid}`
 
 When deleting the current default theme the exosite system theme will be applied to the domain.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the body is empty.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
@@ -3564,16 +3670,15 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+### User
 
-## User
-
-### Register new user account
+#### Register new user account
 
 `POST /api/portals/v1/user`
 
 Signs up a new user account, sending an activation email to the specified address.
 
-#### Request
+##### Request
 
 Request body is a JSON object with the following keys:
 
@@ -3587,7 +3692,7 @@ If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"`
 
 The domain name in the HTTP request is used to indicate which domain the user should be signed up in.
 
-#### Response
+##### Response
 
 On success, HTTP status code is 200 and HTTP response body is empty.
 
@@ -3605,7 +3710,7 @@ On failure, HTTP status code is 400 or greater and HTTP response body contains a
 
 * `"notices"` - array of user-readable error strings
 
-#### Example
+##### Example
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/user' \
@@ -3624,13 +3729,13 @@ Content-Length: 0
 Content-Type: text/html
 ```
 
-### Reset user account password
+#### Reset user account password
 
 `POST /api/portals/v1/user/password`
 
 Sends a password reset email for this user.
 
-#### Request
+##### Request
 
 Request contains a JSON object with the following keys:
 
@@ -3639,7 +3744,7 @@ Request contains a JSON object with the following keys:
 
     * `"reset"` - send user a password reset request
 
-#### Response
+##### Response
 
 On success, HTTP status code is 200 and HTTP response body is empty.
 
@@ -3653,7 +3758,7 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 
 * `"notices"` - array of user-readable error strings
 
-#### Example
+##### Example
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' \ 
@@ -3672,16 +3777,15 @@ Content-Length: 0
 Content-Type: text/html
 ```
 
+### Users
 
-## Users
-
-### Create user
+#### Create user
 
 `POST /api/portals/v1/users`
 
 Create a user.
 
-#### Request
+##### Request
 
 Request body is a [user object](#user-object).  Currently only the following keys may be included:
 
@@ -3693,13 +3797,13 @@ Request body is a [user object](#user-object).  Currently only the following key
 
 If you send any keys besides these, it will do nothing.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -3731,13 +3835,13 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Update user
+#### Update user
 
 `PUT /api/portals/v1/users/{user-id}`
 
 Update a Portals user
 
-#### Request
+##### Request
 
 Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
 
@@ -3754,13 +3858,13 @@ If you send any keys besides these, it will do nothing.
 
 When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the updated user object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
@@ -3792,23 +3896,23 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Get all users
+#### Get all users
 
 `GET /api/portals/v1/users`
 
 Get information about all users.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing an array of [user object](#user-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -3861,16 +3965,16 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Get all user portals
+#### Get all user portals
 
 `GET /api/portals/v1/users/{user-id}/portals`
 
 Get user have access to as a manager or private viewer.
 
-#### Request
+##### Request
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing an array of portal object.
 Portal objects contain the following keys:
@@ -3883,7 +3987,7 @@ Portal objects contain the following keys:
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
@@ -3920,23 +4024,23 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-### Get user
+#### Get user
 
 `GET /api/portals/v1/users/{user-id}`
 
 Get information about a user.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and a body containing a [user object](#user-object).
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
@@ -3967,24 +4071,24 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Get user token
+#### Get user token
 
 `GET /api/portals/v1/users/{user-id}/token`
 
 Get a portals user log in token
 
-#### Request
+##### Request
 Request string.
 * `"reDirect"` - URL when login fail reDirect to where.
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
@@ -4005,22 +4109,22 @@ Content-Type: application/json; charset=UTF-8
 MzE2Nzg1OTczNq==
 ```
 
-### Get user portal
+#### Get user portal
 
 `GET /api/portals/v1/users/{user-id}/portals/{portal-id}`
 
 Get user have access to as a manager or private viewer.
 
-#### Request
+##### Request
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 200 and the portals object.
 
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/2853566858' \
@@ -4047,22 +4151,22 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-### Delete user
+#### Delete user
 
 `DELETE /api/portals/v1/users/{user-id}`
 
 Delete a user who has no Braintree ID, no portal, no discount.
 
-#### Request
+##### Request
 
 Request body is empty.
 
-#### Response
+##### Response
 
 On success, response has HTTP status 204 and empty response.
 On failure, response has HTTP status of 400 or greater.
 
-#### Example
+##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
