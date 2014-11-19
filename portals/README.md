@@ -140,8 +140,8 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /fs
 
-* [GET] [/api/portals/v1/fs{directory-path}/{subdirectory}](#get-a-file)
-* [GET] [/api/portals/v1/fs{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
+* [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}](#get-a-file)
+* [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
 
 #### /groups
 
@@ -2605,7 +2605,7 @@ Require `___admin` permission to the domain to access this end point.
 * `<directory-path>` can be `[\/\-_0-9A-Za-z]*`.
 * `<field-name-*>` is `^[\-0-9_A-Za-z]*$`.
 
-Submission of this form redirects the page to "/api/portals/v1/fs{directory-path}/{subdirectory}".
+Submission of this form redirects the page to "/api/portals/v1/fs/{directory-path}/{subdirectory}".
 
 The response entity body is:
 
