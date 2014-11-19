@@ -15,7 +15,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Client Models
 
-* [Create client model](#create-client-model)(Not ready)
+* [Create client model](#create-client-model) (Not ready)
 * [Update client model](#update-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
@@ -75,12 +75,12 @@ Portals provides a user authentication and management system on top of the One P
 * [Create portal](#create-portal)
 * [Update portal](#update-portal)
 * [Get portal](#get-portal)
-* [Delete portal](#delete-portal)
+* [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
 
 #### Themes
 
-* [Create theme](#create-theme)(Not ready)
+* [Create theme](#create-theme) (Not ready)
 * [Update theme](#update-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
@@ -3157,6 +3157,81 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
+### Delete portal by id
+
+`DELETE /api/portals/v1/portals/{portal-id}`
+
+delete a portal through portal ID.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the deleting successful message.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1156616498' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Wed, 19 Nov 2014 01:59:13 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 52
+Content-Type: application/json; charset=UTF-8
+
+["myportal has been successfully deleted."]
+```
+
+### Delete portal by rid
+
+`DELETE /api/portals/v1/portals/{portal-rid}/ByRid`
+
+delete a portal through portal ID.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200 and the deleting successful message.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/de3d88a4c15a341d386e7c1cfa0fa2a3a4cf2dcb/ByRid' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Wed, 19 Nov 2014 01:59:13 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 52
+Content-Type: application/json; charset=UTF-8
+
+["myportal has been successfully deleted."]
+```
 
 ## Themes
 
