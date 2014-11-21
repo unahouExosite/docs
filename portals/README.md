@@ -24,19 +24,22 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Collections (Bulk API)
 
-* [Get multiple data sources](#collections-bulk-request)
-* [Get multiple devices](#collections-bulk-request)
-* [Get multiple groups](#collections-bulk-request)
-* [Get multiple users](#collections-bulk-request)
+* [Get multiple data sources](#get-multiple-data-sources)
+* [Get multiple devices](#get-multiple-devices)
+* [Get multiple groups](#get-multiple-groups)
+* [Get multiple users](#get-multiple-users)
 
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
 * [Get data source](#get-data-source)
-* [Append to data source data](#append-to-data-source-data)
+* [Get multiple data sources](#get-multiple-data-sources)
+
+#### Data Sources Date
+
 * [Get data source data](#get-data-source-data)
-* [Append JSON data to data source](#append-json-data-to-data-source)
-* [Get JSON data from data source](#get-json-data-from-data-source)
+* [Append data source data](#append-data-source-data)
+* [Append data source data in JSON format](#append-data-source-data-in-JSON-format)
 
 #### Device
 
@@ -47,6 +50,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create device](#create-device)
 * [Update device](#update-device)
 * [Get device](#get-device)
+* [Get multiple devices](#get-multiple-devices)
 * [Delete device](#delete-device)
 
 #### Domain
@@ -64,6 +68,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create group under user](#create-group-under-user)
 * [Update group](#update-group)
 * [Get group](#get-group)
+* [Get multiple groups](#get-multiple-groups)
 * [Delete group](#delete-group)
 
 #### Portal
@@ -96,6 +101,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Update user](#update-user)
 * [Get all users](#get-all-users)
 * [Get all user portals](#get-all-user-portals)
+* [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user token](#get-user-token)
 * [Get user portal](#get-user-portal)
@@ -121,7 +127,6 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-to-data-source-data)
-* [GET] [/api/portals/v1/data-sources/{data-source-rid}/json](#get-json-data-from-data-source)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-json-data-to-data-source)
 
 #### /device
@@ -1846,6 +1851,7 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/data-sources/{data-source-rid}`
 
 Get information about a Portals data source.
+If you want to get more than one data source information can reference [Get multiple data sources](#get-multiple-data-sources).
 
 ##### Request
 
@@ -1911,41 +1917,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-#### Append to data source data
-
-`POST /api/portals/v1/data-sources/{data-source-rid}/data`
-
-Write data
-
-##### Request
-Request body is a [value](#data-source-object).
-
-##### Response
-
-On success, response has HTTP status 201 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
-     -X POST \
-     -d '"1000"' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 201 Created
-Date: Tue, 18 Nov 2014 02:36:02 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
-Status: 201 Created
-Vary: Accept-Encoding
-Content-Length: 0
-Content-Type: application/json; charset=UTF-8
-```
+### Data Sources Data
 
 #### Get data source data
 
@@ -2025,7 +1997,43 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
-#### Append JSON data to data source
+#### Append data source data
+
+`POST /api/portals/v1/data-sources/{data-source-rid}/data`
+
+Write data
+
+##### Request
+Request body is a [value](#data-source-object).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+     -X POST \
+     -d '"1000"' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Tue, 18 Nov 2014 02:36:02 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Append data source data in JSON format
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/json`
 
@@ -2067,50 +2075,6 @@ Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
-```
-
-#### Get JSON data from data source 
-
-`GET /api/portals/v1/data-sources/{data-source-rid}/json`
-
-This is identical to `GET /api/portals/v1/data-sources/{data-source-rid}/data`
-
-##### Request
-
-Request body is empty.
-
-##### Response
-
-On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
-
-* `"data"` is an array of data points. A data point has a unit timestamp and a value.
-
-    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-
-    * `{value}` may be a string, int, or float depending on the data source type.
-
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
-       -X GET \
-       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
-       -i
-```
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 02:45:30 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
-Status: 200 OK
-Vary: Accept-Encoding
-Content-Length: 21
-Content-Type: application/json; charset=UTF-8
-
-[[1416278417,"5.00"]]
 ```
 
 ### Device
@@ -2412,6 +2376,7 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/devices/{device-rid}`
 
 Get information for a device.
+If you want to get more than one device information can reference [Get multiple devices](#get-multiple-devices).
 
 ##### Request
 
@@ -2856,6 +2821,8 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/groups/{group-id}`
 
 Get information about a group.
+
+If you want to get more than one group information can reference [Get multiple groups](#get-multiple-groups).
 
 ##### Request
 
@@ -4029,6 +3996,8 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/users/{user-id}`
 
 Get information about a user.
+
+If you want to get more than one user information can reference [Get multiple users](#get-multiple-users).
 
 ##### Request
 
