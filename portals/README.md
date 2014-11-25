@@ -246,7 +246,8 @@ An object containing information about a Portals user.
     "fullName": <short-string>,
     "id": <id>,
     "meta": <meta>,
-    "phoneNumber": <short-string>
+    "phoneNumber": <short-string>,
+    "userName": <short-string>
 }
 ```
 
@@ -255,6 +256,7 @@ An object containing information about a Portals user.
 * `"id"` is a numeric identifier for the user.
 * `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
+* `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
 ### Client models object
 
@@ -564,7 +566,8 @@ An object containing information about a Portals user.
         <permission-1>,
         ...
     ],
-    "phoneNumber": <short-string>
+    "phoneNumber": <short-string>,
+    "userName": <short-string>
 }
 ```
 
@@ -579,6 +582,7 @@ An object containing information about a Portals user.
 * `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
+* `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
 ### User ID ###
 
