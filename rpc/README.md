@@ -568,7 +568,9 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ##create (client)
 
-Creates a client.
+Creates a generic client. 
+
+_NOTE:_ To create a client based on a client model and connected with a serial number, use the [portals create device API](http://docs.exosite.com/portals/#create-new-device-under-a-portal-of-authenticated-user) or the [fleet management create client from model POST API](http://docs.exosite.com/provision/management/#provisionmanagemodelmodelsn) instead.
 
 ```
 {
@@ -1408,6 +1410,8 @@ Returns lists of RIDs of types specified in `<type_list>`.
 Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
 the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
 be terminated.  
+
+_NOTE:_ The drop procedure should only be used to drop generic clients, i.e. clients that were created without a client model. To drop/delete a client based on a client model, use the [Portals API delete device](http://docs.exosite.com/portals/#delete-device). This will free up the serial number associated with that device.
 
 ```
 {
