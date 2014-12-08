@@ -600,7 +600,7 @@ yields the same result as
 
 ### Caveats
 
-API return messages may be subject to upgrades and improvements, e.g. additional fields can be added. Developers using Exosite APIs should not hard code non-upwards compatible elements such as field counts, IP addresses or header length.
+API return messages may be subject to upgrades and improvements (e.g., additional fields may be added). Developers using Exosite APIs should not hard code non-upwards-compatible elements such as field counts, IP addresses, or header length.
 
 ## API Endpoints
 ---
