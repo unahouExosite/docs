@@ -3760,9 +3760,8 @@ Content-Type: text/html
 
 Create a user.
 
-   * Non-admin and admin users can use the API to create a new account
-   * If moderate is OFF, then can use the API to create a new account.
-   * If moderate is ON, then cannot use the API to create a new account.
+   * Non-admin and admin users can create a new account
+   * A new account will only be created if the domain's user moderation setting is turned off
 
 ##### Request
 
