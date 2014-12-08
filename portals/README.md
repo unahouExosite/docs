@@ -3756,6 +3756,10 @@ Content-Type: text/html
 
 Create a user.
 
+   * Non-admin and admin users can use the API to create a new account
+   * If moderate is OFF, then can use the API to create a new account.
+   * If moderate is ON, then cannot use the API to create a new account.
+
 ##### Request
 
 Request body is a [user object](#user-object).  Currently only the following keys may be included:
@@ -3780,7 +3784,6 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
      -X POST \
      -d '{"email":"newuseremail@gmail.com"}' \
-     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
      -i
 ```
 
