@@ -4054,7 +4054,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/token`
 
-Get a portals user log in token
+Get a portals user token. This token can be used for for logging into a domain or making API calls.
 
 ##### Request
 Request string.
@@ -4068,6 +4068,8 @@ On success, response has HTTP status 200.
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
+
+Create a token
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
@@ -4085,7 +4087,26 @@ Vary: Accept-Encoding
 Content-Length: 16
 Content-Type: application/json; charset=UTF-8
 
-MzE2Nzg1OTczNq==
+"MzE2Nzg1OTczNq=="
+```
+
+To use a token, put the token in the Authorization field like illustrated below, response content is skipped for clarity:
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this' \
+     -H 'Authorization: Token MzE2Nzg1OTczNq==' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 21 Nov 2014 08:00:10 GMT
+Server: Apache/2.2.16 (Debian)
+X-Powered-By: PHP/5.3.29-1~dotdeb.0
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
 ```
 
 #### Get user portal
