@@ -129,28 +129,28 @@ local room_temp = alias['room_temp']
 ```
 
 Each alias has properties and functions through which the script can interact
-with the aliased resource. 
+with the aliased resource (for example to read from a dataport or write to a dataport)
 
-* `alias.alias` 
+* `.alias` 
 
     This sub alias table is only available if the referenced alias is a client.
     It provides the same functionality as the global alias table but for the
     referenced client.
 
-* `alias.manage`
+* `.manage`
 
     The manage table is only available if the referenced alias is a client. For
     the functionality provided, see [The manage table](#the-manage-table).
 
-* `alias.meta` 
+* `.meta` 
 
     This provides read-only access to the `meta` field of the resource.
 
-* `alias.name` 
+* `.name` 
 
     This provides read-only access to the `name` field of the resource.
 
-* `alias.status` 
+* `.status` 
 
     Indicates the outcome of the most recent activity performed on the Alias.
     Actions include the reading or writing of any of the Alias properties and
@@ -159,7 +159,7 @@ with the aliased resource.
     The actual values this property can return are listed with each property and
     function that can affect the value of `.status`. This property is read only.
 
-* `alias.timestamp`
+* `.timestamp`
 
     The timestamp of the most recent datapoint written to the resource. If the
     resource contains no datapoints, `.timestamp` will read `nil`.
@@ -172,7 +172,7 @@ with the aliased resource.
   Status:           'ok' :: string - accessing .timestamp was successful
 ```
 
-* `alias.value`
+* `.value`
 
     When read, it returns the value of the most recent datapoint written to the
     resource. If the resource contains no datapoints, `.value` will read `nil`.
@@ -188,7 +188,7 @@ with the aliased resource.
 ```
 
 
-* `alias.last`
+* `.last`
 
     When read, it returns the timestamp returned by the most recent call to 
     `.wait` function.  When written, the current time, as the script perceives 
@@ -202,7 +202,7 @@ with the aliased resource.
   Values:           last :: number
 ```
 
-* `alias.wait([expire])`
+* `.wait([expire])`
 
     Returns the timestamp for the next unprocessed datapoint. Next being relative
     to the timestamp held by `.last` property. If there is no datapoint available,
@@ -229,7 +229,7 @@ with the aliased resource.
                'expired' :: string - the call has expired
 ```
 
-* `alias[<timestamp>]`
+* `[<timestamp>]`
 
     Indexing an alias with a numerical timestamp makes it possible to read and
     record historical data.
