@@ -378,40 +378,40 @@ POST: coap://coap.exosite.com/rpc
       |   CON POST                                           |
       |   uri_path: "rpc"                                    |
       |   { "auth" : {"cik" : "<CIK>"},                      |
-      | 	   "calls" : [{                                  |
-      |		        "id" : 1,                             |
-      |		        "procedure" : "read",                 |
-      |		        "arguments" : [                       |
-      |			        {"alias" : "<alias r1>"},         |
-      |			        {"limit" : 1}                     |
-      |		        ]                                     |
-      |		    },                                        |
-      |		    {                                         |
-      |		        "id" : 2,                             |
-      |		        "procedure" : "write",                |
-      |		        "arguments" : [{                      |
-      |		            "alias" : "<alias w1>"            |
-      |		        },                                    |
-      |		        65.4]                                 |
-      |		    },                                        |
-      |		    {                                         |
-      |		        "id" : 3,                             |
-      |		        "procedure" : "record",               |
-      |		        "arguments" : [{                      |
-      |		            "alias" : "<alias w2>"            |
-      |		        },                                    |
-      |		        [[1410360812,65.4],                   |
-      |		        [1410360813,66.3],                    |
-      |		        [1410360815,67.9]],                   |
-      |		        {}]                                   |
-      |		    }]                                        |
-      |		}                                             |
-      |                                                      | 
+      |        "calls" : [{                                  |
+      |             "id" : 1,                                |
+      |             "procedure" : "read",                    |
+      |             "arguments" : [                          |
+      |                 {"alias" : "<alias r1>"},            |
+      |                 {"limit" : 1}                        |
+      |             ]                                        |
+      |         },                                           |
+      |         {                                            |
+      |             "id" : 2,                                |
+      |             "procedure" : "write",                   |
+      |             "arguments" : [{                         |
+      |                 "alias" : "<alias w1>"               |
+      |             },                                       |
+      |             65.4]                                    |
+      |         },                                           |
+      |         {                                            |
+      |             "id" : 3,                                |
+      |             "procedure" : "record",                  |
+      |             "arguments" : [{                         |
+      |                 "alias" : "<alias w2>"               |
+      |             },                                       |
+      |             [[1410360812,65.4],                      |
+      |             [1410360813,66.3],                       |
+      |             [1410360815,67.9]],                      |
+      |             {}]                                      |
+      |         }]                                           |
+      |     }                                                |
+      |                                                      |
       +----------------------------------------------------->|
       |                                                      |
       |   ACK Content (2.05)                                 |
-      |   [{                   					          |
-      |         "id": 1,       			                  |
+      |   [{                                                 |
+      |         "id": 1,                                     |
       |         "status": "ok",                              |
       |        "result": [[1410360840, 64.2]]                |
       |     },                                               |
@@ -420,7 +420,7 @@ POST: coap://coap.exosite.com/rpc
       |         "status": "ok",                              |
       |     },                                               |
       |     {                                                |
-      |         "id": 3,                                     | 
+      |         "id": 3,                                     |
       |         "status": "ok",                              |
       |     }]                                               |
       |<-----------------------------------------------------+
