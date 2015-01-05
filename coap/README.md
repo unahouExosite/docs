@@ -437,10 +437,7 @@ POST: coap://coap.exosite.com/rpc
 
 
 
-# Known Issues
-
-* The `/.well-known/core/` discovery endpoint is not yet supported.
-* Publish/subscribe (observe) patterns are not yet supported.
+# More Info
 
 More information about the Exosite roadmap for CoAP can be made available
 upon request. Further details about CoAP can be found with the
