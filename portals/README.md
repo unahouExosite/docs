@@ -2256,7 +2256,6 @@ Update a device
 Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
 * `"info": {"description": ...}` - description under info (optional)
-* `"info": {"description": ...}` - description under info (optional)
 
 If you send any keys besides these, it will do nothing.
 
