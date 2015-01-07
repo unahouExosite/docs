@@ -35,7 +35,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 
-#### Data Sources Date
+#### Data Sources Data
 
 * [Get data source data](#get-data-source-data)
 * [Append data source data](#append-data-source-data)
