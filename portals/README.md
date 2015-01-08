@@ -38,7 +38,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources Data
 
 * [Get data source data](#get-data-source-data)
-* [Append data source data](#append-data-source-data)
+* [Append/Insert data source data](#append-insert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
 
 #### Device
@@ -125,7 +125,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
 * [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-insert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
 
 #### /device
@@ -2029,11 +2029,11 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
-#### Append data source data
+#### Append/Insert data source data
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
-Write data
+Append data
 
 ##### Request
 Request body is a [value](#data-source-object).
@@ -2047,7 +2047,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X POST \
      -d '"1000"' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
@@ -2057,6 +2057,36 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d4
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:36:02 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+Insert data
+
+##### Request
+Request body is [data](https://github.com/exosite/docs/tree/master/rpc#recordbatch).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/ad75f5b356907f0d2ec7a67d31254410526ef032/data' \
+     -X POST \
+     -d '[[1420041600,"1000"]]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Thu, 08 Jan 2015 11:57:06 GMT
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 0
