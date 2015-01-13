@@ -162,6 +162,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/portal/ ](#list-portals-of-authenticated-user)
 
 #### /portals
+
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
@@ -730,7 +731,7 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a [client model object](#client-model-object).
+On success, response has HTTP status 200 and body is a [client model object](#client-models-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -809,64 +810,6 @@ Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
-```
-
-#### Get client model
-
-`GET /api/portals/v1/client-models/{vendor}/{name}`
-
-Get information about a client model.
-
-##### Request
-
-Request body is empty.
-
-##### Response
-
-On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
-     -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 06:10:30 GMT
-Status: 200 OK
-Vary: Accept-Encoding
-Transfer-Encoding: chunked
-Content-Type: application/json; charset=UTF-8
-
-{
-    "id": "myvendor/mymodel",
-    "domainID": "3481377489",
-    "vendor": "myvendor",
-    "friendly": "mymodel",
-    "name": "mymodel",
-    "cloneRID": "96436ca6874ce01d0dd1f41001d71e75c3aebd6f",
-    "viewID": "0000000000",
-    "exampleSN": "",
-    "sharedSN": "",
-    "convertSN": "no",
-    "alternateSN": "",
-    "noteSetup": "",
-    "noteName": "",
-    "noteLocation": "(optional - can be a string or GPS decimal degrees)",
-    "pictureDevice": "",
-    "description": "",
-    "pictureSN": "",
-    "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK<br/>[device cik]<br/><br/>Your [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:<br/><br/><b>Company name:</b> [company name]<br/><b>Company email contact information:</b> [company email]<br/>",
-    "companyName": "",
-    "contactEmail": "",
-    ":published": false
-}
 ```
 
 #### List client models
