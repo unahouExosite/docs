@@ -40,6 +40,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source data](#get-data-source-data)
 * [Append data source data](#append-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
+* [Delete data source data](#delete-data-source-data)
 
 #### Device
 
@@ -127,6 +128,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
+* [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
 #### /device
 
@@ -2100,6 +2102,70 @@ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468c
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:46:49 GMT
 Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Delete data source data
+
+`DELETE /api/portals/v1/data-sources/{data-source-rid}/data`
+
+This API can delete multiple data points. The options below can be included to modify the results of an API call:
+
+* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to delete.
+
+* `"sort"` defines the order in which data points will be deleted.
+
+* `"limit"` sets the maximum number of data points to delete. When it specify to `"infinity"`, it means that flush all data points by given window.
+
+For more details about these options, see [Get data source data](#get-data-source-data).
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status of 204 and body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+* Delete data without options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 13 Jan 2015 04:40:50 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+* Get data with options
+
+api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 13 Jan 2015 04:40:50 GMT
+Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
