@@ -14,10 +14,10 @@ This document uses the following notational conventions:
 
 ### Write 
 
-This interface can be accessed on Port 18494 via m2.exosite.com.
+This interface can be accessed on Port 18494 via udp.exosite.com.
 
 ```
-Server: m2.exosite.com
+Server: udp.exosite.com
 Port: 18494
 ```
 
@@ -42,7 +42,7 @@ None - no server responses are sent.
 The following example updates the alias `temperature` with a value of `22` for CIK fff51d1a260b4b258fefffd9a9313c433e419fff using the netcat command from the command line:
 
 ```
-$ echo "cik=fff51d1a260b4b258fefffd9a9313c433e419fff&temperature=22" | nc -w 1 -u m2.exosite.com 18494
+$ echo "cik=fff51d1a260b4b258fefffd9a9313c433e419fff&temperature=22" | nc -w 1 -u udp.exosite.com 18494
 ```
 
 Our Github Exosite Garage Projects have a number of examples of using this interface. For instance:

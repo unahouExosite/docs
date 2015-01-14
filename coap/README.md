@@ -116,6 +116,52 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
+## Observed Read
+
+The read API supports the [observe](https://tools.ietf.org/html/draft-ietf-core-observe-15) feature which allows to be notified any time the specified dataport is updated.
+
+*NOTE: This feature is based on a draft RFC and is a brand new feature being implemented currently. Therefore, is even more subject to change than than the rest of the API.*
+
+You can inform the server that you would like to be informed of updates by including the observe option in the standard read request. If you receive a response with a 2.05 Content code and an observe option you have successfully observed that dataport and our server will send you asynchronous requests any time the dataport is updated or when the max_age of the last sent packet expires.
+
+```
+GET: coap://coap.exosite.com/1a/<alias>?<CIK>
+```
+
+```
+  Client                    Server
+      |                        |
+      |   CON GET              |
+      |   observe: 0           |
+      |   uri_path: "1a"       |
+      |   uri_path: "<alias>"  |
+      |   uri_query: "<CIK>"   |
+      +----------------------->|
+      |                        |
+      |   ACK Content (2.05)   |
+      |   observe: 0           |
+      |   "<value>"            |
+      |<-----------------------+
+                  ...
+      |                        |
+      |   CON Content (2.05)   |
+      |   observe: <N>         |
+      |   max_age: <S>         |
+      |   "<value>"            |
+      |<-----------------------+
+      |                        |
+      |   ACK Empty (0.00)     |
+      |----------------------->+
+```
+
+`<alias>`: The alias of the datasource that is to have the latest value read.  
+`<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
+
+### Responses
+* 2.05 Content: The value is returned.
+* 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
+* 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
+
 ##Multiple Read and Write
 
 Read the most recent value from zero or more dataports and write a value to zero or more dataports with the given values in one call. The server will look in the first uri query option for the CIK.
@@ -332,40 +378,40 @@ POST: coap://coap.exosite.com/rpc
       |   CON POST                                           |
       |   uri_path: "rpc"                                    |
       |   { "auth" : {"cik" : "<CIK>"},                      |
-      | 	   "calls" : [{                                  |
-      |		        "id" : 1,                             |
-      |		        "procedure" : "read",                 |
-      |		        "arguments" : [                       |
-      |			        {"alias" : "<alias r1>"},         |
-      |			        {"limit" : 1}                     |
-      |		        ]                                     |
-      |		    },                                        |
-      |		    {                                         |
-      |		        "id" : 2,                             |
-      |		        "procedure" : "write",                |
-      |		        "arguments" : [{                      |
-      |		            "alias" : "<alias w1>"            |
-      |		        },                                    |
-      |		        65.4]                                 |
-      |		    },                                        |
-      |		    {                                         |
-      |		        "id" : 3,                             |
-      |		        "procedure" : "record",               |
-      |		        "arguments" : [{                      |
-      |		            "alias" : "<alias w2>"            |
-      |		        },                                    |
-      |		        [[1410360812,65.4],                   |
-      |		        [1410360813,66.3],                    |
-      |		        [1410360815,67.9]],                   |
-      |		        {}]                                   |
-      |		    }]                                        |
-      |		}                                             |
-      |                                                      | 
+      |        "calls" : [{                                  |
+      |             "id" : 1,                                |
+      |             "procedure" : "read",                    |
+      |             "arguments" : [                          |
+      |                 {"alias" : "<alias r1>"},            |
+      |                 {"limit" : 1}                        |
+      |             ]                                        |
+      |         },                                           |
+      |         {                                            |
+      |             "id" : 2,                                |
+      |             "procedure" : "write",                   |
+      |             "arguments" : [{                         |
+      |                 "alias" : "<alias w1>"               |
+      |             },                                       |
+      |             65.4]                                    |
+      |         },                                           |
+      |         {                                            |
+      |             "id" : 3,                                |
+      |             "procedure" : "record",                  |
+      |             "arguments" : [{                         |
+      |                 "alias" : "<alias w2>"               |
+      |             },                                       |
+      |             [[1410360812,65.4],                      |
+      |             [1410360813,66.3],                       |
+      |             [1410360815,67.9]],                      |
+      |             {}]                                      |
+      |         }]                                           |
+      |     }                                                |
+      |                                                      |
       +----------------------------------------------------->|
       |                                                      |
       |   ACK Content (2.05)                                 |
-      |   [{                   					          |
-      |         "id": 1,       			                  |
+      |   [{                                                 |
+      |         "id": 1,                                     |
       |         "status": "ok",                              |
       |        "result": [[1410360840, 64.2]]                |
       |     },                                               |
@@ -374,7 +420,7 @@ POST: coap://coap.exosite.com/rpc
       |         "status": "ok",                              |
       |     },                                               |
       |     {                                                |
-      |         "id": 3,                                     | 
+      |         "id": 3,                                     |
       |         "status": "ok",                              |
       |     }]                                               |
       |<-----------------------------------------------------+
@@ -391,10 +437,7 @@ POST: coap://coap.exosite.com/rpc
 
 
 
-# Known Issues
-
-* The `/.well-known/core/` discovery endpoint is not yet supported.
-* Publish/subscribe (observe) patterns are not yet supported.
+# More Info
 
 More information about the Exosite roadmap for CoAP can be made available
 upon request. Further details about CoAP can be found with the
