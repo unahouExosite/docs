@@ -35,7 +35,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 
-#### Data Sources Date
+#### Data Sources Data
 
 * [Get data source data](#get-data-source-data)
 * [Append data source data](#append-data-source-data)
@@ -634,8 +634,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/accounts' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 09:42:30 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
@@ -695,8 +693,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' 
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 09:40:58 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 99
@@ -756,8 +752,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/myname'
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:21:14 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 1071
@@ -817,8 +811,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 08:14:01 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
@@ -853,8 +845,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:10:30 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
@@ -913,8 +903,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/client-models' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:10:30 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
@@ -999,8 +987,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:26:52 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
@@ -1050,8 +1036,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3f
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 02:49:17 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 648
@@ -1148,8 +1132,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3f
 
 ```
 Date: Mon, 17 Nov 2014 03:18:57 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 206 Partial Content
 Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5]?offset=1&limit=1>; rel="next"
 Vary: Accept-Encoding
@@ -1230,8 +1212,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 03:29:42 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 2742
@@ -1414,8 +1394,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6
 ```
 HTTP/1.1 206 Partial Content
 Date: Mon, 17 Nov 2014 03:24:46 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 206 Partial Content
 Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/devices/[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f]?offset=1&limit=1>; rel="next"
 Vary: Accept-Encoding
@@ -1553,8 +1531,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[258107185
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 03:35:46 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 343
@@ -1608,8 +1584,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[258107185
 ```
 HTTP/1.1 206 Partial Content
 Date: Mon, 17 Nov 2014 03:39:28 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 206 Partial Content
 Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/groups/[2937453355,2581071857]?offset=1&limit=1>; rel="next"
 Vary: Accept-Encoding
@@ -1668,8 +1642,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 03:43:14 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 648
@@ -1745,8 +1717,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789
 ```
 HTTP/1.1 206 Partial Content
 Date: Mon, 17 Nov 2014 03:44:42 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 206 Partial Content
 Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/users/[2014970789,2308265000]?offset=1&limit=1>; rel="next"
 Vary: Accept-Encoding
@@ -1812,8 +1782,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/data-source
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:25:20 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 452
@@ -1883,8 +1851,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468c
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:32:43 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 452
@@ -1971,8 +1937,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468c
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:39:23 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 21
@@ -1995,8 +1959,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468c
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:43:35 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 41
@@ -2033,8 +1995,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d4
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:36:02 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 0
@@ -2077,8 +2037,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468c
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:46:49 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 0
@@ -2168,8 +2126,6 @@ $ curl 'https://mydomain.exosite.com/api/portals/v1/device' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 01:45:37 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Vary: Accept-Encoding
 Content-Length: 99
 Content-Type: application/json; charset=UTF-8
@@ -2229,8 +2185,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/devices' \
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:14:27 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 1113
@@ -2302,7 +2256,6 @@ Update a device
 Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
 * `"info": {"description": ...}` - description under info (optional)
-* `"info": {"description": ...}` - description under info (optional)
 
 If you send any keys besides these, it will do nothing.
 
@@ -2325,8 +2278,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b75
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:22:12 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 780
@@ -2408,8 +2359,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b75
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:19:42 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 776
@@ -2490,8 +2439,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b75
 ```
 HTTP/1.1 204 No Content
 Date: Tue, 18 Nov 2014 07:45:09 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
@@ -2538,8 +2485,6 @@ $ curl 'https://mydomain.exosite.com/api/portals/v1/domain' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:54:40 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
 Content-Type: application/json; charset=UTF-8
@@ -2623,8 +2568,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400' \
 ```
 HTTP/1.1 200 OK
 Date: Wed, 19 Nov 2014 09:09:03 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 21
@@ -2668,8 +2611,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/fs/141517041216756400/myfile' 
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:41:13 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Content-Length: 82
 Content-Type: image/png
@@ -2692,8 +2633,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/myf
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:58:14 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 43
@@ -2737,8 +2676,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/groups' \
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:48:23 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Location: https://mydomain.exosite.com/api/portals/v1/groups/1206252898
 Vary: Accept-Encoding
@@ -2799,8 +2736,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:52:44 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 171
@@ -2854,8 +2789,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 02:51:19 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 163
@@ -2907,8 +2840,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/groups/3065555968' \
 ```
 HTTP/1.1 204 No Content
 Date: Tue, 18 Nov 2014 07:42:00 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
@@ -2955,8 +2886,6 @@ $ curl 'https://mydomain.exosite.com/api/portals/v1/portal' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 09:45:50 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Vary: Accept-Encoding
 Content-Length: 1442
 Content-Type: application/json; charset=UTF-8
@@ -3015,8 +2944,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
 ```
 HTTP/1.1 201 Created
 Date: Mon, 17 Nov 2014 09:52:58 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Location: https://mydomain.exosite.com/api/portals/v1/portals/3882920427
 Vary: Accept-Encoding
@@ -3104,8 +3031,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/3882920427' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 10:03:21 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 639
@@ -3187,8 +3112,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 09:49:38 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 578
@@ -3266,8 +3189,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/1156616498' \
 ```
 HTTP/1.1 200 OK
 Date: Wed, 19 Nov 2014 01:59:13 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 52
@@ -3304,8 +3225,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/de3d88a4c15a341d386e7c
 ```
 HTTP/1.1 200 OK
 Date: Wed, 19 Nov 2014 01:59:13 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 52
@@ -3359,8 +3278,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:01:39 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
@@ -3394,8 +3311,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 05:59:28 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 1880
@@ -3486,8 +3401,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 05:56:40 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 3676
@@ -3637,8 +3550,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
 ```
 HTTP/1.1 200 OK
 Date: Tue, 18 Nov 2014 06:06:39 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
@@ -3697,8 +3608,6 @@ $ curl 'https://mydomain.exosite.com/api/portals/v1/user' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 06:24:51 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: text/html
@@ -3745,8 +3654,6 @@ $ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:16:12 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: text/html
@@ -3793,8 +3700,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users' \
 ```
 HTTP/1.1 201 Created
 Date: Mon, 17 Nov 2014 08:12:25 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 144
@@ -3854,8 +3759,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:33:44 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 144
@@ -3902,8 +3805,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:21:47 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
@@ -3975,8 +3876,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 09:36:45 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 339
@@ -4031,8 +3930,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
 ```
 HTTP/1.1 200 Created
 Date: Mon, 17 Nov 2014 08:18:40 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 Created
 Vary: Accept-Encoding
 Content-Length: 144
@@ -4080,8 +3977,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDire
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:39:27 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 16
@@ -4101,8 +3996,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/_this' \
 ```
 HTTP/1.1 200 OK
 Date: Fri, 21 Nov 2014 08:00:10 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
@@ -4135,8 +4028,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/28535
 ```
 HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:45:53 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 168
@@ -4178,8 +4069,6 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
 ```
 HTTP/1.1 204 No Content
 Date: Tue, 18 Nov 2014 07:34:30 GMT
-Server: Apache/2.2.16 (Debian)
-X-Powered-By: PHP/5.3.29-1~dotdeb.0
 Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
