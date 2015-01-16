@@ -32,6 +32,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
+* [Update data source](#update-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 
@@ -125,6 +126,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /data-sources
 
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
+* [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-source)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-to-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-json-data-to-data-source)
@@ -790,7 +792,7 @@ Update information about a theme.
 
 ##### Request
 
-The body needs to be JSON encoded contains a [client model object](#client-model-object). 
+The body needs to be JSON encoded contains a [client model object](#client-model-object).
 
 ##### Response
 
@@ -1018,7 +1020,7 @@ Request body is empty.
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [data source object](#data-source-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [data source object](#data-source-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+If request ID is over the response limit, response has HTTP status 206 and body is a [data source object](#data-source-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1194,7 +1196,7 @@ Request body is empty.
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [device object](#device-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [device object](#device-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+If request ID is over the response limit, response has HTTP status 206 and body is a [device object](#device-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1361,7 +1363,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 #### Example Options
 ```
-curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>" 
+curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
 [
   {
     "PortalName": "Steve....",
@@ -1369,7 +1371,7 @@ curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?opti
     "PortalRID": "................................",
     "UserEmail": "stevelo@XXXXXX",
     "Description": "Steve XXXXXXX",
-    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"] //enclosed in square brackets are Devices RIDs 
+    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"] //enclosed in square brackets are Devices RIDs
   },
   {
     "PortalName": "steve......",
@@ -1513,7 +1515,7 @@ Request body is empty.
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [group object](#group-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [group object](#group-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+If request ID is over the response limit, response has HTTP status 206 and body is a [group object](#group-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1624,7 +1626,7 @@ Request body is empty.
 
 On success,
 If all items are fetched, response has HTTP status 200 and body is a [user object](#user-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [user object](#user-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"` 
+If request ID is over the response limit, response has HTTP status 206 and body is a [user object](#user-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -1822,6 +1824,82 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
+#### Update data sources
+
+`PUT /api/portals/v1/data-sources/{data-sources-rid}`
+
+Update a data sources.
+
+##### Request
+
+Request body is a [data source object](#data-source-object). Currently only the following keys may be updated:
+
+* `"info": {"description": ...}` - description under info (optional)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status of 200 and body is the updated data source object.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f' \
+     -X PUT \
+     -d '{"info": {"description": {"name": "data source update name"}}}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 06 Jan 2015 03:25:15 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 565
+Content-Type: application/json; charset=UTF-8
+
+{
+    "data": [
+        [1413958187, "1413519694"]
+    ],
+    "info": {
+        "basic": {
+            "modified": 1420514686,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "string",
+            "meta": "{\"datasource\":{\"description\":\"test\",\"unit\":\"1413519694\"},\"alias\":\"1413519694\"}",
+            "name": "data source update name",
+            "preprocess": [],
+            "public": true,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 1,
+            "first": 1413958187,
+            "last": 1413958187,
+            "size": 14
+        },
+        "subscribers": [],
+        "tags": ["test"]
+    },
+    "rid": "4f39859d41a66468cf1e5e28d08ad2cab45b498f",
+    "unit": "1413519694"
+}
+
+```
+
 #### Get data source
 
 `GET /api/portals/v1/data-sources/{data-source-rid}`
@@ -1899,7 +1977,7 @@ Content-Type: application/json; charset=UTF-8
 
 This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
 
-* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read. 
+* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read.
 
 * `"sort"` defines the order in which data points will be displayed.
 
@@ -3005,7 +3083,7 @@ Update information about a portal.
 Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
 * `"info"` - Portal's Info is a array. Possible values are:
-    
+
     * `"aliases"` - Aliases under info is a array.(optional) Possible values are:
 
         * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
@@ -3257,7 +3335,7 @@ Update information about a theme.
 
 ##### Request
 
-The body needs to be JSON encoded contains a [theme object](#theme-object). 
+The body needs to be JSON encoded contains a [theme object](#theme-object).
 
 ##### Response
 
@@ -3645,7 +3723,7 @@ On failure, HTTP status code is 400 or greater and the HTTP response body contai
 ##### Example
 
 ```
-$ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' \ 
+$ curl 'https://mydomain.exosite.com/api/portals/v1/user/password' \
        -X POST \
        -d '{"action":"reset", "email": "joe@gmail.com"}' \
        -i
