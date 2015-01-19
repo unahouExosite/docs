@@ -11,12 +11,12 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Accounts
 
-* [Get all user accounts](#get-user-accounts)
+* [Get all user accounts](#get-all-user-accounts)
 * [Get user account by email](#get-user-account-by-email)
 
 #### Client Models
 
-* [Create client model](#create-client-model) (Not ready)
+* [Create client model](#create-client-model-not-ready) (Not ready)
 * [Update client model](#update-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
@@ -32,7 +32,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
-* [Update data source](#update-data-source)
+* [Update data sources](#update-data-sources)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 
@@ -40,7 +40,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Get data source data](#get-data-source-data)
 * [Append data source data](#append-data-source-data)
-* [Append data source data in JSON format](#append-data-source-data-in-JSON-format)
+* [Append data source data in JSON format](#append-data-source-data-in-json-format)
 
 #### Device
 
@@ -85,7 +85,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Create theme](#create-theme) (Not ready)
+* [Create theme](#create-theme-not-ready)
 * [Update theme](#update-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
@@ -112,13 +112,13 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /accounts
 
-* [GET] [/api/portals/v1/accounts](#get-user-accounts)
+* [GET] [/api/portals/v1/accounts](#get-all-user-accounts)
 * [GET] [/api/portals/v1/accounts/{user-email}](#get-user-account-by-email)
 
 #### /client-models
 
 * [GET] [/api/portals/v1/client-models/](#get-client-model)
-* [POST] [/api/portals/v1/client-models/](#create-client-model) (Not ready)
+* [POST] [/api/portals/v1/client-models/](#create-client-model-not-ready)
 * [GET] [/api/portals/v1/client-models/{vendor}/{name}](#list-client-models)
 * [PUT] [/api/portals/v1/client-models/{vendor}/{name}](#update-client-model)
 * [DELETE] [/api/portals/v1/client-models/{vendor}/{name}](#delete-client-model)
@@ -126,10 +126,10 @@ Portals provides a user authentication and management system on top of the One P
 #### /data-sources
 
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
-* [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-source)
+* [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-to-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-json-data-to-data-source)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
 
 #### /device
 
@@ -171,7 +171,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /themes
 
 * [GET] [/api/portals/v1/themes/](#list-themes)
-* [POST] [/api/portals/v1/themes/](#create-theme) (Not ready)
+* [POST] [/api/portals/v1/themes/](#create-theme-not-ready)
 * [GET] [/api/portals/v1/themes/{themeid}](#get-theme)
 * [PUT] [/api/portals/v1/themes/{themeid}](#update-theme)
 * [DELETE][/api/portals/v1/themes/{themeid}](#delete-theme)
