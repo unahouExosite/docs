@@ -85,7 +85,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Create theme](#create-theme-not-ready)
+* [Create theme](#create-theme-not-ready) (Not ready)
 * [Update theme](#update-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
