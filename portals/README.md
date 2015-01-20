@@ -16,7 +16,6 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Client Models
 
-* [Create client model](#create-client-model-not-ready) (Not ready)
 * [Update client model](#update-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
@@ -85,7 +84,6 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Create theme](#create-theme-not-ready) (Not ready)
 * [Update theme](#update-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
@@ -118,7 +116,6 @@ Portals provides a user authentication and management system on top of the One P
 #### /client-models
 
 * [GET] [/api/portals/v1/client-models/](#get-client-model)
-* [POST] [/api/portals/v1/client-models/](#create-client-model-not-ready)
 * [GET] [/api/portals/v1/client-models/{vendor}/{name}](#list-client-models)
 * [PUT] [/api/portals/v1/client-models/{vendor}/{name}](#update-client-model)
 * [DELETE] [/api/portals/v1/client-models/{vendor}/{name}](#delete-client-model)
@@ -171,7 +168,6 @@ Portals provides a user authentication and management system on top of the One P
 #### /themes
 
 * [GET] [/api/portals/v1/themes/](#list-themes)
-* [POST] [/api/portals/v1/themes/](#create-theme-not-ready)
 * [GET] [/api/portals/v1/themes/{themeid}](#get-theme)
 * [PUT] [/api/portals/v1/themes/{themeid}](#update-theme)
 * [DELETE][/api/portals/v1/themes/{themeid}](#delete-theme)
@@ -713,18 +709,6 @@ Content-Type: application/json; charset=UTF-8
 
 Client models represent a class of devices. All devices of the same client model have the same behaviour attributes and pricing. Only the domain administrator can use the client model APIs.
 **Note: Image data can currently not be modified using this API**
-
-#### Create client model (Not ready)
-
-`POST /api/portals/v1/client-models/`
-
-##### Request
-
-The post body needs to be JSON encoded and at least include the required fields:
-
-* `"friendly"`
-* `"name"`
-* `"cloneRID"` - Cloned device rid.
 
 #### Get client model
 
@@ -3315,17 +3299,6 @@ Content-Type: application/json; charset=UTF-8
 
 Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
 **Note: Image data can currently not be modified using this API**
-
-#### Create theme (Not ready)
-
-`POST /api/portals/v1/themes/`
-
-##### Request
-
-The post body needs to be JSON encoded and at least include the required fields:
-
-* `"name"`
-* `"description"`
 
 #### Update theme
 
