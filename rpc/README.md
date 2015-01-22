@@ -519,6 +519,35 @@ Records a list of historical entries to the resource specified. This is a more c
 
 * `"status": "ok"` means the entries were successfully recorded.
 
+```
+{
+    "status": [[<timestamp>, 'invalid'], ...],
+    "id": 1
+}
+```
+
+* If `"status"` is not `"ok"`, it will return an array to indicate which `<timestamp>` is failed to be writen.
+
+####example
+```
+{
+    "arguments": [
+        "553d1367fa4613f0eea894d1677a13ef1f091150",
+        [[1421906172,30],[1421906160,20]]
+    ],
+    "id": 1,
+    "procedure": "recordbatch"
+}
+
+response:
+
+{
+    "status": [[1421906172, 'invalid']],
+    "id": 1
+}
+
+```
+
 ---
 
 ##flush
