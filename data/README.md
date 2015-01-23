@@ -175,7 +175,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 
 #Long Polling
 
-The [read](#read) and [hybrid write/read](#hybrid-writeread) procedures now support long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
+The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
 
 To perform a request with long polling simply add the header `Request-Timeout: <miliseconds>` to your request. The server will then wait until a new datapoint is written to the given dataport and will then immediately return the value. If no datapoint is written before that time a `304 Not Modified` is returned and the client may make another long poling request to continue monitoring that dataport.
 
