@@ -828,7 +828,7 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
+On success, response has HTTP status 200 and an array of [client models object](#client-model-object).
 
 On failure, response has HTTP status of 400 or greater.
 
