@@ -269,7 +269,7 @@ An object containing information about a Portals user.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
-### Client models object
+### Client model object
 
 A sample client model object looks like this:
 
@@ -2094,13 +2094,13 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/data-sources/{data-source-rid}/data`
 
-This API can delete multiple data points. The options below can be included to modify the results of an API call:
+This API deletes data points from a data source. The following parameters specify which points to delete:
 
 * `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to delete.
 
-* `"sort"` defines the order in which data points will be deleted.
+* `"sort"` defines how to order the points before applying `"limit"`. This affects which points are deleted in the case where there are more than `"limit"` points in the specified time window.
 
-* `"limit"` sets the maximum number of data points to delete. When it specify to `"infinity"`, it means that flush all data points by given window.
+* `"limit"` sets the maximum number of data points to delete. When set to `"infinity"` it will delete all the data points in the given window.
 
 For more details about these options, see [Get data source data](#get-data-source-data).
 
@@ -2134,9 +2134,7 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-* Get data with options
-
-api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+* Delete data with options
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
