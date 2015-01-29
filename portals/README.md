@@ -38,7 +38,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources Data
 
 * [Get data source data](#get-data-source-data)
-* [Append/Insert data source data](#append-insert-data-source-data)
+* [Append/insert data source data](#appendinsert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
 * [Delete data source data](#delete-data-source-data)
 
@@ -131,7 +131,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
 * [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-insert-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
@@ -1984,7 +1984,7 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
-#### Append/Insert data source data
+#### Append/insert data source data
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
