@@ -38,7 +38,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources Data
 
 * [Get data source data](#get-data-source-data)
-* [Append data source data](#append-data-source-data)
+* [Append/Insert data source data](#append-insert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
 
 #### Device
@@ -103,6 +103,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user token](#get-user-token)
+* [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
 * [Get user portal](#get-user-portal)
 * [Delete user](#delete-user)
 
@@ -125,7 +126,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
 * [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-insert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
 
 #### /device
@@ -189,6 +190,7 @@ Portals provides a user authentication and management system on top of the One P
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
+* [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-OpenID-user) (For App)
 * [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
@@ -2029,11 +2031,11 @@ Content-Type: application/json; charset=UTF-8
 [[1416278417,"5.00"],[1416278080,"1000"]]
 ```
 
-#### Append data source data
+#### Append/Insert data source data
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
-Write data
+Append data
 
 ##### Request
 Request body is a [value](#data-source-object).
@@ -2047,7 +2049,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X POST \
      -d '"1000"' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
@@ -2057,6 +2059,36 @@ curl 'https://mydomain.exosite.com/api/portals/v1/portals/data-sources/4f39859d4
 ```
 HTTP/1.1 201 Created
 Date: Tue, 18 Nov 2014 02:36:02 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+Insert data
+
+##### Request
+Request body is [data](https://github.com/exosite/docs/tree/master/rpc#recordbatch).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/ad75f5b356907f0d2ec7a67d31254410526ef032/data' \
+     -X POST \
+     -d '[[1420041600,"1000"]]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Thu, 08 Jan 2015 11:57:06 GMT
 Status: 201 Created
 Vary: Accept-Encoding
 Content-Length: 0
@@ -4002,7 +4034,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/token`
 
-Get a portals user token. This token can be used for for logging into a domain or making API calls.
+Get a portals user token. This token can be used for logging into a domain or making API calls.
 
 ##### Request
 Request string.
@@ -4051,6 +4083,58 @@ Status: 200 OK
 Vary: Accept-Encoding
 Transfer-Encoding: chunked
 Content-Type: application/json; charset=UTF-8
+```
+
+#### Get user token for OpenID user
+
+`GET /api/portals/v1/users/_this/token`
+
+Get a portals user token. This token can be used for logging into a domain or making API calls.
+
+   * Currently, only support the OpenID Connect user of Google for App.
+
+   * If the OpenID user is a new user for the domain, will create the account and portal, then authorize a token from Exosite.
+   * If the OpenID user is an existing user for the domain, then authorize a token from Exosite.
+
+   * A new account will only be created, if settings are following below:
+       * Set moderate is OFF
+       * Set a default plan for Default automatically creates a portal for any user from another domain.
+
+##### Request
+
+Request header must include some information for Authorization.
+
+   * Who is Oauth/OpenID server? (E.g. Google)
+   * What is the short-lived authorization code of user from authorization server?
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+Create a token
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/token' \
+     -H 'Authorization: Google 4/S39q1GijhAxDVtx5Dwhh-9kpYBvcVj1IFMFc.4vbo5d2l_AdgKnQAx0j5UqlQI' \
+     -X GET \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:39:27 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 16
+Content-Type: application/json; charset=UTF-8
+
+"MzE2Nzg1OTczNq=="
 ```
 
 #### Get user portal
