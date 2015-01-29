@@ -40,6 +40,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get data source data](#get-data-source-data)
 * [Append/Insert data source data](#append-insert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
+* [Delete data source data](#delete-data-source-data)
 
 #### Device
 
@@ -81,6 +82,10 @@ Portals provides a user authentication and management system on top of the One P
 * [Get portal](#get-portal)
 * [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
+
+#### Serial Numbers (sn)
+
+* [Get serial number](#get-serial-number)
 
 #### Themes
 
@@ -128,6 +133,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-insert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
+* [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
 #### /device
 
@@ -159,12 +165,17 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/portal/ ](#list-portals-of-authenticated-user)
 
 #### /portals
+
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
 * [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
 * [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
+
+#### /sn
+
+* [GET] [/api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}](#get-serial-number)
 
 #### /themes
 
@@ -724,7 +735,7 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a [client model object](#client-model-object).
+On success, response has HTTP status 200 and body is a [client model object](#client-models-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -803,64 +814,6 @@ Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
-```
-
-#### Get client model
-
-`GET /api/portals/v1/client-models/{vendor}/{name}`
-
-Get information about a client model.
-
-##### Request
-
-Request body is empty.
-
-##### Response
-
-On success, response has HTTP status 200 and an array of [client models object](#client-models-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
-     -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 06:10:30 GMT
-Status: 200 OK
-Vary: Accept-Encoding
-Transfer-Encoding: chunked
-Content-Type: application/json; charset=UTF-8
-
-{
-    "id": "myvendor/mymodel",
-    "domainID": "3481377489",
-    "vendor": "myvendor",
-    "friendly": "mymodel",
-    "name": "mymodel",
-    "cloneRID": "96436ca6874ce01d0dd1f41001d71e75c3aebd6f",
-    "viewID": "0000000000",
-    "exampleSN": "",
-    "sharedSN": "",
-    "convertSN": "no",
-    "alternateSN": "",
-    "noteSetup": "",
-    "noteName": "",
-    "noteLocation": "(optional - can be a string or GPS decimal degrees)",
-    "pictureDevice": "",
-    "description": "",
-    "pictureSN": "",
-    "confirmPage": "Your [client model name] [device] was successfully enabled with the CIK<br/>[device cik]<br/><br/>Your [device] will need to connect to the Exosite platform within 24 hours or your provision request will expire and you will need to re-enable your [device] from the Re-Enable block in your [device] pop-up. If you have any problems connecting, please contact your [device] provider at:<br/><br/><b>Company name:</b> [company name]<br/><b>Company email contact information:</b> [company email]<br/>",
-    "companyName": "",
-    "contactEmail": "",
-    ":published": false
-}
 ```
 
 #### List client models
@@ -2137,6 +2090,70 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
+#### Delete data source data
+
+`DELETE /api/portals/v1/data-sources/{data-source-rid}/data`
+
+This API can delete multiple data points. The options below can be included to modify the results of an API call:
+
+* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to delete.
+
+* `"sort"` defines the order in which data points will be deleted.
+
+* `"limit"` sets the maximum number of data points to delete. When it specify to `"infinity"`, it means that flush all data points by given window.
+
+For more details about these options, see [Get data source data](#get-data-source-data).
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status of 204 and body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+* Delete data without options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 13 Jan 2015 04:40:50 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+* Get data with options
+
+api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for starttime`&endtime=`Unix Timestamp for endtime`&limit=`Number of data points`&sort=`Sorting order of choice`
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 13 Jan 2015 04:40:50 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
 ### Device
 
 #### Create new device under a portal of authenticated user
@@ -3325,6 +3342,46 @@ Content-Length: 52
 Content-Type: application/json; charset=UTF-8
 
 ["myportal has been successfully deleted."]
+```
+
+#### Get serial number
+
+`GET /api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}`
+
+Get information about a serial number.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and return associated client id, status and extra info.
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel/sn/123' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserPassword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:10:30 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+{
+    "status": "expired",
+    "rid": "847699a4667a64a42eaca6ecd0f564374e64b9f7",
+    "extra": "test for extra info",
+}
 ```
 
 ### Themes
