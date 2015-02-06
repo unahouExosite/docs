@@ -454,11 +454,37 @@ A permission object describes a level of access to a particular Portals resource
 }
 ```
 
-* `"access"` is a constant string. Possible values are:
+* `"access"` is a string to define what the permission owner has. Possible values are:
 
-    * `"___admin"`
+ `"___admin"` (Default) means the owner has the highest permission to the resources.
+ 
+    * Common Access 
 
-    * `"d_____fs"`
+        * Data Sources 
+            * `"d__write"` means the owner can get the data source information, and read, write data to data source.
+            * `"d___read"` means the owner can get the data source information, and read data from data source.
+
+        * Device 
+            * `"d_update"` means the owner can get, update the decvice information and delete the device.
+            * `"d___view"` means the owner can get device information.
+
+        * Domain
+            * `"d_s_cont"` means the owner can update the domain information.
+            * `"d_s_crea"` means the owner can create a group to the domain.
+            * `"d_p_list"` means the owner can create a portal to the domain.
+            * `"d_u_list"` means the owner can get user, get users list, and delete user form the domain.
+            * `"d_u_view"` means the owner can get user, get users list form the domain.
+            * `"d_____fs"` means the owner can create, update and delete the file systems in the domain.
+
+        * Group
+            * `"g_update"` means the owner can modifying member list of the group and read, update the group information.
+            * `"g_member"` means the owner can modifying member list of the group and read the group information.
+            * `"g_modera"` means the owner can modifying member list of the group.
+
+        * Portal 
+            * `"p_manage"` means the owner can get, update portal information and create device, data source to the portal.
+            * `"p_m_crea"` means the owner can create device to the portal.
+            * `"p_contac"` means the owner can receive alerts from the portal.    
 
 * `"oid"` is an object identifying the resource with the permission.
 
@@ -477,6 +503,68 @@ A permission object describes a level of access to a particular Portals resource
         * `"Portal"`
 
         * `"User"`
+
+#### Example
+
+* Update user permission
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
+     -X PUT \
+     -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]
+}
+```
+
+* Update group permission
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/3167859736' \
+     -X PUT \
+     -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]
+}
+```
 
 ### Portal object
 
@@ -620,7 +708,7 @@ An object containing information about a Portals user.
 
 Anywhere an API endpoint takes a user ID, you can instead use \_this as an alias for the user ID of the authenticated user.
 
-#### example ####
+#### Example ####
 
 Given a request is authenticated as a user with ID being 1234.
 
