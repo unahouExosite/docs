@@ -786,7 +786,7 @@ different from the previous value.</li>
 }
 </code></pre>
 </td><td>
-<p>Output <code>true</code> if no input value is received within a timeout period. If an input value is received within the period, output <code>false</code>. The timer is restarted when an input value is received, when the timeout elapses and when the script is first started.
+<p>Output <code>true</code> if no input value is received within a timeout period. If an input value is received within the period, output <code>false</code>. The timer is restarted when an input value is received, when the timeout elapses and when the script is first started. A timeout value of 0 indicates that the timeout shall not repeat.
 
 <ul>
 <li><code>"timeout"</code> is a timeout in seconds</li>
@@ -879,7 +879,7 @@ previous value.</li>
 </td><td>
 <p>
 When a value is received it is used in the comparison. If the comparison 
-result is <code>true</code> and no there is no existing timeout then a timeout
+result is <code>true</code> and there is no existing timeout then a timeout
 is started and an internal counter is set to <code>1</code>. If a timeout 
 already exists then the internal counter is incremented. If the internal 
 counter matches the count configuration parameter, then the timeout is 

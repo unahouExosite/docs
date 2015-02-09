@@ -862,21 +862,26 @@ and specifies the email `Content-Type` header, and defaults to:
           false, reason :: boolean, string - headline was not successfully sent
 ```
 
-* `dispatch.http(url, "post", body, contenttype, headers, timeout)`
+* `dispatch.http(url, method, body, contenttype, headers, timeout)`
 
-    Makes a HTTP POST request on the specified url with the given `body` of
+    Makes a HTTP `method` request on the specified url with the given `body` of
     `contenttype`.  Optional request-specific `headers` and `timeout` may be set.
 
 ```
   ------------------------------------------------------------------------------
   Arguments:        url :: string - fully formed url - eg "http://example.com/"
-                 "post" :: string - request method, must be "post"
-                   body :: string - text message
-            contenttype :: string - 'Content-Type' header value
+                 method :: string - request method, "post" | "put" | "get"
+                   body :: string | nil - text message, if 'method' is "get",
+                           'body' should be nil or it will be ignored. when
+                           'method' is other than "get", 'body' must not be nil.
+            contenttype :: string | nil - 'Content-Type' header value, if
+                           'method' is "get", 'contenttype' should be nil or it
+                           will be ignored. when 'method' is other than "get",
+                           'contenttype' must not be nil.
                 headers :: table | nil  - custom header table or nil
                            e.g. {'custom_1'="value_1",'custom_2'='value_2'}
-                timeout :: number | nil - number of seconds before the request
-                                          times out or nil
+                timeout :: number | nil - number of miliseconds before
+                           the request times out or nil.
 
   ------------------------------------------------------------------------------
   Returns: true, result :: boolean, table  - request was successfully made
