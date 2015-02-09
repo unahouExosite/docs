@@ -208,7 +208,8 @@ HTTP/1.1 200 OK
 Date: <date> 
 Server: <server> 
 Connection: Close
-Content-Length: <length> 
+Content-Length: <length>
+Last-Modified: <datapoint-modification-date>
 <blank line>
 <alias>=<value>
 ```
@@ -223,6 +224,8 @@ Connection: Close
 Content-Length: <length> 
 <blank line>
 ```
+
+When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
 
 #####example
 
