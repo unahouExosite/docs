@@ -168,6 +168,7 @@ RPC API requests are HTTP POSTs to `/onep:v1/rpc/process` and may contain the fo
 
 The body of a request must be valid JSON. See [http://www.json.org](http://www.json.org) for details on the JSON format.
 
+The maximum number of consecutive HTTP requests that can be sent via a single connection to the One Platform is 100. In its response to the 100th request on the same connection, the One Platform will send the header "Connection: close" and then close the underlying TCP connection. The client should in this case create a new connection to the One Platform to continue.
 
 ## Authentication
 
@@ -181,7 +182,7 @@ account that is granted access to a set of resources.
 For example, to [read](#read) from a Portals datasource, you could
 authenticate with the CIK of the device that owns the datasource or with 
 the CIK of the portal that owns that device, all the way up to the 
-root node of the OneP tree.
+root node of the One Platform tree.
 
 Authentication information is placed in the JSON body of a request, in
 `"auth"`. The value of the `"auth"` key can take any of these forms:
