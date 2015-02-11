@@ -96,7 +96,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### User
 
-* [Register new user account](#register-new-user-account)
+* [Register new user account](#register-new-user-account) (Deprecated)
 * [Reset user account password](#reset-user-account-password)
 
 #### Users
@@ -3700,6 +3700,8 @@ Content-Type: application/json; charset=UTF-8
 
 `POST /api/portals/v1/user`
 
+> **Deprecated.** This API is deprecated and should not be used.
+
 Signs up a new user account, sending an activation email to the specified address.
 
 ##### Request
@@ -3807,6 +3809,7 @@ Create a user.
 
    * Non-admin and admin users can create a new account
    * A new account will only be created if the domain's user moderation setting is turned off
+   * When user is created by non-admin user and have X-User-Agent info inside header, an activation email is sent to the specified address.
 
 ##### Request
 
@@ -3822,16 +3825,24 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
+On success
+* Create user by admin user or non-admin without X-User-Agent.
+response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
+
+* Create user by non-admin user with X-User-Agent.
+response has HTTP status 202 and the message, and an activation email is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
+* Create user by admin user or non-admin without X-User-Agent.
+
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
      -X POST \
      -d '{"email":"newuseremail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
 ```
 
@@ -3852,6 +3863,30 @@ Content-Type: application/json; charset=UTF-8
     "activated": true,
     "groups": [],
     "permissions": []
+}
+```
+
+* Create user by non-admin user with X-User-Agent.
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -H 'X-User-Agent: Android' \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Thu, 05 Feb 2015 04:02:27 GMT
+Status: 202 Accepted
+Vary: Accept-Encoding
+Content-Length: 184
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": 202,
+    "message": "Thank you. You will receive an email confirming your new account shortly. That email will contain a link to validate and complete the account creation process."
 }
 ```
 
