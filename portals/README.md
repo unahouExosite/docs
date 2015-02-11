@@ -3722,7 +3722,7 @@ Create a user.
 
    * Non-admin and admin users can create a new account
    * A new account will only be created if the domain's user moderation setting is turned off
-   * When user is created by non-admin user, an activation email is sent to the specified address.
+   * When user is created by non-admin user and have X-User-Agent info inside header, an activation email is sent to the specified address.
 
 ##### Request
 
@@ -3739,17 +3739,17 @@ If you send any keys besides these, it will do nothing.
 ##### Response
 
 On success
-* Create user by admin user
+* Create user by admin user or non-admin without X-User-Agent.
 response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
-* Create user by non-admin user
-response has HTTP status 202 and the message, and an email an activation is sent to the new user.
+* Create user by non-admin user with X-User-Agent.
+response has HTTP status 202 and the message, and an activation email is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-* Create user by admin user
+* Create user by admin user or non-admin without X-User-Agent.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -3779,11 +3779,12 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-* Create user by non-admin user
+* Create user by non-admin user with X-User-Agent.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
      -X POST \
+     -H 'X-User-Agent: Android' \
      -d '{"email":"newuseremail@gmail.com"}' \
      -i
 ```
