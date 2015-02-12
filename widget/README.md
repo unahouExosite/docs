@@ -346,7 +346,7 @@ read(TargetResource, Options) -> Deferred
 
 #### Example
 
-Here's an example of using `read` to read from the device provided with a Portals Community account. (Note that for this example it is necessary to first assign an alias to the device by clicking on Devices -> Exosite Device, setting Alias to `exosite_device`, and pressing the Update button.
+Here's an example of using `read` to read from the device provided with a Portals Community account. Note that for this example it is necessary to first assign an alias to the device by clicking on Devices -> Exosite Device, setting Alias to `exosite_device`, and pressing the Update button.
 
 ```javascript
 function(container, portal) {
