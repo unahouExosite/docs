@@ -1359,7 +1359,7 @@ Available only to the client's direct owner.
 }
 ```
 
-* `"status": "ok"` means the infomation was returned in `"result"`. Any other value for `"status"` indicates failure.
+* `"status": "ok"` means the information was returned in `"result"`. Any other value for `"status"` indicates failure.
 
 --- 
 
