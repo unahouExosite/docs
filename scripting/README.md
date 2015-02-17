@@ -555,6 +555,10 @@ with the aliased resource (for example to read from a dataport or write to a dat
 ```
   ------------------------------------------------------------------------------
   Arguments:        rid :: string - Client ID under which to list resources
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no 
+                                    longer be used.
                   alias :: string - Alias for resource ID.
                    type :: table - List of resource types.
                 options :: table - Categories of resources to return.

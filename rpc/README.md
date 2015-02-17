@@ -1379,7 +1379,7 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
 }
 ```
 
-* `<ResourceID>` is the client id under which to list RIDs.
+* `<ResourceID>` is the client id under which to list RIDs. (Please note: an earlier previous form of `listing` that omitted this argument is deprecated and should not be used.)
 
 * `<type_list>` is a list of resource types. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 
