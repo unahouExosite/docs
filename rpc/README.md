@@ -92,7 +92,7 @@ This document uses a few notational conventions:
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
 
 ```
-POST /onep:v1/rpc/process
+POST /onep:v1/rpc/process HTTP/1.1 
 Host: m2.exosite.com:80
 Content-Type: application/json; charset=utf-8
 User-Agent: API Example (danweaver@exosite.com)
@@ -1097,7 +1097,7 @@ The following is an JSON example of the wait API.
         {"alias": "wait_dataport"},
         {
           "timeout": 5000,
-          "since": "undefined"
+          "since": null
         }
       ],  
       "id": 1
