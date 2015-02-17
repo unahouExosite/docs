@@ -1365,18 +1365,21 @@ Available only to the client's direct owner.
 
 ##listing
 
-Returns lists of RIDs of types specified in `<type_list>`.
+Returns lists of RIDs of types specified in `<type_list>` under client specified in `<ResourceID>`.
 
 ```
 {
     "procedure": "listing",
     "arguments": [
+        <ResourceID>
         <type_list>,
         <options>
     ], 
     "id": 1
 }
 ```
+
+* `<ResourceID>` is the client id under which to list RIDs.
 
 * `<type_list>` is a list of resource types. Valid types are `"client"`, `"dataport"`, `"datarule"`, and `"dispatch"`.
 

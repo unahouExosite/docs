@@ -238,7 +238,8 @@ with the aliased resource (for example to read from a dataport or write to a dat
     exists for the given timestamp then `nil` will be returned.
 
     When written, the given non-nil value gets recorded to the resource at the
-    given timestamp.
+    given timestamp. When nil is specified, the datapoint at the given timestamp
+    will be deleted.
 
 ```
   ------------------------------------------------------------------------------
@@ -544,15 +545,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
     }
 ```
 
-* `manage.listing(type, options)`
+* `manage.listing(rid | {alias = <alias>}, type, options)`
 
-    List resource IDs of given type(s), filtered according to specified options.
+    List resource IDs of given type(s) under client identified by rid or alias,
+    filtered according to specified options.
     Resource IDs qualified by all options will be returned. If no option is
     specified, owned resources will be returned by default.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: table - List of resource types.
+  Arguments:        rid :: string - Client ID under which to list resources
+                  alias :: string - Alias for resource ID.
+                   type :: table - List of resource types.
                 options :: table - Categories of resources to return.
 
     type - Specify one or more.
