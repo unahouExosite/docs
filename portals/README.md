@@ -3807,9 +3807,15 @@ Content-Type: text/html
 
 Create a user.
 
-   * Non-admin and admin users can create a new account
-   * A new account will only be created if the domain's user moderation setting is turned off
-   * When user is created by non-admin user and have X-User-Agent info inside header, an activation email is sent to the specified address.
+* Non-admin and admin users can create a new account
+* A new account will only be created, if settings are as followed:
+    * Creating with Admin user or non-admin without X-User-Agent.
+        * Moderate New User Signup is set to **OFF** from admin/moderate page.
+    * Creating with Non-admin with X-User-Agent.
+        * Moderate New User Signup is set to **OFF** from admin/moderate page.
+        * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
+![Find Default Portal Setting](images/find_default_portal_setting.png)
+* When user is created by non-admin user and header contains X-User-Agent, an activation email is sent to the specified address.
 
 ##### Request
 
@@ -3826,17 +3832,18 @@ If you send any keys besides these, it will do nothing.
 ##### Response
 
 On success
-* Create user by admin user or non-admin without X-User-Agent.
+
+* Creating with Admin user or non-admin without X-User-Agent.
 response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
-* Create user by non-admin user with X-User-Agent.
+* Creating with Non-admin with X-User-Agent.
 response has HTTP status 202 and the message, and an activation email is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-* Create user by admin user or non-admin without X-User-Agent.
+* Creating with Admin user or non-admin without X-User-Agent.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -3866,7 +3873,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-* Create user by non-admin user with X-User-Agent.
+* Creating with Non-admin with X-User-Agent.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -4181,14 +4188,16 @@ Content-Type: application/json; charset=UTF-8
 
 Get a portals user token. This token can be used for logging into a domain or making API calls.
 
-   * Currently, only support the OpenID Connect user of Google for App.
+* Currently, only support the OpenID Connect user of Google for App.
 
-   * If the OpenID user is a new user for the domain, will create the account and portal, then authorize a token from Exosite.
-   * If the OpenID user is an existing user for the domain, then authorize a token from Exosite.
+* If the OpenID user is a new user for the domain, will create the account and portal, then authorize a token from Exosite.
 
-   * A new account will only be created, if settings are following below:
-       * Set moderate is OFF
-       * Set a default plan for Default automatically creates a portal for any user from another domain.
+* If the OpenID user is an existing user for the domain, then authorize a token from Exosite.
+
+* A new account will only be created, if settings are as followed:
+    * Moderate New User Signup is set to **OFF** from admin/moderate page.
+    * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
+![Find Default Portal Setting](images/find_default_portal_setting.png)
 
 ##### Request
 
