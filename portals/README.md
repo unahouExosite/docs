@@ -4477,6 +4477,8 @@ Content-Type: application/json; charset=UTF-8
 
 Get a portals user token. This token can be used for logging into a domain or making API calls.
 
+* The token expires in 30 days once its generated.
+
 ##### Request
 Request string.
 * `"reDirect"` - URL when login fail reDirect to where.
@@ -4580,6 +4582,8 @@ Get a portals user token. This token can be used for logging into a domain or ma
     * Moderate New User Signup is set to **OFF** from admin/moderate page.
     * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
+
+* The token expires in 30 days once its generated.
 
 ##### Request
 
