@@ -4190,9 +4190,9 @@ Get a portals user token. This token can be used for logging into a domain or ma
 
 * Currently, only support the OpenID Connect user of Google for App.
 
-* If the OpenID user is a new user for the domain, will create the account and portal, then authorize a token from Exosite.
+* If the OpenID user is a new user for the domain, will create the account and portal, then grant a token from Exosite.
 
-* If the OpenID user is an existing user for the domain, then authorize a token from Exosite.
+* If the OpenID user is an existing user for the domain, then grant a token from Exosite.
 
 * A new account will only be created, if settings are as followed:
     * Moderate New User Signup is set to **OFF** from admin/moderate page.
