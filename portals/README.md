@@ -3809,13 +3809,13 @@ Create a user.
 
 * Non-admin and admin users can create a new account
 * A new account will only be created, if settings are as followed:
-    * Creating with Admin user or non-admin without X-User-Agent.
-        * Moderate New User Signup is set to **OFF** from admin/moderate page.
-    * Creating with Non-admin with X-User-Agent.
+    * Creating user with header containing X-User-Agent.
         * Moderate New User Signup is set to **OFF** from admin/moderate page.
         * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
-* When user is created by non-admin user and header contains X-User-Agent, an activation email is sent to the specified address.
+    * Creating user with header not containing X-User-Agent.
+        * Moderate New User Signup is set to **OFF** from admin/moderate page.
+* When user is created with header contains X-User-Agent, an activation email is sent to the specified address.
 
 ##### Request
 
@@ -3833,47 +3833,17 @@ If you send any keys besides these, it will do nothing.
 
 On success
 
-* Creating with Admin user or non-admin without X-User-Agent.
-response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
-
-* Creating with Non-admin with X-User-Agent.
+* Creating user with header containing X-User-Agent.
 response has HTTP status 202 and the message, and an activation email is sent to the new user.
+
+* Creating user with header not containing X-User-Agent.
+response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-* Creating with Admin user or non-admin without X-User-Agent.
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' \
-     -X POST \
-     -d '{"email":"newuseremail@gmail.com"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 201 Created
-Date: Mon, 17 Nov 2014 08:12:25 GMT
-Status: 201 Created
-Vary: Accept-Encoding
-Content-Length: 144
-Content-Type: application/json; charset=UTF-8
-
-{
-    "email": "newuseremail@gmail.com",
-    "fullName": "",
-    "id": "3167859736",
-    "meta": null,
-    "phoneNumber": "",
-    "activated": true,
-    "groups": [],
-    "permissions": []
-}
-```
-
-* Creating with Non-admin with X-User-Agent.
+* Creating user with header containing X-User-Agent.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
@@ -3894,6 +3864,35 @@ Content-Type: application/json; charset=UTF-8
 {
     "code": 202,
     "message": "Thank you. You will receive an email confirming your new account shortly. That email will contain a link to validate and complete the account creation process."
+}
+```
+
+* Creating user with header not containing X-User-Agent.
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 17 Nov 2014 08:12:25 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "newuseremail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions": []
 }
 ```
 
