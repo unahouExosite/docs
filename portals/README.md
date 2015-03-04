@@ -3350,6 +3350,8 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about a serial number.
 
+   * A device owner as a non-admin user can get serial number extra field by the domain's "Allow customer to use the API to get the Serial Number extra field." setting is turned On
+
 ##### Request
 
 Request body is empty.
