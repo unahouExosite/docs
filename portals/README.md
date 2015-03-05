@@ -785,11 +785,11 @@ Content-Type: application/json; charset=UTF-8
 
 `PUT /api/portals/v1/client-models/{vendor}/{name}`
 
-Update information about a theme.
+Update information about a client model.
 
 ##### Request
 
-The body needs to be JSON encoded contains a [client model object](#client-model-object).
+The body is a JSON encoded [client model object](#client-model-object).
 
 ##### Response
 
@@ -820,7 +820,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/client-models/`
 
-Returns an array of client models which in this domain.
+Returns an array of client models in this domain.
 
 ##### Request
 
@@ -3395,7 +3395,7 @@ Update information about a theme.
 
 ##### Request
 
-The body needs to be JSON encoded contains a [theme object](#theme-object).
+The body is a JSON encoded [theme object](#theme-object).
 
 ##### Response
 
@@ -3515,7 +3515,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/themes/`
 
-Returns an array of themes which in this domain.
+Returns an array of themes in this domain.
 
 ##### Request
 
