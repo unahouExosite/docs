@@ -676,13 +676,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
            false, error :: boolean, string - "badarg"
 ```
 
-* `manage.unmap(type, mapping)`
+* `manage.unmap(rid | {alias = <alias>}, type, mapping)`
 
-    Remove the specified type of mapping.
+    Remove the specified type of mapping under client identified by rid or alias.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - Type of mapping: alias only.
+  Arguments:        rid :: string - Client ID under which to unmap the mapping
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no 
+                                    longer be used.
+                   type :: string - Type of mapping: alias only.
                 mapping :: string - The mapped string to be removed.
 
     type :: "alias"

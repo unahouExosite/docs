@@ -1563,19 +1563,22 @@ Returns metric usage for client and its subhierarchy.
 
 ##unmap
 
-Removes a mapping of specified type. After the removal, the previously
-mapped resource will not be able to be looked up by the mapping.
+Removes a mapping of specified type under the client specified in `<ResourceID>`.
+After the removal, the previously mapped resource will not be able to be looked up by the mapping.
 
 ```
 {
     "procedure": "unmap",
     "arguments": [
+        <ResourceID>,
         "alias",
         <alias> 
     ], 
     "id": 1
 }
 ```
+
+* `<ResourceID>` is the client id under which to unmap a mapping. (Please note: an earlier previous form of `unmap` that omitted this argument is deprecated and should not be used.)
 
 * `<alias>` is the alias string to unmap.
 
