@@ -102,6 +102,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Users
 
 * [Create user](#create-user)
+* [Activate a user account using activation key](#activate-a-user-account-using-activation-key)
 * [Update user](#update-user)
 * [Get all users](#get-all-users)
 * [Get all user portals](#get-all-user-portals)
@@ -3894,6 +3895,47 @@ Content-Type: application/json; charset=UTF-8
     "groups": [],
     "permissions": []
 }
+```
+
+#### Activate a user account using activation key
+
+`POST /api/portals/v1/users`
+
+Activate an activation email.
+
+* The activation email is created by POST /users to create the user with header contains X-User-Agent
+
+##### Request
+
+Request body is a JSON object.  Currently only the following key may be included:
+
+* `"activationRegkey"` - activation key (required)(Activation key can be found in the activation email that was sent when creating a user by making POST request to /users endpoint with header containing X-User-Agent.)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 200.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -d '{"activationRegkey":"21c2bdc303c23f5841b35fd0935efca42803fdeb"}' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 10 Mar 2015 06:31:25 GMT
+Vary: Accept-Encoding
+Cache-Control: max-age=0, no-cache
+Content-Length: 0
+Content-Type: text/html
+
 ```
 
 #### Update user
