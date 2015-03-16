@@ -109,6 +109,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user token](#get-user-token)
+* [Get user readtoken](#get-user-readtoken)
 * [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
 * [Get user portal](#get-user-portal)
 * [Delete user](#delete-user)
@@ -3889,6 +3890,7 @@ Content-Type: application/json; charset=UTF-8
     "email": "newuseremail@gmail.com",
     "fullName": "",
     "id": "3167859736",
+    "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
     "meta": null,
     "phoneNumber": "",
     "activated": true,
@@ -3989,6 +3991,7 @@ Content-Type: application/json; charset=UTF-8
     "email": "updatedemail@gmail.com",
     "fullName": "",
     "id": "3167859736",
+    "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
     "meta": null,
     "phoneNumber": "",
     "activated": true,
@@ -4036,6 +4039,7 @@ Content-Type: application/json; charset=UTF-8
         "email": "newuseremail@gmail.com",
         "fullName": "",
         "id": "3167859736",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
         "meta": null,
         "phoneNumber": "",
         "activated": true,
@@ -4046,6 +4050,7 @@ Content-Type: application/json; charset=UTF-8
         "email": "olduseremail@gmail.com",
         "fullName": "olduser",
         "id": "3407735538",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
         "meta": null,
         "phoneNumber": "",
         "activated": true,
@@ -4160,6 +4165,7 @@ Content-Type: application/json; charset=UTF-8
     "email": "newuseremail@gmail.com",
     "fullName": "",
     "id": "3167859736",
+    "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
     "meta": null,
     "phoneNumber": "",
     "activated": true,
@@ -4222,6 +4228,47 @@ Vary: Accept-Encoding
 Transfer-Encoding: chunked
 Content-Type: application/json; charset=UTF-8
 ```
+
+### Get user readtoken
+
+`GET /api/portals/v1/users/{user-id}/readtoken`
+
+Get a user access token then other users can get this user information without domain admin permission in 1 hours.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl  https://<domain>.portalsapp/api/portals/v1/users/<user id|_this>/readtoken -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:39:27 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+
+Content-Type: application/json; charset=UTF-8
+
+"kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO"
+```
+
+```
+==Other User==
+curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>\?readtoken=<readtoken> -ik -H 'Content-Type: application/json' --user "<other user email>:<other user email passwd>"
+<Get User Response...........>
+
+```
+
 
 #### Get user token for OpenID user
 
