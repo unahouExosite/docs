@@ -117,6 +117,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create user portal share](#create-user-portal-share)
 * [Get user portal shares](#get-user-portal-shares)
 * [Delete user portal share](#delete-user-portal-shares)
+* [Reset password](#reset-password) (For App)
 * [Delete user](#delete-user)
 
 ### API Index
@@ -219,6 +220,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
+* [POST] [/api/portals/v1/users/reset-password](#reset-password) (For App)
 
 ### REST
 
@@ -4011,6 +4013,86 @@ Content-Type: application/json; charset=UTF-8
     "groups": [],
     "permissions": []
 }
+```
+
+#### Reset password
+
+`POST /api/portals/v1/users/reset-password`
+
+Step 1 of 2: Send a reset password email to user account.
+
+##### Request
+
+Request body is a JSON object.  Currently only the following key may be included:
+
+* `"email"` - User email (required)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 202.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -d '{"email":"resetEmail@gmail.com"}' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Tue, 17 Mar 2015 04:06:36 GMT
+Status: 202 Accepted
+Vary: Accept-Encoding
+Content-Length: 187
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code":202,
+    "message":"Thank you. We have sent an email to your account's registered email address. The email contains a link that will allow you to complete the password reset process."
+}
+```
+
+
+Step 2 of 2: Activate a reset password email.
+
+##### Request
+
+Request body is a JSON object.  Currently only the following keys may be included:
+
+* `"resetPasswordRegkey"` - Reset key (required) (Reset key can be found in the reset email that was sent when by making POST request to /users/reset-password with the email address.)
+* `"newPassword"` - User new password (optional) (A random password will be generated if `"newPassword"` option is not specified)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 200.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+     -X POST \
+     -d '{"resetPasswordRegkey":"21c2bdc303c23f5841b35fd0935efca42803fdeb", "newPassword":"newPassword"}' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 17 Mar 2015 04:09:36 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 113
+Content-Type: application/json; charset=UTF-8
 ```
 
 #### Get all users
