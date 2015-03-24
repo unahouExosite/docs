@@ -112,6 +112,10 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user readtoken](#get-user-readtoken)
 * [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
 * [Get user portal](#get-user-portal)
+* [Get all users portals shares](#get-all-user-portals-shares)
+* [Create user portal share](#create-user-portal-share)
+* [Get user portal shares](#get-user-portal-shares)
+* [Delete user portal share](#create-user-portal-share)
 * [Delete user](#delete-user)
 
 ### API Index
@@ -202,6 +206,10 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
+* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
+* [POST][/api/portals/v1/users/{user-id}/portals/shares](#create-user-portal-share)
+* [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
+* [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
 * [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-OpenID-user) (For App)
 * [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
@@ -4344,8 +4352,8 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/2853566858' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/<portal id>' \
+     -u '<user email>:<user password>' \
      -i
 ```
 
@@ -4357,13 +4365,298 @@ Vary: Accept-Encoding
 Content-Length: 168
 Content-Type: application/json; charset=UTF-8
 
+[
+  {
+    "PortalName": "demo1",
+    "PortalID": "2123755496",
+    "PortalRID": "2c233ace8411c2af9b51b23985f86da23c732c00",
+    "UserEmail": "demo@exosite.com",
+    "Description": "Default Portal",
+    "Permissions": [
+      {
+        "access": "___admin"
+      }
+    ]
+  }
+]
+```
+
+#### Get all users portals shares
+
+`GET /api/portals/v1/users/{user-id}/portals/shares`
+
+Get user own portals and portal shares informateion.
+
+##### Request
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the portals object.
+
+On success, response has HTTP status 200 and a body containing an array of portal object include shares.
+Portal objects contain the following keys:
+
+* `"PortalName"` - Portal name
+* `"PortalID"` - Portal ID
+* `"PortalRID"` - Portal RID
+* `"UserEmail"` - The portal’s direct owner's email
+* `"Description"` - Portal description
+
+
+Shares objects contain the following keys:
+
+```
 {
-    "PortalName": "",
-    "PortalID": "2853566858",
-    "PortalRID": "6800e1ee0948d39744625990d28d360f78ac2e4d",
-    "UserEmail": "updatedemail@gmail.com",
-    "Description": "Default Portal"
+    "access": <access>,
+    "oid": {
+        "id": <user_id>,
+        "type": <type>,
+        "email": <user email> 
+    }
 }
+```
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/shares' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 168
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "PortalName": "test group",
+    "PortalID": "1173271281",
+    "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
+    "UserEmail": "demo2@exosite.com",
+    "Description": "test group",
+    "Shares": [
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1498682908",
+          "email": "demo1@exosite.com"
+        }
+      },
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1838401279",
+          "email": "demo4@exosite.com"
+        }
+      }
+    ]
+  },
+  {
+    "PortalName": "test0731",
+    "PortalID": "3456260404",
+    "PortalRID": "b463fb13f2ab8f61f415eddd7638fdd3e4ab9f76",
+    "UserEmail": "demo2@exosite.com",
+    "Description": "test0731",
+    "Shares": [
+      
+    ]
+  }
+]
+```
+
+#### Get user portal shares
+
+`GET /api/portals/v1/users/{user-id}/portals/{portal-id}/shares`
+
+Get user own portals and portal shares informateion.
+
+##### Request
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the portals object.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/shares' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 168
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "PortalName": "test group",
+    "PortalID": "1173271281",
+    "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
+    "UserEmail": "demo2@exosite.com",
+    "Description": "test group",
+    "Shares": [
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1498682908",
+          "email": "demo1@exosite.com"
+        }
+      },
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1838401279",
+          "email": "demo4@exosite.com"
+        }
+      }
+    ]
+  }
+]
+```
+
+#### Create user portal share
+
+`POST /api/portals/v1/users/{user-id}/portals/shares`
+
+Create user own portal shares to some user.
+
+##### Request
+Request body is a [permission objects](#permission-object) describing Portals resources the user portals shares access.
+
+```
+{
+    "access": <access>,
+    "oid": {
+        "id": <id>,
+        "type": <type>
+    }
+}
+```
+
+##### Response
+
+On success, response has HTTP status 202 Accepted and portal shares informateion.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user-id>/portals/<portal-id>/shares' \
+	  -X POST -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 168
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "PortalName": "test group",
+    "PortalID": "1173271281",
+    "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
+    "UserEmail": "demo2@exosite.com",
+    "Description": "test group",
+    "Shares": [
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1498682908",
+          "email": "demo1@exosite.com"
+        }
+      },
+      {
+        "access": "p_manage",
+        "oid": {
+          "type": "User",
+          "id": "1838401279",
+          "email": "demo4@exosite.com"
+        }
+      }
+    ]
+  }
+]
+```
+
+#### Delete user portal share
+
+`DELETE /api/portals/v1/users/{user-id}/portals/{portal-id}/shares`
+
+Delete a user portal shares permission.
+
+##### Request
+
+Request body is a [permission objects](#permission-object) for shares.
+
+```
+{
+    "access": <access>,
+    "oid": {
+        "id": <id>,
+        "type": <type>
+    }
+}
+```
+
+##### Response
+
+On success, response has HTTP status 204 No Content and portal shares informateion.
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user-id>/portals/<portal-id>/shares' \
+	  -X DELETE -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 07:34:30 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "PortalName": "Demo",
+    "PortalID": "3719832384",
+    "PortalRID": "e54dbefdc89dc2369615e112016340c1e243f785",
+    "UserEmail": "demo2@exosite.com",
+    "Description": "Demo2 Portal",
+    "Shares": []
+  }
+]
 ```
 
 #### Delete user
