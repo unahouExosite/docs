@@ -108,6 +108,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all user portals](#get-all-user-portals)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
+* [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
 * [Get user readtoken](#get-user-readtoken)
 * [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
@@ -200,6 +201,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users](#get-all-users)
 * [POST] [/api/portals/v1/users](#create-user)
 * [GET] [/api/portals/v1/users/{user-id}](#get-user)
+* [GET] [/api/portals/v1/users/{user-id}?readtoken={user-readtoken}](#get-user-through-readtoken)
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
@@ -211,6 +213,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
 * [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
+* [GET] [/api/portals/v1/users/{user-id}/readtoken](#get-user-readtoken)
 * [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-OpenID-user) (For App)
 * [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
@@ -4164,9 +4167,9 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
 ```
 
 ```
-HTTP/1.1 200 Created
+HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:18:40 GMT
-Status: 200 Created
+Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 144
 Content-Type: application/json; charset=UTF-8
@@ -4181,6 +4184,54 @@ Content-Type: application/json; charset=UTF-8
     "activated": true,
     "groups": [],
     "permissions": []
+}
+```
+
+### Get user through readtoken
+
+`GET /api/portals/v1/users/{user-id}?readtoken={user-readtoken}`
+
+Get the user information through readtoken.
+
+* The token expires in 5 min once its generated.
+
+#### Request
+
+Request body is empty.
+
+#### Response
+
+On success, response has HTTP status 200.
+
+On failure, response has HTTP status of 400 or greater.
+
+#### Example
+
+```
+curl  https://mydomain.portalsapp/api/portals/v1/users/3167859736?readtoken=kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO \
+      -H 'Content-Type: application/json' \
+      -u 'domainuseremail@gmail.com:domainuserP4ssword' \
+      -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:18:40 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+  "email":"doaminUser1@gmail.com",
+  "fullName":"doamin User1",
+  "id":"3167859736",
+  "rid":"fc7830446d5053abd0c212294764bb23bdedf0dd",
+  "meta":null,
+  "phoneNumber":"09123456789",
+  "userName":"doaminUser1@gmail.com",
+  "activated":true,"groups":[],
+  "permissions":[{"access":"___admin","oid":{"type":"Portal","id":"3349395467"}}]
 }
 ```
 
@@ -4243,7 +4294,9 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/readtoken`
 
-Get a user access token then other users can get this user information without domain admin permission in 1 hours.
+Get a user access token then other users can get this user information without domain admin permission.
+
+* The token expires in 5 min once its generated.
 
 #### Request
 
@@ -4258,7 +4311,10 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl  https://<domain>.portalsapp/api/portals/v1/users/<user id|_this>/readtoken -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
+curl  https://mydomain.portalsapp/api/portals/v1/users/3167859736/readtoken \
+      -H 'Content-Type: application/json' \
+      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+      -i
 ```
 
 ```
@@ -4271,14 +4327,6 @@ Content-Type: application/json; charset=UTF-8
 
 "kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO"
 ```
-
-```
-==Other User==
-curl  https://<domain>.portalsapp/api/portals/v1/users/<user id>\?readtoken=<readtoken> -ik -H 'Content-Type: application/json' --user "<other user email>:<other user email passwd>"
-<Get User Response...........>
-
-```
-
 
 #### Get user token for OpenID user
 
