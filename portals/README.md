@@ -116,7 +116,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users portals shares](#get-all-user-portals-shares)
 * [Create user portal share](#create-user-portal-share)
 * [Get user portal shares](#get-user-portal-shares)
-* [Delete user portal share](#create-user-portal-share)
+* [Delete user portal share](#delete-user-portal-shares)
 * [Delete user](#delete-user)
 
 ### API Index
@@ -207,11 +207,11 @@ Portals provides a user authentication and management system on top of the One P
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
-* [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
 * [POST][/api/portals/v1/users/{user-id}/portals/shares](#create-user-portal-share)
+* [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
-* [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
+* [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#delete-user-portal-shares)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
 * [GET] [/api/portals/v1/users/{user-id}/readtoken](#get-user-readtoken)
 * [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-OpenID-user) (For App)
