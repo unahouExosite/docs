@@ -56,7 +56,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 
 ##Write
 
-Write one or more dataports of alias `<alias>` with given `<value>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second.
+Write one dataport of alias `<alias>` with given `<value>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second.
 
 ```
 POST: coap://coap.exosite.com/1a/<alias>?<CIK>
