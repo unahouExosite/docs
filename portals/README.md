@@ -113,7 +113,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user readtoken](#get-user-readtoken)
 * [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
 * [Get user portal](#get-user-portal)
-* [Get all users portals shares](#get-all-user-portals-shares)
+* [Get all users portals shares](#get-all-users-portals-shares)
 * [Create user portal share](#create-user-portal-share)
 * [Get user portal shares](#get-user-portal-shares)
 * [Delete user portal share](#delete-user-portal-shares)
@@ -207,7 +207,7 @@ Portals provides a user authentication and management system on top of the One P
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
-* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
+* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-users-portals-shares)
 * [POST][/api/portals/v1/users/{user-id}/portals/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
@@ -4433,7 +4433,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/portals/shares`
 
-Get user own portals and portal shares informateion.
+Get user own portals and portal shares information.
 
 ##### Request
 Request body is empty.
@@ -4526,7 +4526,7 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/portals/{portal-id}/shares`
 
-Get user own portals and portal shares informateion.
+Get user own portals and portal shares information.
 
 ##### Request
 Request body is empty.
@@ -4603,7 +4603,7 @@ Request body is a [permission objects](#permission-object) describing Portals re
 
 ##### Response
 
-On success, response has HTTP status 202 Accepted and portal shares informateion.
+On success, response has HTTP status 202 Accepted and portal shares information.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4675,7 +4675,7 @@ Request body is a [permission objects](#permission-object) for shares.
 
 ##### Response
 
-On success, response has HTTP status 204 No Content and portal shares informateion.
+On success, response has HTTP status 204 No Content and portal shares information.
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
