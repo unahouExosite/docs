@@ -4677,7 +4677,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "test group",
     "PortalID": "1173271281",
     "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "test group",
     "Shares": [
       {
@@ -4685,7 +4685,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1498682908",
-          "email": "demo1@exosite.com"
+          "email": "demo1@gmail.com"
         }
       },
       {
@@ -4693,7 +4693,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1838401279",
-          "email": "demo4@exosite.com"
+          "email": "demo4@gmail.com"
         }
       }
     ]
