@@ -258,15 +258,20 @@ with the aliased resource (for example to read from a dataport or write to a dat
     script owner client. When invoked on an alias object, they will act on the
     alias object owner's behalf.
 
-* `manage.activate(type, code)`
+* `manage.activate(rid | {alias = <alias>}, type, code)`
 
-    Given an activation code, the associated entity is activated for the calling
-    client.
+    Given an activation code, the associated entity is activated for the 
+    client specified in rid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:        type :: string - "client" | "share"
-                    code :: string - Activation code
+  Arguments:        rid :: string - Client ID under which to activate the entity
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - "client" | "share"
+                   code :: string - Activation code
 
   ------------------------------------------------------------------------------
   Returns:          true :: boolean - Activation was successful
@@ -403,14 +408,19 @@ with the aliased resource (for example to read from a dataport or write to a dat
                                               "restricted"
 ```
 
-* `manage.deactivate(type, code | rid)`
+* `manage.deactivate(cid | {alias = <alias>}, type, code | rid)`
 
     Given an activation code, or resource ID for shares, the associated entity is
-    deactivated for the calling client.
+    deactivated for the client specified in cid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - "client" | "share"
+  Arguments:        cid :: string - Client ID under which to deactivate the entity
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - "client" | "share"
                    code :: string - Activation code
                    rid  :: string - Resource ID that code is associated with
 

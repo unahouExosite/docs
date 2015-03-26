@@ -1412,7 +1412,7 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
 {
     "procedure": "listing",
     "arguments": [
-        <ResourceID>
+        <ResourceID>,
         <type_list>,
         <options>
     ], 
@@ -1727,12 +1727,13 @@ the owner of the resource with which the activation code is associated.
 
 ##activate
 
-Given an activation code, activate an entity for the calling client.
+Given an activation code, activate an entity for the client specified in `<ResourceID>`.
 
 ```
 {
     "procedure": "activate",
     "arguments": [
+        <ResourceID>,
         "client" | "share", 
         <code>
     ], 
@@ -1740,7 +1741,9 @@ Given an activation code, activate an entity for the calling client.
 }
 ```
 
-* The first argument indicates the type of thing to activate:
+* `<ResourceID>` is the client id under which to activate an entity. (Please note: an earlier previous form of `activate` that omitted this argument is deprecated and should not be used.)
+
+* The second argument indicates the type of thing to activate:
 
     `"client"` activates the specified client
     interface key (CIK) if it is not already activated or expired. Only the
@@ -1775,12 +1778,13 @@ Given an activation code, activate an entity for the calling client.
 
 ##deactivate
 
-Given an activation code, deactivate an entity for the calling client.
+Given an activation code, deactivate an entity for the client specified in `<ResourceID>`.
 
 ```
 {
     "procedure": "deactivate",
     "arguments": [
+        <ResourceID>,
         "client" | "share", 
         <code>
     ], 
@@ -1788,7 +1792,9 @@ Given an activation code, deactivate an entity for the calling client.
 }
 ```
 
-* The first argument indicates the type of thing to deactivate:
+* `<ResourceID>` is the client id under which to deactivate the entity. (Please note: an earlier previous form of `deactivate` that omitted this argument is deprecated and should not be used.)
+
+* The second argument indicates the type of thing to deactivate:
 
     `"client"` deactivate and expire the specified client interface 
     key (CIK) if it was previously activated. If the key was not previously 
