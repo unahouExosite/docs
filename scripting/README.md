@@ -4,7 +4,7 @@ Exosite's One Platform can run Lua scripts on your behalf. These scripts have
 a rich set of capabilities and may be used to offload processing from your 
 device.
 
-If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
+If you're completely new to Exosite's APIs, you may want to read the [API overview](../) first.
 
 
 ## Overview
