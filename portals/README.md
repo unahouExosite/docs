@@ -3134,13 +3134,15 @@ Update information about a portal.
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
-* `"info"` - Portal's Info is a array. Possible values are:
+* `"info"` - Info is an object. Possible values are:
 
-    * `"aliases"` - Aliases under info is a array.(optional) Possible values are:
+    * `"aliases"` - Aliases under info is an array.(optional) Possible values are:
 
         * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
 
-            * `"{aliases}"` - The under this portal's data-sources/ device aliases is a array.
+            * `"{aliases}"` - The under this portal's data-sources/ device aliases is an array.
+
+    * `"description"` - Description under info (optional)
 
 If you send any keys besides these, it will do nothing.
 
