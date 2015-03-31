@@ -2,7 +2,7 @@
 
 This is a lightweight HTTP-based API for writing to and reading from the Exosite One Platform. It is intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point.
 
-If you're completely new to Exosite's APIs, you may want to read the [API overview](../) first.
+If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
 ####Procedures

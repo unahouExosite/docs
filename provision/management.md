@@ -2,7 +2,7 @@
 
 The following procedures allow device OEMs to create custom fleet management applications. For many applications they do not need to be used since Portals wraps their functionality with a user interface.
 
-For general information about accessing this API, see the [main section](./).
+For general information about accessing this API, see the [main section](README.md).
 
 ## Endpoints
 
