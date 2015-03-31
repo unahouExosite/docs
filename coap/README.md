@@ -355,7 +355,7 @@ http://wiki.tools.ietf.org/html/draft-ietf-core-block
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.04 Not Found: No device or no content found with given information.
 
-<a name="anchor-test"></a>
+
 # Remote Procedure Call Proxy
 
 If you need to do more with your data than read the latest value and write new values at the current time, you'll need to use the [RPC API](https://github.com/exosite/docs/blob/master/rpc). Generally devices don't use this API since it is relatively complicated and the JSON format is rather heavy and hard to parse and construct, but luckily for you, we've setup a proxy that will translate the HTTP + JSON format that that API uses into a CoAP + CBOR format which drastically brings down the requirements needed to use it.
