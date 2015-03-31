@@ -207,9 +207,9 @@ Portals provides a user authentication and management system on top of the One P
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
-* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-users-portals-shares)
-* [POST][/api/portals/v1/users/{user-id}/portals/shares](#create-user-portal-share)
+* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
+* [POST][/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
 * [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#delete-user-portal-shares)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
@@ -4096,11 +4096,16 @@ Request body is empty.
 On success, response has HTTP status 200 and a body containing an array of portal object.
 Portal objects contain the following keys:
 
-* `"PortalName"` - Portal name
-* `"PortalID"` - Portal ID
-* `"PortalRID"` - Portal RID
-* `"UserEmail"` - The portal’s direct owner's email
-* `"Description"` - Portal description
+* `"PortalName"` - Portal name.
+* `"PortalID"` - Portal ID.
+* `"PortalRID"` - Portal RID.
+* `"UserEmail"` - The user's email.
+* `"Description"` - Portal description.
+* `"Permissions"` - User’s permission for this portal. Possible values are:
+    * `"___admin"` - user is the portal’s direct owner
+    * `"p_manage"` - user has manager access to the portal. This permission grants the same rights as owner.
+    * `"p_m_crea"` - user has create device access to the portal.
+    * `"p_contac"` - user has receive alerts access from the portal.    
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4125,15 +4130,17 @@ Content-Type: application/json; charset=UTF-8
         "PortalName": "",
         "PortalID": "2853566858",
         "PortalRID": "6800e1ee0948d39744625990d28d360f78ac2e4d",
-        "UserEmail": "updatedemail@gmail.com",
-        "Description": "Default Portal"
+        "UserEmail": "useremail@gmail.com",
+        "Description": "Default Portal",
+        "Permissions":[{"access":"___admin"}]
     },
     {
         "PortalName": "",
         "PortalID": "2978406756",
         "PortalRID": "dd6e30fe1a00a9718b919ccd93601ff10310238b",
-        "UserEmail": "updatedemail@gmail.com",
+        "UserEmail": "useremail@gmail.com",
         "Description": "Default Portal"
+        "Permissions":[{"access":"p_manage"}
     }
     ...
 ]
@@ -4208,7 +4215,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl  https://mydomain.portalsapp/api/portals/v1/users/3167859736?readtoken=kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO \
+curl  https://mydomain.exosite.com/api/portals/v1/users/3167859736?readtoken=kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO \
       -H 'Content-Type: application/json' \
       -u 'domainuseremail@gmail.com:domainuserP4ssword' \
       -i
@@ -4311,7 +4318,7 @@ On failure, response has HTTP status of 400 or greater.
 #### Example
 
 ```
-curl  https://mydomain.portalsapp/api/portals/v1/users/3167859736/readtoken \
+curl  https://mydomain.exosite.com/api/portals/v1/users/3167859736/readtoken \
       -H 'Content-Type: application/json' \
       -u 'domainadminemail@gmail.com:adminuserP4ssword' \
       -i
@@ -4393,15 +4400,28 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and the portals object.
+On success, response has HTTP status 200 and a body containing an array of portal object.
+Portal objects contain the following keys:
+
+* `"PortalName"` - Portal name.
+* `"PortalID"` - Portal ID.
+* `"PortalRID"` - Portal RID.
+* `"UserEmail"` - The user's email.
+* `"Description"` - Portal description.
+* `"Permissions"` - User’s permission for this portal. Possible values are:
+
+    * `"___admin"` - user is the portal’s direct owner
+    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+    * `"p_m_crea"` - user has create device access to this portal.
+    * `"p_contac"` - user has receive alerts access from this portal.    
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/<portal id>' \
-     -u '<user email>:<user password>' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/2123755496' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i
 ```
 
@@ -4418,7 +4438,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "demo1",
     "PortalID": "2123755496",
     "PortalRID": "2c233ace8411c2af9b51b23985f86da23c732c00",
-    "UserEmail": "demo@exosite.com",
+    "UserEmail": "demo@gmail.com",
     "Description": "Default Portal",
     "Permissions": [
       {
@@ -4450,27 +4470,24 @@ Portal objects contain the following keys:
 * `"PortalRID"` - Portal RID
 * `"UserEmail"` - The portal’s direct owner's email
 * `"Description"` - Portal description
+* `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
 
-
-Shares objects contain the following keys:
-
-```
-{
-    "access": <access>,
-    "oid": {
-        "id": <user_id>,
-        "type": <type>,
-        "email": <user email> 
-    }
-}
-```
+    * `"access"` - User’s permission for this portal. Possible values are:
+        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to this portal.
+        * `"p_contac"` - user has receive alerts access from this portal.
+        
+    * `"oid"` - The information of the user. The object contain the following keys:
+        * `"id"` - Id of the user who are being shared with this portal.
+        * `"type"` - The general value is **User**.
+        * `"email"` - Email of the user who are being shared with this portal.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/shares' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/shares' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
 ```
@@ -4488,7 +4505,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "test group",
     "PortalID": "1173271281",
     "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "test group",
     "Shares": [
       {
@@ -4496,7 +4513,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1498682908",
-          "email": "demo1@exosite.com"
+          "email": "demo1@gmail.com"
         }
       },
       {
@@ -4504,7 +4521,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1838401279",
-          "email": "demo4@exosite.com"
+          "email": "demo4@gmail.com"
         }
       }
     ]
@@ -4513,7 +4530,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "test0731",
     "PortalID": "3456260404",
     "PortalRID": "b463fb13f2ab8f61f415eddd7638fdd3e4ab9f76",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "test0731",
     "Shares": [
       
@@ -4533,14 +4550,32 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and the portals object.
+On success, response has HTTP status 200 and a body containing an array of portal object include shares.
+Portal objects contain the following keys:
+
+* `"PortalName"` - Portal name
+* `"PortalID"` - Portal ID
+* `"PortalRID"` - Portal RID
+* `"UserEmail"` - The portal’s direct owner's email
+* `"Description"` - Portal description
+* `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
+
+    * `"access"` - User’s permission for this portal. Possible values are:
+        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to this portal.
+        * `"p_contac"` - user has receive alerts access from this portal.
+
+    * `"oid"` - The information of the user. The object contain the following keys:
+        * `"id"` - Id of the user who are being shared with this portal.
+        * `"type"` - The general value is **User**.
+        * `"email"` - Email of the user who are being shared with this portal.
 
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user id>/portals/shares' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
 ```
@@ -4584,22 +4619,22 @@ Content-Type: application/json; charset=UTF-8
 
 #### Create user portal share
 
-`POST /api/portals/v1/users/{user-id}/portals/shares`
+`POST /api/portals/v1/users/{user-id}/portals/{portal-id}/shares`
 
-Create user own portal shares to some user.
+To share portal to other user.
 
 ##### Request
-Request body is a [permission objects](#permission-object) describing Portals resources the user portals shares access.
 
-```
-{
-    "access": <access>,
-    "oid": {
-        "id": <id>,
-        "type": <type>
-    }
-}
-```
+Request body is a [permission objects](#permission-object). The object contain the following keys:
+
+* `"access"` - User’s permission for this portal. Possible values are:
+    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+    * `"p_m_crea"` - user has create device access to this portal.
+    * `"p_contac"` - user has receive alerts access from this portal.
+
+* `"oid"` - The information of the user. The object contain the following keys:
+    * `"id"` - Id of the user who are being shared with this portal.
+    * `"type"` - The general value is **User**.
 
 ##### Response
 
@@ -4610,7 +4645,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user-id>/portals/<portal-id>/shares' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
 	  -X POST -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
@@ -4629,7 +4664,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "test group",
     "PortalID": "1173271281",
     "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "test group",
     "Shares": [
       {
@@ -4637,7 +4672,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1498682908",
-          "email": "demo1@exosite.com"
+          "email": "demo1@gmail.com"
         }
       },
       {
@@ -4645,7 +4680,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1838401279",
-          "email": "demo4@exosite.com"
+          "email": "demo4@gmail.com"
         }
       }
     ]
@@ -4657,21 +4692,20 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/users/{user-id}/portals/{portal-id}/shares`
 
-Delete a user portal shares permission.
+To unshare a portal to other user.
 
 ##### Request
 
-Request body is a [permission objects](#permission-object) for shares.
+Request body is a [permission objects](#permission-object). The object contain the following keys:
 
-```
-{
-    "access": <access>,
-    "oid": {
-        "id": <id>,
-        "type": <type>
-    }
-}
-```
+* `"access"` - User’s permission for this portal. Possible values are:
+    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+    * `"p_m_crea"` - user has create device access to this portal.
+    * `"p_contac"` - user has receive alerts access from this portal.
+
+* `"oid"` - The information of the user. The object contain the following keys:
+    * `"id"` - Id of the user who are being shared with this portal.
+    * `"type"` - The general value is **User**.
 
 ##### Response
 
@@ -4681,7 +4715,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user-id>/portals/<portal-id>/shares' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
 	  -X DELETE -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
@@ -4700,7 +4734,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "Demo",
     "PortalID": "3719832384",
     "PortalRID": "e54dbefdc89dc2369615e112016340c1e243f785",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "Demo2 Portal",
     "Shares": []
   }
