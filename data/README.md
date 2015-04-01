@@ -5,15 +5,16 @@ This is a lightweight HTTP-based API for writing to and reading from the Exosite
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
 
-####Procedures
+## Procedures
 
 [Write](#write) - write new data to a set of dataports
 
 [Read](#read) - read the latest data from a set of dataports
 
-[Hybrid write/read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
+[Hybrid Write/Read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
 
 [IP](#ip) - get the IP address of the host server
+
 
 ## Libraries and Sample Code
 
@@ -24,6 +25,7 @@ Sample code is available that uses this API.
 * [Arduino-compatible devices (Using Arduino Library)](https://github.com/exosite-garage/fluid_simple_cloud) - for, e.g., 8-bit micros running C/C++ code
 * [Python read and write example with socket](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_read_write_socket_example.py), [Python - Get IP Address Example](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_get_ip_socket_example.py) - socket level code intended as a reference for implementation in other languages
 * [Python read and write example with httplib](https://github.com/exosite-garage/utility_scripts/blob/master/http_https_data_interface_read_write_example.py)
+
 
 ## Notational Conventions
 
@@ -37,6 +39,7 @@ This document uses a few notational conventions:
 * `|` represents multiple choice
 * `=` represents default value
 * `...` represents one or more of the previous item
+
 
 ## HTTP Responses
 
@@ -52,13 +55,13 @@ Typical HTTP response codes include:
 
 _\* Note: aliases that are not found are not considered errors in the request. See the documentation for [read](#read), and [write](#write) and [Hybrid write/read](#hybrid-writeread) for details._
 
-# Procedures
 
-##Write
+## Write
 
 Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second, doing so results in undefined behavior. If multiple aliases are specified, they are written at the same timestamp.
 
-#####request
+
+### request
 
 ```
 POST /onep:v1/stack/alias HTTP/1.1 
@@ -70,7 +73,8 @@ Content-Length: <length> 
 <alias 1>=<value 1>&<alias 2...>=<value 2...>&<alias n>=<value n>
 ```
 
-#####response
+
+### response
 
 ```
 HTTP/1.1 204 No Content 
@@ -83,7 +87,8 @@ Content-Length: 0 
 
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
-#####example
+
+### example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias \
@@ -93,11 +98,12 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias \
 ```
 
 
-##Read
+## Read
 
 Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
 
-#####request
+
+### request
 
 ```
 GET /onep:v1/stack/alias?<alias 1>&<alias 2...>&<alias n> HTTP/1.1 
@@ -107,7 +113,8 @@ Accept: application/x-www-form-urlencoded; charset=utf-8
 <blank line>
 ```
 
-#####response
+
+### response
 
 ```
 HTTP/1.1 200 OK 
@@ -122,7 +129,8 @@ Content-Length: <length>
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses
 
-#####example
+
+###example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
@@ -131,11 +139,12 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 ```
 
 
-##Hybrid write/read
+## Hybrid write/read
 
 Write one or more dataports of alias `<alias w>` with given `<value>` and then read the most recent value from one or more dataports with alias `<alias r>`. The client (e.g. device, portal) to write to and read from is identified by `<CIK>`. All writes occur before all reads.
 
-#####request
+
+### request
 
 ```
 POST /onep:v1/stack/alias?<alias r1>&<alias r2...>&<alias rn> HTTP/1.1 
@@ -148,7 +157,8 @@ Content-Length: <length>
 <alias w1>=<value 1>&<alias w2...>=<value 2...>&<alias wn>=<value n>
 ```
 
-#####response
+
+### response
 
 ```
 HTTP/1.1 200 OK
@@ -163,7 +173,8 @@ Content-Length: <length>
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
 * See [HTTP Responses](#http-responses) for a full list of responses.
 
-#####example
+
+### example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
@@ -173,7 +184,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 ```
 
 
-#Long Polling
+## Long Polling
 
 The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
 
@@ -183,7 +194,7 @@ You may also optionally add an `If-Modified-Since` header to specify a start tim
 
 Note: Only one dataport may be read at a time when using long polling.
 
-#####request
+### request
 
 ```
 GET /onep:v1/stack/alias?<alias 1> HTTP/1.1 
@@ -199,7 +210,8 @@ If-Modified-Since: <timestamp>
 * `Request-Timeout` specifies the how long to wait on changes.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300000 ms).
 * `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified it defaults to "now".
 
-#####response
+
+###response
 
 When the dataport is updated:
 
@@ -227,7 +239,8 @@ Content-Length: <length>
 
 When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
 
-#####example
+
+###example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
