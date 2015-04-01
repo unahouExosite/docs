@@ -105,7 +105,7 @@ gulp.task('img', function() {
 });
 
 gulp.task('assets', function() {
-  return gulp.src(['_static/**', '!_static/_*/**', '!_static/**/*.html'])
+  return gulp.src(['_static/**', '_static/**/.*', '!_static/_*/**', '!_static/**/*.html'])
     .pipe(newer("_site"))
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site'));
