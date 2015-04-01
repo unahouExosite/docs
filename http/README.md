@@ -1,4 +1,4 @@
-# HTTP Data API
+# HTTP API Overview
 
 This is a lightweight HTTP-based API for writing to and reading from the Exosite One Platform. It is intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point.
 
@@ -7,11 +7,30 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 ## Procedures
 
+
+### Timeseries Data Procedures
+
 [Write](#write) - write new data to a set of dataports
 
 [Read](#read) - read the latest data from a set of dataports
 
 [Hybrid Write/Read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
+
+
+### Provisioning Procedures
+
+[Activate](#activate) - activate device and get device's CIK
+
+[List Available Content](#list-available-content) - get a list of content available to device
+
+[Get Content Info](#get-content-info) - get meta information about content file
+
+[Download Content](#download-content) - get content file
+
+
+### Utility Procedures
+
+[Timestamp](#timestamp) - get the current unix timestamp
 
 [IP](#ip) - get the IP address of the host server
 
@@ -55,6 +74,8 @@ Typical HTTP response codes include:
 
 _\* Note: aliases that are not found are not considered errors in the request. See the documentation for [read](#read), and [write](#write) and [Hybrid write/read](#hybrid-writeread) for details._
 
+
+# Data Procedures
 
 ## Write
 
@@ -130,7 +151,7 @@ Content-Length: <length>
 * See [HTTP Responses](#http-responses) for a full list of responses
 
 
-###example
+### example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
@@ -184,6 +205,165 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 ```
 
 
+# Provisioning Procedures
+
+## Activate
+
+Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
+model type `<model>` associated with Serial Number `<sn>`. Client must be 
+enabled via `/provision/manage/model/<model>/<sn>`, the enabled state must not 
+have expired, and the client must not have already been activated.
+
+```
+POST /provision/activate HTTP/1.1
+Host: m2.exosite.com
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+
+vendor=<vendor>&model=<model>&sn=<sn>
+```
+
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<cik>
+```
+
+Response may also be:
+
+* `HTTP/1.1 404 Not Found` if the client described by `<vendor>`, `<model>`, `<sn>` is not found on the system.
+* `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
+
+
+### example
+
+This command activates a device with serial number 12345678 and returns its CIK.
+
+```
+$ curl http://m2.exosite.com/provision/activate \
+    -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
+    -d "vendor=mysubdomain&model=myclientmodel&sn=12345678"
+```
+
+
+## List Available Content
+
+List content `<id>`s. Caller with `<DeviceCIK>` must have an activated 
+serial number in given `<vendor>` `<model>` name space.
+
+```
+GET /provision/download?vendor=<vendor>&model=<model> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Content-Length: <length>
+<blank line>
+```
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<id 1>
+<id 2...>
+<id n>
+```
+
+Response may also be:
+
+* `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
+
+
+## Download Content
+
+If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name 
+space, and is authorized for the content, then the `<id>` content blob, or its 
+requested range, is returned. The header `Range: bytes=<range-specifier>`, if
+specified, allows the caller to request a chunk of bytes at a time. 
+`<range-specifier>` takes the form of `X-Y` where both `X` and `Y` are 
+optional but at least one of them must be present. `X` is the start byte 
+position to return, `Y` is the end position. Both are 0 based. If `X` is 
+omitted, `Y` will request the last `Y` count of bytes of the content. If `Y` 
+is omitted, it will default to the end of the content. Note that `Content-Type`
+of `<blob>` is based on the type set in the `POST` to 
+`/provision/manage/content/<model>/<id>`.
+
+```
+GET /provision/download?vendor=<vendor>&model=<model>&id=<id> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+{Range: bytes=<range-specifier>}
+<blank line>
+```
+
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+{Accept-Ranges: bytes}
+Content-Length: <number of bytes being returned>
+{Content-Range: bytes <first position>-<last position>/<total length>}
+Content-Type: <content-type>
+
+<blob>
+```
+
+Response may also be:
+
+* `HTTP/1.1 206 Partial Content` if the response is partial.
+* `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
+
+
+### Get Content Info
+
+If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name
+space, and is authorized for the content, then the `<id>` content information
+is returned.
+
+```
+GET /provision/download?vendor=<vendor>&model=<model>&id=<id>&info=true HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Content-Length: <length>
+<blank line>
+```
+
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+
+<content-type>,<byte-size>,<updated-timestamp>,<meta>
+```
+
+Response may also be:
+
+* `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
+
+
 ## Long Polling
 
 The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
@@ -193,6 +373,7 @@ To perform a request with long polling simply add the header `Request-Timeout: <
 You may also optionally add an `If-Modified-Since` header to specify a start time to wait. This is exactly the same as the `alias.last` semantics in scripting. You will want to use this if it's important that you receive all updates to a given dataport, otherwise it is possible to miss points that get written between long polling requests.
 
 Note: Only one dataport may be read at a time when using long polling.
+
 
 ### request
 
@@ -211,7 +392,7 @@ If-Modified-Since: <timestamp>
 * `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified it defaults to "now".
 
 
-###response
+### response
 
 When the dataport is updated:
 
@@ -240,7 +421,7 @@ Content-Length: <length>
 When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
 
 
-###example
+### example
 
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
@@ -249,3 +430,64 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'Request-Timeout: 30000 
     -H 'If-Modified-Since: 1408088308
 ```
+
+
+# Utility Procedures
+
+## Timestamp
+
+Get the current time according to the server.
+
+
+### request
+
+```
+GET /timestamp HTTP/1.1
+Host: m2.exosite.com
+<blank line>
+```
+
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<timestamp>
+```
+
+
+## IP
+
+Note: Depreciated, use DNS instead.
+
+Returns ip address and port of the server, encoded in 6 comma separated octets as a string, where the first 4 are the ip and the last 2 are the port, e.g.,  "192,168,0,1,0,80".
+
+
+### request
+
+```
+GET /ip HTTP/1.1
+Host: m2.exosite.com
+<blank line>
+```
+
+
+### response
+
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/plain; charset=utf-8
+
+<server ip and port>
+```
+
