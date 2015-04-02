@@ -1,0 +1,53 @@
+<script>
+$(document).ready(function() {
+  'use strict';
+  function getParameterByName(name) {
+      name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+      var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+      return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+  var contentEl = $('div[role="flatdoc-content"]')
+  var query = getParameterByName('q');
+  if (query === '') {
+    contentEl.html('Missing query parameter.');
+    return;
+  }
+  contentEl.html('Searching documentation...');
+  var options = {
+    headers: {
+      'Accept': 'application/vnd.github.v3.text-match+json'
+    }
+  };  
+  function toDocPath(path) {
+    var href = path.replace(/README\.md$/, '');
+    href = href.replace(/\.md$/, '');
+    return href;
+  }    
+  $.ajax('https://api.github.com/search/code?q=' + 
+    encodeURIComponent(query) + 
+    '+in:file+repo:exosite/docs', options).done(function(data, status) {
+      console.log(data);
+      var querySpan = '<span class="search-query">' + query + '</span>';
+      if (data.total_count === 0) {
+        contentEl.html('No results for ' + querySpan);
+      } else {
+        var html = '<div><div>Documents matching ' + querySpan + ':</div><ol>';
+        for (var i = 0; i < data.items.length; i++) {
+          var item = data.items[i];
+          var href = toDocPath(item.path);
+          html += ('<li class="search-result"><a href="' + href + '">' + href + '</a>');
+          // show the first text match
+          for (var j = 0; j < item.text_matches.length; j++) {
+            var match = item.text_matches[j];
+            var fragment = '...' + match.fragment.replace(query, querySpan) + '...';
+            html += ('<div class="search-result-fragment">' + fragment + '</div>');
+          }
+          html += '</li>';
+        }
+        html += '</ol></div>';
+        contentEl.html(html);
+      }
+    });
+});
+</script>

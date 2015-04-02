@@ -1,7 +1,5 @@
 # Documentation Overview
 
-
-
 ### Tutorials
 * [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
 
