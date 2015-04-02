@@ -278,7 +278,7 @@ An object containing information about a Portals user.
 * `"email"` is the user's email address. It is a string of fewer than 256 characters.
 * `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
@@ -427,7 +427,7 @@ A group object describes a Portals permissions group.
 
 * `"id"` is a number identifying the group.
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
-* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
 * `"name"` is the group name. It is a string of fewer than 256 characters. It MUST be unique among the same user in a domain.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 * `"userId"` is a number identifying the owner of the group.
@@ -603,7 +603,7 @@ An object containing information about a Portals user.
     * `<group-id-N>` is a number identifying the group.
 
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
