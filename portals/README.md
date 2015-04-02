@@ -59,6 +59,14 @@ Portals provides a user authentication and management system on top of the One P
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
 
+#### Domain Widgets
+
+* [Create domain widget](#create-domain-widget)
+* [Delete domain widget](#delete-domain-widget)
+* [Get domain widget](#get-domain-widget)
+* [List domain widget](#list-domain-widget)
+* [Update domain widget](#update-domain-widget)
+
 #### File Systems
 
 * [Append to a directory](#append-to-a-directory)
@@ -231,6 +239,14 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
 * [POST] [/api/portals/v1/users/reset-password](#reset-password)
 * [PUT] [/api/portals/v1/users/reset-password](#update-password-by-reset-password-key)
+
+#### /widget-scripts
+
+* [DELETE] [/api/portals/v1/widget-scripts/{widget-script-id}](#delete-domain-widget)
+* [GET] [/api/portals/v1/widget-scripts/{widget-script-id}](#get-domain-widget)
+* [GET] [/api/portals/v1/widget-scripts](#list-domain-widget)
+* [POST] [/api/portals/v1/widget-scripts](#create-domain-widget)
+* [PUT] [/api/portals/v1/widget-scripts/{widget-script-id}](#update-domain-widget)
 
 ### REST
 
@@ -415,6 +431,24 @@ A device object describes a device in Portals.
     * `"vendor"`
 
 * `"vendor-id"` is a string identifying the vendor
+
+### Domain widget object
+
+A sample domain widget object.
+
+```
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "0000000000",
+    "name": "noop"
+}
+```
+
+* `"code"` is JavaScript code of domain widget. It MUST be less than 1 megabyte after serializing to JSON.
+* `"description"` is description of domain widget. It MUST be less than 256 characters.
+* `"id"` is identifier of domain widget.
+* `"name"` is name of domain widget. It MUST be less than or euqal to 50 characters.
 
 ### Group object
 
@@ -2808,6 +2842,216 @@ Content-Type: application/json; charset=UTF-8
         "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
     }
 ]
+```
+
+### Domain Widgets
+
+#### Create domain widget
+
+`POST /api/portals/v1/widget-scripts`
+
+Create a domain widget.
+
+##### Request
+
+Request body is a [domain widget object](#domain-widget-object).
+
+* `"code"` - Domain widget code (optional).
+* `"description"` - Domain widget description (optional).
+* `"name"` - Domain widget name (required).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
+     -X POST \
+     -d '{"code":"function(){}","description":"no operation","name":"noop"}' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Thu, 02 Apr 2015 18:14:40 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 84
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "3396985491",
+    "name": "noop"
+}
+```
+
+#### Delete domain widget
+
+`DELETE /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Delete a domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 204 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -X DELETE \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Thu, 02 Apr 2015 18:59:11 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Get domain widget
+
+`GET /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Get a domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:18:28 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 84
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "3396985491",
+    "name": "noop"
+}
+```
+
+#### List domain widget
+
+`GET /api/portals/v1/widget-scripts`
+
+List domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:24:58 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 86
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "code": "function(){}",
+        "description": "no operation",
+        "id": "3396985491",
+        "name": "noop"
+    }
+]
+```
+
+#### Update domain widget
+
+`PUT /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Update a domain widget.
+
+##### Request
+
+Request body is a [domain widget object](#domain-widget-object).
+
+* `"code"` - Domain widget code (optional).
+* `"description"` - Domain widget description (optional).
+* `"name"` - Domain widget name (optional).
+
+##### Response
+
+On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -X PUT \
+     -d '{"code":""},"description":"empty","name":"empty"}' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:58:01 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 66
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "",
+    "description": "empty",
+    "id": "3396985491",
+    "name": "empty"
+}
 ```
 
 ### File Systems
