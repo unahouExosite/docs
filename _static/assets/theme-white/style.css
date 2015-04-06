@@ -308,11 +308,18 @@ a:hover {
 .content h3 ol {
   padding-top: 10px;
 }
-.content h1,
+.content h1, 
 .content h2 {
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 1.5em;
+  padding-top: 0px;
+}
+.content h1 {
+  font-size: 1.7em;
+  color: #000000;
+}
+.content h2 {
+  font-size: 1.4em;
 }
 .content h3 {
   font-size: 1.2em;
