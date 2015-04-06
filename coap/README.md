@@ -8,6 +8,38 @@ CoAP provides a request/response interaction model between application endpoints
 
 For more information on the CoAP protocol see [RFC7252](https://tools.ietf.org/html/rfc7252).
 
+
+## Procedures
+
+
+### Timeseries Data Procedures
+
+[Write](#write) - write new data to a set of dataports
+
+[Read](#read) - read the latest data from a set of dataports
+
+[Observed Read](#observed-read) - be notified immediately when a dataport is updated
+
+[Multiple Read and Write](#multiple-read-and-write) - write a set of dataports, then read a set of dataports
+
+
+### Provisioning Procedures
+
+[Activate](#activate) - activate device and get device's CIK
+
+[List Content IDs](#list-content-ids) - get a list of content available to device
+
+[Get Content Info](#get-content-info) - get meta information about content file
+
+[Download Content](#download-content) - get content file
+
+
+### Utility Procedures
+
+[Timestamp](#timestamp) - get the current unix timestamp
+
+[Remote Procedure Call Proxy](#remote-procedure-call-proxy) - proxy CBOR-RPC calls to the [JSON-RPC](/rpc) API
+
 ## Libraries and Sample Code
 
 A sample CoAP client written in python is available in the [CoAPExample](https://github.com/exosite-garage/CoAPExample) repository.
