@@ -16,6 +16,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Hybrid Write/Read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
 
+[Long-Polling](#long-polling) - be notified immediately when a dataport is updated
+
 
 ### Provisioning Procedures
 
@@ -205,6 +207,74 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 ```
 
 
+## Long Polling
+
+The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
+
+To perform a request with long polling simply add the header `Request-Timeout: <miliseconds>` to your request. The server will then wait until a new datapoint is written to the given dataport and will then immediately return the value. If no datapoint is written before that time a `304 Not Modified` is returned and the client may make another long poling request to continue monitoring that dataport.
+
+You may also optionally add an `If-Modified-Since` header to specify a start time to wait. This is exactly the same as the `alias.last` semantics in scripting. You will want to use this if it's important that you receive all updates to a given dataport, otherwise it is possible to miss points that get written between long polling requests.
+
+Note: Only one dataport may be read at a time when using long polling.
+
+
+### request
+
+```
+GET /onep:v1/stack/alias?<alias 1> HTTP/1.1 
+Host: m2.exosite.com 
+X-Exosite-CIK: <CIK> 
+Accept: application/x-www-form-urlencoded; charset=utf-8 
+Request-Timeout: <timeout>
+If-Modified-Since: <timestamp>
+<blank line>
+```
+
+* `<alias>` is the alias you monitor for new datapoints.
+* `Request-Timeout` specifies the how long to wait on changes.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300000 ms).
+* `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified it defaults to "now".
+
+
+### response
+
+When the dataport is updated:
+
+```
+HTTP/1.1 200 OK 
+Date: <date> 
+Server: <server> 
+Connection: Close
+Content-Length: <length>
+Last-Modified: <datapoint-modification-date>
+<blank line>
+<alias>=<value>
+```
+
+If the dataport is not updated before timeout:
+
+```
+HTTP/1.1 304 Not Modified
+Date: <date> 
+Server: <server> 
+Connection: Close
+Content-Length: <length> 
+<blank line>
+```
+
+When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
+
+
+### example
+
+```
+$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
+    -H 'Request-Timeout: 30000 
+    -H 'If-Modified-Since: 1408088308
+```
+
+
 # Provisioning Procedures
 
 ## Activate
@@ -366,74 +436,6 @@ Response may also be:
 
 * `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
 * See [HTTP Responses](#http-responses) for a full list of responses
-
-
-## Long Polling
-
-The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
-
-To perform a request with long polling simply add the header `Request-Timeout: <miliseconds>` to your request. The server will then wait until a new datapoint is written to the given dataport and will then immediately return the value. If no datapoint is written before that time a `304 Not Modified` is returned and the client may make another long poling request to continue monitoring that dataport.
-
-You may also optionally add an `If-Modified-Since` header to specify a start time to wait. This is exactly the same as the `alias.last` semantics in scripting. You will want to use this if it's important that you receive all updates to a given dataport, otherwise it is possible to miss points that get written between long polling requests.
-
-Note: Only one dataport may be read at a time when using long polling.
-
-
-### request
-
-```
-GET /onep:v1/stack/alias?<alias 1> HTTP/1.1 
-Host: m2.exosite.com 
-X-Exosite-CIK: <CIK> 
-Accept: application/x-www-form-urlencoded; charset=utf-8 
-Request-Timeout: <timeout>
-If-Modified-Since: <timestamp>
-<blank line>
-```
-
-* `<alias>` is the alias you monitor for new datapoints.
-* `Request-Timeout` specifies the how long to wait on changes.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300000 ms).
-* `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified it defaults to "now".
-
-
-### response
-
-When the dataport is updated:
-
-```
-HTTP/1.1 200 OK 
-Date: <date> 
-Server: <server> 
-Connection: Close
-Content-Length: <length>
-Last-Modified: <datapoint-modification-date>
-<blank line>
-<alias>=<value>
-```
-
-If the dataport is not updated before timeout:
-
-```
-HTTP/1.1 304 Not Modified
-Date: <date> 
-Server: <server> 
-Connection: Close
-Content-Length: <length> 
-<blank line>
-```
-
-When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
-
-
-### example
-
-```
-$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
-    -H 'X-Exosite-CIK: <CIK>' \
-    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
-    -H 'Request-Timeout: 30000 
-    -H 'If-Modified-Since: 1408088308
-```
 
 
 # Utility Procedures
