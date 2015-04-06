@@ -464,7 +464,7 @@ Content-Type: text/plain; charset=utf-8
 
 ## IP
 
-Note: Depreciated, use DNS instead.
+Note: Deprecated, use DNS instead.
 
 Returns ip address and port of the server, encoded in 6 comma separated octets as a string, where the first 4 are the ip and the last 2 are the port, e.g.,  "192,168,0,1,0,80".
 
