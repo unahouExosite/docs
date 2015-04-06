@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 var defaultTemplate = new Buffer(fs.readFileSync("_static/_layouts/default.html"));
 
-gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets'])
+gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img'])
 
 gulp.task('md', function() {
   return gulp.src(['**/*.md', '!node_modules/**'])
@@ -92,6 +92,12 @@ gulp.task('img', function() {
   return gulp.src(['_static/assets/**/*.png','_static/assets/**/*.jpg'])
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site/assets'));
+});
+
+gulp.task('il-img', function() {
+  return gulp.src(['**/*.png','**/*.jpg', '!_static/**'])
+    //.pipe(concat('app.css'))
+    .pipe(gulp.dest('_site'));
 });
 
 gulp.task('assets', function() {
