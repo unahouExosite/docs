@@ -356,6 +356,32 @@ http://wiki.tools.ietf.org/html/draft-ietf-core-block
 * 4.04 Not Found: No device or no content found with given information.
 
 
+##Timestamp
+
+Get the current time as a unix timestamp.
+
+```
+GET: coap://coap.exosite.com/ts
+```
+
+```
+  Client                    Server
+      |                        |
+      |   CON GET              |
+      |   uri_path: "ts"       |
+      +----------------------->|
+      |                        |
+      |   ACK Content (2.05)   |
+      |   "<timestamp>"        |
+      |<-----------------------+
+```
+
+`<timestamp>`: The current unix timestamp. This can either be a UTF-8 string or the binary representation of the timestamp as a signed integer sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option. The default format is a UTF-8 string, to request it as a signed integer, make the request with the option `Content-Format` set to `application/octet-stream` (42).
+
+### Responses
+* 2.05 Content: The value is returned.
+
+
 # Remote Procedure Call Proxy
 
 If you need to do more with your data than read the latest value and write new values at the current time, you'll need to use the [RPC API](https://github.com/exosite/docs/blob/master/rpc). Generally devices don't use this API since it is relatively complicated and the JSON format is rather heavy and hard to parse and construct, but luckily for you, we've setup a proxy that will translate the HTTP + JSON format that that API uses into a CoAP + CBOR format which drastically brings down the requirements needed to use it.
