@@ -241,6 +241,7 @@ Response may also be:
 
 * `HTTP/1.1 404 Not Found` if the client described by `<vendor>`, `<model>`, `<sn>` is not found on the system.
 * `HTTP/1.1 409 Conflict` if the serial number is not enabled for activation.
+* See [HTTP Responses](#http-responses) for a full list of responses
 
 
 ### example
@@ -285,6 +286,7 @@ Content-Type: text/csv; charset=utf-8
 Response may also be:
 
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
+* See [HTTP Responses](#http-responses) for a full list of responses
 
 
 ## Download Content
@@ -329,6 +331,7 @@ Response may also be:
 
 * `HTTP/1.1 206 Partial Content` if the response is partial.
 * `HTTP/1.1 403 Forbidden` if the `<vendor>` and `<model>` pair is invalid.
+* See [HTTP Responses](#http-responses) for a full list of responses
 
 
 ### Get Content Info
@@ -362,6 +365,7 @@ Content-Type: text/csv; charset=utf-8
 Response may also be:
 
 * `HTTP/1.1 400 Bad Request` if the `<vendor>` and `<model>` pair is invalid.
+* See [HTTP Responses](#http-responses) for a full list of responses
 
 
 ## Long Polling
@@ -461,6 +465,8 @@ Content-Type: text/plain; charset=utf-8
 <timestamp>
 ```
 
+* See [HTTP Responses](#http-responses) for a full list of responses
+
 
 ## IP
 
@@ -491,3 +497,4 @@ Content-Type: text/plain; charset=utf-8
 <server ip and port>
 ```
 
+* See [HTTP Responses](#http-responses) for a full list of responses
