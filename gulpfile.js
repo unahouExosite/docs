@@ -107,14 +107,17 @@ gulp.task('watch', ['default'], function () {
   watch('_static/assets/**/*.js', function () {
     gulp.start('js');
   });
-  watch(['_static/**/*.html', '!_static/_*/**'], function () {
+  watch(['_static/**/*.html'], function () {
     gulp.start('html');
   });
   watch(['**/*.png','**/*.jpg'], function () {
     gulp.start('assets');
   });
-  watch(['**/*.md'], function () {
+  watch(['**/*.md', "_static/_layouts/*.html"], function () {
     gulp.start('md');
+  });
+  watch(['gulpfile.js'], function () {
+    gulp.start('default');
   });
 });
 
