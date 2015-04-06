@@ -129,10 +129,10 @@ Read the most recent value from one or more dataports with alias `<alias>`. The 
 ### request
 
 ```
-GET /onep:v1/stack/alias?<alias 1>&<alias 2...>&<alias n> HTTP/1.1 
-Host: m2.exosite.com 
-X-Exosite-CIK: <CIK> 
-Accept: application/x-www-form-urlencoded; charset=utf-8 
+GET /onep:v1/stack/alias?<alias 1>&<alias 2...>&<alias n> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Accept: application/x-www-form-urlencoded; charset=utf-8
 <blank line>
 ```
 
@@ -140,11 +140,11 @@ Accept: application/x-www-form-urlencoded; charset=utf-8
 ### response
 
 ```
-HTTP/1.1 200 OK 
-Date: <date> 
-Server: <server> 
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
 Connection: Close
-Content-Length: <length> 
+Content-Length: <length>
 <blank line>
 <alias 1>=<value 1>&<alias 2...>=<value 2...>&<alias n>=<value n>
 ```
@@ -158,7 +158,7 @@ Content-Length: <length>
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
-    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8'
 ```
 
 
@@ -170,12 +170,12 @@ Write one or more dataports of alias `<alias w>` with given `<value>` and then r
 ### request
 
 ```
-POST /onep:v1/stack/alias?<alias r1>&<alias r2...>&<alias rn> HTTP/1.1 
-Host: m2.exosite.com 
-X-Exosite-CIK: <CIK> 
-Accept: application/x-www-form-urlencoded; charset=utf-8 
+POST /onep:v1/stack/alias?<alias r1>&<alias r2...>&<alias rn> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Accept: application/x-www-form-urlencoded; charset=utf-8
 Content-Type: application/x-www-form-urlencoded; charset=utf-8
-Content-Length: <length> 
+Content-Length: <length>
 <blank line>
 <alias w1>=<value 1>&<alias w2...>=<value 2...>&<alias wn>=<value n>
 ```
@@ -185,10 +185,10 @@ Content-Length: <length>
 
 ```
 HTTP/1.1 200 OK
-Date: <date> 
-Server: <server> 
-Connection: Close 
-Content-Length: <length> 
+Date: <date>
+Server: <server>
+Connection: Close
+Content-Length: <length>
 <blank line>
 <alias r1>=<value 1>&<alias r2...>=<value 2...>&<alias rn>=<value n>
 ```
@@ -221,10 +221,10 @@ Note: Only one dataport may be read at a time when using long polling.
 ### request
 
 ```
-GET /onep:v1/stack/alias?<alias 1> HTTP/1.1 
-Host: m2.exosite.com 
-X-Exosite-CIK: <CIK> 
-Accept: application/x-www-form-urlencoded; charset=utf-8 
+GET /onep:v1/stack/alias?<alias 1> HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Accept: application/x-www-form-urlencoded; charset=utf-8
 Request-Timeout: <timeout>
 If-Modified-Since: <timestamp>
 <blank line>
@@ -240,9 +240,9 @@ If-Modified-Since: <timestamp>
 When the dataport is updated:
 
 ```
-HTTP/1.1 200 OK 
-Date: <date> 
-Server: <server> 
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
 Connection: Close
 Content-Length: <length>
 Last-Modified: <datapoint-modification-date>
@@ -254,10 +254,10 @@ If the dataport is not updated before timeout:
 
 ```
 HTTP/1.1 304 Not Modified
-Date: <date> 
-Server: <server> 
+Date: <date>
+Server: <server>
 Connection: Close
-Content-Length: <length> 
+Content-Length: <length>
 <blank line>
 ```
 
@@ -269,8 +269,8 @@ When the dataport is updated and a value is returned, a `Last-Modified` header i
 ```
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
-    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' 
-    -H 'Request-Timeout: 30000 
+    -H 'Accept: application/x-www-form-urlencoded; charset=utf-8'
+    -H 'Request-Timeout: 30000
     -H 'If-Modified-Since: 1408088308
 ```
 
@@ -280,8 +280,8 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 ## Activate
 
 Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
-model type `<model>` associated with Serial Number `<sn>`. Client must be 
-enabled via `/provision/manage/model/<model>/<sn>`, the enabled state must not 
+model type `<model>` associated with Serial Number `<sn>`. Client must be
+enabled via `/provision/manage/model/<model>/<sn>`, the enabled state must not
 have expired, and the client must not have already been activated.
 
 ```
@@ -327,7 +327,7 @@ $ curl http://m2.exosite.com/provision/activate \
 
 ## List Available Content
 
-List content `<id>`s. Caller with `<DeviceCIK>` must have an activated 
+List content `<id>`s. Caller with `<DeviceCIK>` must have an activated
 serial number in given `<vendor>` `<model>` name space.
 
 ```
@@ -361,16 +361,16 @@ Response may also be:
 
 ## Download Content
 
-If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name 
-space, and is authorized for the content, then the `<id>` content blob, or its 
+If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name
+space, and is authorized for the content, then the `<id>` content blob, or its
 requested range, is returned. The header `Range: bytes=<range-specifier>`, if
-specified, allows the caller to request a chunk of bytes at a time. 
-`<range-specifier>` takes the form of `X-Y` where both `X` and `Y` are 
-optional but at least one of them must be present. `X` is the start byte 
-position to return, `Y` is the end position. Both are 0 based. If `X` is 
-omitted, `Y` will request the last `Y` count of bytes of the content. If `Y` 
+specified, allows the caller to request a chunk of bytes at a time.
+`<range-specifier>` takes the form of `X-Y` where both `X` and `Y` are
+optional but at least one of them must be present. `X` is the start byte
+position to return, `Y` is the end position. Both are 0 based. If `X` is
+omitted, `Y` will request the last `Y` count of bytes of the content. If `Y`
 is omitted, it will default to the end of the content. Note that `Content-Type`
-of `<blob>` is based on the type set in the `POST` to 
+of `<blob>` is based on the type set in the `POST` to
 `/provision/manage/content/<model>/<id>`.
 
 ```
