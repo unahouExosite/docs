@@ -15,12 +15,6 @@ gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets'])
 
 gulp.task('md', function() {
   return gulp.src(['**/*.md', '!node_modules/**'])
-    .pipe(newer({
-      dest: "_site",
-      map: function(relPath) {
-        return relPath.replace("README.md", "index.html")
-                      .replace(".md", ".html");
-      }}))
     .pipe(data(function(file) {
       console.log(file.path)
       var content;
@@ -58,7 +52,6 @@ gulp.task('md', function() {
 
 gulp.task('html', function() {
   return gulp.src(['_static/**/*.html', '!_static/_*/**'])
-    .pipe(newer("_site"))
     .pipe(data(function(file) {
       var content;
       var body;
@@ -82,7 +75,6 @@ gulp.task('html', function() {
 
 gulp.task('js', function() {
   return gulp.src('_static/assets/**/*.js')
-    .pipe(newer("_site"))
     //.pipe(jshint())
     //.pipe(jshint.reporter('default'))
     //.pipe(uglify())
@@ -92,21 +84,18 @@ gulp.task('js', function() {
 
 gulp.task('css', function() {
   return gulp.src('_static/assets/**/*.css')
-    .pipe(newer("_site"))
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site/assets'));
 });
 
 gulp.task('img', function() {
   return gulp.src(['_static/assets/**/*.png','_static/assets/**/*.jpg'])
-    .pipe(newer("_site"))
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site/assets'));
 });
 
 gulp.task('assets', function() {
   return gulp.src(['_static/**', '_static/**/.*', '!_static/_*/**', '!_static/**/*.html'])
-    .pipe(newer("_site"))
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site'));
 });
