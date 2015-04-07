@@ -4,9 +4,9 @@
 * [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
 
 ### Device APIs
-* [CoAP API](coap/) - small specialized protocol for low-power nodes and lossy networks
-* [HTTP Data Interface API](http/) - low bandwidth API for reading from and writing to dataports
-* [UDP Single Shot API](udp/) - very low bandwidth and overhead API for writing to a single dataport
+* [CoAP API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
+* [HTTP API](http/) - easy API for reading from and writing to dataports
+* [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
 
 ### Application APIs
 * [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization
