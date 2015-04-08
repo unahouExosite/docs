@@ -122,6 +122,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
 * [Update user](#update-user)
+* [Update password by reset password key] (For App)
 
 ### API Index
 
@@ -227,6 +228,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
 * [POST] [/api/portals/v1/users/reset-password](#reset-password) (For App)
+* [PUT] [/api/portals/v1/users/reset-password] (For App)
 
 ### REST
 
@@ -4158,6 +4160,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
+`PUT /api/portals/v1/users/reset-password`
 
 Step 2 of 2: Activate a reset password email.
 
@@ -4181,7 +4184,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/reset-password' \
-     -X POST \
+     -X PUT \
      -d '{"resetPasswordRegkey":"21c2bdc303c23f5841b35fd0935efca42803fdeb", "newPassword":"newPassword"}' \
      -i
 ```
