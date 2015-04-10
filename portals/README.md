@@ -4111,6 +4111,12 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about all users.
 
+##### options
+
+* `"Offset"` - Use with limit to pagenation the user lists.
+* `"limit"` - see Offset. 
+* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+
 ##### Request
 
 Request body is empty.
@@ -4169,6 +4175,49 @@ Content-Type: application/json; charset=UTF-8
                 }
             }
         ]
+    },
+    ...
+]
+```
+
+##### Example with options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions' \
+     -X GET \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:21:47 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "newuseremail@gmail.com",
+        "fullName": "",
+        "id": "3167859736",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+    },
+    {
+        "email": "olduseremail@gmail.com",
+        "fullName": "olduser",
+        "id": "3407735538",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
     },
     ...
 ]
