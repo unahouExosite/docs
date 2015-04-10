@@ -113,15 +113,15 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
+* [Get user permissions](#get-user-permissions)
+* [Get user portal](#get-user-portal)
+* [Get user portal shares](#get-user-portal-shares)
+* [Get user readtoken](#get-user-readtoken)
 * [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
-* [Get user readtoken](#get-user-readtoken)
-* [Get user portal](#get-user-portal)
-* [Get user portal shares](#get-user-portal-shares)
 * [Reset password](#reset-password) (For App)
 * [Update user](#update-user)
-* [Get all users portals shares](#get-all-users-portals-shares)
 
 ### API Index
 
@@ -209,6 +209,7 @@ Portals provides a user authentication and management system on top of the One P
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
+* [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permissions)
 * [POST] [/api/portals/v1/users/{user-id}/permissions](#add-user-permission)
 * [DELETE] [/api/portals/v1/users/{user-id}/permissions](#delete-user-permission)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
@@ -4534,6 +4535,57 @@ Content-Type: application/json; charset=UTF-8
         "access": "___admin"
       }
     ]
+  }
+]
+```
+
+#### Get user permission
+
+`GET /api/portals/v1/users/{user-id}/permissions
+
+Get user have all the permissions.
+
+##### Request
+Request body is empty.
+
+##### Options
+
+* `"type"` - if you just want get what kind of permissions and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must a array.
+
+##### Response
+
+On success, response has HTTP status 200 and a body containing an array of permission object.
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Domain",
+      "id": "1231234567"
+    }
+  },
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Portal",
+      "id": "2490770768"
+    }
   }
 ]
 ```
