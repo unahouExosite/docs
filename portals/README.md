@@ -102,9 +102,11 @@ Portals provides a user authentication and management system on top of the One P
 #### Users
 
 * [Activate a user account using activation key](#activate-a-user-account-using-activation-key)
+* [Add user permission](#add-user-permission)
 * [Create user](#create-user)
 * [Create user portal share](#create-user-portal-share)
 * [Delete user](#delete-user)
+* [Delete user permission](#delete-user-permission)
 * [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
 * [Get all users](#get-all-users)
@@ -119,6 +121,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user portal shares](#get-user-portal-shares)
 * [Reset password](#reset-password) (For App)
 * [Update user](#update-user)
+* [Get all users portals shares](#get-all-users-portals-shares)
 
 ### API Index
 
@@ -206,6 +209,8 @@ Portals provides a user authentication and management system on top of the One P
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
+* [POST] [/api/portals/v1/users/{user-id}/permissions](#add-user-permission)
+* [DELETE] [/api/portals/v1/users/{user-id}/permissions](#delete-user-permission)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
@@ -4531,6 +4536,78 @@ Content-Type: application/json; charset=UTF-8
     ]
   }
 ]
+```
+
+#### Add user permission
+
+`POST /api/portals/v1/users/{user-id}/permissions`
+
+Add one or many [permission objects](#permission-object) to user. 
+
+##### Request
+
+The request body is a array [permission objects](#permission-object).
+
+##### Response
+
+On success, response has HTTP status 202 .
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
+     -X POST \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 202 Accepted
+Location: https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+```
+
+#### Delete user permission
+
+`DELETE /api/portals/v1/users/{user-id}/permissions`
+
+Delete one or many [permission objects](#permission-object) on user. 
+
+##### Request
+
+The request body is a array [permission objects](#permission-object).
+
+##### Response
+
+On success, response has HTTP status 204 .
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
+     -X DELETE \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 204 No Content
+Location: https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
 ```
 
 #### Get all users portals shares
