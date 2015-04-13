@@ -32,6 +32,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
+* [Create device data source](#create-device-data-source)
 * [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
@@ -158,6 +159,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /devices
 
 * [GET] [/api/portals/v1/devices/{device-rid}](#get-device)
+* [POST] [/api/portals/v1/devices/{device-rid}/data-sources](#create-device-data-source)
 * [PUT] [/api/portals/v1/devices/{device-rid}](#update-device)
 * [DELETE] [/api/portals/v1/devices/{device-rid}](#delete-device)
 
@@ -2036,6 +2038,83 @@ Content-Type: application/json; charset=UTF-8
     "unit": "1413519694"
 }
 
+```
+
+#### Create device data source
+
+`POST /api/portals/v1/devices/{device-rid}/data-sources`
+
+Create a data source under a device.
+
+##### Request
+
+Request body is a object. Currently only the following keys are supported:
+
+* `"info"` - Data source info. (optional)
+    * `"description"` - Data source description. (optional)
+        * `"format"` - Data source format. (optional)
+        * `"name"` - Data source name. (optional)
+* `"unit"` - Data source unit. (optional)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 201 and the body is [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+     -X POST \
+     -d '{"info":{"description":{"format":"float","name":"Length"}},"unit":"m"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 13 Apr 2015 07:30:18 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 451
+Content-Type: application/json; charset=UTF-8
+
+{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428910043,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "float",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"m\"}}",
+            "name": "Length",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
+    "unit": "m"
+}
 ```
 
 #### Delete data source
