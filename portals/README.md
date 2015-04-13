@@ -117,9 +117,6 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user readtoken](#get-user-readtoken)
 * [Get user portal](#get-user-portal)
 * [Get user portal shares](#get-user-portal-shares)
-* [Delete user portal share](#delete-user-portal-shares)
-* [Reset password](#reset-password) (For App)
-* [Delete user](#delete-user)
 * [Reset password](#reset-password) (For App)
 * [Update user](#update-user)
 
