@@ -33,6 +33,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Create portal data source](#create-portal-data-source)
 * [Create device data source](#create-device-data-source)
+* [List device data source](#list-device-data-source)
 * [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
@@ -159,6 +160,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /devices
 
 * [GET] [/api/portals/v1/devices/{device-rid}](#get-device)
+* [GET] [/api/portals/v1/devices/{device-rid}/data-sources](#list-device-data-source)
 * [POST] [/api/portals/v1/devices/{device-rid}/data-sources](#create-device-data-source)
 * [PUT] [/api/portals/v1/devices/{device-rid}](#update-device)
 * [DELETE] [/api/portals/v1/devices/{device-rid}](#delete-device)
@@ -2115,6 +2117,74 @@ Content-Type: application/json; charset=UTF-8
     "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
     "unit": "m"
 }
+```
+
+#### List device data source
+
+`GET /api/portals/v1/devices/{device-rid}/data-sources`
+
+List device data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is array of [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 08:15:00 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 3277
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428910043,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "float",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"m\"}}",
+            "name": "Length",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
+    "unit": "m"
+}]
 ```
 
 #### Delete data source
