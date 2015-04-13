@@ -33,6 +33,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Create portal data source](#create-portal-data-source)
 * [Create device data source](#create-device-data-source)
+* [List portal data source](#list-portal-data-source)
 * [List device data source](#list-device-data-source)
 * [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
@@ -187,6 +188,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /portals
 
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
+* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
@@ -2117,6 +2119,74 @@ Content-Type: application/json; charset=UTF-8
     "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
     "unit": "m"
 }
+```
+
+#### List portal data source
+
+`GET /api/portals/v1/portals/{portal-id}/data-sources`
+
+List portal data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is array of [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 08:31:10 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 939
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428493470,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "string",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+            "name": "2015-04-08T11:44:30.355Z",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "8db88286d89876576fab83dd9d7cbaa25973b309",
+    "unit": ""
+}]
 ```
 
 #### List device data source
