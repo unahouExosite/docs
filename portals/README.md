@@ -32,6 +32,7 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
+* [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 * [Update data sources](#update-data-sources)
@@ -147,6 +148,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
+* [DELETE] [/api/portals/v1/data-sources/{data-source-rid}](#delete-data-source)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
 #### /device
@@ -2034,6 +2036,40 @@ Content-Type: application/json; charset=UTF-8
     "unit": "1413519694"
 }
 
+```
+
+#### Delete data source
+
+`DELETE /api/portals/v1/data-sources/{data-sources-rid}`
+
+Delete a data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status of 204 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/24fd0b1ed31fb6d403484ca939e37d19c9b71308' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Mon, 13 Apr 2015 06:55:07 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 #### Get data source
