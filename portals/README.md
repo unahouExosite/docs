@@ -16,10 +16,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Client Models
 
-* [Update client model](#update-client-model)
+* [Delete client model](#delete-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
-* [Delete client model](#delete-client-model)
+* [Update client model](#update-client-model)
 
 #### Collections (Bulk API)
 
@@ -31,15 +31,15 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
-* [Update data sources](#update-data-sources)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
+* [Update data sources](#update-data-sources)
 
 #### Data Sources Data
 
-* [Get data source data](#get-data-source-data)
 * [Append/insert data source data](#appendinsert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
+* [Get data source data](#get-data-source-data)
 * [Delete data source data](#delete-data-source-data)
 
 #### Device
@@ -67,10 +67,10 @@ Portals provides a user authentication and management system on top of the One P
 #### Groups
 
 * [Create group under user](#create-group-under-user)
-* [Update group](#update-group)
+* [Delete group](#delete-group)
 * [Get group](#get-group)
 * [Get multiple groups](#get-multiple-groups)
-* [Delete group](#delete-group)
+* [Update group](#update-group)
 
 #### Portal
 
@@ -78,10 +78,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Portals
 * [Create portal](#create-portal)
-* [Update portal](#update-portal)
-* [Get portal](#get-portal)
 * [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
+* [Get portal](#get-portal)
+* [Update portal](#update-portal)
 
 #### Serial Numbers (sn)
 
@@ -89,10 +89,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Update theme](#update-theme)
+* [Delete theme](#delete-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
-* [Delete theme](#delete-theme)
+* [Update theme](#update-theme)
 
 #### User
 
@@ -101,24 +101,24 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Users
 
-* [Create user](#create-user)
 * [Activate a user account using activation key](#activate-a-user-account-using-activation-key)
-* [Update user](#update-user)
-* [Get all users](#get-all-users)
+* [Create user](#create-user)
+* [Create user portal share](#create-user-portal-share)
+* [Delete user](#delete-user)
+* [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
+* [Get all users](#get-all-users)
+* [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
-* [Get user readtoken](#get-user-readtoken)
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
+* [Get user readtoken](#get-user-readtoken)
 * [Get user portal](#get-user-portal)
-* [Get all users portals shares](#get-all-users-portals-shares)
-* [Create user portal share](#create-user-portal-share)
 * [Get user portal shares](#get-user-portal-shares)
-* [Delete user portal share](#delete-user-portal-shares)
 * [Reset password](#reset-password) (For App)
-* [Delete user](#delete-user)
+* [Update user](#update-user)
 
 ### API Index
 
