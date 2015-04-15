@@ -113,7 +113,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
-* [Get user permissions](#get-user-permissions)
+* [Get user permission](#get-user-permission)
 * [Get user portal](#get-user-portal)
 * [Get user portal shares](#get-user-portal-shares)
 * [Get user readtoken](#get-user-readtoken)
@@ -209,7 +209,7 @@ Portals provides a user authentication and management system on top of the One P
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
-* [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permissions)
+* [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permission)
 * [POST] [/api/portals/v1/users/{user-id}/permissions](#add-user-permission)
 * [DELETE] [/api/portals/v1/users/{user-id}/permissions](#delete-user-permission)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
@@ -4703,7 +4703,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i
 ```
@@ -4752,7 +4752,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
      -X POST \
      -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
@@ -4763,7 +4763,7 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
 HTTP/1.1 202 Accepted
 Date: Tue, 18 Nov 2014 02:48:23 GMT
 Status: 202 Accepted
-Location: https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions
+Location: https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions
 Vary: Accept-Encoding
 Content-Type: application/json; charset=UTF-8
 
@@ -4788,7 +4788,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
      -X DELETE \
      -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
@@ -4799,7 +4799,7 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions' \
 HTTP/1.1 204 No Content
 Date: Tue, 18 Nov 2014 02:48:23 GMT
 Status: 204 No Content
-Location: https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions
+Location: https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions
 Vary: Accept-Encoding
 Content-Type: application/json; charset=UTF-8
 
