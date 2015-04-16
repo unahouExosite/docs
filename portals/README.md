@@ -16,10 +16,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Client Models
 
-* [Update client model](#update-client-model)
+* [Delete client model](#delete-client-model)
 * [Get client model](#get-client-model)
 * [List client models](#list-client-models)
-* [Delete client model](#delete-client-model)
+* [Update client model](#update-client-model)
 
 #### Collections (Bulk API)
 
@@ -31,15 +31,15 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
-* [Update data sources](#update-data-sources)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
+* [Update data sources](#update-data-sources)
 
 #### Data Sources Data
 
-* [Get data source data](#get-data-source-data)
 * [Append/insert data source data](#appendinsert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
+* [Get data source data](#get-data-source-data)
 * [Delete data source data](#delete-data-source-data)
 
 #### Device
@@ -67,10 +67,10 @@ Portals provides a user authentication and management system on top of the One P
 #### Groups
 
 * [Create group under user](#create-group-under-user)
-* [Update group](#update-group)
+* [Delete group](#delete-group)
 * [Get group](#get-group)
 * [Get multiple groups](#get-multiple-groups)
-* [Delete group](#delete-group)
+* [Update group](#update-group)
 
 #### Portal
 
@@ -78,10 +78,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Portals
 * [Create portal](#create-portal)
-* [Update portal](#update-portal)
-* [Get portal](#get-portal)
 * [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
+* [Get portal](#get-portal)
+* [Update portal](#update-portal)
 
 #### Serial Numbers (sn)
 
@@ -89,10 +89,10 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
-* [Update theme](#update-theme)
+* [Delete theme](#delete-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
-* [Delete theme](#delete-theme)
+* [Update theme](#update-theme)
 
 #### User
 
@@ -101,23 +101,26 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Users
 
-* [Create user](#create-user)
 * [Activate a user account using activation key](#activate-a-user-account-using-activation-key)
-* [Update user](#update-user)
-* [Get all users](#get-all-users)
+* [Create user](#create-user)
+* [Create user portal share](#create-user-portal-share)
+* [Delete user](#delete-user)
+* [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
+* [Get all users](#get-all-users)
+* [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
+* [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Get user readtoken](#get-user-readtoken)
-* [Get user token for OpenID user](#get-user-token-for-OpenID-user) (For App)
 * [Get user portal](#get-user-portal)
-* [Get all users portals shares](#get-all-users-portals-shares)
-* [Create user portal share](#create-user-portal-share)
 * [Get user portal shares](#get-user-portal-shares)
 * [Delete user portal share](#delete-user-portal-shares)
 * [Delete user](#delete-user)
+* [Reset password](#reset-password) (For App)
+* [Update user](#update-user)
 
 ### API Index
 
@@ -214,7 +217,7 @@ Portals provides a user authentication and management system on top of the One P
 * [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#delete-user-portal-shares)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
 * [GET] [/api/portals/v1/users/{user-id}/readtoken](#get-user-readtoken)
-* [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-OpenID-user) (For App)
+* [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-openid-user) (For App)
 * [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
@@ -278,7 +281,7 @@ An object containing information about a Portals user.
 * `"email"` is the user's email address. It is a string of fewer than 256 characters.
 * `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
@@ -427,7 +430,7 @@ A group object describes a Portals permissions group.
 
 * `"id"` is a number identifying the group.
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
-* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
 * `"name"` is the group name. It is a string of fewer than 256 characters. It MUST be unique among the same user in a domain.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 * `"userId"` is a number identifying the owner of the group.
@@ -603,7 +606,7 @@ An object containing information about a Portals user.
     * `<group-id-N>` is a number identifying the group.
 
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it's seralized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
@@ -3836,11 +3839,13 @@ Create a user.
 
 Request body is a [user object](#user-object).  Currently only the following keys may be included:
 
-* `"email"` - User email (required)
-* `"userName"` - User name.(optional)(If has no this attributes then userName will same as email.)
-* `"password"` - User password.(optional)(If has this attributes then email will not send.)
+* `"email"` - User email. (required)
+* `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
+* `"password"` - User password.(optional) If it has this attribute then email will not be sent.
 * `"Firstname"` - User first name.(optional)
-* `"Lastname"` - User last name.(optional)(If has Firstname and Lastname then Fullname will be Firstname + Lastname.)
+* `"Lastname"` - User last name.(optional) 
+
+If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
 
 If you send any keys besides these, it will do nothing.
 
@@ -3963,14 +3968,14 @@ Update a Portals user
 
 Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
 
-* `"activated"` - whether a user is activated (optional)
-* `"email"` - user email (optional)
+* `"activated"` - Whether a user is activated (optional)
+* `"email"` - User email. (optional)
 * `"userName"` - User name.(optional)
-* `"fullName"` - user full name (optional)
+* `"fullName"` - User full name. (optional)
 * `"password"` - User password.(optional)
-* `"meta"` - meta (optional)
-* `"permissions"` - user permissions (optional)
-* `"phoneNumber"` - user phone number (optional)
+* `"meta"` -User meta. (optional)
+* `"permissions"` - User permissions. (optional)
+* `"phoneNumber"` - user phone number. (optional)
 
 If you send any keys besides these, it will do nothing.
 
