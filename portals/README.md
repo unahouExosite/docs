@@ -2331,7 +2331,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
 ##### Example
 
-Create the device:
+* Create the device:
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/device' \
@@ -2354,7 +2354,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
+* Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
 
 ```
 $ curl 'https://m2.exosite.com/provision/activate' \
@@ -4136,7 +4136,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/reset-password' \
      -X POST \
      -d '{"email":"resetEmail@gmail.com"}' \
      -i
@@ -4178,7 +4178,7 @@ On failure, response has HTTP status of 400 or greater.
 
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/reset-password' \
      -X POST \
      -d '{"resetPasswordRegkey":"21c2bdc303c23f5841b35fd0935efca42803fdeb", "newPassword":"newPassword"}' \
      -i
@@ -4492,7 +4492,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-Create a token
+* Create a token
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
@@ -4511,7 +4511,7 @@ Content-Type: application/json; charset=UTF-8
 "MzE2Nzg1OTczNq=="
 ```
 
-To use a token, put the token in the Authorization field like illustrated below, response content is skipped for clarity:
+* To use a token, put the token in the Authorization field like illustrated below, response content is skipped for clarity:
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this' \
@@ -4602,7 +4602,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-Create a token
+* Create a token
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/token' \
