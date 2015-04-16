@@ -97,29 +97,30 @@ Portals provides a user authentication and management system on top of the One P
 #### User
 
 * [Register new user account](#register-new-user-account) (Deprecated)
-* [Reset user account password](#reset-user-account-password)
+* [Reset user account password](#reset-user-account-password) (Deprecated)
 
 #### Users
 
 * [Activate a user account using activation key](#activate-a-user-account-using-activation-key)
+* [Add user permission](#add-user-permission)
 * [Create user](#create-user)
 * [Create user portal share](#create-user-portal-share)
 * [Delete user](#delete-user)
+* [Delete user permission](#delete-user-permission)
 * [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
 * [Get all users](#get-all-users)
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
+* [Get user permission](#get-user-permission)
+* [Get user portal](#get-user-portal)
+* [Get user portal shares](#get-user-portal-shares)
+* [Get user readtoken](#get-user-readtoken)
 * [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
-* [Get user readtoken](#get-user-readtoken)
-* [Get user portal](#get-user-portal)
-* [Get user portal shares](#get-user-portal-shares)
-* [Delete user portal share](#delete-user-portal-shares)
-* [Delete user](#delete-user)
-* [Reset password](#reset-password) (For App)
+* [Reset password](#reset-password)
 * [Update user](#update-user)
 
 ### API Index
@@ -208,6 +209,9 @@ Portals provides a user authentication and management system on top of the One P
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
+* [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permission)
+* [POST] [/api/portals/v1/users/{user-id}/permissions](#add-user-permission)
+* [DELETE] [/api/portals/v1/users/{user-id}/permissions](#delete-user-permission)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
@@ -450,11 +454,37 @@ A permission object describes a level of access to a particular Portals resource
 }
 ```
 
-* `"access"` is a constant string. Possible values are:
+* `"access"` is a string to define what the permission owner has. Possible values are:
 
-    * `"___admin"`
+ `"___admin"` (Default) means the owner has the highest permission to the resources.
+ 
+    * Common Access 
 
-    * `"d_____fs"`
+        * Data Sources 
+            * `"d__write"` means the owner can get the data source information, and read, write data to data source.
+            * `"d___read"` means the owner can get the data source information, and read data from data source.
+
+        * Device 
+            * `"d_update"` means the owner can get, update the decvice information and delete the device.
+            * `"d___view"` means the owner can get device information.
+
+        * Domain
+            * `"d_s_cont"` means the owner can update the domain information.
+            * `"d_s_crea"` means the owner can create a group to the domain.
+            * `"d_p_list"` means the owner can create a portal to the domain.
+            * `"d_u_list"` means the owner can get user, get users list, and delete user form the domain.
+            * `"d_u_view"` means the owner can get user, get users list form the domain.
+            * `"d_____fs"` means the owner can create, update and delete the file systems in the domain.
+
+        * Group
+            * `"g_update"` means the owner can modifying member list of the group and read, update the group information.
+            * `"g_member"` means the owner can modifying member list of the group and read the group information.
+            * `"g_modera"` means the owner can modifying member list of the group.
+
+        * Portal 
+            * `"p_manage"` means the owner can get, update portal information and create device, data source to the portal.
+            * `"p_m_crea"` means the owner can create device to the portal.
+            * `"p_contac"` means the owner can receive alerts from the portal.    
 
 * `"oid"` is an object identifying the resource with the permission.
 
@@ -473,6 +503,68 @@ A permission object describes a level of access to a particular Portals resource
         * `"Portal"`
 
         * `"User"`
+
+#### Example
+
+* Update user permission
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
+     -X PUT \
+     -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]
+}
+```
+
+* Update group permission
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/3167859736' \
+     -X PUT \
+     -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 144
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "updatedemail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]
+}
+```
 
 ### Portal object
 
@@ -616,7 +708,7 @@ An object containing information about a Portals user.
 
 Anywhere an API endpoint takes a user ID, you can instead use \_this as an alias for the user ID of the authenticated user.
 
-#### example ####
+#### Example ####
 
 Given a request is authenticated as a user with ID being 1234.
 
@@ -2239,7 +2331,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 
 ##### Example
 
-Create the device:
+* Create the device:
 
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/device' \
@@ -2262,7 +2354,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
+* Then activate the device. Normally this would be done from the device firmware, but we do it here from the command line as an example.
 
 ```
 $ curl 'https://m2.exosite.com/provision/activate' \
@@ -3130,13 +3222,15 @@ Update information about a portal.
 
 Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
-* `"info"` - Portal's Info is a array. Possible values are:
+* `"info"` - Info is an object. Possible values are:
 
-    * `"aliases"` - Aliases under info is a array.(optional) Possible values are:
+    * `"aliases"` - Aliases under info is an array.(optional) Possible values are:
 
         * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
 
-            * `"{aliases}"` - The under this portal's data-sources/ device aliases is a array.
+            * `"{aliases}"` - The under this portal's data-sources/ device aliases is an array.
+
+    * `"description"` - Description under info (optional)
 
 If you send any keys besides these, it will do nothing.
 
@@ -3776,6 +3870,8 @@ Content-Type: text/html
 
 `POST /api/portals/v1/user/password`
 
+> **Deprecated.** This API is deprecated and should not be used.
+
 Sends a password reset email for this user.
 
 ##### Request
@@ -4042,7 +4138,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/reset-password' \
      -X POST \
      -d '{"email":"resetEmail@gmail.com"}' \
      -i
@@ -4084,7 +4180,7 @@ On failure, response has HTTP status of 400 or greater.
 
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/reset-password' \
      -X POST \
      -d '{"resetPasswordRegkey":"21c2bdc303c23f5841b35fd0935efca42803fdeb", "newPassword":"newPassword"}' \
      -i
@@ -4104,6 +4200,12 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/users`
 
 Get information about all users.
+
+##### options
+
+* `"Offset"` - Use with limit to pagenation the user lists.
+* `"limit"` - see Offset. 
+* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
 
 ##### Request
 
@@ -4163,6 +4265,49 @@ Content-Type: application/json; charset=UTF-8
                 }
             }
         ]
+    },
+    ...
+]
+```
+
+##### Example with options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions' \
+     -X GET \
+     -d '{"email":"newuseremail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:21:47 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "newuseremail@gmail.com",
+        "fullName": "",
+        "id": "3167859736",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+    },
+    {
+        "email": "olduseremail@gmail.com",
+        "fullName": "olduser",
+        "id": "3407735538",
+        "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
     },
     ...
 ]
@@ -4334,6 +4479,8 @@ Content-Type: application/json; charset=UTF-8
 
 Get a portals user token. This token can be used for logging into a domain or making API calls.
 
+* The token expires in 30 days once its generated.
+
 ##### Request
 Request string.
 * `"reDirect"` - URL when login fail reDirect to where.
@@ -4347,7 +4494,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-Create a token
+* Create a token
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
@@ -4366,7 +4513,7 @@ Content-Type: application/json; charset=UTF-8
 "MzE2Nzg1OTczNq=="
 ```
 
-To use a token, put the token in the Authorization field like illustrated below, response content is skipped for clarity:
+* To use a token, put the token in the Authorization field like illustrated below, response content is skipped for clarity:
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this' \
@@ -4438,6 +4585,8 @@ Get a portals user token. This token can be used for logging into a domain or ma
     * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
 
+* The token expires in 30 days once its generated.
+
 ##### Request
 
 Request header must include some information for Authorization.
@@ -4455,7 +4604,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
-Create a token
+* Create a token
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/token' \
@@ -4533,6 +4682,129 @@ Content-Type: application/json; charset=UTF-8
     ]
   }
 ]
+```
+
+#### Get user permission
+
+`GET /api/portals/v1/users/{user-id}/permissions
+
+Get user have all the permissions.
+
+##### Request
+Request body is empty.
+
+##### Options
+
+* `"type"` - if you just want get what kind of permissions and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must a array.
+
+##### Response
+
+On success, response has HTTP status 200 and a body containing an array of permission object.
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Domain",
+      "id": "1231234567"
+    }
+  },
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Portal",
+      "id": "2490770768"
+    }
+  }
+]
+```
+
+#### Add user permission
+
+`POST /api/portals/v1/users/{user-id}/permissions`
+
+Add one or many [permission objects](#permission-object) to user. 
+
+##### Request
+
+The request body is a array [permission objects](#permission-object).
+
+##### Response
+
+On success, response has HTTP status 202 .
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
+     -X POST \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 202 Accepted
+Location: https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+```
+
+#### Delete user permission
+
+`DELETE /api/portals/v1/users/{user-id}/permissions`
+
+Delete one or many [permission objects](#permission-object) on user. 
+
+##### Request
+
+The request body is a array [permission objects](#permission-object).
+
+##### Response
+
+On success, response has HTTP status 204 .
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
+     -X DELETE \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 204 No Content
+Location: https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
 ```
 
 #### Get all users portals shares
@@ -4679,7 +4951,7 @@ Content-Type: application/json; charset=UTF-8
     "PortalName": "test group",
     "PortalID": "1173271281",
     "PortalRID": "2517727616d873727f5b838e9e9c6e656eaa4e27",
-    "UserEmail": "demo2@exosite.com",
+    "UserEmail": "demo2@gmail.com",
     "Description": "test group",
     "Shares": [
       {
@@ -4687,7 +4959,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1498682908",
-          "email": "demo1@exosite.com"
+          "email": "demo1@gmail.com"
         }
       },
       {
@@ -4695,7 +4967,7 @@ Content-Type: application/json; charset=UTF-8
         "oid": {
           "type": "User",
           "id": "1838401279",
-          "email": "demo4@exosite.com"
+          "email": "demo4@gmail.com"
         }
       }
     ]
