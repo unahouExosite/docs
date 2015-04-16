@@ -8,6 +8,38 @@ CoAP provides a request/response interaction model between application endpoints
 
 For more information on the CoAP protocol see [RFC7252](https://tools.ietf.org/html/rfc7252).
 
+
+## Procedures
+
+
+### Timeseries Data Procedures
+
+[Write](#write) - write new data to a set of dataports
+
+[Read](#read) - read the latest data from a set of dataports
+
+[Observed Read](#observed-read) - be notified immediately when a dataport is updated
+
+[Multiple Read and Write](#multiple-read-and-write) - write a set of dataports, then read a set of dataports
+
+
+### Provisioning Procedures
+
+[Activate](#activate) - activate device and get device's CIK
+
+[List Content IDs](#list-content-ids) - get a list of content available to device
+
+[Get Content Info](#get-content-info) - get meta information about content file
+
+[Download Content](#download-content) - get content file
+
+
+### Utility Procedures
+
+[Timestamp](#timestamp) - get the current unix timestamp
+
+[Remote Procedure Call Proxy](#remote-procedure-call-proxy) - proxy CBOR-RPC calls to the [JSON-RPC](/rpc) API
+
 ## Libraries and Sample Code
 
 A sample CoAP client written in python is available in the [CoAPExample](https://github.com/exosite-garage/CoAPExample) repository.
@@ -354,6 +386,32 @@ http://wiki.tools.ietf.org/html/draft-ietf-core-block
 * 2.05 Content: Content Returned as Uploaded.
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.04 Not Found: No device or no content found with given information.
+
+
+##Timestamp
+
+Get the current time as a unix timestamp.
+
+```
+GET: coap://coap.exosite.com/ts
+```
+
+```
+  Client                    Server
+      |                        |
+      |   CON GET              |
+      |   uri_path: "ts"       |
+      +----------------------->|
+      |                        |
+      |   ACK Content (2.05)   |
+      |   "<timestamp>"        |
+      |<-----------------------+
+```
+
+`<timestamp>`: The current unix timestamp. This can either be a UTF-8 string or the binary representation of the timestamp as a signed integer sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option. The default format is a UTF-8 string, to request it as a signed integer, make the request with the option `Content-Format` set to `application/octet-stream` (42).
+
+### Responses
+* 2.05 Content: The value is returned.
 
 
 # Remote Procedure Call Proxy
