@@ -97,7 +97,7 @@ Portals provides a user authentication and management system on top of the One P
 #### User
 
 * [Register new user account](#register-new-user-account) (Deprecated)
-* [Reset user account password](#reset-user-account-password)
+* [Reset user account password](#reset-user-account-password) (Deprecated)
 
 #### Users
 
@@ -120,7 +120,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user through readtoken](#get-user-through-readtoken)
 * [Get user token](#get-user-token)
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
-* [Reset password](#reset-password) (For App)
+* [Reset password](#reset-password)
 * [Update user](#update-user)
 
 ### API Index
@@ -226,7 +226,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
-* [POST] [/api/portals/v1/users/reset-password](#reset-password) (For App)
+* [POST] [/api/portals/v1/users/reset-password](#reset-password)
 
 ### REST
 
@@ -3869,6 +3869,8 @@ Content-Type: text/html
 #### Reset user account password
 
 `POST /api/portals/v1/user/password`
+
+> **Deprecated.** This API is deprecated and should not be used.
 
 Sends a password reset email for this user.
 
