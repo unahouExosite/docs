@@ -452,7 +452,7 @@ Writes the given values for the respective resources in the list. The difference
 
 ##record
 
-Records a list of historical entries to the resource specified.
+Records a list of historical entries to the resource specified. NOTE: this API is deprecated. Please use [`recordbatch`](#recordbatch) instead.
 
 ```
 {
@@ -488,7 +488,7 @@ Records a list of historical entries to the resource specified.
 
 ##recordbatch
 
-Records a list of historical entries to the resource specified. This is a more compact way of recording multiple points compared with combining multiple `record` calls into a single request.
+Records a list of historical entries to the resource specified. 
 
 
 ```
