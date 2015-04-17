@@ -279,13 +279,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
 ```
 
 
-* `manage.create(type, description)`
+* `manage.create(rid | {alias = <alias>}, type, description)`
 
-    Create a One Platform resource of specified Type and Description.
+    Create a One Platform resource of specified Type and Description under rid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:    type :: string - "client" | "dataport" | "datarule" | "dispatch"
+  Arguments:     rid :: string - Client ID under which to create a resource
+                                 Note: an earlier form of this function
+                                 allowed omitting this argument. That
+                                 form is deprecated and should no
+                                 longer be used.
+                type :: string - "client" | "dataport" | "datarule" | "dispatch"
          description :: table - Description table specific to resource type.
 
   "client" description ::

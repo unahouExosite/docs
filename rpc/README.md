@@ -599,7 +599,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ##create (client)
 
-Creates a generic client. 
+Creates a generic client under the client specified in `<ResourceID>`. 
 
 _NOTE:_ To create a client based on a client model and connected with a serial number, use the [portals create device API](http://docs.exosite.com/portals/#create-new-device-under-a-portal-of-authenticated-user) or the [fleet management create client from model POST API](http://docs.exosite.com/provision/management/#provisionmanagemodelmodelsn) instead.
 
@@ -607,6 +607,7 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
 {
     "procedure": "create",
     "arguments": [
+        <ResourceID>,
         "client", 
         {
             "limits": {
@@ -634,6 +635,8 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
     "id": 1
 }
 ```
+
+* `<ResourceID>` is the client id under which to create a resource. (Please note: an earlier previous form of `create` that omitted this argument is deprecated and should not be used.)
 
 * `"limits"` is an object containing limits for various entities and consumables. Each limit is either number, or `"inherit"`, which inherits the limit of the client's owner.
     
