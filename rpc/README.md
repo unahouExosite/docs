@@ -1601,18 +1601,22 @@ After the removal, the previously mapped resource will not be able to be looked 
 
 ##lookup
 
-Look up a Resource ID by alias, owned Resource ID, or share activation code. 
+Look up a Resource ID by alias, owned Resource ID, or share activation code
+under the client specified in `<ClientID>`.
 
 ```
 {
     "procedure": "lookup",
     "arguments": [
+        <ClientID>,
         "alias" | "owner" | "shared",
         <alias> | <ResourceID> | <Code>
     ], 
     "id": 1
 }
 ```
+
+* `<ClientID>` is the client id under which to lookup a resource. (Please note: an earlier previous form of `lookup` that omitted this argument is deprecated and should not be used.)
 
 * If the first argument is `"alias"`, the second argument is a string alias, or `""` to 
     look up the caller client's Resource ID.

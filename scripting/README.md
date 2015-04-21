@@ -602,13 +602,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
     list :: {{client | dataport | datarule | dispatch = {<rid> ,...}} ,...}
 ```
 
-* `manage.lookup(type, rid | alias | code)`
+* `manage.lookup(cid | {alias = <alias>}, type, rid | alias | code)`
 
-    Lookup an aliased resource, a resource's owner or a shared resource.
+    Lookup an aliased resource, a resource's owner or a shared resource under cid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - Lookup based on: owner, alias or code.
+  Arguments:        cid :: string - Client ID under which to lookup a resource
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - Lookup based on: owner, alias or code.
                     rid :: string - Resource ID (owner lookup only).
                   alias :: string - Alias for resource ID.
                    code :: string - Share activation code.
