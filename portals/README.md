@@ -115,7 +115,6 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user](#get-user)
 * [Get user permission](#get-user-permission)
 * [Get user portal](#get-user-portal)
-* [Get user permissions](#get-user-permissions)
 * [Get user portal shares](#get-user-portal-shares)
 * [Get user readtoken](#get-user-readtoken)
 * [Get user through readtoken](#get-user-through-readtoken)
