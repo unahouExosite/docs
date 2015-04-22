@@ -82,6 +82,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
 * [Get portal](#get-portal)
+* [List portal by domain](#list-portal-by-domain)
 * [Update portal](#update-portal)
 
 #### Serial Numbers (sn)
@@ -180,6 +181,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /portals
 
+* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
@@ -3467,6 +3469,44 @@ Content-Type: application/json; charset=UTF-8
         "tags": []
     }
 }
+```
+
+#### List portal by domain
+
+`GET /api/portals/v1/portals`
+
+List portal by domain.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of portal id.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 20 Apr 2015 08:29:21 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "id": "2590421429"
+}]
 ```
 
 #### Delete portal by id
