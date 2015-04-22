@@ -4695,7 +4695,7 @@ Request body is empty.
 
 ##### Options
 
-* `"type"` - if you just want get what kind of permissions and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must a array.
+* `"type"` - it's the type of permission you would like to retrieve and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must an array.
 
 ##### Response
 
