@@ -122,7 +122,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
 * [Update user](#update-user)
-* [Update password by reset password key] (For App)
+* [Update password by reset password key](#update-password-by-reset-password-key)
 
 ### API Index
 
@@ -227,8 +227,8 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
-* [POST] [/api/portals/v1/users/reset-password](#reset-password) (For App)
-* [PUT] [/api/portals/v1/users/reset-password] (For App)
+* [POST] [/api/portals/v1/users/reset-password](#reset-password)
+* [PUT] [/api/portals/v1/users/reset-password] (#update-password-by-reset-password-key)
 
 ### REST
 
@@ -4159,6 +4159,8 @@ Content-Type: application/json; charset=UTF-8
     "message":"Thank you. We have sent an email to your account's registered email address. The email contains a link that will allow you to complete the password reset process."
 }
 ```
+
+#### Update password by reset password key
 
 `PUT /api/portals/v1/users/reset-password`
 
