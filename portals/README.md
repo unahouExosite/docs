@@ -1561,6 +1561,10 @@ Get information about groups.
 
 Request body is empty.
 
+##### options
+
+* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+
 ##### Response
 
 On success,
@@ -1793,6 +1797,37 @@ Content-Type: application/json; charset=UTF-8
                 }
             }
         ]
+    }
+]
+```
+
+###### If request ID is over the response limit and NoPermissions
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1&NoPermissions' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 206 Partial Content
+Date: Mon, 17 Nov 2014 03:44:42 GMT
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/users/[2014970789,2308265000]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 258
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "testing+2014+0805+0309+0953+7449@exosite.com",
+        "fullName": "",
+        "id": "2014970789",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": []
     }
 ]
 ```
@@ -4327,6 +4362,10 @@ Get user have access to as a manager or private viewer.
 ##### Request
 Request body is empty.
 
+##### options
+
+* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+
 ##### Response
 
 On success, response has HTTP status 200 and a body containing an array of portal object.
@@ -4711,6 +4750,57 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:45:53 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+[
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Domain",
+      "id": "1231234567"
+    }
+  },
+  {
+    "access": "___admin",
+    "oid": {
+      "type": "Portal",
+      "id": "2490770768"
+    }
+  }
+]
+```
+
+#### Get user permission
+
+`GET /api/portals/v1/users/{user-id}/permissions
+
+Get user have all the permissions.
+
+##### Request
+Request body is empty.
+
+##### Options
+
+* `"type"` - if you just want get what kind of permissions and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must a array.
+
+##### Response
+
+On success, response has HTTP status 200 and a body containing an array of permission object.
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i
 ```
