@@ -3880,8 +3880,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
-     -X PUT \
-     -d '{"name": "update_theme"}' \
+     -X DELETE \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
 ```
