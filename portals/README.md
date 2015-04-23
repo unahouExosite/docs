@@ -13,6 +13,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Get all user accounts](#get-all-user-accounts)
 * [Get user account by email](#get-user-account-by-email)
+* [Get user account by user id](#get-user-account-by-user-id)
 
 #### Client Models
 
@@ -130,6 +131,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [GET] [/api/portals/v1/accounts](#get-all-user-accounts)
 * [GET] [/api/portals/v1/accounts/{user-email}](#get-user-account-by-email)
+* [GET] [/api/portals/v1/accounts/{user-id}](#get-user-account-by-user-id)
 
 #### /client-models
 
@@ -821,7 +823,56 @@ Content-Length: 99
 Content-Type: application/json; charset=UTF-8
 
 {
-    "email": "updatedemail@gmail.com",
+    "email": "useremail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "meta": null,
+    "phoneNumber": ""
+}
+```
+
+#### Get user account by user id
+
+`GET /api/portals/v1/accounts/{user-id}`
+
+Get user account by user id.
+
+##### Request
+
+Request body is empty
+
+##### Response
+
+On success, responds with HTTP status 200 if user exists in some domain and the body containing user object.
+user objects contain the following keys:
+
+* `"email"` - User email
+* `"fullName"` - User full name
+* `"id"` - User ID
+* `"meta"` - User meta
+* `"phoneNumber"` - User phonenumber
+
+On failure, responds with HTTP status 404 if user doesn't exist in any domain.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts/3167859736' \
+     -X GET \
+     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 09:40:58 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 99
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "useremail@gmail.com",
     "fullName": "",
     "id": "3167859736",
     "meta": null,
