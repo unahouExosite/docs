@@ -2140,7 +2140,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1162382494/data-sources' \
      -X GET \
      -u 'domainuseremail@gmail.com:adminuserP4ssword' \
      -i
