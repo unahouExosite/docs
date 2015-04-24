@@ -469,14 +469,14 @@ A permission object describes a level of access to a particular Portals resource
 * `"access"` is a string to define what the permission owner has. Possible values are:
 
  `"___admin"` (Default) means the owner has the highest permission to the resources.
- 
-    * Common Access 
 
-        * Data Sources 
+    * Common Access
+
+        * Data Sources
             * `"d__write"` means the owner can get the data source information, and read, write data to data source.
             * `"d___read"` means the owner can get the data source information, and read data from data source.
 
-        * Device 
+        * Device
             * `"d_update"` means the owner can get, update the decvice information and delete the device.
             * `"d___view"` means the owner can get device information.
 
@@ -493,10 +493,10 @@ A permission object describes a level of access to a particular Portals resource
             * `"g_member"` means the owner can modifying member list of the group and read the group information.
             * `"g_modera"` means the owner can modifying member list of the group.
 
-        * Portal 
+        * Portal
             * `"p_manage"` means the owner can get, update portal information and create device, data source to the portal.
             * `"p_m_crea"` means the owner can create device to the portal.
-            * `"p_contac"` means the owner can receive alerts from the portal.    
+            * `"p_contac"` means the owner can receive alerts from the portal.
 
 * `"oid"` is an object identifying the resource with the permission.
 
@@ -4282,7 +4282,7 @@ Request body is a [user object](#user-object).  Currently only the following key
 * `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
 * `"password"` - User password.(optional) If it has this attribute then email will not be sent.
 * `"Firstname"` - User first name.(optional)
-* `"Lastname"` - User last name.(optional) 
+* `"Lastname"` - User last name.(optional)
 
 If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
 
@@ -4549,7 +4549,7 @@ Get information about all users.
 ##### options
 
 * `"Offset"` - Use with limit to pagenation the user lists.
-* `"limit"` - see Offset. 
+* `"limit"` - see Offset.
 * `"NoPermissions"` - The [user object](#user-object) will not include permission items.
 
 ##### Request
@@ -4685,7 +4685,7 @@ Portal objects contain the following keys:
     * `"___admin"` - user is the portal’s direct owner
     * `"p_manage"` - user has manager access to the portal. This permission grants the same rights as owner.
     * `"p_m_crea"` - user has create device access to the portal.
-    * `"p_contac"` - user has receive alerts access from the portal.    
+    * `"p_contac"` - user has receive alerts access from the portal.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4997,7 +4997,7 @@ Portal objects contain the following keys:
     * `"___admin"` - user is the portal’s direct owner
     * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
     * `"p_m_crea"` - user has create device access to this portal.
-    * `"p_contac"` - user has receive alerts access from this portal.    
+    * `"p_contac"` - user has receive alerts access from this portal.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -5088,7 +5088,7 @@ Content-Type: application/json; charset=UTF-8
 
 `POST /api/portals/v1/users/{user-id}/permissions`
 
-Add one or many [permission objects](#permission-object) to user. 
+Add one or many [permission objects](#permission-object) to user.
 
 ##### Request
 
@@ -5124,7 +5124,7 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/users/{user-id}/permissions`
 
-Delete one or many [permission objects](#permission-object) on user. 
+Delete one or many [permission objects](#permission-object) on user.
 
 ##### Request
 
@@ -5183,7 +5183,7 @@ Portal objects contain the following keys:
         * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
         * `"p_m_crea"` - user has create device access to this portal.
         * `"p_contac"` - user has receive alerts access from this portal.
-        
+
     * `"oid"` - The information of the user. The object contain the following keys:
         * `"id"` - Id of the user who are being shared with this portal.
         * `"type"` - The general value is **User**.
@@ -5240,7 +5240,7 @@ Content-Type: application/json; charset=UTF-8
     "UserEmail": "demo2@gmail.com",
     "Description": "test0731",
     "Shares": [
-      
+
     ]
   }
 ]
