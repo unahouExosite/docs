@@ -13,7 +13,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Get all user accounts](#get-all-user-accounts)
 * [Get user account by email](#get-user-account-by-email)
-* [Get user account by user id](#get-user-account-by-user-id)
+* [Get user account by user ID](#get-user-account-by-user-id)
 
 #### Client Models
 
@@ -114,7 +114,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
-* [Get user permission](#get-user-permission)
+* [Get user permissions](#get-user-permissions)
 * [Get user portal](#get-user-portal)
 * [Get user portal shares](#get-user-portal-shares)
 * [Get user readtoken](#get-user-readtoken)
@@ -290,7 +290,7 @@ An object containing information about a Portals user.
 * `"email"` is the user's email address. It is a string of fewer than 256 characters.
 * `"fullName"` is the user's full name. It is a string of fewer than 256 characters.
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it is serialized to a JSON string.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
 
@@ -439,7 +439,7 @@ A group object describes a Portals permissions group.
 
 * `"id"` is a number identifying the group.
 * `"members"` is an array of [permission objects](#permission-object) listing the members of the group.
-* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the group. It MUST be less than 2 megabytes long when it is serialized to a JSON string.
 * `"name"` is the group name. It is a string of fewer than 256 characters. It MUST be unique among the same user in a domain.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources members of the group may access.
 * `"userId"` is a number identifying the owner of the group.
@@ -703,7 +703,7 @@ An object containing information about a Portals user.
     * `<group-id-N>` is a number identifying the group.
 
 * `"id"` is a numeric identifier for the user.
-* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less then 2 megabytes long when it's serialized to a JSON string.
+* `"meta"` may be any type. It contains application-specific information describing the user. It MUST be less than 2 megabytes long when it is serialized to a JSON string.
 * `"permissions"` is an array of [permission objects](#permission-object) describing Portals resources the user may access.
 * `"phoneNumber"` is the user's phone number. It is a string of fewer than 256 characters.
 * `"userName"` is a string identifier for the user. It is a string of fewer than 256 characters.
@@ -794,8 +794,8 @@ Request body is empty
 
 ##### Response
 
-On success, responds with HTTP status 200 if user exists in some domain and the body containing user object.
-user objects contain the following keys:
+On success, responds with HTTP status 200 if user exists in some domain and the body contains a user object.
+User objects contain the following keys:
 
 * `"email"` - User email
 * `"fullName"` - User full name
@@ -831,11 +831,11 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-#### Get user account by user id
+#### Get user account by user ID
 
 `GET /api/portals/v1/accounts/{user-id}`
 
-Get user account by user id.
+Get user account by user ID.
 
 ##### Request
 
@@ -1852,7 +1852,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-###### If request ID is over the response limit and NoPermissions
+###### If request ID is over the response limit and NoPermissions is set
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1&NoPermissions' \
@@ -2468,7 +2468,7 @@ Request body is a [device object](#device-object). Currently only the following 
 * `"sn"` - Serial number (required)
 * `"vendor"` - Vendor name (required)
 * `"model"` - Model name (required)
-* `"type"` - Device type, must be 'vendor' for this moment (required)
+* `"type"` - Device type, must be 'vendor' (required)
 
 If you send any keys besides these, it will do nothing.
 
@@ -4778,73 +4778,22 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-#### Get user permission
+#### Get user permissions
 
-`GET /api/portals/v1/users/{user-id}/permissions
+`GET /api/portals/v1/users/{user-id}/permissions`
 
-Get user have all the permissions.
-
-##### Request
-Request body is empty.
-
-##### Options
-
-* `"type"` - it's the type of permission you would like to retrieve and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must an array.
-
-##### Response
-
-On success, response has HTTP status 200 and a body containing an array of permission object.
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 200 OK
-Date: Mon, 17 Nov 2014 08:45:53 GMT
-Status: 200 OK
-Vary: Accept-Encoding
-Content-Type: application/json; charset=UTF-8
-
-[
-  {
-    "access": "___admin",
-    "oid": {
-      "type": "Domain",
-      "id": "1231234567"
-    }
-  },
-  {
-    "access": "___admin",
-    "oid": {
-      "type": "Portal",
-      "id": "2490770768"
-    }
-  }
-]
-```
-
-#### Get user permission
-
-`GET /api/portals/v1/users/{user-id}/permissions
-
-Get user have all the permissions.
+Get the user's permissions.
 
 ##### Request
 Request body is empty.
 
 ##### Options
 
-* `"type"` - if you just want get what kind of permissions and we support `Domain`,`Portal`,`Device`,`DataSource`,`Group`and this option must a array.
+* `"type"` is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of permission object.
+On success, response has HTTP status 200 and a body containing an array of permission objects.
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
