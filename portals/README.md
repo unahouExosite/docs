@@ -2758,10 +2758,13 @@ Create a device inside a portal
 
 Request body is a [device object](#device-object). Currently only the following keys are supported:
 
-* `"sn"` - Serial number (required)
-* `"vendor"` - Vendor name (required)
-* `"model"` - Model name (required)
-* `"type"` - Device type, must be 'vendor' (required)
+* `"type"` - Device type, could be either `generic` or `vendor` (required)
+
+If `"type"` is `vendor`, the following keys are required:
+
+* `"model"` - Model name (optional)
+* `"sn"` - Serial number (optional)
+* `"vendor"` - Vendor name (optional)
 
 If you send any keys besides these, it will do nothing.
 
@@ -2772,6 +2775,78 @@ On success, response has HTTP status 201 and the created device object.
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
+
+Generic type
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/devices' \
+     -X POST \
+     -d '{"type":"generic"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Tue, 28 Apr 2015 11:11:56 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 877
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "446a943cdf4d7b2e113c8673d1d27323764427f4",
+    "members": [{
+        "access": "___admin",
+        "oid": {
+            "type": "User",
+            "id": "1075526687"
+        }
+    }],
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1430219273,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 0,
+                "dataport": "inherit",
+                "datarule": "inherit",
+                "disk": "inherit",
+                "dispatch": "inherit",
+                "email": "inherit",
+                "email_bucket": "inherit",
+                "http": "inherit",
+                "http_bucket": "inherit",
+                "share": "inherit",
+                "sms": "inherit",
+                "sms_bucket": "inherit",
+                "xmpp": "inherit",
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "{\"timezone\":\"Asia\\\/Taipei\",\"location\":\"\",\"device\":{\"type\":\"generic\"}}",
+            "name": "New Device@2015-04-28T11:11:56+00:00 1430219516.9894",
+            "public": false
+        },
+        "key": "519cc84b04b0144b479c7644d0defd45127983dd",
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    },
+    "dataSources": [],
+    "model": null,
+    "sn": null,
+    "type": "generic",
+    "vendor": null
+}
+```
+
+Vendor type
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/devices' \
