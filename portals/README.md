@@ -230,7 +230,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
 * [POST] [/api/portals/v1/users/reset-password](#reset-password)
-* [PUT] [/api/portals/v1/users/reset-password] (#update-password-by-reset-password-key)
+* [PUT] [/api/portals/v1/users/reset-password](#update-password-by-reset-password-key)
 
 ### REST
 
