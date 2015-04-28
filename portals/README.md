@@ -2133,7 +2133,7 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is array of [data source object](#data-source-object).
+On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -2201,7 +2201,7 @@ Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is array of [data source object](#data-source-object).
+On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
