@@ -4165,6 +4165,10 @@ If you send any keys besides these, it will do nothing.
 
 When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
 
+##### options
+
+* `"silence"` - On success, response has HTTP status 202 and the [user object](#user-object) will not be returned in the response body.
+
 ##### Response
 
 On success, response has HTTP status 200 and the updated user object.
@@ -4200,6 +4204,25 @@ Content-Type: application/json; charset=UTF-8
     "groups": [],
     "permissions": []
 }
+```
+
+##### Example with options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736?silence' \
+     -X PUT \
+     -d '{"email":"updatedemail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 #### Reset password
