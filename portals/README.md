@@ -95,6 +95,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Delete portal by rid](#delete-portal-by-rid)
 * [Get portal](#get-portal)
 * [List portal by domain](#list-portal-by-domain)
+* [List portal device](#list-portal-device)
 * [Update portal](#update-portal)
 
 #### Serial Numbers (sn)
@@ -198,6 +199,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /portals
 
 * [GET] [/api/portals/v1/portals](#list-portal-by-domain)
+* [GET] [/api/portals/v1/portals/{portal-id}/devices](#list-portal-device)
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
 * [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
@@ -4082,6 +4084,96 @@ Content-Type: application/json; charset=UTF-8
 
 [{
     "id": "2590421429"
+}]
+```
+
+#### List portal device
+
+`GET /api/portals/v1/portals/{portal-id}/devices`
+
+List portal device.
+
+##### Query string
+
+* `"limit"` - Number of items to limit (optional)
+* `"offset"` - Number of items to skip, only avaiable when `"limit"` is valid (optional)
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [device object](#device-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/devices' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 28 Apr 2015 11:16:14 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "rid": "446a943cdf4d7b2e113c8673d1d27323764427f4",
+    "members": [{
+        "access": "___admin",
+        "oid": {
+            "type": "User",
+            "id": "1075526687"
+        }
+    }],
+    "info": {
+        "aliases": [],
+        "basic": {
+            "modified": 1430219273,
+            "subscribers": 0,
+            "type": "client",
+            "status": "activated"
+        },
+        "description": {
+            "limits": {
+                "client": 0,
+                "dataport": "inherit",
+                "datarule": "inherit",
+                "disk": "inherit",
+                "dispatch": "inherit",
+                "email": "inherit",
+                "email_bucket": "inherit",
+                "http": "inherit",
+                "http_bucket": "inherit",
+                "share": "inherit",
+                "sms": "inherit",
+                "sms_bucket": "inherit",
+                "xmpp": "inherit",
+                "xmpp_bucket": "inherit"
+            },
+            "locked": false,
+            "meta": "{\"timezone\":\"Asia\\\/Taipei\",\"location\":\"\",\"device\":{\"type\":\"generic\"}}",
+            "name": "New Device@2015-04-28T11:11:56+00:00 1430219516.9894",
+            "public": false
+        },
+        "key": "519cc84b04b0144b479c7644d0defd45127983dd",
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    },
+    "dataSources": [],
+    "model": null,
+    "sn": null,
+    "type": "generic",
+    "vendor": null
 }]
 ```
 
