@@ -693,11 +693,13 @@ Creates a dataport.
 
 * `"format"` is the format in which the dataport will store its data.
 * `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
-* `"preprocess"` is a list of `[<operation>, <value>]` pairs describing operations to be performed on incoming data.
+* `"preprocess"` is a list of `[<operation>, <value> | <ResourceID>]` pairs describing operations to be performed on incoming data.
 
     `<operation>` may be `"add"`, `"sub"`, `"mul"`, `"div"`, `"mod"`, `"gt"`, `"geq"`, `"lt"`, `"leq"`, `"eq"`, `"neq"`, or `"value"`
 
     `<value>` is the value to use in the operation.
+
+    `<ResourceID>` is a an resource identifier of any resource in this client, will use the value of that resource in this operation.
 
 * `"retention"`
 
