@@ -94,6 +94,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Delete portal by id](#delete-portal-by-id)
 * [Delete portal by rid](#delete-portal-by-rid)
 * [Get portal](#get-portal)
+* [List portal by domain](#list-portal-by-domain)
 * [Update portal](#update-portal)
 
 #### Serial Numbers (sn)
@@ -102,6 +103,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Themes
 
+* [Create theme](#create-theme)
 * [Delete theme](#delete-theme)
 * [Get theme](#get-theme)
 * [List themes](#list-themes)
@@ -195,6 +197,7 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /portals
 
+* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
 * [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
@@ -210,6 +213,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /themes
 
 * [GET] [/api/portals/v1/themes/](#list-themes)
+* [POST] [/api/portals/v1/themes/](#create-themes)
 * [GET] [/api/portals/v1/themes/{themeid}](#get-theme)
 * [PUT] [/api/portals/v1/themes/{themeid}](#update-theme)
 * [DELETE][/api/portals/v1/themes/{themeid}](#delete-theme)
@@ -3968,6 +3972,44 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
+#### List portal by domain
+
+`GET /api/portals/v1/portals`
+
+List portal by domain.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of portal id.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 20 Apr 2015 08:29:21 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "id": "2590421429"
+}]
+```
+
 #### Delete portal by id
 
 `DELETE /api/portals/v1/portals/{portal-id}`
@@ -4359,6 +4401,47 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+#### Create theme
+
+`POST /api/portals/v1/themes`
+
+Create default theme the exosite system theme will be applied to the domain.
+
+##### Request
+
+Body contains a [theme object](#theme-object). Currently only the following keys may be updated:
+
+* `"name"` - theme name (requsted)
+* `"description"` - theme permissions (requsted)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is a [theme object](#theme-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
+     -X POST \
+     -d '{"name":"test1113","description":"desc-test1113"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 27 Apr 2015 08:15:57 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+{"id":"3156844504","name":"test1113","description":"desc-test1113",":default":false,"config":{"dashboard_background":{"background_color":"f9f9f9","background_image":"","background_attachment":"scroll","background_repeat":"repeat-y","background_position":"left top"},"header_logo":"https:\/\/portals.review.portalsapp\/static\/png\/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2","header_bkimage":"https:\/\/portals.review.portalsapp\/static\/png\/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc","header_title_color":"D5E04D","header_subtitle_color":"FFFFFF","header_titles_position_top":"1.375em","header_linktext_color":"E5E5E5","header_linktextover_color":"D5E04D","header_dropdown_text_color":"FFFFFF","header_linktext_position_top":"1.5em","header_portalmenu_current_color":"0000FF","footer_text":"ANY DEVICE. ANY DATA. ANY WHERE.","footer_text_color":"D5E04D","footer_bar_color":"D5E04D","footer_linktext_color":"5C5D60","footer_linktextover_color":"000000","block_title_text_color":"000000","block_title_linkover_color":"010101","block_title_back_color":"D5E04D","block_invert_icons":"0","managepage_highlight_text_color":"0000FF","dashboard_thumbnail":"","thankyoupage_title_text_color":"D5E04D","browser_tab_text":"Exosite Portals","browser_tab_icon":"https:\/\/portals.review.portalsapp\/static\/png\/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd","admin_menu_style":{"admin_menu_title":"Domain Admin","manage_menu_title":"Manage","secondary_menu_title":"Portal Menu","account_menu_title":"Account","menu_title_color":"e5e5e5","background_color":"5c5d60","background_hover_color":"a6a6a6","text_color":"fff","sub_background_color":"fff","sub_background_hover_color":"a6a6a6","sub_text_color":"5c5d60","text_active_color":"d5e04d"},"jsCode":""},"code":""}
+```
+
 #### Delete theme
 
 `DELETE /api/portals/v1/themes/{themeid}`
@@ -4664,6 +4747,10 @@ If you send any keys besides these, it will do nothing.
 
 When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
 
+##### options
+
+* `"silence"` - On success, response has HTTP status 202 and the [user object](#user-object) will not be returned in the response body.
+
 ##### Response
 
 On success, response has HTTP status 200 and the updated user object.
@@ -4699,6 +4786,25 @@ Content-Type: application/json; charset=UTF-8
     "groups": [],
     "permissions": []
 }
+```
+
+##### Example with options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736?silence' \
+     -X PUT \
+     -d '{"email":"updatedemail@gmail.com"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Mon, 17 Nov 2014 08:33:44 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
 ```
 
 #### Reset password
