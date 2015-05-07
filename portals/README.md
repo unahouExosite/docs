@@ -213,7 +213,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /themes
 
 * [GET] [/api/portals/v1/themes/](#list-themes)
-* [POST] [/api/portals/v1/themes/](#create-themes)
+* [POST] [/api/portals/v1/themes/](#create-theme)
 * [GET] [/api/portals/v1/themes/{themeid}](#get-theme)
 * [PUT] [/api/portals/v1/themes/{themeid}](#update-theme)
 * [DELETE][/api/portals/v1/themes/{themeid}](#delete-theme)
