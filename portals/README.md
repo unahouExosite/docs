@@ -32,6 +32,10 @@ Portals provides a user authentication and management system on top of the One P
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
+* [Create device data source](#create-device-data-source)
+* [List portal data source](#list-portal-data-source)
+* [List device data source](#list-device-data-source)
+* [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
 * [Update data sources](#update-data-sources)
@@ -58,6 +62,14 @@ Portals provides a user authentication and management system on top of the One P
 #### Domain
 
 * [List domains of authenticated user](#list-domains-of-authenticated-user)
+
+#### Domain Widgets
+
+* [Create domain widget](#create-domain-widget)
+* [Delete domain widget](#delete-domain-widget)
+* [Get domain widget](#get-domain-widget)
+* [List domain widget](#list-domain-widget)
+* [Update domain widget](#update-domain-widget)
 
 #### File Systems
 
@@ -147,6 +159,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
+* [DELETE] [/api/portals/v1/data-sources/{data-source-rid}](#delete-data-source)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
 #### /device
@@ -156,6 +169,8 @@ Portals provides a user authentication and management system on top of the One P
 #### /devices
 
 * [GET] [/api/portals/v1/devices/{device-rid}](#get-device)
+* [GET] [/api/portals/v1/devices/{device-rid}/data-sources](#list-device-data-source)
+* [POST] [/api/portals/v1/devices/{device-rid}/data-sources](#create-device-data-source)
 * [PUT] [/api/portals/v1/devices/{device-rid}](#update-device)
 * [DELETE] [/api/portals/v1/devices/{device-rid}](#delete-device)
 
@@ -181,6 +196,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /portals
 
 * [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
+* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
 * [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
@@ -231,6 +247,14 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
 * [POST] [/api/portals/v1/users/reset-password](#reset-password)
 * [PUT] [/api/portals/v1/users/reset-password](#update-password-by-reset-password-key)
+
+#### /widget-scripts
+
+* [DELETE] [/api/portals/v1/widget-scripts/{widget-script-id}](#delete-domain-widget)
+* [GET] [/api/portals/v1/widget-scripts/{widget-script-id}](#get-domain-widget)
+* [GET] [/api/portals/v1/widget-scripts](#list-domain-widget)
+* [POST] [/api/portals/v1/widget-scripts](#create-domain-widget)
+* [PUT] [/api/portals/v1/widget-scripts/{widget-script-id}](#update-domain-widget)
 
 ### REST
 
@@ -416,6 +440,24 @@ A device object describes a device in Portals.
 
 * `"vendor-id"` is a string identifying the vendor
 
+### Domain widget object
+
+A sample domain widget object.
+
+```
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "0000000000",
+    "name": "noop"
+}
+```
+
+* `"code"` is JavaScript code of domain widget. It MUST be less than 1 megabyte after serializing to JSON.
+* `"description"` is description of domain widget. It MUST be less than 256 characters.
+* `"id"` is identifier of domain widget.
+* `"name"` is name of domain widget. It MUST be less than or euqal to 50 characters.
+
 ### Group object
 
 A group object describes a Portals permissions group.
@@ -461,14 +503,14 @@ A permission object describes a level of access to a particular Portals resource
 * `"access"` is a string to define what the permission owner has. Possible values are:
 
  `"___admin"` (Default) means the owner has the highest permission to the resources.
- 
-    * Common Access 
 
-        * Data Sources 
+    * Common Access
+
+        * Data Sources
             * `"d__write"` means the owner can get the data source information, and read, write data to data source.
             * `"d___read"` means the owner can get the data source information, and read data from data source.
 
-        * Device 
+        * Device
             * `"d_update"` means the owner can get, update the decvice information and delete the device.
             * `"d___view"` means the owner can get device information.
 
@@ -485,10 +527,10 @@ A permission object describes a level of access to a particular Portals resource
             * `"g_member"` means the owner can modifying member list of the group and read the group information.
             * `"g_modera"` means the owner can modifying member list of the group.
 
-        * Portal 
+        * Portal
             * `"p_manage"` means the owner can get, update portal information and create device, data source to the portal.
             * `"p_m_crea"` means the owner can create device to the portal.
-            * `"p_contac"` means the owner can receive alerts from the portal.    
+            * `"p_contac"` means the owner can receive alerts from the portal.
 
 * `"oid"` is an object identifying the resource with the permission.
 
@@ -2036,6 +2078,253 @@ Content-Type: application/json; charset=UTF-8
 
 ```
 
+#### Create device data source
+
+`POST /api/portals/v1/devices/{device-rid}/data-sources`
+
+Create a data source under a device.
+
+##### Request
+
+Request body is a object. Currently only the following keys are supported:
+
+* `"info"` - Data source info. (optional)
+    * `"description"` - Data source description. (optional)
+        * `"format"` - Data source format. (optional)
+        * `"name"` - Data source name. (optional)
+* `"unit"` - Data source unit. (optional)
+
+If you send any keys besides these, it will do nothing.
+
+##### Response
+
+On success, response has HTTP status 201 and the body is [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+     -X POST \
+     -d '{"info":{"description":{"format":"float","name":"Length"}},"unit":"m"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 13 Apr 2015 07:30:18 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 451
+Content-Type: application/json; charset=UTF-8
+
+{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428910043,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "float",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"m\"}}",
+            "name": "Length",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
+    "unit": "m"
+}
+```
+
+#### List portal data source
+
+`GET /api/portals/v1/portals/{portal-id}/data-sources`
+
+List portal data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1162382494/data-sources' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 08:31:10 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 939
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428493470,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "string",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"\"}}",
+            "name": "2015-04-08T11:44:30.355Z",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "8db88286d89876576fab83dd9d7cbaa25973b309",
+    "unit": ""
+}]
+```
+
+#### List device data source
+
+`GET /api/portals/v1/devices/{device-rid}/data-sources`
+
+List device data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 13 Apr 2015 08:15:00 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 3277
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1428910043,
+            "subscribers": 0,
+            "type": "dataport"
+        },
+        "description": {
+            "format": "float",
+            "meta": "{\"datasource\":{\"description\":\"\",\"unit\":\"m\"}}",
+            "name": "Length",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": "infinity",
+                "duration": "infinity"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "storage": {
+            "count": 0,
+            "first": 0,
+            "last": 0,
+            "size": 0
+        },
+        "subscribers": [],
+        "tags": []
+    },
+    "rid": "913e39363a2ce91edae09c246f8d8be079e5b7cc",
+    "unit": "m"
+}]
+```
+
+#### Delete data source
+
+`DELETE /api/portals/v1/data-sources/{data-sources-rid}`
+
+Delete a data source.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status of 204 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/24fd0b1ed31fb6d403484ca939e37d19c9b71308' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Mon, 13 Apr 2015 06:55:07 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
 #### Get data source
 
 `GET /api/portals/v1/data-sources/{data-source-rid}`
@@ -2808,6 +3097,216 @@ Content-Type: application/json; charset=UTF-8
         "token":"01233fb43edeb3557b5ef46b987385abcdef0123"
     }
 ]
+```
+
+### Domain Widgets
+
+#### Create domain widget
+
+`POST /api/portals/v1/widget-scripts`
+
+Create a domain widget.
+
+##### Request
+
+Request body is a [domain widget object](#domain-widget-object).
+
+* `"code"` - Domain widget code (optional).
+* `"description"` - Domain widget description (optional).
+* `"name"` - Domain widget name (required).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
+     -X POST \
+     -d '{"code":"function(){}","description":"no operation","name":"noop"}' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Thu, 02 Apr 2015 18:14:40 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 84
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "3396985491",
+    "name": "noop"
+}
+```
+
+#### Delete domain widget
+
+`DELETE /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Delete a domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 204 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -X DELETE \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Thu, 02 Apr 2015 18:59:11 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Get domain widget
+
+`GET /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Get a domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:18:28 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 84
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "function(){}",
+    "description": "no operation",
+    "id": "3396985491",
+    "name": "noop"
+}
+```
+
+#### List domain widget
+
+`GET /api/portals/v1/widget-scripts`
+
+List domain widget.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:24:58 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 86
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "code": "function(){}",
+        "description": "no operation",
+        "id": "3396985491",
+        "name": "noop"
+    }
+]
+```
+
+#### Update domain widget
+
+`PUT /api/portals/v1/widget-scripts/{widget-script-id}`
+
+Update a domain widget.
+
+##### Request
+
+Request body is a [domain widget object](#domain-widget-object).
+
+* `"code"` - Domain widget code (optional).
+* `"description"` - Domain widget description (optional).
+* `"name"` - Domain widget name (optional).
+
+##### Response
+
+On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
+     -X PUT \
+     -d '{"code":""},"description":"empty","name":"empty"}' \
+     -u 'username:password' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 02 Apr 2015 18:58:01 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 66
+Content-Type: application/json; charset=UTF-8
+
+{
+    "code": "",
+    "description": "empty",
+    "id": "3396985491",
+    "name": "empty"
+}
 ```
 
 ### File Systems
@@ -4027,7 +4526,7 @@ Request body is a [user object](#user-object).  Currently only the following key
 * `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
 * `"password"` - User password.(optional) If it has this attribute then email will not be sent.
 * `"Firstname"` - User first name.(optional)
-* `"Lastname"` - User last name.(optional) 
+* `"Lastname"` - User last name.(optional)
 
 If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
 
@@ -4294,7 +4793,7 @@ Get information about all users.
 ##### options
 
 * `"Offset"` - Use with limit to pagenation the user lists.
-* `"limit"` - see Offset. 
+* `"limit"` - see Offset.
 * `"NoPermissions"` - The [user object](#user-object) will not include permission items.
 
 ##### Request
@@ -4430,7 +4929,7 @@ Portal objects contain the following keys:
     * `"___admin"` - user is the portal’s direct owner
     * `"p_manage"` - user has manager access to the portal. This permission grants the same rights as owner.
     * `"p_m_crea"` - user has create device access to the portal.
-    * `"p_contac"` - user has receive alerts access from the portal.    
+    * `"p_contac"` - user has receive alerts access from the portal.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4742,7 +5241,7 @@ Portal objects contain the following keys:
     * `"___admin"` - user is the portal’s direct owner
     * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
     * `"p_m_crea"` - user has create device access to this portal.
-    * `"p_contac"` - user has receive alerts access from this portal.    
+    * `"p_contac"` - user has receive alerts access from this portal.
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4833,7 +5332,7 @@ Content-Type: application/json; charset=UTF-8
 
 `POST /api/portals/v1/users/{user-id}/permissions`
 
-Add one or many [permission objects](#permission-object) to user. 
+Add one or many [permission objects](#permission-object) to user.
 
 ##### Request
 
@@ -4869,7 +5368,7 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/users/{user-id}/permissions`
 
-Delete one or many [permission objects](#permission-object) on user. 
+Delete one or many [permission objects](#permission-object) on user.
 
 ##### Request
 
@@ -4928,7 +5427,7 @@ Portal objects contain the following keys:
         * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
         * `"p_m_crea"` - user has create device access to this portal.
         * `"p_contac"` - user has receive alerts access from this portal.
-        
+
     * `"oid"` - The information of the user. The object contain the following keys:
         * `"id"` - Id of the user who are being shared with this portal.
         * `"type"` - The general value is **User**.
@@ -4985,7 +5484,7 @@ Content-Type: application/json; charset=UTF-8
     "UserEmail": "demo2@gmail.com",
     "Description": "test0731",
     "Shares": [
-      
+
     ]
   }
 ]
