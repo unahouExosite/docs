@@ -246,7 +246,7 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/{user-id}/readtoken](#get-user-readtoken)
 * [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-openid-user) (For App)
 * [GET] [/api/portals/v1/users/_this/data-sources/[{data-source-rid},{data-source-rid},...]](#collections-bulk-request)
-* [GET] [/api/portals/v1/users/_this/devices/[{device-rid},device-rid},...]](#collections-bulk-request)
+* [GET] [/api/portals/v1/users/_this/devices/[{device-rid},{device-rid},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/groups/[{group-id},{group-id},...]](#collections-bulk-request)
 * [GET] [/api/portals/v1/users/_this/users/[{user-id},{user-id},...]](#collections-bulk-request)
 * [POST] [/api/portals/v1/users/reset-password](#reset-password)
@@ -1331,7 +1331,7 @@ Content-Type: application/json; charset=UTF-8
 
 #### Get multiple devices
 
-`GET /users/_this/devices/[{device-rid},device-rid},...]`
+`GET /users/_this/devices/[{device-rid},{device-rid},...]`
 
 Get information for devices.
 
