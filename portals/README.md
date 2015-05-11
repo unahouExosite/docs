@@ -99,6 +99,20 @@ Portals provides a user authentication and management system on top of the One P
 * [List portal device](#list-portal-device)
 * [Update portal](#update-portal)
 
+#### Scripts
+
+* [Create device script](#create-device-script)
+* [Create portal script](#create-portal-script)
+* [Delete script](#delete-script)
+* [Get script](#get-script)
+* [List device script](#list-device-script)
+* [List portal script](#list-portal-script)
+* [Update script](#update-script)
+
+#### Scripts Data
+
+* [Get script data](#get-script-data)
+
 #### Themes
 
 * [Create theme](#create-theme)
@@ -206,6 +220,17 @@ Portals provides a user authentication and management system on top of the One P
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
 * [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
 * [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
+
+#### /scripts
+
+* [DELETE] [/api/portals/v1/scripts/{script-rid}](#delete-script)
+* [GET] [/api/portals/v1/devices/{device-rid}/scripts](#list-device-script)
+* [GET] [/api/portals/v1/portals/{portal-id}/scripts](#list-portal-script)
+* [GET] [/api/portals/v1/scripts/{script-rid}/data](#get-script-data)
+* [GET] [/api/portals/v1/scripts/{script-rid}](#get-script)
+* [POST] [/api/portals/v1/devices/{device-rid}/scripts](#create-device-script)
+* [POST] [/api/portals/v1/portals/{portal-id}/scripts](#create-portal-script)
+* [PUT] [/api/portals/v1/scripts/{script-rid}](#update-script)
 
 #### /themes
 
@@ -650,6 +675,22 @@ An object containing information about a portal.
     * `<key>` is a 40 character hex string representing the client's CIK in the One Platform or null if the authorized user doesn't have \_\_\_admin permission to this portal.
 
 * `"planId"` is a numeric identifier for the plan of the portal.
+
+### Script object
+
+A sample script object.
+
+```
+{
+    "rid": <rid>,
+    "data": <data>,
+    "info": <info>
+}
+```
+
+* `<rid>` is a 40 digit resource identifier.
+* `<data>` is a list of timestamp, value pairs.
+* `<info>` is information about an existing resource.
 
 ### Theme object
 
@@ -2575,6 +2616,7 @@ Content-Type: application/json; charset=UTF-8
 Append data
 
 ##### Request
+
 Request body is a [value](#data-source-object).
 
 ##### Response
@@ -2605,6 +2647,7 @@ Content-Type: application/json; charset=UTF-8
 Insert data
 
 ##### Request
+
 Request body is [data](https://github.com/exosite/docs/tree/master/rpc#recordbatch).
 
 ##### Response
@@ -4339,6 +4382,522 @@ Content-Length: 52
 Content-Type: application/json; charset=UTF-8
 
 ["myportal has been successfully deleted."]
+```
+
+### Scripts
+
+#### Create device script
+
+`POST /api/portals/v1/devices/{device-rid}/scripts`
+
+Create a device script.
+
+##### Request
+
+```
+{
+    "info": {
+        "description": {
+            "name": string = "",
+            "rule": {
+                "script": string = ""
+            }
+        }
+    }
+}
+```
+
+See [create datarule API](https://github.com/exosite/docs/blob/master/rpc/README.md#create-datarule).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is a [script object](#script-object).
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/scripts' \
+     -X POST \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 11 May 2015 08:31:37 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 403
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "8e628a6c2018fdff9a9a6feae198adad6f7fe126",
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1431332795,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "running",
+            "activity": [
+                [1431332794, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": ""
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}
+```
+
+#### Create portal script
+
+`POST /api/portals/v1/portals/{portal-id}/scripts`
+
+Create a portal script.
+
+##### Request
+
+See [Create device script](#create-device-script).
+
+##### Response
+
+See [Create device script](#create-device-script).
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/scripts' \
+     -X POST \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Mon, 11 May 2015 08:41:56 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 403
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "c2a2bdfa83b0a8c6eeca438ce895fa4913b48f87",
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1431333414,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "running",
+            "activity": [
+                [1431333413, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": ""
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}
+```
+
+#### Delete script
+
+`DELETE /api/portals/v1/scripts/{script-rid}`
+
+Delete a script.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 204 and the body is empty.
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/scripts/c2a2bdfa83b0a8c6eeca438ce895fa4913b48f87' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Mon, 11 May 2015 08:57:09 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Get script data
+
+`GET /api/portals/v1/scripts/{script-rid}/data`
+
+See [Get data source data](#get-data-source-data).
+
+##### Request
+
+See [Get data source data](#get-data-source-data).
+
+##### Response
+
+See [Get data source data](#get-data-source-data).
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897/data' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 11 May 2015 09:15:20 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 49
+Content-Type: application/json; charset=UTF-8
+
+[
+    [1431316854, "line 4: 8\nline 4: 9\nline 4: 10"]
+]
+```
+
+#### Get script
+
+`GET /api/portals/v1/scripts/{script-rid}`
+
+Get a script.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is a [script object](#script-object).
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 11 May 2015 09:17:31 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 547
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "28571049e6bf6de245012957171da9e83926d897",
+    "data": [
+        [1431316854, "line 4: 8\nline 4: 9\nline 4: 10"]
+    ],
+    "info": {
+        "basic": {
+            "modified": 1431316848,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "completed",
+            "activity": [
+                [1431316855, ["completed"]],
+                [1431316853, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": "local n = 0\nwhile n < 10 do\n\tn = n + 1\n\tdebug(tostring(n))\nend"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}
+```
+
+#### List device script
+
+`GET /api/portals/v1/devices/{device-rid}/scripts`
+
+List device script.
+
+##### Query string
+
+* `"limit"` - Number of items to limit (optional)
+* `"offset"` - Number of items to skip, only available when `"limit"` is valid (optional)
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [script object](#script-object).
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/scripts' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 11 May 2015 10:23:35 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 434
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "rid": "8e628a6c2018fdff9a9a6feae198adad6f7fe126",
+    "data": [],
+    "info": {
+        "basic": {
+            "modified": 1431332795,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "completed",
+            "activity": [
+                [1431332798, ["completed"]],
+                [1431332794, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": ""
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}]
+```
+
+#### List portal script
+
+`GET /api/portals/v1/portals/{portal-id}/scripts`
+
+List portal script.
+
+##### Query string
+
+See [List device script](#list-device-script).
+
+##### Request
+
+See [List device script](#list-device-script).
+
+##### Response
+
+See [List device script](#list-device-script).
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/scripts' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 11 May 2015 10:28:37 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 1912
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "rid": "28571049e6bf6de245012957171da9e83926d897",
+    "data": [
+        [1431316854, "line 4: 8\nline 4: 9\nline 4: 10"]
+    ],
+    "info": {
+        "basic": {
+            "modified": 1431316848,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "completed",
+            "activity": [
+                [1431316855, ["completed"]],
+                [1431316853, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": "local n = 0\nwhile n < 10 do\n\tn = n + 1\n\tdebug(tostring(n))\nend"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}]
+```
+
+#### Update script
+
+`PUT /api/portals/v1/scripts/{script-rid}`
+
+Update a script.
+
+##### Request
+
+```
+{
+    "info": {
+        "description": <description>
+    }
+}
+```
+
+* `<description>` - See [update API](https://github.com/exosite/docs/blob/master/rpc/README.md#update)
+
+##### Response
+
+On success, response has HTTP status 200 and the body is a [script object](#script-object).
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897' \
+     -X PUT \
+     -d '{"info":{"description":{"rule":{"script":"debug(\"Hello World!\")"}}}}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 11 May 2015 11:25:04 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 473
+Content-Type: application/json; charset=UTF-8
+
+{
+    "rid": "28571049e6bf6de245012957171da9e83926d897",
+    "data": [
+        [1431316854, "line 4: 8\nline 4: 9\nline 4: 10"]
+    ],
+    "info": {
+        "basic": {
+            "modified": 1431343202,
+            "subscribers": 0,
+            "type": "datarule",
+            "status": "running",
+            "activity": [
+                [1431343201, ["running"]]
+            ]
+        },
+        "description": {
+            "format": "string",
+            "meta": "",
+            "name": "",
+            "preprocess": [],
+            "public": false,
+            "retention": {
+                "count": 1000,
+                "duration": "infinity"
+            },
+            "rule": {
+                "script": "debug(\"Hello World!\")"
+            },
+            "subscribe": null
+        },
+        "shares": [],
+        "subscribers": [],
+        "tags": []
+    }
+}
 ```
 
 ### Themes
