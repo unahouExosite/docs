@@ -4096,7 +4096,7 @@ List portal device.
 ##### Query string
 
 * `"limit"` - Number of items to limit (optional)
-* `"offset"` - Number of items to skip, only avaiable when `"limit"` is valid (optional)
+* `"offset"` - Number of items to skip, only available when `"limit"` is valid (optional)
 
 ##### Request
 
