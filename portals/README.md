@@ -1662,7 +1662,7 @@ Request body is empty.
 
 ##### options
 
-* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+* `"NoPermissions"` - The [group object](#group-object) will not include permission items.
 
 ##### Response
 
@@ -1727,6 +1727,57 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+###### If all items are fetched and NoPermissions
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]?NoPermissions' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 03:35:46 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 343
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "id": "2581071857",
+        "userId": "1026285982",
+        "members": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "User",
+                    "id": "1026285982"
+                }
+            }
+        ],
+        "meta": null,
+        "name": "test group 10883"
+    },
+    {
+        "id": "2937453355",
+        "userId": "1026285982",
+        "members": [
+            {
+                "access": "___admin",
+                "oid": {
+                    "type": "User",
+                    "id": "1026285982"
+                }
+            }
+        ],
+        "meta": null,
+        "name": "test group 13553"
+    }
+]
+```
+
 ###### If request ID is over the response limit
 
 ```
@@ -1774,6 +1825,10 @@ Get information about users.
 ##### Request
 
 Request body is empty.
+
+##### options
+
+* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
 
 ##### Response
 
