@@ -19,6 +19,7 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Delete client model](#delete-client-model)
 * [Get client model](#get-client-model)
+* [Get serial number](#get-serial-number)
 * [List client models](#list-client-models)
 * [Update client model](#update-client-model)
 
@@ -98,10 +99,6 @@ Portals provides a user authentication and management system on top of the One P
 * [List portal device](#list-portal-device)
 * [Update portal](#update-portal)
 
-#### Serial Numbers (sn)
-
-* [Get serial number](#get-serial-number)
-
 #### Themes
 
 * [Create theme](#create-theme)
@@ -154,6 +151,8 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/client-models/{vendor}/{name}](#list-client-models)
 * [PUT] [/api/portals/v1/client-models/{vendor}/{name}](#update-client-model)
 * [DELETE] [/api/portals/v1/client-models/{vendor}/{name}](#delete-client-model)
+* [GET] [/api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}](#get-serial-number)
+
 
 #### /data-sources
 
@@ -207,10 +206,6 @@ Portals provides a user authentication and management system on top of the One P
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
 * [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
 * [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
-
-#### /sn
-
-* [GET] [/api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}](#get-serial-number)
 
 #### /themes
 
@@ -1142,6 +1137,48 @@ Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
+```
+
+#### Get serial number
+
+`GET /api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}`
+
+Get information about a serial number.
+
+   * A device owner as a non-admin user can get serial number extra field by the domain's "Allow customer to use the API to get the Serial Number extra field." setting is turned On
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and return associated client id, status and extra info.
+
+On failure, response has HTTP status of 404 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel/sn/123' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserPassword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:10:30 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+
+{
+    "status": "expired",
+    "rid": "847699a4667a64a42eaca6ecd0f564374e64b9f7",
+    "extra": "test for extra info",
+}
 ```
 
 ### Collections (bulk request)
@@ -4302,48 +4339,6 @@ Content-Length: 52
 Content-Type: application/json; charset=UTF-8
 
 ["myportal has been successfully deleted."]
-```
-
-#### Get serial number
-
-`GET /api/portals/v1/client-models/{vendor}/{name}/sn/{serial-number}`
-
-Get information about a serial number.
-
-   * A device owner as a non-admin user can get serial number extra field by the domain's "Allow customer to use the API to get the Serial Number extra field." setting is turned On
-
-##### Request
-
-Request body is empty.
-
-##### Response
-
-On success, response has HTTP status 200 and return associated client id, status and extra info.
-
-On failure, response has HTTP status of 404 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel/sn/123' \
-     -X GET \
-     -u 'domainuseremail@gmail.com:adminuserPassword' \
-     -i
-```
-
-```
-HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 06:10:30 GMT
-Status: 200 OK
-Vary: Accept-Encoding
-Transfer-Encoding: chunked
-Content-Type: application/json; charset=UTF-8
-
-{
-    "status": "expired",
-    "rid": "847699a4667a64a42eaca6ecd0f564374e64b9f7",
-    "extra": "test for extra info",
-}
 ```
 
 ### Themes
