@@ -235,17 +235,17 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /portals
 
-* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
-* [GET] [/api/portals/v1/portals/{portal-id}/devices](#list-portal-device)
-* [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
-* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
-* [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
+* [GET] [/api/portals/v1/portals/{portal-id}/dashboards](#list-portal-dashboard)
+* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
+* [GET] [/api/portals/v1/portals/{portal-id}/devices](#list-portal-device)
+* [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
+* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
+* [POST] [/api/portals/v1/portals/{portal-id}/dashboards](#create-portal-dashboard)
 * [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
 * [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
-* [GET] [/api/portals/v1/portals/{portal-id}/dashboards](#list-portal-dashboard)
-* [POST] [/api/portals/v1/portals/{portal-id}/dashboards](#create-portal-dashboard)
+* [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 
 #### /scripts
 
