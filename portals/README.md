@@ -127,6 +127,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
 * [Get user permissions](#get-user-permissions)
+* [Get user profile picture](#get-user-profile-picture)
 * [Get user portal](#get-user-portal)
 * [Get user portal shares](#get-user-portal-shares)
 * [Get user readtoken](#get-user-readtoken)
@@ -134,6 +135,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user token](#get-user-token)
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
+* [Reset user profile picture](#reset-user-profile-picture)
+* [Set user profile picture](#set-user-profile-picture)
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
 
@@ -239,6 +242,9 @@ Portals provides a user authentication and management system on top of the One P
 * [POST][/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
 * [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#delete-user-portal-shares)
+* [GET] [/api/portals/v1/users/{user-id}/profile/picture](#get-user-profile-picture)
+* [POST] [/api/portals/v1/users/{user-id}/profile/picture](#set-user-profile-picture)
+* [DELETE] [/api/portals/v1/users/{user-id}/profile/picture](#reset-user-profile-picture)
 * [GET] [/api/portals/v1/users/{user-id}/token](#get-user-token)
 * [GET] [/api/portals/v1/users/{user-id}/readtoken](#get-user-readtoken)
 * [GET] [/api/portals/v1/users/_this/token](#get-user-token-for-openid-user) (For App)
@@ -5067,6 +5073,75 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
+#### Reset user profile picture
+
+`DELETE /api/portals/v1/users/{user-id}/profile/picture`
+
+Reset user profile picture to default.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 202.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i -X DELETE
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Fri, 22 May 2015 06:20:40 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+```
+
+#### Set user profile picture
+
+`POST /api/portals/v1/users/{user-id}/profile/picture`
+
+Set user profile picture by you upload file.
+
+##### Request
+
+Request body is file upload and only support png image file.
+
+##### Response
+
+On success, response has HTTP status 201.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i -X POST -F myfile=@"~/Downloads/user1-64x64.png"
+```
+
+```
+HTTP/1.1 100 Continue
+
+HTTP/1.1 201 Created
+Date: Fri, 22 May 2015 06:30:51 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+```
+
+
 #### Update password by reset password key
 
 `PUT /api/portals/v1/users/reset-password`
@@ -5722,6 +5797,68 @@ Vary: Accept-Encoding
 Content-Type: application/json; charset=UTF-8
 
 ```
+
+#### Get user profile picture
+
+`GET /api/portals/v1/users/{user-id}/profile/picture`
+
+Get the user's profile picture.
+
+##### Request
+Request body is empty or picture.
+
+##### Response
+
+On success, default response has HTTP status 303 and location is picture url.
+On success, response has HTTP status 200 and a body containing an picture image.
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 303 See Other
+Date: Fri, 22 May 2015 06:21:16 GMT
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+Location: https://mydomain.exosite.com/static/png/user-64x64.png
+```
+
+or 
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 22 May 2015 06:31:31 GMT
+Content-Type: image/png
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+�PNG
+
+IHDR@�iq�DATx��˫NQ����IFH�qI'�B��ɉ	�0�����@R���\21!��P�bD�)�$���e-�o��o������������Ok���6��������XQ�
+                                                                                                         `%,�{W��ϋ��$�,�#�|��d�ˎ;7�!�P���>K���r!����پJ63�hs�d�`rN�Q`�s�K�Z��	�ɟ<�|`G��D1@2�J�
+                                        ��D�0�
+                                              ��.YF�ˀŁ���_�2 F��2`JE4�cɪ�28^�h����:�f4Bͽv��	�3`
+                                                                                                   xP�q@�&��w�À�!����-p3��ZM�4�z �/�p ���i��m�a�|��h8��H�
+��JԢ�dk�{9$Ɓٕ�����gb&�m��Q�����MR�уCe�
+                                     ɖ&e�N��lj�M(�!����&��s>�>"����|���yѢ�B
+                                                                           H
+�[��e�d#�S,�M��H��I���?�E��K�"���K�I67V�Aw��q�v+J;�>p��
+                                                       %���f��=4��c���Y�s>J��-����br���8O{/�iɖ���nվKvE=�T��+ �
+                                                                                                              �8��ۇ�N:}5:2 �ܮ�8��ρM��g�.lk@�',
+                                                                                                                                               X�����U�Nv�G�^���'�]�9$�<��-]�O-ʴ{�v��:ۍ��3�����Ԫ3uH���'��
+ ֥uf����R��d�?�2Y�e��Eju9ˀi)��\�
+                               ����;E�>kjjjjjj*��H:˪��YIEND�B`�%
+```
+
+
 
 #### Get all users portals shares
 
