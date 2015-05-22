@@ -133,6 +133,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Create user](#create-user)
 * [Create user portal share](#create-user-portal-share)
 * [Delete user](#delete-user)
+* [Delete user datastorage](#delete-user-datastorage)
 * [Delete user permission](#delete-user-permission)
 * [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
@@ -140,6 +141,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
+* [Get user datastorage](#get-user-datastorage)
+* [Get user datastorage list](#get-user-datastorage-list)
 * [Get user permissions](#get-user-permissions)
 * [Get user profile picture](#get-user-profile-picture)
 * [Get user portal](#get-user-portal)
@@ -151,6 +154,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Reset password](#reset-password)
 * [Reset user profile picture](#reset-user-profile-picture)
 * [Set user profile picture](#set-user-profile-picture)
+* [Set user datastorage](#set-user-datastorage)
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
 
@@ -255,6 +259,10 @@ Portals provides a user authentication and management system on top of the One P
 * [GET] [/api/portals/v1/users/{user-id}](#get-user)
 * [GET] [/api/portals/v1/users/{user-id}?readtoken={user-readtoken}](#get-user-through-readtoken)
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
+* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#get-user-datastorage)
+* [POST] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#set-user-datastorage)
+* [DELETE] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#delete-user-datastorage)
+* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory/*}](#get-user-datastorage-list)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permission)
@@ -6172,6 +6180,187 @@ Content-Length: 16
 Content-Type: application/json; charset=UTF-8
 
 "MzE2Nzg1OTczNq=="
+```
+
+#### Get user datastorage
+
+`GET /api/portals/v1/users/{user-id}/ds/{subdirectory}`
+
+Get user data storge.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and a body containing is dependent upon whatever you set.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 22 May 2015 09:01:46 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+{"myTest":"123123"}
+```
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/apple/456' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 22 May 2015 09:03:54 GMT
+Content-Type: image/png
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+�PNG
+
+:���s���=;�q���t�'�)��x����n�M����63��4�d��]��;wd�oݖ�as������gj����j=��D����Ԅ�KO��_
+```
+
+#### Get user datastorage list
+
+`GET /api/portals/v1/users/{user-id}/ds/{subdirectory}/*`
+
+Get user data storge of list.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and a body containing a list child of array.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/*' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 22 May 2015 09:15:10 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+["apple","dog"]
+```
+
+#### Set user datastorage
+
+`POST /api/portals/v1/users/{user-id}/ds/{subdirectory}`
+
+Set a user data storge key.
+
+##### Request
+
+Request body is value of you want set.
+
+Supported Content-Type is 'application/json','text/plain','image/gif','image/jpg','image/png','image/bmp','image/jpeg','application/octet-stream'.
+
+##### Response
+
+On success, response has HTTP status 201,202 and body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
+     -X POST -d '{"myTest":"1231443534523"}' -H 'Content-Type: application/json' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Fri, 22 May 2015 09:16:10 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+```
+
+##### Example for upload file
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
+     -X POST -F myfile=@"/Volumes/exosite/review/public/static/png/bullet_go.png" \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 100 Continue
+
+HTTP/1.1 201 Created
+Date: Fri, 22 May 2015 09:03:31 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+```
+
+#### Delete user datastorage
+
+`DELETE /api/portals/v1/users/{user-id}/ds/{subdirectory}`
+
+Delete a user data storge key.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 204 and body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
+     -X DELETE \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Fri, 22 May 2015 09:33:28 GMT
+Content-Type: application/json; charset=UTF-8
+Connection: keep-alive
+Keep-Alive: timeout=2
 ```
 
 #### Get user portal
