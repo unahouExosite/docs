@@ -46,6 +46,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Append/insert data source data](#appendinsert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
 * [Get data source data](#get-data-source-data)
+* [Get data sources collection data](#get-data-source-data-bulk-request)
 * [Delete data source data](#delete-data-source-data)
 
 #### Device
@@ -181,7 +182,9 @@ Portals provides a user authentication and management system on top of the One P
 * [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
+* [GET] [/api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/data](#get-data-source-data-bulk-request)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
+* [GET] [/api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/json](#get-data-source-data-bulk-request)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}](#delete-data-source)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
@@ -2621,6 +2624,58 @@ Content-Length: 41
 Content-Type: application/json; charset=UTF-8
 
 [[1416278417,"5.00"],[1416278080,"1000"]]
+```
+
+#### Get data source data bulk request
+
+`GET /api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/data`
+
+This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
+
+* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read.
+
+* `"sort"` defines the order in which data points will be displayed.
+
+* `"limit"` sets the a maximum on the number of data points to return.
+
+For more details about these options, see the [read API](https://github.com/exosite/docs/tree/master/rpc#read).
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and body is a array list of data points. See the contents of `"data"`.
+
+* `"data"` is an array of data points. A data point has a unit timestamp and a value.
+
+    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+
+    * `{value}` may be a string, int, or float depending on the data source type.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+* Get data with no option
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/\[3218552df19a93a3f1b85c29fd0f46ddff2f7071,437240fba025d3416a60ef1a160e5424d4138fdc\]/data' \
+     -X GET \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 22 May 2015 10:22:30 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+{"3218552df19a93a3f1b85c29fd0f46ddff2f7071":[],"437240fba025d3416a60ef1a160e5424d4138fdc":[]}
 ```
 
 #### Append/insert data source data
