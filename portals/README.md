@@ -3950,7 +3950,7 @@ Content-Type: application/json; charset=UTF-8
 
 `POST /api/portals/v1/users/{user-id}/portals`
 
-Create a portal under a user. The create portal will have the same device, data sources, events, alerts and scripts as the Default Portal Template in /admin/portaltemplate if Default Portal Template is not "no template".
+Create a portal under a user. The created portal will have the same device, data sources, events, alerts and scripts as the Default Portal Template in /admin/portaltemplate if Default Portal Template is not "no template".
 
 ##### Request
 
