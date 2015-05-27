@@ -5201,8 +5201,8 @@ Create default theme the exosite system theme will be applied to the domain.
 
 Body contains a [theme object](#theme-object). Currently only the following keys may be updated:
 
-* `"name"` - theme name (requsted)
-* `"description"` - theme permissions (requsted)
+* `"name"` - theme name (required)
+* `"description"` - theme permissions (required)
 
 If you send any keys besides these, it will do nothing.
 
@@ -5659,7 +5659,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i -X DELETE
 ```
@@ -5692,7 +5692,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i -X POST -F myfile=@"~/Downloads/user1-64x64.png"
 ```
@@ -6444,7 +6444,7 @@ On failure, response has HTTP status of 400 or greater.
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i
 ```
@@ -6558,13 +6558,15 @@ Request body is empty or picture.
 ##### Response
 
 On success, default response has HTTP status 303 and location is picture url.
+
 On success, response has HTTP status 200 and a body containing an picture image.
+
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users/<user_id>/profile/picture' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
      -i
 ```
