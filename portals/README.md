@@ -2098,7 +2098,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created data source object.
+On success, response has HTTP status 201 and the [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -2171,7 +2171,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status of 200 and body is the updated data source object.
+On success, response has HTTP status of 200 and body is the updated [data source object](#data-source-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -2921,7 +2921,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created device object.
+On success, response has HTTP status 201 and the created [device object](#device-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -3086,7 +3086,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status of 200 and body is the updated device object.
+On success, response has HTTP status of 200 and body is the updated [device object](#device-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -3694,7 +3694,7 @@ If you send keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created group object.
+On success, response has HTTP status 201 and the created [group object](#group-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -3754,7 +3754,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 200 and group object.
+On success, response has HTTP status 200 and [group object](#group-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -4053,7 +4053,7 @@ If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 200 and the updated portal object.
+On success, response has HTTP status 200 and the updated [portal object](#portal-object).
 
 ##### Example
 
@@ -5543,7 +5543,7 @@ When User-A update User-B, User-A doesn't need to grant permission of resources 
 
 ##### Response
 
-On success, response has HTTP status 200 and the updated user object.
+On success, response has HTTP status 200 and the updated [user object](#user-object).
 
 On failure, response has HTTP status of 400 or greater.
 
@@ -6608,8 +6608,6 @@ Get user own portals and portal shares information.
 Request body is empty.
 
 ##### Response
-
-On success, response has HTTP status 200 and the portals object.
 
 On success, response has HTTP status 200 and a body containing an array of portal object include shares.
 Portal objects contain the following keys:
