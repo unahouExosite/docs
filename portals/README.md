@@ -6436,9 +6436,12 @@ Request body is empty.
 
 * `"type"` is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`.
 
+    * For example, type%5B%5D=Group (Square brackets ([ and ]) are replaced with %5B and %5D respectively)
+
 ##### Response
 
 On success, response has HTTP status 200 and a body containing an array of permission objects.
+
 On failure, response has HTTP status of 400 or greater.
 
 ##### Example
