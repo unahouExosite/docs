@@ -6588,22 +6588,10 @@ Transfer-Encoding: chunked
 Connection: keep-alive
 Keep-Alive: timeout=2
 
-�PNG
+▒PNG
 
-IHDR@�iq�DATx��˫NQ����IFH�qI'�B��ɉ	�0�����@R���\21!��P�bD�)�$���e-�o��o������������Ok���6��������XQ�
-                                                                                                         `%,�{W��ϋ��$�,�#�|��d�ˎ;7�!�P���>K���r!����پJ63�hs�d�`rN�Q`�s�K�Z��	�ɟ<�|`G��D1@2�J�
-                                        ��D�0�
-                                              ��.YF�ˀŁ���_�2 F��2`JE4�cɪ�28^�h����:�f4Bͽv��	�3`
-                                                                                                   xP�q@�&��w�À�!����-p3��ZM�4�z �/�p ���i��m�a�|��h8��H�
-��JԢ�dk�{9$Ɓٕ�����gb&�m��Q�����MR�уCe�
-                                     ɖ&e�N��lj�M(�!����&��s>�>"����|���yѢ�B
-                                                                           H
-�[��e�d#�S,�M��H��I���?�E��K�"���K�I67V�Aw��q�v+J;�>p��
-                                                       %���f��=4��c���Y�s>J��-����br���8O{/�iɖ���nվKvE=�T��+ �
-                                                                                                              �8��ۇ�N:}5:2 �ܮ�8��ρM��g�.lk@�',
-                                                                                                                                               X�����U�Nv�G�^���'�]�9$�<��-]�O-ʴ{�v��:ۍ��3�����Ԫ3uH���'��
- ֥uf����R��d�?�2Y�e��Eju9ˀi)��\�
-                               ����;E�>kjjjjjj*��H:˪��YIEND�B`�%
+IHDR%▒V▒PLTEA▒▒▒▒V▒
+IDATx▒cb67|▒IEND▒B`▒
 ```
 
 
