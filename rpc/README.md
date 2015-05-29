@@ -742,7 +742,6 @@ Creates a datarule.
                 "duration": number | "infinity"
             }
             "rule": object,
-            "script":string,
             "subscribe": <ResourceID> | null = null
         }
     ], 
