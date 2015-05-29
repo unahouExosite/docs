@@ -770,7 +770,7 @@ Creates a datarule.
 </td><td>
 <p>Values received by this rule are compared to a numerical constant and the result is the boolean result of that comparison.
 <ul>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"constant"</code> is a numerical constant used by comparison</li>
 <li><code>"comparison"</code> is the comparison to perform.</li>
 <li><code>"repeat"</code> specifies whether new inputs that would not change 
 the output should be written to the output data stack anyway. If set to 
@@ -821,8 +821,8 @@ and the timer is restarted. If a input value is received that makes the comparis
 <code>false</code>, <code>false</code> is output and the timer is canceled.</p>
 
 <ul>
-<li><code>"comparison"</code> is any of "Comparisons"</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is the comparison to do</li>
+<li><code>"constant"</code> is a numerical constant used by comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
 <li><code>"repeat"</code> specifies whether new inputs that would not change 
 the output should be written to the output data stack anyway. If set to 
@@ -852,8 +852,8 @@ If instead the comparison result is <code>false</code>, then
 <code>false</code> becomes the output of the rule immediately, cancelling
 any existing timeout.</p>
 <ul>
-<li><code>"comparison"</code> is any of "Comparisons"</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
+<li><code>"comparison"</code> is the comparison to do</li>
+<li><code>"constant"</code> is a numerical constant used by comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
 <li><code>"repeat"</code> specifies whether output from this rule should
 be written to its data stack if it is the same as the latest
@@ -891,9 +891,9 @@ to <code>0</code>, the timeout is cancelled and the rule outputs
 <code>false</code>.
 </p>
 <ul>
-<li><code>"comparison"</code> is any of "Comparisons"</li>
-<li><code>"constant"</code> is a numerical constant used by Comparison</li>
-<li><code>"count"</code> is the aumber of data points accumulated that satisfy the Comparison</li>
+<li><code>"comparison"</code> is the comparison to do</li>
+<li><code>"constant"</code> is a numerical constant used by comparison</li>
+<li><code>"count"</code> is the number of data points accumulated that satisfy the comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
 <li><code>"repeat"</code> specifies whether output from this rule should
 be written to its data stack if it is the same as the latest
