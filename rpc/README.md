@@ -749,7 +749,7 @@ Creates a datarule.
 }
 ```
  
-* `"format"` is the format in which the datarule will store its data.  Script (Lua Script) datarules should be format 'string'.
+* `"format"` is the format in which the datarule will store its data.  Lua script datarules should be format `"string"`.
 * `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
 * `"preprocess"`, `"retention"`, and `"subscribe"` are described in [create (dataport)](#create-dataport)
 * `"rule"` is a JSON object describing the main processing this resource will do on each incoming datapoint. It may be one of the following:
@@ -940,7 +940,7 @@ Creates a dispatch.
             "meta": string = "",
             "method": "email" | "http_get" | "http_post" | "http_put" | "sms" | "xmpp",
             "name": string = "",
-            "preprocess": Preprocess = [],
+            "preprocess": list = [],
             "public": boolean = false,
             "recipient": string,
             "retention": {
