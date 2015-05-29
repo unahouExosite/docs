@@ -558,6 +558,7 @@ A permission object describes a level of access to a particular Portals resource
             * `"d_s_cont"` means the owner can update the domain information.
             * `"d_s_crea"` means the owner can create a group to the domain.
             * `"d_p_list"` means the owner can create a portal to the domain.
+            * `"d_p_crea"` means the owner can just create a portal to himself.
             * `"d_u_list"` means the owner can get user, get users list, and delete user form the domain.
             * `"d_u_view"` means the owner can get user, get users list form the domain.
             * `"d_____fs"` means the owner can create, update and delete the file systems in the domain.
