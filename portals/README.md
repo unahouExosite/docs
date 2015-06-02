@@ -570,6 +570,7 @@ A permission object describes a level of access to a particular Portals resource
         * Portal
             * `"p_manage"` means the owner can get, update portal information and create device, data source to the portal.
             * `"p_m_crea"` means the owner can create device to the portal.
+            * `"p___view"` means the owner can get portal information, get device and get data source under the portal.
             * `"p_contac"` means the owner can receive alerts from the portal.
 
 * `"oid"` is an object identifying the resource with the permission.
