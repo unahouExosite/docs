@@ -5,9 +5,19 @@ __This API is in beta testing and may be to subject to the occasional tweak. Any
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where a Portals account is required.
 
 ## Overview
----
 
-### API Endpoints
+Below are some documents that will help you understand the basics of all Portals API.
+
+* [API Endpoints](#api-endpoints)
+* [API Index](#api-index)
+* [REST](#rest)
+* [Request and Response Format](#request-and-response-format)
+* [Authentication](#authentication)
+* [Domain](#domain)
+* [Objects](#objects)
+* [Resources](#resources)
+
+## API Endpoints
 
 #### Accounts
 
@@ -167,7 +177,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
 
-### API Index
+## API Index
 
 #### /accounts
 
@@ -315,14 +325,14 @@ Portals provides a user authentication and management system on top of the One P
 * [POST] [/api/portals/v1/widget-scripts](#create-domain-widget)
 * [PUT] [/api/portals/v1/widget-scripts/{widget-script-id}](#update-domain-widget)
 
-### REST
+## REST
 
 The API uses a REST-style API, which means that:
 
 * HTTP verbs in the request indicate the type of action the client wants to take (e.g. GET, POST)
 * HTTP status in the response indicate (e.g. 200 for success, 400 for bad request or 401 for authentication error)
 
-### Request and Response Format
+## Request and Response Format
 
 Request and response bodies, when present, are formatted using JSON. For more see http://json.org
 
@@ -332,13 +342,13 @@ The header MUST include:
 
     Content-type: application/json; charset=utf-8
 
-### Authentication
+## Authentication
 
 Some API endpoints require a Portals email and password also username and password to combination for authentication. These are passed using basic access authentication. See this link for details about this method of authentication:
 
 http://en.wikipedia.org/wiki/Basic_access_authentication
 
-### Domain
+## Domain
 
 For some API endpoints, the domain of the request URL indicates information about which domain should be affected. For example, a GET request to:
 
@@ -350,10 +360,9 @@ For some API endpoints, the domain of the request URL indicates information abou
 
 Also, the domain is used for user authentication. Endpoints that are affected by the querying domain are indicated below.
 
-## Types
----
+## Objects
 
-The following types are common to several API endpoints.
+The following objects are common to several API endpoints.
 
 ### Account object
 
@@ -875,12 +884,12 @@ yields the same result as
 
 `GET /api/portals/v1/users/_this`
 
-### Caveats
+## Caveats
 
 API return messages may be subject to upgrades and improvements (e.g., additional fields may be added). Developers using Exosite APIs should not hard code non-upwards-compatible elements such as field counts, IP addresses, or header length.
 
-## API Endpoints
----
+## Resources
+
 ### Accounts
 
 #### Get all user accounts
