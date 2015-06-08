@@ -32,6 +32,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [create (clone)](#create-clone) - copy an existing resource
 
+[move](#move) - move an existing resource
+
 [update](#update) - update an existing resource
 
 [info](#info) - get information about an existing resource
@@ -1011,6 +1013,44 @@ Create a clone from an existing One Platform resource given its RID or a non-act
     "result": "<ResourceID>"
 }
 ```
+
+---
+
+##move
+
+Updates the description of the resource.
+
+```
+{
+    "procedure": "move",
+    "arguments": [
+        <ResourceID>,
+        <DestinationClientID>,
+        <Options>
+    ],
+    "id": 1
+}
+```
+
+* `<ResourceID>` identifies the resource to be moved. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not move itself.
+
+* `<DestinationClientID>` identifies the client under which the resource should be moved to.. See [Identifying Resources](#identifying-resources) for details.
+
+* `<Options>` is a JSON object and can contain these options:
+
+ * `aliases` is a boolean that when set to true will try to re-create aliases pointing the the moved resource in the new context. When set to false all aliases that would become invalid are being deleted without replacement. 
+
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was moved
 
 ---
 
