@@ -898,15 +898,20 @@ API return messages may be subject to upgrades and improvements (e.g., additiona
 
 Get account information about all users.
 
+##### Permission
+
+* The user making the call must have at least 'd_u_view' [permission](#permission-object) permission to the domain.
+
 ##### Request
 
-Request body is empty
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of [account object](#account-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the currently authenticated user has permission for currently domain and a body containing an array of [account object](#account-object).
+* `403 Forbidden`: Returned if the currently authenticated user does not have permission for currently domain.
+* `500 Internal Server Error`: Returned if an error occurs while retrieving the list of avatars.
 
 ##### Example
 
