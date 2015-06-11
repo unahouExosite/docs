@@ -662,7 +662,7 @@ A permission object describes a level of access to a particular Portals resource
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
      -X PUT \
      -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -692,7 +692,7 @@ Content-Type: application/json; charset=UTF-8
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/3167859736' \
      -X PUT \
      -d '{"permissions":[{"access":"d_update","oid":{"type":"Device","id":"dc226acdf0f9b92e40f0f62878970417b8689f9e"}}]}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -913,7 +913,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/accounts' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -972,7 +972,7 @@ On failure, responds with HTTP status 404 if user doesn't exist in any domain.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' \
      -X GET \
-     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1021,7 +1021,7 @@ On failure, responds with HTTP status 404 if user doesn't exist in any domain.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/accounts/3167859736' \
      -X GET \
-     -u 'adminuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1068,7 +1068,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/myname' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1127,7 +1127,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
      -X PUT \
      -d '{"description": "sample model"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1161,7 +1161,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1245,7 +1245,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/client-models/myvendor/mymodel' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1336,7 +1336,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1433,7 +1433,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/data-sources/\[a3fc4e5a6fbc20fcb14091ba0735580e56060e9a,a90f263111b05088a3c78aef511f14275bba6cc5\]?limit=1' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1512,7 +1512,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1694,7 +1694,7 @@ curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?opti
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/devices/\[47ab21c6e169ca4f749128fb00a4bf077f4a463f,96436ca6874ce01d0dd1f41001d71e75c3aebd6f\]?limit=1' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1835,7 +1835,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1888,7 +1888,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]?NoPermissions' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -1939,7 +1939,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/groups/\[2581071857,2937453355\]?limit=1' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2001,7 +2001,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2076,7 +2076,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2116,7 +2116,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1&NoPermissions' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2433,7 +2433,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/data-sources' \
      -X POST \
      -d '{"info":{"description":{"name": "new data"}}}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2506,7 +2506,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f' \
      -X PUT \
      -d '{"info": {"description": {"name": "data source update name"}}}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2586,7 +2586,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
      -X POST \
      -d '{"info":{"description":{"format":"float","name":"Length"}},"unit":"m"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2654,7 +2654,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1162382494/data-sources' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2722,7 +2722,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/data-sources' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2790,7 +2790,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/24fd0b1ed31fb6d403484ca939e37d19c9b71308' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2825,7 +2825,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2911,7 +2911,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -2933,7 +2933,7 @@ api/portals/v1/data-sources/`ResourceID`/data?starttime=`Unix Timestamp for star
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3022,7 +3022,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X POST \
      -d '"1000"' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3053,7 +3053,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/ad75f5b356907f0d2ec7a67d31254410526ef032/data' \
      -X POST \
      -d '[[1420041600,"1000"]]' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3095,7 +3095,7 @@ When `safe` is passed in querystring, failure will response 409
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/json' \
      -X POST \
      -d '{"how":"are","you":"?"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3139,7 +3139,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3157,7 +3157,7 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data?starttime=1416278080&endtime=1416278417&limit=2&sort=desc' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3246,7 +3246,7 @@ On failure, response has a HTTP status code of 400 or greater. The response body
 $ curl 'https://mydomain.exosite.com/api/portals/v1/device' \
        -X POST \
        -d '{"model": "myDeviceModel", "vendor":"joevendor", "serialnumber":"ABC-123", "location":"Samoa", "timezone":"(GMT-11:00) Midway Island, Samoa", "portal_rid": "5ef46b987385aaaaaaaaaa75183fb43edeb3557b", "name":"Device Name"}' \
-       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -u 'useremail@gmail.com:userP4ssword' \
        -i
 ```
 
@@ -3310,7 +3310,7 @@ Generic type
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/devices' \
      -X POST \
      -d '{"type":"generic"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3380,7 +3380,7 @@ Vendor type
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858/devices' \
      -X POST \
      -d '{"sn":"123", "vendor":"mydomain", "model":"apimodel", "type":"vendor"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3473,7 +3473,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
      -X PUT \
      -d '{"info": {"description": {"name": "device update name"}}}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3554,7 +3554,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b'\
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3634,7 +3634,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/5d4bacb783b10600e12b759bb1ae80b43666085b' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3680,7 +3680,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/domain' \
        -X GET \
-       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -u 'useremail@gmail.com:userP4ssword' \
        -i
 ```
 
@@ -3973,7 +3973,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4016,7 +4016,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs/141517041216756400/myfile' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4038,7 +4038,7 @@ IDATx▒cb67|▒IEND▒B`▒
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/myfile' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4081,7 +4081,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/groups' \
      -X POST \
      -d '{"name":"new group"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4141,7 +4141,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
      -X PUT \
      -d '{"name":"update group name"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4194,7 +4194,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4245,7 +4245,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/3065555968' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4291,7 +4291,7 @@ On failure, response has a HTTP status code of 400 or greater.
 ```
 $ curl 'https://mydomain.exosite.com/api/portals/v1/portal' \
        -X GET \
-       -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+       -u 'useremail@gmail.com:userP4ssword' \
        -i
 ```
 
@@ -4349,7 +4349,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
      -X POST \
      -d '{"planId":"3676938388"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4438,7 +4438,7 @@ On success, response has HTTP status 200 and the updated [portal object](#portal
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/3882920427' \
      -X PUT \
      -d '{"info":{"aliases":{"3fb37448bc68d4c84d58c755fd29f187edc74694":["update aliases"]}}}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4519,7 +4519,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/2853566858' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4596,7 +4596,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4639,7 +4639,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/devices' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4724,7 +4724,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1156616498' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4760,7 +4760,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/de3d88a4c15a341d386e7c1cfa0fa2a3a4cf2dcb/ByRid' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4811,7 +4811,7 @@ On failure, response has HTTP status of 404 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/scripts' \
      -X POST \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4877,7 +4877,7 @@ See [Create device script](#create-device-script).
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/scripts' \
      -X POST \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4945,7 +4945,7 @@ On failure, response has HTTP status of 404 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/scripts/c2a2bdfa83b0a8c6eeca438ce895fa4913b48f87' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4977,7 +4977,7 @@ See [Get data source data](#get-data-source-data).
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897/data' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5015,7 +5015,7 @@ On failure, response has HTTP status of 404 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5091,7 +5091,7 @@ On failure, response has HTTP status of 404 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/devices/bbc295c0dc98f8518b784867bae4a1b168c77f1b/scripts' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5162,7 +5162,7 @@ See [List device script](#list-device-script).
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/scripts' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5242,7 +5242,7 @@ On failure, response has HTTP status of 404 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/scripts/28571049e6bf6de245012957171da9e83926d897' \
      -X PUT \
      -d '{"info":{"description":{"rule":{"script":"debug(\"Hello World!\")"}}}}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5318,7 +5318,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
      -X PUT \
      -d '{"name": "update_theme"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5351,7 +5351,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5441,7 +5441,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5595,7 +5595,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
      -X POST \
      -d '{"name":"test1113","description":"desc-test1113"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5630,7 +5630,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5930,7 +5930,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
      -X PUT \
      -d '{"email":"updatedemail@gmail.com"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -5961,7 +5961,7 @@ Content-Type: application/json; charset=UTF-8
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736?silence' \
      -X PUT \
      -d '{"email":"updatedemail@gmail.com"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6037,7 +6037,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i -X DELETE
 ```
 
@@ -6070,7 +6070,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i -X POST -F myfile=@"~/Downloads/user1-64x64.png"
 ```
 
@@ -6154,7 +6154,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
      -X GET \
      -d '{"email":"newuseremail@gmail.com"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6207,7 +6207,7 @@ Content-Type: application/json; charset=UTF-8
 curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions' \
      -X GET \
      -d '{"email":"newuseremail@gmail.com"}' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6279,7 +6279,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6335,7 +6335,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6433,7 +6433,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/token\?reDirect\=http%3A%2F%2Fwww.google.com.tw%2F' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6488,7 +6488,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl  https://mydomain.exosite.com/api/portals/v1/users/3167859736/readtoken \
       -H 'Content-Type: application/json' \
-      -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+      -u 'useremail@gmail.com:userP4ssword' \
       -i
 ```
 
@@ -6580,7 +6580,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6598,7 +6598,7 @@ Keep-Alive: timeout=2
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/apple/456' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6636,7 +6636,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/*' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6674,7 +6674,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
      -X POST -d '{"myTest":"1231443534523"}' -H 'Content-Type: application/json' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6692,7 +6692,7 @@ Keep-Alive: timeout=2
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
      -X POST -F myfile=@"/Volumes/exosite/review/public/static/png/bullet_go.png" \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6728,7 +6728,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6772,7 +6772,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/2123755496' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6825,7 +6825,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions?type%5B%5D=Portal&type%5B%5D=Domain' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6876,7 +6876,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
      -X POST \
      -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6912,7 +6912,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/permissions' \
      -X DELETE \
      -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -6947,7 +6947,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
-     -u 'domainadminemail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -7015,7 +7015,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/shares' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -7103,7 +7103,7 @@ On failure, response has HTTP status of 400 or greater.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -7174,7 +7174,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
 	  -X POST -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -7244,7 +7244,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
 	  -X DELETE -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -7288,7 +7288,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736' \
      -X DELETE \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
