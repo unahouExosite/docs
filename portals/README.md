@@ -94,7 +94,7 @@ Below are some documents that will help you understand the basics of all Portals
 #### File Systems
 
 * [Append to a directory](#append-to-a-directory)
-* [Get a file](#get-a-file)
+* [List files](#list-files)
 * [Get a file content](#get-a-file-content)
 
 #### Groups
@@ -373,6 +373,7 @@ An object containing information about a Portals user.
     "email": <short-string>,
     "fullName": <short-string>,
     "id": <id>,
+    "rid":<rid>,
     "meta": <meta>,
     "phoneNumber": <short-string>,
     "userName": <short-string>
@@ -898,9 +899,9 @@ API return messages may be subject to upgrades and improvements (e.g., additiona
 
 Get account information about all users.
 
-##### Permission
+##### Permissions
 
-* The user making the call must have at least 'd_u_view' [permission](#permission-object) permission to the domain.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
 ##### Request
 
@@ -909,9 +910,9 @@ Get account information about all users.
 
 ##### Response
 
-* `200 OK`: Returned if the currently authenticated user has permission for currently domain and a body containing an array of [account object](#account-object).
-* `403 Forbidden`: Returned if the currently authenticated user does not have permission for currently domain.
-* `500 Internal Server Error`: Returned if an error occurs while retrieving the list of avatars.
+* `200 OK`: Returned along with a body containing an array of [account object](#account-object) if the caller user has permission to list accounts.
+* `403 Forbidden`: Returned if the caller user does not have `d_u_view` permission for the domain.
+* `500 Internal Server Error`: Returned if an error occurs while retrieving the list of accounts.
 
 ##### Example
 
@@ -932,18 +933,22 @@ Content-Type: application/json; charset=UTF-8
 
 [
     {
-        "email": "updatedemail@gmail.com",
+        "email": "useremail@gmail.com",
         "fullName": "",
         "id": "3167859736",
+        "rid":"7fe862bd9f274b8ab80cf22284a2316599024fb9",
         "meta": null,
-        "phoneNumber": ""
+        "phoneNumber": "",
+        "userName":"useremail"
     },
     {
-        "email": "olduseremail@gmail.com",
-        "fullName": "olduseremail",
+        "email": "existinguseremail@gmail.com",
+        "fullName": "existinguseremail",
         "id": "3407735538",
+        "rid":"7fe862bd9f274b8ab80cf22284a2316599024fb0",
         "meta": null,
-        "phoneNumber": ""
+        "phoneNumber": "",
+        "userName":"existinguseremail"
     },
     ...
 ]
@@ -953,29 +958,30 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/accounts/{user-email}`
 
-Get user account by email.
+Get user account information by email.
+
+##### Permissions
+
+One of the following:
+
+* User can get his own account information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, responds with HTTP status 200 if user exists in some domain and the body contains a user object.
-User objects contain the following keys:
-
-* `"email"` - User email
-* `"fullName"` - User full name
-* `"id"` - User ID
-* `"meta"` - User meta
-* `"phoneNumber"` - User phonenumber
-
-On failure, responds with HTTP status 404 if user doesn't exist in any domain.
+* `200 OK`: Returned along with a body containing an [account object](#account-object) if the caller user has permission to get account and the callee user exists in the domain.
+* `403 Forbidden`: Returned if the caller user does not have permission to get callee user.
+* `404 Not Found`: Returned if the callee user does not exist in the domain.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/accounts/useremail@gmail.com' \
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts/existinguseremail@gmail.com' \
      -X GET \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
@@ -990,11 +996,13 @@ Content-Length: 99
 Content-Type: application/json; charset=UTF-8
 
 {
-    "email": "useremail@gmail.com",
-    "fullName": "",
-    "id": "3167859736",
+    "email": "existinguseremail@gmail.com",
+    "fullName": "existinguseremail",
+    "id": "3407735538",
+    "rid":"7fe862bd9f274b8ab80cf22284a2316599024fb0",
     "meta": null,
-    "phoneNumber": ""
+    "phoneNumber": "",
+    "userName":"existinguseremail"
 }
 ```
 
@@ -1004,27 +1012,29 @@ Content-Type: application/json; charset=UTF-8
 
 Get user account by user ID.
 
+##### Permissions
+
+One of the following:
+
+* User can get his own account information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, responds with HTTP status 200 if user exists in some domain and the body containing user object.
-user objects contain the following keys:
+* `200 OK`: Returned along with a body containing an [account object](#account-object) if the caller user has permission to get account and the callee user exists in the domain.
+* `403 Forbidden`: Returned if the caller user does not have permission to get callee user.
+* `404 Not Found`: Returned if the callee user does not exist in the domain.
 
-* `"email"` - User email
-* `"fullName"` - User full name
-* `"id"` - User ID
-* `"meta"` - User meta
-* `"phoneNumber"` - User phonenumber
-
-On failure, responds with HTTP status 404 if user doesn't exist in any domain.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/accounts/3167859736' \
+curl 'https://mydomain.exosite.com/api/portals/v1/accounts/3407735538' \
      -X GET \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
@@ -1039,11 +1049,13 @@ Content-Length: 99
 Content-Type: application/json; charset=UTF-8
 
 {
-    "email": "useremail@gmail.com",
-    "fullName": "",
-    "id": "3167859736",
+    "email": "existinguseremail@gmail.com",
+    "fullName": "existinguseremail",
+    "id": "3407735538",
+    "rid":"7fe862bd9f274b8ab80cf22284a2316599024fb0",
     "meta": null,
-    "phoneNumber": ""
+    "phoneNumber": "",
+    "userName":"existinguseremail"
 }
 ```
 
@@ -1058,15 +1070,20 @@ Client models represent a class of devices. All devices of the same client model
 
 Get information about a client model.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a [client model object](#client-model-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [client model object](#client-model-object) if the caller user has permission to get client models and the client model exists in the domain.
+* `403 Forbidden`: Returned if the caller user does not have permission to get client model.
+* `404 Not Found`: Returned if the client model does not exist in the domain.
 
 ##### Example
 
@@ -1116,15 +1133,20 @@ Content-Type: application/json; charset=UTF-8
 
 Update information about a client model.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-The body is a JSON encoded [client model object](#client-model-object).
+* Request body is a JSON encoded [client model object](#client-model-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the client model is updated successfully.
+* `403 Forbidden`: Returned if the caller user does not have permission to update client model.
+* `404 Not Found`: Returned if the client model does not exist in the domain.
 
 ##### Example
 
@@ -1151,15 +1173,20 @@ Content-Type: application/json; charset=UTF-8
 
 Returns an array of client models in this domain.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and an array of [client models object](#client-model-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [client models object](#client-model-object) if the caller user has permission to list client models.
+* `403 Forbidden`: Returned if the caller user does not have permission to list client models.
+* `404 Not Found`: Returned if the client model does not exist in the domain.
 
 ##### Example
 
@@ -1235,15 +1262,20 @@ Content-Type: application/json; charset=UTF-8
 
 When deleting the current default client model the exosite system client model will be applied to the domain.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the client model is deleted successfully.
+* `403 Forbidden`: Returned if the caller user does not have permission to delete client model.
+* `404 Not Found`: Returned if the client model does not exist in the domain.
 
 ##### Example
 
@@ -1269,17 +1301,26 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about a serial number.
 
-   * A device owner as a non-admin user can get serial number extra field by the domain's "Allow customer to use the API to get the Serial Number extra field." setting is turned On
+##### Permissions
+
+One of the following:
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+* User must have `___admin` [permission](#permission-object) to device with the serial number ( Set "Allow customer to use the API to get the Serial Number extra field." from admin/configuration page.)
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and return associated client id, status and extra info.
+* `200 OK`: Returned along with a body containing a JSON entity. if the caller user has permission to get serial number.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get serial number.
+* `404 Not Found`: Returned if the serial number does not be used.
 
-On failure, response has HTTP status of 404 or greater.
 
 ##### Example
 
@@ -1307,32 +1348,36 @@ Content-Type: application/json; charset=UTF-8
 
 ### Collections (bulk request)
 
-#### Querystring
-
-* limit
-    Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT).
-    `/users/_this/users/[{user-id},{user-id},...]?limit=10`
-* offset
-    numbers of items to skip.
-    `/users/_this/users/[{user-id},{user-id},...]?offset=10`
-
 #### Get multiple data sources
 
 `GET /users/_this/data-sources/[{data-source-rid},{data-source-rid},...]`
 
-Get information about portals data sources.
+Get information for data sources.
+
+##### Permissions
+
+* User must have at least `d___read` [permission](#permission-object) to the data sources.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{data-source-rid},{data-source-rid},...]?limit=10`      |
+| `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{data-source-rid},{data-source-rid},...]?offset=10`     |
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success,
-If all items are fetched, response has HTTP status 200 and body is a [data source object](#data-source-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [data source object](#data-source-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array [data source object](#data-source-object) if the caller user has permission to get data sources.
+* `206 Partial Content`: Returned along with a body containing an array [data source object](#data-source-object) if request ID is over the response limit, link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get data sources.
+* `404 Not Found`: Returned if one of callee data sources is invalid.
 
 ##### Example
 
@@ -1498,17 +1543,30 @@ Content-Type: application/json; charset=UTF-8
 
 Get information for devices.
 
+##### Permissions
+
+* User must have at least `d___view` [permission](#permission-object) to the devices.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{device-rid},{device-rid},...]?limit=10`      |
+| `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{device-rid},{device-rid},...]?offset=10`     |
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success,
-If all items are fetched, response has HTTP status 200 and body is a [device object](#device-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [device object](#device-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array [device object](#device-object) if the caller user has permission to get devices.
+* `206 Partial Content`: Returned along with a body containing an array [device object](#device-object) if request ID is over the response limit, link will appear in header `Link=<{url}>; rel="previous", <{url}>; rel="next"`.
+* `400 Bad Request`: Returned if one of callee devices is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get devices.
 
 ##### Example
 
@@ -1671,28 +1729,6 @@ Content-Type: application/json; charset=UTF-8
     }
 ]
 ```
-#### Example Options
-```
-curl https://<domain>.exosite.com/api/portals/v1/users/&lt;user id>/portals?options=devices -ik -H 'Content-Type: application/json' --user "<domain admin email>:<domain admin passwd>"
-[
-  {
-    "PortalName": "Steve....",
-    "PortalID": "3438636XXX",
-    "PortalRID": "................................",
-    "UserEmail": "stevelo@XXXXXX",
-    "Description": "Steve XXXXXXX",
-    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"] //enclosed in square brackets are Devices RIDs
-  },
-  {
-    "PortalName": "steve......",
-    "PortalID": "111646XXX",
-    "PortalRID": "................................",
-    "UserEmail": "stevelo@XXXXXXX",
-    "Description": "Default XXXXX",
-    "Devices":[]
-  }
-]
-```
 
 ###### If request ID is over the response limit
 
@@ -1817,21 +1853,30 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about groups.
 
+##### Permissions
+
+* User must have at least `g_member` [permission](#permission-object) to the groups.
+
+##### Query String
+
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{group-id},{group-id},...]?limit=10`      |
+| `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{group-id},{group-id},...]?offset=10`     |
+| `NoPermissions` | The response object will not include permission items.              | `/users/_this/users/[{group-id},{group-id},...]?NoPermissions` |
+
 ##### Request
 
-Request body is empty.
-
-##### options
-
-* `"NoPermissions"` - The [group object](#group-object) will not include permission items.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success,
-If all items are fetched, response has HTTP status 200 and body is a [group object](#group-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [group object](#group-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array [group object](#group-object) if the caller user has permission to get groups.
+* `206 Partial Content`: Returned along with a body containing an array [group object](#group-object) if request ID is over the response limit, link will appear in header `Link=<{url}>; rel="previous", <{url}>; rel="next"`.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get groups.
 
 ##### Example
 
@@ -1983,21 +2028,30 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about users.
 
+##### Permissions
+
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
+##### Query String
+
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{user-id},{user-id},...]?limit=10`      |
+| `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{user-id},{user-id},...]?offset=10`     |
+| `NoPermissions` | The response object will not include permission items.              | `/users/_this/users/[{user-id},{user-id},...]?NoPermissions` |
+
 ##### Request
 
-Request body is empty.
-
-##### options
-
-* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success,
-If all items are fetched, response has HTTP status 200 and body is a [user object](#user-object).
-If request ID is over the response limit, response has HTTP status 206 and body is a [user object](#user-object), link will appear in header  `Link=<{url}>; rel="previous", <{url}>; rel="next"`
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array [user object](#user-object) if the caller user has permission to get users.
+* `206 Partial Content`: Returned along with a body containing an array [user object](#user-object) if request ID is over the response limit, link will appear in header `Link=<{url}>; rel="previous", <{url}>; rel="next"`.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get users.
 
 ##### Example
 
@@ -2416,21 +2470,27 @@ Content-Type: application/json; charset=UTF-8
 
 Create a data source inside a portal
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
-Request body is a [data source object](#data-source-object). Currently only the following keys are supported:
+* Request body is a [data source object](#data-source-object). Currently only the following keys are supported:
+    * `"format"` - Data source format under info description.(optional)
+    * `"name"` - Data source name under info description.(optional)
+    * `"unit"` - Data source unit under info description.(optional)
+    If you send any keys besides these, it will do nothing.
 
-* `"format"` - Data source format under info description.(optional)
-* `"name"` - Data source name under info description.(optional)
-* `"unit"` - Data source unit under info description.(optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [data source object](#data-source-object) if the data source is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create data sources for the portal.
+* `404 Not Found`: Returned if portal id is invalid.
 
 ##### Example
 
@@ -2491,19 +2551,25 @@ Content-Type: application/json; charset=UTF-8
 
 Update a data sources.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the data source.
+
 ##### Request
 
-Request body is a [data source object](#data-source-object). Currently only the following keys may be updated:
+* Request body is a [data source object](#data-source-object). Currently only the following keys may be updated:
+    * `"info": {"description": ...}` - description under info (optional)
+    If you send any keys besides these, it will do nothing.
 
-* `"info": {"description": ...}` - description under info (optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status of 200 and body is the updated [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [data source object](#data-source-object) if the data source is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update data sources.
+* `404 Not Found`: Returned if data sources rid is invalid.
 
 ##### Example
 
@@ -2567,23 +2633,30 @@ Content-Type: application/json; charset=UTF-8
 
 Create a data source under a device.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the device.
+
 ##### Request
 
-Request body is a object. Currently only the following keys are supported:
+* Request body is a object. Currently only the following keys are supported:
 
-* `"info"` - Data source info. (optional)
-    * `"description"` - Data source description. (optional)
-        * `"format"` - Data source format. (optional)
-        * `"name"` - Data source name. (optional)
-* `"unit"` - Data source unit. (optional)
+    * `"info"` - Data source info. (optional)
+        * `"description"` - Data source description. (optional)
+            * `"format"` - Data source format. (optional)
+            * `"name"` - Data source name. (optional)
+    * `"unit"` - Data source unit. (optional)
+    If you send any keys besides these, it will do nothing.
 
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [data source object](#data-source-object) if the data source is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create data sources for the device.
+* `404 Not Found`: Returned if device rid is invalid.
 
 ##### Example
 
@@ -2644,15 +2717,22 @@ Content-Type: application/json; charset=UTF-8
 
 List portal data source.
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing an array of [data source object](#data-source-object) if the caller user has permission to list the portal's data source.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to list the portal's data source.
+* `404 Not Found`: Returned if portal id is invalid.
 
 ##### Example
 
@@ -2712,15 +2792,22 @@ Content-Type: application/json; charset=UTF-8
 
 List device data source.
 
+##### Permissions
+
+* User must have at least `d___view` [permission](#permission-object) to the device.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing an array of [data source object](#data-source-object) if the caller user has permission to list the device's data source.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to list the device's data source.
+* `404 Not Found`: Returned if device rid is invalid.
 
 ##### Example
 
@@ -2780,15 +2867,22 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a data source.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the data sources.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status of 204 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the data source is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the data source.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -2815,15 +2909,22 @@ Content-Type: application/json; charset=UTF-8
 Get information about a Portals data source.
 If you want to get more than one data source information can reference [Get multiple data sources](#get-multiple-data-sources).
 
+##### Permissions
+
+* User must have at least `d___read` [permission](#permission-object) to the data sources.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing a [data source object](#data-source-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [data source object](#data-source-object) if the caller user has permission to get data source information.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get data source information.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -2883,31 +2984,38 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/data-sources/{data-source-rid}/data`
 
+##### Permissions
+
+* User must have at least `d___read` [permission](#permission-object) to the data sources.
+
+##### Query String
+
 This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
 
-* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read.
-
-* `"sort"` defines the order in which data points will be displayed.
-
-* `"limit"` sets the a maximum on the number of data points to return.
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `starttime` | Unix timestamps that specify the start time of window to read. | `/data-sources/{data-source-rid}/data?starttime=1416278080` |
+| `endtime`  | Unix timestamps that specify the end time of window to read.  | `/data-sources/{data-source-rid}/data?endtime=1416278417` |
+| `sort` | Defines the order in which points should be ordered: ascending (`"asc"`) or descending (`"desc"`) timestamp order. | `/data-sources/{data-source-rid}/data?sort=desc`|
+| `limit` | Sets a maximum on the number of data points to return. | `/data-sources/{data-source-rid}/data?limit=2` |
 
 For more details about these options, see the [read API](https://github.com/exosite/docs/tree/master/rpc#read).
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a list of data points. See the contents of `"data"`.
-
-* `"data"` is an array of data points. A data point has a unit timestamp and a value.
-
-    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-
-    * `{value}` may be a string, int, or float depending on the data source type.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the caller user has permission to get data source data, and along with an array of `"data"` contents like following:
+    * `"data"` is an array of data points. A data point has a unit timestamp and a value.
+        * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+        * `{value}` may be a string, int, or float depending on the data source type.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get data source data.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -2957,31 +3065,37 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/data`
 
+##### Permissions
+
+* User must have at least `d___read` [permission](#permission-object) to the data sources.
+
+##### Query String
+
 This API can retrieve multiple data points. The options below can be included to modify the results of an API call:
 
-* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to read.
-
-* `"sort"` defines the order in which data points will be displayed.
-
-* `"limit"` sets the a maximum on the number of data points to return.
-
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `starttime` | Unix timestamps that specify the start time of window to read. | `/data-sources/{data-source-rid}/data?starttime=1416278080` |
+| `endtime`  | Unix timestamps that specify the end time of window to read.  | `/data-sources/{data-source-rid}/data?endtime=1416278417` |
+| `sort` | Defines the order in which points should be ordered: ascending (`"asc"`) or descending (`"desc"`) timestamp order. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?sort=desc` |
+| `limit` | Sets a maximum on the number of data points to return. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?limit=2` |
 For more details about these options, see the [read API](https://github.com/exosite/docs/tree/master/rpc#read).
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a array list of data points. See the contents of `"data"`.
-
-* `"data"` is an array of data points. A data point has a unit timestamp and a value.
-
-    * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
-
-    * `{value}` may be a string, int, or float depending on the data source type.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the caller user has permission to get data source data, and along with a JSON object contain the following keys:
+    * `{data-source-rid}` is an array of data points from the data source. A data point has a unit timestamp and a value.
+        * `{unix-timestamp}` is a [Unix timestamp](http://en.wikipedia.org/wiki/Unix_time), measured in number of seconds since the epoch.
+        * `{value}` may be a string, int, or float depending on the data source type.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get data source data.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -2990,7 +3104,7 @@ On failure, response has HTTP status of 400 or greater.
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/\[3218552df19a93a3f1b85c29fd0f46ddff2f7071,437240fba025d3416a60ef1a160e5424d4138fdc\]/data' \
      -X GET \
-     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3011,15 +3125,23 @@ Keep-Alive: timeout=2
 
 Append data
 
+##### Permissions
+
+* User must have at least `d__write` [permission](#permission-object) to the data sources.
+
 ##### Request
 
-Request body is a [value](#data-source-object).
+* Request body is a [value](#data-source-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned if the data is appended to data source successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission append data to the data source.
+* `400 Bad Request`: Returned if request body is invalid.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -3042,15 +3164,23 @@ Content-Type: application/json; charset=UTF-8
 
 Insert data
 
+##### Permissions
+
+* User must have at least `d__write` [permission](#permission-object) to the data sources.
+
 ##### Request
 
-Request body is [data](https://github.com/exosite/docs/tree/master/rpc#recordbatch).
+* Request body is [data](https://github.com/exosite/docs/tree/master/rpc#recordbatch).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned if the data is inserted to data source successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission insert data to the data source.
+* `400 Bad Request`: Returned if request body is invalid.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -3077,22 +3207,29 @@ Content-Type: application/json; charset=UTF-8
 
 Write json data
 
-##### Querystring
+##### Permissions
 
-* safe
-    safe write, server will wait for 1s and scan the data again for safety
+* User must have at least `d__write` [permission](#permission-object) to the data sources.
+
+##### Query String
+
+| String | Description | Example |
+|:-------|-------------|:--------|
+| `safe` | Safe write, server will wait for 1s and scan the data again for safety. | `data-sources/{data-source-rid}/json?safe` |
 
 ##### Request
 
-Request body is a valid JSON.
+* Request body is a valid JSON.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
-
-When `safe` is passed in querystring, failure will response 409
+* `201 Created`: Returned if the JSON data is appended to data source successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission append JSON data to the data source.
+* `404 Not Found`: Returned if the data sources rid is invalid.
+* `409 Conflict`: Returned if `safe` is passed in querystring, and fail to append JSON data.
 
 ##### Example
 
@@ -3117,25 +3254,35 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/data-sources/{data-source-rid}/data`
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the data sources.
+
+##### Query String
+
 This API deletes data points from a data source. The following parameters specify which points to delete:
 
-* `"starttime"` and `"endtime"` are Unix timestamps that specify the window of time to delete.
-
-* `"sort"` defines how to order the points before applying `"limit"`. This affects which points are deleted in the case where there are more than `"limit"` points in the specified time window.
-
-* `"limit"` sets the maximum number of data points to delete. When set to `"infinity"` it will delete all the data points in the given window.
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `starttime` | Unix timestamps that specify the window of time to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?starttime=1416278080` |
+| `endtime`   | Unix timestamps that specify the window of time to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?endtime=1416278417` |
+| `sort`      | Defines how to order the points before applying `"limit"`. This affects which points are deleted in the case where there are more than `"limit"` points in the specified time window.| `/data-sources/[{data-source-rid},{data-source-rid},...]/data?sort=desc` |
+| `limit`     | Sets the maximum number of data points to delete. When set to `"infinity"` it will delete all the data points in the given window.| `/data-sources/[{data-source-rid},{data-source-rid},...]/data?limit=2` |
 
 For more details about these options, see [Get data source data](#get-data-source-data).
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status of 204 and body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the data source is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the data source.
+* `404 Not Found`: Returned if the data sources rid is invalid.
 
 ##### Example
 
@@ -3183,65 +3330,60 @@ Content-Type: application/json; charset=UTF-8
 
 Creates a new device based on a client model, returning the CIK and RID of the new device.
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
-The following keys are passed:
+* Requires authentication.
+* The following keys are passed:
 
-* `"portal_rid"` - resource ID of portal where the device is to be created. User creating the device must have at least manager level access to this portal. This may be found in the output of the /portal/ API call, or in Portals here: https://<subdomain>.exosite.com/admin/portallist
+    * `"portal_rid"` - resource ID of portal where the device is to be created. User creating the device must have at least manager level access to this portal. This may be found in the output of the /portal/ API call, or in Portals here: https://<subdomain>.exosite.com/admin/portallist
 
-![Find Portal RID](images/find_portal_rid.png)
+    ![Find Portal RID](images/find_portal_rid.png)
 
-* `"vendor"` - vendor identifier. Administrators may find this identifier here: https://<subdomain>.exosite.com/admin/home
+    * `"vendor"` - vendor identifier. Administrators may find this identifier here: https://<subdomain>.exosite.com/admin/home
 
-![Find Vendor ID](images/find_vendor.png)
+    ![Find Vendor ID](images/find_vendor.png)
 
-* `"model"` - client model of device to create. Administrators may find this here, at the bottom of the page: https://<subdomain>.exosite.com/admin/managemodels
+    * `"model"` - client model of device to create. Administrators may find this here, at the bottom of the page: https://<subdomain>.exosite.com/admin/managemodels
 
-![Find Model](images/find_model.png)
+    ![Find Model](images/find_model.png)
 
-* `"serialnumber"` - serial number of new device. The serial numbers available are configurable per device model. Administrators may configure individual serial numbers, or configure a range, here:  https://<subdomain>.exosite.com/admin/serialnumbers For example, this model has serial numbers consisting of six base 10 digits, e.g. 123456.
+    * `"serialnumber"` - serial number of new device. The serial numbers available are configurable per device model. Administrators may configure individual serial numbers, or configure a range, here:  https://<subdomain>.exosite.com/admin/serialnumbers For example, this model has serial numbers consisting of six base 10 digits, e.g. 123456.
 
-![Find device serial number](images/find_serialnumber.png)
+    ![Find device serial number](images/find_serialnumber.png)
 
-* `"name"` - device name. This is a human-readable name for the device.
-* `"timezone"` - device timezone (optional)
-* `"location"` - device location (optional)
+    * `"name"` - device name. This is a human-readable name for the device.
+    * `"timezone"` - device timezone (optional)
+    * `"location"` - device location (optional)
 
-The domain name in the HTTP request indicates which domain to authenticate the user, and must be the same domain in which portal_rid is registered.
+    The domain name in the HTTP request indicates which domain to authenticate the user, and must be the same domain in which portal_rid is registered.
 
 ##### Response
 
-On success, response has a HTTP status code 200. The response body contains a JSON object with the following keys:
-* `"rid"` - resource identifier for created device
-* `"cik"` - key for created device
+* `200 OK`: Returned if device is created successful, and along with a JSON object contains following keys:
+    * `"rid"` - resource identifier for created device
+    * `"cik"` - key for created device
 
-After creating a device, it is necessary to activate it using the provisioning API. This is normally done by device firmware, but may also be done at the command line for testing.
-
-[https://github.com/exosite/api/blob/master/provision/device.md#provisionactivate]
-
-The RID and CIK may then be used with Exosite’s other APIs to interact with the device.
-
-On failure, response has a HTTP status code of 400 or greater. The response body contains a JSON formatted response object. The response object may contain the following keys:
-
-* `"errors"` - array of error identifier strings
-
-    * `"limit"` - portal’s device limit has been reached
-
-    * `"invalid_sn"` - serial number is invalid
-
-    * `"unavailable_sn"` - serial number is not available
-
-    * `"forbidden_model"` - model is not available in this domain (this also results if `"vendor"` is invalid or otherwise does not correspond to `"model"`)
-
-    * `"require_purchase"` - creating this type of device requires a purchase
-
-    * `"insufficient_resources"` - device could not be added due to insufficient resources in the portal
-
-    * `"portal_not_found"` - portal_rid could not be found
-
-    * `"missing_*"` - some required input was missing. E.g. `missing_portal_rid` indicates missing or empty (blank) portal_rid.
-
-* `"notices"` - array of user-readable error strings
+    After creating a device, it is necessary to activate it using the provisioning API. This is normally done by device firmware, but may also be done at the command line for testing.
+    [https://github.com/exosite/api/blob/master/provision/device.md#provisionactivate]
+    The RID and CIK may then be used with Exosite’s other APIs to interact with the device.
+* `400 Bad Request`: Returned along body contains a JSON formatted response object. The response object may contain the following keys:
+    * `"errors"` - array of error identifier strings
+        * `"limit"` - portal’s device limit has been reached
+        * `"invalid_sn"` - serial number is invalid
+        * `"unavailable_sn"` - serial number is not available
+        * `"forbidden_model"` - model is not available in this domain (this also results if `"vendor"` is invalid or otherwise does not correspond to `"model"`)
+        * `"require_purchase"` - creating this type of device requires a purchase
+        * `"insufficient_resources"` - device could not be added due to insufficient resources in the portal
+        * `"portal_not_found"` - portal_rid could not be found
+        * `"missing_*"` - some required input was missing. E.g. `missing_portal_rid` indicates missing or empty (blank) portal_rid.
+    * `"notices"` - array of user-readable error strings
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create the device.
 
 ##### Example
 
@@ -3287,25 +3429,30 @@ a148dd4b498cf18c8f1b066af0dab8d671a79a5l
 
 Create a device inside a portal
 
+##### Permissions
+
+* User must have at least `p_m_crea` [permission](#permission-object) to the portal.
+
 ##### Request
 
-Request body is a [device object](#device-object). Currently only the following keys are supported:
+* Request body is a [device object](#device-object). Currently only the following keys are supported:
+    * `"type"` - Device type, could be either `generic` or `vendor` (required)
 
-* `"type"` - Device type, could be either `generic` or `vendor` (required)
+    If `"type"` is `vendor`, the following keys are required:
+        * `"model"` - Model name (optional)
+        * `"sn"` - Serial number (optional)
+        * `"vendor"` - Vendor name (optional)
+        If you send any keys besides these, it will do nothing.
 
-If `"type"` is `vendor`, the following keys are required:
-
-* `"model"` - Model name (optional)
-* `"sn"` - Serial number (optional)
-* `"vendor"` - Vendor name (optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created [device object](#device-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [device object](#device-object) if the device is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create the device.
+* `404 Not Found`: Returned if the portalid is invalid.
 
 ##### Example
 
@@ -3458,19 +3605,26 @@ Content-Type: application/json; charset=UTF-8
 
 Update a device
 
+##### Permissions
+
+* User must have at least `d_update` [permission](#permission-object) to the device.
+
 ##### Request
 
-Request body is a [device object](#device-object). Currently only the following keys may be updated:
+* Request body is a [device object](#device-object). Currently only the following keys may be updated:
 
-* `"info": {"description": ...}` - description under info (optional)
+    * `"info": {"description": ...}` - description under info (optional)
+    If you send any keys besides these, it will do nothing.
 
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status of 200 and body is the updated [device object](#device-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [device object](#device-object) if the device is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the device.
+* `404 Not Found`: Returned if the device rid is invalid.
 
 ##### Example
 
@@ -3544,15 +3698,22 @@ Content-Type: application/json; charset=UTF-8
 Get information for a device.
 If you want to get more than one device information can reference [Get multiple devices](#get-multiple-devices).
 
+##### Permissions
+
+* User must have at least `d___view` [permission](#permission-object) to the device.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a [device object](#device-object):
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [device object](#device-object) if caller user has permission to get the device.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the device.
+* `404 Not Found`: Returned if the device rid is invalid.
 
 ##### Example
 
@@ -3624,15 +3785,22 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a device not a clone template of a model, not a pay per use device. This also resets the status of the associated serial number.
 
+##### Permissions
+
+* User must have at least `d_update` [permission](#permission-object) to the device.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status of 204 and body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the device is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the device.
+* `404 Not Found`: Returned if the device rid is invalid.
 
 ##### Example
 
@@ -3660,25 +3828,27 @@ Content-Type: application/json; charset=UTF-8
 
 Returns an array of domains to which the user’s account is added.
 
+##### Permissions
+
+ * User can get information of the domain that the user is a member of.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and JSON array of domain objects. Domain objects contain the following keys:
-
-* `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
-* `"role"` - the user’s role on this domain. Has one of the following values:
-
-    * `"user"` - non-admin
-
-    * `"admin"` - domain admin
-
-* `"name"` - vendor name (for provisioning API)
-* `"token"` - vendor token (for provisioning API)
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if get domain information successfully, and along with an array of domain objects. Domain objects contain the following keys:
+    * `"rid"` - domain rid.
+    * `"domain"` - the domain address. This may be used in a subsequent call to /api/portals/v1/portal/
+    * `"role"` - the user’s role on this domain. Has one of the following values:
+        * `"user"` - non-admin.
+        * `"admin"` - domain admin.
+    If user `"role"` is `"user"`, that domain objects will not contain the following keys:
+    * `"name"` - vendor name (for provisioning API)
+    * `"token"` - vendor token (for provisioning API)
+* `403 Forbidden`: Returned if the caller user is not authenticated.
 
 ##### Example
 
@@ -3699,10 +3869,11 @@ Content-Type: application/json; charset=UTF-8
 [
     {
         "role":"user",
-        "name":"exosite_portals",
+        "rid":"3fd70884cd1e406cd45a7eac898de5d2e6d20d12",
         "domain":"portals.exosite.com"
     },
     {
+        "rid":"3fd70884cd1e406cd45a7eac898de5d2e6d20d11"
         "role":"admin",
         "domain":"joesdomain.exosite.com",
         "name":"joesdomain",
@@ -3719,19 +3890,26 @@ Content-Type: application/json; charset=UTF-8
 
 Create a domain widget.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is a [domain widget object](#domain-widget-object).
+* Request body is a [domain widget object](#domain-widget-object).
+    * `"code"` - Domain widget code (optional).
+    * `"description"` - Domain widget description (optional).
+    * `"name"` - Domain widget name (required).
 
-* `"code"` - Domain widget code (optional).
-* `"description"` - Domain widget description (optional).
-* `"name"` - Domain widget name (required).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is [domain widget object](#domain-widget-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [domain widget object](#domain-widget-object) if the domain widget is created successfully.
+* `400 Bad Request`: Returned if request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create the domain widget.
 
 ##### Example
 
@@ -3739,7 +3917,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
      -X POST \
      -d '{"code":"function(){}","description":"no operation","name":"noop"}' \
-     -u 'username:password' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3765,22 +3943,29 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a domain widget.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the domain widget is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the domain widget.
+* `404 Not Found`: Returned if the widget script id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
      -X DELETE \
-     -u 'username:password' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3799,21 +3984,28 @@ Content-Type: application/json; charset=UTF-8
 
 Get a domain widget.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [domain widget object](#domain-widget-object) if the caller user has permission to get domain widget.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the domain widget.
+* `404 Not Found`: Returned if the widget script id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
-     -u 'username:password' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3839,21 +4031,27 @@ Content-Type: application/json; charset=UTF-8
 
 List domain widget.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [domain widget object](#domain-widget-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [domain widget object](#domain-widget-object) if the caller user has permission to get domain widget.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the domain widget.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts' \
-     -u 'username:password' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3881,19 +4079,26 @@ Content-Type: application/json; charset=UTF-8
 
 Update a domain widget.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is a [domain widget object](#domain-widget-object).
+* Request body is a [domain widget object](#domain-widget-object).
+    * `"code"` - Domain widget code (optional).
+    * `"description"` - Domain widget description (optional).
+    * `"name"` - Domain widget name (optional).
 
-* `"code"` - Domain widget code (optional).
-* `"description"` - Domain widget description (optional).
-* `"name"` - Domain widget name (optional).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is [domain widget object](#domain-widget-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [domain widget object](#domain-widget-object) if the domain widget is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the domain widget.
+* `404 Not Found`: Returned if the widget script id is invalid.
 
 ##### Example
 
@@ -3901,7 +4106,7 @@ On failure, response has HTTP status of 400 or greater.
 curl 'https://mydomain.exosite.com/api/portals/v1/widget-scripts/3396985491' \
      -X PUT \
      -d '{"code":""},"description":"empty","name":"empty"}' \
-     -u 'username:password' \
+     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -3922,10 +4127,6 @@ Content-Type: application/json; charset=UTF-8
 ```
 
 ### File Systems
-
-#### Append to a directory
-
-Require `___admin` permission to the domain to access this end point.
 
 ```
 <form action="/api/portals/v1/fs/{directory-path}" enctype="multipart/form-data" method="POST">
@@ -3955,28 +4156,75 @@ The response entity body is:
 * `{field-content-type-1}` is the content type of the file as the value of field 1.
 * `{field-value-2}` is the value of `{field-name-2}`.
 
-#### Get a file
+#### Append to a directory
 
-`GET /api/portals/v1/fs/{directory-path}/{subdirectory}`
+`POST /api/portals/v1/fs`
 
-Require no permission to access this end point.
+##### Permissions
 
-Following [Append to a directory](#append-to-a-directory).
+* User must have at least `d_____fs` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body must not be empty
+* Request header must contain `Content-Type`
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and returns response json entity.
-
-On failure, response has HTTP status of 400 or greater.
+* `303 See Other`: Returned along with the file content if the file is appended successfully, the field directory will appear in `Location`.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to append the file.
+* `500 Internal Server Error`: Returned if request header doesn't contain `Content-Type`.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400' \
+curl 'https://mydomain.exosite.com/api/portals/v1/fs' \
+     -X POST \
+     -H 'Content-Type: application/json' \
+     -d '{"info":[{"description":{"name":"hello"}}]}' \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 303 See Other
+Date: Tue, 16 Jun 2015 01:43:31 GMT
+Status: 303 See Other
+Location: https://mydomain.exosite.com/api/portals/v1/fs/141517041216756400
+Vary: Accept-Encoding
+Content-Length: 43
+Content-Type: application/json
+
+{"info":[{"description":{"name":"hello"}}]}
+```
+
+#### List files
+
+`GET /api/portals/v1/fs`
+
+Get all files whitch under the same directory. 
+
+##### Permissions
+
+* User must have authenticated in the domain.
+
+##### Request
+
+* Request body is empty.
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned along with a body containing a JSON entity.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs' \
      -X GET \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
@@ -3991,28 +4239,45 @@ Content-Length: 21
 Content-Type: application/json
 
 {
-    {field-name-1}: {field-content-type-1},
-    {field-name-2}: {field-value-2}
+    "143442117468881900": {
+        "info": [
+            {
+                "description": {
+                    "name": "hello1"
+                }
+            }
+        ]
+    },
+    "143442118299661000": {
+        "info": [
+            {
+                "description": {
+                    "name": "hello2"
+                }
+            }
+        ]
+    }
 }
 ```
 
 #### Get a file content
 
-Require no permission to access this end point.
-
-Following [Append to a directory](#append-to-a-directory).
-
 `GET /api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}`
+
+##### Permissions
+
+* User must have authenticated in the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and returns the content of the file as the value of field.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned with a body containing the object previously uploaded by the user.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
+* `404 Not Found`: Returned if the directory of field is invalid.
 
 ##### Example
 
@@ -4058,6 +4323,76 @@ Content-Type: application/json
 {"info":[{"description":{"name":"hello"}}]}
 ```
 
+#### Update a file content
+
+`PUT /api/portals/v1/fs/{directory-path}`
+
+##### Permissions
+
+* User must have at least `d_____fs` [permission](#permission-object) to the domain.
+
+##### Request
+
+* Request body must not be empty
+* Request header must contain `Content-Type`.
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned along with a body containing a file content if the file is updated successfully.
+* `201 Created`: Returned along with file content and file directory appear in `Location` if the file directory does not exist.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the file.
+* `500 Internal Server Error`: Returned if request header doesn't contain `Content-Type`.
+
+##### Example
+
+* IF the file directory exist:
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/aa' \
+     -X PUT \
+     -H 'Content-Type: application/json' \
+     -d '{"info":[{"description":{"name":"hell2"}}]}' \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 23 Jun 2015 08:06:23 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 43
+Content-Type: application/json
+
+{"info":[{"description":{"name":"hell2"}}]}
+```
+
+* IF the file directory does not exist:
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/aa' \
+     -X PUT \
+     -H 'Content-Type: application/json' \
+     -d '{"info":[{"description":{"name":"hell1"}}]}' \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Tue, 23 Jun 2015 07:25:00 GMT
+Status: 201 Created
+Location: https://mydomain.exosite.com/api/portals/v1/fs/aa
+Vary: Accept-Encoding
+Content-Length: 43
+Content-Type: application/json
+
+{"info":[{"description":{"name":"hell1"}}]}
+```
+
 ### Groups
 
 #### Create group under user
@@ -4066,19 +4401,26 @@ Content-Type: application/json
 
 Create a group under a user. A group under a user may be updated only by that user. (TODO: confirm this)
 
+##### Permissions
+
+One of the following:
+
+* User can create a group under himself.
+* User must have at least `d_s_crea` [permission](#permission-object) to the domain.
+
 ##### Request
 
-The request body is a [group object](#group-object). Currently, only the following keys are supported:
+* The request body is a [group object](#group-object). Currently, only the following keys are supported:
+    * `"name"` - group name (optional)
+    If you send keys besides these, it will do nothing.
 
-* `"name"` - group name (optional)
-
-If you send keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created [group object](#group-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [group object](#group-object) if the group is created successfully.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
+* `404 Not Found`: Returned if the directory of field is invalid.
 
 ##### Example
 
@@ -4123,22 +4465,28 @@ Content-Type: application/json; charset=UTF-8
 
 Update a group
 
+##### Permissions
+
+* User must have at least `g_update` [permission](#permission-object) to the group.
+
 ##### Request
 
-Body contains a [group object](#group-object). Currently only the following keys may be updated:
+* Body contains a [group object](#group-object). Currently only the following keys may be updated:
+    * `"members"` - group members (optional)
+    * `"meta"` - group meta (optional)
+    * `"name"` - group name (optional)
+    * `"permissions"` - group permissions (optional)
+    If you send any keys besides these, it will do nothing.
 
-* `"members"` - group members (optional)
-* `"meta"` - group meta (optional)
-* `"name"` - group name (optional)
-* `"permissions"` - group permissions (optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and [group object](#group-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [group object](#group-object) if the group is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the group.
+* `404 Not Found`: Returned if the group id is invalid.
 
 ##### Example
 
@@ -4184,15 +4532,22 @@ Get information about a group.
 
 If you want to get more than one group information can reference [Get multiple groups](#get-multiple-groups).
 
+##### Permissions
+
+* User must have at least `g_member` [permission](#permission-object) to the group.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a [group object](#group-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [group object](#group-object) if caller user has permission to get the group.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the group.
+* `404 Not Found`: Returned if the group id is invalid.
 
 ##### Example
 
@@ -4235,15 +4590,22 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a group
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the group.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and empty body.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the group is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the group.
+* `500 Internal Server Error`: Returned if the group id is invalid.
 
 ##### Example
 
@@ -4269,27 +4631,28 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/portal/`
 
-Get a array of portals for the specified user on the domain specified in the URL of the request.
+Get an array of portals for the specified user on the domain specified in the URL of the request.
+
+##### Permissions
+
+* User must have authenticated in the domain.
 
 ##### Request
 
-Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
+* Request body is empty. The domain name in the HTTP request is used to indicate which domain’s portals should be listed.
+* Requires authentication.
 
 ##### Response
 
-On success, HTTP status is 200 and HTTP response body is a JSON array of portal objects. Portal objects contain the following keys:
-
-* `"name"` - Portal name
-* `"domain"` - Portal domain
-* `"key"` - Portal CIK (returned only if user has "owner" or "manager" level access to the portal)
-* `"rid"` - Portal resource ID
-* `"role"` - User’s role for this portal. Possible values are:
-
-    * `"owner"` - user is the portal’s direct owner
-
-    * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though.
-
-On failure, response has a HTTP status code of 400 or greater.
+* `200 OK`: Returned if the caller user has permission to list portal, and along with a JSON array of portal objects. Portal objects contain the following keys:
+    * `"name"` - Portal name
+    * `"domain"` - Portal domain
+    * `"key"` - Portal CIK (returned only if user has "owner" or "manager" level access to the portal)
+    * `"rid"` - Portal resource ID
+    * `"role"` - User’s role for this portal. Possible values are:
+        * `"owner"` - user is the portal’s direct owner
+        * `"manager"` - user has manager access to the portal. This role grants the same rights as owner. A role of `"manager"` indicates the portal is not a child client of this user in the One Platform hierarchy. Once you have a key to the portal the distinction is not important to the API, though.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
 
 ##### Example
 
@@ -4334,19 +4697,24 @@ Content-Type: application/json; charset=UTF-8
 
 Create a portal under a user. The created portal will have the same device, data sources, events, alerts and scripts as the Default Portal Template in /admin/portaltemplate if Default Portal Template is not "no template".
 
+##### Permissions
+
+* User must have at least `d_p_crea` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
+* Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
+    * `"planId"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups.(optional)
+    If you send any keys besides these, it will do nothing.
 
-* `"planId"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups.(optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the created [portal object](#portal-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [portal object](#portal-object) if the portal is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create the portal.
 
 ##### Example
 
@@ -4417,25 +4785,30 @@ Content-Type: application/json; charset=UTF-8
 
 Update information about a portal.
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
-Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
+* Request body is a [portal object](#portal-object).  Currently only the following keys may be updated:
 
-* `"info"` - Info is an object. Possible values are:
+    * `"info"` - Info is an object. Possible values are:
+        * `"aliases"` - Aliases under info is an array.(optional) Possible values are:
+            * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
+                * `"{aliases}"` - The under this portal's data-sources/ device aliases is an array.
+        * `"description"` - Description under info (optional)
+    If you send any keys besides these, it will do nothing.
 
-    * `"aliases"` - Aliases under info is an array.(optional) Possible values are:
-
-        * `{rid}` - The under this portal's data-sources/ device rid. Possible values are:
-
-            * `"{aliases}"` - The under this portal's data-sources/ device aliases is an array.
-
-    * `"description"` - Description under info (optional)
-
-If you send any keys besides these, it will do nothing.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the updated [portal object](#portal-object).
+* `200 OK`: Returned along with a body containing a [portal object](#portal-object) if the portal is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the portal.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -4509,15 +4882,22 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about a portal.
 
+##### Permissions
+
+* User must have at least `p___view` [permission](#permission-object) to the portal.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing a [portal object](#portal-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [portal object](#portal-object) if caller user has permission to get the portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the portal.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -4586,15 +4966,21 @@ Content-Type: application/json; charset=UTF-8
 
 List portal by domain.
 
+##### Permissions
+
+* User must have at least `d_p_list` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of portal id.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of portal id if caller user has permission to list portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to list portal.
 
 ##### Example
 
@@ -4624,20 +5010,29 @@ Content-Type: application/json; charset=UTF-8
 
 List portal device.
 
-##### Query string
+##### Permissions
 
-* `"limit"` - Number of items to limit (optional)
-* `"offset"` - Number of items to skip, only available when `"limit"` is valid (optional)
+* User must have at least `p___view` [permission](#permission-object) to the portal.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `limit` | Number of items to limit | `/portals/{portal-id}/devices?limit=10` |
+| `offset` | Number of items to skip, only available when `"limit"` is valid | `/portals/{portal-id}/devices?offset=10` |
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [device object](#device-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [device object](#device-object) if caller user has permission to list portal device.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to list portal device.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -4712,17 +5107,24 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/portals/{portal-id}`
 
-delete a portal through portal ID.
+Delete a portal through portal ID.
+
+##### Permissions
+
+* User must have authenticated in the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the deleting successful message.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: one of the following:
+    * Returned if the portal is deleted successfully.
+    * Returned if failed to delete portal due to device under that portal is being used as a Clone for other devices.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -4748,17 +5150,24 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/portals/{portal-rid}/ByRid`
 
-delete a portal through portal ID.
+Delete a portal through portal ID.
+
+##### Permissions
+
+* User must have authenticated in the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the deleting successful message.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: one of the following:
+    * Returned if the portal is deleted successfully.
+    * Returned if failed to delete portal due to device under that portal is being used as a Clone for other devices.
+* `403 Forbidden`: Returned if the caller user is not authenticated.
+* `404 Not Found`: Returned if the portal rid is invalid.
 
 ##### Example
 
@@ -4788,6 +5197,10 @@ Content-Type: application/json; charset=UTF-8
 
 Create a device script.
 
+##### Permissions
+
+* User must have at least `d_update` [permission](#permission-object) to the device.
+
 ##### Request
 
 ```
@@ -4803,13 +5216,16 @@ Create a device script.
 }
 ```
 
-See [create datarule API](https://github.com/exosite/docs/blob/master/rpc/README.md#create-datarule).
+* See [create datarule API](https://github.com/exosite/docs/blob/master/rpc/README.md#create-datarule).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is a [script object](#script-object).
-
-On failure, response has HTTP status of 404 or greater.
+* `200 OK`: Returned along with a body containing a [script object](#script-object) if the device script is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create device script.
+* `404 Not Found`: Returned if the device rid is invalid.
 
 ##### Example
 
@@ -4869,13 +5285,35 @@ Content-Type: application/json; charset=UTF-8
 
 Create a portal script.
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
-See [Create device script](#create-device-script).
+```
+{
+    "info": {
+        "description": {
+            "name": string = "",
+            "rule": {
+                "script": string = ""
+            }
+        }
+    }
+}
+```
+
+* See [create datarule API](https://github.com/exosite/docs/blob/master/rpc/README.md#create-datarule).
+* Requires authentication.
 
 ##### Response
 
-See [Create device script](#create-device-script).
+* `200 OK`: Returned along with a body containing a [script object](#script-object) if the portal script is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create portal script.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -4935,15 +5373,22 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a script.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the script.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and the body is empty.
-
-On failure, response has HTTP status of 404 or greater.
+* `204 No Content`: Returned along with an empty body if the script is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete script.
+* `404 Not Found`: Returned if the script rid is invalid.
 
 ##### Example
 
@@ -4968,6 +5413,10 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/scripts/{script-rid}/data`
 
 See [Get data source data](#get-data-source-data).
+
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the script.
 
 ##### Request
 
@@ -5005,15 +5454,22 @@ Content-Type: application/json; charset=UTF-8
 
 Get a script.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the script.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is a [script object](#script-object).
-
-On failure, response has HTTP status of 404 or greater.
+* `200 OK`: Returned along with a body containing a [script object](#script-object) if caller user has permission to get the script.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get portal script.
+* `404 Not Found`: Returned if the script rid is invalid.
 
 ##### Example
 
@@ -5076,20 +5532,29 @@ Content-Type: application/json; charset=UTF-8
 
 List device script.
 
-##### Query string
+##### Permissions
 
-* `"limit"` - Number of items to limit (optional)
-* `"offset"` - Number of items to skip, only available when `"limit"` is valid (optional)
+* User must have at least `d___view` [permission](#permission-object) to the device.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `limit` | Number of items to limit | `/devices/{device-rid}/scripts?limit=10` |
+| `offset` | Number of items to skip, only available when `"limit"` is valid | `/devices/{device-rid}/scripts?offset=10` |
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [script object](#script-object).
-
-On failure, response has HTTP status of 404 or greater.
+* `200 OK`: Returned along with a body containing an array of [script object](#script-object) if caller user has permission to get device script.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get device script.
+* `404 Not Found`: Returned if the device rid is invalid.
 
 ##### Example
 
@@ -5150,17 +5615,29 @@ Content-Type: application/json; charset=UTF-8
 
 List portal script.
 
-##### Query string
+##### Permissions
 
-See [List device script](#list-device-script).
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `limit` | Number of items to limit | `/portals/{portal-id}/scripts?limit=10` |
+| `offset` | Number of items to skip, only available when `"limit"` is valid | `/portals/{portal-id}/scripts?offset=10` |
 
 ##### Request
 
-See [List device script](#list-device-script).
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-See [List device script](#list-device-script).
+* `200 OK`: Returned along with a body containing an array of [script object](#script-object) if caller user has permission to get portal script.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get portal script.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -5223,6 +5700,10 @@ Content-Type: application/json; charset=UTF-8
 
 Update a script.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the portal.
+
 ##### Request
 
 ```
@@ -5235,11 +5716,15 @@ Update a script.
 
 * `<description>` - See [update API](https://github.com/exosite/docs/blob/master/rpc/README.md#update)
 
+* Requires authentication.
+
 ##### Response
 
-On success, response has HTTP status 200 and the body is a [script object](#script-object).
-
-On failure, response has HTTP status of 404 or greater.
+* `200 OK`: Returned along with a body containing a [script object](#script-object) if the script is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update script.
+* `404 Not Found`: Returned if the script rid is invalid.
 
 ##### Example
 
@@ -5301,36 +5786,142 @@ Content-Type: application/json; charset=UTF-8
 Themes are designs that are applied to your domain. Only a domain administrator user can use these Theme APIs. All theme APIs share the same prefix: `/api/portals/v1/themes/`.
 **Note: Image data can currently not be modified using this API**
 
-#### Update theme
+#### Create theme
 
-`PUT /api/portals/v1/themes/{themeid}`
+`POST /api/portals/v1/themes`
 
-Update information about a theme.
+Create default theme the exosite system theme will be applied to the domain.
+
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
 
 ##### Request
 
-The body is a JSON encoded [theme object](#theme-object).
+* Body contains a [theme object](#theme-object). Currently only the following keys may be updated:
+    * `"name"` - theme name (required)
+    * `"description"` - theme permissions (required)
+    If you send any keys besides these, it will do nothing.
+
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [theme object](#theme-object) if the theme is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create theme.
 
 ##### Example
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
-     -X PUT \
-     -d '{"name": "update_theme"}' \
+curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
+     -X POST \
+     -d '{"name":"test1113","description":"desc-test1113"}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
 ```
-HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 06:01:39 GMT
-Status: 200 OK
+HTTP/1.1 201 Created
+Date: Mon, 27 Apr 2015 08:15:57 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "3156844504",
+    "name": "test1113",
+    "description": "desc-test1113",
+    ":default": false,
+    "config": {
+        "dashboard_background": {
+            "background_color": "f9f9f9",
+            "background_image": "",
+            "background_attachment": "scroll",
+            "background_repeat": "repeat-y",
+            "background_position": "left top"
+        },
+        "header_logo": "https://mydomain.exosite.com/static/png/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2",
+        "header_bkimage": "https://portals.review.portalsapp/static/png/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc",
+        "header_title_color": "D5E04D",
+        "header_subtitle_color": "FFFFFF",
+        "header_titles_position_top": "1.375em",
+        "header_linktext_color": "E5E5E5",
+        "header_linktextover_color": "D5E04D",
+        "header_dropdown_text_color": "FFFFFF",
+        "header_linktext_position_top": "1.5em",
+        "header_portalmenu_current_color": "0000FF",
+        "footer_text": "ANY DEVICE. ANY DATA. ANY WHERE.",
+        "footer_text_color": "D5E04D",
+        "footer_bar_color": "D5E04D",
+        "footer_linktext_color": "5C5D60",
+        "footer_linktextover_color": "000000",
+        "block_title_text_color": "000000",
+        "block_title_linkover_color": "010101",
+        "block_title_back_color": "D5E04D",
+        "block_invert_icons": "0",
+        "managepage_highlight_text_color": "0000FF",
+        "dashboard_thumbnail": "",
+        "thankyoupage_title_text_color": "D5E04D",
+        "browser_tab_text": "Exosite Portals",
+        "browser_tab_icon": "https://mydomain.exosite.com/static/png/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd",
+        "admin_menu_style": {
+            "admin_menu_title": "Domain Admin",
+            "manage_menu_title": "Manage",
+            "secondary_menu_title": "Portal Menu",
+            "account_menu_title": "Account",
+            "menu_title_color": "e5e5e5",
+            "background_color": "5c5d60",
+            "background_hover_color": "a6a6a6",
+            "text_color": "fff",
+            "sub_background_color": "fff",
+            "sub_background_hover_color": "a6a6a6",
+            "sub_text_color": "5c5d60",
+            "text_active_color": "d5e04d"
+        },
+        "jsCode": ""
+    },
+    "code": ""
+}
+```
+
+#### Delete theme
+
+`DELETE /api/portals/v1/themes/{theme-id}`
+
+When deleting the current default theme the exosite system theme will be applied to the domain.
+
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
+##### Request
+
+* Request body is empty.
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned if the theme is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete theme.
+* `404 Not Found`: Returned if the theme id is invalid.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
+     -X DELETE \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 16 Jun 2015 11:07:02 GMT
+Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
@@ -5338,19 +5929,26 @@ Content-Type: application/json; charset=UTF-8
 
 #### Get theme
 
-`GET /api/portals/v1/themes/{themeid}`
+`GET /api/portals/v1/themes/{theme-id}`
 
 Get information about a theme.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and body is a [theme object](#theme-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [theme object](#theme-object) if caller user has permission to get theme.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get theme.
+* `404 Not Found`: Returned if the theme id is invalid.
 
 ##### Example
 
@@ -5431,15 +6029,21 @@ Content-Type: application/json; charset=UTF-8
 
 Returns an array of themes in this domain.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and an array of [theme object](#theme-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [theme object](#theme-object) if caller user has permission to list themes.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to list themes.
 
 ##### Example
 
@@ -5573,75 +6177,43 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-#### Create theme
+#### Update theme
 
-`POST /api/portals/v1/themes`
+`PUT /api/portals/v1/themes/{themeid}`
 
-Create default theme the exosite system theme will be applied to the domain.
+Update information about a theme.
 
-##### Request
+##### Permissions
 
-Body contains a [theme object](#theme-object). Currently only the following keys may be updated:
-
-* `"name"` - theme name (required)
-* `"description"` - theme permissions (required)
-
-If you send any keys besides these, it will do nothing.
-
-##### Response
-
-On success, response has HTTP status 200 and the body is a [theme object](#theme-object).
-
-On failure, response has HTTP status of 400 or greater.
-
-##### Example
-
-```
-curl 'https://mydomain.exosite.com/api/portals/v1/themes' \
-     -X POST \
-     -d '{"name":"test1113","description":"desc-test1113"}' \
-     -u 'useremail@gmail.com:userP4ssword' \
-     -i
-```
-
-```
-HTTP/1.1 201 Created
-Date: Mon, 27 Apr 2015 08:15:57 GMT
-Status: 201 Created
-Vary: Accept-Encoding
-Content-Type: application/json; charset=UTF-8
-
-{"id":"3156844504","name":"test1113","description":"desc-test1113",":default":false,"config":{"dashboard_background":{"background_color":"f9f9f9","background_image":"","background_attachment":"scroll","background_repeat":"repeat-y","background_position":"left top"},"header_logo":"https:\/\/portals.review.portalsapp\/static\/png\/skin_portals_bannerbrand.png?9ebccc0ccd74b887b6e0b8aabc97f3b2","header_bkimage":"https:\/\/portals.review.portalsapp\/static\/png\/skin_portals_bannerbg.png?62d38477d5d7a46968a168c460bf76fc","header_title_color":"D5E04D","header_subtitle_color":"FFFFFF","header_titles_position_top":"1.375em","header_linktext_color":"E5E5E5","header_linktextover_color":"D5E04D","header_dropdown_text_color":"FFFFFF","header_linktext_position_top":"1.5em","header_portalmenu_current_color":"0000FF","footer_text":"ANY DEVICE. ANY DATA. ANY WHERE.","footer_text_color":"D5E04D","footer_bar_color":"D5E04D","footer_linktext_color":"5C5D60","footer_linktextover_color":"000000","block_title_text_color":"000000","block_title_linkover_color":"010101","block_title_back_color":"D5E04D","block_invert_icons":"0","managepage_highlight_text_color":"0000FF","dashboard_thumbnail":"","thankyoupage_title_text_color":"D5E04D","browser_tab_text":"Exosite Portals","browser_tab_icon":"https:\/\/portals.review.portalsapp\/static\/png\/icon_exosite.png?834282e60aa5c2cf2d3a6894307437dd","admin_menu_style":{"admin_menu_title":"Domain Admin","manage_menu_title":"Manage","secondary_menu_title":"Portal Menu","account_menu_title":"Account","menu_title_color":"e5e5e5","background_color":"5c5d60","background_hover_color":"a6a6a6","text_color":"fff","sub_background_color":"fff","sub_background_hover_color":"a6a6a6","sub_text_color":"5c5d60","text_active_color":"d5e04d"},"jsCode":""},"code":""}
-```
-
-#### Delete theme
-
-`DELETE /api/portals/v1/themes/{themeid}`
-
-When deleting the current default theme the exosite system theme will be applied to the domain.
+* User must have `___admin` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* The body is a JSON encoded [theme object](#theme-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the theme is updated successfully.
+* `400 Bad Request`: Returned if the body is not a JSON encoded [theme object](#theme-object).
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update themes.
+* `404 Not Found`: Returned if the theme id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/themes/1083890176' \
-     -X DELETE \
+     -X PUT \
+     -d '{"name": "update_theme"}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
 ```
 HTTP/1.1 200 OK
-Date: Tue, 18 Nov 2014 06:06:39 GMT
+Date: Tue, 18 Nov 2014 06:01:39 GMT
 Status: 200 OK
 Vary: Accept-Encoding
 Content-Length: 0
@@ -5658,37 +6230,32 @@ Content-Type: application/json; charset=UTF-8
 
 Signs up a new user account, sending an activation email to the specified address.
 
+##### Permissions
+
+* Any one can use this endpoint to create a new user.
+
 ##### Request
 
-Request body is a JSON object with the following keys:
+* Request body is a JSON object with the following keys:
+    * `"email"` - new user’s email address (required)
+    * `"password"` - new user’s password (required)
+    * `"plan"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups. (required)
+    * `"first_name"` - user’s first name (optional)
+    * `"last_name"` - user’s last name (optional)
+    If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"` and `"User"`, respectively.
 
-* `"email"` - new user’s email address (required)
-* `"password"` - new user’s password (required)
-* `"plan"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups. (required)
-* `"first_name"` - user’s first name (optional)
-* `"last_name"` - user’s last name (optional)
-
-If `"first_name"` or `"last_name"` are omitted or empty, they are set to `"New"` and `"User"`, respectively.
-
-The domain name in the HTTP request is used to indicate which domain the user should be signed up in.
+* The domain name in the HTTP request is used to indicate which domain the user should be signed up in.
 
 ##### Response
 
-On success, HTTP status code is 200 and HTTP response body is empty.
-
-On failure, HTTP status code is 400 or greater and HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
-
-* `"errors"` - array of error identifier strings
-
-    * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
-
-    * `"wrong_password"` - email is already registered with Portals and the password is incorrect
-
-    * `"user_exists_wrong_domain”` - user exists on another domain
-
-    * `"user_exists"` - user already exists on this domain
-
-* `"notices"` - array of user-readable error strings
+* `200 OK`: Returned if the user is created successfully.
+* `400 Bad Request`: Returned along with  JSON formatted response object. Response object may contain the following keys:
+    * `"errors"` - array of error identifier strings.
+        * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+        * `"wrong_password"` - email is already registered with Portals and the password is incorrect.
+        * `"user_exists_wrong_domain”` - user exists on another domain.
+        * `"user_exists"` - user already exists on this domain.
+    * `"notices"` - array of user-readable error strings.
 
 ##### Example
 
@@ -5715,28 +6282,25 @@ Content-Type: text/html
 
 Sends a password reset email for this user.
 
+##### Permissions
+
+* Any one can use this endpoint to reset password.
+
 ##### Request
 
-Request contains a JSON object with the following keys:
-
-* `"email"` - email address of a Portals user
-* `"action"` - what to do. Supported values:
-
-    * `"reset"` - send user a password reset request
+* Request contains a JSON object with the following keys:
+    * `"email"` - email address of a Portals user.
+    * `"action"` - what to do. Supported values:
+        * `"reset"` - send user a password reset request
 
 ##### Response
 
-On success, HTTP status code is 200 and HTTP response body is empty.
-
-On failure, HTTP status code is 400 or greater and the HTTP response body contains a JSON formatted response object. Response object may contain the following keys:
-
-* `"errors"` - array of error identifier strings
-
-    * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
-
-    * `"failed"` - some other error occurred
-
-* `"notices"` - array of user-readable error strings
+* `200 OK`: Returned if reset password request is allowed, will receive a reset password email.
+* `400 Bad Request`: Returned along with  JSON formatted response object. Response object may contain the following keys:
+    * `"errors"` - array of error identifier strings.
+        * `"missing_*"` - some required input was missing. E.g. missing_email indicates missing or empty (blank) email.
+        * `"failed"` - some other error occurred.
+    * `"notices"` - array of user-readable error strings.
 
 ##### Example
 
@@ -5773,31 +6337,30 @@ Create a user.
         * Moderate New User Signup is set to **OFF** from admin/moderate page.
 * When user is created with header contains X-User-Agent, an activation email is sent to the specified address.
 
+##### Permissions
+
+* Any one can use this endpoint to create a new user.
+
 ##### Request
 
-Request body is a [user object](#user-object).  Currently only the following keys may be included:
-
-* `"email"` - User email. (required)
-* `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
-* `"password"` - User password.(optional) If it has this attribute then email will not be sent.
-* `"Firstname"` - User first name.(optional)
-* `"Lastname"` - User last name.(optional)
-
+* Request body is a [user object](#user-object).  Currently only the following keys may be included:
+    * `"email"` - User email. (required)
+    * `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
+    * `"password"` - User password.(optional) If it has this attribute then email will not be sent.
+    * `"Firstname"` - User first name.(optional)
+    * `"Lastname"` - User last name.(optional)
+    If you send any keys besides these, it will do nothing.
+    
 If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
-
-If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success
-
-* Creating user with header containing X-User-Agent.
-response has HTTP status 202 and the message, and an activation email is sent to the new user.
-
-* Creating user with header not containing X-User-Agent.
-response has HTTP status 201 and the created user object, and an email with a randomly generated password is sent to the new user.
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing an array of [user object](#user-object) if the new user is created successfully, and will receive an email with a randomly generated password.
+* `202 Accepted`: Returned if creating user with header containing X-User-Agent and the new user is created successfully, will receive an activation email.
+* `400 Bad Request`: Returned if request body is invalid.
+* `409 Conflict`: one of the following:
+    * Returned if the email has already registered and is awaiting activation.
+    * Returned if the email already has an account in this domain.
 
 ##### Example
 
@@ -5863,19 +6426,22 @@ Activate an activation email.
 
 * The activation email is created by POST /users to create the user with header contains X-User-Agent
 
+##### Permissions
+
+* Any one can use this endpoint to activate an activation email.
+
 ##### Request
 
-Request body is a JSON object.  Currently only the following key may be included:
-
-* `"activationRegkey"` - activation key (required)(Activation key can be found in the activation email that was sent when creating a user by making POST request to /users endpoint with header containing X-User-Agent.)
-
-If you send any keys besides these, it will do nothing.
+* Request body is a JSON object.  Currently only the following key may be included:
+    * `"activationRegkey"` - activation key (required)(Activation key can be found in the activation email that was sent when creating a user by making POST request to /users endpoint with header containing X-User-Agent.)
+    If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the new user is activated successfully.
+* `400 Bad Request`: one of the following:
+    * Returned if the activation key not existing this domain.
+    * Returned if request body is invalid.
 
 ##### Example
 
@@ -5900,34 +6466,47 @@ Content-Type: text/html
 
 `PUT /api/portals/v1/users/{user-id}`
 
-Update a Portals user
+Update a Portals user information.
+
+##### Permissions
+
+One of the following:
+
+* User can update his own account information.
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `silence` | The [user object](#user-object) will not be returned in the response body. | `/users/{user-id}?silence` |
 
 ##### Request
 
-Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
+* Request body is a [user object](#user-object). At the moment, only the following keys may be updated:
+    * `"activated"` - Whether a user is activated (optional)
+    * `"email"` - User email. (optional)
+    * `"userName"` - User name.(optional)
+    * `"fullName"` - User full name. (optional)
+    * `"password"` - User password.(optional)
+    * `"meta"` -User meta. (optional)
+    * `"permissions"` - User permissions. (optional)
+    * `"phoneNumber"` - user phone number. (optional)
 
-* `"activated"` - Whether a user is activated (optional)
-* `"email"` - User email. (optional)
-* `"userName"` - User name.(optional)
-* `"fullName"` - User full name. (optional)
-* `"password"` - User password.(optional)
-* `"meta"` -User meta. (optional)
-* `"permissions"` - User permissions. (optional)
-* `"phoneNumber"` - user phone number. (optional)
+    If you send any keys besides these, it will do nothing.
 
-If you send any keys besides these, it will do nothing.
+    When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
 
-When User-A update User-B, User-A doesn't need to grant permission of resources from User-B which User-A doesn't have.
-
-##### options
-
-* `"silence"` - On success, response has HTTP status 202 and the [user object](#user-object) will not be returned in the response body.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the updated [user object](#user-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [user object](#user-object) if the callee user is updated successfully.
+* `202 Accepted`: Returned if `silence` is passed in querystring, and the callee user is updated successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update user.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -5985,19 +6564,22 @@ Content-Type: application/json; charset=UTF-8
 
 Step 1 of 2: Send a reset password email to user account.
 
+##### Permissions
+
+* Any one can use this endpoint to reset password.
+
 ##### Request
 
-Request body is a JSON object.  Currently only the following key may be included:
-
-* `"email"` - User email (required)
-
-If you send any keys besides these, it will do nothing.
+* Request body is a JSON object.  Currently only the following key may be included:
+    * `"email"` - User email (required)
+    If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 202.
-
-On failure, response has HTTP status of 400 or greater.
+* `202 Accepted`: Returned along with a body containing a message if reset password allowed, will receive a reset password email.
+* `400 Bad Request`: one of the following:
+    * Returned if the email address has not registered.
+    * Returned if request body is invalid.
 
 ##### Example
 
@@ -6028,22 +6610,33 @@ Content-Type: application/json; charset=UTF-8
 
 Reset user profile picture to default.
 
+##### Permissions
+
+One of the following:
+
+* User can update his own account information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 202.
-
-On failure, response has HTTP status of 400 or greater.
+* `202 Accepted`: Returned if the user profile picture is reset successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to reset callee user profile picture.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
+     -X DELETE \
      -u 'useremail@gmail.com:userP4ssword' \
-     -i -X DELETE
+     -i 
 ```
 
 ```
@@ -6059,24 +6652,37 @@ Keep-Alive: timeout=2
 
 `POST /api/portals/v1/users/{user-id}/profile/picture`
 
-Set user profile picture by you upload file.
+Set user profile picture by uploading file.
+
+##### Permissions
+
+One of the following:
+
+* User can set his profile picture.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is file upload and only support png image file.
+* Request body is the file user intends to upload and only supports png image file.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201.
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned if the user profile picture is uploaded successfully.
+* `400 Bad Request`: Returned if request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to upload callee user's profile picture.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
+     -X POST \
+     -F myfile=@"~/Downloads/user1-64x64.png" \
      -u 'useremail@gmail.com:userP4ssword' \
-     -i -X POST -F myfile=@"~/Downloads/user1-64x64.png"
+     -i 
 ```
 
 ```
@@ -6097,20 +6703,21 @@ Keep-Alive: timeout=2
 
 Step 2 of 2: Activate a reset password email.
 
+##### Permissions
+
+* Any one can use this endpoint to reset password.
+
 ##### Request
 
-Request body is a JSON object.  Currently only the following keys may be included:
-
-* `"resetPasswordRegkey"` - Reset key (required) (Reset key can be found in the reset email that was sent when by making POST request to /users/reset-password with the email address.)
-* `"newPassword"` - User new password (optional) (A random password will be generated if `"newPassword"` option is not specified)
-
-If you send any keys besides these, it will do nothing.
+* Request body is a JSON object.  Currently only the following keys may be included:
+    * `"resetPasswordRegkey"` - Reset key (required) (Reset key can be found in the reset email that was sent upon POST request to /users/reset-password with the email address)
+    * `"newPassword"` - User new password (optional) (A random password will be generated if `"newPassword"` option is not specified)
+    If you send any keys besides these, it will do nothing.
 
 ##### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the user password is reset successfully.
+* `400 Bad Request`: Returned if request body is invalid.
 
 ##### Example
 
@@ -6137,28 +6744,35 @@ Content-Type: application/json; charset=UTF-8
 
 Get information about all users.
 
-##### options
+##### Permissions
 
-* `"Offset"` - Use with limit to pagenation the user lists.
-* `"limit"` - see Offset.
-* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `offset` | Use with limit to pagenation the user lists. | `/users?offset=10` |
+| `limit` | see Offset. | `/users?limit=10` |
+| `NoPermissions` | The [user object](#user-object) will not include permission items. | `/users?NoPermissions` |
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of [user object](#user-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [user object](#user-object) if the caller user has permission to get all users.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get all users.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users' \
      -X GET \
-     -d '{"email":"newuseremail@gmail.com"}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
@@ -6184,7 +6798,7 @@ Content-Type: application/json; charset=UTF-8
         "permissions": []
     },
     {
-        "email": "olduseremail@gmail.com",
+        "email": "existinguseremail@gmail.com",
         "fullName": "olduser",
         "id": "3407735538",
         "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
@@ -6211,7 +6825,6 @@ Content-Type: application/json; charset=UTF-8
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions' \
      -X GET \
-     -d '{"email":"newuseremail@gmail.com"}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
@@ -6236,7 +6849,7 @@ Content-Type: application/json; charset=UTF-8
         "groups": [],
     },
     {
-        "email": "olduseremail@gmail.com",
+        "email": "existinguseremail@gmail.com",
         "fullName": "olduser",
         "id": "3407735538",
         "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
@@ -6253,32 +6866,43 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/portals`
 
-Get user have access to as a manager or private viewer.
+Get user's permission information regarding portals he owns or shared from other users.
+
+##### Permissions
+
+One of the following:
+
+* User can get his own portals information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `options` | The portal object will include devices item is an array of devices RIDs. The supported option is `devices`. | `/users/{user-id}/portals?options=devices` |
 
 ##### Request
-Request body is empty.
 
-##### options
-
-* `"NoPermissions"` - The [user object](#user-object) will not include permission items.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of portal object.
-Portal objects contain the following keys:
-
-* `"PortalName"` - Portal name.
-* `"PortalID"` - Portal ID.
-* `"PortalRID"` - Portal RID.
-* `"UserEmail"` - The user's email.
-* `"Description"` - Portal description.
-* `"Permissions"` - User’s permission for this portal. Possible values are:
-    * `"___admin"` - user is the portal’s direct owner
-    * `"p_manage"` - user has manager access to the portal. This permission grants the same rights as owner.
-    * `"p_m_crea"` - user has create device access to the portal.
-    * `"p_contac"` - user has receive alerts access from the portal.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if get user portals successfully, will along with an array of portal object. Portal objects contain the following keys:
+    * `"PortalName"` - Portal name.
+    * `"PortalID"` - Portal ID.
+    * `"PortalRID"` - Portal RID.
+    * `"UserEmail"` - The user's email.
+    * `"Description"` - Portal description.
+    * `"Permissions"` - User’s permission for this portal. Possible values are:
+        * `"___admin"` - user is the portal’s direct owner
+        * `"p_manage"` - user has manager access to the portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to the portal.
+        * `"p_contac"` - user has receive alerts access from the portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user portals.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6317,23 +6941,63 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
+#### Example with options
+
+```
+curl https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals?options=devices \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+[
+  {
+    "PortalName": "",
+    "PortalID": "2853566858",
+    "PortalRID": "6800e1ee0948d39744625990d28d360f78ac2e4d",
+    "UserEmail": "useremail@gmail.com",
+    "Description": "Default Portal",
+    "Permissions":[{"access":"___admin"}]
+    "Devices":["acf4838d1aa26e00ae834c1ab67884e21137c1b7","c36ec9302b2fa9b43772ba7a72da3e74efb3dc92"]
+  },
+  {
+    "PortalName": "",
+    "PortalID": "2978406756",
+    "PortalRID": "dd6e30fe1a00a9718b919ccd93601ff10310238b",
+    "UserEmail": "useremail@gmail.com",
+    "Description": "Default Portal"
+    "Permissions":[{"access":"p_manage"}
+    "Devices":[]
+  }
+  ...
+]
+```
+
 #### Get user
 
 `GET /api/portals/v1/users/{user-id}`
 
 Get information about a user.
 
-If you want to get more than one user information can reference [Get multiple users](#get-multiple-users).
+If you want to get more than one user information can refer to [Get multiple users](#get-multiple-users).
+
+##### Permissions
+
+One of the following:
+
+* User can get his own portals information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing a [user object](#user-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [user object](#user-object) if the caller user has permission to get callee user.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6373,15 +7037,21 @@ Get the user information through readtoken.
 
 * The token expires in 5 min once its generated.
 
+##### Permissions
+
+* User must have readtoken.
+
 #### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 #### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [user object](#user-object) if the caller user has permission to get callee user.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user.
 
 #### Example
 
@@ -6421,16 +7091,27 @@ Get a portals user token. This token can be used for logging into a domain or ma
 
 * The token expires in 30 days once its generated.
 
+##### Permissions
+
+One of the following:
+
+* User can get his own token.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
-Request string.
-* `"reDirect"` - URL when login fail reDirect to where.
-Request body is empty.
+
+* Request string.
+    * `"reDirect"` - URL when login fail reDirect to where..
+
+* Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the token is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user token.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6478,21 +7159,30 @@ Get a user access token then other users can get this user information without d
 
 * The token expires in 5 min once its generated.
 
+##### Permissions
+
+One of the following:
+
+* User can get his own readtoken.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 #### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 #### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if the readtoken is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user readtoken.
+* `404 Not Found`: Returned if the user id is invalid.
 
 #### Example
 
 ```
 curl  https://mydomain.exosite.com/api/portals/v1/users/3167859736/readtoken \
-      -H 'Content-Type: application/json' \
       -u 'useremail@gmail.com:userP4ssword' \
       -i
 ```
@@ -6502,7 +7192,6 @@ HTTP/1.1 200 OK
 Date: Mon, 17 Nov 2014 08:39:27 GMT
 Status: 200 OK
 Vary: Accept-Encoding
-
 Content-Type: application/json; charset=UTF-8
 
 "kDRv-JHtAjeECWSineeCRTVM-ZZyVUjpwrWLKc3DFuAjOokBcXrxtHQJ-immZyyRZbco9rG_TuOGqPpx1MRw5cvPgfEO"
@@ -6513,8 +7202,6 @@ Content-Type: application/json; charset=UTF-8
 `GET /api/portals/v1/users/_this/token`
 
 Get a portals user token. This token can be used for logging into a domain or making API calls.
-
-* Currently, only support the OpenID Connect user of Google for App.
 
 * If the OpenID user is a new user for the domain, will create the account and portal, then grant a token from Exosite.
 
@@ -6527,20 +7214,28 @@ Get a portals user token. This token can be used for logging into a domain or ma
 
 * The token expires in 30 days once its generated.
 
+##### Permissions
+
+* Only support the OpenID Connect user of Google for App.
+
 ##### Request
 
-Request header must include some information for Authorization.
-
-   * Who is Oauth/OpenID server? (E.g. Google)
-   * What is the short-lived authorization code of user from authorization server?
-
-Request body is empty.
+* Request header must include some information for Authorization.
+    * Who is Oauth/OpenID server? (E.g. Google)
+    * What is the short-lived authorization code of user from authorization server?
+* Request body is empty.
 
 ##### Response
 
-On success, response has HTTP status 200.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [user object](#user-object) if the new user is created successfully, and will receive an email with a randomly generated password.
+* `202 Accepted`: Returned if creating user with header containing X-User-Agent and the new user is created successfully, will receive an activation email.
+* `400 Bad Request`: one of the following:
+    * Returned if Moderate New User Signup is set to **ON** from admin/moderate page.
+    * Returned if doesn't set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
+    * Returned if  authorization in the header is invalid.
+* `409 Conflict`: one of the following:
+    * Returned if the email has already registered and is awaiting activation.
+    * Returned if the email already has an account in this domain.
 
 ##### Example
 
@@ -6568,17 +7263,27 @@ Content-Type: application/json; charset=UTF-8
 
 `GET /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
-Get user data storge.
+Get user data storage.
+
+##### Permissions
+
+One of the following:
+
+* User can get his own data storage.
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing is dependent upon whatever you set.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing is dependent upon whatever you set, if get user data storage successful.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user data storage.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6624,17 +7329,27 @@ Keep-Alive: timeout=2
 
 `GET /api/portals/v1/users/{user-id}/ds/{subdirectory}/*`
 
-Get user data storge of list.
+Get user data storage of list.
+
+##### Permissions
+
+One of the following:
+
+* User can get his own data storage list.
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing a list child of array.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of data storage if the caller user has permission to get user data storage list.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user data storage list.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6656,29 +7371,50 @@ Keep-Alive: timeout=2
 ["apple","dog"]
 ```
 
-#### Set user datastorage
+#### Create user datastorage
 
 `POST /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
-Set a user data storge key.
+Set a user data storage key.
+
+##### Permissions
+
+One of the following:
+
+* User can set his own data storage list.
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is value of you want set.
+* Request body is the value you want to set
+* Request header must contain one of following as content type:
+    * `application/json`
+    * `text/plain`
+    * `image/gif`
+    * `image/jpg`
+    * `image/png`
+    * `image/bmp`
+    * `image/jpeg`
+    * `application/octet-stream`
 
-Supported Content-Type is 'application/json','text/plain','image/gif','image/jpg','image/png','image/bmp','image/jpeg','application/octet-stream'.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201,202 and body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned if the data storage is created successfully.
+* `400 Bad Request`: Returned if not setting Content-Type.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to set user data storage.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
-     -X POST -d '{"myTest":"1231443534523"}' -H 'Content-Type: application/json' \
+     -X POST \
+     -H 'Content-Type: application/json' \
+     -d '{"myTest":"1231443534523"}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
@@ -6696,7 +7432,9 @@ Keep-Alive: timeout=2
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/ds/dog' \
-     -X POST -F myfile=@"/Volumes/exosite/review/public/static/png/bullet_go.png" \
+     -X POST \
+     -H 'Content-Type: image/png' \
+     -F myfile=@"/Volumes/exosite/review/public/static/png/bullet_go.png" \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
@@ -6716,17 +7454,29 @@ Keep-Alive: timeout=2
 
 `DELETE /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
-Delete a user data storge key.
+Delete a user data storage key.
+
+##### Permissions
+
+One of the following:
+
+* User can delete his own data storage list.
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the data storage is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete user data storage.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the subdirectory is invalid.
 
 ##### Example
 
@@ -6749,29 +7499,39 @@ Keep-Alive: timeout=2
 
 `GET /api/portals/v1/users/{user-id}/portals/{portal-id}`
 
-Get user have access to as a manager or private viewer.
+Get a portal's information owned by a user
+
+##### Permissions
+
+One of the following:
+
+* User can get his own portal.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
 ##### Request
-Request body is empty.
+
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of portal object.
-Portal objects contain the following keys:
-
-* `"PortalName"` - Portal name.
-* `"PortalID"` - Portal ID.
-* `"PortalRID"` - Portal RID.
-* `"UserEmail"` - The user's email.
-* `"Description"` - Portal description.
-* `"Permissions"` - User’s permission for this portal. Possible values are:
-
-    * `"___admin"` - user is the portal’s direct owner
-    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
-    * `"p_m_crea"` - user has create device access to this portal.
-    * `"p_contac"` - user has receive alerts access from this portal.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with an array of portal object if the caller has permission to get user's portals. Portal objects contain the following keys:
+    * `"PortalName"` - Portal name.
+    * `"PortalID"` - Portal ID.
+    * `"PortalRID"` - Portal RID.
+    * `"UserEmail"` - The user's email.
+    * `"Description"` - Portal description.
+    * `"Permissions"` - User’s permission for this portal. Possible values are:
+        * `"___admin"` - user is the portal’s direct owner
+        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to this portal.
+        * `"p_contac"` - user has receive alerts access from this portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user portal.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the portal id is invalid.
 
 ##### Example
 
@@ -6811,20 +7571,31 @@ Content-Type: application/json; charset=UTF-8
 
 Get the user's permissions.
 
+##### Permissions
+
+One of the following:
+
+* User can get his own permissions.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `type` | is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`. | `users/{user-id}/permissions?type%5B%5D=Group` (Square brackets ([ and ]) are replaced with %5B and %5D respectively) |
+
 ##### Request
-Request body is empty.
 
-##### Options
-
-* `"type"` is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`.
-
-    * For example, type%5B%5D=Group (Square brackets ([ and ]) are replaced with %5B and %5D respectively)
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of permission objects.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [permission objects](#permission-object) if get user's permissions successful.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user's permission.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6865,15 +7636,26 @@ Content-Type: application/json; charset=UTF-8
 
 Add one or many [permission objects](#permission-object) to user.
 
+##### Permissions
+
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+* User must have access to the [permission objects](#permission-object).
+
 ##### Request
 
-The request body is a array [permission objects](#permission-object).
+* The request body is an array [permission objects](#permission-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 202 .
-
-On failure, response has HTTP status of 400 or greater.
+* `202 Accepted`: Returned if add user permissions is successful.
+* `400 Bad Request`: Returned if request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have access to the [permission objects](#permission-object).
+    * Returned if the caller user does not have permission to add permission to callee user.
+* `404 Not Found`: Returned if the user id is invalid.
+* `409 Conflict`: Returned if [permission objects](#permission-object) already exists in callee user permissions.
 
 ##### Example
 
@@ -6901,15 +7683,26 @@ Content-Type: application/json; charset=UTF-8
 
 Delete one or many [permission objects](#permission-object) on user.
 
+##### Permissions
+
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+* User must have access to the [permission objects](#permission-object).
+
 ##### Request
 
-The request body is a array [permission objects](#permission-object).
+* The request body is an array [permission objects](#permission-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 .
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the user permissions is deleted successfully.
+* `400 Bad Request`: Returned if request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete user permissions.
+    * Returned if the [permission objects](#permission-object) was deleted by other user and the callee user no longer has permissions on the object(s)
+* `404 Not Found`: Returned if the user id is invalid.
+* `409 Conflict`: Returned if the [permission objects](#permission-object) was deleted by the callee user and the user no longer has permissions on the object(s).
 
 ##### Example
 
@@ -6937,16 +7730,26 @@ Content-Type: application/json; charset=UTF-8
 
 Get the user's profile picture.
 
+##### Permissions
+
+One of the following:
+
+* User can get his own profile picture.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
-Request body is empty or picture.
+
+* Request body is empty or picture.
+* Requires authentication.
 
 ##### Response
 
-On success, default response has HTTP status 303 and location is picture url.
-
-On success, response has HTTP status 200 and a body containing an picture image.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned if getting the user's profile picture was successful. The picture had previously been uploaded by user and was returned within the body of the request.
+* `303 See Other`: Returned if getting the user's profile picture was successful and the profile picture was system default picture. The picture can be retrieved from the returned URL.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get callee user's permission.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -6981,40 +7784,45 @@ IHDR%▒V▒PLTEA▒▒▒▒V▒
 IDATx▒cb67|▒IEND▒B`▒
 ```
 
-
-
 #### Get all users portals shares
 
 `GET /api/portals/v1/users/{user-id}/portals/shares`
 
 Get user own portals and portal shares information.
 
+##### Permissions
+
+One of the following:
+
+* User can get his portals and portal shares information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
-Request body is empty.
+
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of portal object include shares.
-Portal objects contain the following keys:
-
-* `"PortalName"` - Portal name
-* `"PortalID"` - Portal ID
-* `"PortalRID"` - Portal RID
-* `"UserEmail"` - The portal’s direct owner's email
-* `"Description"` - Portal description
-* `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
-
-    * `"access"` - User’s permission for this portal. Possible values are:
-        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
-        * `"p_m_crea"` - user has create device access to this portal.
-        * `"p_contac"` - user has receive alerts access from this portal.
-
-    * `"oid"` - The information of the user. The object contain the following keys:
-        * `"id"` - Id of the user who are being shared with this portal.
-        * `"type"` - The general value is **User**.
-        * `"email"` - Email of the user who are being shared with this portal.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with an array of portal object if the caller has permission to get the user portal shares information. Portal objects contain the following keys:
+    * `"PortalName"` - Portal name
+    * `"PortalID"` - Portal ID
+    * `"PortalRID"` - Portal RID
+    * `"UserEmail"` - The portal’s direct owner's email
+    * `"Description"` - Portal description
+    * `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
+        * `"access"` - User’s permission for this portal. Possible values are:
+            * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+            * `"p_m_crea"` - user has create device access to this portal.
+            * `"p_contac"` - user has receive alerts access from this portal.
+        * `"oid"` - The information of the user. The object contain the following keys:
+            * `"id"` - Id of the user who are being shared with this portal.
+            * `"type"` - The general value is **User**.
+            * `"email"` - Email of the user who are being shared with this portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user portal shares information.
+* `404 Not Found`: Returned if the user id is invalid.
 
 ##### Example
 
@@ -7077,32 +7885,41 @@ Content-Type: application/json; charset=UTF-8
 
 Get user own portals and portal shares information.
 
+##### Permissions
+
+One of the following:
+
+* User can get his portals and portal shares information.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
-Request body is empty.
+
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and a body containing an array of portal object include shares.
-Portal objects contain the following keys:
-
-* `"PortalName"` - Portal name
-* `"PortalID"` - Portal ID
-* `"PortalRID"` - Portal RID
-* `"UserEmail"` - The portal’s direct owner's email
-* `"Description"` - Portal description
-* `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
-
-    * `"access"` - User’s permission for this portal. Possible values are:
-        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
-        * `"p_m_crea"` - user has create device access to this portal.
-        * `"p_contac"` - user has receive alerts access from this portal.
-
-    * `"oid"` - The information of the user. The object contain the following keys:
-        * `"id"` - Id of the user who are being shared with this portal.
-        * `"type"` - The general value is **User**.
-        * `"email"` - Email of the user who are being shared with this portal.
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with an array of portal object if the caller has permission to get the user portal shares information. Portal objects contain the following keys:
+    * `"PortalName"` - Portal name
+    * `"PortalID"` - Portal ID
+    * `"PortalRID"` - Portal RID
+    * `"UserEmail"` - The portal’s direct owner's email
+    * `"Description"` - Portal description
+    * `"shares"` - Containing the information of users who are being shared with this portal. Shares object contain the following keys:
+        * `"access"` - User’s permission for this portal. Possible values are:
+            * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+            * `"p_m_crea"` - user has create device access to this portal.
+            * `"p_contac"` - user has receive alerts access from this portal.
+        * `"oid"` - The information of the user. The object contain the following keys:
+            * `"id"` - Id of the user who are being shared with this portal.
+            * `"type"` - The general value is **User**.
+            * `"email"` - Email of the user who are being shared with this portal.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get user portal shares information.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the portal id is invalid.
 
 ##### Example
 
@@ -7155,38 +7972,51 @@ Content-Type: application/json; charset=UTF-8
 
 To share portal to other user.
 
+##### Permissions
+
+One of the following:
+
+* User can share his portal to other user.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is a [permission objects](#permission-object). The object contain the following keys:
+* Request body is a [permission objects](#permission-object). The object contain the following keys:
+    * `"access"` - User’s permission for this portal. Possible values are:
+        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to this portal.
+        * `"p_contac"` - user has receive alerts access from this portal.
+    * `"oid"` - The information of the user. The object contain the following keys:
+        * `"id"` - Id of the user who are being shared with this portal.
+        * `"type"` - The general value is **User**.
 
-* `"access"` - User’s permission for this portal. Possible values are:
-    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
-    * `"p_m_crea"` - user has create device access to this portal.
-    * `"p_contac"` - user has receive alerts access from this portal.
-
-* `"oid"` - The information of the user. The object contain the following keys:
-    * `"id"` - Id of the user who are being shared with this portal.
-    * `"type"` - The general value is **User**.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 202 Accepted and portal shares information.
-
-On failure, response has HTTP status of 400 or greater.
+* `202 Accepted`: Returned along with portal shares information if shares portal successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to share the portal.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the portal id is invalid.
+* `409 Conflict`: Returned if the portal has already shared to the user in [permission objects](#permission-object).
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
-	  -X POST -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
+	 -X POST \
+     -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
 ```
-HTTP/1.1 200 OK
+HTTP/1.1 202 Accepted
 Date: Mon, 17 Nov 2014 09:45:53 GMT
-Status: 200 OK
+Status: 202 Accepted
 Vary: Accept-Encoding
 Content-Length: 168
 Content-Type: application/json; charset=UTF-8
@@ -7218,6 +8048,8 @@ Content-Type: application/json; charset=UTF-8
     ]
   }
 ]
+
+
 ```
 
 #### Delete user portal share
@@ -7226,29 +8058,43 @@ Content-Type: application/json; charset=UTF-8
 
 To unshare a portal to other user.
 
+##### Permissions
+
+One of the following:
+
+* User can unshare his portal to other user.
+* User must have at least `d_u_view` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is a [permission objects](#permission-object). The object contain the following keys:
+* Request body is a [permission objects](#permission-object). The object contain the following keys:
+    * `"access"` - User’s permission for this portal. Possible values are:
+        * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
+        * `"p_m_crea"` - user has create device access to this portal.
+        * `"p_contac"` - user has receive alerts access from this portal.
+    * `"oid"` - The information of the user. The object contain the following keys:
+        * `"id"` - Id of the user who are being shared with this portal.
+        * `"type"` - The general value is **User**.
 
-* `"access"` - User’s permission for this portal. Possible values are:
-    * `"p_manage"` - user has manager access to this portal. This permission grants the same rights as owner.
-    * `"p_m_crea"` - user has create device access to this portal.
-    * `"p_contac"` - user has receive alerts access from this portal.
-
-* `"oid"` - The information of the user. The object contain the following keys:
-    * `"id"` - Id of the user who are being shared with this portal.
-    * `"type"` - The general value is **User**.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 No Content and portal shares information.
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if unshare portal successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to unshare the portal.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the portal id is invalid.
+* `409 Conflict`: Returned if the portal has already unshared to the user in [permission objects](#permission-object).
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/portals/1173271281/shares' \
-	  -X DELETE -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}'
+	 -X DELETE \
+     -d '{"access": "p_manage","oid":{"type":"User","id":"1498682908"}}' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
@@ -7261,16 +8107,6 @@ Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 
-[
-  {
-    "PortalName": "Demo",
-    "PortalID": "3719832384",
-    "PortalRID": "e54dbefdc89dc2369615e112016340c1e243f785",
-    "UserEmail": "demo2@gmail.com",
-    "Description": "Demo2 Portal",
-    "Shares": []
-  }
-]
 ```
 
 #### Delete user
@@ -7279,14 +8115,25 @@ Content-Type: application/json; charset=UTF-8
 
 Delete a user who has no Braintree ID, no portal, no discount.
 
+##### Permissions
+
+* User must have at least `d_u_list` [permission](#permission-object) to the domain.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and empty response.
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the callee user is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the callee user.
+* `400 Bad Request`: one of the following:
+    * Returned if the callee user owns any resource.
+    * Returned if the callee user already not exists on current domain.
+* `404 Not Found`: Returned if the callee user id is invalid.
 
 ##### Example
 
