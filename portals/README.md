@@ -34,20 +34,20 @@ Portals provides a user authentication and management system on top of the One P
 
 * [Create portal data source](#create-portal-data-source)
 * [Create device data source](#create-device-data-source)
-* [List portal data source](#list-portal-data-source)
-* [List device data source](#list-device-data-source)
 * [Delete data source](#delete-data-source)
 * [Get data source](#get-data-source)
 * [Get multiple data sources](#get-multiple-data-sources)
-* [Update data sources](#update-data-sources)
+* [List device data source](#list-device-data-source)
+* [List portal data source](#list-portal-data-source)
+* [Update data source](#update-data-source)
 
 #### Data Sources Data
 
 * [Append/insert data source data](#appendinsert-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
-* [Get data source data](#get-data-source-data)
-* [Get data sources collection data](#get-data-source-data-bulk-request)
 * [Delete data source data](#delete-data-source-data)
+* [Get data source data](#get-data-source-data)
+* [Get data source data bulk request](#get-data-source-data-bulk-request)
 
 #### Device
 
@@ -56,10 +56,10 @@ Portals provides a user authentication and management system on top of the One P
 #### Devices
 
 * [Create device](#create-device)
-* [Update device](#update-device)
+* [Delete device](#delete-device)
 * [Get device](#get-device)
 * [Get multiple devices](#get-multiple-devices)
-* [Delete device](#delete-device)
+* [Update device](#update-device)
 
 #### Domain
 
@@ -93,8 +93,8 @@ Portals provides a user authentication and management system on top of the One P
 
 #### Portals
 * [Create portal](#create-portal)
-* [Delete portal by id](#delete-portal-by-id)
-* [Delete portal by rid](#delete-portal-by-rid)
+* [Delete portal by ID](#delete-portal-by-id)
+* [Delete portal by RID](#delete-portal-by-rid)
 * [Get portal](#get-portal)
 * [List portal by domain](#list-portal-by-domain)
 * [List portal device](#list-portal-device)
@@ -144,7 +144,7 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user](#get-user)
 * [Get user datastorage](#get-user-datastorage)
 * [Get user datastorage list](#get-user-datastorage-list)
-* [Get user permissions](#get-user-permissions)
+* [Get user permission](#get-user-permission)
 * [Get user profile picture](#get-user-profile-picture)
 * [Get user portal](#get-user-portal)
 * [Get user portal shares](#get-user-portal-shares)
@@ -154,8 +154,8 @@ Portals provides a user authentication and management system on top of the One P
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
 * [Reset user profile picture](#reset-user-profile-picture)
-* [Set user profile picture](#set-user-profile-picture)
 * [Set user datastorage](#set-user-datastorage)
+* [Set user profile picture](#set-user-profile-picture)
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
 
@@ -179,7 +179,7 @@ Portals provides a user authentication and management system on top of the One P
 #### /data-sources
 
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
-* [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-sources)
+* [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-source)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
 * [GET] [/api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/data](#get-data-source-data-bulk-request)
@@ -273,7 +273,7 @@ Portals provides a user authentication and management system on top of the One P
 * [DELETE] [/api/portals/v1/users/{user-id}/permissions](#delete-user-permission)
 * [GET] [/api/portals/v1/users/{user-id}/portals](#get-all-user-portals)
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
-* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-user-portals-shares)
+* [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-users-portals-shares)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
 * [POST][/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
@@ -2160,7 +2160,7 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-#### Update data sources
+#### Update data source
 
 `PUT /api/portals/v1/data-sources/{data-sources-rid}`
 
@@ -4383,7 +4383,7 @@ Content-Type: application/json; charset=UTF-8
 }]
 ```
 
-#### Delete portal by id
+#### Delete portal by ID
 
 `DELETE /api/portals/v1/portals/{portal-id}`
 
@@ -4419,7 +4419,7 @@ Content-Type: application/json; charset=UTF-8
 ["myportal has been successfully deleted."]
 ```
 
-#### Delete portal by rid
+#### Delete portal by RID
 
 `DELETE /api/portals/v1/portals/{portal-rid}/ByRid`
 
@@ -6480,7 +6480,7 @@ Content-Type: application/json; charset=UTF-8
 ]
 ```
 
-#### Get user permissions
+#### Get user permission
 
 `GET /api/portals/v1/users/{user-id}/permissions`
 
