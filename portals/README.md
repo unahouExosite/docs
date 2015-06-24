@@ -4421,6 +4421,7 @@ One of the following:
 * `201 Created`: Returned along with a body containing a [group object](#group-object) if the group is created successfully.
 * `403 Forbidden`: Returned if the caller user is not authenticated.
 * `404 Not Found`: Returned if the directory of field is invalid.
+* `409 Conflict`: Returned if the group name has already exist.
 
 ##### Example
 
@@ -7283,7 +7284,9 @@ One of the following:
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to get user data storage.
-* `404 Not Found`: Returned if the user id is invalid.
+* `404 Not Found`: one of the following:
+    * Returned if the user id is invalid.
+    * Returned if the subdirectory is invalid.
 
 ##### Example
 
