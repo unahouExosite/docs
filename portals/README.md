@@ -30,6 +30,14 @@ Portals provides a user authentication and management system on top of the One P
 * [Get multiple groups](#get-multiple-groups)
 * [Get multiple users](#get-multiple-users)
 
+#### Dashboards
+
+* [Create portal dashboard](#create-portal-dashboard)
+* [Delete dashboard](#delete-dashboard)
+* [Get dashboard](#get-dashboard)
+* [List portal dashboard](#list-portal-dashboard)
+* [Update dashboard](#update-dashboard)
+
 #### Data Sources
 
 * [Create portal data source](#create-portal-data-source)
@@ -188,6 +196,12 @@ Portals provides a user authentication and management system on top of the One P
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}](#delete-data-source)
 * [DELETE] [/api/portals/v1/data-sources/{data-source-rid}/data](#delete-data-source-data)
 
+#### /dashboards
+
+* [DELETE] [/api/portals/v1/dashboards/{dashboard-id}](#delete-dashboard)
+* [GET] [/api/portals/v1/dashboards/{dashboard-id}](#get-dashboard)
+* [PUT] [/api/portals/v1/dashboards/{dashboard-id}](#update-dashboard)
+
 #### /device
 
 * [POST] [/api/portals/v1/device](#create-new-device-under-a-portal-of-authenticated-user)
@@ -221,15 +235,17 @@ Portals provides a user authentication and management system on top of the One P
 
 #### /portals
 
-* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
-* [GET] [/api/portals/v1/portals/{portal-id}/devices](#list-portal-device)
-* [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
-* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
-* [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 * [DELETE] [/api/portals/v1/portals/{portal-id}](#delete-portal-by-id)
 * [DELETE] [/api/portals/v1/portals/{portal-rid}/ByRid](#delete-portal-by-rid)
+* [GET] [/api/portals/v1/portals/{portal-id}/dashboards](#list-portal-dashboard)
+* [GET] [/api/portals/v1/portals/{portal-id}/data-sources](#list-portal-data-source)
+* [GET] [/api/portals/v1/portals/{portal-id}/devices](#list-portal-device)
+* [GET] [/api/portals/v1/portals/{portal-id}](#get-portal)
+* [GET] [/api/portals/v1/portals](#list-portal-by-domain)
+* [POST] [/api/portals/v1/portals/{portal-id}/dashboards](#create-portal-dashboard)
 * [POST] [/api/portals/v1/portals/{portal-id}/data-sources](#create-portal-data-source)
 * [POST] [/api/portals/v1/portals/{portal-id}/devices](#create-device)
+* [PUT] [/api/portals/v1/portals/{portal-id}](#update-portal)
 
 #### /scripts
 
@@ -390,6 +406,40 @@ A sample client model object looks like this:
     ":published": true
 }
 ```
+
+### Dashboard object
+
+A sample dashboard object.
+
+```
+{
+    "config": object = {
+        "layout" : object = {
+            "cols": 2 | 4 | 6 = 4,
+            "gravity": "LeftTop" | "Top" = "LeftTop"
+        },
+        "widgets": object = {}
+    },
+    "description": string = "",
+    "id": string,
+    "location": string = "",
+    "name": string,
+    "portalId": string,
+    "public": boolean = false
+}
+```
+
+* `"config"` is dashboard configuration which is limited to 16MB characters.
+    * `"layout"` is dashboard layout.
+        * `"cols"` means 1 column by 2 grids, e.g. 2 columns equal to 4 grids.
+        * `"gravity"` provides dashboard layout alignment.
+    * `"widgets"` provides each widget configuration on the dashboard.
+* `"description"` is dashboard description which is limited to 255 characters.
+* `"id"` is a 10 digit dashboard identifier.
+* `"location"` is dashboard location which is limited to 255 characters.
+* `"name"` is a descriptive name which is limited to 50 characters and must be unique under corresponding portal.
+* `"portalId"` is a 10 digit identifier of portal.
+* `"public"` provides public read-only access. If set to true, it makes the dashboard readable by any user. If set to false, the dashboard is readable only by any user who has dashboard view or portal manage permission.
 
 ### Data source object
 
@@ -2081,6 +2131,267 @@ Content-Type: application/json; charset=UTF-8
         "groups": []
     }
 ]
+```
+
+### Dashboards
+
+#### Create portal dashboard
+
+`POST /api/portals/v1/portals/{portal-id}/dashboards`
+
+Create portal dashboard.
+
+##### Request
+
+```
+{
+    "config": object = <config>,
+    "description": string = "",
+    "location": string = "",
+    "name": string,
+    "public": boolean = false
+}
+```
+
+* `"config"` See [dashboard object](#dashboard-object).
+
+##### Response
+
+On success, response has HTTP status 201 and the body is a [dashboard object](#dashboard-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/dashboards' \
+     -X POST \
+     -d '{"name":"Demo"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 201 Created
+Date: Thu, 14 May 2015 10:14:23 GMT
+Status: 201 Created
+Vary: Accept-Encoding
+Content-Length: 167
+Content-Type: application/json; charset=UTF-8
+
+{
+    "config": {
+        "layout": {
+            "cols": 4,
+            "gravity": "LeftTop"
+        },
+        "widgets": []
+    },
+    "description": "",
+    "id": "3087021266",
+    "location": "",
+    "name": "Demo",
+    "portalId": "1284862590",
+    "public": false
+}
+```
+
+#### Delete dashboard
+
+`DELETE /api/portals/v1/dashboards/{dashboard-id}`
+
+Delete dashboard.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 204 and the body is empty.
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/dashboards/3087021266' \
+     -X DELETE
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Mon, 18 May 2015 03:37:06 GMT
+Status: 204 No Content
+Vary: Accept-Encoding
+Content-Length: 0
+Content-Type: application/json; charset=UTF-8
+```
+
+#### Get dashboard
+
+`GET /api/portals/v1/dashboards/{dashboard-id}`
+
+Get dashboard.
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is a [dashboard object](#dashboard-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/dashboards/3087021266' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 18 May 2015 03:33:11 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 184
+Content-Type: application/json; charset=UTF-8
+
+{
+    "config": {
+        "layout": {
+            "cols": 4,
+            "gravity": "LeftTop"
+        },
+        "widgets": []
+    },
+    "description": "4294896906",
+    "id": "4294896906",
+    "location": "",
+    "name": "Hello World",
+    "portalId": "1284862590",
+    "public": false
+}
+```
+
+#### List portal dashboard
+
+`GET /api/portals/v1/portals/{portal-id}/dashboards`
+
+List portal dashboard.
+
+##### Request
+
+Request body is empty.
+
+##### Query string
+
+* `"limit"` - Number of items to limit (optional)
+* `"offset"` - Number of items to skip, only avaiable when `"limit"` is valid (optional)
+
+##### Request
+
+Request body is empty.
+
+##### Response
+
+On success, response has HTTP status 200 and the body is an array of [dashboard object](#dashboard-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/dashboards' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 14 May 2015 09:14:29 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 1123
+Content-Type: application/json; charset=UTF-8
+
+[{
+    "config": {
+        "layout": {
+            "cols": 4,
+            "gravity": "LeftTop"
+        },
+        "widgets": {
+            "1": {
+                "title": "Welcome",
+                "type": "0000000013",
+                "order": "0"
+            }
+        }
+    },
+    "description": "clone",
+    "id": "4093336427",
+    "location": "",
+    "name": "clone",
+    "portalId": "1284862590",
+    "public": false
+}]
+```
+
+#### Update dashboard
+
+`PUT /api/portals/v1/dashboards/{dashboard-id}`
+
+Update dashboard.
+
+##### Request
+
+See [Create portal dashboard](#create-portal-dashboard).
+
+##### Response
+
+On success, response has HTTP status 200 and the body is a [dashboard object](#dashboard-object).
+
+On failure, response has HTTP status of 400 or greater.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/portals/1284862590/dashboards/3087021266' \
+     -X PUT \
+     -d '{"name":"Demo"}' \
+     -u 'domainuseremail@gmail.com:adminuserP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 18 May 2015 02:47:24 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 184
+Content-Type: application/json; charset=UTF-8
+
+{
+    "config": {
+        "layout": {
+            "cols": 4,
+            "gravity": "LeftTop"
+        },
+        "widgets": []
+    },
+    "description": "4294896906",
+    "id": "4294896906",
+    "location": "",
+    "name": "Hello World",
+    "portalId": "1284862590",
+    "public": false
+}
 ```
 
 ### Data Sources
