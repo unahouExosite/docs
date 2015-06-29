@@ -2235,7 +2235,7 @@ Create portal dashboard.
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to create dashboard under the portal.
 * `404 Not Found`: Returned if portal id is invalid.
-* `409 Conflict`: Returned if the dashboard name has already exist.
+* `409 Conflict`: Returned if the dashboard name exists already.
 
 ##### Example
 
@@ -2460,7 +2460,7 @@ See [Create portal dashboard](#create-portal-dashboard).
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to get dashboard information.
 * `404 Not Found`: Returned if the dashboard id is invalid.
-* `409 Conflict`: Returned if the dashboard name has already exist.
+* `409 Conflict`: Returned if the dashboard name exists already.
 
 ##### Example
 
@@ -4456,7 +4456,7 @@ One of the following:
 * `201 Created`: Returned along with a body containing a [group object](#group-object) if the group is created successfully.
 * `403 Forbidden`: Returned if the caller user is not authenticated.
 * `404 Not Found`: Returned if the directory of field is invalid.
-* `409 Conflict`: Returned if the group name has already exist.
+* `409 Conflict`: Returned if the group name exists already.
 
 ##### Example
 
