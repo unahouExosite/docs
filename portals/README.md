@@ -2209,6 +2209,10 @@ Content-Type: application/json; charset=UTF-8
 
 Create portal dashboard.
 
+##### Permissions
+
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
+
 ##### Request
 
 ```
@@ -2222,12 +2226,16 @@ Create portal dashboard.
 ```
 
 * `"config"` See [dashboard object](#dashboard-object).
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 201 and the body is a [dashboard object](#dashboard-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `201 Created`: Returned along with a body containing a [dashboard object](#dashboard-object) if the dashboard is created successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create dashboard under the portal.
+* `404 Not Found`: Returned if portal id is invalid.
+* `409 Conflict`: Returned if the dashboard name has already exist.
 
 ##### Example
 
@@ -2270,15 +2278,22 @@ Content-Type: application/json; charset=UTF-8
 
 Delete dashboard.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the dashboard.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 204 and the body is empty.
-
-On failure, response has HTTP status of 400 or greater.
+* `204 No Content`: Returned if the dashboard is deleted successfully.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to delete the dashboard.
+* `404 Not Found`: Returned if the dashboard id is invalid.
 
 ##### Example
 
@@ -2304,15 +2319,22 @@ Content-Type: application/json; charset=UTF-8
 
 Get dashboard.
 
+##### Permissions
+
+* User must have at least `v___view` [permission](#permission-object) to the dashboard.
+
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is a [dashboard object](#dashboard-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [dashboard object](#dashboard-object) if the caller user has permission to get dashboard information.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get dashboard information.
+* `404 Not Found`: Returned if the dashboard id is invalid.
 
 ##### Example
 
@@ -2353,24 +2375,29 @@ Content-Type: application/json; charset=UTF-8
 
 List portal dashboard.
 
-##### Request
+##### Permissions
 
-Request body is empty.
+* User must have at least `p_manage` [permission](#permission-object) to the portal.
 
 ##### Query string
 
-* `"limit"` - Number of items to limit (optional)
-* `"offset"` - Number of items to skip, only avaiable when `"limit"` is valid (optional)
+| String | Description | Example |
+|:-------|:------------|:--------|
+| `limit` | Number of items to limit. | `/portals/{portal-id}/dashboards?limit=10` |
+| `offset` | Number of items to skip, only avaiable when `"limit"` is valid. | `/portals/{portal-id}/dashboards?offset=10` |
 
 ##### Request
 
-Request body is empty.
+* Request body is empty.
+* Requires authentication.
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is an array of [dashboard object](#dashboard-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing an array of [dashboard object](#dashboard-object) if the caller user has permission to get dashboard information.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get dashboard information.
+* `404 Not Found`: Returned if the portal id is invalid.
 
 ##### Example
 
@@ -2417,15 +2444,23 @@ Content-Type: application/json; charset=UTF-8
 
 Update dashboard.
 
+##### Permissions
+
+* User must have `___admin` [permission](#permission-object) to the dashboard.
+
 ##### Request
 
 See [Create portal dashboard](#create-portal-dashboard).
 
 ##### Response
 
-On success, response has HTTP status 200 and the body is a [dashboard object](#dashboard-object).
-
-On failure, response has HTTP status of 400 or greater.
+* `200 OK`: Returned along with a body containing a [dashboard object](#dashboard-object)If the dashboard is updated successfully.
+* `400 Bad Request`: Returned if request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get dashboard information.
+* `404 Not Found`: Returned if the dashboard id is invalid.
+* `409 Conflict`: Returned if the dashboard name has already exist.
 
 ##### Example
 
