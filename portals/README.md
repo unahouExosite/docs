@@ -609,6 +609,9 @@ A permission object describes a level of access to a particular Portals resource
 
     * Common Access
 
+        * Dashboard
+            * `"v___view"` means the owner can get the dashboard information.
+
         * Data Sources
             * `"d__write"` means the owner can get the data source information, and read, write data to data source.
             * `"d___read"` means the owner can get the data source information, and read data from data source.
