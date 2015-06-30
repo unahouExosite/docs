@@ -1365,7 +1365,7 @@ Get information for data sources.
 
 | String | Description |        Example |
 |:-------|:------------|:---------------|
-| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{data-source-rid},{data-source-rid},...]?limit=10`      |
+| `limit`         | Internal limit is 200 some are smaller.<br>0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{data-source-rid},{data-source-rid},...]?limit=10`      |
 | `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{data-source-rid},{data-source-rid},...]?offset=10`     |
 
 ##### Request
@@ -1554,7 +1554,7 @@ Get information for devices.
 
 | String | Description |        Example |
 |:-------|:------------|:---------------|
-| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{device-rid},{device-rid},...]?limit=10`      |
+| `limit`         | Internal limit is 200 some are smaller.<br>0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{device-rid},{device-rid},...]?limit=10`      |
 | `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{device-rid},{device-rid},...]?offset=10`     |
 
 ##### Request
@@ -1864,7 +1864,7 @@ Get information about groups.
 
 | String | Description | Example |
 |:-------|:------------|:--------|
-| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{group-id},{group-id},...]?limit=10`      |
+| `limit`         | Internal limit is 200 some are smaller.<br>0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{group-id},{group-id},...]?limit=10`      |
 | `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{group-id},{group-id},...]?offset=10`     |
 | `NoPermissions` | The response object will not include permission items.              | `/users/_this/users/[{group-id},{group-id},...]?NoPermissions` |
 
@@ -2039,7 +2039,7 @@ Get information about users.
 
 | String | Description | Example |
 |:-------|:------------|:--------|
-| `limit`         | Internal limit is 200 some are smaller. 0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{user-id},{user-id},...]?limit=10`      |
+| `limit`         | Internal limit is 200 some are smaller.<br>0 <= x <= (INTERNAL LIMIT). | `/users/_this/users/[{user-id},{user-id},...]?limit=10`      |
 | `offset`        | Numbers of items to skip.                                           | `/users/_this/users/[{user-id},{user-id},...]?offset=10`     |
 | `NoPermissions` | The response object will not include permission items.              | `/users/_this/users/[{user-id},{user-id},...]?NoPermissions` |
 
@@ -3302,8 +3302,8 @@ This API deletes data points from a data source. The following parameters specif
 
 | String | Description | Example |
 |:-------|:------------|:--------|
-| `starttime` | Unix timestamps that specify the window of time to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?starttime=1416278080` |
-| `endtime`   | Unix timestamps that specify the window of time to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?endtime=1416278417` |
+| `starttime` | Unix timestamps that specify the start time of window to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?starttime=1416278080` |
+| `endtime`   | Unix timestamps that specify the end time of window to delete. | `/data-sources/[{data-source-rid},{data-source-rid},...]/data?endtime=1416278417` |
 | `sort`      | Defines how to order the points before applying `"limit"`. This affects which points are deleted in the case where there are more than `"limit"` points in the specified time window.| `/data-sources/[{data-source-rid},{data-source-rid},...]/data?sort=desc` |
 | `limit`     | Sets the maximum number of data points to delete. When set to `"infinity"` it will delete all the data points in the given window.| `/data-sources/[{data-source-rid},{data-source-rid},...]/data?limit=2` |
 
