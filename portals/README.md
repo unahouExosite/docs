@@ -152,7 +152,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Create user](#create-user)
 * [Create user portal share](#create-user-portal-share)
 * [Delete user](#delete-user)
-* [Delete user datastorage](#delete-user-datastorage)
+* [Delete user data storage](#delete-user-data-storage)
 * [Delete user permission](#delete-user-permission)
 * [Delete user portal share](#delete-user-portal-shares)
 * [Get all user portals](#get-all-user-portals)
@@ -160,8 +160,8 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get all users portals shares](#get-all-users-portals-shares)
 * [Get multiple users](#get-multiple-users)
 * [Get user](#get-user)
-* [Get user datastorage](#get-user-datastorage)
-* [Get user datastorage list](#get-user-datastorage-list)
+* [Get user data storage](#get-user-data-storage)
+* [Get user data storage list](#get-user-data-storage-list)
 * [Get user permission](#get-user-permission)
 * [Get user profile picture](#get-user-profile-picture)
 * [Get user portal](#get-user-portal)
@@ -172,7 +172,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
 * [Reset user profile picture](#reset-user-profile-picture)
-* [Set user datastorage](#set-user-datastorage)
+* [Set user data storage](#set-user-data-storage)
 * [Set user profile picture](#set-user-profile-picture)
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
@@ -288,10 +288,10 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/users/{user-id}](#get-user)
 * [GET] [/api/portals/v1/users/{user-id}?readtoken={user-readtoken}](#get-user-through-readtoken)
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
-* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#get-user-datastorage)
-* [POST] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#set-user-datastorage)
-* [DELETE] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#delete-user-datastorage)
-* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory/*}](#get-user-datastorage-list)
+* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#get-user-data-storage)
+* [POST] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#set-user-data-storage)
+* [DELETE] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#delete-user-data-storage)
+* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory/*}](#get-user-data-storage-list)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permission)
@@ -4243,7 +4243,7 @@ Content-Type: application/json
 
 `GET /api/portals/v1/fs`
 
-Get all files whitch under the same directory.
+Get all files which under the same directory.
 
 ##### Permissions
 
@@ -7298,7 +7298,7 @@ Content-Type: application/json; charset=UTF-8
 "MzE2Nzg1OTczNq=="
 ```
 
-#### Get user datastorage
+#### Get user data storage
 
 `GET /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
@@ -7366,7 +7366,7 @@ Keep-Alive: timeout=2
 :���s���=;�q���t�'�)��x����n�M����63��4�d��]��;wd�oݖ�as������gj����j=��D����Ԅ�KO��_
 ```
 
-#### Get user datastorage list
+#### Get user data storage list
 
 `GET /api/portals/v1/users/{user-id}/ds/{subdirectory}/*`
 
@@ -7412,7 +7412,7 @@ Keep-Alive: timeout=2
 ["apple","dog"]
 ```
 
-#### Create user datastorage
+#### Create user data storage
 
 `POST /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
@@ -7491,7 +7491,7 @@ Connection: keep-alive
 Keep-Alive: timeout=2
 ```
 
-#### Delete user datastorage
+#### Delete user data storage
 
 `DELETE /api/portals/v1/users/{user-id}/ds/{subdirectory}`
 
