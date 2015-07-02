@@ -4543,6 +4543,12 @@ Update a group
 
 * User must have at least `g_update` [permission](#permission-object) to the group.
 
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `force` | The update group permission will now ignore all bad and non existing permissions.| `/{group-id}?force=true` |
+
 ##### Request
 
 * Body contains a [group object](#group-object). Currently only the following keys may be updated:
