@@ -4243,7 +4243,7 @@ Content-Type: application/json
 
 `GET /api/portals/v1/fs`
 
-Get all files whitch under the same directory. 
+Get all files whitch under the same directory.
 
 ##### Permissions
 
@@ -6389,7 +6389,7 @@ Create a user.
     * `"Firstname"` - User first name.(optional)
     * `"Lastname"` - User last name.(optional)
     If you send any keys besides these, it will do nothing.
-    
+
 If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
 
 ##### Response
@@ -6675,7 +6675,7 @@ One of the following:
 curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/picture' \
      -X DELETE \
      -u 'useremail@gmail.com:userP4ssword' \
-     -i 
+     -i
 ```
 
 ```
@@ -6721,7 +6721,7 @@ curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736/profile/pictu
      -X POST \
      -F myfile=@"~/Downloads/user1-64x64.png" \
      -u 'useremail@gmail.com:userP4ssword' \
-     -i 
+     -i
 ```
 
 ```
@@ -7809,7 +7809,7 @@ Keep-Alive: timeout=2
 Location: https://mydomain.exosite.com/static/png/user-64x64.png
 ```
 
-or 
+or
 
 ```
 HTTP/1.1 200 OK
