@@ -4247,7 +4247,7 @@ Get all files which under the same directory.
 
 ##### Permissions
 
-* User must have authenticated in the domain.
+* Any one can use this endpoint to get a file content.
 
 ##### Request
 
@@ -4304,7 +4304,7 @@ Content-Type: application/json
 
 ##### Permissions
 
-* User must have authenticated in the domain.
+* Any one can use this endpoint to get a file content.
 
 ##### Request
 
