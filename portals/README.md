@@ -4247,7 +4247,7 @@ Get all files which under the same directory.
 
 ##### Permissions
 
-* Any one can use this endpoint to get a file content.
+* Anyone can use this endpoint to get a file content.
 
 ##### Request
 
@@ -4304,7 +4304,7 @@ Content-Type: application/json
 
 ##### Permissions
 
-* Any one can use this endpoint to get a file content.
+* Anyone can use this endpoint to get a file content.
 
 ##### Request
 
@@ -6271,7 +6271,7 @@ Signs up a new user account, sending an activation email to the specified addres
 
 ##### Permissions
 
-* Any one can use this endpoint to create a new user.
+* Anyone can use this endpoint to create a new user.
 
 ##### Request
 
@@ -6323,7 +6323,7 @@ Sends a password reset email for this user.
 
 ##### Permissions
 
-* Any one can use this endpoint to reset password.
+* Anyone can use this endpoint to reset password.
 
 ##### Request
 
@@ -6378,7 +6378,7 @@ Create a user.
 
 ##### Permissions
 
-* Any one can use this endpoint to create a new user.
+* Anyone can use this endpoint to create a new user.
 
 ##### Request
 
@@ -6467,7 +6467,7 @@ Activate an activation email.
 
 ##### Permissions
 
-* Any one can use this endpoint to activate an activation email.
+* Anyone can use this endpoint to activate an activation email.
 
 ##### Request
 
@@ -6605,7 +6605,7 @@ Step 1 of 2: Send a reset password email to user account.
 
 ##### Permissions
 
-* Any one can use this endpoint to reset password.
+* Anyone can use this endpoint to reset password.
 
 ##### Request
 
@@ -6744,7 +6744,7 @@ Step 2 of 2: Activate a reset password email.
 
 ##### Permissions
 
-* Any one can use this endpoint to reset password.
+* Anyone can use this endpoint to reset password.
 
 ##### Request
 
