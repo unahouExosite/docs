@@ -1,6 +1,6 @@
 # Portals API (BETA)
 
-__This API is in beta testing and may be to subject to the occasional tweak. Any such tweaks will be documented here.__
+__This API is in beta testing and may be subject to the occasional tweak. Any such tweaks will be documented here.__
 
 Portals provides a user authentication and management system on top of the One Platform. The Portals API provides access to Portals functionality using a REST-style HTTP API, using the JSON format in request and response bodies, and basic authentication where a Portals account is required.
 
@@ -13,7 +13,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [REST](#rest)
 * [Request and Response Format](#request-and-response-format)
 * [Authentication](#authentication)
-* [Domain](#domain)
+* [Definition of domain](#definition-of-domain)
 * [Objects](#objects)
 * [Resources](#resources)
 
@@ -301,7 +301,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [POST] [/api/portals/v1/users/{user-id}/portals](#create-portal)
 * [GET] [/api/portals/v1/users/{user-id}/portals/shares](#get-all-users-portals-shares)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}](#get-user-portal)
-* [POST][/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
+* [POST] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#create-user-portal-share)
 * [GET] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#get-user-portal-shares)
 * [DELETE] [/api/portals/v1/users/{user-id}/portals/{portal-id}/shares](#delete-user-portal-shares)
 * [GET] [/api/portals/v1/users/{user-id}/profile/picture](#get-user-profile-picture)
@@ -348,7 +348,7 @@ Some API endpoints require a Portals email and password also username and passwo
 
 http://en.wikipedia.org/wiki/Basic_access_authentication
 
-## Domain
+## Definition of domain
 
 For some API endpoints, the domain of the request URL indicates information about which domain should be affected. For example, a GET request to:
 
@@ -3186,7 +3186,7 @@ Append data
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/data-sources/4f39859d41a66468cf1e5e28d08ad2cab45b498f/data' \
      -X POST \
-     -d '"1000"' \
+     -d '1000' \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
