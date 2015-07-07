@@ -78,6 +78,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get device](#get-device)
 * [Get multiple devices](#get-multiple-devices)
 * [Update device](#update-device)
+* [bulk update device](#bulk-update-device)
 
 #### Domain
 
@@ -223,6 +224,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/devices/{device-rid}/data-sources](#list-device-data-source)
 * [POST] [/api/portals/v1/devices/{device-rid}/data-sources](#create-device-data-source)
 * [PUT] [/api/portals/v1/devices/{device-rid}](#update-device)
+* [PUT] [/api/portals/v1/devices/[{device-rid},{device-rid},...]](#bulk-update-device)
 * [DELETE] [/api/portals/v1/devices/{device-rid}](#delete-device)
 
 #### /domain
@@ -3731,6 +3733,270 @@ Content-Type: application/json; charset=UTF-8
     "sn": null,
     "type": "generic",
     "vendor": null
+}
+```
+
+#### Bulk Update device
+
+`PUT /api/portals/v1/devices/[{device-rid},{device-rid}..]`
+
+Update a device
+
+##### Permissions
+
+* User must have at least `d_update` [permission](#permission-object) to the device.
+
+##### Request
+
+* Request body is a object of [device object](#device-object). Currently only the following keys may be updated:
+
+    * `"info": {"description": ...}` - description under info (optional)
+    If you send any keys besides these, it will do nothing.
+
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned along with a body containing an object [device object](#device-object) if the device is updated successfully. However if any devices fails to update it would still return 200 OK along with an error object included in the response body. (see error exmaple)
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to update the device.
+* `404 Not Found`: Returned if the device rid is invalid.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/\[d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6,b2618de3b54cab517a3a347e1cba5a014ae26d62\]' -H 'Host: portals.review.portalsapp' \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -X PUT \
+     -d '{"d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6":{"info": {"description": {"name": "device update12311123 name"}}},"b2618de3b54cab517a3a347e1cba5a014ae26d62":{"info": {"description": {"name": "device updataaaaaaaaa name"}}} }'
+     -H 'Content-Type: application/json'
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 07 Jul 2015 06:27:57 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+{
+  "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
+    "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
+    "members": [
+      
+    ],
+    "info": {
+      "aliases": {
+        "9a89a449b55c514164e7e721aa2733f452502d54": [
+          "1122"
+        ]
+      },
+      "basic": {
+        "modified": 1434614230,
+        "subscribers": 0,
+        "type": "client",
+        "status": "expired"
+      },
+      "description": {
+        "limits": {
+          "client": 0,
+          "dataport": "inherit",
+          "datarule": "inherit",
+          "disk": "inherit",
+          "dispatch": "inherit",
+          "email": "inherit",
+          "email_bucket": "inherit",
+          "http": "inherit",
+          "http_bucket": "inherit",
+          "share": "inherit",
+          "sms": "inherit",
+          "sms_bucket": "inherit",
+          "xmpp": "inherit",
+          "xmpp_bucket": "inherit"
+        },
+        "locked": false,
+        "meta": "{\"DeviceType\":\"generic\",\"DeviceTypeID\":\"0000000002\",\"Timezone\":\"Pacific\\\/Gambier\",\"Location\":\"\",\"activetime\":\"5\",\"DeviceTypeName\":\"generic\",\"timezone\":\"Asia\\\/Taipei\",\"location\":\"Taiwan\",\"device\":{\"type\":\"vendor\",\"model\":\"Test0615\",\"vendor\":\"review\",\"sn\":\"111\"}}",
+        "name": "device update12311123 name",
+        "public": false
+      },
+      "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
+      "shares": [
+        
+      ],
+      "subscribers": [
+        
+      ],
+      "tags": [
+        
+      ]
+    },
+    "dataSources": [
+      "9a89a449b55c514164e7e721aa2733f452502d54"
+    ],
+    "model": "Test0615",
+    "sn": "111",
+    "type": "vendor",
+    "vendor": "review"
+  },
+  "b2618de3b54cab517a3a347e1cba5a014ae26d62": {
+    "rid": "b2618de3b54cab517a3a347e1cba5a014ae26d62",
+    "members": [
+      
+    ],
+    "info": {
+      "aliases": {
+        "e83839c0a22cb33673f4c6bb9e51433995d4ee46": [
+          "1122"
+        ]
+      },
+      "basic": {
+        "modified": 1436250476,
+        "subscribers": 0,
+        "type": "client",
+        "status": "activated"
+      },
+      "description": {
+        "limits": {
+          "client": 0,
+          "dataport": "inherit",
+          "datarule": "inherit",
+          "disk": "inherit",
+          "dispatch": "inherit",
+          "email": "inherit",
+          "email_bucket": "inherit",
+          "http": "inherit",
+          "http_bucket": "inherit",
+          "share": "inherit",
+          "sms": "inherit",
+          "sms_bucket": "inherit",
+          "xmpp": "inherit",
+          "xmpp_bucket": "inherit"
+        },
+        "locked": false,
+        "meta": "{\"timezone\":\"Pacific\\\/Gambier\",\"location\":\"\",\"device\":{\"type\":\"generic\"},\"activetime\":\"5\"}",
+        "name": "device updataaaaaaaaa name",
+        "public": false
+      },
+      "key": "6bad08a4b8b24dc6e62a7b9248872aadc94b4e91",
+      "shares": [
+        {
+          "code": "8e727c19df0cf4f4c7aea40e97ec06f643f71039",
+          "meta": "[\"review\",\"Test0615\"]",
+          "activator": null
+        },
+        {
+          "code": "86ca167b9a9ca8ae365eb427433cf26e9ec1dec0",
+          "meta": "[\"review\",\"test0511\"]",
+          "activator": null
+        }
+      ],
+      "subscribers": [
+        
+      ],
+      "tags": [
+        
+      ]
+    },
+    "dataSources": [
+      "e83839c0a22cb33673f4c6bb9e51433995d4ee46"
+    ],
+    "model": null,
+    "sn": null,
+    "type": "generic",
+    "vendor": null
+  }
+}
+```
+
+##### Error Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/devices/\[d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6,b2618de3b54cab517a3a347e1cba5a014ae26d62\]' -H 'Host: portals.review.portalsapp' \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -X PUT \
+     -d '{"d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6":{"info": {"description": {"name": "device update12311123 name"}}}}'
+     -H 'Content-Type: application/json'
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 07 Jul 2015 06:35:25 GMT
+Content-Type: application/json; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=2
+
+{
+  "error": {
+    "b2618de3b54cab517a3a347e1cba5a014ae26d62": [
+      {
+        "code": 404,
+        "message": "Not found update data"
+      }
+    ]
+  },
+  "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
+    "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
+    "members": [
+      
+    ],
+    "info": {
+      "aliases": {
+        "9a89a449b55c514164e7e721aa2733f452502d54": [
+          "1122"
+        ]
+      },
+      "basic": {
+        "modified": 1434614230,
+        "subscribers": 0,
+        "type": "client",
+        "status": "expired"
+      },
+      "description": {
+        "limits": {
+          "client": 0,
+          "dataport": "inherit",
+          "datarule": "inherit",
+          "disk": "inherit",
+          "dispatch": "inherit",
+          "email": "inherit",
+          "email_bucket": "inherit",
+          "http": "inherit",
+          "http_bucket": "inherit",
+          "share": "inherit",
+          "sms": "inherit",
+          "sms_bucket": "inherit",
+          "xmpp": "inherit",
+          "xmpp_bucket": "inherit"
+        },
+        "locked": false,
+        "meta": "{\"DeviceType\":\"generic\",\"DeviceTypeID\":\"0000000002\",\"Timezone\":\"Pacific\\\/Gambier\",\"Location\":\"\",\"activetime\":\"5\",\"DeviceTypeName\":\"generic\",\"timezone\":\"Asia\\\/Taipei\",\"location\":\"Taiwan\",\"device\":{\"type\":\"vendor\",\"model\":\"Test0615\",\"vendor\":\"review\",\"sn\":\"111\"}}",
+        "name": "device update12311123 name",
+        "public": false
+      },
+      "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
+      "shares": [
+        
+      ],
+      "subscribers": [
+        
+      ],
+      "tags": [
+        
+      ]
+    },
+    "dataSources": [
+      "9a89a449b55c514164e7e721aa2733f452502d54"
+    ],
+    "model": "Test0615",
+    "sn": "111",
+    "type": "vendor",
+    "vendor": "review"
+  }
 }
 ```
 
