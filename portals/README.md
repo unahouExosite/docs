@@ -94,8 +94,9 @@ Below are some documents that will help you understand the basics of all Portals
 #### File Systems
 
 * [Append to a directory](#append-to-a-directory)
-* [List files](#list-files)
+* [Get a file](#get-a-file)
 * [Get a file content](#get-a-file-content)
+* [List files](#list-files)
 
 #### Groups
 
@@ -230,6 +231,8 @@ Below are some documents that will help you understand the basics of all Portals
 
 #### /fs
 
+* [GET] [/api/portals/v1/fs](#list-files)
+* [POST] [/api/portals/v1/fs](#append-to-a-directory)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}](#get-a-file)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
 
@@ -4252,19 +4255,16 @@ Get all files which under the same directory.
 ##### Request
 
 * Request body is empty.
-* Requires authentication.
 
 ##### Response
 
 * `200 OK`: Returned along with a body containing a JSON entity.
-* `403 Forbidden`: Returned if the caller user is not authenticated.
 
 ##### Example
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs' \
      -X GET \
-     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4298,6 +4298,43 @@ Content-Type: application/json
 }
 ```
 
+#### Get a file
+
+`GET /api/portals/v1/fs/{directory-path}/{subdirectory}`
+
+##### Permissions
+
+* Anyone can use this endpoint to get a file.
+
+##### Request
+
+* Request body is empty.
+
+##### Response
+
+* `200 OK`: Returned with a body containing the object previously uploaded by the user.
+* `404 Not Found`: Returned if the directory of field is invalid.
+
+##### Example
+
+* IF the myfile is a image file:
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400' \
+     -X GET \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 06:41:13 GMT
+Status: 200 OK
+Content-Length: 82
+Content-Type: image/png
+
+{"myfile":"image\/png"}
+```
+
 #### Get a file content
 
 `GET /api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}`
@@ -4309,12 +4346,10 @@ Content-Type: application/json
 ##### Request
 
 * Request body is empty.
-* Requires authentication.
 
 ##### Response
 
 * `200 OK`: Returned with a body containing the object previously uploaded by the user.
-* `403 Forbidden`: Returned if the caller user is not authenticated.
 * `404 Not Found`: Returned if the directory of field is invalid.
 
 ##### Example
@@ -4322,9 +4357,8 @@ Content-Type: application/json
 * IF the myfile is a image file:
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/fs/141517041216756400/myfile' \
+curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756400/myfile' \
      -X GET \
-     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
@@ -4346,7 +4380,6 @@ IDATx▒cb67|▒IEND▒B`▒
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs/path/141517041216756401/myfile' \
      -X GET \
-     -u 'useremail@gmail.com:userP4ssword' \
      -i
 ```
 
