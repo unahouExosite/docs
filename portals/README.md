@@ -21,7 +21,7 @@ Below are some documents that will help you understand the basics of all Portals
 
 #### Accounts
 
-* [Get all user accounts](#get-all-user-accounts)
+* [Get all user accounts](#get-all-user-accounts) (Deprecated)
 * [Get user account by email](#get-user-account-by-email)
 * [Get user account by user ID](#get-user-account-by-user-id)
 
@@ -902,6 +902,8 @@ API return messages may be subject to upgrades and improvements (e.g., additiona
 #### Get all user accounts
 
 `GET /api/portals/v1/accounts`
+
+> **Deprecated.** This API is deprecated and should not be used.
 
 Get account information about all users.
 
