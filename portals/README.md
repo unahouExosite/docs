@@ -97,6 +97,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get a file](#get-a-file)
 * [Get a file content](#get-a-file-content)
 * [List files](#list-files)
+* [Update a file content](#update-a-file-content)
 
 #### Groups
 
@@ -235,6 +236,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [POST] [/api/portals/v1/fs](#append-to-a-directory)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}](#get-a-file)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
+* [PUT] [/api/portals/v1/fs/{directory-path}](#update-a-file-content)
 
 #### /groups
 
