@@ -4268,7 +4268,7 @@ Get all files which under the same directory.
 
 * `200 OK`: Returned along with a body containing a JSON entity.
 
-##### Example
+##### Example without file extension
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs' \
@@ -4304,6 +4304,25 @@ Content-Type: application/json
         ]
     }
 }
+```
+
+##### Example with file extension
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs.js' \
+     -X GET \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Wed, 19 Nov 2014 09:09:03 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 21
+Content-Type: application/javascript
+
+console.log("Hello JavaScript");
 ```
 
 #### Get a file
