@@ -4201,6 +4201,10 @@ The response entity body is:
 * `{field-content-type-1}` is the content type of the file as the value of field 1.
 * `{field-value-2}` is the value of `{field-name-2}`.
 
+The file system sets the Content-Type of a GET response according to its file extension. Supported file extensions are:
+
+ai, bmp, cab, css, doc, eps, exe, flv, gif, htm, html, ico, jpe, jpeg, jpg, js, json, mov, mp3, msi, ods, odt, pdf, php, png, ppt, ps, psd, qt, rar, rtf, svg, svgz, swf, tif, tiff, txt, xls, xml, zip.
+
 #### Append to a directory
 
 `POST /api/portals/v1/fs`
