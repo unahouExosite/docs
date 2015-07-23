@@ -98,6 +98,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get a file](#get-a-file)
 * [Get a file content](#get-a-file-content)
 * [List files](#list-files)
+* [Update a file content](#update-a-file-content)
 
 #### Groups
 
@@ -237,6 +238,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [POST] [/api/portals/v1/fs](#append-to-a-directory)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}](#get-a-file)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
+* [PUT] [/api/portals/v1/fs/{directory-path}](#update-a-file-content)
 
 #### /groups
 
@@ -4465,6 +4467,10 @@ The response entity body is:
 * `{field-content-type-1}` is the content type of the file as the value of field 1.
 * `{field-value-2}` is the value of `{field-name-2}`.
 
+The file system sets the Content-Type of a GET response according to its file extension. Supported file extensions are:
+
+ai, bmp, cab, css, doc, eps, exe, flv, gif, htm, html, ico, jpe, jpeg, jpg, js, json, mov, mp3, msi, ods, odt, pdf, php, png, ppt, ps, psd, qt, rar, rtf, svg, svgz, swf, tif, tiff, txt, xls, xml, zip.
+
 #### Append to a directory
 
 `POST /api/portals/v1/fs`
@@ -4528,7 +4534,7 @@ Get all files which under the same directory.
 
 * `200 OK`: Returned along with a body containing a JSON entity.
 
-##### Example
+##### Example without file extension
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/fs' \
@@ -4564,6 +4570,25 @@ Content-Type: application/json
         ]
     }
 }
+```
+
+##### Example with file extension
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/fs.js' \
+     -X GET \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Wed, 19 Nov 2014 09:09:03 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 21
+Content-Type: application/javascript
+
+console.log("Hello JavaScript");
 ```
 
 #### Get a file

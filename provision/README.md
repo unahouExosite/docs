@@ -1493,9 +1493,20 @@ Response may also be:
 
 ### POST - create client from model
 
-Creates a client based on `<model>` under `owner`, associates it with `<sn>`,
-and returns its `<ClientRID>`. Owner `<rid>` must be a descendant of the 
-`<model>`'s creator, and `<sn>` must not already have an associated client.
+Creates a client based on `<model>` under the resource indicated by `owner`, 
+associates it with `<sn>`, and returns its `<ClientRID>`. Owner `<rid>` must 
+be a descendant of the `<model>`'s creator, and `<sn>` must not already have 
+an associated client.
+
+A few definitions:
+
+- the `owner` of a One Platform resource is its direct parent in the hierarchy. 
+  For exmple, in the Portals application the owner of a device is a portal, so `<rid>` is
+  set to the RID of the portal.
+- the `<model>`'s creator is the resource used for auth when creating the model.
+  For example, in the Portals application the vendor token is typically used to 
+  create models. That token is associated with the domain client, which is an 
+  ancestor of all portals in the domain.
 
 ```
 POST /provision/manage/model/<model>/<sn> HTTP/1.1
