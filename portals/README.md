@@ -173,7 +173,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get user token for OpenID user](#get-user-token-for-openid-user) (For App)
 * [Reset password](#reset-password)
 * [Reset user profile picture](#reset-user-profile-picture)
-* [Set user data storage](#set-user-data-storage)
+* [Create user data storage](#create-user-data-storage)
 * [Set user profile picture](#set-user-profile-picture)
 * [Update user](#update-user)
 * [Update password by reset password key](#update-password-by-reset-password-key)
@@ -292,9 +292,9 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/users/{user-id}?readtoken={user-readtoken}](#get-user-through-readtoken)
 * [PUT] [/api/portals/v1/users/{user-id}](#update-user)
 * [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#get-user-data-storage)
-* [POST] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#set-user-data-storage)
+* [POST] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#create-user-data-storage)
 * [DELETE] [/api/portals/v1/users/{user-id}/ds/{subdirectory}](#delete-user-data-storage)
-* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory/*}](#get-user-data-storage-list)
+* [GET] [/api/portals/v1/users/{user-id}/ds/{subdirectory}/*}](#get-user-data-storage-list)
 * [DELETE] [/api/portals/v1/users/{user-id}](#delete-user)
 * [POST] [/api/portals/v1/users/{user-id}/groups](#create-group-under-user)
 * [GET] [/api/portals/v1/users/{user-id}/permissions](#get-user-permission)
@@ -4709,7 +4709,7 @@ Get an array of portals for the specified user on the domain specified in the UR
 
 ##### Permissions
 
-* User must have authenticated in the domain.
+* User must be authenticated in the domain.
 
 ##### Request
 
@@ -5185,7 +5185,7 @@ Delete a portal through portal ID.
 
 ##### Permissions
 
-* User must have authenticated in the domain.
+* User must be authenticated in the domain.
 
 ##### Request
 
@@ -5228,7 +5228,7 @@ Delete a portal through portal ID.
 
 ##### Permissions
 
-* User must have authenticated in the domain.
+* User must be authenticated in the domain.
 
 ##### Request
 
