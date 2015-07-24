@@ -96,9 +96,9 @@ Below are some documents that will help you understand the basics of all Portals
 
 * [Append to a directory](#append-to-a-directory)
 * [Get a file](#get-a-file)
-* [Get a file content](#get-a-file-content)
+* [Get file content](#get-file-content)
 * [List files](#list-files)
-* [Update a file content](#update-a-file-content)
+* [Update file content](#update-file-content)
 
 #### Groups
 
@@ -237,8 +237,8 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/fs](#list-files)
 * [POST] [/api/portals/v1/fs](#append-to-a-directory)
 * [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}](#get-a-file)
-* [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-a-file-content)
-* [PUT] [/api/portals/v1/fs/{directory-path}](#update-a-file-content)
+* [GET] [/api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}](#get-file-content)
+* [PUT] [/api/portals/v1/fs/{directory-path}](#update-file-content)
 
 #### /groups
 
@@ -4524,7 +4524,7 @@ Get all files which under the same directory.
 
 ##### Permissions
 
-* Anyone can use this endpoint to get a file content.
+* Anyone can use this endpoint to get file content.
 
 ##### Request
 
@@ -4628,13 +4628,13 @@ Content-Type: image/png
 {"myfile":"image\/png"}
 ```
 
-#### Get a file content
+#### Get file content
 
 `GET /api/portals/v1/fs/{directory-path}/{subdirectory}/{field-name}`
 
 ##### Permissions
 
-* Anyone can use this endpoint to get a file content.
+* Anyone can use this endpoint to get file content.
 
 ##### Request
 
@@ -4687,7 +4687,7 @@ Content-Type: application/json
 {"info":[{"description":{"name":"hello"}}]}
 ```
 
-#### Update a file content
+#### Update file content
 
 `PUT /api/portals/v1/fs/{directory-path}`
 
@@ -4703,7 +4703,7 @@ Content-Type: application/json
 
 ##### Response
 
-* `200 OK`: Returned along with a body containing a file content if the file is updated successfully.
+* `200 OK`: Returned along with a body containing file content if the file is updated successfully.
 * `201 Created`: Returned along with file content and file directory appear in `Location` if the file directory does not exist.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
