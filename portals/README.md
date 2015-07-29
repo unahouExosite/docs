@@ -6699,14 +6699,11 @@ Content-Type: text/html
 Create a user.
 
 * Non-admin and admin users can create a new account
-* A new account will only be created, if settings are as followed:
-    * Creating user with header containing X-User-Agent.
-        * Moderate New User Signup is set to **OFF** from admin/moderate page.
-        * Set a default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
+* To create a new user, Moderate New User Signup must be set to **OFF** from admin/moderate page.
+* Depending on the request, an activation email may be sent to the user 
+    * To send an activation email, include the `X-User-Agent` header. This also requires some extra configuration. A default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
-    * Creating user with header not containing X-User-Agent.
-        * Moderate New User Signup is set to **OFF** from admin/moderate page.
-* When user is created with header contains X-User-Agent, an activation email is sent to the specified address.
+    * To not send an activation email, omit the `X-User-Agent` header.
 
 ##### Permissions
 
@@ -6716,10 +6713,10 @@ Create a user.
 
 * Request body is a [user object](#user-object).  Currently only the following keys may be included:
     * `"email"` - User email. (required)
-    * `"userName"` - User name.(optional) If it has no this attribute then userName will be same as email.
-    * `"password"` - User password.(optional) If it has this attribute then email will not be sent.
-    * `"Firstname"` - User first name.(optional)
-    * `"Lastname"` - User last name.(optional)
+    * `"userName"` - User name. (optional) If it has no this attribute then userName will be same as email.
+    * `"password"` - User password. (optional) If omitted, a random password is created.
+    * `"Firstname"` - User first name. (optional)
+    * `"Lastname"` - User last name. (optional)
     If you send any keys besides these, it will do nothing.
 
 If it has Firstname and Lastname then the fullName in your response body will be Firstname + Lastname.
