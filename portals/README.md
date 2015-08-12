@@ -3210,6 +3210,8 @@ Content-Type: application/json; charset=UTF-8
 
 #### Record data source data
 
+`POST /api/portals/v1/data-sources/{data-source-rid}/data`
+
 ##### Permissions
 
 * User must have at least `d__write` [permission](#permission-object) to the data sources.
