@@ -106,6 +106,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Create group under user](#create-group-under-user)
 * [Delete group](#delete-group)
 * [Get group](#get-group)
+* [Get group permissions](#get-group-permissions)
 * [Get multiple groups](#get-multiple-groups)
 * [Update group](#update-group)
 
@@ -244,6 +245,7 @@ Below are some documents that will help you understand the basics of all Portals
 #### /groups
 
 * [GET] [/api/portals/v1/groups/{group-id}](#get-group)
+* [GET] [/api/portals/v1/groups/{group-id}/permissions](#get-group-permissions)
 * [PUT] [/api/portals/v1/groups/{group-id}](#update-group)
 * [DELETE] [/api/portals/v1/groups/{group-id}](#delete-group)
 
@@ -4954,6 +4956,94 @@ Content-Type: application/json; charset=UTF-8
     "name": "new group",
     "permissions": []
 }
+```
+
+#### Get group permissions
+
+`GET /api/portals/v1/groups/{group-id}/permissions`
+
+Get permissions about a group.
+
+##### Permissions
+
+* User must have at least `g_member` [permission](#permission-object) to the group.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `offset` | Number of items to skip, only available when `"limit"` is valid. | `/groups/{group-id}/permissions?offset=0` |
+| `limit` | Use with limit to paginate the permissions lists. | `/groups/{group-id}/permissions?limit=10` |
+
+##### Request
+
+* Request body is empty.
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned along with a body containing a [permission](#permission-object) if caller user has permission to get the group.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the group.
+* `404 Not Found`: Returned if the group id is invalid.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
+```
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions?offset=0&limit=1' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
 ```
 
 #### Delete group
