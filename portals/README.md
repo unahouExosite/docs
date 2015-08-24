@@ -4972,6 +4972,7 @@ Get permissions about a group.
 
 | String | Description |        Example |
 |:-------|:------------|:---------------|
+| `type` | is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`. | `/groups/{group-id}/permissions?type%5B%5D=Group` (Square brackets ([ and ]) are replaced with %5B and %5D respectively) |
 | `offset` | Number of items to skip, only available when `"limit"` is valid. | `/groups/{group-id}/permissions?offset=0` |
 | `limit` | Use with limit to paginate the permissions lists. | `/groups/{group-id}/permissions?limit=10` |
 
@@ -4992,6 +4993,35 @@ Get permissions about a group.
 
 ```
 curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
+```
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions?type%5B%5D=Device' \
      -X GET \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
