@@ -19,7 +19,7 @@ Below are some documents that will help you understand the basics of all Portals
 
 ## API Endpoints
 
-#### Accounts
+#### Accountsin
 
 * [Get all user accounts](#get-all-user-accounts) (Deprecated)
 * [Get user account by email](#get-user-account-by-email)
@@ -61,7 +61,8 @@ Below are some documents that will help you understand the basics of all Portals
 
 #### Data Sources Data
 
-* [Append/insert data source data](#appendinsert-data-source-data)
+* [Append data source data](#append-data-source-data)
+* [Record data source data](#record-data-source-data)
 * [Append data source data in JSON format](#append-data-source-data-in-json-format)
 * [Delete data source data](#delete-data-source-data)
 * [Get data source data](#get-data-source-data)
@@ -202,7 +203,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}](#get-data-source)
 * [PUT] [/api/portals/v1/data-sources/{data-source-rid}](#update-data-source)
 * [GET] [/api/portals/v1/data-sources/{data-source-rid}/data](#get-data-source-data)
-* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#appendinsert-data-source-data)
+* [POST] [/api/portals/v1/data-sources/{data-source-rid}/data](#append-data-source-data)
 * [GET] [/api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/data](#get-data-source-data-bulk-request)
 * [POST] [/api/portals/v1/data-sources/{data-source-rid}/json](#append-data-source-data-in-json-format)
 * [GET] [/api/portals/v1/data-sources/[{data-source-rid},{data-source-rid},...]/json](#get-data-source-data-bulk-request)
@@ -3166,11 +3167,9 @@ Keep-Alive: timeout=2
 {"3218552df19a93a3f1b85c29fd0f46ddff2f7071":[],"437240fba025d3416a60ef1a160e5424d4138fdc":[]}
 ```
 
-#### Append/insert data source data
+#### Append data source data
 
 `POST /api/portals/v1/data-sources/{data-source-rid}/data`
-
-Append data
 
 ##### Permissions
 
@@ -3209,7 +3208,9 @@ Content-Length: 0
 Content-Type: application/json; charset=UTF-8
 ```
 
-Insert data
+#### Record data source data
+
+`POST /api/portals/v1/data-sources/{data-source-rid}/data`
 
 ##### Permissions
 
@@ -3222,10 +3223,10 @@ Insert data
 
 ##### Response
 
-* `201 Created`: Returned if the data is inserted to data source successfully.
+* `201 Created`: Returned if the data is recorded to data source successfully.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
-    * Returned if the caller user does not have permission insert data to the data source.
+    * Returned if the caller user does not have permission record data to the data source.
 * `400 Bad Request`: Returned if request body is invalid.
 * `404 Not Found`: Returned if the data sources rid is invalid.
 

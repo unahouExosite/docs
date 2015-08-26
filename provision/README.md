@@ -37,7 +37,7 @@ Typical HTTP response codes include:
 | 200    | OK            | Successful request, returning requested values    |
 | 204    | No Content    | Successful request, nothing will be returned      |
 | 4xx    | Client Error  | There was an error with the request by the client |
-| 5xx    | Server Error  | There way an error with the request on the server |
+| 5xx    | Server Error  | There was an error with the request on the server |
 
 # Endpoints
 

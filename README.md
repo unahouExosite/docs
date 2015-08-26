@@ -2,6 +2,7 @@
 
 ### Tutorials
 * [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
+* [Videos](videos/) - Video tutorials covering various topics
 
 ### Device APIs
 * [CoAP API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
