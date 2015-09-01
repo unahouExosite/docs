@@ -1216,7 +1216,7 @@ returned.
 
     `"usage"` returns current usage information for the resource.
 
-Clients can call `info` on any resource in their sub-hierarchy, including themselves. The type of info available to the caller depends on whether the caller is the client itself on which info is being called or the resource's direct owner or some other client up the hierarchy. For information about making a io on behalf of a particular client, see [Authentication](#authentication).
+Clients can call `info` on any resource in their sub-hierarchy, including themselves. The type of info available to the caller depends on whether the caller is the client itself on which info is being called or the resource's direct owner or some other client up the hierarchy. For information about making a call on behalf of a particular client, see [Authentication](#authentication).
 
 Available to any client up the hierarchy:
 

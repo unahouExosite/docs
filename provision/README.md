@@ -1808,7 +1808,7 @@ Content-Type: text/plain; charset=utf-8
 Register a vendor name to `<CIK>`.
 
 ```
-GET /provision/register HTTP/1.1
+POST /provision/register HTTP/1.1
 Host: m2.exosite.com
 X-Exosite-CIK: <CIK>
 
