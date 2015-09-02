@@ -22,7 +22,7 @@ wistiaEmbed = Wistia.embed("v918r1aaiq");
 ## Creating a dashboard in Portals
 Dashboards are interfaces in Portals that are used to visualize data in device dataports. [Support article](https://support.exosite.com/hc/en-us/articles/200382634-Dashboards)
 
-<div id="wistia_kv52m80mi6" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>
+<div id="wistia_kv52m80mi6" class="wistia_embed" style="width:640px;height:388px;">&nbsp;</div>
 <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
 <script>
 wistiaEmbed = Wistia.embed("kv52m80mi6");
@@ -31,7 +31,7 @@ wistiaEmbed = Wistia.embed("kv52m80mi6");
 ## Using custom widgets in Portals
 Widgets are interactive displays on dashboards that you can use to view data flowing from device dataports. We allow our users to create their own custom JavaScript widgets so that they can tailor a dashboard to their specific needs. [Support article](https://support.exosite.com/hc/en-us/articles/200320925-Custom-Widgets)
 
-<div id="wistia_iw4jswvahz" class="wistia_embed" style="width:640px;height:360px;">&nbsp;</div>
+<div id="wistia_iw4jswvahz" class="wistia_embed" style="width:640px;height:388px;">&nbsp;</div>
 <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
 <script>
 wistiaEmbed = Wistia.embed("iw4jswvahz");
