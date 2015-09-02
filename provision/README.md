@@ -14,6 +14,9 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 Wrapper libraries for this API:
 
 * Python: [pyonep](https://github.com/exosite-labs/pyonep) includes a module, provision.py, that wraps the provision API.
+* .NET: [clronep](https://github.com/exosite-labs/clronep) includes Provision.cs that wraps the provision API.
+* C++: [cpponep](https://github.com/exosite-labs/cpponep) includes Provision.cpp that wraps the provision API.
+* Go: [goonep](https://github.com/exosite-labs/goonep) includes provision.go that wraps the provision API.
 
 Code samples that use this API:
 
