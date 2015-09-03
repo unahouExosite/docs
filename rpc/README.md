@@ -1021,7 +1021,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ##move
 
-Updates the description of the resource.
+Moves a resource from one parent client to another.
 
 ```
 {
