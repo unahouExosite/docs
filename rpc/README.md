@@ -1037,7 +1037,7 @@ Updates the description of the resource.
 
 * `<ResourceID>` identifies the resource to be moved. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not move itself.
 
-* `<DestinationClientID>` identifies the client under which the resource should be moved to.. See [Identifying Resources](#identifying-resources) for details.
+* `<DestinationClientID>` identifies the client under which the resource should be moved. See [Identifying Resources](#identifying-resources) for details.
 
 * `<Options>` is a JSON object and can contain these options:
 
