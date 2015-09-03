@@ -4626,7 +4626,7 @@ Status: 200 OK
 Content-Length: 82
 Content-Type: image/png
 
-{"myfile":"image\/png"}
+{"myfile":"image\/png; @md5=a6cfdf1c6d7fb1574a66fd06a94f4435"}
 ```
 
 #### Get file content
