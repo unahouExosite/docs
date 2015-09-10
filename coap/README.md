@@ -422,7 +422,7 @@ See the [RPC API docs](https://github.com/exosite/docs/blob/master/rpc) for more
 
 You can also request that the JSON be passed straight through by sending an 'Accept' option with 'application/json'.
 
-*NOTE: This API has a know issue with responses larger than about 1500 bytes which results in you not receiving any response. This will be fixed in the future using block transfers.*
+Responses that are longer than about 1500 bytes will need to be downloaded using block transfers.
 
 The payloads for both writing and the returned values for reading are in the CBOR (Concise Binary Object Representation) format. It is shown in this document in a JSON-like format for display purposes. See http://cbor.io for more information.
 
