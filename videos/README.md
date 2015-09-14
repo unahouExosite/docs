@@ -36,3 +36,12 @@ Widgets are interactive displays on dashboards that you can use to view data flo
 <script>
 wistiaEmbed = Wistia.embed("iw4jswvahz");
 </script>
+
+## Creating a custom theme in Portals
+Users can create custom themes to re-skin their Portals subdomain so that their own branding surrounds their IoT solution. [Support article](https://support.exosite.com/hc/en-us/articles/200180429-Adding-a-Theme)
+
+<div id="wistia_ecz5erbq58" class="wistia_embed" style="width:640px;height:388px;">&nbsp;</div>
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js"></script>
+<script>
+wistiaEmbed = Wistia.embed("ecz5erbq58");
+</script>
