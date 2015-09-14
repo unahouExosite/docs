@@ -258,15 +258,20 @@ with the aliased resource (for example to read from a dataport or write to a dat
     script owner client. When invoked on an alias object, they will act on the
     alias object owner's behalf.
 
-* `manage.activate(type, code)`
+* `manage.activate(rid | {alias = <alias>}, type, code)`
 
-    Given an activation code, the associated entity is activated for the calling
-    client.
+    Given an activation code, the associated entity is activated for the 
+    client specified in rid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:        type :: string - "client" | "share"
-                    code :: string - Activation code
+  Arguments:        rid :: string - Client ID under which to activate the entity
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - "client" | "share"
+                   code :: string - Activation code
 
   ------------------------------------------------------------------------------
   Returns:          true :: boolean - Activation was successful
@@ -274,13 +279,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
 ```
 
 
-* `manage.create(type, description)`
+* `manage.create(rid | {alias = <alias>}, type, description)`
 
-    Create a One Platform resource of specified Type and Description.
+    Create a One Platform resource of specified Type and Description under rid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:    type :: string - "client" | "dataport" | "datarule" | "dispatch"
+  Arguments:     rid :: string - Client ID under which to create a resource
+                                 Note: an earlier form of this function
+                                 allowed omitting this argument. That
+                                 form is deprecated and should no
+                                 longer be used.
+                type :: string - "client" | "dataport" | "datarule" | "dispatch"
          description :: table - Description table specific to resource type.
 
   "client" description ::
@@ -403,14 +413,19 @@ with the aliased resource (for example to read from a dataport or write to a dat
                                               "restricted"
 ```
 
-* `manage.deactivate(type, code | rid)`
+* `manage.deactivate(cid | {alias = <alias>}, type, code | rid)`
 
     Given an activation code, or resource ID for shares, the associated entity is
-    deactivated for the calling client.
+    deactivated for the client specified in cid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - "client" | "share"
+  Arguments:        cid :: string - Client ID under which to deactivate the entity
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - "client" | "share"
                    code :: string - Activation code
                    rid  :: string - Resource ID that code is associated with
 
@@ -587,13 +602,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
     list :: {{client | dataport | datarule | dispatch = {<rid> ,...}} ,...}
 ```
 
-* `manage.lookup(type, rid | alias | code)`
+* `manage.lookup(cid | {alias = <alias>}, type, rid | alias | code)`
 
-    Lookup an aliased resource, a resource's owner or a shared resource.
+    Lookup an aliased resource, a resource's owner or a shared resource under cid.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - Lookup based on: owner, alias or code.
+  Arguments:        cid :: string - Client ID under which to lookup a resource
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no
+                                    longer be used.
+                   type :: string - Lookup based on: owner, alias or code.
                     rid :: string - Resource ID (owner lookup only).
                   alias :: string - Alias for resource ID.
                    code :: string - Share activation code.
@@ -676,13 +696,18 @@ with the aliased resource (for example to read from a dataport or write to a dat
            false, error :: boolean, string - "badarg"
 ```
 
-* `manage.unmap(type, mapping)`
+* `manage.unmap(rid | {alias = <alias>}, type, mapping)`
 
-    Remove the specified type of mapping.
+    Remove the specified type of mapping under client identified by rid or alias.
 
 ```
   ------------------------------------------------------------------------------
-  Arguments:       type :: string - Type of mapping: alias only.
+  Arguments:        rid :: string - Client ID under which to unmap the mapping
+                                    Note: an earlier form of this function
+                                    allowed omitting this argument. That
+                                    form is deprecated and should no 
+                                    longer be used.
+                   type :: string - Type of mapping: alias only.
                 mapping :: string - The mapped string to be removed.
 
     type :: "alias"

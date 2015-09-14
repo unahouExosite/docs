@@ -32,6 +32,8 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [create (clone)](#create-clone) - copy an existing resource
 
+[move](#move) - move an existing resource
+
 [update](#update) - update an existing resource
 
 [info](#info) - get information about an existing resource
@@ -597,7 +599,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 ##create (client)
 
-Creates a generic client. 
+Creates a generic client under the client specified in `<ResourceID>`. 
 
 _NOTE:_ To create a client based on a client model and connected with a serial number, use the [portals create device API](http://docs.exosite.com/portals/#create-new-device-under-a-portal-of-authenticated-user) or the [fleet management create client from model POST API](http://docs.exosite.com/provision/management/#provisionmanagemodelmodelsn) instead.
 
@@ -605,6 +607,7 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
 {
     "procedure": "create",
     "arguments": [
+        <ResourceID>,
         "client", 
         {
             "limits": {
@@ -632,6 +635,8 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
     "id": 1
 }
 ```
+
+* `<ResourceID>` is the client id under which to create a resource. (Please note: an earlier previous form of `create` that omitted this argument is deprecated and should not be used.)
 
 * `"limits"` is an object containing limits for various entities and consumables. Each limit is either number, or `"inherit"`, which inherits the limit of the client's owner.
     
@@ -1014,6 +1019,44 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ---
 
+##move
+
+Moves a resource from one parent client to another.
+
+```
+{
+    "procedure": "move",
+    "arguments": [
+        <ResourceID>,
+        <DestinationClientID>,
+        <Options>
+    ],
+    "id": 1
+}
+```
+
+* `<ResourceID>` identifies the resource to be moved. See [Identifying Resources](#identifying-resources) for details. Note, however, that a resource may not move itself.
+
+* `<DestinationClientID>` identifies the client under which the resource should be moved. See [Identifying Resources](#identifying-resources) for details.
+
+* `<Options>` is a JSON object and can contain these options:
+
+ * `aliases` is a boolean that when set to true will try to re-create aliases pointing the the moved resource in the new context. When set to false all aliases that would become invalid are being deleted without replacement. 
+
+
+####response
+
+```
+{
+    "status": "ok",
+    "id": 1
+}
+```
+
+* `"status": "ok"` means the resource was moved
+
+---
+
 ##update
 
 Updates the description of the resource. 
@@ -1372,7 +1415,7 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
 {
     "procedure": "listing",
     "arguments": [
-        <ResourceID>
+        <ResourceID>,
         <type_list>,
         <options>
     ], 
@@ -1523,19 +1566,22 @@ Returns metric usage for client and its subhierarchy.
 
 ##unmap
 
-Removes a mapping of specified type. After the removal, the previously
-mapped resource will not be able to be looked up by the mapping.
+Removes a mapping of specified type under the client specified in `<ResourceID>`.
+After the removal, the previously mapped resource will not be able to be looked up by the mapping.
 
 ```
 {
     "procedure": "unmap",
     "arguments": [
+        <ResourceID>,
         "alias",
         <alias> 
     ], 
     "id": 1
 }
 ```
+
+* `<ResourceID>` is the client id under which to unmap a mapping. (Please note: an earlier previous form of `unmap` that omitted this argument is deprecated and should not be used.)
 
 * `<alias>` is the alias string to unmap.
 
@@ -1555,18 +1601,22 @@ mapped resource will not be able to be looked up by the mapping.
 
 ##lookup
 
-Look up a Resource ID by alias, owned Resource ID, or share activation code. 
+Look up a Resource ID by alias, owned Resource ID, or share activation code
+under the client specified in `<ClientID>`.
 
 ```
 {
     "procedure": "lookup",
     "arguments": [
+        <ClientID>,
         "alias" | "owner" | "shared",
         <alias> | <ResourceID> | <Code>
     ], 
     "id": 1
 }
 ```
+
+* `<ClientID>` is the client id under which to lookup a resource. (Please note: an earlier previous form of `lookup` that omitted this argument is deprecated and should not be used.)
 
 * If the first argument is `"alias"`, the second argument is a string alias, or `""` to 
     look up the caller client's Resource ID.
@@ -1684,12 +1734,13 @@ the owner of the resource with which the activation code is associated.
 
 ##activate
 
-Given an activation code, activate an entity for the calling client.
+Given an activation code, activate an entity for the client specified in `<ResourceID>`.
 
 ```
 {
     "procedure": "activate",
     "arguments": [
+        <ResourceID>,
         "client" | "share", 
         <code>
     ], 
@@ -1697,7 +1748,9 @@ Given an activation code, activate an entity for the calling client.
 }
 ```
 
-* The first argument indicates the type of thing to activate:
+* `<ResourceID>` is the client id under which to activate an entity. (Please note: an earlier previous form of `activate` that omitted this argument is deprecated and should not be used.)
+
+* The second argument indicates the type of thing to activate:
 
     `"client"` activates the specified client
     interface key (CIK) if it is not already activated or expired. Only the
@@ -1732,12 +1785,13 @@ Given an activation code, activate an entity for the calling client.
 
 ##deactivate
 
-Given an activation code, deactivate an entity for the calling client.
+Given an activation code, deactivate an entity for the client specified in `<ResourceID>`.
 
 ```
 {
     "procedure": "deactivate",
     "arguments": [
+        <ResourceID>,
         "client" | "share", 
         <code>
     ], 
@@ -1745,7 +1799,9 @@ Given an activation code, deactivate an entity for the calling client.
 }
 ```
 
-* The first argument indicates the type of thing to deactivate:
+* `<ResourceID>` is the client id under which to deactivate the entity. (Please note: an earlier previous form of `deactivate` that omitted this argument is deprecated and should not be used.)
+
+* The second argument indicates the type of thing to deactivate:
 
     `"client"` deactivate and expire the specified client interface 
     key (CIK) if it was previously activated. If the key was not previously 
