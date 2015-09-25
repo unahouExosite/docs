@@ -106,6 +106,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Create group under user](#create-group-under-user)
 * [Delete group](#delete-group)
 * [Get group](#get-group)
+* [Get group permissions](#get-group-permissions)
 * [Get multiple groups](#get-multiple-groups)
 * [Update group](#update-group)
 
@@ -244,6 +245,7 @@ Below are some documents that will help you understand the basics of all Portals
 #### /groups
 
 * [GET] [/api/portals/v1/groups/{group-id}](#get-group)
+* [GET] [/api/portals/v1/groups/{group-id}/permissions](#get-group-permissions)
 * [PUT] [/api/portals/v1/groups/{group-id}](#update-group)
 * [DELETE] [/api/portals/v1/groups/{group-id}](#delete-group)
 
@@ -3789,7 +3791,7 @@ Keep-Alive: timeout=2
   "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
     "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3827,13 +3829,13 @@ Keep-Alive: timeout=2
       },
       "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
       "shares": [
-        
+
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -3847,7 +3849,7 @@ Keep-Alive: timeout=2
   "b2618de3b54cab517a3a347e1cba5a014ae26d62": {
     "rid": "b2618de3b54cab517a3a347e1cba5a014ae26d62",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3897,10 +3899,10 @@ Keep-Alive: timeout=2
         }
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -3945,7 +3947,7 @@ Keep-Alive: timeout=2
   "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
     "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3983,13 +3985,13 @@ Keep-Alive: timeout=2
       },
       "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
       "shares": [
-        
+
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -4626,7 +4628,7 @@ Status: 200 OK
 Content-Length: 82
 Content-Type: image/png
 
-{"myfile":"image\/png"}
+{"myfile":"image\/png; @md5=a6cfdf1c6d7fb1574a66fd06a94f4435"}
 ```
 
 #### Get file content
@@ -4954,6 +4956,124 @@ Content-Type: application/json; charset=UTF-8
     "name": "new group",
     "permissions": []
 }
+```
+
+#### Get group permissions
+
+`GET /api/portals/v1/groups/{group-id}/permissions`
+
+Get permissions about a group.
+
+##### Permissions
+
+* User must have at least `g_member` [permission](#permission-object) to the group.
+
+##### Query String
+
+| String | Description |        Example |
+|:-------|:------------|:---------------|
+| `type` | An array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource` and `Group`. | `/groups/{group-id}/permissions?type%5B%5D=Group` <br> (Square brackets "[" and "]" have been replaced with "%5B" and "%5D" respectively) |
+| `offset` | Number of items to skip, only available when `"limit"` is valid. | `/groups/{group-id}/permissions?offset=0` |
+| `limit` | Use with limit to paginate the permissions lists. | `/groups/{group-id}/permissions?limit=10` |
+
+##### Request
+
+* Request body is empty.
+* Requires authentication.
+
+##### Response
+
+* `200 OK`: Returned along with a body containing a [permission](#permission-object) if the caller user has permission to get the group.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to get the group.
+* `404 Not Found`: Returned if the group id is invalid.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
+```
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions?type%5B%5D=Device' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
+```
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/1206252898/permissions?offset=0&limit=1' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Tue, 18 Nov 2014 02:51:19 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 163
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "access": "___admin",
+        "oid": {
+            "type": "Device",
+            "id": <device-rid>
+        }
+    }
+]
+
 ```
 
 #### Delete group
@@ -6701,7 +6821,7 @@ Create a user.
 
 * Non-admin and admin users can create a new account
 * To create a new user, Moderate New User Signup must be set to **OFF** from admin/moderate page.
-* Depending on the request, an activation email may be sent to the user 
+* Depending on the request, an activation email may be sent to the user
     * To send an activation email, include the `X-User-Agent` header. This also requires some extra configuration. A default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
     * To not send an activation email, omit the `X-User-Agent` header.
