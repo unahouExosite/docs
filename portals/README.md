@@ -3791,7 +3791,7 @@ Keep-Alive: timeout=2
   "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
     "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3829,13 +3829,13 @@ Keep-Alive: timeout=2
       },
       "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
       "shares": [
-        
+
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -3849,7 +3849,7 @@ Keep-Alive: timeout=2
   "b2618de3b54cab517a3a347e1cba5a014ae26d62": {
     "rid": "b2618de3b54cab517a3a347e1cba5a014ae26d62",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3899,10 +3899,10 @@ Keep-Alive: timeout=2
         }
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -3947,7 +3947,7 @@ Keep-Alive: timeout=2
   "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6": {
     "rid": "d13da92f1f73f9c5dcf14ef4ce7f43636c277fa6",
     "members": [
-      
+
     ],
     "info": {
       "aliases": {
@@ -3985,13 +3985,13 @@ Keep-Alive: timeout=2
       },
       "key": "361b4c37730d614fe53f6be722a48ceced88a08a",
       "shares": [
-        
+
       ],
       "subscribers": [
-        
+
       ],
       "tags": [
-        
+
       ]
     },
     "dataSources": [
@@ -4972,7 +4972,7 @@ Get permissions about a group.
 
 | String | Description |        Example |
 |:-------|:------------|:---------------|
-| `type` | is an array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource`, and `Group`. | `/groups/{group-id}/permissions?type%5B%5D=Group` (Square brackets ([ and ]) are replaced with %5B and %5D respectively) |
+| `type` | An array of permission types to retrieve. The supported types are `Domain`, `Portal`, `Device`, `DataSource` and `Group`. | `/groups/{group-id}/permissions?type%5B%5D=Group` <br> (Square brackets "[" and "]" have been replaced with "%5B" and "%5D" respectively) |
 | `offset` | Number of items to skip, only available when `"limit"` is valid. | `/groups/{group-id}/permissions?offset=0` |
 | `limit` | Use with limit to paginate the permissions lists. | `/groups/{group-id}/permissions?limit=10` |
 
@@ -4983,7 +4983,7 @@ Get permissions about a group.
 
 ##### Response
 
-* `200 OK`: Returned along with a body containing a [permission](#permission-object) if caller user has permission to get the group.
+* `200 OK`: Returned along with a body containing a [permission](#permission-object) if the caller user has permission to get the group.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to get the group.
@@ -6821,7 +6821,7 @@ Create a user.
 
 * Non-admin and admin users can create a new account
 * To create a new user, Moderate New User Signup must be set to **OFF** from admin/moderate page.
-* Depending on the request, an activation email may be sent to the user 
+* Depending on the request, an activation email may be sent to the user
     * To send an activation email, include the `X-User-Agent` header. This also requires some extra configuration. A default plan for **Automatically create a portal for any user who signs up from another domain** from admin/configuration page.
 ![Find Default Portal Setting](images/find_default_portal_setting.png)
     * To not send an activation email, omit the `X-User-Agent` header.
