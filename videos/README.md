@@ -8,7 +8,7 @@ wistiaEmbeds.onFind(function(video) {
 });
 </script>
 
-#Videos
+# Videos
 
 ## Using Exoline
 Exoline is a command line utility that developers can use for interacting with Exosite's platform in addition to being a helper library for python applications. [Get Exoline](https://github.com/exosite/exoline)

@@ -90,6 +90,9 @@ body.no-literate .content pre > code {
   letter-spacing: 0px;
 }
 
+body:not(.no-literate) .content > blockquote {
+  width: 700;
+}
 
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
@@ -98,8 +101,8 @@ body.no-literate .content pre > code {
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 
-#docsearch { 
-  width: 300px; 
+#docsearch {
+  width: 300px;
   border-radius: 4px;
   height: 2em;
 }

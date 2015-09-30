@@ -19,7 +19,7 @@ Below are some documents that will help you understand the basics of all Portals
 
 ## API Endpoints
 
-#### Accountsin
+#### Accounts
 
 * [Get all user accounts](#get-all-user-accounts) (Deprecated)
 * [Get user account by email](#get-user-account-by-email)

@@ -1,22 +1,26 @@
+---
+template: default
+---
+
 # Get Started
 
-This tutorial will explain how to set up a free Portals™ account, create a hypothetical device and associated dataport, send data to that hypothetical device, and display that data in a widget on your dashboard homepage. 
+This tutorial will explain how to set up a free Portals™ account, create a hypothetical device and associated dataport, send data to that hypothetical device, and display that data in a widget on your dashboard homepage.
 
-## Prerequisites 
+## Prerequisites
 
 * Computer with an Internet connection
 
 * Active email address
 
-__NOTE:__ A physical device will not be used in this tutorial and is not necessary for the completion of the procedures herein. 
+__NOTE:__ A physical device will not be used in this tutorial and is not necessary for the completion of the procedures herein.
 
 ## Create a Portals Account
 
 To begin, you will need to create a Portals account. If you already have an account, you can proceed to the "Create a New Device" section of this document.
 
 1. Point a web browser to Exosite’s [Account Sign Up web page](http://portals.exosite.com/signup).
-2. Complete the form and click Create Account. 
-    ![image alt text](images/image_0.png)
+2. Complete the form and click Create Account.
+   ![image alt text](images/image_0.png)
 3. You will receive an email from portals.exosite.com that asks you to activate your account. Click on the appropriate link in the email to activate your account.
 4. When complete, log in to your account on the [Portals login page](https://portals.exosite.com/login) using your email address and the password you just created.
     ![image alt text](images/image_1.png)
@@ -53,14 +57,14 @@ Now that you have a Portals account, you will create a new device in your portal
     ![image alt text](images/image_6.png)
 5. On the *Confirm* tab, enter a name for your device in the *New Device Name *field. Since this device will be a hypothetical wind turbine, it is named Turbine 1 in the example below. Click Submit.
     ![image alt text](images/image_7.png)
-6. You should see a *Device Successfully Created *message. Click the "x" in the window to return to your device list. 
+6. You should see a *Device Successfully Created *message. Click the "x" in the window to return to your device list.
     ![image alt text](images/image_8.png)
     You should now see the device you just created on the *Devices* page. To view pertinent information about the device, click on the device to open the *Device Information* window.
     ![image alt text](images/image_9.png)
 
 ## Create a Device Dataport
 
-In order to write data to the wind turbine device you just created, you first need to create a dataport to contain the data. A dataport contains a series of time-stamped points and can live inside a device or a portal. 
+In order to write data to the wind turbine device you just created, you first need to create a dataport to contain the data. A dataport contains a series of time-stamped points and can live inside a device or a portal.
 
 1. Select "Data" from the Portal menu to display a list of all the devices in your portal and their associated dataports.
     __NOTE:__ Portals may refer to dataports as data sources. The term dataport and data source refer to the same thing and can be used interchangeably.
@@ -73,7 +77,7 @@ In order to write data to the wind turbine device you just created, you first ne
     ![image alt text](images/image_11.png)
     **NOTE:** The other origin options are out of the scope of this tutorial, but deserve a brief explanation. Select "From Existing Data" to combine the data from other dataports to a device in your portal. Select “From Shared Data” to echo whatever is in a dataport; you need a share code for the other dataport to do this (this is how the default “Exosite Device” works with temperatures from Antarctica, Minneapolis, and Taiwan). Finally, select “From Public Source” if you want to search for and use data from another dataport that has been made public.
 4. Since a wind turbine can tell you the wind speed at a given time, you will make that the first datapoint. In the *Configuration *tab:
-    1. Enter Wind Speed in the *Data Source Name *field. This is a name that widgets can use to describe the data in this dataport to dashboard users. 
+    1. Enter Wind Speed in the *Data Source Name *field. This is a name that widgets can use to describe the data in this dataport to dashboard users.
     2. Select integer from the *Data Source Format* drop-down menu. This indicates the format of data (integer, float, string, binary) that will come from the device.
     3. Enter kph in the *Unit *field. This indicates the type of measurement for the data. In the example below, the wind speed will be measured in kilometers per hour.
     4. Enter windspeed in the *Alias *field. This s the name devices will use to identify this dataport when accessing Exosite’s application programming interfaces (APIs).
@@ -81,9 +85,9 @@ In order to write data to the wind turbine device you just created, you first ne
 
     ![image alt text](images/image_12.png)
 
-5. You should see a *Data Source Successfully Created* message. Click Quit to return to your dataport list. 
+5. You should see a *Data Source Successfully Created* message. Click Quit to return to your dataport list.
     ![image alt text](images/image_13.png)
-    You should now see the dataport you just created on the *Data* page. 
+    You should now see the dataport you just created on the *Data* page.
     ![image alt text](images/image_14.png)
 6. Select "Home" from the Portal menu to return to the dashboard homepage.
     ![image alt text](images/image_15.png)
@@ -97,11 +101,11 @@ In order to write data to the wind turbine device you just created, you first ne
 
     ![image alt text](images/image_18.png)
 
-## Read and Write Data 
+## Read and Write Data
 
 ### Use Portals
 
-Now, you will add wind-speed data for the turbine using Portals. 
+Now, you will add wind-speed data for the turbine using Portals.
 1. Select "Data" from the Portal menu and click the Wind Speed dataport you just created.
 2. In the *Data Information *window, you will see that the new dataport is empty. In order to write data to a device, enter a value in the *Data value *field. For this example, enter 15 and click Update.
     ![image alt text](images/image_19.png)
@@ -110,7 +114,7 @@ Now, you will add wind-speed data for the turbine using Portals.
 4. Select "Home" from the Portal menu to return to the dashboard homepage. You should now see the value you just wrote to the Wind Speed dataport in the Portal Data Source List widget.
     ![image alt text](images/image_21.png)
 
-This method of writing data from within Portals is generally only used for debugging during development. 
+This method of writing data from within Portals is generally only used for debugging during development.
 
 ### Use APIs
 
@@ -123,18 +127,18 @@ Exosite provides several APIs that allow access to data and device information f
 1. Select "Devices" from the Portal menu and click on the turbine device on the *Device* page.
 2. In the *Device Information *window that appears, find the device CIK and dataport alias. In the example below, the device CIK is *8c295ee636ad2192f8a208245eec124274a59551* and the dataport alias is *windspeed*.
     ![image alt text](images/image_22.png)
-Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing firmware to use the API from a piece of physical hardware is out of the scope of this tutorial, but the information below will discuss two ways to access these APIs from your computer’s command line. 
+Now that you have the CIK and dataport alias, you can use Exosite APIs. Writing firmware to use the API from a piece of physical hardware is out of the scope of this tutorial, but the information below will discuss two ways to access these APIs from your computer’s command line.
 
-#### Read and Write with cURL 
+#### Read and Write with cURL
 
-[cURL](http://curl.haxx.se/) is a command line tool that may be used to generate HTTP requests. Read and write commands for the Exosite API can be called with cURL. 
+[cURL](http://curl.haxx.se/) is a command line tool that may be used to generate HTTP requests. Read and write commands for the Exosite API can be called with cURL.
 
 __Mac/UNIX/Linux:__ cURL is already installed on most Mac or UNIX/Linux systems. To open a command line window, press **⌘ + Spacebar**, type *terminal* in the Spotlight search bar, and select Terminal from the list.
 
 ![image alt text](images/image_23.png)
 
 __Windows:__ Windows users who are not already familiar with cURL may want to skip to the "Read and Write with Exoline" section below. However, you can download cURL by entering information about your version of Windows on the cURL Download Wizard web page. Once cURL is installed, select Start > All Programs > Accessories > Command Prompt to access the Windows command prompt.
-    
+
 ![image alt text](images/image_24.png)
 
 Use the command below to write a new wind speed of 11 kilometers per hour to the turbine device. __NOTE:__ Enter the bold characters at the command line; be sure to replace YOUR_CIK_HERE with the CIK for your device.
@@ -149,12 +153,12 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?windspeed -H "X-Exosite-CIK: YO
 windspeed=11
 ```
 
-#### Read and Write with Exoline 
+#### Read and Write with Exoline
 
-[Exoline](https://github.com/exosite/exoline) is a command line tool that works with Exosite’s services. Exoline provides access to a wide range of APIs that are possible with cURL, but Exoline provides a less verbose syntax. Exoline supports most platforms, including Linux, Mac, and Windows. Refer to the Exoline [Installation Instructions](https://github.com/exosite/exoline/blob/master/README.md#installation-) for additional information. 
+[Exoline](https://github.com/exosite/exoline) is a command line tool that works with Exosite’s services. Exoline provides access to a wide range of APIs that are possible with cURL, but Exoline provides a less verbose syntax. Exoline supports most platforms, including Linux, Mac, and Windows. Refer to the Exoline [Installation Instructions](https://github.com/exosite/exoline/blob/master/README.md#installation-) for additional information.
 
 __Mac/UNIX/Linux:__ To open a command line window, press __⌘ + Spacebar__, type *terminal* in the Spotlight search bar, and select Terminal from the list.
-    
+
 ![image alt text](images/image_25.png)
 
 __Windows:__ To access the Windows command prompt, select Start > All Programs > Accessories > Command Prompt.
@@ -180,26 +184,26 @@ Turbine 1  client cik: 8c295ee636ad2192f8a208245eec124274a59551 (aliases: see pa
   └─Wind Speed  integer dataport rid: acd8c59a7428a2cbcc258c43b3ecafb8d13a95b4 (aliases: ["windspeed"])
 ```
 
-In the output above, you can see both the Turbine 1 device and Wind Speed dataport you created, as well as the hierarchical relationship between them - the dataport is "inside" the device. The Exosite One Platform™ stores domains, users, portals, devices, and dataports in a hierarchy, and Exoline’s *tree* command can show you those relationships. 
+In the output above, you can see both the Turbine 1 device and Wind Speed dataport you created, as well as the hierarchical relationship between them - the dataport is "inside" the device. The Exosite One Platform™ stores domains, users, portals, devices, and dataports in a hierarchy, and Exoline’s *tree* command can show you those relationships.
 
 If you would like to see more of the hierarchy, visit [your Portals web page](https://portals.exosite.com/account/portals) and use the key for your portal instead of the device CIK with the Exoline *tree* command. The *tree *command lets you explore this hierarchy, which is important for mobile and web application development in the platform.
 
 ## Customize Dashboard and Widgets
 
-Now that you have a datapoint written to the Wind Speed dataport, you can create a widget to capture that information on your dashboard homepage. 
+Now that you have a datapoint written to the Wind Speed dataport, you can create a widget to capture that information on your dashboard homepage.
 
 1. Select "Home" from the Portal menu to return to the dashboard homepage.
-2. Click "Add Widget" to add a new widget. 
+2. Click "Add Widget" to add a new widget.
     ![image alt text](images/image_27.png)
 3. An *Add widget *window will open. On the *Type* tab:
     1. Select Big Number in the *Widget Type* drop-down menu; this is a widget that displays a large numeric value that is suitable for a dashboard. There are many predefined widgets to choose from. You can also select Custom Widget to develop your own.
     ![image alt text](images/image_28.png)
-    2. Enter Wind Speed in the *Block Title* field. This title will be displayed at the top of the widget on the dashboard homepage. 
+    2. Enter Wind Speed in the *Block Title* field. This title will be displayed at the top of the widget on the dashboard homepage.
     ![image alt text](images/image_29.png)
     3. Click Continue.
 4. On the *Config *tab, you can configure many features of the widget. With the Big Number widget, you can change the size of the widget itself (measured in grid units within your dashboard; the entire dashboard is four grid units wide), the dataport to display, and the amount of data that may be configured. You can also configure the widget to refresh.
     1. Under the *Widget Size *heading*, *set the *Width* and *Height* to 2 grid units.
-    2. Under the *Data Source *heading, select the checkbox for your dataport. 
+    2. Under the *Data Source *heading, select the checkbox for your dataport.
     3. Under the *View Data By *heading*, *select the radio button labeled "Count." The count number indicates the number of datapoints that should be displayed by the widget. For this example, enter 1 in the field.
     4. Enter 5 seconds in the *Refresh Rate* field. This indicates how often the widget will fetch new data.
     5. Click Submit.
@@ -215,7 +219,7 @@ Notice that the Big Number widget reports data using the units you specified whe
 
 ## What’s Next?
 
-You have created a free Portals community account, created a hypothetical device and associated dataport, written to that dataport from Portals, written to that dataport from outside Portals using the same API a device would use, and set up a widget to display that data. 
+You have created a free Portals community account, created a hypothetical device and associated dataport, written to that dataport from Portals, written to that dataport from outside Portals using the same API a device would use, and set up a widget to display that data.
 
 Devices in the real world often have more dataports, require some processing of their data, or must send notifications to the users of the system. You may also be ready to start writing firmware to make your product communicate with the cloud. Exosite provides support articles on each of these topics, as well as libraries and sample applications for a variety of languages and hardware platforms.
 
@@ -228,7 +232,3 @@ Devices in the real world often have more dataports, require some processing of 
 * [Develop custom dashboards](https://support.exosite.com/hc/en-us/articles/200382634-Dashboards)
 
 * [Build your own custom theme with a Whitelabel account](https://support.exosite.com/hc/en-us/articles/200419544-What-is-a-Whitelabel-account-)
-
-
-
-
