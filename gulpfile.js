@@ -10,6 +10,7 @@ var gulp = require('gulp'),
   fs = require('fs');
 
 var defaultTemplate = new Buffer(fs.readFileSync("_static/_layouts/default.html"));
+var twoColumnTemplate = new Buffer(fs.readFileSync("_static/_layouts/two-column.html"));
 
 gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img'])
 
@@ -30,7 +31,11 @@ gulp.task('md', function() {
 
       try {
         content.attributes.body = marked(body);
-        file.contents = defaultTemplate;
+        if(content.attributes.template == "two-column"){
+		file.contents = twoColumnTemplate;
+	} else {
+		file.contents = defaultTemplate;
+	}
       } catch (e) {
         console.log(e)
         throw "Markdown File Can't Be Parsed as Markdown";
