@@ -1,3 +1,7 @@
+body {
+  min-width: 340px;
+}
+
 .header {
   background: #F1F1F1;
   /*text-shadow: 0 1px 0 rgba(0,0,0,0.5);*/
@@ -8,6 +12,13 @@
 .header .right {
   float: right;
   position: static;
+}
+
+
+@media (max-width: 775px) {
+  #docsearch {
+    display: none;
+  }
 }
 
 .header li a {
