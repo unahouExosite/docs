@@ -6,8 +6,8 @@
 }
 
 .header .right {
-  top: 0px;
-
+  float: right;
+  position: static;
 }
 
 .header li a {
