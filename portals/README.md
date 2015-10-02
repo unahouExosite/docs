@@ -106,7 +106,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Add group permission](#add-group-permission)
 * [Create group under user](#create-group-under-user)
 * [Delete group](#delete-group)
-* [Delete group permission](#deltet-group-permission)
+* [Delete group permission](#delete-group-permission)
 * [Get group](#get-group)
 * [Get group permissions](#get-group-permissions)
 * [Get multiple groups](#get-multiple-groups)
@@ -251,7 +251,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [PUT] [/api/portals/v1/groups/{group-id}](#update-group)
 * [DELETE] [/api/portals/v1/groups/{group-id}](#delete-group)
 * [POST] [/api/portals/v1/groups/{group-id}/permissions](#add-group-permission)
-* [DELETE] [/api/portals/v1/groups/{group-id}/permissions](#deltet-group-permission)
+* [DELETE] [/api/portals/v1/groups/{group-id}/permissions](#delete-group-permission)
 
 #### /portal
 
@@ -5097,7 +5097,7 @@ Delete a group
 
 ##### Response
 
-* `204 No Content`: Returned if the group is deleted successfully.
+* `204 No Content`: Returned if the group was deleted successfully.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to delete the group.
@@ -5125,26 +5125,26 @@ Content-Type: application/json; charset=UTF-8
 
 `POST /api/portals/v1/groups/{group-id}/permissions`
 
-Add one or many [permission objects](#permission-object) to group.
+Add one or multiple [permission objects](#permission-object) to a group.
 
 ##### Permissions
 
-* group must have at least `g_update` [permission](#permission-object) to the group.
-* you must have access to the [permission objects](#permission-object).
+* the caller group must have at least `g_update` [permission](#permission-object) to the group.
+* the caller group must have access to the [permission objects](#permission-object).
 
 ##### Request
 
-* The request body is an array [permission objects](#permission-object).
+* The request body is an array of [permission objects](#permission-object).
 * Requires authentication.
 
 ##### Response
 
-* `202 Accepted`: Returned if add group permissions is successful.
-* `400 Bad Request`: Returned if request body is invalid.
+* `202 Accepted`: Returned if the group permission(s) was added successfully.
+* `400 Bad Request`: Returned if the request body is invalid.
 * `403 Forbidden`: one of the following:
     * Returned if the caller group is not authenticated.
     * Returned if the caller group does not have access to the [permission objects](#permission-object).
-    * Returned if the caller group does not have permission to add permission to callee group.
+    * Returned if the caller group does not have permission to add the permission(s) to the callee group.
 * `404 Not Found`: Returned if the group id is invalid.
 * `409 Conflict`: Returned if [permission objects](#permission-object) already exists in callee group permissions.
 
@@ -5172,28 +5172,28 @@ Content-Type: application/json; charset=UTF-8
 
 `DELETE /api/portals/v1/groups/{group-id}/permissions`
 
-Delete one or many [permission objects](#permission-object) on group.
+Delete one or multiple [permission objects](#permission-object) on a group.
 
 ##### Permissions
 
-* group must have at least `g_update` [permission](#permission-object) to the group.
-* group must have access to the [permission objects](#permission-object).
+* the caller group must have at least `g_update` [permission](#permission-object) to the group.
+* the caller group must have access to the [permission objects](#permission-object).
 
 ##### Request
 
-* The request body is an array [permission objects](#permission-object).
+* The request body is an array of [permission objects](#permission-object).
 * Requires authentication.
 
 ##### Response
 
-* `204 No Content`: Returned if the group permissions is deleted successfully.
-* `400 Bad Request`: Returned if request body is invalid.
+* `204 No Content`: Returned if the group permission(s) was deleted successfully.
+* `400 Bad Request`: Returned if the request body is invalid.
 * `403 Forbidden`: one of the following:
     * Returned if the caller group is not authenticated.
-    * Returned if the caller group does not have permission to delete group permissions.
-    * Returned if the [permission objects](#permission-object) was deleted by other group and the callee group no longer has permissions on the object(s)
+    * Returned if the caller group does not have permission to delete the group permission(s).
+    * Returned if the [permission objects](#permission-object) were deleted by another group and the callee group no longer has permissions on the object(s).
 * `404 Not Found`: Returned if the group id is invalid.
-* `409 Conflict`: Returned if the [permission objects](#permission-object) was deleted by the callee group and the group no longer has permissions on the object(s).
+* `409 Conflict`: Returned if the [permission objects](#permission-object) were deleted by the callee group and the group no longer has permissions on the object(s).
 
 ##### Example
 
