@@ -1,3 +1,7 @@
+---
+title: HTTP
+---
+
 # HTTP API Overview
 
 This is a lightweight HTTP-based API for writing to and reading from the Exosite One Platform. It is intended for bandwidth-constrained applications. It provides the ability to write new data points or read the latest data point.

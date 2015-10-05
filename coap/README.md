@@ -1,3 +1,7 @@
+---
+title: CoAP
+---
+
 # CoAP API
 
 This api is currently released as a beta and may be updated at any time.

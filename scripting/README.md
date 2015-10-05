@@ -1,3 +1,7 @@
+---
+title: Platform Scripting
+---
+
 # Lua Scripting API
 
 Exosite's One Platform can run Lua scripts on your behalf. These scripts have

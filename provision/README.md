@@ -1,3 +1,7 @@
+---
+title: Provisioning
+---
+
 # Device Provisioning and Fleet Management API
 
 Both APIs use the HTTP POST, GET, PUT and DELETE methods to configure the different facets of the provisioning system. Note that the terms "client" and "device" are interchangeable in the text below. There are various HTTP required headers that are inherent to the protocol that are not repeated in each API procedure description. As an example, all of the POST and PUT requests must also contain a correct `Content-Length` header specifying the body payload size. Also, all responses having a status of 200 will also contain a `Content-Length` response header.

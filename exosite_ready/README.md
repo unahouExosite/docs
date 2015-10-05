@@ -1,3 +1,6 @@
+---
+title: Exosite Ready
+---
 
 ![Exosite Ready Logo](assets/exoready_logo.png)
 

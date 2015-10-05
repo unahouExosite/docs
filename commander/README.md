@@ -1,3 +1,7 @@
+---
+title: XMPP Commander
+---
+
 # Commander Chat
 
 The Commander is a XMPP bot that allows any authenticated XMPP client 

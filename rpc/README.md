@@ -1,3 +1,7 @@
+---
+title: RPC
+---
+
 # Remote Procedure Call API
 
 The JSON RPC API provides full featured access to data and resources on the One Platform. It is intended for applications that need to do more than just read and write individual points.

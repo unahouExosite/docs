@@ -1,3 +1,7 @@
+---
+title: Custom Widget
+---
+
 # Custom Widget API
 
 Portals provides a Javascript API for developing custom dashboard widgets. If you need to develop a custom widget, you've come to the right place. This document will describe how to create a custom widget in Portals, the data Portals passes to widgets when they load, and the API widgets can use to interact with Portals and the One Platform.

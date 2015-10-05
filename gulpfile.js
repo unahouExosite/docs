@@ -50,7 +50,7 @@ function create_anchor_from_chain(chain) {
     .replace(/ /g, "-").toLowerCase();
 }
 
-function tokens_to_index(tokens, page) {
+function tokens_to_index(tokens, page, page_title) {
   //var excluded_header_terms = ["example", "examples", "request", "response"]
 
   var section_acc = "";
@@ -66,6 +66,8 @@ function tokens_to_index(tokens, page) {
         if(section_hrd.chain !== undefined && section_acc !== ""){
           var md_obj = [first_p];
           md_obj.links = {};
+
+          section_hrd.chain.unshift(page_title);
 
           site_search_index.push({
             path: page + "#" + create_anchor_from_chain([section_hrd.text]),
@@ -127,6 +129,9 @@ gulp.task('md', function() {
         content = {attributes: {}};
       }
 
+      var path = convert_to_final_path(file.path.slice(file.cwd.length));
+      var title = content.attributes.title || path.replace(/\//g, " ").trim();
+
       try {
         content.attributes.body = marked(body);
         if(content.attributes.template == "two-column"){
@@ -137,7 +142,7 @@ gulp.task('md', function() {
 
         var tokens = marked.lexer(body);
         add_chain_to_headings(tokens);
-        tokens_to_index(tokens, convert_to_final_path(file.path.slice(file.cwd.length)));
+        tokens_to_index(tokens, path, title);
         content.attributes.body = marked.parser(tokens);
       } catch (e) {
         console.error(e)
