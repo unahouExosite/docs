@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/assets/elasticlunr.min.js"></script>
 <script>
 $(document).ready(function() {
   'use strict';
@@ -24,30 +25,45 @@ $(document).ready(function() {
     href = href.replace(/\.md$/, '');
     return href;
   }    
-  $.ajax('https://api.github.com/search/code?q=' + 
-    encodeURIComponent(query) + 
-    '+in:file+repo:exosite/docs', options).done(function(data, status) {
-      console.log(data);
-      var querySpan = '<span class="search-query">' + query + '</span>';
-      if (data.total_count === 0) {
-        contentEl.html('No results for ' + querySpan);
-      } else {
-        var html = '<div><div>Documents matching ' + querySpan + ':</div><ol>';
-        for (var i = 0; i < data.items.length; i++) {
-          var item = data.items[i];
-          var href = toDocPath(item.path);
-          html += ('<li class="search-result"><a href="' + href + '">' + href + '</a>');
-          // show the first text match
-          for (var j = 0; j < item.text_matches.length; j++) {
-            var match = item.text_matches[j];
-            var fragment = '...' + match.fragment.replace(query, querySpan) + '...';
-            html += ('<div class="search-result-fragment">' + fragment + '</div>');
-          }
-          html += '</li>';
-        }
-        html += '</ol></div>';
-        contentEl.html(html);
-      }
+  $.ajax('/search_index.json', options).done(function(data, status) {
+    //var index_data = JSON.parse(data);
+
+    var index = elasticlunr(function () {
+      this.setRef('i');
+      this.addField('path');
+      this.addField('title');
+      this.addField('body');
+      this.addField('preview');
     });
+
+    for (var i in data) {
+
+      index.addDoc({
+        i: i,
+        path: data[i].path,
+        title: data[i].title,
+        body: data[i].body,
+        preview: data[i].preview
+      });
+    }
+
+    var result = index.search(query);
+
+    var querySpan = '<span class="search-query">' + query + '</span>';
+    if (result.length === 0) {
+      contentEl.html('No results for ' + querySpan);
+    } else {
+      contentEl.html(JSON.stringify(result));
+      var html = '<div><div>Documents matching ' + querySpan + ':</div><ol>';
+      for (var i = 0; i < result.length; i++) {
+        var item = data[result[i].ref];
+        html += ('<li class="search-result"><a href="' + item.path + '">' + item.title + '</a>');
+        html += ('<div class="search-result-fragment">' + item.preview + '</div>');
+        html += '</li>';
+      }
+      html += '</ol></div>';
+      contentEl.html(html);
+    }
+  });
 });
 </script>
