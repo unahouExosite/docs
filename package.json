@@ -24,6 +24,8 @@
   "homepage": "https://github.com/exosite/docs",
   "dependencies": {
     "browser-sync": "^2.5.0",
+    "clone": "^1.0.2",
+    "elasticlunr": "^0.7.5",
     "front-matter": "^1.0.0",
     "gulp": "^3.8.11",
     "gulp-data": "^1.2.0",
