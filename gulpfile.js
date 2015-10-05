@@ -64,12 +64,8 @@ function tokens_to_index(tokens, page) {
       //if (contains(excluded_header_terms, tok.text)) {
         // Add Last Section to Index (if it exists)
         if(section_hrd.chain !== undefined && section_acc !== ""){
-          //console.log("Adding: " + section_title);
           var md_obj = [first_p];
           md_obj.links = {};
-
-          console.log(section_hrd.text);
-          console.log(section_hrd.chain);
 
           site_search_index.push({
             path: page + "#" + create_anchor_from_chain([section_hrd.text]),
@@ -121,14 +117,12 @@ gulp.task('write-search-index', ['md'], function() {
 gulp.task('md', function() {
  return gulp.src(['**/*.md', '!node_modules/**'])
     .pipe(data(function(file) {
-      console.log(file.path)
       var content;
       var body;
       try {
         content = fm(String(file.contents));
         body = content.body
       } catch (e) {
-        //console.log("No Front Matter in "+ file.path)
         body = String(file.contents);
         content = {attributes: {}};
       }
@@ -146,7 +140,7 @@ gulp.task('md', function() {
         tokens_to_index(tokens, convert_to_final_path(file.path.slice(file.cwd.length)));
         content.attributes.body = marked.parser(tokens);
       } catch (e) {
-        console.log(e)
+        console.error(e)
         throw "Markdown File Can't Be Parsed as Markdown";
       }
 
@@ -173,7 +167,6 @@ gulp.task('html', function() {
         content = fm(String(file.contents));
         body = content.body
       } catch (e) {
-        //console.log("No Front Matter in "+ file.path)
         body = String(file.contents);
         content = {attributes: {}};
       }
