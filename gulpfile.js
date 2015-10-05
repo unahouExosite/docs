@@ -3,39 +3,62 @@ var gulp = require('gulp'),
   newer = require('gulp-newer'),
   browserSync = require('browser-sync'),
   marked = require('marked'),
-  swig = require('gulp-swig'),
+  nunjucks = require('gulp-nunjucks-render'),
   data = require('gulp-data'),
   rename = require('gulp-rename'),
   fm = require('front-matter'),
   fs = require('fs');
 
-var defaultTemplate = new Buffer(fs.readFileSync("_static/_layouts/default.html"));
-var twoColumnTemplate = new Buffer(fs.readFileSync("_static/_layouts/two-column.html"));
+var frontMatterDefaults = {
+  template: "default"
+};
 
 gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img'])
 
 gulp.task('md', function() {
+  var templateCache = {};
+
+  nunjucks.nunjucks.configure(['src/templates/'], {watch: false});
+
   return gulp.src(['**/*.md', '!node_modules/**'])
     .pipe(data(function(file) {
-      console.log(file.path)
       var content;
       var body;
+
+      // Extract Front Matter
       try {
         content = fm(String(file.contents));
         body = content.body
       } catch (e) {
-        //console.log("No Front Matter in "+ file.path)
         body = String(file.contents);
-        content = {attributes: {}};
+        content = {attributes: frontMatterDefaults};
       }
+
+      // Set Default Values for Attributes not Set in Front Matter
+      for (var attr in frontMatterDefaults) {
+        if (content.attributes[attr] == undefined) {
+          content.attributes[attr] = frontMatterDefaults[attr];
+        };
+      }
+
+      // Get HTML Template
+      try {
+        if (templateCache[content.attributes.template] == undefined) {
+          templateCache[content.attributes.template] =  new Buffer(
+            fs.readFileSync(
+              "_static/_layouts/"+content.attributes.template+".html"
+          ));
+        };
+      } catch (e) {
+        throw "Couldn't find template called '" +
+          content.attributes.template + "'.";
+      }
+
+      // Nunjucks Expects the Template to be the File in the Pipe
+      file.contents = templateCache[content.attributes.template];
 
       try {
         content.attributes.body = marked(body);
-        if(content.attributes.template == "two-column"){
-		file.contents = twoColumnTemplate;
-	} else {
-		file.contents = defaultTemplate;
-	}
       } catch (e) {
         console.log(e)
         throw "Markdown File Can't Be Parsed as Markdown";
@@ -43,7 +66,7 @@ gulp.task('md', function() {
 
       return content.attributes;
     }))
-    .pipe(swig({defaults: {autoescape: false}}))
+    .pipe(nunjucks())
     .pipe(rename(function(path){
       if (path.basename == "README") {
         path.basename = "index";
@@ -56,6 +79,8 @@ gulp.task('md', function() {
 })
 
 gulp.task('html', function() {
+  var templateCache = {};
+
   return gulp.src(['_static/**/*.html', '!_static/_*/**'])
     .pipe(data(function(file) {
       var content;
@@ -64,17 +89,36 @@ gulp.task('html', function() {
         content = fm(String(file.contents));
         body = content.body
       } catch (e) {
-        //console.log("No Front Matter in "+ file.path)
         body = String(file.contents);
         content = {attributes: {}};
       }
 
+      // Set Default Values for Attributes not Set in Front Matter
+      for (var attr in frontMatterDefaults) {
+        if (content.attributes[attr] == undefined) {
+          content.attributes[attr] = frontMatterDefaults[attr];
+        };
+      }
+
+      // Get HTML Template
+      try {
+        if (templateCache[content.attributes.template] == undefined) {
+          templateCache[content.attributes.template] =  new Buffer(
+            fs.readFileSync(
+              "_static/_layouts/"+content.attributes.template+".html"
+          ));
+        };
+      } catch (e) {
+        throw "Couldn't find template called '" +
+          content.attributes.template + "'.";
+      }
+
+      file.contents = templateCache[content.attributes.template];
       content.attributes.body = body;
-      file.contents = defaultTemplate;
 
       return content.attributes;
     }))
-    .pipe(swig({defaults: {autoescape: false}}))
+    .pipe(nunjucks())
     .pipe(gulp.dest('_site'));
 })
 
