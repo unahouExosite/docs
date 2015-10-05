@@ -51,7 +51,8 @@ function create_anchor_from_chain(chain) {
 }
 
 function tokens_to_index(tokens, page, page_title) {
-  //var excluded_header_terms = ["example", "examples", "request", "response"]
+  var excluded_header_terms = ["example", "examples", "request", "requests",
+    "response", "responses", "permissions"]
 
   var section_acc = "";
   var section_hrd = {};
@@ -61,7 +62,7 @@ function tokens_to_index(tokens, page, page_title) {
     var tok = tokens[i];
 
     if (tok.type === "heading") {
-      //if (contains(excluded_header_terms, tok.text)) {
+      if (!contains(excluded_header_terms, tok.text.toLowerCase())) {
         // Add Last Section to Index (if it exists)
         if(section_hrd.chain !== undefined && section_acc !== ""){
           var md_obj = [first_p];
@@ -76,11 +77,11 @@ function tokens_to_index(tokens, page, page_title) {
             preview: marked.parser(md_obj)
           });
         }
-      //};
 
-      section_hrd = tok;
-      section_acc = "";
-      first_p = undefined;
+        section_hrd = tok;
+        section_acc = "";
+        first_p = undefined;
+      };
     } else if (typeof(tok.text) == "string") {
       section_acc += tok.text + "\n";
 
