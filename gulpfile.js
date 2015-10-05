@@ -7,120 +7,18 @@ var gulp = require('gulp'),
   data = require('gulp-data'),
   rename = require('gulp-rename'),
   fm = require('front-matter'),
-  fs = require('fs'),
-  clone = require('clone');
+  fs = require('fs');
 
 var frontMatterDefaults = {
   template: "default"
 };
 
-var site_search_index = [];
-
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
-        if (a[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function add_chain_to_headings(tokens) {
-  var section_chain = [];
-
-  for (i in tokens) {
-    var tok = tokens[i];
-    if (tok.type === "heading") {
-      // Update Heading Path
-      while (section_chain.length >= tok.depth) {
-        section_chain.pop()
-      };
-      if (section_chain.length <= tok.depth) {
-        section_chain.push(tok.text)
-      };
-
-      tokens[i].chain = clone(section_chain);
-    }
-  };
-
-  return tokens;
-}
-
-function create_anchor_from_chain(chain) {
-  return chain.join("-").replace(/[!@#$%^&*()=+<>;:'"\\\/]/g, "")
-    .replace(/ /g, "-").toLowerCase();
-}
-
-function tokens_to_index(tokens, page) {
-  //var excluded_header_terms = ["example", "examples", "request", "response"]
-
-  var section_acc = "";
-  var section_hrd = {};
-  var first_p;
-
-  for (i in tokens) {
-    var tok = tokens[i];
-
-    if (tok.type === "heading") {
-      //if (contains(excluded_header_terms, tok.text)) {
-        // Add Last Section to Index (if it exists)
-        if(section_hrd.chain !== undefined && section_acc !== ""){
-          //console.log("Adding: " + section_title);
-          var md_obj = [first_p];
-          md_obj.links = {};
-
-          console.log(section_hrd.text);
-          console.log(section_hrd.chain);
-
-          site_search_index.push({
-            path: page + "#" + create_anchor_from_chain([section_hrd.text]),
-            title: section_hrd.chain.join(" -> "),
-            body: section_acc,
-            preview: marked.parser(md_obj)
-          });
-        }
-      //};
-
-      section_hrd = tok;
-      section_acc = "";
-      first_p = undefined;
-    } else if (typeof(tok.text) == "string") {
-      section_acc += tok.text + "\n";
-
-      if (first_p === undefined) {
-        first_p = tok;
-      };
-    }
-  };
-}
-
-function convert_to_final_path(rel_path) {
-  var file_re = /(.+\/)?([^\/]+)\.([^\.\n]+)/
-  var matches = file_re.exec(rel_path);
-
-  if (matches[1] == undefined) {
-    if (matches[2].toUpperCase() === "README") {
-      return "/";
-    } else {
-      return "/" + matches[2] + "/"
-    };
-  } else {
-    if (matches[2].toUpperCase() === "README") {
-      return matches[1];
-    } else {
-      return matches[1] + matches[2] + "/"
-    };
-  };
-}
-
-gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img', 'write-search-index']);
-
-gulp.task('write-search-index', ['md'], function() {
-  fs.writeFileSync('_site/search_index.json', JSON.stringify(site_search_index), 'utf8');
-});
+gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img'])
 
 gulp.task('md', function() {
   var templateCache = {};
+
+  nunjucks.nunjucks.configure(['src/templates/'], {watch: false});
 
   return gulp.src(['**/*.md', '!node_modules/**'])
     .pipe(data(function(file) {
@@ -160,10 +58,7 @@ gulp.task('md', function() {
       file.contents = templateCache[content.attributes.template];
 
       try {
-        var tokens = marked.lexer(body);
-        add_chain_to_headings(tokens);
-        tokens_to_index(tokens, convert_to_final_path(file.path.slice(file.cwd.length)));
-        content.attributes.body = marked.parser(tokens);
+        content.attributes.body = marked(body);
       } catch (e) {
         console.log(e)
         throw "Markdown File Can't Be Parsed as Markdown";
