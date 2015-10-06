@@ -107,8 +107,10 @@ Below are some documents that will help you understand the basics of all Portals
 
 #### Groups
 
+* [Add group permission](#add-group-permission)
 * [Create group under user](#create-group-under-user)
 * [Delete group](#delete-group)
+* [Delete group permission](#delete-group-permission)
 * [Get group](#get-group)
 * [Get group permissions](#get-group-permissions)
 * [Get multiple groups](#get-multiple-groups)
@@ -252,6 +254,8 @@ Below are some documents that will help you understand the basics of all Portals
 * [GET] [/api/portals/v1/groups/{group-id}/permissions](#get-group-permissions)
 * [PUT] [/api/portals/v1/groups/{group-id}](#update-group)
 * [DELETE] [/api/portals/v1/groups/{group-id}](#delete-group)
+* [POST] [/api/portals/v1/groups/{group-id}/permissions](#add-group-permission)
+* [DELETE] [/api/portals/v1/groups/{group-id}/permissions](#delete-group-permission)
 
 #### /portal
 
@@ -5097,7 +5101,7 @@ Delete a group
 
 ##### Response
 
-* `204 No Content`: Returned if the group is deleted successfully.
+* `204 No Content`: Returned if the group was deleted successfully.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to delete the group.
@@ -5119,6 +5123,100 @@ Status: 204 No Content
 Vary: Accept-Encoding
 Content-Length: 0
 Content-Type: application/json; charset=UTF-8
+```
+
+#### Add group permission
+
+`POST /api/portals/v1/groups/{group-id}/permissions`
+
+Add one or multiple [permission objects](#permission-object) to a group.
+
+##### Permissions
+
+* the caller group must have at least `g_update` [permission](#permission-object) to the group.
+* the caller group must have access to the [permission objects](#permission-object).
+
+##### Request
+
+* The request body is an array of [permission objects](#permission-object).
+* Requires authentication.
+
+##### Response
+
+* `202 Accepted`: Returned if the group permission(s) was added successfully.
+* `400 Bad Request`: Returned if the request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller group is not authenticated.
+    * Returned if the caller group does not have access to the [permission objects](#permission-object).
+    * Returned if the caller group does not have permission to add the permission(s) to the callee group.
+* `404 Not Found`: Returned if the group id is invalid.
+* `409 Conflict`: Returned if [permission objects](#permission-object) already exists in callee group permissions.
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/3167859736/permissions' \
+     -X POST \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'groupemail@gmail.com:groupP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 202 Accepted
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 202 Accepted
+Location: https://mydomain.exosite.com/api/portals/v1/groups/3167859736/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
+```
+
+#### Delete group permission
+
+`DELETE /api/portals/v1/groups/{group-id}/permissions`
+
+Delete one or multiple [permission objects](#permission-object) on a group.
+
+##### Permissions
+
+* the caller group must have at least `g_update` [permission](#permission-object) to the group.
+* the caller group must have access to the [permission objects](#permission-object).
+
+##### Request
+
+* The request body is an array of [permission objects](#permission-object).
+* Requires authentication.
+
+##### Response
+
+* `204 No Content`: Returned if the group permission(s) was deleted successfully.
+* `400 Bad Request`: Returned if the request body is invalid.
+* `403 Forbidden`: one of the following:
+    * Returned if the caller group is not authenticated.
+    * Returned if the caller group does not have permission to delete the group permission(s).
+    * Returned if the [permission objects](#permission-object) were deleted by another group and the callee group no longer has permissions on the object(s).
+* `404 Not Found`: Returned if the group id is invalid.
+* `409 Conflict`: Returned if the [permission objects](#permission-object) were deleted by the callee group and the group no longer has permissions on the object(s).
+
+##### Example
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/groups/3167859736/permissions' \
+     -X DELETE \
+     -d '[{"access":"d_u_list","oid":{"id":"1576946496","type":"Domain"}}]' \
+     -u 'groupemail@gmail.com:groupP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 204 No Content
+Date: Tue, 18 Nov 2014 02:48:23 GMT
+Status: 204 No Content
+Location: https://mydomain.exosite.com/api/portals/v1/groups/3167859736/permissions
+Vary: Accept-Encoding
+Content-Type: application/json; charset=UTF-8
+
 ```
 
 ### Portal
