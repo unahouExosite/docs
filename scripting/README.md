@@ -946,6 +946,7 @@ and specifies the email `Content-Type` header, and defaults to:
   Returns:         true :: boolean         - sms was successfully sent
           false, reason :: boolean, string - sms was not successfully sent
 ```
+Note: Currently `true` is always returned. This function does not wait for delivery becuase SMS can take several minutes or more to be delivered. There is currently no way to verify that a message has been delivered.
 
 * `dispatch.tweet(auth, message)`
 
