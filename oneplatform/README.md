@@ -1,3 +1,8 @@
+---
+title: One Platform
+template: two-column
+---
+
 # Exosite One Platform
 
 * [Overview](#overview)
@@ -38,20 +43,20 @@ A client is identified in the platform by it's RID (Resource Identifier) which n
 ![image](assets/onep_client_attributes1.png)
 
 A Client's attributes include the following:
-* RID - Resource Identifier
-* CIK - Client Interface Key
-* name - A string for application-specific purposes (it has no relation to identity in the platform)
-* meta - A string field for meta data to be used for application-specific purposes
-* locked - if set to true - will prevent any use of the CIK to make API calls
-* public - If set to true, allows any other resource in the platform to read from it.  If false, only it's ancestors.
-* limits - Is an object containing limits for various entities and consumables.
-* resources - Any resources such as dataports, datarules, dispatches, and other clients owned by this client.
+* `RID` - Resource Identifier
+* `CIK` - Client Interface Key
+* `name` - A string for application-specific purposes (it has no relation to identity in the platform)
+* `meta` - A string field for meta data to be used for application-specific purposes
+* `locked` - if set to true - will prevent any use of the CIK to make API calls
+* `public` - If set to true, allows any other resource in the platform to read from it.  If false, only it's ancestors.
+* `limits` - Is an object containing limits for various entities and consumables.
+* `resources` - Any resources such as dataports, datarules, dispatches, and other clients owned by this client.
 
 In addition - by asking for 'info' about a client, you can receive the following information:
-* aliases
-* modified time, status, subscribers, type
-* counts
-* usage
+* `aliases`
+* `modified time`, `status`, `subscribers`, `type`
+* `counts`
+* `usage`
 
 ## Resources
 Each client has functional resources that allow for storing, processing, and taking action on data.  There are no limits to how many of each resource are used, although applications should optimize based on performance for things like user applications.
@@ -66,15 +71,15 @@ Each client has functional resources that allow for storing, processing, and tak
 Each resource has similiar attributes as clients.  Each resource has a name, a meta field, and public field.  In addition, all resources have the following that are unique to resources.  Each type of resource also has it's own set of attributes specific to that resource.
 
 __Attributes across all resources__
-* [Resource Identifier / RID](#alias-/-rid)
-* [Alias](#alias-/-rid)
-* name
-* Meta
-* public
-* format - Format of stored data -'integer', 'float', 'string'
-* [preprocess](#preprocess)
-* [retention](#retention)
-* [subscribe](#subscriptions)
+* [`Resource Identifier / RID`](#alias-/-rid)
+* [`Alias`](#alias-/-rid)
+* `name`
+* `Meta`
+* `public`
+* `format` - Format of stored data -'integer', 'float', 'string'
+* [`preprocess`](#preprocess)
+* [`retention`](#retention)
+* [`subscribe`](#subscriptions)
 
 #### Alias / RID
 Each resource has a Resource ID (RID) that may be used with the RPC API.  To simplify interactions with the API, resources may also use Aliases, which can be used with the APIs.   An Alias is a simple string that is mapped to a RID.  Each alias is unique to that client.  For example, a dataport that is storing sensor data like temperature, may use an alias of 'temp' or 'temperature'.  
@@ -305,9 +310,32 @@ The most powerful of the resources available in the platform clients are [Lua](h
 
 [One Platform Lua Scripting Reference Guide](/scripting)
 
-![image](assets/onep_script_lua_overview1.png)
+``` lua
+local input = alias['input']
+local output = alias['output']
 
-![image](assets/onep_script_lua_code_snippet_example1.png)
+local constant = 23.456
+local last_value = nil
+
+local function process(var1, var2, var3)
+  if var1 > var2 then --compare values
+    output.value = var1 * var3 -- save data to output dataport
+  end
+end
+
+while true do -- loop forever
+  local timestamp = input.wait()
+  local new_value = input[timestamp]
+  if new_value ~= nil and new_value > 10 then
+    process(new_value,last_value, constant)
+  else
+    debug('not useful, ignore')
+  end
+  last_value = new_value
+end
+```
+
+![image](assets/onep_script_lua_overview1.png)
 
 **A few use cases are:**
 * Advanced data analytics using math functions and multiple dataports
