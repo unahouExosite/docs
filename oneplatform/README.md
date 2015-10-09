@@ -5,7 +5,7 @@
 * [Core Resources and Hierarchy](#core-resources-and-hierarchy)
 * [Provision System](#provision-system)
 
-## Overview
+# Overview
 The One Platform is Exosite's core IoT building block.  The platform allows for virtualizing and digitizing physical things and their data.  It gives an identity in the 'cloud' to devices and becomes a central node for data to and from the device, to and from user applications, and to any other service you want to connect with.
 
 The interaction with the platform is via a set of web service APIs ([Application Programming Interface](https://en.wikipedia.org/wiki/Application_programming_interface) ).  These APIs allow developers to both connect devices and build applications with.  All data is stored in reference to each individual client (device) and is accessible using the APIs.
@@ -24,11 +24,11 @@ The platform allows for storage of time-stamped data, triggering rules on incomi
 * [Lua Scripting](#scripts) - Data stream processing and management
 
 
-## Hosting
+# Hosting
 The One Platform is accessible by default to users as a multi-tenant hosted system.  Options for single-tenant hosted instances or self hosting are available, please contact us for more information.
 
-## Core Resources and Hierarchy
-### Clients
+# Core Resources and Hierarchy
+## Clients
 
 The core node or object in the platform is a 'client'.  A client typically represents a virtual device, but clients are also used for other purposes - such as for an account, a container of some kind, or a user.  These types of uses of clients generally are in regards to the ownership hierarchy.  A client can own or be owned by other clients.  
 ![image](assets/onep_hierarchy_overview1.png)
@@ -53,22 +53,33 @@ In addition - by asking for 'info' about a client, you can receive the following
 * counts
 * usage
 
-### Resources
+## Resources
 Each client has functional resources that allow for storing, processing, and taking action on data.  There are no limits to how many of each resource are used, although applications should optimize based on performance for things like user applications.
 
-#### Alias
-Each resource has a Resource ID (RID) that may be used with the RPC API.  To simplify interactions with the API, resources may also use Aliases, which can be used with the APIs.   An Alias is a simple string that is mapped to a RID.  Each alias is unique to that client.  For example, a dataport that is storing sensor data like temperature, may use an alias of 'temp' or 'temperature'.  
+* [Dataports](#dataports) - Time series data stores
+* [Datarules](#datarules) - Logical data rules on published data
+* [Dispatches](#dispatches) - Triggered messaging
+* [Scripts](#lua-scripts) - Lua scripts interacting with the other resources
 
-Note that owned clients may also have aliases since clients are also resources.
 
-#### Attributes
+### Resource Attributes
 Each resource has similiar attributes as clients.  Each resource has a name, a meta field, and public field.  In addition, all resources have the following that are unique to resources.  Each type of resource also has it's own set of attributes specific to that resource.
 
 __Attributes across all resources__
+* [Resource Identifier / RID](#alias-/-rid)
+* [Alias](#alias-/-rid)
+* name
+* Meta
+* public
 * format - Format of stored data -'integer', 'float', 'string'
-* preprocess
-* retention
-* subscribe
+* [preprocess](#preprocess)
+* [retention](#retention)
+* [subscribe](#subscriptions)
+
+#### Alias / RID
+Each resource has a Resource ID (RID) that may be used with the RPC API.  To simplify interactions with the API, resources may also use Aliases, which can be used with the APIs.   An Alias is a simple string that is mapped to a RID.  Each alias is unique to that client.  For example, a dataport that is storing sensor data like temperature, may use an alias of 'temp' or 'temperature'.  
+
+Note that owned clients may also have aliases since clients are also resources.
 
 #### Preprocess
 The preporcess function for resources allows a value that is written to the resource to be manipulated before storing the value.  In general, it is a list of `[<operation>, <value> | <ResourceID>]` pairs describing operations to be performed on incoming data.  The operations may be `"add"`, `"sub"`, `"mul"`, `"div"`, `"mod"`, `"gt"`, `"geq"`, `"lt"`, `"leq"`, `"eq"`, `"neq"`, or `"value"`.  The operations are performed in order as listed in the list and may use a constant value or another resource's current value.
@@ -93,7 +104,7 @@ Subscriptions are the most common way a dispatch or datarule is used.  For examp
 
 
 
-### Dataports
+## Dataports
 Dataports are a simple data store of time stamped values that can be written and read from.  Data written to a dataport (Write function) is stored with a platform provided unix timestamp. Data written with the Record function uses a timestamp provided with the value.  
 
 Dataports have type 'integer', 'float' or 'string'.  When using string types, the maximum size of a value that can be written is 64KB.  Formatted data, such as JSON can be stored as string type, with the JSON object written as a string.
@@ -102,7 +113,7 @@ An example of a dataport use is a device with a temperature sensor, the type bei
 
 Dataports can publish data to other dataports, datarules, and dispatches.  Scripts can read, write, and wait on dataports.  
 
-### Datarules
+## Datarules
 Datarules perform a logical function on an incoming value with the stored outcome as either a 0 (false) or 1 (true).  These logical functions are described as it's `"rule"` attribute, which is unique to datarules.  Datarules are otherwise the same as a dataport, they have all of the other attributes such as preprocessing, subscription, and retention.
 
 Reading from a datarule will provide 0 and 1 values with timestamps in which the datarule ran.
@@ -272,7 +283,7 @@ previous value.</li>
 
 Although the type for a datarule can be integer, float, or string, the most common type is as an integer.  
 
-### Dispatches
+## Dispatches
 A dispatch resource allows for triggered messages and communications from the platform to an external destination.  The available dispatch methods are SMS, Email, HTTP POST, HTTP PUT, HTTP GET, and XMPP.  In addition to the standard resource attributes, a dispath also includes the fields for `"method"`, `"recipient"`, `"message"`, and `"subject"`.
 
 * `"method"` is the method to be used to deliver messages by this dispatch resource. Current methods are: "email", "http_get", "http_post", "http_put", "sms", "xmpp"
@@ -282,14 +293,14 @@ A dispatch resource allows for triggered messages and communications from the pl
 
 Dispatches store a string value the specifies if a message was successfully sent.  A read from a dispatch resource would return the status and timestamp of each message attempt.  
 
-#### Message Substitutions
+### Message Substitutions
 The messages for dispatches may either take the value passed into the dispatch (after preprocessing stage) or may use a defined string.  Values may still be passed into the message when using a defined string, using substitutions.  The available string substitutions are as follows:
 * ``[[value]]`` - The value passed into this dispatch
 * `[[subscribe.cid]]` - The RID of the client of this resource.
 
 
 
-### Lua Scripts
+## Lua Scripts
 The most powerful of the resources available in the platform clients are [Lua](http://www.lua.org/manual/5.2/) Scripts.  The scripts have access to all of the other resources for that client, including any child clients.  This allows developers to processing incoming data into the dataports, trigger actions or alerts, and manage resources based on the state of different data and time.  
 
 [One Platform Lua Scripting Reference Guide](/scripting)
@@ -306,7 +317,7 @@ The most powerful of the resources available in the platform clients are [Lua](h
 * Send data to other systems
 * Perform initialization functions
 
-## Provision System
+# Provision System
 The Provision system reference is contained in knowledge base articles found here.
 
 [Provisioning Articles](https://support.exosite.com/hc/en-us/articles/200308457-Provisioning-Overview)
@@ -314,5 +325,5 @@ The Provision system reference is contained in knowledge base articles found her
 
 
 
-## Help
+# Help
 Looking for answers you may have yet?  Check out the Exosite support site [knowledge base articles on the One Platform](https://support.exosite.com/hc/en-us/sections/200072527).
