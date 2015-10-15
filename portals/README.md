@@ -83,7 +83,7 @@ Below are some documents that will help you understand the basics of all Portals
 * [Get device](#get-device)
 * [Get multiple devices](#get-multiple-devices)
 * [Update device](#update-device)
-* [bulk update device](#bulk-update-device)
+* [Bulk update device](#bulk-update-device)
 
 #### Domain
 
@@ -3749,28 +3749,29 @@ Content-Type: application/json; charset=UTF-8
 }
 ```
 
-#### Bulk Update device
+#### Bulk update devices
 
 `PUT /api/portals/v1/devices/[{device-rid},{device-rid}..]`
 
-Update a device
+Update multiple devices
 
 ##### Permissions
 
-* User must have at least `d_update` [permission](#permission-object) to the device.
+* User must have at least `d_update` [permission](#permission-object) to the devices.
 
 ##### Request
 
-* Request body is a object of [device object](#device-object). Currently only the following keys may be updated:
+* Request body is an object of [device objects](#device-object). Currently only the following keys may be updated:
 
     * `"info": {"description": ...}` - description under info (optional)
+
     If you send any keys besides these, it will do nothing.
 
 * Requires authentication.
 
 ##### Response
 
-* `200 OK`: Returned along with a body containing an object [device object](#device-object) if the device is updated successfully. However if any devices fails to update it would still return 200 OK along with an error object included in the response body. (see error exmaple)
+* `200 OK`: Returned along with a body containing an object of [device objects](#device-object) if the devices were updated successfully. However, if any device(s) failed to update, 200 OK will still be returned, with an additional error object at the top of the response body. This error object will provide error details for each device (see error example).
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to update the device.
