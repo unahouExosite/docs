@@ -281,10 +281,11 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 
 ## Activate
 
-Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
-model type `<model>` associated with Serial Number `<sn>`. Client must be
-enabled via `/provision/manage/model/<model>/<sn>`, the enabled state must not
-have expired, and the client must not have already been activated.
+Activates and returns `<cik>` of client administrated by Vendor `<vendor>`,
+identified my the model ID `<model>` associated with Serial Number `<sn>`.
+Client must be enabled via `/provision/manage/model/<model>/<sn>`, the enabled
+state must not have expired, and the client must not have already been
+activated.
 
 ```
 POST /provision/activate HTTP/1.1
