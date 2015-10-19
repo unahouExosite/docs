@@ -10,7 +10,8 @@
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
 
 ### Application APIs
-* [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization
+* [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization via Https
+* [Remote Procedure Call API via WebSocket](websocket/) - full featured API for device management and data visualization via the WebSocket protocol
 * [Provision Management API](provision/) - API for working with device models and in field provisioning
 * [Commander API](commander/) - XMPP chat interface for reading and writing data from an IM client
 * [Lua Scripting API](scripting/) - the server-side Lua scripting environment
