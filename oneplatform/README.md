@@ -1,6 +1,6 @@
 ---
 title: One Platform
-template: two-column
+template: default
 ---
 
 # Exosite One Platform
