@@ -12,7 +12,7 @@ Also authentication differs from the JSON RPC API [RPC](../rpc/README.md). In th
 
 ## First Step: Establishing a Connection
 
-You have to establish WebSocket connection to `ws://m2.exosite.com/ws`.  The first step is to do authentication with One Platform where you have to send an authentication JSON object [authentication](../rpc/README.md#authentication).  Here's an example:
+You have to establish WebSocket connection to `wss://m2.exosite.com/ws`.  The first step is to do authentication with One Platform where you have to send an authentication JSON object [authentication](../rpc/README.md#authentication).  Here's an example:
 
 ```
 {
