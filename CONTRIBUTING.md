@@ -1,3 +1,8 @@
+---
+title: Contributing Guide
+template: two-column
+---
+
 # Contributing to Exosite's Documentation
 
 Thanks for helping make docs better!
