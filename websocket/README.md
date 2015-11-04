@@ -56,11 +56,11 @@ Once a client pass the authentication, she can start sending requests to One Pla
 Response:
 
 ```
-{
+[{
   "status": "ok",
   "result": [[1376709527, 64.2]],
   "id": 1
-}
+}]
 ```
 
 ## Subscribe
