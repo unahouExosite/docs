@@ -4,8 +4,8 @@ title: Platform Scripting
 
 # Lua Scripting API
 
-Exosite's One Platform can run Lua scripts on your behalf. These scripts have
-a rich set of capabilities and may be used to offload processing from your 
+Exosite's [One Platform](/oneplatform/) can run Lua scripts on your behalf. These scripts have
+a rich set of capabilities and may be used to offload processing from your
 device.
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
@@ -16,26 +16,26 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 Scripts are written in Lua 5.2 scripting language. For general information
 about Lua 5.2, please reference the [online Lua manual](http://www.lua.org/manual/5.2/).
 
-Scripts may be added to an application either using Portals, or by 
+Scripts may be added to an application either using Portals, or by
 using the [Remote Procedure Call API](https://github.com/exosite/docs/tree/master/rpc). In Portals,
 scripts are added on the [script management page](https://portals.exosite.com/manage/scripts).
 
-To use the RPC to create a script, use the 
-[create](https://github.com/exosite/docs/tree/master/rpc#create-datarule) RPC 
-procedures. It's also possible to use the 
-[Exoline](https://github.com/dweaver/exoline) utility to upload a script from 
+To use the RPC to create a script, use the
+[create](https://github.com/exosite/docs/tree/master/rpc#create-datarule) RPC
+procedures. It's also possible to use the
+[Exoline](https://github.com/dweaver/exoline) utility to upload a script from
 the command line using the `script` Exoline command. Run this command for details:
 
 ```
 $ exo script --help
 ```
 
-Scripts are associated with a client and may read, write, record and 
+Scripts are associated with a client and may read, write, record and
 subscribe to data for any resources that client owns. For example, in Portals,
-if a script A is added to a particular device client it may access 
-all of that device's datasources, but not the datasources of any other devices. 
-If script B is added to a portal, it will have access to portal-level 
-datasources as well as devices in that portal and their datasources. 
+if a script A is added to a particular device client it may access
+all of that device's datasources, but not the datasources of any other devices.
+If script B is added to a portal, it will have access to portal-level
+datasources as well as devices in that portal and their datasources.
 
 A script may also dispatch messages using transports such as HTTP, SMS, Email, and XMPP.
 
@@ -53,7 +53,7 @@ as well as a set of One Platform API functions, the 'alias' table and Global
 properties and functions.
 
 Scripts are scheduled to run with a limited number of execution ticks.
-When these ticks are consumed, the script is suspended until subsequently 
+When these ticks are consumed, the script is suspended until subsequently
 rescheduled.
 
 Scripts also have memory usage limits, which if completely consumed
@@ -71,13 +71,13 @@ scripts. They operate exactly as described in the Lua 5.2 reference manual.
 
 * [`bit32`](http://www.lua.org/manual/5.2/manual.html#6.7)
 
-* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6) (Note: 
+* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6) (Note:
     the `math.randomseed` function is not available to scripts.)
 
-* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4) (Note: 
+* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4) (Note:
     the `string.dump` and `string.gsub` functions are not available to scripts.)
 
-* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5) (Note: 
+* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5) (Note:
     the `table.sort` function is not available to scripts.)
 
 * [`ipairs()`](http://www.lua.org/manual/5.2/manual.html#pdf-ipairs)
@@ -110,7 +110,7 @@ The following global resources and features are available to Lua scripts:
 
 * [`json`](#the-json-global-table)
 * [`date()`](#utilities)
-* [`debug()`](#utilities) 
+* [`debug()`](#utilities)
 * [`setlocale()`](#utilities)
 * [`settimezone()`](#utilities)
 * `now` holds the current UNIX timestamp. Note that `now` causes a One Platform API call behind the scenes so that it stays in step with the One Platform time. For best performance we recommend calling this at most once per iteration of a looping script. For example, if three different variables are to be initialized to the current timestamp in a row, `now` should be called once, its value stored in a local variable and subsequently used to initialize the variables.
@@ -119,7 +119,7 @@ The following global resources and features are available to Lua scripts:
 ## The alias table
 
 Every script is owned by a One Platform client, and has access to that client
-and all of its resources through the `alias` table. 
+and all of its resources through the `alias` table.
 
 * The client: `alias['']`
 * The client's owned resource (by alias): `alias['myAlias']`
@@ -135,7 +135,7 @@ local room_temp = alias['room_temp']
 Each alias has properties and functions through which the script can interact
 with the aliased resource (for example to read from a dataport or write to a dataport)
 
-* `.alias` 
+* `.alias`
 
     This sub alias table is only available if the referenced alias is a client.
     It provides the same functionality as the global alias table but for the
@@ -146,15 +146,15 @@ with the aliased resource (for example to read from a dataport or write to a dat
     The manage table is only available if the referenced alias is a client. For
     the functionality provided, see [The manage table](#the-manage-table).
 
-* `.meta` 
+* `.meta`
 
     This provides read-only access to the `meta` field of the resource.
 
-* `.name` 
+* `.name`
 
     This provides read-only access to the `name` field of the resource.
 
-* `.status` 
+* `.status`
 
     Indicates the outcome of the most recent activity performed on the Alias.
     Actions include the reading or writing of any of the Alias properties and
@@ -194,10 +194,10 @@ with the aliased resource (for example to read from a dataport or write to a dat
 
 * `.last`
 
-    When read, it returns the timestamp returned by the most recent call to 
-    `.wait` function.  When written, the current time, as the script perceives 
-    it, will be changed to the given timestamp. Thus it is possible to set 
-    `.last` to a point in the past and iterate through historical data using 
+    When read, it returns the timestamp returned by the most recent call to
+    `.wait` function.  When written, the current time, as the script perceives
+    it, will be changed to the given timestamp. Thus it is possible to set
+    `.last` to a point in the past and iterate through historical data using
     `.wait`. When the script starts `.last` is initialized to the value of
     `.timestamp`.
 
@@ -264,7 +264,7 @@ with the aliased resource (for example to read from a dataport or write to a dat
 
 * `manage.activate(rid | {alias = <alias>}, type, code)`
 
-    Given an activation code, the associated entity is activated for the 
+    Given an activation code, the associated entity is activated for the
     client specified in rid.
 
 ```
@@ -335,7 +335,7 @@ with the aliased resource (for example to read from a dataport or write to a dat
         count = <non_neg_integer> | "infinity",
         duration = <non_neg_integer> | "infinity"
       },
-      subscribe = <rid> | nil 
+      subscribe = <rid> | nil
     }
 
   "datarule" description ::
@@ -408,7 +408,7 @@ with the aliased resource (for example to read from a dataport or write to a dat
         duration = <non_neg_integer> | "infinity"
       },
       subject = <string>,
-      subscribe = <rid> | nil 
+      subscribe = <rid> | nil
     }
 
   ------------------------------------------------------------------------------
@@ -576,7 +576,7 @@ with the aliased resource (for example to read from a dataport or write to a dat
   Arguments:        rid :: string - Client ID under which to list resources
                                     Note: an earlier form of this function
                                     allowed omitting this argument. That
-                                    form is deprecated and should no 
+                                    form is deprecated and should no
                                     longer be used.
                   alias :: string - Alias for resource ID.
                    type :: table - List of resource types.
@@ -709,7 +709,7 @@ with the aliased resource (for example to read from a dataport or write to a dat
   Arguments:        rid :: string - Client ID under which to unmap the mapping
                                     Note: an earlier form of this function
                                     allowed omitting this argument. That
-                                    form is deprecated and should no 
+                                    form is deprecated and should no
                                     longer be used.
                    type :: string - Type of mapping: alias only.
                 mapping :: string - The mapped string to be removed.
@@ -778,7 +778,7 @@ http://www.json.org/
 * `json.array(table)`
 
     Initializes a Lua table to represent a JSON array.  A JSON array is
-    represented as a Lua table having a sequence `{1..N}`, such that the 
+    represented as a Lua table having a sequence `{1..N}`, such that the
     only keys in the table are the numerical set `{1..N}`.
 
 ```
@@ -806,7 +806,7 @@ http://www.json.org/
 ```
 
 * `json.encode(value)`
-  
+
     Encodes the provided native Lua value as a JSON string.
 
 ```
@@ -946,6 +946,7 @@ and specifies the email `Content-Type` header, and defaults to:
   Returns:         true :: boolean         - sms was successfully sent
           false, reason :: boolean, string - sms was not successfully sent
 ```
+Note: Currently `true` is always returned. This function does not wait for delivery becuase SMS can take several minutes or more to be delivered. There is currently no way to verify that a message has been delivered.
 
 * `dispatch.tweet(auth, message)`
 

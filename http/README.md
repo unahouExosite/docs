@@ -38,8 +38,6 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Timestamp](#timestamp) - get the current unix timestamp
 
-[IP](#ip) - get the IP address of the host server
-
 
 ## Libraries and Sample Code
 
@@ -283,10 +281,11 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 
 ## Activate
 
-Activates and returns `<cik>` of client administrated by Vendor `<vendor>`, of
-model type `<model>` associated with Serial Number `<sn>`. Client must be
-enabled via `/provision/manage/model/<model>/<sn>`, the enabled state must not
-have expired, and the client must not have already been activated.
+Activates and returns `<cik>` of client administrated by Vendor `<vendor>`,
+identified my the model ID `<model>` associated with Serial Number `<sn>`.
+Client must be enabled via `/provision/manage/model/<model>/<sn>`, the enabled
+state must not have expired, and the client must not have already been
+activated.
 
 ```
 POST /provision/activate HTTP/1.1
@@ -469,38 +468,6 @@ Content-Length: <length>
 Content-Type: text/plain; charset=utf-8
 
 <timestamp>
-```
-
-* See [HTTP Responses](#http-responses) for a full list of responses
-
-
-## IP
-
-Note: Deprecated, use DNS instead.
-
-Returns ip address and port of the server, encoded in 6 comma separated octets as a string, where the first 4 are the ip and the last 2 are the port, e.g.,  "192,168,0,1,0,80".
-
-
-### request
-
-```
-GET /ip HTTP/1.1
-Host: m2.exosite.com
-<blank line>
-```
-
-
-### response
-
-```
-HTTP/1.1 200 OK
-Date: <date>
-Server: <server>
-Connection: Keep-Alive
-Content-Length: <length>
-Content-Type: text/plain; charset=utf-8
-
-<server ip and port>
 ```
 
 * See [HTTP Responses](#http-responses) for a full list of responses
