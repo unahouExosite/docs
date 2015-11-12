@@ -7,7 +7,8 @@ Instead, edit the stylus (.styl) files and compile it to CSS on your machine.
 /* ----------------------------------------------------------------------------
  * Fonts
  */
-@import url("//fonts.googleapis.com/css?family=Source+Code+Pro|Montserrat:700|Open+Sans:300");
+@import url("//fonts.googleapis.com/css?family=Roboto|Source+Sans+Pro|Source+Code+Pro|Montserrat:700|Open+Sans:300");
+
 /* ----------------------------------------------------------------------------
  * Base
  */
@@ -113,7 +114,7 @@ body,
 td,
 textarea,
 input {
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   line-height: 1.6;
   font-size: 14px;
   font-weight: 300;
@@ -298,7 +299,7 @@ a:hover {
 .content h4 {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   padding-bottom: 0;
 }
@@ -320,11 +321,11 @@ a:hover {
   padding-top: 0px;
 }
 .content h1 {
-  font-size: 1.7em;
+  font-size: 1.8em;
   color: #000000;
 }
 .content h2 {
-  font-size: 1.4em;
+  font-size: 1.5em;
 }
 .content h3 {
   font-size: 1.2em;
@@ -480,7 +481,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
 .button {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   letter-spacing: -1px;
   font-weight: bold;
@@ -643,7 +644,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: bold;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 13px;
 }
@@ -700,7 +701,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
   text-rendering: optimizeLegibility;
 }
 .menubar .section {
-  padding: 30px 30px;
+  padding: 50px 50px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -726,7 +727,7 @@ a.big.button {
   border: solid 3px #2badad;
   -webkit-border-radius: 30px;
   border-radius: 30px;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
 }
 a.big.button,
@@ -754,14 +755,14 @@ a.big.button:hover:visited {
 }
 @media (min-width: 768px) {
   .content-root {
-    padding-left: 230px;
+    padding-left: 270px;
   }
   .menubar {
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 230px;
+    width: 270px;
     border-right: solid 1px #dfe2e7;
   }
   .menubar.fixed {
@@ -789,6 +790,7 @@ a.big.button:hover:visited {
 }
 .menubar {
   font-size: 0.9em;
+  background-color: #F0F0F0;
 }
 .menu ul.level-1 > li + li {
   margin-top: 20px;
@@ -811,7 +813,7 @@ a.big.button:hover:visited {
   color: #228a8a;
 }
 .menu a.level-1 {
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   text-transform: uppercase;
   font-size: 0.9em;
@@ -871,7 +873,7 @@ code .comment {
 .large-brief .content > h1:first-child + p,
 .content > p.brief {
   font-size: 1.3em;
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Roboto',sans-serif;
   font-weight: 300;
 }
 .title-area {
