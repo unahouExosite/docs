@@ -407,7 +407,7 @@ Response may also be:
 * See [HTTP Responses](#http-responses) for a full list of responses
 
 
-### Get Content Info
+## Get Content Info
 
 If caller with `<CIK>` has an activated SN in given `<vendor>` `<model>` name
 space, and is authorized for the content, then the `<id>` content information
