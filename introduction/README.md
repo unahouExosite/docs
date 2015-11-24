@@ -7,7 +7,7 @@ template: default
 Exosite's most basic concept is to make internet connected physical things useful to people.  The services and products provided are to help developers, companies, and organizations to build IoT (Internet of Things) solutions - providing technology from the physical devices through to the end points - people and applications.
 
 ## Basic Device Communication
-For starters, Let's look at basic concept of a device using standard <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">HTTP</a>  messages might send a packet like this.  We will pick it a part here to help give some context to the Exosite [One Platform](/oneplatform) which it is communicating to.
+For starters, let's look at basic concept of a device using standard <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">HTTP</a>  messages might send a packet like this.  We will pick it a part here to help give some context to the Exosite [One Platform](/oneplatform) which it is communicating to.
 
 ```
 POST /onep:v1/stack/alias HTTP/1.1
@@ -30,13 +30,13 @@ The device is communicating with Exosite's [HTTP Data API](/http), which can be 
 /onep:v1/stack/alias
 ```
 
-This is the URL for the Exosite API being used, in this case, it is the [HTTP Data API](/http).  In this case, we are writing data to an alias that represents the piece of data in the platform, otherwise known as a dataport.
+This is the URL for the Exosite [HTTP Data API](/http).  In this case, we are writing data to an alias that represents the piece of data in the platform, otherwise known as a dataport.
 
 ```
 X-EXOSITE-CIK: af027fe792f0fc74cedbe3777f5a22961e7b8384
 ```
 This long 40 character hexadecimal number is a Client Interface Key or CIK.  This is the authorization for this HTTP message to be accepted.  Each device in the platform has an associated CIK.  This CIK typically comes the the Provisioning activation call, where the Platform sends the CIK down to the device after the proper provision steps have occurred and the device has made it's activate request.  For getting started though, the Portals evaluation tool (https://portals.exosite.com) allows you to create `generic` devices with a activated CIK to copy over to your device.  
-* [Getting Started using Portals](http://localhost:3000/tutorials/get-started)
+* [Getting Started using Portals](/tutorials/get-started)
 
 
 ```

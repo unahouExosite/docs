@@ -24,6 +24,7 @@
 * [Portals Domain Solutions Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
 
 ## Other
+* [Supported Hardware Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) - Project pages for each of the hardware platforms supported with reference code 
 * [Exoline](https://github.com/exosite/exoline/blob/master/README.md) - Command Line Interface / Utility for the Exosite API
 * [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
