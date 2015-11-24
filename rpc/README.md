@@ -8,7 +8,7 @@ The JSON RPC API provides full featured access to data and resources on the One 
 
 If you're completely new to Exosite's APIs, you may want to read the [API overview](../README.md) first.
 
-####Time Series Data
+#### Time Series Data
 
 [read](#read) - read time series data
 
@@ -24,7 +24,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [wait](#wait) - long polling, i.e., wait a data and get response when the data is updated
 
-####Resources
+#### Resources
 
 [create (client)](#create-client) - create a resource that can contain other resources
 
@@ -32,7 +32,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [create (datarule)](#create-datarule) - create a resource that can perform processing in response to data
 
-[create (dispatch)](#create-dispatch) - create a resource for sending notifications 
+[create (dispatch)](#create-dispatch) - create a resource for sending notifications
 
 [create (clone)](#create-clone) - copy an existing resource
 
@@ -48,7 +48,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [usage](#usage) - get usage information for a resource
 
-####Aliases
+#### Aliases
 
 [map](#map) - create an alias that can be used to refer to a resource
 
@@ -56,7 +56,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [unmap](#unmap) - remove an alias for a resource
 
-####Shares and Keys 
+#### Shares and Keys
 
 [share](#share) - generate a code that allows non-owners to access resources
 
@@ -94,11 +94,11 @@ This document uses a few notational conventions:
 * `...` represents one or more of the previous item
 
 ## HTTP Request/Response Example
-  
+
 JSON RPC are HTTP POST requests with a body containing a JSON-encoded call. Here is a full example of an HTTP request, with JSON formatted for readability:
 
 ```
-POST /onep:v1/rpc/process HTTP/1.1 
+POST /onep:v1/rpc/process HTTP/1.1
 Host: m2.exosite.com:80
 Content-Type: application/json; charset=utf-8
 User-Agent: API Example (danweaver@exosite.com)
@@ -107,20 +107,20 @@ Content-Length: 235
 {
     "auth": {
         "cik": "5de0cfcf7b5bed2ea7a801234567890123456789"
-    }, 
+    },
     "calls": [
         {
-            "id": 56, 
+            "id": 56,
             "procedure": "read",
             "arguments": [
                 {
                     "alias": "temperature"
-                }, 
+                },
                 {
-                    "endtime": 1376957311, 
-                    "limit": 3, 
-                    "selection": "all", 
-                    "sort": "desc", 
+                    "endtime": 1376957311,
+                    "limit": 3,
+                    "selection": "all",
+                    "sort": "desc",
                     "starttime": 1
                 }
             ]
@@ -141,21 +141,21 @@ Server: nginx
 
 [
     {
-        "id": 56, 
+        "id": 56,
         "result": [
             [
-                1376957195, 
+                1376957195,
                 72.2
-            ], 
+            ],
             [
-                1376957184, 
+                1376957184,
                 72.3
-            ], 
+            ],
             [
-                1376951473, 
+                1376951473,
                 72.5
             ]
-        ], 
+        ],
         "status": "ok"
     }
 ]
@@ -178,16 +178,16 @@ The maximum number of consecutive HTTP requests that can be sent via a single co
 
 ## Authentication
 
-Requests to the JSON RPC are made on behalf of a particular client in the system, 
-called the "calling client". Every request passes a client key, called a 
+Requests to the JSON RPC are made on behalf of a particular client in the system,
+called the "calling client". Every request passes a client key, called a
 CIK, that functions like a password and grants limited control over that
-client and full control of that client's subhierarchy. This is somewhat 
+client and full control of that client's subhierarchy. This is somewhat
 different from other APIs where authentication is done on behalf of a user
 account that is granted access to a set of resources.
 
 For example, to [read](#read) from a Portals datasource, you could
-authenticate with the CIK of the device that owns the datasource or with 
-the CIK of the portal that owns that device, all the way up to the 
+authenticate with the CIK of the device that owns the datasource or with
+the CIK of the portal that owns that device, all the way up to the
 root node of the One Platform tree.
 
 Authentication information is placed in the JSON body of a request, in
@@ -223,12 +223,12 @@ The body of a request has the following structure:
     "calls": [
         // first call is a read
         {
-            "id": 1, 
-            "procedure": "read", 
+            "id": 1,
+            "procedure": "read",
             "arguments": [
                  // <ResourceID>
                  // descendant RID of calling client
-                 "34eaae237988167d90bfc2ffeb666daaaaaaaaaa", 
+                 "34eaae237988167d90bfc2ffeb666daaaaaaaaaa",
                  {
                      "starttime":1376709504,
                       "endtime":1376709527,
@@ -240,11 +240,11 @@ The body of a request has the following structure:
         },
         // second call is a write
         {
-            "id": 2, 
-            "procedure": "write", 
+            "id": 2,
+            "procedure": "write",
             "arguments": [
                  // <ResourceID>
-                 // instead of an RID string, this call references the 
+                 // instead of an RID string, this call references the
                  // alias of one of the calling client's children.
                  {
                      "alias": "temperature"
@@ -260,7 +260,7 @@ The body of a request has the following structure:
 
 `"id"` is an identifier for the call, and may be a number or a string of up to 40 characters. A matching ID is returned in the response. If `"id"` is omitted for a particular call, no response will be returned. If `"id"` is omitted for all calls in `"calls"`, no response will be given for the entire request message.
 
-`"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures-1). 
+`"procedure"` and `"arguments"` are specific to individual procedures and are documented [below](#procedures-1).
 
 ## Response JSON
 
@@ -268,7 +268,7 @@ The response body is always JSON, but its format varies based on error handling 
 
 ```
 [
-    // response for 
+    // response for
     {
         "id": 1,
         "status": "ok",
@@ -277,7 +277,7 @@ The response body is always JSON, but its format varies based on error handling 
 ]
 ```
 
-* `"id"` identifies the corresponding request call. 
+* `"id"` identifies the corresponding request call.
 * `"result"` is the return value for the procedure. Procedures without return values omit it entirely.
 
 If a particular call fails, the response body is still a list, but `"status"` for the response for that call is set to something besides `"ok"`, and an `"error"` key is included:
@@ -324,7 +324,7 @@ If the request message causes an error not associated with any given call, the r
 
 # Time Series Data
 
-##read 
+## read
 
 Read data from a resource.
 
@@ -351,27 +351,27 @@ Read data from a resource.
 * `"limit"` sets a maximum on the number of points to return. `"limit"` is applied after the results have been sorted, so different values of `"sort"` will return different sets of points. Defaults to `1`.
 * `"selection"` supports downsampling. `"givenwindow"` splits the time window evenly into `"limit"` parts and returns at most one point from each part. `"autowindow"` samples evenly across points in the time window up to `"limit"`. Note that these options provide a blind sampling function, not averaging or other type of rollup calculation. Defaults to `"all"`, which turns off downsampling, returning all points up to `"limit"`.
 
-####response
+#### response
 
 Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value pairs.
 
 ```
 
-// float resource 
+// float resource
 {
     "status": "ok",
     "result": [[1376709527,64.2]],
     "id": 1
 }
 
-// string resource 
+// string resource
 {
     "status": "ok",
     "result": [[1376950234,"World"],[1376950230,"Hello"]],
     "id": 1
 }
 
-// integer resource 
+// integer resource
 {
     "status": "ok",
     "result": [[1376950410,11],[1376950405,10]],
@@ -384,7 +384,7 @@ Response is a list of [timestamp](http://en.wikipedia.org/wiki/Unix_time), value
 Read the most recent single value for a datasource:
 
 ```
-$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
+$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias":
 "log"}, {}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/onep:v1/rpc/process
 [{"id":0,"status":"ok","result":[[1390622248,"test value"]]}]
 ```
@@ -392,12 +392,12 @@ $ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{
 Read the earliest two points for a datasource:
 
 ```
-$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias": 
+$ curl -d '{"auth":{"cik":"bef3c7f91ac3562e6a2212345678901234567890"},"calls":[{"procedure":"read","arguments":[{"alias":
 "log"}, {"sort":"asc", "limit":2}],"id":0}]}' -H 'Content-type: application/json; charset=utf-8' http://m2.exosite.com/onep:v1/rpc/process
 [{"id":0,"status":"ok","result":[[1390622242,"second value"],[1390622240,"first value"]]}]
 ```
 
-##write
+## write
 
 Writes a single value to the resource specified.
 
@@ -405,10 +405,10 @@ Writes a single value to the resource specified.
 {
     "procedure": "write",
     "arguments": [
-        <ResourceID>, 
-        <value> 
-    ], 
-    "id": 1 
+        <ResourceID>,
+        <value>
+    ],
+    "id": 1
 }
 ```
 
@@ -416,18 +416,18 @@ Writes a single value to the resource specified.
 
 * `<value>` is the value to write.
 
-####response
+#### response
 
 ```
 {
     "status": "ok",
-    "id": 1 
+    "id": 1
 }
 ```
 
 ---
 
-##writegroup
+## writegroup
 
 Writes the given values for the respective resources in the list. The difference between calling `writegroup` and combining multiple `write` calls into a single request is that `writegroup` guarantees the points are written at the same timestamp.
 
@@ -445,7 +445,7 @@ Writes the given values for the respective resources in the list. The difference
 
 * `<value>` is the value to write.
 
-####response
+#### response
 
 ```
 {
@@ -456,7 +456,7 @@ Writes the given values for the respective resources in the list. The difference
 
 ---
 
-##record
+## record
 
 Records a list of historical entries to the resource specified. NOTE: this API is deprecated. Please use [`recordbatch`](#recordbatch) instead.
 
@@ -467,19 +467,19 @@ Records a list of historical entries to the resource specified. NOTE: this API i
         <ResourceID>,
         [[<timestamp>, <value>], ...],
         {}
-    ], 
+    ],
     "id": 1
 }
 ```
 
 * `<ResourceID>` is a resource identifier. See [Identifying Resources](#identifying-resources) for details.
-* The second argument is a list of timestamp, value entries to record to the resource. If 
+* The second argument is a list of timestamp, value entries to record to the resource. If
     `<timestamp>` is a negative value, it means an offset back into the past from the current time.
-  
+
 * The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
 * The third argument is currently unused.
 
-####response
+#### response
 
 ```
 {
@@ -492,9 +492,9 @@ Records a list of historical entries to the resource specified. NOTE: this API i
 
 ---
 
-##recordbatch
+## recordbatch
 
-Records a list of historical entries to the resource specified. 
+Records a list of historical entries to the resource specified.
 
 
 ```
@@ -515,7 +515,7 @@ Records a list of historical entries to the resource specified.
 
 * The behavior of the platform when `<timestamp>` is set to times in the future is undefined.
 
-####response
+#### response
 
 ```
 {
@@ -535,7 +535,7 @@ Records a list of historical entries to the resource specified.
 
 * If `"status"` is not `"ok"`, it will return an array to indicate which `<timestamp>` is failed to be writen.
 
-####example
+#### example
 ```
 {
     "arguments": [
@@ -557,7 +557,7 @@ response:
 
 ---
 
-##flush
+## flush
 
 Empties the specified resource of data per specified constraints. If no constraints are specified, all data gets flushed.  
 
@@ -570,7 +570,7 @@ Empties the specified resource of data per specified constraints. If no constrai
             "newerthan": number,
             "olderthan": number
         }
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -581,7 +581,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 * `"newerthan"` and `"olderthan"` are optional timestamps that constrain what data is flushed. If both are specified, only points with timestamp larger than `"newerthan"` and smaller than `"olderthan"` will be flushed. If only `"newerthan"` is specified, then all data with timestamps larger than that timestamp will be removed.
 
 
-####response
+#### response
 
 ```
 {
@@ -590,7 +590,7 @@ Empties the specified resource of data per specified constraints. If no constrai
 }
 ```
 
-* `"status": "ok"` means the resource was successfully flushed 
+* `"status": "ok"` means the resource was successfully flushed
 
 * `"status": "invalid"` means one or both of "olderthan" and "newerthan" options provided was not a valid timestamp
 
@@ -601,9 +601,9 @@ Empties the specified resource of data per specified constraints. If no constrai
 
 # Resources
 
-##create (client)
+## create (client)
 
-Creates a generic client under the client specified in `<ResourceID>`. 
+Creates a generic client under the client specified in `<ResourceID>`.
 
 _NOTE:_ To create a client based on a client model and connected with a serial number, use the [portals create device API](http://docs.exosite.com/portals/#create-new-device-under-a-portal-of-authenticated-user) or the [fleet management create client from model POST API](http://docs.exosite.com/provision/management/#provisionmanagemodelmodelsn) instead.
 
@@ -612,7 +612,7 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
     "procedure": "create",
     "arguments": [
         <ResourceID>,
-        "client", 
+        "client",
         {
             "limits": {
                 "client":       number | "inherit" = 0,
@@ -643,10 +643,10 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
 * `<ResourceID>` is the client id under which to create a resource. (Please note: an earlier previous form of `create` that omitted this argument is deprecated and should not be used.)
 
 * `"limits"` is an object containing limits for various entities and consumables. Each limit is either number, or `"inherit"`, which inherits the limit of the client's owner.
-    
+
     `"client"`, `"dataport"`, `"datarule"`, `"dispatch"` represent the number of each type of resource this client can own.
-    
-    `"disk"` is the amount of disk space this client can occupy. Currently this limit is not enforced. 
+
+    `"disk"` is the amount of disk space this client can occupy. Currently this limit is not enforced.
 
     `"email"`, `"http"`, `"sms"`, `"xmpp"` is the number of each type of consumable this client can use in each UTC day. These throttle the rate that a client may draw from their corresponding `_bucket` limits.
 
@@ -662,7 +662,7 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
 
 * `"public"` provides public read-only access to the resource. If set to `true`, it makes the resource readable by any client. If set to `false`, the resource is readable only by ancestors of the resource or any client with which the resource has been shared.
 
-####response
+#### response
 
 ```
 {
@@ -674,7 +674,7 @@ _NOTE:_ To create a client based on a client model and connected with a serial n
 
 ---
 
-##create (dataport)
+## create (dataport)
 
 Creates a dataport.
 
@@ -682,7 +682,7 @@ Creates a dataport.
 {
     "procedure": "create",
     "arguments": [
-        "dataport", 
+        "dataport",
         {
             "format": "float" | "integer" | "string",
             "meta": string = "",
@@ -695,7 +695,7 @@ Creates a dataport.
             },
             "subscribe": <ResourceID> |  null = null
        }
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -716,10 +716,10 @@ Creates a dataport.
 
     `"duration"` is the maximum number of hours this resource will retain its data.
 
-* `"subscribe"` is an RID to which this resource is subscribed, or null if it is not subscribed to another resource. If set to an RID, this resource will receive a publication whenever a value is written to the specified RID. 
+* `"subscribe"` is an RID to which this resource is subscribed, or null if it is not subscribed to another resource. If set to an RID, this resource will receive a publication whenever a value is written to the specified RID.
 
 
-####response
+#### response
 
 ```
 {
@@ -731,7 +731,7 @@ Creates a dataport.
 
 ---
 
-##create (datarule)
+## create (datarule)
 
 Creates a datarule.
 
@@ -739,7 +739,7 @@ Creates a datarule.
 {
     "procedure": "create",
     "arguments": [
-        "datarule", 
+        "datarule",
         {
             "format": "float" | "integer" | "string",
             "meta": string = "",
@@ -753,11 +753,11 @@ Creates a datarule.
             "rule": object,
             "subscribe": <ResourceID> | null = null
         }
-    ], 
+    ],
     "id": 1
 }
 ```
- 
+
 * `"format"` is the format in which the datarule will store its data.  Lua script datarules should be format `"string"`.
 * `"meta"`, `"name"`, and `"public"` are described in [create (client)](#create-client)
 * `"preprocess"`, `"retention"`, and `"subscribe"` are described in [create (dataport)](#create-dataport)
@@ -768,8 +768,8 @@ Creates a datarule.
 <pre><code>
 {
     "simple": {
-        "comparison": "gt" | "lt" | 
-                      "eq" | "geq" | 
+        "comparison": "gt" | "lt" |
+                      "eq" | "geq" |
                       "leq" | "neq",
         "constant": number,
         "repeat": boolean
@@ -781,10 +781,10 @@ Creates a datarule.
 <ul>
 <li><code>"constant"</code> is a numerical constant used by comparison</li>
 <li><code>"comparison"</code> is the comparison to perform.</li>
-<li><code>"repeat"</code> specifies whether new inputs that would not change 
-the output should be written to the output data stack anyway. If set to 
+<li><code>"repeat"</code> specifies whether new inputs that would not change
+the output should be written to the output data stack anyway. If set to
 <code>true</code>, the output of this rule is always written to the rule's
-data stack. If set to <code>false</code>, a output is only written if it's 
+data stack. If set to <code>false</code>, a output is only written if it's
 different from the previous value.</li>
 </td></tr>
 <tr><td>
@@ -801,10 +801,10 @@ different from the previous value.</li>
 
 <ul>
 <li><code>"timeout"</code> is a timeout in seconds</li>
-<li><code>"repeat"</code> specifies whether new inputs that would not change 
-the output should be written to the output data stack anyway. If set to 
+<li><code>"repeat"</code> specifies whether new inputs that would not change
+the output should be written to the output data stack anyway. If set to
 <code>true</code>, the output of this rule is always written to the rule's
-data stack. If set to <code>false</code>, a output is only written if it's 
+data stack. If set to <code>false</code>, a output is only written if it's
 different from the previous value.</li>
 </ul>
 
@@ -813,8 +813,8 @@ different from the previous value.</li>
 <pre><code>
 {
     "interval": {
-        "comparison": "gt" | "lt" | 
-                      "eq" | "geq" | 
+        "comparison": "gt" | "lt" |
+                      "eq" | "geq" |
                       "leq" | "neq",
         "constant": number,
         "timeout": number,
@@ -833,10 +833,10 @@ and the timer is restarted. If a input value is received that makes the comparis
 <li><code>"comparison"</code> is the comparison to do</li>
 <li><code>"constant"</code> is a numerical constant used by comparison</li>
 <li><code>"timeout"</code> is a timeout in seconds</li>
-<li><code>"repeat"</code> specifies whether new inputs that would not change 
-the output should be written to the output data stack anyway. If set to 
+<li><code>"repeat"</code> specifies whether new inputs that would not change
+the output should be written to the output data stack anyway. If set to
 <code>true</code>, the output of this rule is always written to the rule's
-data stack. If set to <code>false</code>, a output is only written if it's 
+data stack. If set to <code>false</code>, a output is only written if it's
 different from the previous value.</li>
 </ul>
 </td></tr>
@@ -844,7 +844,7 @@ different from the previous value.</li>
 <pre><code>
 {
     "duration": {
-        "comparison": "gt" | "lt" | 
+        "comparison": "gt" | "lt" |
                       "eq" | "geq" |
                       "leq" | "neq",
         "constant": number,
@@ -854,10 +854,10 @@ different from the previous value.</li>
 }
 </code></pre>
 </td><td>
-<p>When a value is received, it is immediately used in the configured 
-comparison.  If the comparison result is <code>true</code>, the rule waits for 
-the specified timeout period before setting its output to <code>true</code>. 
-If instead the comparison result is <code>false</code>, then 
+<p>When a value is received, it is immediately used in the configured
+comparison.  If the comparison result is <code>true</code>, the rule waits for
+the specified timeout period before setting its output to <code>true</code>.
+If instead the comparison result is <code>false</code>, then
 <code>false</code> becomes the output of the rule immediately, cancelling
 any existing timeout.</p>
 <ul>
@@ -866,9 +866,9 @@ any existing timeout.</p>
 <li><code>"timeout"</code> is a timeout in seconds</li>
 <li><code>"repeat"</code> specifies whether output from this rule should
 be written to its data stack if it is the same as the latest
-value already on the data stack. If set to <code>true</code>, the output of 
-this rule is always written to the rule's data stack. If set to 
-<code>false</code>, a output is only written if it is different from the 
+value already on the data stack. If set to <code>true</code>, the output of
+this rule is always written to the rule's data stack. If set to
+<code>false</code>, a output is only written if it is different from the
 previous value.</li>
 </ul>
 </td></tr>
@@ -878,7 +878,7 @@ previous value.</li>
 {
     "count": {
         "comparison": "gt" | "lt" |
-                      "eq" | "geq" | 
+                      "eq" | "geq" |
                       "leq" | "neq",
         "constant": number,
         "count": number,
@@ -889,14 +889,14 @@ previous value.</li>
 </code></pre>
 </td><td>
 <p>
-When a value is received it is used in the comparison. If the comparison 
+When a value is received it is used in the comparison. If the comparison
 result is <code>true</code> and there is no existing timeout then a timeout
-is started and an internal counter is set to <code>1</code>. If a timeout 
-already exists then the internal counter is incremented. If the internal 
-counter matches the count configuration parameter, then the timeout is 
-restarted, the internal counter is set to <code>0</code> and the condition 
-evaluates to <code>true</code>. If the timeout elapses, the counter is set 
-to <code>0</code>, the timeout is cancelled and the rule outputs 
+is started and an internal counter is set to <code>1</code>. If a timeout
+already exists then the internal counter is incremented. If the internal
+counter matches the count configuration parameter, then the timeout is
+restarted, the internal counter is set to <code>0</code> and the condition
+evaluates to <code>true</code>. If the timeout elapses, the counter is set
+to <code>0</code>, the timeout is cancelled and the rule outputs
 <code>false</code>.
 </p>
 <ul>
@@ -906,9 +906,9 @@ to <code>0</code>, the timeout is cancelled and the rule outputs
 <li><code>"timeout"</code> is a timeout in seconds</li>
 <li><code>"repeat"</code> specifies whether output from this rule should
 be written to its data stack if it is the same as the latest
-value already on the data stack. If set to <code>true</code>, the output of 
-this rule is always written to the rule's data stack. If set to 
-<code>false</code>, a output is only written if it is different from the 
+value already on the data stack. If set to <code>true</code>, the output of
+this rule is always written to the rule's data stack. If set to
+<code>false</code>, a output is only written if it is different from the
 previous value.</li>
 </ul>
 </td></tr>
@@ -922,7 +922,7 @@ previous value.</li>
 <code>"script"</code> is a string containing Lua source code to run on the server.
 </td></tr>
 </table>
-####response
+#### response
 
 ```
 {
@@ -934,7 +934,7 @@ previous value.</li>
 
 ---
 
-##create (dispatch)
+## create (dispatch)
 
 Creates a dispatch.
 
@@ -942,7 +942,7 @@ Creates a dispatch.
 {
     "procedure": "create",
     "arguments": [
-        "dispatch", 
+        "dispatch",
         {
             "locked": boolean = false,
             "message": string = "",
@@ -959,7 +959,7 @@ Creates a dispatch.
             "subject": string,
             "subscribe": <ResourceID> | null = null
         }
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -973,7 +973,7 @@ Creates a dispatch.
 * `"subject"` is the subject string for delivery methods that support a subject line, such as email.
 
 
-####response
+#### response
 
 ```
 {
@@ -985,7 +985,7 @@ Creates a dispatch.
 
 ---
 
-##create (clone)
+## create (clone)
 
 Create a clone from an existing One Platform resource given its RID or a non-activated sharecode for that resource. The resource to clone must be a client.
 
@@ -993,7 +993,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 {
     "procedure": "create",
     "arguments": [
-        "clone", 
+        "clone",
         {
              // 'rid' and 'code' are mutually exclusive options
              "rid": string,
@@ -1001,7 +1001,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
              "noaliases":boolean = false,
              "nohistorical":boolean = false
         }
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1011,7 +1011,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 * `"noaliases"` specifies whether to create clone aliases
 * `"nohistorical"` specifies whether to clone historical data
 
-####response
+#### response
 
 ```
 {
@@ -1023,7 +1023,7 @@ Create a clone from an existing One Platform resource given its RID or a non-act
 
 ---
 
-##move
+## move
 
 Moves a resource from one parent client to another.
 
@@ -1045,10 +1045,10 @@ Moves a resource from one parent client to another.
 
 * `<Options>` is a JSON object and can contain these options:
 
- * `aliases` is a boolean that when set to true will try to re-create aliases pointing the the moved resource in the new context. When set to false all aliases that would become invalid are being deleted without replacement. 
+ * `aliases` is a boolean that when set to true will try to re-create aliases pointing the the moved resource in the new context. When set to false all aliases that would become invalid are being deleted without replacement.
 
 
-####response
+#### response
 
 ```
 {
@@ -1061,17 +1061,17 @@ Moves a resource from one parent client to another.
 
 ---
 
-##update
+## update
 
-Updates the description of the resource. 
+Updates the description of the resource.
 
 ```
 {
     "procedure": "update",
     "arguments": [
         <ResourceID>,
-        <description> 
-    ], 
+        <description>
+    ],
     "id": 1
 }
 ```
@@ -1087,7 +1087,7 @@ Updates the description of the resource.
     Dataport and datarule format may not be changed.
 
 
-####response
+#### response
 
 ```
 {
@@ -1100,7 +1100,7 @@ Updates the description of the resource.
 
 ---
 
-##wait
+## wait
 
 This is a HTTP Long Polling API which allows a user to wait on specific resources to be updated. It will return a timestamp which is the time the resource was updated.
 
@@ -1118,7 +1118,7 @@ This is a HTTP Long Polling API which allows a user to wait on specific resource
                     "timeout": <Number> = 30000
                     "since": <Timestamp> = null
                 }
-            ], 
+            ],
             "id": 1
         }
     ]
@@ -1174,12 +1174,12 @@ The following is an example to wait with default timeout, 30 seconds from now.
 }
 ```
 
-####response
+#### response
 
 ```
 {
     "status": string,
-    "result": [timestamp, value], 
+    "result": [timestamp, value],
     "id": 1
 }
 ```
@@ -1194,9 +1194,9 @@ The following is an example to wait with default timeout, 30 seconds from now.
 
 ---
 
-##info
+## info
 
-Request creation and usage information of specified resource according 
+Request creation and usage information of specified resource according
 to the specified options. Information is returned for the options
 specified. If no option is specified, a full information report is
 returned.
@@ -1220,7 +1220,7 @@ returned.
             "tags": true,
             "usage": true
         }
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1228,13 +1228,13 @@ returned.
 * `<ResourceID>` specifies what resource to query. See [Identifying Resources](#identifying-resources) for details.
 
 * `<options>` is a JSON object with boolean entries. Each boolean entry defaults
-    to `false`. If `<options>` is set to `{}` then all available boolean options 
-    are set to `true` Not all resource types have the same set of options. Valid 
+    to `false`. If `<options>` is set to `{}` then all available boolean options
+    are set to `true` Not all resource types have the same set of options. Valid
     options are the following:
 
     `"aliases"` returns all aliases associated with the calling client's child resources.
 
-    `"basic"` returns basic information about a resource, such as its type, when 
+    `"basic"` returns basic information about a resource, such as its type, when
     it was created, last modified and, for 'client' and 'dispatch' type resources, its current status.
 
     `"comments"` are deprecated and should not be used.
@@ -1242,21 +1242,21 @@ returned.
     `"counts"` returns the actual count of the resources/consumables used by the client, does not include
     resources/consumables by subresources.
 
-    `"description"` returns the description of the resource that was used to create 
+    `"description"` returns the description of the resource that was used to create
     or last update the resource.
 
     `"key"` returns the Client Interface Key (CIK) associated with the resource.
     This is valid for client resources only.
 
-    `"shares"` returns share activation codes along with information about how many 
-    times and for what duration this resource has been shared and which clients the 
+    `"shares"` returns share activation codes along with information about how many
+    times and for what duration this resource has been shared and which clients the
     activators are.
-    
+
     `"storage"` Available for dataport,datarule, and dispatch resources. Returns the numbers for
     "count", "first", "last", and "size.
-    
+
     `"subscribers"` returns the resources subscribed to this resource.
-    
+
     `"tagged"` is reserved for future use.
 
     `"tags"` is reserved for future use.
@@ -1287,7 +1287,7 @@ Available only to the client's direct owner.
 
 
 
-####response
+#### response
 
 ```
 {
@@ -1299,7 +1299,7 @@ Available only to the client's direct owner.
             // the aliased resource or its owner, the value is "undefined"
             // rather than a list of aliases.
             "1b1ae80c224b4df0c74401234567890123456789": [
-                "myinteger" 
+                "myinteger"
             ],
             "6154e05357efac4ec3d801234567890123456789": [
                 "temperature",
@@ -1307,20 +1307,20 @@ Available only to the client's direct owner.
             ],
         },
         "basic": {
-            // The timestamp at which this resource was last updated via 
+            // The timestamp at which this resource was last updated via
             // the 'update' API.
             "modified": 1374553089,
-            // The current status of this resource. Applicable to client 
+            // The current status of this resource. Applicable to client
             // and dispatch type resources only.
             // "activated" | "locked" | "notactivated"
             "status": "activated",
-            // the number of resources subscribed to this one 
+            // the number of resources subscribed to this one
             "subscribers": 0,
             // Type of resource
             // "client" | "dataport" | "datarule" | "dispatch"
             "type": "client"
         },
-        // The actual count of the resources/consumables used by the client on which info 
+        // The actual count of the resources/consumables used by the client on which info
         // was called. This is different from "usage" in that "counts" does not include
         // resources allocated to subresources but not actually used by them.
         "counts": {
@@ -1360,11 +1360,11 @@ Available only to the client's direct owner.
         },
         // List of shares in this format:
         // {"activator": Activator,  client that activated the code
-        //                           or null if the code has not yet 
+        //                           or null if the code has not yet
         //                           been activated.
-        //  "code": Code,            The code to be used to activate 
+        //  "code": Code,            The code to be used to activate
         //                           the share.
-        //  "meta": Meta}            Meta information string, similar to 
+        //  "meta": Meta}            Meta information string, similar to
         //                           the meta field in resource descriptions.
         "shares": [],
         // List of resources that are subscribed to this one in the form {Type, RID}
@@ -1381,18 +1381,18 @@ Available only to the client's direct owner.
         "tags": [],
         "usage": {
             // Number of the respective resource type owned by this
-            // and allocated to descendant clients. Applicable to 
+            // and allocated to descendant clients. Applicable to
             // client type resources only.
             "client": 3,
             "dataport": 14,
             "datarule": 0,
             "dispatch": 0,
             // Number of resources
-            // shared by this and allocated to descendant clients. 
+            // shared by this and allocated to descendant clients.
             // Applicable to client type resources only.
             "share": 0,
-            // Current total disk space in bytes used by this and descendant 
-            // clients, expressed in bytes. Applicable to client type 
+            // Current total disk space in bytes used by this and descendant
+            // clients, expressed in bytes. Applicable to client type
             // resources only.
             "disk": 40516,
             // Current daily usage of the respective dispatch type by this
@@ -1409,9 +1409,9 @@ Available only to the client's direct owner.
 
 * `"status": "ok"` means the information was returned in `"result"`. Any other value for `"status"` indicates failure.
 
---- 
+---
 
-##listing
+## listing
 
 Returns lists of RIDs of types specified in `<type_list>` under client specified in `<ResourceID>`.
 
@@ -1422,7 +1422,7 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
         <ResourceID>,
         <type_list>,
         <options>
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1443,7 +1443,7 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
 
     `"tagged"` specifies a list of tags and includes only resources that have tags in the list. For example, `"tagged": ["tag1", "tag2"]` would include resources that have been tagged with "tag1" or "tag2" by any client.
 
-####response
+#### response
 
 ```
 {
@@ -1483,12 +1483,12 @@ Returns lists of RIDs of types specified in `<type_list>` under client specified
 }
 ```
 
---- 
+---
 
-##drop
+## drop
 
-Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If 
-the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will 
+Deletes the specified resource. If the resource is a client, the client's subhierarchy are deleted, too. If
+the resource is a script type datarule, or the hierarchy being dropped contains scripts, the script will
 be terminated.  
 
 _NOTE:_ The drop procedure should only be used to drop generic clients, i.e. clients that were created without a client model. To drop/delete a client based on a client model, use the [Portals API delete device](http://docs.exosite.com/portals/#delete-device). This will free up the serial number associated with that device.
@@ -1498,7 +1498,7 @@ _NOTE:_ The drop procedure should only be used to drop generic clients, i.e. cli
     "procedure": "drop",
     "arguments": [
         <ResourceID>,
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1506,7 +1506,7 @@ _NOTE:_ The drop procedure should only be used to drop generic clients, i.e. cli
 * `<ResourceID>` specifies the resource to drop.  See [Identifying Resources](#identifying-resources) for details.
 
 
-####response
+#### response
 
 ```
 {
@@ -1521,7 +1521,7 @@ _NOTE:_ The drop procedure should only be used to drop generic clients, i.e. cli
 
 ---
 
-##usage
+## usage
 
 Returns metric usage for client and its subhierarchy.
 
@@ -1533,7 +1533,7 @@ Returns metric usage for client and its subhierarchy.
         <metric>,
         <starttime>,
         <endtime>,
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1547,12 +1547,12 @@ Returns metric usage for client and its subhierarchy.
 * `<starttime>` and `<endtime>` specify the window in which to measure usage
 
 
-####response
+#### response
 
 ```
 {
     "status": "ok",
-    "result": number, 
+    "result": number,
     "id": 1
 }
 ```
@@ -1568,7 +1568,7 @@ Returns metric usage for client and its subhierarchy.
 
 # Aliases
 
-##unmap
+## unmap
 
 Removes a mapping of specified type under the client specified in `<ResourceID>`.
 After the removal, the previously mapped resource will not be able to be looked up by the mapping.
@@ -1579,8 +1579,8 @@ After the removal, the previously mapped resource will not be able to be looked 
     "arguments": [
         <ResourceID>,
         "alias",
-        <alias> 
-    ], 
+        <alias>
+    ],
     "id": 1
 }
 ```
@@ -1589,7 +1589,7 @@ After the removal, the previously mapped resource will not be able to be looked 
 
 * `<alias>` is the alias string to unmap.
 
-####response
+#### response
 
 ```
 {
@@ -1603,7 +1603,7 @@ After the removal, the previously mapped resource will not be able to be looked 
 
 ---
 
-##lookup
+## lookup
 
 Look up a Resource ID by alias, owned Resource ID, or share activation code
 under the client specified in `<ClientID>`.
@@ -1615,26 +1615,26 @@ under the client specified in `<ClientID>`.
         <ClientID>,
         "alias" | "owner" | "shared",
         <alias> | <ResourceID> | <Code>
-    ], 
+    ],
     "id": 1
 }
 ```
 
 * `<ClientID>` is the client id under which to lookup a resource. (Please note: an earlier previous form of `lookup` that omitted this argument is deprecated and should not be used.)
 
-* If the first argument is `"alias"`, the second argument is a string alias, or `""` to 
+* If the first argument is `"alias"`, the second argument is a string alias, or `""` to
     look up the caller client's Resource ID.
 
-* If the first argument is `"owner"`, the second argument is a ResourceID whose owner will 
-    be looked up. Owner lookup is restricted to within the caller client's subhierarchy. 
-    Also, a client is not allowed to look up its own owner's resource id. See 
+* If the first argument is `"owner"`, the second argument is a ResourceID whose owner will
+    be looked up. Owner lookup is restricted to within the caller client's subhierarchy.
+    Also, a client is not allowed to look up its own owner's resource id. See
     [Identifying Resources](#identifying-resources) for details.
 
 
 * If the first argument is `"shared"`, the second argument is a share activation code whose
-    Resource ID will be looked up. 
+    Resource ID will be looked up.
 
-####response
+#### response
 
 ```
 {
@@ -1647,16 +1647,16 @@ under the client specified in `<ClientID>`.
 * `"status": "ok"` means `"result"` contains a Resource ID. Other values of `"status"` indicate failure.
 
 
---- 
+---
 
 
 
 # Shares and Keys
 
-##share
+## share
 
 Generates a share code for the given resource. The share code can
-subsequently be used to [activate](#activate) the share and gain access 
+subsequently be used to [activate](#activate) the share and gain access
 to the shared resource.
 
 ```
@@ -1667,28 +1667,28 @@ to the shared resource.
         {
             "meta": <string>
         }
-    ], 
+    ],
     "id": 1
 }
 ```
 
 * `"meta"` is a string that describes the share. It defaults to `""`. `"meta"` may be updated for an existing share by passing a previous share code `"code"` in options.
 
-####response
+#### response
 
 ```
 {
     "status": "ok",
-    "result": "ab24f30dd8c62039239601234567890123456789" 
+    "result": "ab24f30dd8c62039239601234567890123456789"
     "id": 1
 }
 ```
 
 * `"status": "ok"` means the share code was successfully generated and returned in `"result"`
 
---- 
+---
 
-##revoke
+## revoke
 
 Given an activation code, the associated entity is revoked after which
 the activation code can no longer be used. The calling client must be
@@ -1700,25 +1700,25 @@ the owner of the resource with which the activation code is associated.
     "arguments": [
         "client" | "share",
         <code>
-    ], 
+    ],
     "id": 1
 }
 ```
 
 * The first argument specifies what to revoke.
 
-    `"client"` revokes the specified client interface key (CIK) passed in 
-    `<code>` and generates a new one. If the revoked code was previously 
-    activated, the new one replacing it will need to be activated. The new 
+    `"client"` revokes the specified client interface key (CIK) passed in
+    `<code>` and generates a new one. If the revoked code was previously
+    activated, the new one replacing it will need to be activated. The new
     code will expire after the default CIK expiration period.
 
-    `"share"` revokes the specified share activation code after which the 
-    resource associated with the share activation code will no longer be 
+    `"share"` revokes the specified share activation code after which the
+    resource associated with the share activation code will no longer be
     accessible by the activator.
 
 * `<code>` is either a CIK (if the first argument was `"client"`), or a share activation code (if the first argument was `"share"`).
 
-####response
+#### response
 
 ```
 {
@@ -1734,9 +1734,9 @@ the owner of the resource with which the activation code is associated.
 * `"status": "noauth"` means the client associated with the specified CIK or client activation code is
       not owned by caller client.
 
---- 
+---
 
-##activate
+## activate
 
 Given an activation code, activate an entity for the client specified in `<ResourceID>`.
 
@@ -1745,10 +1745,10 @@ Given an activation code, activate an entity for the client specified in `<Resou
     "procedure": "activate",
     "arguments": [
         <ResourceID>,
-        "client" | "share", 
+        "client" | "share",
         <code>
-    ], 
-    "id": 1 
+    ],
+    "id": 1
 }
 ```
 
@@ -1766,7 +1766,7 @@ Given an activation code, activate an entity for the client specified in `<Resou
 
 * `<code>` is a CIK or share code
 
-####response
+#### response
 
 ```
 {
@@ -1782,12 +1782,12 @@ Given an activation code, activate an entity for the client specified in `<Resou
     (share only).  Or, the resource associated with the activation code has already been
     activated either via this or another activation code (share only).
 
-* `"status": "noauth"` means the calling client does not own the client associated with the 
+* `"status": "noauth"` means the calling client does not own the client associated with the
     specified activation code (client only).
 
 ---
 
-##deactivate
+## deactivate
 
 Given an activation code, deactivate an entity for the client specified in `<ResourceID>`.
 
@@ -1796,9 +1796,9 @@ Given an activation code, deactivate an entity for the client specified in `<Res
     "procedure": "deactivate",
     "arguments": [
         <ResourceID>,
-        "client" | "share", 
+        "client" | "share",
         <code>
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1807,8 +1807,8 @@ Given an activation code, deactivate an entity for the client specified in `<Res
 
 * The second argument indicates the type of thing to deactivate:
 
-    `"client"` deactivate and expire the specified client interface 
-    key (CIK) if it was previously activated. If the key was not previously 
+    `"client"` deactivate and expire the specified client interface
+    key (CIK) if it was previously activated. If the key was not previously
     activated, the call will expire the key.
 
     `"share"` deactivate a previous activation of a resource share for the specified activator
@@ -1816,7 +1816,7 @@ Given an activation code, deactivate an entity for the client specified in `<Res
 * `<code>` is the client or share activation code or the shared resource ID to be deactivated
 
 
-####response
+#### response
 
 ```
 {
@@ -1832,7 +1832,7 @@ Given an activation code, deactivate an entity for the client specified in `<Res
 
 
 
-##map
+## map
 
 Creates an alias for a resource. Subsequently the resource can be looked up using the [lookup](#lookup) method.
 
@@ -1843,7 +1843,7 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
         "alias",
         <ResourceID>,
         string  
-    ], 
+    ],
     "id": 1
 }
 ```
@@ -1852,7 +1852,7 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 
 * `string` is an alias string to map to `<ResourceID>`.
 
-####response
+#### response
 
 ```
 {
@@ -1862,4 +1862,3 @@ Creates an alias for a resource. Subsequently the resource can be looked up usin
 ```
 
 * `"status": "ok"` means the mapping was successfully created
-
