@@ -23,13 +23,15 @@
 * [Portals Web Application Reference](https://support.exosite.com/hc/en-us/sections/200072708)
 * [Portals Domain Solutions Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
 
-## Other
-* [Supported Hardware Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) - Project pages for each of the hardware platforms supported with reference code 
-* [Exoline](https://github.com/exosite/exoline/blob/master/README.md) - Command Line Interface / Utility for the Exosite API
+## SDK / Libraries
 * [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
+* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface / Utility for the Exosite API
+* [Supported Hardware Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) - Project pages for each of the hardware platforms supported with reference code
+* [ExositeReady™ Device SDK](exosite_ready/) - Production quality device client SDK
+
+## Other
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
 * [XMPP API](commander/) - XMPP chat interface for reading and writing data from an IM client
-
 
 ## Contribution
 
