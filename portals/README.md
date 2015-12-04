@@ -82,8 +82,8 @@ Below are some documents that will help you understand the basics of all Portals
 * [Delete device](#delete-device)
 * [Get device](#get-device)
 * [Get multiple devices](#get-multiple-devices)
-* [Update device](#update-device)
-* [Bulk update device](#bulk-update-device)
+* [Update multiple devices](#update-multiple-devices)
+* [Bulk update devices](#bulk-update-devices)
 
 #### Domain
 
