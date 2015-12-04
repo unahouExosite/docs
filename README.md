@@ -1,29 +1,38 @@
-# Documentation Overview
+# Documentation Home
 
-### Tutorials
-* [Getting Started](tutorials/get-started) - Using a free account, get a device added and start sending data
+
+## Tutorials
+* [Introduction To Exosite](/introduction) - Start at the basics
+* [Getting Started - Portals Eval Tool](tutorials/get-started) - Using a free account, get a device added and start sending data
+* [Getting Started - Arduino YÚN](tutorials/get-started-arduinoyun/) - Get a device added and start sending data
 * [Videos](videos/) - Video tutorials covering various topics
 
-### Device APIs
+## Device APIs
 * [CoAP API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
 * [HTTP API](http/) - easy API for reading from and writing to dataports
-* [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
 
 ### Application APIs
-* [Remote Procedure Call API](rpc/) - full featured API for device management and data visualization via HTTPS
+* [Remote Procedure Call (JSON RPC) API](rpc/) - full featured API for device management and data visualization via HTTPS
 * [Remote Procedure Call API via WebSocket](websocket/) - RPC API over websocket with support for subscriptions
 * [Provision Management API](provision/) - API for working with device models and in field provisioning
-* [Commander API](commander/) - XMPP chat interface for reading and writing data from an IM client
-* [Lua Scripting API](scripting/) - the server-side Lua scripting environment
-* [Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
+* [One Platform Lua Scripting API](scripting/) - the One Platform Lua scripting environment
+* [Portals Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
 * [Portals API](portals/) - an API for interacting with the Portals application (beta)
 
-### External Links
-* [One Platform Reference](https://support.exosite.com/hc/en-us/sections/200072527)
+## Reference
+* [One Platform Reference](oneplatform/)
 * [Portals Web Application Reference](https://support.exosite.com/hc/en-us/sections/200072708)
-* [Portals Subdomain (Whitelabel) Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
-* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
+* [Portals Domain Solutions Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
 
+## SDK / Libraries
+* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
+* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface / Utility for the Exosite API
+* [Supported Hardware Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) - Project pages for each of the hardware platforms supported with reference code
+* [ExositeReady™ Device SDK](exosite_ready/) - Production quality device client SDK
+
+## Other
+* [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
+* [XMPP API](commander/) - XMPP chat interface for reading and writing data from an IM client
 
 ## Contribution
 
