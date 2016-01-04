@@ -114,7 +114,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 `<alias>`: The alias of the datasource that is being written to.  
-`<value>`: The value to be written at the current time as a UTF-8 string.
+`<value>`: The value to be written at the current time as a UTF-8 string.  
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
@@ -145,8 +145,8 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
       |<-----------------------+
 ```
 
-`<alias>`: The alias of the datasource that is be read. 
-`<value>`: The latest value that has been written to the given dataport as a UTF-8 string.
+`<alias>`: The alias of the datasource that is be read.  
+`<value>`: The latest value that has been written to the given dataport as a UTF-8 string.  
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
