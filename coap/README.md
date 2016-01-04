@@ -96,7 +96,7 @@ Write one dataport of alias `<alias>` with given `<value>`. Data is written with
 
 ```
 POST: coap://coap.exosite.com/1a/<alias>?<CIK>
-<value>
+"<value>"
 ```
 
 ```
@@ -106,6 +106,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
       |   uri_path: "1a"       |
       |   uri_path: "<alias>"  |
       |   uri_query: "<CIK>"   |
+      |   "<value>"            |
       +----------------------->|
       |                        |
       |   ACK Changed (2.04)   |
@@ -113,7 +114,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 ```
 
 `<alias>`: The alias of the datasource that is being written to.  
-`<value>`: The value to be written at the current time.  
+`<value>`: The value to be written at the current time as a UTF-8 string.
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexidecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
@@ -144,7 +145,8 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
       |<-----------------------+
 ```
 
-`<alias>`: The alias of the datasource that is to have the latest value read.  
+`<alias>`: The alias of the datasource that is be read. 
+`<value>`: The latest value that has been written to the given dataport as a UTF-8 string.
 `<CIK>`: The client identification key. This can either be a UTF-8 string or the binary representation of the cik as a hexadecimal value sent in network byte order. However note that using the binary representation may technically violate protocol when used in the uri query option.
 
 ### Responses
