@@ -1,5 +1,4 @@
-# Documentation Home
-
+# Developer Documentation and Links
 
 ## Tutorials
 * [Introduction To Exosite](/introduction) - Start at the basics
@@ -7,9 +6,21 @@
 * [Getting Started - Arduino YÚN](tutorials/get-started-arduinoyun/) - Get a device added and start sending data
 * [Videos](videos/) - Video tutorials covering various topics
 
-## Device APIs
-* [CoAP API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
+## Reference
+* [One Platform Reference](oneplatform/)
+* [Portals Web Application Reference Articles](https://support.exosite.com/hc/en-us/sections/200072708)
+* [Portals Domain Solutions Administration Reference Articles](https://support.exosite.com/hc/en-us/sections/200054894)
+
+## Device SDK / Libraries
+* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
+* [ExositeReady™ Embedded Device SDK](exosite_ready/) - Production quality device / hardware client SDK
+* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface / Utility for the Exosite API
+
+
+## APIs
+### Device APIs
 * [HTTP API](http/) - easy API for reading from and writing to dataports
+* [CoAP API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
 
 ### Application APIs
 * [Remote Procedure Call (JSON RPC) API](rpc/) - full featured API for device management and data visualization via HTTPS
@@ -19,16 +30,7 @@
 * [Portals Custom Widget API](widget/) - a Javascript API for creating Portals dashboard widgets
 * [Portals API](portals/) - an API for interacting with the Portals application (beta)
 
-## Reference
-* [One Platform Reference](oneplatform/)
-* [Portals Web Application Reference](https://support.exosite.com/hc/en-us/sections/200072708)
-* [Portals Domain Solutions Administration Reference](https://support.exosite.com/hc/en-us/sections/200054894)
 
-## SDK / Libraries
-* [Exosite Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
-* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface / Utility for the Exosite API
-* [Supported Hardware Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) - Project pages for each of the hardware platforms supported with reference code
-* [ExositeReady™ Device SDK](exosite_ready/) - Production quality device client SDK
 
 ## Other
 * [UDP Single Shot API](udp/) - very low bandwidth and overhead API only for writing to dataports
