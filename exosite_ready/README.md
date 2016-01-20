@@ -36,7 +36,7 @@ For vendors who are interested in partnering with Exosite on providing ExositeRe
 
 
 # Support & Inquiries
-The [developer forum](https://community.exosite.com/) is the best place to get help and find help.  
+The [developer forum](https://community.exosite.com/c/hardware-platforms) is the best place to get help and find help.  
 
 # Other hardware / development kit support
 Looking for code for hardware not listed here?  Exosite has provided reference code for a number of hardware platforms, development kits, and open source platforms like Arduino.  Information on these may be found in [Supported Platforms](https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform) and [Exosite Garage](https://github.com/exosite-garage).  
