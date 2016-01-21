@@ -77,6 +77,8 @@ Wrapper libraries are available for this API:
 * C++: [cpponep](https://github.com/exosite-labs/cpponep)
 * .NET: [clronep](https://github.com/exosite-labs/clronep)
 * Cocoa: [cocoaonep](https://github.com/exosite-labs/cocoaonep)
+* Go: [goonep](https://github.com/exosite-labs/goonep)
+* Node.js: [nodeonep](https://github.com/exosite-labs/node-onep)
 
 ## Conventions
 
