@@ -4,8 +4,7 @@ body {
 }
 
 .header {
-  /*background: #F1F1F1;*/
-  background: #41C4DC;
+  background: #222736;
   background-image: -webkit-linear-gradient(-320deg, #41C4DC,#389AA7);
   text-shadow: none;
   padding: 30px 25px 30px 20px;
