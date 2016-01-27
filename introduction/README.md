@@ -4,10 +4,13 @@ template: default
 ---
 # Introduction to Device Connectivity
 
-Exosite's most basic concept is to make internet connected physical things useful to people.  The services and products provided are to help developers, companies, and organizations to build IoT (Internet of Things) solutions - providing technology from the physical devices through to the end points - people and applications.
+Exosite's most basic concept is to make internet connected physical things useful to people and businesses.  Exosite's products help developers, companies, and organizations build IoT (Internet of Things) product solutions - providing pieces of the IoT system including device code, a device connectivity / application platform, and hosted applications and services.
 
 ## Basic Device Communication
-For starters, let's look at basic concept of a device using standard <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">HTTP</a>  messages might send a packet like this.  We will pick it a part here to help give some context to the Exosite [One Platform](/oneplatform) which it is communicating to.
+The first goal of device connectivity is to have the device interact with Exosite's [One Platform](/oneplatform), which provides a virtual representation of that thing in the cloud.  The most common way for devices to interact is via Exosite's [HTTP Device API](/http) (Application Programming Interface).  Using this API, a standard message would like the following, which is in <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">HTTP</a> format.  We will pick it a part here to help give some context to the Exosite [One Platform](/oneplatform) which it is communicating to.
+
+* [One Platform Reference](/oneplatform)
+* [HTTP Device API](/http)
 
 ```
 POST /onep:v1/stack/alias HTTP/1.1
@@ -98,9 +101,9 @@ Devices can very in the resources they have available, including memory, IP sock
 Code libraries can make life much easier for the different code languages.  Exosite supports a large number of libraries as open source code for use on on gateways, embedded devices, and custom applications like web apps and mobile applications.
 * https://github.com/exosite-labs
 
-For devices, there are many embedded development kits that are supported with [ExositeReady™](../exosite_ready) or have had reference code ported to them.  These can best be found here on our support site, each has an overview of where to get the source, buy a kit, etc:
+For devices, there are a number of embedded development kits that are supported with [ExositeReady™](../exosite_ready) or have had reference code ported to them.  
 
-* [ExositeReady™ Device SDK](../exosite_ready) - Production Quality Device Client SDK
+* [ExositeReady™ Embedded Device SDK](../exosite_ready) - Links to supported hardware platforms
 * <a href="https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform" target="_blank">Other Reference Hardware Platform Support</a>
 
 If you have a question about a specific embedded module, microcontroller, gateway, or development kit - please feel free to ask us through support.  
