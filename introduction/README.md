@@ -1,8 +1,8 @@
 ---
-title: Introduction
+title: Introduction to Device Connectivity
 template: default
 ---
-# Introduction
+# Introduction to Device Connectivity
 
 Exosite's most basic concept is to make internet connected physical things useful to people.  The services and products provided are to help developers, companies, and organizations to build IoT (Internet of Things) solutions - providing technology from the physical devices through to the end points - people and applications.
 
