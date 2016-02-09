@@ -5325,10 +5325,8 @@ Create a Portal under a user. If Default Portal Template under /admin/portaltemp
 
 ##### Request
 
-* Request body is a [Portal object](#portal-object).  Currently only the following keys may be included:
-    * `"planId"` - Portals plan ID from the signup page, e.g. https://portals.exosite.com/signup?plan=3676938388, optional. Plan must allow free signups.
-
-    If any keys beside these are sent, they will be ignored.
+* Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
+    * `"planId"` - portals plan ID as found in the URL of your signup page, e.g. https://yourdomain.exosite.com/signup?plan=1234567890. Plan must allow free signups.
 
 * Requires authentication.
 
@@ -5338,6 +5336,11 @@ Create a Portal under a user. If Default Portal Template under /admin/portaltemp
 * `403 Forbidden`:
     * Returned if the caller is not authenticated.
     * Returned if the caller does not have permission to create the Portal.
+* `201 Created`: Returned along with a body containing a [portal object](#portal-object) if the portal is created successfully.
+* `400 Bad Request`: Returned when the planId is missing or invalid, or the body of the request is malformed.
+* `403 Forbidden`:
+    * Returned if the caller user is not authenticated.
+    * Returned if the caller user does not have permission to create the portal.
 
 ##### Example
 
