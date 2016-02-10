@@ -5299,14 +5299,15 @@ Create a portal under a user. The created portal will have the same device, data
 ##### Request
 
 * Request body is a [portal object](#portal-object).  Currently only the following keys may be included:
-    * `"planId"` - portals plan ID from signup page, e.g. https://portals.exosite.com/signup?plan=3676938388. Plan must allow free signups.(optional)
-    If you send any keys besides these, it will do nothing.
+    * `"planId"` - portals plan ID as found in the URL of your signup page, e.g. https://yourdomain.exosite.com/signup?plan=1234567890. Plan must allow free signups.
+    * If you send any keys besides "planId", it will do nothing.
 
 * Requires authentication.
 
 ##### Response
 
 * `201 Created`: Returned along with a body containing a [portal object](#portal-object) if the portal is created successfully.
+* `400 Bad Request`: Returned when the planId is missing or invalid, or the body of the request is malformed.
 * `403 Forbidden`: one of the following:
     * Returned if the caller user is not authenticated.
     * Returned if the caller user does not have permission to create the portal.
