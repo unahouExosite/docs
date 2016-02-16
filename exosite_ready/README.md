@@ -13,8 +13,8 @@ Production quality IoT device client code created, certified, and supported by E
 # EMBEDDED SDK
 The ExositeReady™ Embedded open-source SDK contains a framework, platform porting level, and utilities written in C for embedded devices. This SDK implements Exosite platform specific APIs and platform interactions in addition to providing an example application for each hardware platform port. The SDK is for engineers developing firmware for their embedded device products.
 
-* [SDK Source Code](https://github.com/exosite-ready/er_sdk) - Note that hardware ports are listed below
-* [SDK Documentation](http://exosite-ready.github.io/) - Includes application API, porting guide, and examples
+* [SDK Source Code](https://github.com/exositeready/er_sdk) - Note that hardware ports are listed below
+* [SDK Documentation](http://exositeready.github.io/) - Includes application API, porting guide, and examples
 
 ### Hardware Ports
 Ports to specific hardware platforms can be found by clicking on our partner below. Each port contains platform specific source code, instructions for building, a binary for evaluation, and instructions for using the example application.
