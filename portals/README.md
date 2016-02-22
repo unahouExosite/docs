@@ -6956,8 +6956,8 @@ Create a user.
 * To create a new user, "Moderate New User Signup" under /admin/moderate must be set to "**OFF**".
 * Depending on the request, an activation email may be sent to the user
     * To send an activation email, include `X-User-Agent` in the request header.
-    * If you would like to have a Portal created for the new users, check **Automatically create a portal for any user who signs up from another domain** under /admin/plans.
-![Find Default Portal Setting](images/find_default_portal_setting.png)
+    * If you would like to have a Portal created for the new users, check **Assign a default plan for the following: -- Please Select Plan --** and select a default plan under Signup Configuration at /admin/plans.
+![Find Default Plan](images/find_default_plan.png)
 
 ##### Permissions
 
@@ -7815,14 +7815,14 @@ Content-Type: application/json; charset=UTF-8
 
 Get a Portals user token. This token can be used to log into a domain or call APIs.
 
-* If the OpenID user is a new user to the domain, the account and Portal will be created, then a token from Exosite will be granted.
+* If the OpenID user is a new user to the domain, an account and portal will be created, then a token from Exosite will be granted.
 
 * If the OpenID user is an existing user to the domain, a token from Exosite will be granted.
 
 * A new account will only be created if settings are as follows:
     * Moderate New User Signup under /admin/moderate is set to **OFF**.
-    * Set a default plan for **Automatically create a Portal for any user who signs up from another domain**  under /admin/configuration.
-![Find Default Portal Setting](images/find_default_portal_setting.png)
+    * A default plan is set via **Assign a default plan for the following: -- Please Select Plan --**  under Signup Configuration at /admin/plans.
+![Find Default Plan](images/find_default_plan.png)
 
 * The token expires in 30 days once it's generated.
 
