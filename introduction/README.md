@@ -101,9 +101,9 @@ Devices can very in the resources they have available, including memory, IP sock
 Code libraries can make life much easier for the different code languages.  Exosite supports a large number of libraries as open source code for use on on gateways, embedded devices, and custom applications like web apps and mobile applications.
 * https://github.com/exosite-labs
 
-For devices, there are a number of embedded development kits that are supported with [ExositeReady™](../exosite_ready) or have had reference code ported to them.  
+For devices, there are a number of embedded development kits that are supported with [ExositeReady™](../exositeready) or have had reference code ported to them.  
 
-* [ExositeReady™ Embedded Device SDK](../exosite_ready) - Links to supported hardware platforms
+* [ExositeReady™ Embedded Device SDK](../exositeready) - Links to supported hardware platforms
 * <a href="https://support.exosite.com/hc/en-us/categories/200011008-Hardware-Platform" target="_blank">Other Reference Hardware Platform Support</a>
 
 If you have a question about a specific embedded module, microcontroller, gateway, or development kit - please feel free to ask us through support.  
