@@ -1,5 +1,5 @@
 ---
-title: portals
+title: Portals
 ---
 
 # Portals API (BETA)
