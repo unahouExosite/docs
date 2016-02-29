@@ -21,7 +21,7 @@ Exosite's IoT Platform for Connected Products
 * [Remote Procedure Call API via WebSocket](websocket/) - RPC API over websocket with support for subscriptions
 * [Provision Management API](provision/) - API for working with product device models and device provisioning via applications
 ### SDK & Libraries
-* [ExositeReady™ Embedded Device SDK](exosite_ready/) - Production quality device / hardware client SDK
+* [ExositeReady™ Embedded Device SDK](exositeready/) - Production quality device / hardware client SDK
 * [One Platform Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
 
 ## Portals Web Application
