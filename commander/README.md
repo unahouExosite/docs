@@ -2,7 +2,7 @@
 title: XMPP Commander
 ---
 
-<div class="messagebox warning">This API has been depricated and should not be used for new designs.</div>
+<div class="messagebox warning">This API has been deprecated and should not be used for new designs.</div>
 
 # Commander Chat
 
