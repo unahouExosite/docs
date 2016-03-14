@@ -2,6 +2,8 @@
 title: XMPP Commander
 ---
 
+<div class="messagebox warning">This API has been depricated and should not be used for new designs.</div>
+
 # Commander Chat
 
 The Commander is a XMPP bot that allows any authenticated XMPP client 

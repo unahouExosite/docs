@@ -148,3 +148,20 @@ body:not(.no-literate) .content > blockquote {
 img.ext_link_icon {
   height: 10px;
 }
+
+/* Message Boxes */
+.messagebox {
+  padding: 15px;
+}
+.messagebox.error {
+  color: #00529B;
+  background-color: #BDE5F8;
+}
+.messagebox.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+.messagebox.warning {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}

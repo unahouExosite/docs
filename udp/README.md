@@ -3,6 +3,8 @@ title: UDP Single Shot
 template: two-column
 ---
 
+<div class="messagebox warning">This API has been deprecated and should not be used for new designs.</div>
+
 # UDP Single Shot API
 
 The UDP API provides a low-overhead interface that allows clients with strict data bandwidth requirements (e.g. cellular data) to send data to the One Platform. This API uses a simple UDP packet that encapsulates both identification information and data payload. If you're completely new to Exosite's APIs, you may want to read the [API       overview](../README.md) first.
