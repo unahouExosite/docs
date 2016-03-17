@@ -98,6 +98,7 @@ Response:
 
 This response acknowledges the successful creation of a subscription.
 
+* `<RID/Alias>` specifies which resource to subscribe to: an RID string or alias in the form `{"alias": <alias>}`
 * `since` indicates that data received after `<timestamp>` should be returned first. After that it will continuously receive new data as it is updated.
 
 * `timeout` is a duration after which the client will not receive new data. The default value is `never`.
@@ -110,7 +111,7 @@ Asynchronous data update:
 [{
   "id": <id|subs_id>,
   "status": "ok",
-  "result": [[1376709527, 64.2]]
+  "result": [[<timestamp>, <value>]]
 }]
 ```
 
@@ -131,6 +132,6 @@ These data updates can happen anytime while the subscription is active. If a `su
 }]
 ```
 
-* `<RID/Alias>` is used to specify the unsubscribing resource.  If a client doesn't give this field, `unsubscribe` call will unsubscribe all resources subscribed to `<subs_id>`.
+* `<RID/Alias>` is used to specify the unsubscribing resource: an RID string or alias in the form `{"alias": <alias>}`.  If a client doesn't give this field, `unsubscribe` call will unsubscribe all resources subscribed to `<subs_id>`. 
 
 * `<id|subs_id>` is the subscription `id` that is to be cancelled. If the initial `subscribe` call specified a `subs_id` this value is to be used. If not, the initial `id` value should be referenced here.
