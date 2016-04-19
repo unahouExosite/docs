@@ -9,7 +9,7 @@ title: Microchip ExositeReady™ Dev Kits
 
 ## Microchip WiFi Client Module Development Kit
 
-The Microchip WiFi Client Module (WCM) Development Kit 1 (Part Number DM182020) is designed to enable users to quickly and easily connect to a cloud based service such as Exosite's OnePlatform. The kit includes the WCM demo board utilizing a Microchip MRF24WG0MA WiFi Module and a PIC32 application microcontroller.
+The Microchip WiFi Client Module (WCM) Development Kit 1 (Part Number DM182023) is designed to enable users to quickly and easily connect to a cloud based service such as Exosite's OnePlatform. The kit includes the WCM demo board utilizing a Microchip MRF24WG0MA WiFi Module and a PIC32 application microcontroller.
 
 The Microchip WCM-DK1 is the first product to be certified as ExositeReady™ which certifies that a production ready port of the ExositeReady™ Embedded SDK is available and ready for use in your application. The provided demo shows the following:
 
