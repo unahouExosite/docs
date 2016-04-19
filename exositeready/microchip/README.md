@@ -27,7 +27,7 @@ The WiFi Client Module Development Kit 1 is available from Microchip Direct or o
 
 * [Quick Start Guide and Source Code](https://github.com/exositeready/er_vfp_microchip_wcm)
 * [Exosite's Microchip Portal](https://microchip.exosite.com/)
-* [Purchase - Microchip Direct Store](http://www.microchipdirect.com/ProductSearch.aspx?Keywords=DM182020)
+* [Purchase - Microchip Direct Store](http://www.microchipdirect.com/ProductSearch.aspx?keywords=DM182023)
 
 
 # Getting Help
