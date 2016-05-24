@@ -83,7 +83,7 @@ Exosite has provided reference code for or worked with partners on a number of h
     </tr>
     <tr>
         <td style="text-align: center;">[![Microchip](assets/microchip_logo.png)](microchip)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Microchip Hardware ExositeReady Code](microchip)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Microchip Hardware Platform Support](microchip)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Texas Instruments](assets/ti_logo.png)](texasinstruments)</td>
@@ -91,19 +91,27 @@ Exosite has provided reference code for or worked with partners on a number of h
     </tr>
     <tr>
         <td style="text-align: center;">[![MultiTech](assets/multitech_logo.png)](multitech)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware ExositeReady Code](multitech)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware Platform Support](multitech)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Synapse Wireless](assets/synapse-wireless_logo.png)](synapsewireless)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware ExositeReady Code](synapsewireless)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware Platform Support](synapsewireless)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Renesas](assets/renesas_logo.png)](renesas)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Renesas Hardware ExositeReady Code](renesas)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Renesas Hardware Platform Support](renesas)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Qualcomm](assets/qualcomm_logo.png)](qualcomm)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware ExositeReady Code](qualcomm)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware Platform Support](qualcomm)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">[![Gainspan](assets/gainspan_logo.png)](gainspan)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Gainspan Hardware Platform Support](gainspan)</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">[![Broadcom](assets/broadcom_logo.png)](broadcom)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Broadcom Hardware Platform Support](broadcom)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![arduino](assets/arduino_logo.png)]()</td>
