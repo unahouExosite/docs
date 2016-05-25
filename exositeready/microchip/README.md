@@ -6,7 +6,9 @@ title: Microchip ExositeReady™ Dev Kits
 
 ![Microchip](../assets/microchip_logo.png)
 
+Microchip and Exosite have teamed up to connect Microchip's wireless development kits and reference designs to the cloud. Each of the cloud devices below allow you to connect remotely through a web browser or custom application in order to manage the device and interact with real-time data. Check out the links below to learn more!
 
+# ExositeReady™ Certified
 ## Microchip WiFi Client Module Development Kit
 
 The Microchip WiFi Client Module (WCM) Development Kit 1 (Part Number DM182023) is designed to enable users to quickly and easily connect to a cloud based service such as Exosite's OnePlatform. The kit includes the WCM demo board utilizing a Microchip MRF24WG0MA WiFi Module and a PIC32 application microcontroller.
@@ -27,7 +29,31 @@ The WiFi Client Module Development Kit 1 is available from Microchip Direct or o
 
 * [Quick Start Guide and Source Code](https://github.com/exositeready/er_vfp_microchip_wcm)
 * [Exosite's Microchip Portal](https://microchip.exosite.com/)
-* [Purchase - Microchip Direct Store](http://www.microchipdirect.com/ProductSearch.aspx?keywords=DM182023)
+* [Information/Purchase - Microchip](http://www.microchipdirect.com/ProductSearch.aspx?keywords=DM182023)
+
+# Other ExositeReady™ Platform Support
+
+## Microchip DV102412 Wi-Fi G Demonstration Kit
+The DV102412 Wi-Fi G Demonstration kit comes with MRF24WG0MA Wi-Fi module and PIC32MX695F512H processor. The Wi-Fi G Demo Board is preloaded with a demo software for the user to explore the features of the Wi-Fi module. It is also expandable through an 8-pin expansion interface, which enables the user to extend its functionality by adding various sensor expansion boards.
+
+![Microchip dv102412](assets/dv102412.png)
+
+### Downloads and Links
+* [Quick Start Guide and Source Code](https://github.com/exosite-garage/mcp_dv102412_cloud)
+* [Exosite's Microchip Portal](https://microchip.exosite.com/)
+* [Purchase - Microchip Direct Store](http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=DV102412)
+
+## Microchip DV102412 Wi-Fi G Demonstration Kit
+The Digilent chipKIT™ uC32 is an Arduino compatible platform that is based on the Microchip PIC32.  Add to this the chipKIT WiFi shield or use the chipKIT WF32 which combines the PIC32 and WiFi on a single board, and you have a device that can easily work with Exosite.
+An example application and library have been posted as open source to create an IoT application with your PIC32 based chipKIT device and Exosite.
+
+![Microchip chipKIT_WF32](assets/chipKIT_WF32.png)
+
+### Downloads and Links
+* [Quick Start Guide and Source Code](https://github.com/exosite-garage/chipkit_wifi_cloud/blob/master/README.md#quick-start)
+* [Exosite's Microchip Portal](https://microchip.exosite.com/)
+* [Information/Purchase - Digilent](https://store.digilentinc.com/chipkit-wf32-wifi-enabled-microntroller-board-with-uno-r3-headers/)
+
 
 
 # Getting Help

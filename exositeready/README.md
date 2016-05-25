@@ -79,7 +79,11 @@ Exosite has provided reference code for or worked with partners on a number of h
 
 <table width="100%">
     <tr>
-      <th colspan="2" style="font-weight: bold;">ExositeReady™ Hardware Platform References, Demos, and Examples</th>
+      <th colspan="2" style="font-weight: bold;">Hardware Platform Examples, Demos, and Reference Code</th>
+    </tr>
+    <tr>
+        <td style="text-align: center;">[![arduino](assets/arduino_logo.png)](https://github.com/exosite-garage/arduino_exosite_library)</td>
+        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Arduino  Examples](https://github.com/exosite-garage/arduino_exosite_library)</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Microchip](assets/microchip_logo.png)](microchip)</td>
@@ -90,32 +94,28 @@ Exosite has provided reference code for or worked with partners on a number of h
         <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Texas Instruments Hardware ExositeReady Code](texasinstruments)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![MultiTech](assets/multitech_logo.png)](multitech)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware Platform Support](multitech)</td>
+        <td style="text-align: center;">[![MultiTech](assets/multitech_logo.png)]()</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware Platform Support](https://support.exosite.com) - Contact support@exosite.com</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Synapse Wireless](assets/synapse-wireless_logo.png)](synapsewireless)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware Platform Support](synapsewireless)</td>
+        <td style="text-align: center;">[![Qualcomm](assets/qualcomm_logo.png)]()</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware Platform Support]() - Contact support@exosite.com</td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">[![Synapse Wireless](assets/synapse-wireless_logo.png)]()</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware Platform Support]() - Contact support@exosite.com</td>
     </tr>
     <tr>
         <td style="text-align: center;">[![Renesas](assets/renesas_logo.png)](renesas)</td>
         <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Renesas Hardware Platform Support](renesas)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Qualcomm](assets/qualcomm_logo.png)](qualcomm)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware Platform Support](qualcomm)</td>
+        <td style="text-align: center;">[![Gainspan](assets/gainspan_logo.png)]()</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Gainspan Hardware Platform Support]() - Contact support@exosite.com</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Gainspan](assets/gainspan_logo.png)](gainspan)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Gainspan Hardware Platform Support](gainspan)</td>
-    </tr>
-    <tr>
-        <td style="text-align: center;">[![Broadcom](assets/broadcom_logo.png)](broadcom)</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Broadcom Hardware Platform Support](broadcom)</td>
-    </tr>
-    <tr>
-        <td style="text-align: center;">[![arduino](assets/arduino_logo.png)]()</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Arduino  Examples](https://github.com/exosite-garage/arduino_exosite_library)</td>
+        <td style="text-align: center;">[![Broadcom](assets/broadcom_logo.png)]()</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Broadcom Hardware Platform Support]() - Contact support@exosite.com</td>
     </tr>
 </table>
 
