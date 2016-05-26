@@ -4,11 +4,9 @@ title: Texas Instruments ExositeReady™ Supported Hardware
 
 # Texas Instruments ExositeReady™ Platforms
 
-![Texas Instruments](../assets/ti_logo.png)
+# ![Texas Instruments](../assets/ti_logo.png)
 
 Texas Instruments enabled development kits and reference designs.
-
-# ExositeReady™ Platform Support
 
 ## CC3200 Wi-Fi Launchpad
 Created for the Internet of Things (IoT), the SimpleLink™ CC3200 Internet-on-a-chip™ solution is a wireless MCU that integrates a high-performance ARM®Cortex™-M4 MCU allowing customers to develop an entire application with a single IC. With on-chip Wi-Fi, Internet and robust security protocols, no prior Wi-Fi experience is needed for faster development.

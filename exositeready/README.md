@@ -1,9 +1,11 @@
 ---
 title: ExositeReady™
 ---
-![ExositeReady™ Logo](assets/exosite_ready_logo_wide.png)
+# ExositeReady™ Device Connectivity Enablement Software
 
+# ![ExositeReady™ Logo](assets/exosite_ready_logo_wide.png)
 
+ExositeReady™ software is code created by Exosite or in collaboration with partners to give developers software for their hardware platform, no matter if it is a small embedded microcontroller or a Linux based industrial computer gateway.  We provide libraries, demo and reference code, in addition to production quality offerings like the ExositeReady™ Embedded SDK.  Code and hardware ports that have gone through the ExositeReady™ Certitication program meeting high criteria for functionality, testing, and quality are marked as __ExositeReady™ Certified__.
 
 * [ExositeReady™ Certified](#exositeready-certified)
 * [Embedded SDK](#embedded-sdk)
@@ -31,7 +33,7 @@ Ports to specific hardware platforms can be found by clicking on our partner bel
       <th colspan="2" style="font-weight: bold;">ExositeReady™ Embedded SDK Hardware Platform Ports</th>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Microchip](assets/microchip_logo.png)](microchip)</td>
+        <td style="text-align: center;">![Microchip](assets/microchip_logo.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Microchip Hardware Platforms ExositeReady Embedded SDK Ports](microchip)</td>
     </tr>
 </table>
@@ -43,31 +45,31 @@ Ports to specific hardware platforms can be found by clicking on our partner bel
       <th colspan="2" style="font-weight: bold;">ExositeReady™ Device Libraries</th>
     </tr>
     <tr>
-        <td style="text-align: center;">[![sdk](assets/c.png)]()</td>
+        <td style="text-align: center;">![sdk](assets/c.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform C Library as a part of Embedded SDK](https://github.com/exositeready/er_sdk)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![arduino](assets/arduino_logo.png)]()</td>
+        <td style="text-align: center;">![arduino](assets/arduino_logo.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Arduino Exosite Library](https://github.com/exosite-garage/arduino_exosite_library)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![pyonep](assets/python-logo-master-v3-TM.png)]()</td>
+        <td style="text-align: center;">![pyonep](assets/python-logo-master-v3-TM.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform Python Library](https://github.com/exosite-labs/pyonep)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![node-onep](assets/node_logo.png)]()</td>
+        <td style="text-align: center;">![node-onep](assets/node_logo.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform Node Library ](https://github.com/exosite-labs/node-onep)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![cpponep](assets/cpp.png)]()</td>
+        <td style="text-align: center;">![cpponep](assets/cpp.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform C++ Library ](https://github.com/exosite-labs/cpponep)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![javaonep](assets/java.png)]()</td>
+        <td style="text-align: center;">![javaonep](assets/java.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform Java Library ](https://github.com/exosite-labs/javaonep)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![goonep](assets/go.png)]()</td>
+        <td style="text-align: center;">![goonep](assets/go.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[One Platform Go Library ](https://github.com/exosite-labs/goonep)</td>
     </tr>     
 </table>
@@ -82,40 +84,40 @@ Exosite has provided reference code for or worked with partners on a number of h
       <th colspan="2" style="font-weight: bold;">Hardware Platform Examples, Demos, and Reference Code</th>
     </tr>
     <tr>
-        <td style="text-align: center;">[![arduino](assets/arduino_logo.png)](https://github.com/exosite-garage/arduino_exosite_library)</td>
+        <td style="text-align: center;">![arduino](assets/arduino_logo.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Arduino  Examples](https://github.com/exosite-garage/arduino_exosite_library)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Microchip](assets/microchip_logo.png)](microchip)</td>
+        <td style="text-align: center;">![Microchip](assets/microchip_logo.png)</td>
         <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Microchip Hardware Platform Support](microchip)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Texas Instruments](assets/ti_logo.png)](texasinstruments)</td>
+        <td style="text-align: center;">![Texas Instruments](assets/ti_logo.png)</td>
         <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Texas Instruments Hardware ExositeReady Code](texasinstruments)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![MultiTech](assets/multitech_logo.png)]()</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware Platform Support](https://support.exosite.com) - Contact support@exosite.com</td>
+        <td style="text-align: center;">![MultiTech](assets/multitech_logo.png)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[MultiTech Hardware Platform Support](misc_platforms#multitech-exositeready-platforms)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Qualcomm](assets/qualcomm_logo.png)]()</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware Platform Support]() - Contact support@exosite.com</td>
+        <td style="text-align: center;">![Qualcomm](assets/qualcomm_logo.png)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Qualcomm Hardware Platform Support](misc_platforms#qualcomm-exositeready-platforms) </td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Synapse Wireless](assets/synapse-wireless_logo.png)]()</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware Platform Support]() - Contact support@exosite.com</td>
+        <td style="text-align: center;">![Synapse Wireless](assets/synapse-wireless_logo.png)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Synapse Wireless Hardware Platform Support](misc_platforms#synapse-wireless-exositeready-platforms) </td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Renesas](assets/renesas_logo.png)](renesas)</td>
+        <td style="text-align: center;">![Renesas](assets/renesas_logo.png)</td>
         <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Renesas Hardware Platform Support](renesas)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Gainspan](assets/gainspan_logo.png)]()</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Gainspan Hardware Platform Support]() - Contact support@exosite.com</td>
+        <td style="text-align: center;">![Gainspan](assets/gainspan_logo.png)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Gainspan Hardware Platform Support](misc_platforms#gainspan-exositeready-platforms)</td>
     </tr>
     <tr>
-        <td style="text-align: center;">[![Broadcom](assets/broadcom_logo.png)]()</td>
-        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Broadcom Hardware Platform Support]() - Contact support@exosite.com</td>
+        <td style="text-align: center;">![Broadcom](assets/broadcom_logo.png)</td>
+        <td style="width:80%; padding-top:40px;padding-bottom:40px;">[Broadcom Hardware Platform Support](misc_platforms#broadcom-exositeready-platforms)</td>
     </tr>
 </table>
 

@@ -4,11 +4,9 @@ title: Renesas ExositeReady™ Supported Hardware
 
 # Renesas ExositeReady™ Platforms
 
-![Renesas](../assets/renesas_logo.png)
+# ![Renesas](../assets/renesas_logo.png)
 
 Renesas enabled development kits and reference designs.
-
-# ExositeReady™ Platform Support
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RnrVwSCp30s" frameborder="0" allowfullscreen></iframe>
 
@@ -71,5 +69,5 @@ The Renesas RL78G13 allows you to connect wirelessly to send your data to the cl
 
 # Getting Help
 
-* [Exosite's Developer Forum](https://community.exosite.com/c/hardware-platforms/texas-instruments)
+* [Exosite's Developer Forum](https://community.exosite.com/c/hardware-platforms)
 * [Texas Instrument E2E Forums](http://e2e.ti.com/support/wireless_connectivity/simplelink_wifi_cc31xx_cc32xx/f/968)

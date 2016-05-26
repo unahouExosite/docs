@@ -4,7 +4,7 @@ title: Microchip ExositeReady™ Dev Kits
 
 # Microchip ExositeReady™ Platforms
 
-![Microchip](../assets/microchip_logo.png)
+# ![Microchip](../assets/microchip_logo.png)
 
 Microchip and Exosite have teamed up to connect Microchip's wireless development kits and reference designs to the cloud. Each of the cloud devices below allow you to connect remotely through a web browser or custom application in order to manage the device and interact with real-time data. Check out the links below to learn more!
 
