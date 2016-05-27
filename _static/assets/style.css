@@ -165,3 +165,48 @@ img.ext_link_icon {
   color: #9F6000;
   background-color: #FEEFB3;
 }
+
+.tocmenu  {
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+.tocmenu tr {
+  border:none !important;
+}
+
+.tocmenu td {
+  height:4em;
+  background-color: white !important;
+  text-align: center;
+  border:none !important;
+  /*padding: 1px 1px !important;*/
+}
+
+.tocmenu a{
+  color:white;
+  /*font-size:1.2em;*/
+  text-transform: uppercase;
+  background: #41C4DC;
+  color: #ffffff;
+  padding: 5px 20px !important;
+  border-bottom: 3px solid #2C9DB6;
+  font-size: 1.1em;
+  position: relative;
+  top: -3px;
+  text-transform: uppercase;
+}
+
+
+
+a.btn.orange {
+    background: #ff921e;
+    color: #ffffff;
+    padding: 5px 16px;
+    border-bottom: 3px solid #f87025;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    top: -3px;
+    text-transform: uppercase;
+}
