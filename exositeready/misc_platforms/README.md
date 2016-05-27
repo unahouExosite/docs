@@ -1,7 +1,8 @@
 ---
 title: ExositeReady™ Supported Hardware
 ---
-# Various Hardware Platform Support
+# Miscellaneous Hardware Platform Support
+[< Back to ExositeReady Device Software Support Page](/exositeready)
 
 * [MultiTech](#multitech-exositeready-platforms)
 * [Qualcomm](#qualcomm-exositeready-platforms)

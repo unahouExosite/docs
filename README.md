@@ -14,7 +14,7 @@ Exosite's IoT Platform for Connected Products
 * [One Platform Reference Guide](oneplatform/)
 * <a class="level-0" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles</a>
 * [Lua Scripting Reference and API](scripting/) - the One Platform Lua scripting environment
-## APIs
+## API
 * [HTTP Device API](http/) - easy API for reading from and writing to One Platform dataport resources via HTTPS
 * [CoAP Device API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
 * [Remote Procedure Call (JSON RPC) API](rpc/) - full featured API for device management and data visualization via HTTPS
@@ -23,14 +23,14 @@ Exosite's IoT Platform for Connected Products
 ## SDK & Libraries
 * [ExositeReady™ Device Support](exositeready/) - Production quality device software and device libraries
 * [One Platform Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
+## Developer Tools
+* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface (CLI) / Utility for the Exosite API
+
 
 # Portals Web Application
 Portals is a whitelabel dashboard based web application framework that is used for building production applications, proof of concepts, and evaluations of Exosite's platform.  Portals has a concept of user identity and permissions and strictly uses the One Platform hierarchy for device ownership control.
 * [Portals Web Application User Reference Articles (link)](https://support.exosite.com/hc/en-us/sections/200072708)
 * [Portals Whitelabel Domain Solution Administration Reference Articles (link)](https://support.exosite.com/hc/en-us/sections/200054894)
-## APIs
+## API
 * [Portals Custom Widget API](widget/) - a Javascript API for creating custom Portals dashboard widgets
 * [Portals API](portals/) - an API for interacting with the Portals application
-
-## Developer Tools
-* [Exoline](https://github.com/exosite/exoline/) - Command Line Interface (CLI) / Utility for the Exosite API

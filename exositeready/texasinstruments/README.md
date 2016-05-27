@@ -1,11 +1,9 @@
 ---
 title: Texas Instruments ExositeReady™ Supported Hardware
 ---
-
 # Texas Instruments ExositeReady™ Platforms
 
 # ![Texas Instruments](../assets/ti_logo.png)
-
 Texas Instruments enabled development kits and reference designs.
 
 ## CC3200 Wi-Fi Launchpad

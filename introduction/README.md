@@ -6,6 +6,8 @@ template: default
 
 Exosite's most basic concept is to make internet connected physical things useful to people and businesses.  Exosite's products help developers, companies, and organizations build IoT (Internet of Things) product solutions - providing pieces of the IoT system including device code, a device connectivity / application platform, and hosted applications and services.
 
+[Exosite Device Software - Libraries, Examples, SDKs](../exositeready)
+
 ## Basic Device Communication
 The first goal of device connectivity is to have the device interact with Exosite's [One Platform](/oneplatform), which provides a virtual representation of that thing in the cloud.  The most common way for devices to interact is via Exosite's [HTTP Device API](/http) (Application Programming Interface).  Using this API, a standard message would like the following, which is in <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank">HTTP</a> format.  We will pick it a part here to help give some context to the Exosite [One Platform](/oneplatform) which it is communicating to.
 
