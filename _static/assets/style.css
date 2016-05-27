@@ -88,11 +88,11 @@ ul.topmenu a.active {
 div.content img {
   max-width: 100%;
 }
-
+/*
 .content p {
     font-size: 16px;
 }
-
+*/
 
 div.content ol li ol li {
   list-style-type: lower-alpha;

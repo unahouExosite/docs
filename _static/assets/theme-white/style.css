@@ -552,14 +552,14 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-right: 40px;
+    padding-right: 50px;
     padding-left: 40px;
   }
   body:not(.no-literate) .content > h1,
   body:not(.no-literate) .content > h2,
   body:not(.no-literate) .content > h3 {
     clear: both;
-    width: 100%;
+    /*width: 100%;*/
   }
   body:not(.no-literate) .content > pre,
   body:not(.no-literate) .content > blockquote {
@@ -606,6 +606,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
     margin-left: 40px;
     margin-right: 40px;
     max-width: 470px;
+    padding-right: 50px;
   }
   body:not(.no-literate):not(.big-h3) .content > h3 {
     margin-left: 40px;
