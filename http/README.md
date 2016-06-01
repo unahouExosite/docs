@@ -22,6 +22,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 
 [Long-Polling](#long-polling) - be notified immediately when a dataport is updated
 
+[Record](#record) - write data to historical timestamps
 
 ### Provisioning Procedures
 
@@ -272,8 +273,63 @@ When the dataport is updated and a value is returned, a `Last-Modified` header i
 $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8'
-    -H 'Request-Timeout: 30000
-    -H 'If-Modified-Since: 1408088308
+    -H 'Request-Timeout: 30000'
+    -H 'If-Modified-Since: 1408088308'
+```
+
+
+## record
+
+Write data to one or more historical timestamps of one or more aliases. The client (e.g. device, portal) is identified by `<CIK>`. Timestamps to the same alias cannot have less than 1 second differences between each other, doing so results in error in response.
+
+
+### request
+
+This example records to `<alias 1>` in `<timestamp 1>` and `<timestamp 2>`, while records to `<alias 2>` in `<timestamp 3>` and `<timestamp 4>`.
+
+```
+POST /onep:v1/stack/record HTTP/1.1
+Host: m2.exosite.com
+X-Exosite-CIK: <CIK>
+Content-Type: application/x-www-form-urlencoded; charset=utf-8
+Content-Length: <length>
+<blank line>
+alias=<alias 1>&<timestamp 1>=<value 1>&<timestamp 2>=<value 2>&alias=<alias 2>&<timestamp 3>=<value 3>&<timestamp 4>=<value 4>
+```
+
+
+### response
+
+```
+HTTP/1.1 204 No Content 
+Date: <date> 
+Server: <server> 
+Connection: Close 
+Content-Length: 0 
+<blank line>
+```
+
+* See [HTTP Responses](#http-responses) for a full list of responses.
+
+* If `<timestamp 1>` and `<timestamp 2>`, `<timestamp 3>` and `<timestamp 4>` have less than 1 second difference:
+
+```
+HTTP/1.1 409 Conflict
+Date: <date>
+Server: <server>
+Connection: Close
+Content-Length: <length>
+<alias 1>=<timestamp 1>&<alias 2>=<timestamp 3>
+```
+
+
+### example
+
+```
+$ curl https://m2.exosite.com/onep:v1/stack/alias/<alias> \
+    -H 'X-Exosite-CIK: <CIK>' \
+    -H 'Content-Type: application/x-www-form-urlencoded; charset=utf-8' \
+    -d '<timestamp 1>=<value 1>&<timestamp 2>=<value 2>'
 ```
 
 
