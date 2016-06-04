@@ -6,8 +6,9 @@ body {
 .header {
   background: #222736;
   text-shadow: none;
-  padding: 30px 25px 30px 20px;
-  height: 50px;
+  /*padding: 30px 25px 30px 20px;*/
+  padding: 30px 15px 30px 30px;
+  height: 28px;
 }
 
 .header .right {
@@ -26,20 +27,23 @@ body {
   /*color: #e0e0e0;*/
   /*color: #505050;*/
   color: #FFFFFF;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   /*font-size: 1.0em;*/
-
+  -webkit-font-smoothing: antialiased;
 }
 
 .header li a:hover {
-  color: #FFFFFF;
-  text-decoration:underline;
+  color: #41C4DC;
+  /*text-decoration:underline;*/
+  -webkit-font-smoothing: antialiased;
+
 }
 
 .header li {
   border-left: none;
   vertical-align: middle;
-  line-height: 50px;
+  line-height: 28px;
+  /*line-height: 50px;*/
   border-right: none;
 }
 
@@ -110,6 +114,8 @@ body, td, textarea, input {
   font-family: 'Roboto',sans-serif;
   font-size: 0.9em;
 }
+
+
 
 body.no-literate .content pre > code {
   letter-spacing: 0px;
@@ -209,4 +215,12 @@ a.btn.orange {
     position: relative;
     top: -3px;
     text-transform: uppercase;
+}
+
+.menubar a.level-1 {
+  font-size: 0.9em;
+}
+
+.menubar ul p {
+  text-transform: uppercase;
 }
