@@ -17,7 +17,8 @@ Watch this tutorial: (TEST VIDEO)
 IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  The out of box walk-through in Murano will help with connecting a recommended device, but will also provide a link to run a device simulator using a Python script.
 
 ### Murano Getting Started Device Options
-* [Python Simulator]()
+* [Manually Activate and Write Data](manualdevice)
+* [Python Device Simulator Script](pythonsim)
 * Microchip WCM kit
 * [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_arduino_examples/tree/master/esp8266_thingdev_murano_smart_lightbulb)
 
