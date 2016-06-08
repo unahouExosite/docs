@@ -3,7 +3,7 @@ title: One Platform
 template: default
 ---
 
-# Exosite One Platform
+# One Platform Guide
 
 * [Overview](#overview)
 * [Hosting](#hosting)
