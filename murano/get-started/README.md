@@ -10,17 +10,11 @@ Getting started is easy and free.  To provide the best starting context after si
 
 
 # Prerequisites
-IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  The out of box walk-through in Murano will help with connecting a recommended device, but will also provide a link to run a device simulator using a Python script.
+IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  
 
-### Murano Getting Started Device Options Prerequisites
-* [Manually Activate and Write Data](manualdevice)
-* [Python Device Simulator Script](pythonsim)
-* Microchip WCM kit
-* [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_getting_started_examples/tree/master/products/esp8266_thingdev_murano_smart_lightbulb)
+The Example Consumer IoT Application for Murano has several options for using physical hardware, simulated software, and manual API calls.  Each has a prerequisites which are documented in that starting points guide, see below in the [Creating Product section below](#create-the-product).
 
-Connecting a device and seeing data on the prototyping dashboard is something anyone can do.  Murano also provides a walk through of cloning and deploying a web application and the custom public back-end APIs for that application.  Some command line experience will be needed for this step and we'll walk you through it, to be sure you can try out all of the features of Murano.  
-
-# Example Consumer IoT Application
+# Example: Creating a Consumer IoT Application
 The example consumer application provides all the source code, template files, and configuration for building and deploying a connected product and application.  At the end of this walk-through, you should have:
 * A physical device that represents a Smart Lightbulb:
  * Connected to the Murano Platform
@@ -32,12 +26,9 @@ The example consumer application provides all the source code, template files, a
  * Users can see device sensor data and turn the light on/off
  * Users can invite a shared user to access the light.  
 
-## Creating the Product
-
-Watch this tutorial: (TEST VIDEO)
-
+## Create the Product
+_Temporary Video_
 <script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_mm1zt40tm9 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
-
 
 Murano walks you through adding a development kit or device simulator - as a example Smart Light bulb consumer product.  
 
@@ -50,6 +41,7 @@ You can choose from several starting points when creating a product depending on
 * [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_getting_started_examples/tree/master/products/esp8266_thingdev_murano_smart_lightbulb)
 
 
-
-## Creating the Application Solution
+## Create the Application Solution
 Murano walks you through cloning and deploying a sample Smart Light bulb consumer application.  
+_Temporary Video_
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_mm1zt40tm9 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
