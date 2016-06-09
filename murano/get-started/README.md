@@ -6,10 +6,6 @@ template: default
 # Getting Started with Murano
 Getting started is easy and free.  To provide the best starting context after signing up for an account, you'll be walked through the steps to create an example consumer IoT product. This includes setting up a Product, connecting a physical device (or device simulator), and interacting with device data on a dashboard.  Murano will then provide the steps to walk through cloning a Solution Application and deploying it - allowing you to interact with your device via a fully custom web application in minutes.
 
-Watch this tutorial: (TEST VIDEO)
-
-<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_mm1zt40tm9 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
-
 <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
 
@@ -37,6 +33,12 @@ The example consumer application provides all the source code, template files, a
  * Users can invite a shared user to access the light.  
 
 ## Creating the Product
+
+Watch this tutorial: (TEST VIDEO)
+
+<script charset="ISO-8859-1" src="//fast.wistia.com/assets/external/E-v1.js" async></script><div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;"><div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;"><span class="wistia_embed wistia_async_mm1zt40tm9 popover=true popoverAnimateThumbnail=true videoFoam=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span></div></div>
+
+
 Murano walks you through adding a development kit or device simulator - as a example Smart Light bulb consumer product.  
 
 You can choose from several starting points when creating a product depending on if you have physical hardware, plan to use simulated device software, or manual API caommands.   Each of these provides instructions for creating the product, defining it, and adding devices.
