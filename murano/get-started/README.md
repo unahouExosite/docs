@@ -20,7 +20,7 @@ IoT obviously involves connecting 'things' and typically these things are develo
 * [Manually Activate and Write Data](manualdevice)
 * [Python Device Simulator Script](pythonsim)
 * Microchip WCM kit
-* [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_arduino_examples/tree/master/esp8266_thingdev_murano_smart_lightbulb)
+* [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_getting_started_examples/tree/master/products/esp8266_thingdev_murano_smart_lightbulb)
 
 Connecting a device and seeing data on the prototyping dashboard is something anyone can do.  Murano also provides a walk through of cloning and deploying a web application and the custom public back-end APIs for that application.  Some command line experience will be needed for this step and we'll walk you through it, to be sure you can try out all of the features of Murano.  
 
