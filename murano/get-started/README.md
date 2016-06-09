@@ -16,7 +16,7 @@ Watch this tutorial: (TEST VIDEO)
 # Prerequisites
 IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  The out of box walk-through in Murano will help with connecting a recommended device, but will also provide a link to run a device simulator using a Python script.
 
-### Murano Getting Started Device Options
+### Murano Getting Started Device Options Prerequisites
 * [Manually Activate and Write Data](manualdevice)
 * [Python Device Simulator Script](pythonsim)
 * Microchip WCM kit
@@ -38,6 +38,15 @@ The example consumer application provides all the source code, template files, a
 
 ## Creating the Product
 Murano walks you through adding a development kit or device simulator - as a example Smart Light bulb consumer product.  
+
+You can choose from several starting points when creating a product depending on if you have physical hardware, plan to use simulated device software, or manual API caommands.   Each of these provides instructions for creating the product, defining it, and adding devices.
+
+### Murano Getting Started Device Options
+* [Manually Activate and Write Data](manualdevice)
+* [Python Device Simulator Script](pythonsim)
+* Microchip WCM kit
+* [Arduino based IoT Thing Dev board by Sparkfun - Example Code / Hook-up Guide](https://github.com/maanenson/murano_getting_started_examples/tree/master/products/esp8266_thingdev_murano_smart_lightbulb)
+
 
 
 ## Creating the Application Solution
