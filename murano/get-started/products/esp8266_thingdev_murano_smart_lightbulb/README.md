@@ -51,6 +51,8 @@ _Arduino is a powerful software platform for quickly building applications on em
 
 
 # Murano Product Setup
+## Create Your Product.
+
 1. Create a Product in Murano.  
 
    When creating a product, Murano allows you to use a `product template` spec file to setup the product definition. For this example, you can use the following url (copy the whole thing):
