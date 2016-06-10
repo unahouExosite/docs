@@ -8,7 +8,6 @@ Getting started is easy and free.  To provide the best starting context after si
 
 <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
-
 # Prerequisites
 IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  
 
