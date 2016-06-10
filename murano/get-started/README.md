@@ -8,11 +8,6 @@ Getting started is easy and free.  To provide the best starting context after si
 
 <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
-# Prerequisites
-IoT obviously involves connecting 'things' and typically these things are development kits from Microcontroller companies, small embedded computers and gateways, or open-source hardware platforms.  
-
-The Example Consumer IoT Application for Murano has several options for using physical hardware, simulated software, and manual API calls.  Each has a prerequisites which are documented in that starting points guide, see below in the [Creating Product section below](#create-the-product).
-
 # Example: Creating a Consumer IoT Application
 The example consumer application provides all the source code, template files, and configuration for building and deploying a connected product and application.  At the end of this walk-through, you should have:
 * A physical device that represents a Smart Lightbulb:
