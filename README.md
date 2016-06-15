@@ -20,6 +20,7 @@ Murano allows developers to build a full IoT system prototype quickly, then have
 ## Products
 The Product functionality of Murano provides tools and interfaces to manage a product models, allowing a fleet of devices to be deployed using a common unique API hostname, provisioning sequence, definition for data routing, and content for things like infield updates and configuration.  Developers can quickly build a product, connect devices, and verify device data flow using integrated prototyping dashboards.
 
+<!--
 ![product overview](assets/murano_product_overview.png)
 
 <table width="100%">
@@ -40,13 +41,13 @@ The Product functionality of Murano provides tools and interfaces to manage a pr
         <td style="width:60%;"><p>[Prototype Dashboard Guide](/murano/dashboards)</p><p>Dashboard text here.... </p></td>
     </tr>
 
-</table>
+</table> -->
 
 
 ## Solutions
 The Solution functionality of Murano provides tools and interfaces to build and deploy applications and services on top of IoT device data using concepts of data routing, integrated services, custom APIs, user auth/roles/permissions, and application asset hosting.  This allows developers to create solution projects that contain the entire application functionality to deploy to end users or to provide a custom API for their products.
 
-<table width="100%">
+<!--<table width="100%">
     <tr>
         <td style="text-align: center;">![Services Image]()</br>Services & Data Routing / Logic</td>
         <td style="width:60%;"><p>[Services Reference](/murano/services)</p><p>Services text here.... </p></td>
@@ -59,7 +60,7 @@ The Solution functionality of Murano provides tools and interfaces to build and 
         <td style="text-align: center;">![Application Hosting Image]()</br>Application Asset Hosting / Deploying Apps</td>
         <td style="width:60%;"><p>[Application Deployments](/murano/products)</p><p>Application deployments text here.... </p></td>
     </tr>
-</table>
+</table> -->
 
 
 # Help
