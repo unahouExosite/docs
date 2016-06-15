@@ -33,9 +33,15 @@ On your new project page, copy the clone link:
 
 ![Github Clone](assets/github_clone.png)
 
-Open a terminal window on your machine and clone the repository using `git clone <your_repo_clone_link>`: ![Clone Repo](assets/clone_repo.png)
+Open a terminal window on your machine and clone the repository using the command: 
 
-You will need the URL to your raw Solutionfile.json file for the next step - navigate to the Solutionfile.json file, click the "RAW" button, and then copy the URL from your browser address bar: 
+`git clone <your_repo_clone_link>`
+
+You will need the URL to your raw Solutionfile.json file from your forked git repo for the next step. In your forked git repo, navigate to the Solutionfile.json file, and click on it: 
+
+![solutionfile](assets/solutionfile.png)
+
+click the "RAW" button, and then copy the URL from your browser address bar: 
 
 ![Raw Link](assets/raw_link.png)
 
