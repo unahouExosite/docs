@@ -92,6 +92,12 @@ OK!  Now we're ready to initialize and deploy your solution application
 
 First, install the [Murano CLI](/murano/murano-cli).
 
+Initialize your solution:
+
+```
+$ exosite --init --host biz-internal-api.exosite-dev.com
+```
+
 This will ask you for your Murano user name and password.
 
 Then it will ask for your Solution ID: ![Solution ID](assets/solution_id.png)
