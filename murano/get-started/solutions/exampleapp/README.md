@@ -16,15 +16,15 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
 # Step 1: Copy an example solution to your machine
-Although there are a number of example solutions to choose from, this guide will use the Consumer Lightbulb Example (consumer-smartlightbulb-example) project.
+Although there are a number of example solutions to choose from, this guide will use the Home Automation Example ([home-automation-example](https://github.com/exosite/home-automation-example)) project.
 
-You can either copy the consumer-smartlightbulb-example from SE GITHUB LINK, or fork the example and clone it onto your machine.  We recommend the latter as it will allow you to fully control all aspects of the example.  In order to do this, you will need a Github account LINK and to have Git LINK installed on your machine.
+You can either clone  the [home-automation-example](https://github.com/exosite/home-automation-example)  master repository (https://github.com/exosite/home-automation-example.git) directly, or fork the example and clone it onto your machine.  We recommend the latter as it will allow you to save the changes you make to your application and share them with your team.  In order to do this, you will need a [GitHub account](https://github.com/join), you will also need to have [git](https://git-scm.com/) installed on your machine.
 
-To fork the example, login to github (or create an account), go to SE GITHUB LINK and click "fork": ![Github Fork](assets/github_fork.png)
+To fork the example, login to github (or create an account), go to the [home-automation-example](https://github.com/exosite/home-automation-example) project and click "fork": ![Github Fork](assets/github_fork.png)
 
-On your new project page, copy the GITHUB CLONE LINK: ![Github Clone](assets/github_clone.png)
+On your new project page, copy the clone link: ![Github Clone](assets/github_clone.png)
 
-Open a terminal window on your machine and clone the project using git clone ...: ![Clone Repo](assets/clone_repo.png)
+Open a terminal window on your machine and clone the repository using `git clone <your_repo_clone_link>`: ![Clone Repo](assets/clone_repo.png)
 
 You will need the URL to your raw Solutionfile.json file for the next step - navigate to the Solutionfile.json file, click the "RAW" button, and then copy the URL from your browser address bar: ![Raw Link](assets/raw_link.png)
 
@@ -49,21 +49,31 @@ Although your new solution is configured, it is not yet live.  We will build and
 
 Open a terminal window and navigate to the git repository folder you cloned in step 1 (has the Solutionfile.json file in it).  Install npm and ensure you have the latest version:
 
-```$ sudo npm install npm -g```
+```
+$ sudo npm install npm -g
+```
 
 Compile the exapmle app:
 
-```$ npm run compile```
+```
+$ npm run compile
+```
 
 Install the Murano CLI:
 
-```$ sudo pip install https://s3.amazonaws.com/exosite-tool/exoapi.tgz````
+```
+$ sudo pip install https://s3.amazonaws.com/exosite-tool/exoapi.tgz
+```
 
 OK!  Now we're ready to initialize and deploy your solution application
 
 # Step 4: Initialize and Deploy the app
 
-Initialize your solution: ```$ murano --init --host biz-internal-api.exosite-dev.com```
+Initialize your solution:
+
+```
+$ murano --init --host biz-internal-api.exosite-dev.com
+```
 
 This will ask you for your Murano user name and password.
 
@@ -71,11 +81,15 @@ Then it will ask for your Solution ID: ![Solution ID](assets/solution_id.png)
 
 And your Product ID: ![Product ID](assets/product_id.png)
 
-You should get a ```Credential file '.Solutionfile.secret' is created, please  run again with no '--init' option.``` - means you are ready to deploy!
+You should get a `Credential file '.Solutionfile.secret' is created, please  run again with no '--init' option.` message - this means you are ready to deploy!
 
-Deploy with ```murano --deploy --host biz-internal-api.exosite-dev.com```
+Deploy with
 
-You should get a ```Solution URL: https://thingdevexample.apps.exosite-dev.io```
+```
+murano --deploy --host biz-internal-api.exosite-dev.com
+```
+
+You should get a `Solution URL: https://thingdevexample.apps.exosite-dev.io`
 
 You can verify your solution is up and running by loading that URL in a web browser and playing around with it!  ![Example App](assets/example_app.png)
 
