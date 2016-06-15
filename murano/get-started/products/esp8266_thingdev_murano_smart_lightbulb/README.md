@@ -3,7 +3,7 @@ title: Murano Getting Started - Products - ESP8266 Thing Dev Board
 template: default
 ---
 
-# Exosite Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
+# Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
 
 This example walks through setting up a ESP8266 Thing Dev Board to act as a Smart Lightbulb
 with Murano.  Users can feel free to customize after walking through this guide as you'll have
@@ -62,22 +62,19 @@ _Arduino is a powerful software platform for quickly building applications on em
   ![create new](assets/add_new_product.png)
   ![create new window](assets/add_new_product_window.png)
 
-  After creating a product, devices need two pieces of information to activate with the platform.  These are the Product ID when you create your product and a unique identifier serial number.  The Product ID can be found on the `Info` tab on the Product page.
+  After creating a product, take note of the Product ID which will be used for the Arduino Sketch in later steps.  The Product ID can always be found on the `Info` tab on the Product page.
 
   ![product id](assets/get_product_id.png)
 
-  The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device's pre-programmed MAC Address.  You'll need to get this from the debug serial output when you run the Arduino example code in a moment.
+  Your `Definition` tab should look like this:
+  ![resources](assets/adding_resources.png)
 
-  __Note__: If you did not use the template previous step, you can manually set up your Product Definition. Go to the Product Definition Tab and set up your dataport resources as specified here.
+  _Note: If you did not use the template previous step, you can manually set up your Product Definition. Go to the Product Definition Tab and set up your dataport resources as specified here. Also, set the default value for `state` to 0 so the device has a default value it reads to know to turn on or off the LED. Click on the `state` resource in the Definition tab and write a 0 to the value._
 
   * alias: _temperature_, format: _float_
   * alias: _humidity_, format: _float_
   * alias: _uptime_, format: _integer_
   * alias: _state_, format: _integer_
-
-  ![resources](assets/adding_resources.png)
-
-  Set the default value for `state` to 0 so the device has a default value it reads to know to turn   on or off the LED. Click on the `state` resource in the Definition tab and write a 0 to the value.
 
   ![default state](assets/set_light_status_default_value.png)
 
@@ -109,9 +106,11 @@ _Arduino is a powerful software platform for quickly building applications on em
 8. Open the Serial Monitor.  
    ![serial](assets/serial_monitor.png)
 
-9. Copy Device Identifier (MAC Address) from the Serial Monitor Output.  
+9. Copy Device Identifier (MAC Address) from the Serial Monitor Output. _The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device's pre-programmed MAC Address._ 
    ![compile download](assets/run_debug_get_unique_identifier.png)
    _(You can click the Autoscroll if the log window goes past the top)_
+
+
 
 ## Add Device to Murano Product
 1. Add Device to Product in Murano using the Device Identifier (MAC Address)
