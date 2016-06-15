@@ -12,7 +12,6 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 * Real Time Device Data
 * Device Control
 
-
 If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
 This tutorial assumes you have some familiarity with your operating system's terminal. In order to complete this tutorial you will need the following installed on your system:
@@ -59,21 +58,27 @@ Open a terminal window and navigate to the git repository folder you cloned in s
 $ sudo npm install npm -g
 ```
 
+Install the app's dependencies:
+
+```
+$ npm install
+```
+
 Compile the exapmle app:
 
 ```
 $ npm run compile
 ```
 
-Install the Murano CLI:
-
-```
-$ sudo pip install https://s3.amazonaws.com/exosite-tool/exoapi.tgz
-```
-
 OK!  Now we're ready to initialize and deploy your solution application
 
 # Step 4: Initialize and Deploy the app
+
+First, install the `murano` CLI application:
+
+```
+$ sudo pip install exosite
+```
 
 Initialize your solution:
 
@@ -87,17 +92,17 @@ Then it will ask for your Solution ID: ![Solution ID](assets/solution_id.png)
 
 And your Product ID: ![Product ID](assets/product_id.png)
 
-You should get a `Credential file '.Solutionfile.secret' is created, please  run again with no '--init' option.` message - this means you are ready to deploy!
+You should see the message `Credential file '.Solutionfile.secret' is created, please  run again with no '--init' option.` - this means you are ready to deploy!
 
-Deploy with
+Deploy your application with
 
 ```
 murano --deploy --host biz-internal-api.exosite-dev.com
 ```
 
-You should get a `Solution URL: https://thingdevexample.apps.exosite-dev.io`
+You should then see `Solution URL: https://thingdevexample.apps.exosite-dev.io`
 
-You can verify your solution is up and running by loading that URL in a web browser and playing around with it!  ![Example App](assets/example_app.png)
+You can verify your solution is up and running by loading that URL in a web browser and playing around with your application!  ![Example App](assets/example_app.png)
 
 # Step 5: Test and Innovate!
 You can now develop locally, compile your app, and push to the cloud.
