@@ -10,23 +10,33 @@ Product definition can be updated and more devices can be added.  After walking 
 users will be interacting with simulated device data (generated from your computer running the script) using a prototype developer dashboard tool.  
 After this, users can go through the Murano Solution examples to deploy a Example consumer web application that works with this product demo.
 
+Note: This simulator script uses the [Device HTTP API](/murano/products/device_api/http).
+
+
 # Hardware Setup
 There is no hardware used for this example, only your computer that can run a Python script.
 
 # Software Setup
-## Python
 0. Download and Install Python (if you haven't used it before) [https://www.python.org/](https://www.python.org/downloads/)
 
+1. On the [Github repository](https://github.com/exosite/murano_python_device_simulator_example), either Clone the repository project using git or download using Download Zip.
+
+  ![git repo](assets/download_or_clone_git_repo.png)
+
+2. If you downloaded the zip, unzip.  Go into the folder and note the location of the murano_device_simulator.py file.  You will run this in a later step.
+
+  ![folder](assets/folder_contents.png)
 
 
-# Murano Product Setup
+
+# Murano Product Setup and Running the Simulator 
 ## Create Your Product.
 
 1. Create a Product in Murano.  
 
    When creating a product, Murano allows you to use a `product template` spec file to setup the product definition. For this example, you can use the following url (copy the whole thing):
 
-  ```https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-ThingDevBoard/product_spec_smart_lightbulb_example.yaml```
+  ```https://raw.githubusercontent.com/exosite/murano_python_device_simulator_example/master/product_spec_smart_lightbulb_example.yaml```
 
   ![create new](assets/add_new_product.png)
   ![create new window](assets/add_new_product_window.png)
@@ -47,52 +57,58 @@ There is no hardware used for this example, only your computer that can run a Py
 
   ![default state](assets/set_light_status_default_value.png)
 
+
 ## Run the Python Script
+_You do not need to edit the python script code, it will prompt you for your Product ID and Device Identifier when you run it, although you can edit the code to have your details automatically included._
 
-1. Create a new Arduino Sketch.
-2. Get the Example Sketch from the Exosite library called 'murano_example_smart_lightbulb_sensor', which will load a new Sketch with the example device application code.
+1. Run the murano_device_simulator.py script by launching a command terminal window and running the following command:
 
-   ![example](assets/select_example.png)
+  ```python murano_device_simulator.py```
 
-5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and Password).  
-   ![change](assets/your_customizations.png)
+  ![run simulator](assets/run_simulator.png)
 
-6. In your sketch, edit Exosite Product ID from your Murano product
-   ![sketch](assets/sketch_edit_parameters.png)
+2. A command prompt will ask your for your Product ID.  Copy this from your Murano Product's Info tab and enter into the command prompt, then hit the 'enter' key.
 
-7. Make sure board is connected to your computer via USB port and select the correct Port from the Arudino Tools menu.
-   ![port](assets/arduino_serial_port_selector.png)
+   ![product id](assets/get_product_id.png)
 
-8. Select the correct board before you compile your code from the Tools menu.
-   ![board](assets/board_selection.png)
+   ![enter id](assets/enter_product_id.png)
 
-9. Click the Upload button which will first compile and then download to your plugged in board.
-   ![upload](assets/compile_upload_button.png)
+3. Next, it will prompt you if you want to change the Device Identifier from the default of 000001.  Recommend to start with this, just hit the `enter` key to use 000001.   
 
-8. Open the Serial Monitor.  
-   ![serial](assets/serial_monitor.png)
+   ![change id](assets/enter_different_device_id.png)
 
-9. Copy Device Identifier (MAC Address) from the Serial Monitor Output.  
-   ![compile download](assets/run_debug_get_unique_identifier.png)
-   _(You can click the Autoscroll if the log window goes past the top)_
+4. The script should begin running and will mention that it is not activated.  Now is time to Add a Device to your Murano Product instance.
 
-## Add Device to Murano Product
-1. Add Device to Product in Murano using the Device Identifier (MAC Address)
-  ![add device](assets/add_unique_device.png)
-  ![not activated](assets/not_activated_devices.png)
-2. If you have used this hardware before with Exosite's Library, restart your Device by either using the boards On/Off Switch or Uploading your Sketch again to the board.  
-2. Verify Device Provisions using the Arduino Serial Output.
-if previously used and may have a old CIK (private device API key) stored in it's non-volatile memory (EEPROM).
-   ![activation log](assets/debug_output_activation_text.png)
-3. View Device Resources (click on device)
-   ![device resources](assets/device_resources_new_data.png)
+   ![running](assets/running_not_activated.png)
+
+5. Add Device Identity 000001 to your Murano Product by going to the Devices tab in your product and clicking the `New Device` button.
+
+  ![new device](assets/new_device.png)
+
+6. The device should have added.  Checking back with the Terminal window, the script should show that it activated and stored the CIK.  
+
+  ![device](assets/device_added.png)
+
+  ![activation log](assets/device_activation_log.png)
+
+  Also, if you click on the Device's Resources tab, you should active data there.
+
+  ![activation log](assets/device_resources.png)
 
 ## Run the Product Dashboard Developer Tool
 1. On the Device page, click the 'Dashboard' tab - which is a link to the Murano Product Dashboard Developer Tool.  This opens a new browser tab.  
    ![dashboard link](assets/dashboard_link.png)
    ![dashboard empty](assets/dashboard_empty.png)
 2. Add a pane, then add a widget to the pane.
+
   ![dashboard add widget](assets/dashboard_add_widget.png)
-3. Interact with live data
+
+3. Interact with live data, see changes in Script's log
+
   ![dashboard](assets/dashboard_live_data.png)
+
+  _Example: By toggling Dashboard widget that toggles the 'state' resource from 0 to 1, the script log will show the simulated light bulb turning on / off._
+
+  ![debug log](assets/see_changes_debug_log.png)
+
 4. Done!
