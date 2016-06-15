@@ -2,7 +2,7 @@
 title: HTTP
 ---
 
-# HTTP API Overview
+# HTTP Device API Overview
 
 This the HTTP Device API for the Murano Platform.  Device firmware and applications should use this API to provision and interact with the platform.  Devices use dataport resources to read from and write to, like a variable.  
 
