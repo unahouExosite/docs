@@ -38,7 +38,9 @@ Now, sign into the Murano and click on the hamburger in the upper left corner to
 
 From the side menu, choose the “Solutions” option: ![Solutions Nav](assets/solutions_menu.png)
 
-To start with a simple example application, click the orange “+New Solution” button in the upper right corner of the Solutions page: ![New Solution](assets/new_solution.png)
+To start with a simple example application, click the orange “+New Solution” button in the upper right corner of the Solutions page: 
+
+![New Solution](assets/new_solution.png)
 
 You will then see the “Add Solution” pop-up, where you can name and define your Solution. Populate the Solution Name with a name that can be used in a url. This name can contain lower-case letters and “-”. An example: ![Name Solution](assets/name_solution.png)
 
