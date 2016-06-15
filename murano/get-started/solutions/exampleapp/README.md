@@ -90,17 +90,7 @@ OK!  Now we're ready to initialize and deploy your solution application
 
 # Step 4: Initialize and Deploy the app
 
-First, install the `murano` CLI application:
-
-```
-$ sudo pip install exosite
-```
-
-Initialize your solution:
-
-```
-$ murano --init --host biz-internal-api.exosite-dev.com
-```
+First, install the [Murano CLI](/murano/murano-cli).
 
 This will ask you for your Murano user name and password.
 
@@ -113,7 +103,7 @@ You should see the message `Credential file '.Solutionfile.secret' is created, p
 Deploy your application with
 
 ```
-murano --deploy --host biz-internal-api.exosite-dev.com
+exosite --deploy --host biz-internal-api.exosite-dev.com
 ```
 
 You should then see `Solution URL: https://thingdevexample.apps.exosite-dev.io`
@@ -123,7 +113,7 @@ You can verify your solution is up and running by loading that URL in a web brow
 # Step 5: Test and Innovate!
 You can now develop locally, compile your app, and push to the cloud.
 
-After making changes, simply run ```npm run compile``` and then ```murano --deploy --host biz-internal-api.exosite-dev.com``` to deploy your IoT Solution!
+After making changes, simply run ```npm run compile``` and then ```exosite --deploy --host biz-internal-api.exosite-dev.com``` to deploy your IoT Solution!
 
 For more information about the powerful capabilities of Routes and Services (not to mention Hosting, Users, Roles and more, please check out our getting started documentation)
 

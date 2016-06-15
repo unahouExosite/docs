@@ -6,11 +6,10 @@ template: default
 # Murano Command Line Interface (CLI)
 The Murano Command Line Interface is a tool that enables web application developers to use their local development environments to develop IoT application software and then to publish it online. 
 
-Open a terminal window to run the ```$ commands below```.
+Open a terminal window to run the commands below.
 
-<ul><li>Install the Murano CLI: ```$ sudo pip install https://s3.amazonaws.com/exosite-tool/exoapi.tgz```</li>
-<li>List commands: ```$ murano -h```</li>
-<li>Initialize your solution: ```$ murano --init --host biz-internal-api.exosite-dev.com```</li>
-<li>Deploy your solution: ```$ murano --deploy --host biz-internal-api.exosite-dev.com```</li>
+<ul><li>Install the Murano CLI: ```$ sudo pip install exosite``` In OS X, you may need to use the built-in system dependencies by running ```$ sudo pip install --upgrade exosite --ignore-installed six --ignore-installed prompt-toolkit --ignore-installed requests```</li>
+<li>List commands: ```$ exosite -h```</li>
+<li>Initialize your solution: ```$ exosite --init --host biz-internal-api.exosite-dev.com```</li>
+<li>Deploy your solution: ```$ exosite --deploy --host biz-internal-api.exosite-dev.com```</li>
 </ul>
-
