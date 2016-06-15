@@ -42,7 +42,9 @@ To start with a simple example application, click the orange “+New Solution”
 
 ![New Solution](assets/new_solution.png)
 
-You will then see the “Add Solution” pop-up, where you can name and define your Solution. Populate the Solution Name with a name that can be used in a url. This name can contain lower-case letters and “-”. An example: ![Name Solution](assets/name_solution.png)
+You will then see the “Add Solution” pop-up, where you can name and define your Solution. Populate the Solution Name with a name that can be used in a url. This name can contain lower-case letters and “-”. An example:
+
+![Name Solution](assets/name_solution.png)
 
 Next, paste the URL of the raw .json descriptor file from the previous step into the Solution Template File (URL) line, and click blue ADD button in the bottom right corner: ![Add Solution](assets/add_solution.png)
 
