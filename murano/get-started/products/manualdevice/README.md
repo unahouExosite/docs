@@ -6,10 +6,12 @@ template: default
 # Murano - Manual Device example
 Getting started instructions for manual API calls to Murano for Device activation and device interaction.  
 
+Note: This simulator script uses the [Device HTTP API](/murano/products/device_api/http).
+
+
 Devices need two pieces of information to activate with the platform.  These are the Product ID when you create your product and a unique identifier serial number.  The Product ID can be found on the `Info` tab on the Product page.
 
 ![product id](assets/get_product_id.png)
-
 
 
 # Hardware Setup
