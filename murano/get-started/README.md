@@ -11,7 +11,7 @@ You can choose from several starting points when creating a product depending on
 
 <table width="100%">
     <tr>
-      <th colspan="2" style="font-weight: bold;">Murano Product Getting Started Device Examples</th>
+      <th colspan="2" style="font-weight: bold;">Murano Products - Getting Started Device Examples</th>
     </tr>
     <tr>
         <td style="text-align: center;">![IoT Thing Dev](assets/iotthing.png)</td>
