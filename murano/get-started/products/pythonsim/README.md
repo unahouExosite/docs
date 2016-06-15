@@ -5,10 +5,7 @@ template: default
 
 # Murano Example - Python Simulator Script Smart Lightbulb
 
-This example walks through using a [Python](https://en.wikipedia.org/wiki/Python_(programming_language) script to act as a Smart Lightbulb with Murano.  Users can feel free to customize after walking through this guide as you'll have created a full Product instance that supports a deployment of devices specific to that Product.
-Product definition can be updated and more devices can be added.  After walking through these steps,
-users will be interacting with simulated device data (generated from your computer running the script) using a prototype developer dashboard tool.  
-After this, users can go through the Murano Solution examples to deploy a Example consumer web application that works with this product demo.
+This example walks through using a [Python](https://en.wikipedia.org/wiki/Python_(programming_language) script to act as a Smart Lightbulb with Murano.  Users can feel free to customize after walking through this guide as you'll have created a full Product instance that supports a deployment of devices specific to that Product. Product definition can be updated and more devices can be added.  After walking through these steps, users will be interacting with simulated device data (generated from your computer running the script) using a prototype developer dashboard tool. After this, users can go through the Murano Solution examples to deploy an Example consumer web application that works with this product demo.
 
 Note: This simulator script uses the [Device HTTP API](/murano/products/device_api/http).
 
