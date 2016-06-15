@@ -4,35 +4,24 @@ title: HTTP
 
 # HTTP API Overview
 
-This the HTTP Device API for the Murano Platform.
+This the HTTP Device API for the Murano Platform.  Device firmware and applications should use this API to provision and interact with the platform.  Devices use dataport resources to read from and write to, like a variable.  
 
 
 # Procedures
 ### Timeseries Data Procedures
-
-[Write](#write) - write new data to a set of dataports
-
-[Read](#read) - read the latest data from a set of dataports
-
-[Hybrid Write/Read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
-
-[Long-Polling](#long-polling) - be notified immediately when a dataport is updated
+* [Write](#write) - write new data to a set of dataports
+* [Read](#read) - read the latest data from a set of dataports
+* [Hybrid Write/Read](#hybrid-writeread) - write a set of dataports, then read a set of dataports
+* [Long-Polling](#long-polling) - be notified immediately when a dataport is updated
 
 ### Product Device Provisioning Procedures
-
-[Activate](#activate) - activate device and get device's CIK
-
-[List Available Content](#list-available-content) - get a list of content available to device
-
-[Get Content Info](#get-content-info) - get meta information about content file
-
-[Download Content](#download-content) - get content file
-
+* [Activate](#activate) - activate device and get device's CIK
+* [List Available Content](#list-available-content) - get a list of content available to device
+* [Get Content Info](#get-content-info) - get meta information about content file
+* [Download Content](#download-content) - get content file
 
 ### Utility Procedures
-
-[Timestamp](#timestamp) - get the current unix timestamp
-
+* [Timestamp](#timestamp) - get the current unix timestamp
 
 ## Libraries and Sample Code
 
