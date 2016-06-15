@@ -66,7 +66,7 @@ To verify the Template File worked, click the "Routes" menu item - you should se
 
 Although your new solution is configured, it is not yet live.  We will build and deploy the solution in the next steps...
 
-# Step 3: Install the Murano CLI and tools
+# Step 3: Install the Exosite CLI and tools
 
 Open a terminal window and navigate to the git repository folder you cloned in step 1 (has the Solutionfile.json file in it).  Install npm and ensure you have the latest version:
 
@@ -90,7 +90,7 @@ OK!  Now we're ready to initialize and deploy your solution application
 
 # Step 4: Initialize and Deploy the app
 
-First, install the [Murano CLI](/murano/murano-cli).
+First, install the [Exosite CLI](/murano/exosite-cli).
 
 Initialize your solution:
 
