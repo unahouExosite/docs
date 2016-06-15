@@ -9,6 +9,7 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 * User Login
 * User Profiles
 * Device Provisioning
+* Real Time Device Data
 * Device Control
 
 
