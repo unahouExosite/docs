@@ -15,12 +15,18 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 
 If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
 
+This tutorial assumes you have some familiarity with your operating system's terminal. In order to complete this tutorial you will need the following installed on your system:
+
+* [git](https://git-scm.com/)
+* [node.js & npm](https://nodejs.org/en/download/)
+* [python & pip](https://www.python.org/downloads/)
+
 # Step 1: Copy an example solution to your machine
 Although there are a number of example solutions to choose from, this guide will use the Home Automation Example ([home-automation-example](https://github.com/exosite/home-automation-example)) project.
 
-You can either clone  the [home-automation-example](https://github.com/exosite/home-automation-example)  master repository (https://github.com/exosite/home-automation-example.git) directly, or fork the example and clone it onto your machine.  We recommend the latter as it will allow you to save the changes you make to your application and share them with your team.  In order to do this, you will need a [GitHub account](https://github.com/join), you will also need to have [git](https://git-scm.com/) installed on your machine.
+You can either clone  the [home-automation-example](https://github.com/exosite/home-automation-example)  master repository (https://github.com/exosite/home-automation-example.git) directly, or fork the example and clone it onto your machine.  We recommend the latter as it will allow you to save the changes you make to your application and share them with your team.
 
-To fork the example, login to github (or create an account), go to the [home-automation-example](https://github.com/exosite/home-automation-example) project and click "fork": ![Github Fork](assets/github_fork.png)
+To fork the example, login to github (or [create an account](https://github.com/join)), go to the [home-automation-example](https://github.com/exosite/home-automation-example) project and click "fork": ![Github Fork](assets/github_fork.png)
 
 On your new project page, copy the clone link: ![Github Clone](assets/github_clone.png)
 
