@@ -25,10 +25,6 @@ You can choose from several starting points when creating a product depending on
         <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Python Device Simulator Script](products/pythonsim)</td>
     </tr>
-    <tr>
-        <td style="text-align: center;">![Microchip WCM](assets/wcm.png)</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">Microchip WCM kit (coming soon)</td>
-    </tr>
 </table>
 
 At the end of these walk-throughs, you should have a physical device or simulated device that represents a Smart Lightbulb:
@@ -45,7 +41,7 @@ Murano walks you through cloning and deploying a sample Smart Light bulb consume
       <th colspan="2" style="font-weight: bold;">Murano Solution - Getting Started Examples</th>
     </tr>
     <tr>
-        <td style="text-align: center;">![Consumer Example App](assets/app.png)</td>
+        <td style="text-align: center;">![Consumer Example App](assets/lightapp.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Murano Solution Application Getting Started](solutions/exampleapp)</td>
     </tr>
 </table>    
