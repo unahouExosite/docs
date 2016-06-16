@@ -10,15 +10,15 @@ template: default
 
 # Index
 
-  * [Device Gateway Service](<#Device Gateway Service>) 
-  * [Twilio Service](<#Twilio Service>) 
-  * [User Management Service](<#User Management Service>) 
-  * [Key-Value Store](<#Key-Value Store>) 
-  * [Timer Service API](<#Timer Service API>) 
-  * [Web-Socket Gateway Service](<#Web-Socket Gateway Service>) 
-  * [Time Series Storage Service](<#Time Series Storage Service>) 
-  * [Email Service](<#Email Service>) 
-  * [Custom User API Gateway Service](<#Custom User API Gateway Service>) 
+  * [Device Gateway Service](#device-gateway-service) 
+  * [Twilio Service](#twilio-service) 
+  * [User Management Service](#user-management-service) 
+  * [Key-Value Store](#key-value-store) 
+  * [Timer Service API](#timer-service-api) 
+  * [Web-Socket Gateway Service](#web-socket-gateway-service) 
+  * [Time Series Storage Service](#time-series-storage-service) 
+  * [Email Service](#email-service) 
+  * [Custom User API Gateway Service](#custom-user-api-gateway-service) 
 
 # Services
 
