@@ -1,6 +1,6 @@
-
 ---
 title: Service Usage Reference
+template: default
 ---
 
 > This page reference all murano services accessible through Murano scripting.
