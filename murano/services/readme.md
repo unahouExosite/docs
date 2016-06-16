@@ -12,11 +12,11 @@ title: Service Usage Reference
 
   * [Device Gateway Service](<#Device Gateway Service>) 
   * [Twilio Service](<#Twilio Service>) 
-  * [Key-Value Store](<#Key-Value Store>) 
   * [User Management Service](<#User Management Service>) 
-  * [Time Series Storage Service](<#Time Series Storage Service>) 
+  * [Key-Value Store](<#Key-Value Store>) 
   * [Timer Service API](<#Timer Service API>) 
   * [Web-Socket Gateway Service](<#Web-Socket Gateway Service>) 
+  * [Time Series Storage Service](<#Time Series Storage Service>) 
   * [Email Service](<#Email Service>) 
   * [Custom User API Gateway Service](<#Custom User API Gateway Service>) 
 
@@ -53,7 +53,7 @@ title: Service Usage Reference
 ##### Example
 ```lua
 local parameters = { 
- pid="pariatur fugiat ad"
+ pid="amet aute"
  }
 
 response = Device.productInfo(parameters)
@@ -69,19 +69,20 @@ response = Device.productInfo(parameters)
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
 | - **pid** | string | product id, need to be found in product id list of solution service config for access rights. |
-| - auth | object |  |
-| -- client_id | string | client context |
-| - calls | object[] |  |
-| -- id | string | call response mapping id |
-| -- arguments | string[] |  |
-| -- procedure | string |  |
+| - **body** | object |  |
+| -- auth | object |  |
+| --- client_id | string | client context |
+| -- **calls** | object[] |  |
+| --- id | string | call response mapping id |
+| --- arguments | string[] |  |
+| --- procedure | string |  |
 
 ##### responses
 
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  200 | object[] | OK |
-| - **id** | string | RPC request id |
+| - id | string | RPC request id |
 | - error | object | RPC call errors |
 | -- code | integer | RPC error code |
 | -- context | string | RPC error data |
@@ -92,20 +93,33 @@ response = Device.productInfo(parameters)
 ##### Example
 ```lua
 local parameters = { 
- pid="adipisicing deserunt mollit", 
- calls={ 
+ pid="in", 
+ body={ 
+  calls={ 
  { 
-procedure="ex aliquip culpa", 
+procedure="sit", 
 arguments={ 
- "in", 
- "aliqu", 
- "aliqua dolore magna"
+ "ullamc", 
+ "labore sunt nulla officia", 
+ "Lorem pariatur nisi", 
+ "minim"
  }
  }, 
  { 
-procedure="proident", 
+procedure="in veniam Lorem quis", 
 arguments={ 
- "cupidatat dolor est mollit"
+ "culpa ipsum sint", 
+ "esse labo"
+ }
+ }, 
+ { 
+procedure="culpa non Ut", 
+arguments={ 
+ "do et in", 
+ "sunt consectetu", 
+ "fugiat deserunt ea aliqua", 
+ "pariatur sunt deserunt"
+ }
  }
  }
  }
@@ -123,10 +137,11 @@ response = Device.rpcCall(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - code | integer | The http response status code |
-| - headers | object | optional http response headers |
-| - message | string | The http response body |
-| - request_id | string | The request id associated with the ServiceCall |
+| - **body** | object | The pegasus service callback |
+| -- **code** | integer | The http response status code |
+| -- **headers** | object | optional http response headers |
+| -- **message** | string | The http response body |
+| -- **request_id** | string | The request id associated with the ServiceCall |
 
 ##### responses
 
@@ -140,8 +155,12 @@ response = Device.rpcCall(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ["request_id"]="culpa in do sint", 
- headers={  }
+ body={ 
+  code=-17567753, 
+  ["request_id"]="ad", 
+  headers={  }, 
+  message="sint cillum sit dolor"
+ }
  }
 
 response = Device.deviceCallback(parameters)
@@ -158,7 +177,7 @@ response = Device.deviceCallback(parameters)
 
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
-|  **data** | object | The data from the device |
+|  data | object | The data from the device |
 | - api | string | Provider API |
 | - **pid** | string | Device product id |
 | - rid | string | Unique device resource id |
@@ -187,7 +206,7 @@ end
 
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
-|  **data** | object | The device service call |
+|  data | object | The device service call |
 | - **pid** | string | Device product id |
 | - seq | integer | The message sequence number for specific resource id |
 | - alias | string | Device alias |
@@ -250,7 +269,6 @@ end
 | -- direction | string | The direction of this message. |
 | -- price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
 | -- start_time | string, Format=date-time | The start time of the call, given as GMT in RFC 2822 format. |
-| -- account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | -- answered_by | string | If this call was initiated with answering machine detection. |
 | -- api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | -- caller_name | string | If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. |
@@ -270,9 +288,9 @@ end
 ##### Example
 ```lua
 local parameters = { 
- StartTime="1972-01-23", 
- ParentCallSid="zyd7qzBQFyaDTeAxIdGxKsWn0kEhGekWkZ", 
- From="4{1,2,3}35dddddd"
+ Status="+770915455481393802224665715941274413409007402412", 
+ To="1{1,2,3}80dddddd", 
+ From="8{1,2,3}90dddddd"
  }
 
 response = Twilio.listCall(parameters)
@@ -287,20 +305,21 @@ response = Twilio.listCall(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - To | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+@([0-9a-zA-Z]+\.?)+|client\:[0-9a-zA-Z]+)$, Format=E.164 | The phone number, SIP address or client identifier to call. |
-| - Url | string, Format=uri | The fully qualified URL that should be consulted when the call connects. Just like when you set a URL on a phone number for handling inbound calls. |
-| - From | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+)$, Format=E.164 | The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified outgoing caller id for your account. |
-| - Method | string | The HTTP method Twilio should use when making its request to the above Url parameter's value. |
-| - Record | string | Set this parameter to 'true' to record the entirety of a phone call. The RecordingUrl will be sent to the StatusCallback URL. |
-| - Timeout | boolean | The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer. |
-| - IfMachine | string | Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. |
-| - SendDigits | string, Pattern=^[0-9\#\*w]+$ | A string of keys to dial after connecting to the number, maximum of 32 digits. |
-| - FallbackUrl | string, Format=uri | A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url. |
-| - ApplicationSid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character sid of the application Twilio should use to handle this phone call. |
-| - FallbackMethod | string | The HTTP method that Twilio should use to request the FallbackUrl. |
-| - StatusCallback | string, Format=uri | A URL that Twilio will send asynchronous webhook requests to on every call event specified in the StatusCallbackEvent parameter. |
-| - StatusCallbackEvent | string | The call progress events that Twilio will send webhooks on. |
-| - StatusCallbackMethod | string | The HTTP method Twilio should use when requesting the above URL. |
+| - **call** | object | The creation of a Call |
+| -- **To** | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+@([0-9a-zA-Z]+\.?)+|client\:[0-9a-zA-Z]+)$, Format=E.164 | The phone number, SIP address or client identifier to call. |
+| -- Url | string, Format=uri | The fully qualified URL that should be consulted when the call connects. Just like when you set a URL on a phone number for handling inbound calls. |
+| -- **From** | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+)$, Format=E.164 | The phone number or client identifier to use as the caller id. If using a phone number, it must be a Twilio number or a Verified outgoing caller id for your account. |
+| -- Method | string | The HTTP method Twilio should use when making its request to the above Url parameter's value. |
+| -- Record | string | Set this parameter to 'true' to record the entirety of a phone call. The RecordingUrl will be sent to the StatusCallback URL. |
+| -- Timeout | boolean | The integer number of seconds that Twilio should allow the phone to ring before assuming there is no answer. |
+| -- IfMachine | string | Tell Twilio to try and determine if a machine (like voicemail) or a human has answered the call. |
+| -- SendDigits | string, Pattern=^[0-9\#\*w]+$ | A string of keys to dial after connecting to the number, maximum of 32 digits. |
+| -- FallbackUrl | string, Format=uri | A URL that Twilio will request if an error occurs requesting or executing the TwiML at Url. |
+| -- ApplicationSid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character sid of the application Twilio should use to handle this phone call. |
+| -- FallbackMethod | string | The HTTP method that Twilio should use to request the FallbackUrl. |
+| -- StatusCallback | string, Format=uri | A URL that Twilio will send asynchronous webhook requests to on every call event specified in the StatusCallbackEvent parameter. |
+| -- StatusCallbackEvent | string | The call progress events that Twilio will send webhooks on. |
+| -- StatusCallbackMethod | string | The HTTP method Twilio should use when requesting the above URL. |
 
 ##### responses
 
@@ -318,7 +337,6 @@ response = Twilio.listCall(parameters)
 | - direction | string | The direction of this message. |
 | - price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
 | - start_time | string, Format=date-time | The start time of the call, given as GMT in RFC 2822 format. |
-| - account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | - answered_by | string | If this call was initiated with answering machine detection. |
 | - api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | - caller_name | string | If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. |
@@ -334,18 +352,18 @@ response = Twilio.listCall(parameters)
 ##### Example
 ```lua
 local parameters = { 
- StatusCallbackEvent="completed", 
- Timeout="true", 
- ApplicationSid="g6lOYQwxPXejPIsU1LCsZBMj4lyFI93VwM", 
- SendDigits="37w537005#0*5##4#6*978", 
- Method="GET", 
- IfMachine="Continue", 
- To="7{1,2,3}91dddddd", 
- Record="officia velit amet laboris", 
- StatusCallbackMethod="POST", 
- Url="whMvhdTkr6", 
- From="8{1,2,3}80dddddd", 
- FallbackMethod="POST"
+ call={ 
+  To="1{1,2,3}71dddddd", 
+  From="8{1,2,3}47dddddd", 
+  Url="sByucLnWrS69iHO4SPuYM9aRttZFqLf", 
+  IfMachine="Continue", 
+  Timeout="false", 
+  Record="aliqua non", 
+  Method="PUT", 
+  StatusCallback="OC+fl4DjG48H2nXL0Uw8-kZjyNTMy..RKlHtSeqrKHuKjybfSbREQzAfmsckgd+geulUv8UXVsqB8,YW,zvLbijJ+M,gMQyL-oCk", 
+  FallbackUrl="L3QvGUAJSCyXD0N9xPT0RYRheuZoy,d3OqevHcQUlL4ll6Ys1wOnIoZSznTZBSjFoGsAFudmbV-VW8C46XFK6N5x1,AtnDnLD+Xt", 
+  FallbackMethod="POST"
+ }
  }
 
 response = Twilio.createCall(parameters)
@@ -384,7 +402,6 @@ response = Twilio.createCall(parameters)
 | -- num_media | string, Format=integer | This property indicates the number of media files associated with the message. Each message may send up to 10 media files. |
 | -- error_code | string | The error code, if any, associated with your message. If your message status is failed or undelivered, the ErrorCode can give you more information about the failure. |
 | -- price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
-| -- account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | -- api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | -- date_created | string, Format=date | The date that this resource was created, given in RFC 2822 format. |
 | -- date_updated | string, Format=date | The date that this resource was last updated, given in RFC 2822 format. |
@@ -400,7 +417,7 @@ response = Twilio.createCall(parameters)
 ##### Example
 ```lua
 local parameters = { 
- To="5{1,2,3}47dddddd"
+ DateSent="2096-02-29"
  }
 
 response = Twilio.listMessage(parameters)
@@ -415,14 +432,15 @@ response = Twilio.listMessage(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - To | string, Pattern=^\+[0-9]+$, Format=E.164 | The destination phone number. Format with a '+' and country code e.g., +16175551212 (E.164 format). |
-| - Body | string | The text of the message you want to send, limited to 1600 characters. |
-| - From | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+)$, Format=E.164 | A Twilio phone number (in E.164 format) or alphanumeric sender ID enabled for the type of message you wish to send |
-| - MaxPrice | string, Pattern=^-?[0-9]*.?[0-9]*$ | The total maximum price up to the fourth decimal (0.0001) in US dollars acceptable for the message to be delivered. |
-| - MediaUrl | string, Format=uri | The URL of the media you wish to send out with the message. gif , png and jpeg content is currently supported and will be formatted correctly on the recipient's device. |
-| - ApplicationSid | string | wilio will POST MessageSid as well as MessageStatus=sent or MessageStatus=failed to the URL in the MessageStatusCallback property of this Application |
-| - StatusCallback | string, Format=uri | A URL that Twilio will POST to each time your message status changes |
-| - MessagingServiceSid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
+| - **message** | object | The creation of a SMS message |
+| -- **To** | string, Pattern=^\+[0-9]+$, Format=E.164 | The destination phone number. Format with a '+' and country code e.g., +16175551212 (E.164 format). |
+| -- Body | string | The text of the message you want to send, limited to 1600 characters. |
+| -- **From** | string, Pattern=^(\+[0-9]+|[0-9a-zA-Z]+)$, Format=E.164 | A Twilio phone number (in E.164 format) or alphanumeric sender ID enabled for the type of message you wish to send |
+| -- MaxPrice | string, Pattern=^-?[0-9]*.?[0-9]*$ | The total maximum price up to the fourth decimal (0.0001) in US dollars acceptable for the message to be delivered. |
+| -- MediaUrl | string, Format=uri | The URL of the media you wish to send out with the message. gif , png and jpeg content is currently supported and will be formatted correctly on the recipient's device. |
+| -- ApplicationSid | string | wilio will POST MessageSid as well as MessageStatus=sent or MessageStatus=failed to the URL in the MessageStatusCallback property of this Application |
+| -- StatusCallback | string, Format=uri | A URL that Twilio will POST to each time your message status changes |
+| -- MessagingServiceSid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 
 ##### responses
 
@@ -441,7 +459,6 @@ response = Twilio.listMessage(parameters)
 | - num_media | string, Format=integer | This property indicates the number of media files associated with the message. Each message may send up to 10 media files. |
 | - error_code | string | The error code, if any, associated with your message. If your message status is failed or undelivered, the ErrorCode can give you more information about the failure. |
 | - price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
-| - account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | - api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | - date_created | string, Format=date | The date that this resource was created, given in RFC 2822 format. |
 | - date_updated | string, Format=date | The date that this resource was last updated, given in RFC 2822 format. |
@@ -453,11 +470,11 @@ response = Twilio.listMessage(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ApplicationSid="mollit ex eu", 
- MessagingServiceSid="Fh69Y1R9MFzjvaGWkAvHLyrpceUftEEUhZ", 
- To="0{1,2,3}83dddddd", 
- MaxPrice="-0h460949", 
- From="2{1,2,3}5ddddddd"
+ message={ 
+  To="8{1,2,3}82dddddd", 
+  From="8{1,2,3}49dddddd", 
+  MediaUrl="CFSWh1giSlW4PAyqAcY1A7o4GAXFn50JI6D8fekO-oJwlTbjXt635pG-fM5waw,vYfxu1SNtiDRNAq5yaL,Ab+8A8"
+ }
  }
 
 response = Twilio.postMessage(parameters)
@@ -490,7 +507,6 @@ response = Twilio.postMessage(parameters)
 | - direction | string | The direction of this message. |
 | - price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
 | - start_time | string, Format=date-time | The start time of the call, given as GMT in RFC 2822 format. |
-| - account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | - answered_by | string | If this call was initiated with answering machine detection. |
 | - api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | - caller_name | string | If this call was an incoming call to a phone number with Caller ID Lookup enabled, the caller's name. |
@@ -506,7 +522,7 @@ response = Twilio.postMessage(parameters)
 ##### Example
 ```lua
 local parameters = { 
- CallSid="P6uFRnTfULfUXACpnBvqcDXhZ91nMsoxUO"
+ CallSid="zXK5EwtxW6HCDkuc0rAZpkBDjAJsrg7QhQ"
  }
 
 response = Twilio.getCall(parameters)
@@ -540,7 +556,6 @@ response = Twilio.getCall(parameters)
 | - num_media | string, Format=integer | This property indicates the number of media files associated with the message. Each message may send up to 10 media files. |
 | - error_code | string | The error code, if any, associated with your message. If your message status is failed or undelivered, the ErrorCode can give you more information about the failure. |
 | - price_unit | string, Format=ISO 4127 | The currency in which Price is measured, in ISO 4127 format (e.g. usd, eur, jpy). |
-| - account_sid | string, Pattern=^[0-9a-zA-Z]{34}$ | The 34 character unique id of the Messaging Service you want to associate with this Message. |
 | - api_version | string, Format=date | The version of the Twilio API used to process the message. |
 | - date_created | string, Format=date | The date that this resource was created, given in RFC 2822 format. |
 | - date_updated | string, Format=date | The date that this resource was last updated, given in RFC 2822 format. |
@@ -552,10 +567,1238 @@ response = Twilio.getCall(parameters)
 ##### Example
 ```lua
 local parameters = { 
- MessageSid="WBQk64KpWKMubM86nUN232S8pIBeFMO4Qs"
+ MessageSid="vDitzhBmHAJG0ycnZjvQavlmsKnkABl9dw"
  }
 
 response = Twilio.getMessage(parameters)
+```
+
+
+---
+  
+## User Management Service
+
+>A User management service, allowing to set and configure roles and permission.
+
+### Operations
+
+#### listRoles
+
+>Returns the list of roles ignoring paramter.
+
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameter | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+
+##### Example
+```lua
+
+response = User.listRoles()
+```
+
+#### createRole
+
+>Creates role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role** | object | Properties of new role. |
+| -- role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- parameter | object[] |  |
+| --- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameter | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+|  400 | object | Fail to create. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ role={  }
+ }
+
+response = User.createRole(parameters)
+```
+
+#### listUsers
+
+>Returns the list of users.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - filter | string[] | Filter to limit the result set |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - id | string |  |
+| - name | string |  |
+| - email | string |  |
+| - country | string |  |
+| - verified | boolean |  |
+| - time_zone | string |  |
+| - properties | object[] |  |
+| - created_via | string | One of invite/email-signup/google/facebook |
+| - social_login | object |  |
+| -- google_data | object |  |
+| -- facebook_data | object |  |
+| - creation_date | integer |  |
+| - last_login_ip | string |  |
+| - last_login_date | integer |  |
+| - tos_accepted_date | integer |  |
+| - last_login_country | string |  |
+
+##### Example
+```lua
+local parameters = {  }
+
+response = User.listUsers(parameters)
+```
+
+#### createUser
+
+>Creates a new user
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **user** | object |  |
+| -- **name** | string |  |
+| -- **email** | string |  |
+| -- **password** | string |  |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | Activation code for the created user |
+|  400 | object | Fail to register. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ user={ 
+  email="ut exercitation", 
+  name="ea laboris veniam aliqua", 
+  password="quis ut"
+ }
+ }
+
+response = User.createUser(parameters)
+```
+
+#### getCurrentUser
+
+>Gets user by given Token.
+
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - id | string |  |
+| - name | string |  |
+| - email | string |  |
+| - country | string |  |
+| - verified | boolean |  |
+| - time_zone | string |  |
+| - properties | object[] |  |
+| - created_via | string | One of invite/email-signup/google/facebook |
+| - social_login | object |  |
+| -- google_data | object |  |
+| -- facebook_data | object |  |
+| - creation_date | integer |  |
+| - last_login_ip | string |  |
+| - last_login_date | integer |  |
+| - tos_accepted_date | integer |  |
+| - last_login_country | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+
+response = User.getCurrentUser()
+```
+
+#### getUser
+
+>Gets user by given User ID.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - id | string |  |
+| - name | string |  |
+| - email | string |  |
+| - country | string |  |
+| - verified | boolean |  |
+| - time_zone | string |  |
+| - properties | object[] |  |
+| - created_via | string | One of invite/email-signup/google/facebook |
+| - social_login | object |  |
+| -- google_data | object |  |
+| -- facebook_data | object |  |
+| - creation_date | integer |  |
+| - last_login_ip | string |  |
+| - last_login_date | integer |  |
+| - tos_accepted_date | integer |  |
+| - last_login_country | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="labore"
+ }
+
+response = User.getUser(parameters)
+```
+
+#### updateUser
+
+>Updates given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - **body** | object | Properties of user. |
+| -- name | string |  |
+| -- status | integer | 0: Not Activated 1: Activated 2: Disabled |
+| -- password | string |  |
+| -- original_password | string | Required if updating password. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - id | string |  |
+| - name | string |  |
+| - email | string |  |
+| - country | string |  |
+| - verified | boolean |  |
+| - time_zone | string |  |
+| - properties | object[] |  |
+| - created_via | string | One of invite/email-signup/google/facebook |
+| - social_login | object |  |
+| -- google_data | object |  |
+| -- facebook_data | object |  |
+| - creation_date | integer |  |
+| - last_login_ip | string |  |
+| - last_login_date | integer |  |
+| - tos_accepted_date | integer |  |
+| - last_login_country | string |  |
+|  400 | object | Fail to update. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ body={  }
+ }
+
+response = User.updateUser(parameters)
+```
+
+#### deleteUser
+
+>Deletes given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 |  | OK |
+|  400 | object | Fail to delete. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = {  }
+
+response = User.deleteUser(parameters)
+```
+
+#### listPerms
+
+>Returns the list of permissions.
+
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - method | string, Pattern=^[A-Z]{1,10}$ |  |
+| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+
+##### Example
+```lua
+
+response = User.listPerms()
+```
+
+#### createPermission
+
+>Adds permission.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **body** | object | Properties of new permission. |
+| -- method | string, Pattern=^[A-Z]{1,10}$ |  |
+| -- end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - method | string, Pattern=^[A-Z]{1,10}$ |  |
+| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+|  400 | object | Fail to create. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ body={  }
+ }
+
+response = User.createPermission(parameters)
+```
+
+#### getUserToken
+
+>Gets user's token by email and password.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **body** | object |  |
+| -- **email** | string |  |
+| -- **password** | string |  |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | Returns token. |
+|  400 | object | Returns if email or password is unmatched. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ body={ 
+  email="consectetur sit esse", 
+  password="amet"
+ }
+ }
+
+response = User.getUserToken(parameters)
+```
+
+#### activateUser
+
+>Activates user by given verification code.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **code** | string | The verification code returned from registeration. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | OK |
+|  400 | object | Returned when activation failed. |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ code="cillum dolore"
+ }
+
+response = User.activateUser(parameters)
+```
+
+#### getRole
+
+>Gets role by Role ID.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameter | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="ut irure ea Duis"
+ }
+
+response = User.getRole(parameters)
+```
+
+#### deleteRole
+
+>Delete given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - role_id | string | Role ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | OK |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = {  }
+
+response = User.deleteRole(parameters)
+```
+
+#### listUserRoles
+
+>Returns the list of assigned roles of given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameters | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="labore"
+ }
+
+response = User.listUserRoles(parameters)
+```
+
+#### assignUser
+
+>Assigns given roles to given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - **roles** | object[] | Roles being assigned to given user. |
+| -- role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- parameters | object[] |  |
+| --- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| --- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | Returns the list of assigned roles of given user. |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameters | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+|  400 | object | Fail to assign. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ roles={ 
+ { 
+["role_id"]="KhU8altc35gBiQpR1QBBXKhM7Z96-toTB"
+ }, 
+ { 
+["role_id"]="bia"
+ }, 
+ { 
+parameters={ 
+ { 
+value="RCHCqYso5z7W0RfHk693T3gmQgBgJyiiGy3U3oWYdgJ8Twy8Nygdqfl5n53Qkcabzna3q263cQR96TgLG2jKQr7d2hbeIG0DIv60"
+ }
+ }
+ }, 
+ { 
+parameters={ 
+ {  }, 
+ {  }
+ }
+ }
+ }
+ }
+
+response = User.assignUser(parameters)
+```
+
+#### listUserData
+
+>Returns key values of given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+
+##### Example
+```lua
+local parameters = { 
+ id="dolor amet esse ullamco"
+ }
+
+response = User.listUserData(parameters)
+```
+
+#### updateUserData
+
+>Updates key values of given user. (Should be moved?)
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - **key values** | object | New values of existent keys. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | Returns current key values of given user. |
+|  400 | object | Fail to update. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["key values"]={  }
+ }
+
+response = User.updateUserData(parameters)
+```
+
+#### createUserData
+
+>Adds key values to given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - **key values** | object | New key values being added to given user. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | Returns current key values of given user. |
+|  400 | object | Fail to add. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["key values"]={  }
+ }
+
+response = User.createUserData(parameters)
+```
+
+#### deleteUserData
+
+>Deletes key values from given user. (Should be moved?)
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - **keys** | string[] | Keys being deleted from given user. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | Returns current key values of given user. |
+|  400 | object | Fail to delete. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ keys={ 
+ "est", 
+ "aliquip exe", 
+ "aliquip labore mollit Ut"
+ }
+ }
+
+response = User.deleteUserData(parameters)
+```
+
+#### listRoleUsers
+
+>Returns the list of user IDs in given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string[] | OK |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="amet n"
+ }
+
+response = User.listRoleUsers(parameters)
+```
+
+#### deletePerm
+
+>Deletes given permission.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **perm_id** | string | urlencode({method}/{end_point}) |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 |  | OK |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["perm_id"]="ut sint"
+ }
+
+response = User.deletePerm(parameters)
+```
+
+#### getUserData
+
+>Returns the value of given key of given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+| - **key** | string | data key |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | The value of given key. |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="est", 
+ key="commodo eu quis"
+ }
+
+response = User.getUserData(parameters)
+```
+
+#### addRoleParam
+
+>Adds parameter definition to given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+| - **body** | object[] | Adding parameter definitions |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameter | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="tempor dolor velit", 
+ body={ 
+ {  }
+ }
+ }
+
+response = User.addRoleParam(parameters)
+```
+
+#### deassignUser
+
+>Deassigns given role from given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+| - **role_id** | string | Role ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | Returns the list of assigned roles for the given user. |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameters | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+|  400 | object | Fail to deassign. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="adipisicing consectetur Ut eiusmod", 
+ ["role_id"]="sit"
+ }
+
+response = User.deassignUser(parameters)
+```
+
+#### listRolePerms
+
+>Returns the list of permissions in given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - method | string, Pattern=^[A-Z]{1,10}$ |  |
+| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="in"
+ }
+
+response = User.listRolePerms(parameters)
+```
+
+#### addRolePerm
+
+>Adds permission to given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - role_id | string | Role ID |
+| - **body** | object[] | Adding permissions |
+| -- method | string, Pattern=^[A-Z]{1,10}$ |  |
+| -- end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - method | string, Pattern=^[A-Z]{1,10}$ |  |
+| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ body={ 
+ {  }, 
+ {  }, 
+ {  }, 
+ { 
+["end_point"]="mfGdTZAlQAhmGHBt-iRL{oq5Ho0en}BEO-AFlFJZlUBy0VQcOxIvTyDW/C{LoQjlB8xt2DEwFKcb4rTk3npBn76eqtjj}xOiznmyHOJvXxZEcpX{UsjmNOVwn0rhoE7"
+ }
+ }
+ }
+
+response = User.addRolePerm(parameters)
+```
+
+#### hasUserPerm
+
+>Checks if given user has given permission.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+| - **perm_id** | string | urlencode({method}/{end_point}) |
+| - parameters | string[] | Given specific parameter values if permission (end_point) has parameters. |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | OK |
+|  403 | object | Forbidden |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="aliquip ea", 
+ ["perm_id"]="Excepteur Duis"
+ }
+
+response = User.hasUserPerm(parameters)
+```
+
+#### deleteRolePerm
+
+>Deletes permission from given role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+| - **perm_id** | string | urlencode({method}/{end_point}) |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | OK |
+| - method | string, Pattern=^[A-Z]{1,10}$ |  |
+| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="fugiat", 
+ ["perm_id"]="laborum anim"
+ }
+
+response = User.deleteRolePerm(parameters)
+```
+
+#### deleteRoleParam
+
+>Deletes given role parameter definition.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+| - **parameter_name** | string | Parameter name |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | OK |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameter | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="Excepteur proident tempor", 
+ ["parameter_name"]="irure reprehe"
+ }
+
+response = User.deleteRoleParam(parameters)
+```
+
+#### listUserRoleParamValues
+
+>Returns the paginated list of values of given parameter name belong to given user role.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+| - **role_id** | string | Role ID |
+| - **parameter_name** | string | Parameter name |
+| - offset | integer | Pagination offset |
+| - limit | integer | Pagination limit |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object | Values of given parameter name. |
+| - items | string[] |  |
+| - total | integer |  |
+|  400 | object | Error message |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="pariatur et in", 
+ ["role_id"]="voluptate nisi enim sit", 
+ ["parameter_name"]="exercitation dolor sunt Lorem"
+ }
+
+response = User.listUserRoleParamValues(parameters)
+```
+
+#### deassignUserParamName
+
+>Deassigns given role with specific parameter name from given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - id | string | User ID |
+| - role_id | string | Role ID |
+| - parameter_name | string | Parameter name |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | Returns the list of assigned roles for the given user. |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameters | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+|  400 | object | Fail to deassign. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = {  }
+
+response = User.deassignUserParamName(parameters)
+```
+
+#### listRoleParamUsers
+
+>Returns the list of user IDs in given role with specific parameter.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+| - **parameter_name** | string | Parameter name |
+| - **parameter_value** | string | Parameter value |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string[] | OK |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="elit aliqua", 
+ ["parameter_name"]="in cupidatat", 
+ ["parameter_value"]="cillum aliqua non eiusmod"
+ }
+
+response = User.listRoleParamUsers(parameters)
+```
+
+#### hasUserRoleParam
+
+>Checks if given user has given role with specific parameter.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **role_id** | string | Role ID |
+| - **parameter_name** | string | Parameter name |
+| - **parameter_value** | string | Parameter value |
+| - **id** | string | User ID |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | string | OK |
+|  403 | object | Forbidden |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ ["role_id"]="nisi Duis aute consectetur", 
+ ["parameter_name"]="est mollit", 
+ ["parameter_value"]="occaecat", 
+ id="nisi"
+ }
+
+response = User.hasUserRoleParam(parameters)
+```
+
+#### deassignUserParam
+
+>Deassigns given role with specific parameter value from given user.
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **id** | string | User ID |
+| - **role_id** | string | Role ID |
+| - **parameter_name** | string | Parameter name |
+| - **parameter_value** | string | Parameter value |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 | object[] | Returns the list of assigned roles for the given user. |
+| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| - parameters | object[] |  |
+| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
+| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
+|  400 | object | Fail to deassign. |
+| - message | string | Error Message |
+| - status_code | string |  |
+|  404 | object | Not Found |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ id="nulla ullamco elit occaecat", 
+ ["role_id"]="qui ullamco Excepteur irure", 
+ ["parameter_name"]="pariatur voluptate eiusmod Duis", 
+ ["parameter_value"]="sint consequat"
+ }
+
+response = User.deassignUserParam(parameters)
 ```
 
 
@@ -642,7 +1885,7 @@ response = Keystore.clear()
 ##### Example
 ```lua
 local parameters = { 
- key="JCw-vjeGIObDOa25Ryinlr1M.ipo4VIJZgS.zEMl5a-8vBFLfQb8b_kizwpZfvjOJdrBKHtFsQyxn6GvJrpqZ9gyyy"
+ key="8-cIc_CqiAj3GesmtMC9wdfNFq@B_Ni93dc85lwNRbMBVkTKr1m9y4A22@Dvin"
  }
 
 response = Keystore.get(parameters)
@@ -657,8 +1900,9 @@ response = Keystore.get(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - **key** | string, Pattern=^[\w\@\.\-]+$ | Key id |
-| - value | string,number,boolean,null | Value |
+| - key | string, Pattern=^[\w\@\.\-]+$ | Key id |
+| - **body** | object | Value to set |
+| -- **value** | string,number,boolean,null | Value |
 
 ##### responses
 
@@ -675,7 +1919,9 @@ response = Keystore.get(parameters)
 ##### Example
 ```lua
 local parameters = { 
- key="1Ty@2RGKhGzEar4OiotAG5sB9HmO9MPBtmHrgw3sT7P_sz2mGxh0wVNAMZGk-SCFQsE2"
+ body={ 
+  value=nil
+ }
  }
 
 response = Keystore.set(parameters)
@@ -690,7 +1936,7 @@ response = Keystore.set(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - **key** | string, Pattern=^[\w\@\.\-]+$ | Key id |
+| - key | string, Pattern=^[\w\@\.\-]+$ | Key id |
 
 ##### responses
 
@@ -706,9 +1952,7 @@ response = Keystore.set(parameters)
 
 ##### Example
 ```lua
-local parameters = { 
- key="44r3NnmXH0kzNPgEHqI1hifNK_MnGghCg"
- }
+local parameters = {  }
 
 response = Keystore.delete(parameters)
 ```
@@ -724,7 +1968,8 @@ response = Keystore.delete(parameters)
 |  parameters | object | Object containing service call parameters. |
 | - **key** | string, Pattern=^[\w\@\.\-]+$ | Target key |
 | - **command** | string | Command to execute on the key |
-| - args | string,number,boolean[] | List of arguments |
+| - **body** | object | Command Value |
+| -- args | string,number,boolean[] | List of arguments |
 
 ##### responses
 
@@ -742,1299 +1987,12 @@ response = Keystore.delete(parameters)
 ##### Example
 ```lua
 local parameters = { 
- key="0km94ktnPZ47IPum114Dw7S8nmQ4nyXMJcpHFgI2NGPqB79.zY8LrLcOWcPsiZzkJHVQ9nZvj", 
- command="lindex"
+ key="hXoE5iToR.FIz3cV39uhz6HUbndqeYeuqyNfgGNjUrlgeChlolU3M4etTx9sOjMAjw6s1@DY65R8", 
+ command="decrby", 
+ body={  }
  }
 
 response = Keystore.command(parameters)
-```
-
-
----
-  
-## User Management Service
-
->A User management service, allowing to set and configure roles and permission.
-
-### Operations
-
-#### listRoles
-
->Returns the list of roles ignoring paramter.
-
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-
-##### Example
-```lua
-
-response = User.listRoles()
-```
-
-#### createRole
-
->Creates role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-|  400 | object | Fail to create. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- parameter={ 
- {  }, 
- {  }, 
- {  }
- }
- }
-
-response = User.createRole(parameters)
-```
-
-#### listUsers
-
->Returns the list of users.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - filter | string[] | Filter to limit the result set |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - id | string |  |
-| - name | string |  |
-| - email | string |  |
-| - country | string |  |
-| - verified | boolean |  |
-| - time_zone | string |  |
-| - properties | object[] |  |
-| - created_via | string | One of invite/email-signup/google/facebook |
-| - social_login | object |  |
-| -- google_data | object |  |
-| -- facebook_data | object |  |
-| - creation_date | integer |  |
-| - last_login_ip | string |  |
-| - last_login_date | integer |  |
-| - tos_accepted_date | integer |  |
-| - last_login_country | string |  |
-
-##### Example
-```lua
-local parameters = {  }
-
-response = User.listUsers(parameters)
-```
-
-#### createUser
-
->Creates a new user
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - name | string |  |
-| - email | string |  |
-| - password | string |  |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | Activation code for the created user |
-|  400 | object | Fail to register. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- name="sed do"
- }
-
-response = User.createUser(parameters)
-```
-
-#### getCurrentUser
-
->Gets user by given Token.
-
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - id | string |  |
-| - name | string |  |
-| - email | string |  |
-| - country | string |  |
-| - verified | boolean |  |
-| - time_zone | string |  |
-| - properties | object[] |  |
-| - created_via | string | One of invite/email-signup/google/facebook |
-| - social_login | object |  |
-| -- google_data | object |  |
-| -- facebook_data | object |  |
-| - creation_date | integer |  |
-| - last_login_ip | string |  |
-| - last_login_date | integer |  |
-| - tos_accepted_date | integer |  |
-| - last_login_country | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-
-response = User.getCurrentUser()
-```
-
-#### getUser
-
->Gets user by given User ID.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - id | string |  |
-| - name | string |  |
-| - email | string |  |
-| - country | string |  |
-| - verified | boolean |  |
-| - time_zone | string |  |
-| - properties | object[] |  |
-| - created_via | string | One of invite/email-signup/google/facebook |
-| - social_login | object |  |
-| -- google_data | object |  |
-| -- facebook_data | object |  |
-| - creation_date | integer |  |
-| - last_login_ip | string |  |
-| - last_login_date | integer |  |
-| - tos_accepted_date | integer |  |
-| - last_login_country | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="dolor officia nisi"
- }
-
-response = User.getUser(parameters)
-```
-
-#### updateUser
-
->Updates given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - name | string |  |
-| - status | integer | 0: Not Activated 1: Activated 2: Disabled |
-| - password | string |  |
-| - original_password | string | Required if updating password. |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - id | string |  |
-| - name | string |  |
-| - email | string |  |
-| - country | string |  |
-| - verified | boolean |  |
-| - time_zone | string |  |
-| - properties | object[] |  |
-| - created_via | string | One of invite/email-signup/google/facebook |
-| - social_login | object |  |
-| -- google_data | object |  |
-| -- facebook_data | object |  |
-| - creation_date | integer |  |
-| - last_login_ip | string |  |
-| - last_login_date | integer |  |
-| - tos_accepted_date | integer |  |
-| - last_login_country | string |  |
-|  400 | object | Fail to update. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="veniam", 
- password="aute nulla", 
- status=83310552
- }
-
-response = User.updateUser(parameters)
-```
-
-#### deleteUser
-
->Deletes given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 |  | OK |
-|  400 | object | Fail to delete. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="proident in"
- }
-
-response = User.deleteUser(parameters)
-```
-
-#### listPerms
-
->Returns the list of permissions.
-
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-
-##### Example
-```lua
-
-response = User.listPerms()
-```
-
-#### createPermission
-
->Adds permission.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-|  400 | object | Fail to create. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- method="MNZHIQC"
- }
-
-response = User.createPermission(parameters)
-```
-
-#### getUserToken
-
->Gets user's token by email and password.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - email | string |  |
-| - password | string |  |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | Returns token. |
-|  400 | object | Returns if email or password is unmatched. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- password="aliquip do officia nulla"
- }
-
-response = User.getUserToken(parameters)
-```
-
-#### activateUser
-
->Activates user by given verification code.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **code** | string | The verification code returned from registeration. |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | OK |
-|  400 | object | Returned when activation failed. |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- code="cillum aliqua velit ipsum"
- }
-
-response = User.activateUser(parameters)
-```
-
-#### getRole
-
->Gets role by Role ID.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="do pariatur quis"
- }
-
-response = User.getRole(parameters)
-```
-
-#### deleteRole
-
->Delete given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | OK |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="sunt Excepteur"
- }
-
-response = User.deleteRole(parameters)
-```
-
-#### listUserRoles
-
->Returns the list of assigned roles of given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameters | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="dolor"
- }
-
-response = User.listUserRoles(parameters)
-```
-
-#### assignUser
-
->Assigns given roles to given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **roles** | object[] | Roles being assigned to given user. |
-| -- role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- parameters | object[] |  |
-| --- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| --- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | Returns the list of assigned roles of given user. |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameters | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-|  400 | object | Fail to assign. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="i", 
- roles={ 
- {  }, 
- { 
-parameters={ 
- { 
-name="OkxfK_zVFpgeVLkhrN52z77mzmDxmFmQdvR"
- }, 
- { 
-value="C6yKWFARwJNY3t6Jnqj3yzieg3EMzRwulUhDw08HaQU4QJDbmdSKaUP"
- }, 
- { 
-value="gcSE0BvccajNB1riUORDzArz3lYobJMg75bBvMXzQWiHUkjf7oe122WUdWEATNiTNE7PwfHqBbdl0OdeRsqWCwgQ3"
- }
- }
- }, 
- {  }, 
- {  }
- }
- }
-
-response = User.assignUser(parameters)
-```
-
-#### listUserData
-
->Returns key values of given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-
-##### Example
-```lua
-local parameters = { 
- id="minim sunt"
- }
-
-response = User.listUserData(parameters)
-```
-
-#### updateUserData
-
->Updates key values of given user. (Should be moved?)
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | Returns current key values of given user. |
-|  400 | object | Fail to update. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="ame"
- }
-
-response = User.updateUserData(parameters)
-```
-
-#### createUserData
-
->Adds key values to given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | Returns current key values of given user. |
-|  400 | object | Fail to add. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="laboris enim anim"
- }
-
-response = User.createUserData(parameters)
-```
-
-#### deleteUserData
-
->Deletes key values from given user. (Should be moved?)
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **keys** | string[] | Keys being deleted from given user. |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | Returns current key values of given user. |
-|  400 | object | Fail to delete. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="ipsum aliquip", 
- keys={ 
- "sed", 
- "aliqua aliquip", 
- "dolor culpa"
- }
- }
-
-response = User.deleteUserData(parameters)
-```
-
-#### listRoleUsers
-
->Returns the list of user IDs in given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string[] | OK |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="of"
- }
-
-response = User.listRoleUsers(parameters)
-```
-
-#### deletePerm
-
->Deletes given permission.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **perm_id** | string | urlencode({method}/{end_point}) |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 |  | OK |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["perm_id"]="nisi fugiat deserunt"
- }
-
-response = User.deletePerm(parameters)
-```
-
-#### getUserData
-
->Returns the value of given key of given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **key** | string | data key |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | The value of given key. |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="dolor", 
- key="mollit officia"
- }
-
-response = User.getUserData(parameters)
-```
-
-#### addRoleParam
-
->Adds parameter definition to given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **body** | object[] | Adding parameter definitions |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="minim laboris ipsum tempor", 
- body={ 
- {  }
- }
- }
-
-response = User.addRoleParam(parameters)
-```
-
-#### deassignUser
-
->Deassigns given role from given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **role_id** | string | Role ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | Returns the list of assigned roles for the given user. |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameters | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-|  400 | object | Fail to deassign. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="amet", 
- ["role_id"]="irure dolore proident dolor"
- }
-
-response = User.deassignUser(parameters)
-```
-
-#### listRolePerms
-
->Returns the list of permissions in given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="esse consequat"
- }
-
-response = User.listRolePerms(parameters)
-```
-
-#### addRolePerm
-
->Adds permission to given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **body** | object[] | Adding permissions |
-| -- method | string, Pattern=^[A-Z]{1,10}$ |  |
-| -- end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="laborum do", 
- body={ 
- {  }, 
- {  }
- }
- }
-
-response = User.addRolePerm(parameters)
-```
-
-#### hasUserPerm
-
->Checks if given user has given permission.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **perm_id** | string | urlencode({method}/{end_point}) |
-| - parameters | string[] | Given specific parameter values if permission (end_point) has parameters. |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | OK |
-|  403 | object | Forbidden |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="ullamco exercitation Lorem consectetur", 
- ["perm_id"]="magna"
- }
-
-response = User.hasUserPerm(parameters)
-```
-
-#### deleteRolePerm
-
->Deletes permission from given role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **perm_id** | string | urlencode({method}/{end_point}) |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | OK |
-| - method | string, Pattern=^[A-Z]{1,10}$ |  |
-| - end_point | string, Pattern=^[A-Za-z0-9\-\/_\{\}]{1,150}$ | Can not end with a forward slash |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="minim tempor nostrud do", 
- ["perm_id"]="eu officia anim"
- }
-
-response = User.deleteRolePerm(parameters)
-```
-
-#### deleteRoleParam
-
->Deletes given role parameter definition.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | OK |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitive unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameter | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="ea Excepteur", 
- ["parameter_name"]="vo"
- }
-
-response = User.deleteRoleParam(parameters)
-```
-
-#### listUserRoleParamValues
-
->Returns the paginated list of values of given parameter name belong to given user role.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-| - offset | integer | Pagination offset |
-| - limit | integer | Pagination limit |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object | Values of given parameter name. |
-| - items | string[] |  |
-| - total | integer |  |
-|  400 | object | Error message |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="ut dolore", 
- ["role_id"]="do sunt ullamco", 
- ["parameter_name"]="laboris amet"
- }
-
-response = User.listUserRoleParamValues(parameters)
-```
-
-#### deassignUserParamName
-
->Deassigns given role with specific parameter name from given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | Returns the list of assigned roles for the given user. |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameters | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-|  400 | object | Fail to deassign. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="incididunt exercitation", 
- ["role_id"]="exercit", 
- ["parameter_name"]="do"
- }
-
-response = User.deassignUserParamName(parameters)
-```
-
-#### listRoleParamUsers
-
->Returns the list of user IDs in given role with specific parameter.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-| - **parameter_value** | string | Parameter value |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string[] | OK |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="exercitation", 
- ["parameter_name"]="ea", 
- ["parameter_value"]="tempor"
- }
-
-response = User.listRoleParamUsers(parameters)
-```
-
-#### hasUserRoleParam
-
->Checks if given user has given role with specific parameter.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-| - **parameter_value** | string | Parameter value |
-| - **id** | string | User ID |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | string | OK |
-|  403 | object | Forbidden |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- ["role_id"]="magna irure in", 
- ["parameter_name"]="in dolore", 
- ["parameter_value"]="occaecat Lorem", 
- id="sint"
- }
-
-response = User.hasUserRoleParam(parameters)
-```
-
-#### deassignUserParam
-
->Deassigns given role with specific parameter value from given user.
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **id** | string | User ID |
-| - **role_id** | string | Role ID |
-| - **parameter_name** | string | Parameter name |
-| - **parameter_value** | string | Parameter value |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 | object[] | Returns the list of assigned roles for the given user. |
-| - role_id | string, Pattern=^[A-Za-z0-9\-_]{1,80}$ | Case-insensitie unique id in roles. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| - parameters | object[] |  |
-| -- name | string, Pattern=^[A-Za-z0-9\-_]{1,40}$ | Case-insensitive unique name in roles' parameters. Keywords: me, user(s), permission(s), role(s), parameter(s), group(s), member(s) |
-| -- value | string, Pattern=^[A-Za-z0-9]{1,100}$ |  |
-|  400 | object | Fail to deassign. |
-| - message | string | Error Message |
-| - status_code | string |  |
-|  404 | object | Not Found |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = { 
- id="enim aute", 
- ["role_id"]="e", 
- ["parameter_name"]="cillum sit sint exer", 
- ["parameter_value"]="occaecat"
- }
-
-response = User.deassignUserParam(parameters)
-```
-
-
----
-  
-## Time Series Storage Service
-
->A time series storage using InfluxDB
-
-### Operations
-
-#### query
-
->Queries in DB of given solution id
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - **q** | string | query string |
-| - epoch | string | timestamps in Unix epoch format |
-| - chunk_size | string | explicitly set the batch size |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  200 |  | OK |
-
-##### Example
-```lua
-local parameters = { 
- q="dolore aute"
- }
-
-response = Timeseries.query(parameters)
-```
-
-#### write
-
->Writes data into DB of given solution id
-
-##### Parameters
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  parameters | object | Object containing service call parameters. |
-| - query | string |  |
-
-##### responses
-
-| Name        | Type          | Description  |
-| ----------- |:-------------:| ------------ |
-|  204 |  | OK |
-|  400 | object | Bad request |
-| - message | string | Error Message |
-| - status_code | string |  |
-
-##### Example
-```lua
-local parameters = {  }
-
-response = Timeseries.write(parameters)
 ```
 
 
@@ -2057,19 +2015,19 @@ on the date and time on which the schedule is created.
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - message | string,object | The message to send when the timer is hit |
-| - duration | integer | The duration of the timer in milliseconds.
+| - timer_spec | object | The timer specification |
+| -- message | string,object | The message to send when the timer is hit |
+| -- duration | integer | The duration of the timer in milliseconds.
 Required for send_after and send_interval,
 ignored for scheduled tasks.
  |
-| - schedule | object |  |
-| -- daily | boolean | This task should occur daily |
-| -- hourly | boolean | This task should occur hourly |
-| -- weekly | boolean | This task should occur weekly |
-| -- yearly | boolean | This task should occur yearly |
-| -- monthly | boolean | This task should occur monthly |
-| - timer_id | string | The ID of the timer. If null, it will be generated for you. |
-| - **solution_id** | string | The ID of the solution this timer is associated with. |
+| -- schedule | object |  |
+| --- daily | boolean | This task should occur daily |
+| --- hourly | boolean | This task should occur hourly |
+| --- weekly | boolean | This task should occur weekly |
+| --- yearly | boolean | This task should occur yearly |
+| --- monthly | boolean | This task should occur monthly |
+| -- timer_id | string | The ID of the timer. If null, it will be generated for you. |
 
 ##### responses
 
@@ -2084,9 +2042,7 @@ ignored for scheduled tasks.
 
 ##### Example
 ```lua
-local parameters = { 
- ["solution_id"]="anim in"
- }
+local parameters = {  }
 
 response = Timer.schedule(parameters)
 ```
@@ -2101,19 +2057,19 @@ response = Timer.schedule(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - message | string,object | The message to send when the timer is hit |
-| - duration | integer | The duration of the timer in milliseconds.
+| - timer_spec | object | The timer specification |
+| -- message | string,object | The message to send when the timer is hit |
+| -- duration | integer | The duration of the timer in milliseconds.
 Required for send_after and send_interval,
 ignored for scheduled tasks.
  |
-| - schedule | object |  |
-| -- daily | boolean | This task should occur daily |
-| -- hourly | boolean | This task should occur hourly |
-| -- weekly | boolean | This task should occur weekly |
-| -- yearly | boolean | This task should occur yearly |
-| -- monthly | boolean | This task should occur monthly |
-| - timer_id | string | The ID of the timer. If null, it will be generated for you. |
-| - **solution_id** | string | The ID of the solution this timer is associated with. |
+| -- schedule | object |  |
+| --- daily | boolean | This task should occur daily |
+| --- hourly | boolean | This task should occur hourly |
+| --- weekly | boolean | This task should occur weekly |
+| --- yearly | boolean | This task should occur yearly |
+| --- monthly | boolean | This task should occur monthly |
+| -- timer_id | string | The ID of the timer. If null, it will be generated for you. |
 
 ##### responses
 
@@ -2128,10 +2084,7 @@ ignored for scheduled tasks.
 
 ##### Example
 ```lua
-local parameters = { 
- ["solution_id"]="enim consectetur mollit laborum", 
- ["timer_id"]="reprehenderit quis"
- }
+local parameters = {  }
 
 response = Timer.sendAfter(parameters)
 ```
@@ -2146,19 +2099,19 @@ response = Timer.sendAfter(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - message | string,object | The message to send when the timer is hit |
-| - duration | integer | The duration of the timer in milliseconds.
+| - timer_spec | object | The timer specification |
+| -- message | string,object | The message to send when the timer is hit |
+| -- duration | integer | The duration of the timer in milliseconds.
 Required for send_after and send_interval,
 ignored for scheduled tasks.
  |
-| - schedule | object |  |
-| -- daily | boolean | This task should occur daily |
-| -- hourly | boolean | This task should occur hourly |
-| -- weekly | boolean | This task should occur weekly |
-| -- yearly | boolean | This task should occur yearly |
-| -- monthly | boolean | This task should occur monthly |
-| - timer_id | string | The ID of the timer. If null, it will be generated for you. |
-| - **solution_id** | string | The ID of the solution this timer is associated with. |
+| -- schedule | object |  |
+| --- daily | boolean | This task should occur daily |
+| --- hourly | boolean | This task should occur hourly |
+| --- weekly | boolean | This task should occur weekly |
+| --- yearly | boolean | This task should occur yearly |
+| --- monthly | boolean | This task should occur monthly |
+| -- timer_id | string | The ID of the timer. If null, it will be generated for you. |
 
 ##### responses
 
@@ -2173,12 +2126,7 @@ ignored for scheduled tasks.
 
 ##### Example
 ```lua
-local parameters = { 
- ["solution_id"]="dolore consectetur ad", 
- duration=-90028197, 
- message="qui occaecat in", 
- schedule={  }
- }
+local parameters = {  }
 
 response = Timer.sendInterval(parameters)
 ```
@@ -2208,7 +2156,7 @@ response = Timer.sendInterval(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ["timer_id"]=""
+ ["timer_id"]="eiusmod veniam laboris occaecat"
  }
 
 response = Timer.cancel(parameters)
@@ -2247,7 +2195,7 @@ response = Timer.cancel_all()
 
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
-|  **request** | object | The infomation of timer data |
+|  request | object | The infomation of timer data |
 | - message | object | The message to send when the timer is hit |
 | - **timer_id** | string | The ID of the timer. If null, it will be generated for you.
  |
@@ -2294,8 +2242,8 @@ end
 ##### Example
 ```lua
 local parameters = { 
- ["socket_id"]="ut", 
- ["server_ip"]="108.224.151.197"
+ ["socket_id"]="non", 
+ ["server_ip"]="32.12.149.104"
  }
 
 response = Websocket.get(parameters)
@@ -2310,8 +2258,8 @@ response = Websocket.get(parameters)
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - **socket_id** | string | The Websocket channel ID |
-| - **server_ip** | string, Format=ipv4 | The server ip address to hold websocket connection |
+| - socket_id | string | The Websocket channel ID |
+| - server_ip | string, Format=ipv4 | The server ip address to hold websocket connection |
 
 ##### responses
 
@@ -2323,8 +2271,7 @@ response = Websocket.get(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ["socket_id"]="et", 
- ["server_ip"]="2.97.133.155"
+ ["server_ip"]="85.47.149.123"
  }
 
 response = Websocket.close(parameters)
@@ -2341,8 +2288,9 @@ response = Websocket.close(parameters)
 |  parameters | object | Object containing service call parameters. |
 | - **socket_id** | string | The Websocket channel ID |
 | - server_ip | string, Format=ipv4 | The server ip address to hold websocket connection |
-| - type | string | Message type |
-| - message | string | Content of the message |
+| - **body** | object | The data to be sent to end-user websocket |
+| -- type | string | Message type |
+| -- message | string | Content of the message |
 
 ##### responses
 
@@ -2354,7 +2302,8 @@ response = Websocket.close(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ["socket_id"]="commodo"
+ ["socket_id"]="adipisicing", 
+ body={  }
  }
 
 response = Websocket.send(parameters)
@@ -2381,7 +2330,6 @@ response = Websocket.send(parameters)
 | - socket_id | string | Unique socket id use to communicate with end user |
 | - timestamp | integer | Request timestamp |
 | - parameters | object | The http request query parameters |
-| - solution_id | string | The Murano solution Id |
 | - message_type | string | The websocket message type |
 
 
@@ -2393,6 +2341,75 @@ function handle_websocket_websocket_info (websocket_info)
 
 end
 ```
+
+---
+  
+## Time Series Storage Service
+
+>A time series storage using InfluxDB
+
+### Operations
+
+#### query
+
+>Queries in DB of given solution id
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **q** | string | query string |
+| - epoch | string | timestamps in Unix epoch format |
+| - chunk_size | string | explicitly set the batch size |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  200 |  | OK |
+
+##### Example
+```lua
+local parameters = { 
+ q="ex"
+ }
+
+response = Timeseries.query(parameters)
+```
+
+#### write
+
+>Writes data into DB of given solution id
+
+##### Parameters
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  parameters | object | Object containing service call parameters. |
+| - **body** | object |  |
+| -- **query** | string |  |
+
+##### responses
+
+| Name        | Type          | Description  |
+| ----------- |:-------------:| ------------ |
+|  204 |  | OK |
+|  400 | object | Bad request |
+| - message | string | Error Message |
+| - status_code | string |  |
+
+##### Example
+```lua
+local parameters = { 
+ body={ 
+  query="culpa in"
+ }
+ }
+
+response = Timeseries.write(parameters)
+```
+
 
 ---
   
@@ -2411,19 +2428,20 @@ end
 | Name        | Type          | Description  |
 | ----------- |:-------------:| ------------ |
 |  parameters | object | Object containing service call parameters. |
-| - cc | string[], Format=email | Carbon copy destinator(s) |
-| - **to** | string[], Format=email | Destinator(s) |
-| - bcc | string[], Format=email | Blind carbon copy destinator(s) |
-| - **from** | string, Format=email | Sender of the email |
-| - html | string, Format=html | The message in HTML |
-| - **text** | string | The message text |
-| - **subject** | string | Email subject |
-| - **connection** | object | An SMTP connection |
-| -- port | integer | The smtp server port |
-| -- **user** | string | The smtp server account |
-| -- scheme | string | The smtp server |
-| -- **server** | string, Format=uri | The smtp server |
-| -- **password** | string | The smtp server password |
+| - **email** | object | The email data |
+| -- cc | string[], Format=email | Carbon copy destinator(s) |
+| -- **to** | string[], Format=email | Destinator(s) |
+| -- bcc | string[], Format=email | Blind carbon copy destinator(s) |
+| -- **from** | string, Format=email | Sender of the email |
+| -- html | string, Format=html | The message in HTML |
+| -- **text** | string | The message text |
+| -- **subject** | string | Email subject |
+| -- connection | object | An SMTP connection |
+| --- port | integer | The smtp server port |
+| --- **user** | string | The smtp server account |
+| --- scheme | string | The smtp server |
+| --- **server** | string, Format=uri | The smtp server |
+| --- **password** | string | The smtp server password |
 
 ##### responses
 
@@ -2437,19 +2455,24 @@ end
 ##### Example
 ```lua
 local parameters = { 
- to={ 
- "StWFL56Hlj@vIGaveTIQVUDCTfNi.shlr", 
- "c1cBYYuh@KIGwLQvrLKXhxUOnFWaInNYTCxfD.qzr", 
- "qKBe@mVpJ.oztg"
+ email={ 
+  from="8OFFFjFMnAYkG@RZLzbIYJznzfdLFtWRAgEH.vwv", 
+  to="VKNWZIAEV@gMkPcGzgRvpyXkoJLPsCOoiR.pahs", 
+  subject="qui incididunt cillum minim", 
+  text="quis aliquip eiusmod deserunt", 
+  bcc={ 
+ "DoiozP9lib1ufP@kVTTsWMudHfOuncYWSTtMrcBizoMhu.mudl", 
+ "MASdku3kaU2f5-F@DJbdgwBxyPCvlYfAsmdqrWNummpuwkZg.mk", 
+ "l52UU@OvZC.ev", 
+ "cBIR-7hUXDdzd@GHaMUSgDSRXyParlOcVtEs.ywsm"
  }, 
- from="tWGQrElGxc49H@GyzbtYrKnPOwtWEBuTXlzDRHT.efqe", 
- text="culpa enim laborum ullamco", 
- subject="cupidatat laborum occaecat", 
- connection={ 
-  server="H1DHRR9mDrWn8v2BZubWnr0go8DFFSrcGfh7eolH7zIdhtu,,llsIYEVZy2", 
-  user="deserunt Lorem", 
-  password="magna", 
-  port=-82657979
+  cc="WtI5uGJYznD@KFOKdd.icar", 
+  connection={ 
+   server="ZWk6l1JU7Jb9iwjG.7E.Hoeit3xvnnYQ24QeCEs9BwD2k+g.tu2WLF.+xqDqkU0a2y0Wc0bpTRQjCUCRs5dUkV,--Nh0+rOh5pJ", 
+   user="aliquip deserunt", 
+   password="minim in Duis", 
+   scheme="smtps"
+ }
  }
  }
 
@@ -2476,9 +2499,10 @@ response = Email.send(parameters)
 |  parameters | object | Object containing service call parameters. |
 | - **request_id** | string | The request id associated with the custom api call. |
 | - server_ip | string, Format=ipv4 | The server ip address to hold websocket connection |
-| - code | integer | The http response status code |
-| - headers | object | optional http response headers |
-| - message | string | The http response body |
+| - **response** | object | The data from the response |
+| -- **code** | integer | The http response status code |
+| -- **headers** | object | optional http response headers |
+| -- **message** | string | The http response body |
 
 ##### responses
 
@@ -2490,8 +2514,12 @@ response = Email.send(parameters)
 ##### Example
 ```lua
 local parameters = { 
- ["request_id"]="esse in laboris in", 
- ["server_ip"]="204.214.32.94"
+ ["request_id"]="in exercitation", 
+ response={ 
+  code=-64108128, 
+  headers={  }, 
+  message="id"
+ }
  }
 
 response = Webservice.api_reply(parameters)
@@ -2518,7 +2546,6 @@ response = Webservice.api_reply(parameters)
 | - timestamp | integer | Request timestamp |
 | - parameters | object | The http request query parameters |
 | - request_id | string | Unique message id use to match with the response |
-| - **solution_id** | string | The Murano solution Id |
 
 
 ##### Example
