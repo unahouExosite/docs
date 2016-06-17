@@ -21,7 +21,7 @@ ExositeReady™ software is code created by Exosite or in collaboration with par
 Production quality IoT device client SDKs and Frameworks created, certified, and supported by Exosite.
 
 ## EMBEDDED SDK
-The ExositeReady™ Certified Embedded open-source SDK contains a framework, platform porting level, and utilities written in C for embedded devices. This SDK implements Exosite platform specific APIs and platform interactions in addition to providing an example application for each hardware platform port. The SDK is for engineers developing firmware for their embedded device products.
+The ExositeReady™ Embedded SDK is an open-source software framework, written in ANSI C, containing application software for controlling devices’ communication with the Exosite platform. It compiles various third-party libraries for basic protocol functionality as well as implementing all the common logic needed to interact with the platform. Exosite also provides several ports to select hardware platforms, including various application examples, to accelerate your application development. The SDK is for engineers developing firmware for their embedded device products, it is generally targeted for use in creating end-node devices and not gateways.
 
 <table width="100%">
     <tr>
