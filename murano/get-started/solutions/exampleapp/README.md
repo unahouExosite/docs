@@ -12,7 +12,7 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 * Real Time Device Data
 * Device Control
 
-If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Create A Murano Account Now</a>
+If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
 This tutorial assumes you have some familiarity with your operating system's terminal. In order to complete this tutorial you will need the following installed on your system:
 
