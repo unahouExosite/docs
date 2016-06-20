@@ -214,7 +214,7 @@ gulp.task('il-img', function() {
 });
 
 gulp.task('assets', function() {
-  return gulp.src(['_static/**/*', '!_static/_*/**'])
+  return gulp.src(['_static/**/*', '!_static/**/*.html', '!_static/_*/**'])
     //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site'));
 });
