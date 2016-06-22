@@ -3,6 +3,13 @@ title: Murano Getting Started - Products - ESP8266 Thing Dev Board
 template: default
 ---
 
+If you don’t already have a Murano account
+
+<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
+
+NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.
+
+
 # Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
 
 This example walks through setting up a ESP8266 Thing Dev Board to act as a Smart Lightbulb
