@@ -7,7 +7,7 @@ If you don’t already have a Murano account
 
 <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
-NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.
+**NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.**
 
 
 # Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
@@ -17,6 +17,7 @@ with Murano.  Users can feel free to customize after walking through this guide 
 created a full Product instance that supports a deployment of devices specific to that Product.
 Product definition can be updated and more devices can be added.  After walking through these steps,
 users will be interacting with live device data using a prototype developer dashboard tool.  
+
 After this, users can go through the Murano Solution examples to deploy a Example consumer web application
 that works with this product demo.
 
@@ -36,9 +37,12 @@ that works with this product demo.
 
 # Software Setup
 ## Setup Arduino IDE and Libraries
-0. Install Arduino (if you haven't used it before) [arduino.cc](https://www.arduino.cc/en/Main/Software)
-1. Install ESP8266 Thing Dev Board support using Arduino Board Manager - [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
-2. Install Exosite Arduino Library  - Use Arduino Library Manager, search for `Exosite`. _(Make sure you have Version 2.4.1 or greater)_
+0. [Install Arduino](https://www.arduino.cc/en/Main/Software) if you haven't used it before). New to Arduino? Check out the [Arduino Get Started page](https://www.arduino.cc/en/Guide/HomePage).
+1. Paste this link into your board manager (Arduino > Preferences) to install ESP8266 Thing Dev Board: [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
+
+![search exosite](assets/paste_esp8266_link.png)
+
+2. Install Exosite Arduino Library, Adafruit DHT Unified, and DHT Sensor Library - Use Arduino Library Manager, search for `Exosite` and `DHT`. _(Make sure you have Version 2.4.1 or greater)_
 
    _More info: [Exosite Arduino Library Details](https://github.com/exosite-garage/arduino_exosite_library)_
    ![search exosite](assets/library_manager.png)
