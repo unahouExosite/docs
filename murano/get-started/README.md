@@ -13,7 +13,11 @@ You can choose from several starting points when creating a product depending on
     <tr>
       <th colspan="2" style="font-weight: bold;">Murano Products - Getting Started Device Examples</th>
     </tr>
-    <tr>
+    	<tr>
+        <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
+        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Python Device Simulator Script](products/pythonsim)</td>
+    </tr>
+	<tr>
         <td style="text-align: center;">![IoT Thing Dev](assets/iotthing.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[IoT Thing Dev board by Sparkfun - Arduino based example code and Hook-up Guide](products/esp8266_thingdev_murano_smart_lightbulb)</td>
     </tr>
@@ -21,10 +25,7 @@ You can choose from several starting points when creating a product depending on
         <td style="text-align: center;">![Manual](assets/manual.png)</td>
         <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Manually Activate and Write Data using API commands](products/manualdevice)</td>
     </tr>
-    <tr>
-        <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Python Device Simulator Script](products/pythonsim)</td>
-    </tr>
+    
 </table>
 
 At the end of these walk-throughs, you should have a physical device or simulated device that represents a Smart Lightbulb:
