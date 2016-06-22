@@ -8,7 +8,8 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   fm = require('front-matter'),
   fs = require('fs'),
-  clone = require('clone');
+  clone = require('clone'),
+  exec = require('child_process').exec;
 
 var defaultTemplate = new Buffer(fs.readFileSync("_static/_layouts/default.html"));
 var twoColumnTemplate = new Buffer(fs.readFileSync("_static/_layouts/two-column.html"));
@@ -111,10 +112,18 @@ function convert_to_final_path(rel_path) {
   };
 }
 
-gulp.task('default', ['md', 'js', 'css', 'img', 'html', 'assets', 'il-img', 'write-search-index']);
+gulp.task('default', ['fetch-svc-docs', 'md', 'js', 'css', 'img', 'html', 'assets', 'il-img', 'write-search-index']);
 
 gulp.task('write-search-index', ['md'], function() {
   fs.writeFileSync('_site/search_index.json', JSON.stringify(site_search_index), 'utf8');
+});
+
+gulp.task('fetch-svc-docs', function (cb) {
+  exec('./fetch_svc_docs.sh', function (err, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(err);
+  });
 });
 
 gulp.task('md', function() {
