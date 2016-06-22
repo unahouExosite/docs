@@ -34,8 +34,9 @@ At the end of these walk-throughs, you should have a physical device or simulate
  * Remote on/off control
 
 
-## Quick-Start: Creating Application Solutions
+## GETTING STARTED: CREATE A SOLUTION
 Murano walks you through cloning and deploying a sample Smart Light bulb consumer application.  
+
 
 <table width="100%">
     <tr>
