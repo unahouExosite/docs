@@ -126,7 +126,7 @@ gulp.task('fetch-svc-docs', function (cb) {
   });
 });
 
-gulp.task('md', function() {
+gulp.task('md', ['fetch-svc-docs'], function() {
  return gulp.src(['**/*.md', '!node_modules/**'])
     .pipe(data(function(file) {
       var content;
