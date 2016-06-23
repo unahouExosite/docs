@@ -11,7 +11,7 @@ else
     exit 1
 fi
 
-wget --no-verbose http://${PEGASUSAPI}/api/v1/service/doc.md -O README.md || exit 1
+wget --no-verbose http://${PEGASUSAPI}/api/v1/service/doc.md -O README.md
  
 while read line; do
     if [[ $line =~ \.\/([a-z0-9]+)\.md ]]; then
