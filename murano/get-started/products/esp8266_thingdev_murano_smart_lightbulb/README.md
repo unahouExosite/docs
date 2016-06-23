@@ -3,6 +3,13 @@ title: Murano Getting Started - Products - ESP8266 Thing Dev Board
 template: default
 ---
 
+If you don’t already have a Murano account
+
+<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
+
+**NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.**
+
+
 # Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
 
 This example walks through setting up a ESP8266 Thing Dev Board to act as a Smart Lightbulb
@@ -10,6 +17,7 @@ with Murano.  Users can feel free to customize after walking through this guide 
 created a full Product instance that supports a deployment of devices specific to that Product.
 Product definition can be updated and more devices can be added.  After walking through these steps,
 users will be interacting with live device data using a prototype developer dashboard tool.  
+
 After this, users can go through the Murano Solution examples to deploy a Example consumer web application
 that works with this product demo.
 
@@ -29,19 +37,54 @@ that works with this product demo.
 
 # Software Setup
 ## Setup Arduino IDE and Libraries
-0. Install Arduino (if you haven't used it before) [arduino.cc](https://www.arduino.cc/en/Main/Software)
-1. Install ESP8266 Thing Dev Board support using Arduino Board Manager - [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
-2. Install Exosite Arduino Library  - Use Arduino Library Manager, search for `Exosite`. _(Make sure you have Version 2.4.1 or greater)_
+0. [Install Arduino](https://www.arduino.cc/en/Main/Software) if you haven't used it before). New to Arduino? Check out the [Arduino Get Started page](https://www.arduino.cc/en/Guide/HomePage).
 
-   _More info: [Exosite Arduino Library Details](https://github.com/exosite-garage/arduino_exosite_library)_
-   ![search exosite](assets/library_manager.png)
-   ![search exosite](assets/search_for_exosite.png)
+1. Paste this link into your board manager (Arduino > Preferences) to install ESP8266 Thing Dev Board: [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
 
-3. Install [Adafruit DHT Library](https://github.com/adafruit/DHT-sensor-library) - You can use Arduino Library Manager, search for `DHT`
-4. Install [DHT Sensor Library](https://github.com/adafruit/DHT-sensor-library) - You can use Arduino Library Manager, search for `DHT`
-   ![search exosite](assets/search_for_dht.png)
+![search exosite](assets/paste_esp8266_link.png)
 
 
+2. Install Exosite Arduino Library, Adafruit DHT Unified, and DHT Sensor Library - Use Arduino Library Manager, search for `Exosite` and `DHT`. _(Make sure you have Version 2.4.1 or greater)_
+
+![search exosite](assets/library_manager.png)
+![search exosite](assets/search_for_exosite.png)
+![search exosite](assets/search_for_dht.png)
+
+3. Create a new Arduino Sketch   
+
+4. Get the Example Sketch from the Exosite library called ‘murano_example_lightbulb_sensor’, which will load a new Skitch with the example device application code. 
+
+![search exosite](assets/example_sketch.png)
+
+5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and password). 
+
+![search exosite](assets/ssid_password.png)
+
+You can get your product ID in Murano > Products > Info Tab: 
+
+![search exosite](assets/product_id.png)
+
+6. Make sure your board is connected to your computer via USB port and select the correct port from the Arduino Tools menu. 
+
+![search exosite](assets/port_selection.png)
+
+7. Select the correct board before you compile your code from the Tools menu. 
+
+![search exosite](assets/select_board.png)
+
+8. Open the Serial Monitor and set it to 115200 Baud.
+
+![search exosite](assets/serial_monitor2.png)
+
+![search exosite](assets/set_115200baud.png)
+
+9. Click the “upload” button, which will first compile and download to your plugged in board.
+
+![search exosite](assets/click_upload.png)
+
+10. Copy Device Identifier (MAC Address) from the Serial Monitor. **Note: If you get comm errors, try unplugging the USB cord from your computer and plugging it back in.**
+
+ ![compile download](assets/run_debug_get_unique_identifier.png)
 
 # NEW TO ARDUINO?
 _Arduino is a powerful software platform for quickly building applications on embedded hardware.  Although typically easier than most any other software IDEs and compilers, it can still be a learning experience for new users. Once installed quickly with the necessary libraries, users will find they can customize and build applications in minutes.  Here are a few links to get an understanding of Arduino since this guide does not cover every concept of the Arduino IDE and hardware concepts (in this case the SparkFun ESP8266 Thing Dev Board) Note that Arduino supports a number of hardware platforms, not just Arduino branded boards themselves, like the ESP8266 Thing Dev Board._
