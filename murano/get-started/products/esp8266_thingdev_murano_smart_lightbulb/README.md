@@ -178,7 +178,7 @@ If previously used, it may have an old CIK (private device API key) stored in it
 
 You will then see
 
-	![device resources](assets/initial_dashboard.png)
+![initial dashboard](assets/initial_dashboard.png)
 
 5. Add a text pane for temperature and include sparkline
 
