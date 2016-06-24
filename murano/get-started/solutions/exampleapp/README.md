@@ -143,6 +143,16 @@ Install this [Chrome Plugin](https://chrome.google.com/webstore/detail/modheader
 {"enabled":true,"name":"Access-Control-Allow-Credentials",
 "value":"true","comment":""}],"filters":[],"appendMode":""}
 ```
+![Import Config](assets/import_config.png)
 
+![Import Profile](assets/import_profile.png)
+
+
+Then in terminal, paste this command:
+```
+npm run start:dev
+```
+
+Go to (http://localhost:8080) in your browser.
 
 
