@@ -37,7 +37,7 @@ Next, it will prompt you if you want to change the Device Identifier from the de
 
 The script should begin running and will mention that it is not activated. Now “Add a Device” on your browser with the same identity you just set (if you didn’t change it, the default is 000001).
 
-![new device](assets/)
+![new device](assets/new_device.png)
 
 Checking back with the Terminal window, the script should show that it activated and stored the CIK.
 
