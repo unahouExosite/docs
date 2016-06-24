@@ -46,7 +46,7 @@ In your application, add a lightbulb using the MAC address/serial number of the 
 You should see data from the lightbulb - current humidity, temperature, and on/off state! 
 
 
-If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/products/pythonsim/)
+If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/)
 
 
 # ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION 
@@ -155,4 +155,21 @@ npm run start:dev
 
 Go to (http://localhost:8080) in your browser.
 
+# STEP 3: DEPLOY CHANGES AND INNOVATE
 
+You can now develop locally, compile your app, and push to the cloud.
+After making changes, simply run 
+```
+npm run compile 
+```
+
+and then 
+```
+exosite --deploy 
+```
+
+to deploy your IoT Solution.
+
+For more information about the powerful capabilities of Routes and Services (not to mention Hosting, Users, Roles and more, please check out our getting started documentation)
+
+If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/)
