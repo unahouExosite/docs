@@ -12,7 +12,11 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 * Real Time Device Data
 * Device Control
 
-If you already have a Murano account, lets get started!  Otherwise: <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
+If you already have a Murano account, lets get started! 
+
+and if not
+
+<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
 This tutorial assumes you have some familiarity with your operating system's terminal. In order to complete this tutorial you will need the following installed on your system:
 
@@ -50,9 +54,12 @@ Now, sign into the Murano and click on the hamburger in the upper left corner to
 
 From the side menu, choose the “Solutions” option: ![Solutions Nav](assets/solutions_menu.png)
 
-To start with a simple example application, click the orange “+New Solution” button in the upper right corner of the Solutions page: 
+To start with a simple example application, click the orange “+New Solution” button in the upper right corner of the Solutions page. 
+
+Note: You may have to delete your previous solution if you are on a free account.
 
 ![New Solution](assets/new_solution.png)
+
 
 You will then see the “Add Solution” pop-up, where you can name and define your Solution. Populate the Solution Name with a name that can be used in a url. This name can contain lower-case letters and “-”. An example:
 
@@ -66,7 +73,7 @@ To verify the Template File worked, click the "Routes" menu item - you should se
 
 Although your new solution is configured, it is not yet live.  We will build and deploy the solution in the next steps...
 
-# Step 3: Install the Exosite CLI and tools
+# Step 3: Install the Murano CLI and tools
 
 Open a terminal window and navigate to the git repository folder you cloned in step 1 (has the Solutionfile.json file in it).  Install npm and ensure you have the latest version:
 
