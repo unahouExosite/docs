@@ -19,7 +19,7 @@ and if not
 <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
 
-#STEP 1: Create a solution
+# STEP 1: Create a solution
 
 Create a solution using the home automation example as a starting point here: (https://www.exosite.io/business/solutions)
 
@@ -33,7 +33,7 @@ To verify the Template File worked, click the "Routes" menu item - you should se
 
 You now have a responsive web app communicating with the connected product! 
 
-#STEP 2: TRY OU TTHE EXAMPLE APP
+# STEP 2: TRY OU TTHE EXAMPLE APP
 
 Sign up for an account on your new example app. 
 
@@ -49,13 +49,13 @@ You should see data from the lightbulb - current humidity, temperature, and on/o
 If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/products/pythonsim/)
 
 
-#ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION 
+<h2> ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION <h2>
 
-**NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & nam, and python & pip installed on your system. 
+** NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & nam, and python & pip installed on your system. ** 
 
 Clone this github repo: 
 
-![git clone](https://github.com/exosite/home-automation-example)
+[git clone](https://github.com/exosite/home-automation-example)
 
 CD to the directory
 
@@ -97,7 +97,7 @@ Login with your Exosite credentials, and enter your product and solution IDs (hi
 
 Make a change to home-automation-example>app>views>Login.js
 
-I’ll change the <h2> text from “Login” to “Login HERE” to make sure my changes are working. 
+I’ll change the text from “Login” to “Login HERE” to make sure my changes are working. 
 
 ![rename login](assets/rename_login.png)
 
