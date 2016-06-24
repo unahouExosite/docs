@@ -155,15 +155,21 @@ _Arduino is a powerful software platform for quickly building applications on em
 
 
 
-## Add Device to Murano Product
+## Add Device to your project 
+
 1. Add Device to Product in Murano using the Device Identifier (MAC Address)
   ![add device](assets/add_unique_device.png)
   ![not activated](assets/not_activated_devices.png)
-2. If you have used this hardware before with Exosite's Library, restart your Device by either using the boards On/Off Switch or Uploading your Sketch again to the board.  
+
+2. RE-DO Step 11 - Upload the Arduino Sketch to the board again. 
+ 
 2. Verify Device Provisions using the Arduino Serial Output.
-if previously used and may have a old CIK (private device API key) stored in it's non-volatile memory (EEPROM).
+If previously used, it may have an old CIK (private device API key) stored in it's non-volatile memory (EEPROM).
+
    ![activation log](assets/debug_output_activation_text.png)
-3. View Device Resources (click on device)
+
+3. Click on your device to make sure data is showing up 
+
    ![device resources](assets/device_resources_new_data.png)
 
 ## Run the Product Dashboard Developer Tool
