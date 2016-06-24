@@ -49,3 +49,93 @@ You should see data from the lightbulb - current humidity, temperature, and on/o
 If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/products/pythonsim/)
 
 
+#ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION 
+
+**NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & nam, and python & pip installed on your system. 
+
+Clone this github repo: 
+
+![git clone](https://github.com/exosite/home-automation-example)
+
+CD to the directory
+
+```
+cd home-automation-example
+```
+
+Install the Murano CLI
+
+```
+$sudo pip install exosite
+```
+
+To confirm it’s working, type in: 
+
+```
+pip-h
+```
+
+**If it returns “command not found”, you may need to install pip with brew on your specific OS.***
+***NOTE: In OS X, you may need to go around the built-in system dependencies on “six” by running: 
+```
+$ sudo pip install --upgrade exosite --ignore-installed six --ignore-installed prompt-toolkit --ignore-installed requests
+```
+
+Once you’ve successfully installed the Murano CLI, do 
+
+```
+npm install
+npm run compile
+exosite --init
+```
+
+Don’t have npm?
+
+Login with your Exosite credentials, and enter your product and solution IDs (hint: try the typeahead)
+
+![cli login](assets/cli_login.png)
+
+Make a change to home-automation-example>app>views>Login.js
+
+I’ll change the <h2> text from “Login” to “Login HERE” to make sure my changes are working. 
+
+![rename login](assets/rename_login.png)
+
+Then compile your code
+
+```
+nam run compile
+```
+
+And deploy your solution from the top level directory (you may need to cd back up to home-automation-example directory)
+
+```
+exosite —deploy
+```
+
+Open the URL (cmd/ctrl + click to open in default browser, or copy paste the link)
+
+![deploy change](assets/deploy_change.png)
+
+
+#Voila! Your Changes have been deployed: 
+
+![ExApp Change](assets/exapp_change.png)
+
+
+#SETTING UP LOCAL DEVELOPMENT
+
+To run the web application static assets locally, create a .env file in the root of the project with your solution URL, like this (name it anything):
+
+API_BASE_URL=https://<solution-name>.apps.exosite-dev.io
+
+**NOTE: the Chrome plugin in the next step may change the appearance of certain websites (e.g. github.com) until you disable it. You can easily disable the plugin by going to Chrome > preferences > Disable ModHeader**
+
+Install this [Chrome Plugin](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj/related?hl=en) and import this configuration: 
+
+```
+{"title":"Local Debugging","hideComment":true,"headers":[{"enabled":true,"name":"","value":"","comment":""}],"respHeaders":[{"enabled":true,"name":"Access-Control-Allow-Origin","value":"http://localhost:8080","comment":""},{"enabled":true,"name":"Access-Control-Allow-Credentials","value":"true","comment":""}],"filters":[],"appendMode":""}
+```
+
+
+
