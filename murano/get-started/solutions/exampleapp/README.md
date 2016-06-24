@@ -33,7 +33,7 @@ To verify the Template File worked, click the "Routes" menu item - you should se
 
 You now have a responsive web app communicating with the connected product! 
 
-# STEP 2: TRY OU TTHE EXAMPLE APP
+# STEP 2: TRY OUT THE EXAMPLE APP
 
 Sign up for an account on your new example app. 
 
@@ -49,7 +49,7 @@ You should see data from the lightbulb - current humidity, temperature, and on/o
 If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/products/pythonsim/)
 
 
-<h2> ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION <h2>
+# ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION 
 
 ** NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & nam, and python & pip installed on your system. ** 
 
@@ -75,10 +75,12 @@ To confirm it’s working, type in:
 pip-h
 ```
 
-**If it returns “command not found”, you may need to install pip with brew on your specific OS.***
-***NOTE: In OS X, you may need to go around the built-in system dependencies on “six” by running: 
+**If it returns “command not found”, you may need to install pip with brew on your specific OS.**
+***NOTE: In OS X, you may need to go around the built-in system dependencies on “six” by running:**
+
 ```
-$ sudo pip install --upgrade exosite --ignore-installed six --ignore-installed prompt-toolkit --ignore-installed requests
+$ sudo pip install --upgrade exosite --ignore-installed 
+six --ignore-installed prompt-toolkit --ignore-installed requests
 ```
 
 Once you’ve successfully installed the Murano CLI, do 
@@ -118,12 +120,12 @@ Open the URL (cmd/ctrl + click to open in default browser, or copy paste the lin
 ![deploy change](assets/deploy_change.png)
 
 
-#Voila! Your Changes have been deployed: 
+Voila! Your Changes have been deployed: 
 
 ![ExApp Change](assets/exapp_change.png)
 
 
-#SETTING UP LOCAL DEVELOPMENT
+# SETTING UP LOCAL DEVELOPMENT
 
 To run the web application static assets locally, create a .env file in the root of the project with your solution URL, like this (name it anything):
 
@@ -134,7 +136,12 @@ API_BASE_URL=https://<solution-name>.apps.exosite-dev.io
 Install this [Chrome Plugin](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj/related?hl=en) and import this configuration: 
 
 ```
-{"title":"Local Debugging","hideComment":true,"headers":[{"enabled":true,"name":"","value":"","comment":""}],"respHeaders":[{"enabled":true,"name":"Access-Control-Allow-Origin","value":"http://localhost:8080","comment":""},{"enabled":true,"name":"Access-Control-Allow-Credentials","value":"true","comment":""}],"filters":[],"appendMode":""}
+{"title":"Local Debugging","hideComment":true,"headers":
+[{"enabled":true,"name":"","value":"","comment":""}],
+"respHeaders":[{"enabled":true,"name":"Access-Control-Allow-Origin",
+"value":"http://localhost:8080","comment":""},
+{"enabled":true,"name":"Access-Control-Allow-Credentials",
+"value":"true","comment":""}],"filters":[],"appendMode":""}
 ```
 
 
