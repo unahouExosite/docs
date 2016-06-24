@@ -172,6 +172,33 @@ If previously used, it may have an old CIK (private device API key) stored in it
 
    ![device resources](assets/device_resources_new_data.png)
 
+4. Click on ‘Dashboard’
+
+	![click dashboard](assets/click_dashboard.png)
+
+You will then see
+
+	![initial dashboard](assets/initial_dashboard.png)
+
+5. Add a text pane for temperature and include sparkline
+
+![add temperature](assets/add_temperature.png)
+
+6. Do the same for humidity. 
+
+7. Add a toggle switch for your light (use datasource: state)
+
+8. Interact with live data! Turn your lightbulb on and off from the dashboard.
+
+![interact data](assets/interact_data.png)
+
+**You now have a device connected to Exosite’s Murano IoT Platform!** 
+__Any device that connects as that same product will inherit the same resources.__
+
+
+
+
+
 ## Run the Product Dashboard Developer Tool
 1. On the Device page, click the 'Dashboard' tab - which is a link to the Murano Product Dashboard Developer Tool.  This opens a new browser tab.  
    ![dashboard link](assets/dashboard_link.png)
