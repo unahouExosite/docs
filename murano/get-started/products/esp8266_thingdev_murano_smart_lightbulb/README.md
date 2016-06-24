@@ -193,6 +193,7 @@ You will then see
 ![interact data](assets/interact_data.png)
 
 **You now have a device connected to Exosite’s Murano IoT Platform!** 
+
 __Any device that connects as that same product will inherit the same resources.__
 
 [Next, create a Solution!](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/) 
