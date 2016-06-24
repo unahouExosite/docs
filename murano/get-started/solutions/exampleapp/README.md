@@ -18,12 +18,6 @@ and if not
 
 <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
-This tutorial assumes you have some familiarity with your operating system's terminal. In order to complete this tutorial you will need the following installed on your system:
-
-* [git](https://git-scm.com/)
-* [node.js & npm](https://nodejs.org/en/download/)
-* [python & pip](https://www.python.org/downloads/)
-
 
 #STEP 1: Create a solution
 
