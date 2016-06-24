@@ -41,50 +41,49 @@ that works with this product demo.
 
 1. Paste this link into your board manager (Arduino > Preferences) to install ESP8266 Thing Dev Board: [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
 
-![search exosite](assets/paste_esp8266_link.png)
-
+  ![search exosite](assets/paste_esp8266_link.png)
 
 2. Install Exosite Arduino Library, Adafruit DHT Unified, and DHT Sensor Library - Use Arduino Library Manager, search for `Exosite` and `DHT`. _(Make sure you have Version 2.4.1 or greater)_
 
-![search exosite](assets/library_manager.png)
-![search exosite](assets/search_for_exosite.png)
-![search exosite](assets/search_for_dht.png)
+  ![search exosite](assets/library_manager.png)
+  ![search exosite](assets/search_for_exosite.png)
+  ![search exosite](assets/search_for_dht.png)
 
 3. Create a new Arduino Sketch   
 
-4. Get the Example Sketch from the Exosite library called ‘murano_example_lightbulb_sensor’, which will load a new Skitch with the example device application code. 
+4. Get the Example Sketch from the Exosite library called ‘murano_example_lightbulb_sensor’, which will load a new Skitch with the example device application code.
 
-![search exosite](assets/example_sketch.png)
+  ![search exosite](assets/example_sketch.png)
 
-5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and password). 
+5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and password).
 
-![search exosite](assets/ssid_password.png)
+  ![search exosite](assets/ssid_password.png)
 
-You can get your product ID in Murano > Products > Info Tab: 
+You can get your product ID in Murano > Products > Info Tab:
 
-![search exosite](assets/product_id.png)
+  ![search exosite](assets/product_id.png)
 
-6. Make sure your board is connected to your computer via USB port and select the correct port from the Arduino Tools menu. 
+6. Make sure your board is connected to your computer via USB port and select the correct port from the Arduino Tools menu.
 
-![search exosite](assets/port_selection.png)
+  ![search exosite](assets/port_selection.png)
 
-7. Select the correct board before you compile your code from the Tools menu. 
+7. Select the correct board before you compile your code from the Tools menu.
 
-![search exosite](assets/select_board.png)
+  ![search exosite](assets/select_board.png)
 
 8. Open the Serial Monitor and set it to 115200 Baud.
 
-![search exosite](assets/serial_monitor2.png)
+  ![search exosite](assets/serial_monitor2.png)
 
-![search exosite](assets/set_115200baud.png)
+  ![search exosite](assets/set_115200baud.png)
 
 9. Click the “upload” button, which will first compile and download to your plugged in board.
 
-![search exosite](assets/click_upload.png)
+  ![search exosite](assets/click_upload.png)
 
 10. Copy Device Identifier (MAC Address) from the Serial Monitor. **Note: If you get comm errors, try unplugging the USB cord from your computer and plugging it back in.**
 
- ![compile download](assets/run_debug_get_unique_identifier.png)
+   ![compile download](assets/run_debug_get_unique_identifier.png)
 
 # NEW TO ARDUINO?
 _Arduino is a powerful software platform for quickly building applications on embedded hardware.  Although typically easier than most any other software IDEs and compilers, it can still be a learning experience for new users. Once installed quickly with the necessary libraries, users will find they can customize and build applications in minutes.  Here are a few links to get an understanding of Arduino since this guide does not cover every concept of the Arduino IDE and hardware concepts (in this case the SparkFun ESP8266 Thing Dev Board) Note that Arduino supports a number of hardware platforms, not just Arduino branded boards themselves, like the ESP8266 Thing Dev Board._
@@ -149,26 +148,26 @@ _Arduino is a powerful software platform for quickly building applications on em
 8. Open the Serial Monitor.  
    ![serial](assets/serial_monitor.png)
 
-9. Copy Device Identifier (MAC Address) from the Serial Monitor Output. _The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device's pre-programmed MAC Address._ 
+9. Copy Device Identifier (MAC Address) from the Serial Monitor Output. _The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device's pre-programmed MAC Address._
    ![compile download](assets/run_debug_get_unique_identifier.png)
    _(You can click the Autoscroll if the log window goes past the top)_
 
 
 
-## Add Device to your project 
+## Add Device to your project
 
 1. Add Device to Product in Murano using the Device Identifier (MAC Address)
   ![add device](assets/add_unique_device.png)
   ![not activated](assets/not_activated_devices.png)
 
-2. RE-DO Step 11 - Upload the Arduino Sketch to the board again. 
- 
+2. RE-DO Step 11 - Upload the Arduino Sketch to the board again.
+
 2. Verify Device Provisions using the Arduino Serial Output.
 If previously used, it may have an old CIK (private device API key) stored in it's non-volatile memory (EEPROM).
 
    ![activation log](assets/debug_output_activation_text.png)
 
-3. Click on your device to make sure data is showing up 
+3. Click on your device to make sure data is showing up
 
    ![device resources](assets/device_resources_new_data.png)
 
@@ -184,7 +183,7 @@ You will then see
 
 ![add temperature](assets/add_temperature.png)
 
-6. Do the same for humidity. 
+6. Do the same for humidity.
 
 7. Add a toggle switch for your light (use datasource: state)
 
@@ -192,11 +191,11 @@ You will then see
 
 ![interact data](assets/interact_data.png)
 
-**You now have a device connected to Exosite’s Murano IoT Platform!** 
+**You now have a device connected to Exosite’s Murano IoT Platform!**
 
 __Any device that connects as that same product will inherit the same resources.__
 
-[Next, create a Solution!](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/) 
+[Next, create a Solution!](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
 
 
 
