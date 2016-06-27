@@ -45,7 +45,7 @@ Paste it into terminal and hit enter
 
 ![terminal paste](assets/terminal_paste.png)
 
-Then hit the enter key to use the default device identity (000001) - this matches the identity of the device you added earlier, so it the script will start running.
+Then hit the enter key to use the default device identity (000001) - this matches the identity of the device you added earlier, so it will activate correctly.
 
 **Note: If you've already added 000001 and simulated the device before, you may need to create a device (e.g. 000002), and change the default identity on the simulator. This will activate a new device and simulate data for it.**
 
