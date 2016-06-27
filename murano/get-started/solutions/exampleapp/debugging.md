@@ -1,9 +1,9 @@
 ---
-title: Murano Solution Example App
+title: Debugging with wscat
 template: default
 ---
 
-# Use wscat to Debug the Example App API Endpoint Debugging
+# Debugging with wscat
 
 The example app defines a websocket API, `/debug/`, that may be used to experiment with service calls. Here's how to use it.
 
