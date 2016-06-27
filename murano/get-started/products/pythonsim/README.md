@@ -63,6 +63,7 @@ On your browser, select the device you just created (most likely 000001) and ope
 
 Add a text pane for temperature and include sparkline
  ![dashboard add pane](assets/product_dashboard_add_pane.png)
+ ![dashboard add pane](assets/product_dashboard_add_widget.png)
  ![dashboard add widget](assets/dashboard_add_widget.png)
 
 Do the same for Humidity. Then add a toggle switch for your light:
