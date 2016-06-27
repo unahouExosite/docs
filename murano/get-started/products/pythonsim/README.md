@@ -17,12 +17,12 @@ git clone https://github.com/exosite/murano_python_device_simulator_example.git
 ```
 
 ```
-Cd murano_python_device_simulator_example
+cd murano_python_device_simulator_example
 ```
 
 Run the device simulator
 ```
-Python murano_device_simulator.py
+python murano_device_simulator.py
 ```
 
 It will ask you for your ProductID. On your browser, navigate to your product on Exosite and copy your Product ID
