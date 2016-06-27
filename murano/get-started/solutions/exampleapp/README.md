@@ -55,7 +55,9 @@ If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano
 
 Clone this github repo: 
 
-[git clone](https://github.com/exosite/home-automation-example)
+```
+https://github.com/exosite/home-automation-example
+```
 
 CD to the directory
 
