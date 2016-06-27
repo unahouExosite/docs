@@ -41,7 +41,7 @@ The script should begin running and will mention that it is not activated. Now â
 
 Checking back with the Terminal window, the script should show that it activated and stored the CIK.
 
-Also, if you click on the Device's Resources tab, you should active data there.
+Also, if you click on the Device's Resources tab, you should see active data there.
 
 OPEN THE DEVICE DASHBOARD
 
