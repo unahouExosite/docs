@@ -35,6 +35,9 @@ You now have a responsive web app communicating with the connected product!
 
 # STEP 2: TRY OUT THE EXAMPLE APP
 
+Open your solution URL
+![Open Solution Domain](assets/solution_open_domain_link.png)
+
 Sign up for an account on your new example app. 
 
 **NOTE: You won’t be able to login with your Exosite Murano credentials. This is a totally separate application that you just deployed on the Murano platform, with a separate user database.**
