@@ -4,12 +4,24 @@ template: default
 ---
 
 # SIMULATE A DEVICE USING A PYTHON SCRIPT
-
 **NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system's terminal. In order to complete this tutorial you will need python installed on your system.**
 
-If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/)
+In this tutorial, we'll simulate a device based on the "Connected Lightbulb Example" product. You'll see data coming from the simulated device on your dashboard. 
 
-If you haven’t used it before, download and install [Python](https://www.python.org/) 
+If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/) using the connected lightbulb example:
+![Create product for python device simulator](assets/create_product_python_simulator.png)
+
+When you click on the "Definition" tab, it should look like this:
+![Product Definition based on the example](product_definition_lightbulb_example.png)
+
+Now add a device with identity 000001, like so:
+![Navigating to add new device](assets/product_add_device.png)
+![Add new device modal](assets/new_device.png)
+![Add new device modal](assets/product_device_not_activated.png)
+
+It should show up in your list as not activated. We'll use the python device simulator to activate that device and start simulating data.
+
+If you haven’t used Python before, download and install it here: [https://www.python.org](https://www.python.org/) 
 
 Open your OS terminal and clone the python simulator repo
 ```
@@ -33,47 +45,38 @@ Paste it into terminal and hit enter
 
 ![terminal paste](assets/terminal_paste.png)
 
-Next, it will prompt you if you want to change the Device Identifier from the default of 000001. We recommend to start with this, just hit the enter key to use 000001.
+Then hit the enter key to use the default device identity (000001) - this matches the identity of the device you added earlier, so it the script will start running.
 
-The script should begin running and will mention that it is not activated. Now “Add a Device” on your browser with the same identity you just set (if you didn’t change it, the default is 000001).
+**Note: If you've already added 000001 and simulated the device before, you may need to create a device (e.g. 000002), and change the default identity on the simulator. This will activate a new device and simulate data for it.**
 
-![new device](assets/new_device.png)
+The script should show that the device has been activated and will show whether the lightbulb is on or off. Change back to your browser and make sure the device has been activated and data is showing up on the platform:
+![Select device](assets/product_device_activated.png)
+![Select device](assets/product_device_resources_simulated_data.png)
 
-Checking back with the Terminal window, the script should show that it activated and stored the CIK.
+Awesome! Now you have a simulated device pumping data into Exosite. 
 
-Also, if you click on the Device's Resources tab, you should see active data there.
 
-OPEN THE DEVICE DASHBOARD
+# OPEN THE DEVICE DASHBOARD
 
-On your browser, select the device you just created (most likely 000001)
-
-Select “Dashboard”
-
+On your browser, select the device you just created (most likely 000001) and open the Dashboard:
 ![Click Dashboard](assets/click_dashboard.png)
-![dashboard empty](assets/dashboard_empty.png)
 
 Add a text pane for temperature and include sparkline
-
+ ![dashboard add pane](assets/product_dashboard_add_pane.png)
  ![dashboard add widget](assets/dashboard_add_widget.png)
 
-Do the same for Humidity
+Do the same for Humidity. Then add a toggle switch for your light:
+ ![dashboard add widget](assets/product_dashboard_toggle_widget.png)
 
-Add a toggle switch for your light (use resource: state)
+Now try turning the light on and off for the simulated device. Hit the toggle switch on your dashboard, then switch to terminal (while the simulator is running) and make sure the simulator acknowledges it.
+ ![dashboard toggle switch](assets/product_dashboard_complete_toggle_switch.png)
+ ![dashboard toggle lightbulb on - terminal](assets/product_dashboard_lightbulb_on_terminal.png)
 
-Interact with live data, and turn on and off your lightbulb 
-
-![dashboard live data](assets/live_data_dashboard.png)
-
-Interact with live data, see changes in script’s log
-
-![live data toggle](assets/live_data_toggle.png)
-
-Example: By toggling Dashboard widget that toggles the 'state' resource from 0 to 1, the script log will show the simulated light bulb turning on / off.
-
-![script log](assets/script_log.png)
-
-Awesome! Now you have a simulated device pumping data into Exosite.
+Congratulations - you just remotely turned a simulated device sensor on and off.
 
 Next, [CREATE A SOLUTION](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
+
+
+
 
 
