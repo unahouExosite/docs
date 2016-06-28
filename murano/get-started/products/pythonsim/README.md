@@ -4,24 +4,29 @@ template: default
 ---
 
 # SIMULATE A DEVICE USING A PYTHON SCRIPT
-**NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system's terminal. In order to complete this tutorial you will need python installed on your system.**
+**NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system's terminal. In order to complete this tutorial you will need python installed on your system. If you haven’t used Python before, download and install it here: [https://www.python.org](https://www.python.org/)**
 
-In this tutorial, we'll simulate a device based on the "Connected Lightbulb Example" product. You'll see data coming from the simulated device on your dashboard. 
+In this tutorial, we'll simulate a device based on the "Connected Lightbulb Example" and see data on your dashboard.
 
-If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/) using the connected lightbulb example:
+
+# STEP 1: ADD EXAMPLE PRODUCT AND DEVICE
+
+If you haven’t already, [CREATE A PRODUCT](http://exosite.io/business/products) using the connected lightbulb example:
+![Add product button](assets/add_new_product.png )
 ![Create product for python device simulator](assets/create_product_python_simulator.png)
 
 When you click on the "Definition" tab, it should look like this:
-![Product Definition based on the example](product_definition_lightbulb_example.png)
+![Product Definition based on the example](assets/product_definition_lightbulb_example.png)
 
 Now add a device with identity 000001, like so:
 ![Navigating to add new device](assets/product_add_device.png)
 ![Add new device modal](assets/new_device.png)
 ![Add new device modal](assets/product_device_not_activated.png)
 
-It should show up in your list as not activated. We'll use the python device simulator to activate that device and start simulating data.
+It should show up in your list as not activated. Now we'll use the python device simulator to activate that device and start simulating data.
 
-If you haven’t used Python before, download and install it here: [https://www.python.org](https://www.python.org/) 
+
+# STEP 2: RUN THE PYTHON DEVICE SIMULATOR
 
 Open your OS terminal and clone the python simulator repo
 ```
@@ -49,14 +54,14 @@ Then hit the enter key to use the default device identity (000001) - this matche
 
 **Note: If you've already added 000001 and simulated the device before, you may need to create a device (e.g. 000002), and change the default identity on the simulator. This will activate a new device and simulate data for it.**
 
-The script should show that the device has been activated and will show whether the lightbulb is on or off. Change back to your browser and make sure the device has been activated and data is showing up on the platform:
+The script should show that the device has been activated and whether the lightbulb is on or off. Change back to your browser and make sure the device has been activated and data is showing up on the platform:
 ![Select device](assets/product_device_activated.png)
 ![Select device](assets/product_device_resources_simulated_data.png)
 
 Awesome! Now you have a simulated device pumping data into Exosite. 
 
 
-# OPEN THE DEVICE DASHBOARD
+# STEP 3: CREATE THE DASHBOARD
 
 On your browser, select the device you just created (most likely 000001) and open the Dashboard:
 ![Click Dashboard](assets/click_dashboard.png)

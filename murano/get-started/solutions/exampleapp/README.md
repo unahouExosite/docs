@@ -12,10 +12,7 @@ This is a quick start guide to using Exosite Murano Solutions.  When you are don
 * Real Time Device Data
 * Device Control
 
-If you already have a Murano account, lets get started! 
-
-and if not
-
+If you already have a Murano account, lets get started! If not
 <a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
 
@@ -24,12 +21,11 @@ and if not
 Create a solution using the home automation example as a starting point here: (https://www.exosite.io/business/solutions)
 
 ![new solution](assets/new_solution.png)
-
 **Note: You may have to delete your previous solution if you are on a free account.**
 
 To verify the Template File worked, click the "Routes" menu item - you should see something like this: 
-
 ![Routes Example](assets/routes_example.png)
+
 
 You now have a responsive web app communicating with the connected product! 
 
@@ -38,23 +34,21 @@ You now have a responsive web app communicating with the connected product!
 Open your solution URL
 ![Open Solution Domain](assets/solution_open_domain_link.png)
 
-Sign up for an account on your new example app. 
+If you used the Home Automation Example, it should look like this:
+![Example App Screenshot](assets/solution_home_automation_example_app.png)
 
-**NOTE: You won’t be able to login with your Exosite Murano credentials. This is a totally separate application that you just deployed on the Murano platform, with a separate user database.**
+Sign up for an account on your new example app. **NOTE: You won’t be able to login with your Exosite Murano credentials. This is a totally separate application that you just deployed on the Murano platform, with a separate user database.**
 
-Click on the email verification link. 
+After signing up, click on the email verification link. 
 
-In your application, add a lightbulb using the MAC address/serial number of the device you added earlier from the python simulator or the Sparkfun ThingDev board. 
+In your application, add a lightbulb using the MAC address/serial number of the device you added earlier (from the python simulator or the Sparkfun ThingDev board). If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/)
 
-You should see data from the lightbulb - current humidity, temperature, and on/off state! 
-
-
-If you haven’t already, [CREATE A PRODUCT](http://beta-docs.exosite.com/murano/get-started/)
+You should see data from the lightbulb - current humidity, temperature, and whether it's on or off.
 
 
 # ADVANCED: DEPLOY CHANGES TO THE EXAMPLE SOLUTION 
 
-** NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & nam, and python & pip installed on your system. ** 
+** NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system’s terminal. In order to complete this tutorial, you will need git, node.js & npm, and python & pip installed on your system.** 
 
 Clone this github repo: 
 
@@ -68,27 +62,25 @@ CD to the directory
 cd home-automation-example
 ```
 
-Install the Murano CLI
+Install the Exosite CLI
 
 ```
-$sudo pip install exosite
+sudo pip install exosite
 ```
 
 To confirm it’s working, type in: 
 
 ```
-pip-h
+pip -h
 ```
-
 **If it returns “command not found”, you may need to install pip with brew on your specific OS.**
 ***NOTE: In OS X, you may need to go around the built-in system dependencies on “six” by running:**
-
 ```
 $ sudo pip install --upgrade exosite --ignore-installed 
 six --ignore-installed prompt-toolkit --ignore-installed requests
 ```
 
-Once you’ve successfully installed the Murano CLI, do 
+Once you’ve successfully installed the Exosite CLI, do 
 
 ```
 npm install
@@ -96,32 +88,23 @@ npm run compile
 exosite --init
 ```
 
-Don’t have npm?
-
 Login with your Exosite credentials, and enter your product and solution IDs (hint: try the typeahead)
-
 ![cli login](assets/cli_login.png)
 
-Make a change to home-automation-example>app>views>Login.js
-
-I’ll change the text from “Login” to “Login HERE” to make sure my changes are working. 
-
+Make a change to home-automation-example > app > views > Login.js. Change the text from “Login” to “Login HERE” to make sure changes are deployed.
 ![rename login](assets/rename_login.png)
 
 Then compile your code
-
 ```
-nam run compile
+npm run compile
 ```
 
 And deploy your solution from the top level directory (you may need to cd back up to home-automation-example directory)
-
 ```
 exosite —deploy
 ```
 
 Open the URL (cmd/ctrl + click to open in default browser, or copy paste the link)
-
 ![deploy change](assets/deploy_change.png)
 
 
