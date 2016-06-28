@@ -119,11 +119,16 @@ gulp.task('write-search-index', ['md'], function() {
 });
 
 gulp.task('fetch-svc-docs', function (cb) {
-  exec('./fetch_svc_docs.sh', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
+  if (!process.env.PEGASUSAPI) {
+    console.log('PEGASUSAPI not set, skipping pegasus docs generation');
+    cb()
+  } else {
+    exec('./fetch_svc_docs.sh', function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+    });
+  }
 });
 
 gulp.task('md', ['fetch-svc-docs'], function() {
