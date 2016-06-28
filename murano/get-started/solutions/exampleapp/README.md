@@ -53,7 +53,7 @@ You should see data from the lightbulb - current humidity, temperature, and whet
 Clone this github repo: 
 
 ```
-https://github.com/exosite/home-automation-example
+git clone https://github.com/exosite/home-automation-example
 ```
 
 CD to the directory
