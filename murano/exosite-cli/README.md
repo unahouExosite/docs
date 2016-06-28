@@ -11,6 +11,6 @@ Open a terminal window to run the commands below.
 <ul>
   <li>Install the Exosite CLI: ```$ sudo pip install exosite``` In OS X, you may need to use the built-in system dependencies by running ```$ sudo pip install --upgrade exosite --ignore-installed six --ignore-installed prompt-toolkit --ignore-installed requests```</li>
   <li>List commands: ```$ exosite -h```</li>
-  <li>Initialize your solution: ```$ exosite --init --host bizapi.hosted.exosite.io```</li>
-  <li>Deploy your solution: ```$ exosite --deploy --host bizapi.hosted.exosite.io```</li>
+  <li>Initialize your solution: ```$ exosite --init```</li>
+  <li>Deploy your solution: ```$ exosite --deploy```</li>
 </ul>
