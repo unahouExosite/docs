@@ -27,8 +27,7 @@ Create a solution - using the home automation example as a starting point - here
 ![Select solutions](assets/solution_select_menu_option.png) -->
 ![+New Solution](assets/solution_add_new.png)
 
-Notice the Home Automation Example will pull in a public Github repository. Note: If you're using your own Github repository in the future, it will not be linked to your solution (e.g. push to your Github repository and see changes on your solution). It consumes the repository when creating the solution, and you can push changes using the <a href="../../../exosite-cli/" target="_blank">Exosite CLI</a>. If a tight integration with Github would be valuable for you, feel free to upvote this feature here: 
-<a href="https://murano.ideas.aha.io/ideas/MUR-I-6" target="_blank">https://murano.ideas.aha.io/ideas/MUR-I-6</a>
+Notice the Home Automation Example will pull in a public Github repository. Note: If you're using your own Github repository in the future, it will not be linked to your solution (e.g. push to your Github repository and see changes on your solution). It consumes the repository when creating the solution, and you can push changes using the <a href="../../../exosite-cli/" target="_blank">Exosite CLI</a>.
 
 
 ![new solution](assets/new_solution.png)
