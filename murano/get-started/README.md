@@ -15,7 +15,7 @@ You can choose from several starting points when creating a product depending on
     </tr>
     	<tr>
         <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Python Device Simulator Script](products/pythonsim)</td>
+        <td style="width:80%;padding-top:40px;padding-bottom:40px;">Don't have hardware? <br /> [Simulate a Device Using a Python Script](products/pythonsim)</td>
     </tr>
 	<tr>
         <td style="text-align: center;">![IoT Thing Dev](assets/iotthing.png)</td>
