@@ -10,11 +10,11 @@ template: default
 
 # Services
 
-  * [Twilio Service](./twilio.md) 
-  * [Time Series Storage Service](./timeseries.md) 
-  * [WebSocket Gateway Service](./websocket.md) 
-  * [Device Gateway Service](./device.md) 
-  * [User Management Service](./user.md) 
-  * [Email Service](./email.md) 
-  * [Timer Service API](./timer.md) 
-  * [Custom User API Gateway Service](./webservice.md) 
+  * [Device](./device.md)  - Device Gateway Service 
+  * [Email](./email.md)  - Email Service 
+  * [Timer](./timer.md)  - Timer Service API 
+  * [Timeseries](./timeseries.md)  - Time Series Storage Service 
+  * [Twilio](./twilio.md)  - Twilio Service 
+  * [User](./user.md)  - User Management Service 
+  * [Webservice](./webservice.md)  - Custom User API Gateway Service 
+  * [Websocket](./websocket.md)  - WebSocket Gateway Service 
