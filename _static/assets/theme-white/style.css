@@ -388,6 +388,9 @@ body:not(.big-h3) .content h3 {
   padding-top: 30px;
   padding-bottom: 10px;
 }
+.content h4 {
+  font-size: 1.7em;
+}
 body:not(.big-h3) .content h3 {
   font-size: 0.9em;
 }
@@ -426,6 +429,9 @@ body:not(.big-h3) .content h3 {
   .content .small-heading,
   body:not(.big-h3) .content h3 {
     padding-top: 10px;
+  }
+  .content h4 {
+    font-size: 1.4em;
   }
 }
 body.no-literate .content pre > code {
