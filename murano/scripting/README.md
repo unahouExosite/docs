@@ -29,8 +29,6 @@ Examples of Murano Lua scripts are made available in this repository:
 
 ## Script Execution
 
-### Service Event Handlers
-
 The Lua scripts are executed by Murano in reaction of a System event.
 For example a [message is recieved from an Iot device](../services/device/#datapoint) or an Http request is made on your [Custom API endpoint](../services/webservice/#request).
 
@@ -38,6 +36,10 @@ The event will then trigger the execution of the related Lua script.
 
 On the [Murano Portal](https://www.exosite.com/business/solutions) you can define event script under the solution *services* tab.
 Or you can define the script in your project under the [event_handler folder](https://github.com/exosite/home-automation-example/tree/master/event_handler) of your project by using the service Alias as file name.
+
+##### Event context arguments
+
+Arguments are provided to the Lua script context depending on the event type. The arguments definition are available under the event section of each [Murano Services reference](../services/).
 
 
 ### Webservice API Routes
@@ -55,7 +57,7 @@ or
 ```lua
 return "Hello world"
 ```
-By default the Http status code return is 200 with an "Ok" message. Also any complex structure such as a Lua Table will be converted in a JSON structure.
+By default, the 200 Http status code is returned and any complex structure given as reponse, such as a Lua Table, will be converted in a JSON structure.
 
 
 ### Websocket API Routes
@@ -77,7 +79,7 @@ websocketInfo.close() -- will close the websocket connection
 ```
 
 ### Libraries
-..
+Murano recommend the use of re-usable block of Lua code. For this purpose you can defined Lua modules from the [module folder](https://github.com/exosite/home-automation-example/tree/master/modules) of you project.
 
 
 ## The script environment
@@ -94,47 +96,36 @@ Lua 5.1 manual for how Lua manages memory. In particular:
 
 - [Visibility Rules](http://www.lua.org/manual/5.1/manual.html#3.5)
 
+
 ### Lua tables and functions
 
 The following global Lua tables and functions are available to Lua
-scripts. They operate exactly as described in the Lua 5.2 reference manual.
+scripts. They operate exactly as described in the Lua 5.1 reference manual.
 
-* [`bit32`](http://www.lua.org/manual/5.2/manual.html#6.7)
+* [`Basic Functions`](http://www.lua.org/manual/5.1/manual.html#5.1) (Note:
+    the `dofile` function are not available to scripts.)
 
-* [`math`](http://www.lua.org/manual/5.2/manual.html#6.6) (Note:
-    the `math.randomseed` function is not available to scripts.)
+* [`string`](http://www.lua.org/manual/5.1/manual.html#5.4) (Note:
+    the `string.dump` function are not available to scripts.)
 
-* [`string`](http://www.lua.org/manual/5.2/manual.html#6.4) (Note:
-    the `string.dump` and `string.gsub` functions are not available to scripts.)
+* [`table`](http://www.lua.org/manual/5.1/manual.html#5.5)
 
-* [`table`](http://www.lua.org/manual/5.2/manual.html#6.5) (Note:
-    the `table.sort` function is not available to scripts.)
+* [`math`](http://www.lua.org/manual/5.1/manual.html#5.6)
 
-* [`ipairs()`](http://www.lua.org/manual/5.2/manual.html#pdf-ipairs)
-
-* [`next()`](http://www.lua.org/manual/5.2/manual.html#pdf-next)
-
-* [`pairs()`](http://www.lua.org/manual/5.2/manual.html#pdf-pairs)
-
-* [`select()`](http://www.lua.org/manual/5.2/manual.html#pdf-select)
-
-* [`tonumber()`](http://www.lua.org/manual/5.2/manual.html#pdf-tonumber)
-
-* [`tostring()`](http://www.lua.org/manual/5.2/manual.html#pdf-tostring)
-
-* [`type()`](http://www.lua.org/manual/5.2/manual.html#pdf-type)
+* [`os`](http://www.lua.org/manual/5.1/manual.html#5.8) (Note:
+    Only `os.difftime`, `os.date`, `os.time`, `os.clock` function are available to scripts.)
 
 
-### Global tables, functions, and properties
+### Additional global tables, functions and properties
 
 In addition to the Lua system resources the following global features are available to Lua scripts:
 
-*to_json()* To build a JSON string from a Lua Map or Table structure.
+* *to_json()* To build a JSON string from a Lua table structure.
 ```lua
-jsonString = to_json(luaMap)
+jsonString = to_json(luaTable)
 ```
 
-*from_json()* To build a Lua Map or Table from a JSON string.
+* *from_json()* To build a Lua table from a JSON string.
 ```lua
-luaMap = from_json(jsonString)
+luaTable = from_json(jsonString)
 ```
