@@ -1,5 +1,6 @@
 ---
 title: Murano Platform Scripting
+template: default
 ---
 
 # Lua Scripting API
@@ -16,7 +17,7 @@ If you're completely new to Exosite's APIs, you may want to read the [API overvi
 Scripts are written in Lua 5.1 scripting language. For general information
 about Lua 5.1, please reference the [online Lua manual](http://www.lua.org/manual/5.1/).
 
-Scripts may be added to an application either using the [Murano Portal](https://www.exosite.com/business/solutions), or by
+Scripts may be added to an application either using the [Murano admin UI](https://www.exosite.com/business/solutions), or by
 using the [Exosite Client Tool](../exosite-cli/).
 
 
@@ -29,8 +30,8 @@ Examples of Murano Lua scripts are made available in this repository:
 
 ## Script Execution
 
-The Lua scripts are executed by Murano in reaction of a System event.
-For example a [message is received from an Iot device](../services/device/#datapoint) or an Http request is made on your [Custom API endpoint](../services/webservice/#request).
+The Lua scripts are executed by Murano in reaction of a system event.
+For example a [message is received from an Iot device](../services/device/#datapoint) or an HTTP request is made on your [Custom API endpoint](../services/webservice/#request).
 
 The event will then trigger the execution of the related Lua script.
 
@@ -45,19 +46,19 @@ Arguments are provided to the Lua script context depending on the event type. Th
 ### Webservice API Routes
 
 For convenience, you can directly define Lua scripts for each of your solution API routes.
-The Murano Build-in Router will automatically parse and provide the [request data](../services/webservice/#request) in the Lua script.
+The Murano router will automatically parse and provide the [request data](../services/webservice/#request) in the Lua script.
 
 You can then send back the response by using
 ```lua
-response.headers = {} -- optinal
-response.code = 200 -- optinal
+response.headers = {} -- optional
+response.code = 200 -- optional
 response.message = "Hello world"
 ```
 or
 ```lua
 return "Hello world"
 ```
-By default, the 200 Http status code is returned and any complex structure given as response, such as a Lua Table, will be converted in a JSON structure.
+By default, the 200 HTTP status code is returned and any complex structure given as response, such as a Lua table, will be converted in a JSON structure.
 
 
 ### Websocket API Routes
