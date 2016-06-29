@@ -6,9 +6,7 @@ template: default
 # Exosite Command Line Interface (CLI)
 The Murano Command Line Interface is a tool that enables web application developers to use their local development environments to develop IoT application software and then to publish it online.
 
------------------------------------------------------------------------------------
-|: Note: If you're working with products, use the [Exoline CLI](../exoline-cli). :|
------------------------------------------------------------------------------------
+Note: If you're working with products, use the [Exoline CLI](../exoline-cli).
 
 Open a terminal window to run the commands below.
 

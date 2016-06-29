@@ -6,9 +6,7 @@ template: default
 # Exoline Command Line Interface (CLI)
 Exoline is a command line utility that developers can use for interacting with products and devices in Exosite's platform in addition to being a helper library for Python applications. 
 
-------------------------------------------------------------------------------------
-|: Note: If you're working with solutions, use the [Exosite CLI](../exosite-cli). :|
-------------------------------------------------------------------------------------
+Note: If you're working with solutions, use the [Exosite CLI](../exosite-cli).
 
 <br>[Get Exoline](https://github.com/exosite/exoline)
 <br>[Exoline Readme](https://github.com/exosite/exoline#exoline)
