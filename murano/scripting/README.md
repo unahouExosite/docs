@@ -30,7 +30,7 @@ Examples of Murano Lua scripts are made available in this repository:
 ## Script Execution
 
 The Lua scripts are executed by Murano in reaction of a System event.
-For example a [message is recieved from an Iot device](../services/device/#datapoint) or an Http request is made on your [Custom API endpoint](../services/webservice/#request).
+For example a [message is received from an Iot device](../services/device/#datapoint) or an Http request is made on your [Custom API endpoint](../services/webservice/#request).
 
 The event will then trigger the execution of the related Lua script.
 
@@ -44,7 +44,7 @@ Arguments are provided to the Lua script context depending on the event type. Th
 
 ### Webservice API Routes
 
-For conveniency, you can directly define Lua scripts for each of your solution API routes.
+For convenience, you can directly define Lua scripts for each of your solution API routes.
 The Murano Build-in Router will automatically parse and provide the [request data](../services/webservice/#request) in the Lua script.
 
 You can then send back the response by using
@@ -57,7 +57,7 @@ or
 ```lua
 return "Hello world"
 ```
-By default, the 200 Http status code is returned and any complex structure given as reponse, such as a Lua Table, will be converted in a JSON structure.
+By default, the 200 Http status code is returned and any complex structure given as response, such as a Lua Table, will be converted in a JSON structure.
 
 
 ### Websocket API Routes
@@ -74,7 +74,7 @@ return "Hello world"
 
 In addition you can also interact with the websocket channel with the following functions.
 ```lua
-websocketInfo.send("Hello world") -- will send a message, usefull to send back multiple messages.
+websocketInfo.send("Hello world") -- will send a message, useful to send back multiple messages.
 websocketInfo.close() -- will close the websocket connection
 ```
 
