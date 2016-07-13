@@ -13,7 +13,7 @@
           var query = encodeURIComponent($('#docsearch').val());
           window.location.href = '/search.html?q=' + query;
         }
-      });        
+      });
 
       // Add GitHub style anchors to headers.
       var anchors = [];
@@ -31,7 +31,7 @@
         anchors.push(anchor);
         $('<a/>', {
           id: anchor
-        }).appendTo(v);  
+        }).appendTo(v);
       });
 
       // Remap markdown files to directories.
@@ -41,7 +41,7 @@
           this.href = toDocHref(href);
         }
       });
-      
+
       if(document.location.hash !== ""){
         $('html, body').animate({
           scrollTop: $(document.location.hash).offset().top
@@ -58,35 +58,35 @@
           $(this).addClass('active');
         }
       });
-      
+
       // Status Indicator
-      var sp = new StatusPage('bjrxlnv3yqfm');
-      sp.getStatus(function(data) {
-        var status_icon = $('#status-icon')[0];
-        var status_text = $('#status-text')[0];
-
-        status_icon.style.visibility = "visible";
-        status_text.title = data.status.description;
-
-        switch (data.status.indicator) {
-          case "none":
-            status_icon.style.backgroundColor = "green";
-            break;
-          case "minor":
-            status_icon.style.backgroundColor = "yellow";
-            break;
-          case "major": 
-            status_icon.style.backgroundColor = "orange";
-            break;
-          case "critical": 
-            status_icon.style.backgroundColor = "red";
-            break;
-
-          default: 
-            console.log("Unknown Status Indicator")
-            status_icon.style.backgroundColor = "grey";
-            break;
-        }
-      });
+      // var sp = new StatusPage('bjrxlnv3yqfm');
+      // sp.getStatus(function(data) {
+      //   var status_icon = $('#status-icon')[0];
+      //   var status_text = $('#status-text')[0];
+      //
+      //   status_icon.style.visibility = "visible";
+      //   status_text.title = data.status.description;
+      //
+      //   switch (data.status.indicator) {
+      //     case "none":
+      //       status_icon.style.backgroundColor = "green";
+      //       break;
+      //     case "minor":
+      //       status_icon.style.backgroundColor = "yellow";
+      //       break;
+      //     case "major":
+      //       status_icon.style.backgroundColor = "orange";
+      //       break;
+      //     case "critical":
+      //       status_icon.style.backgroundColor = "red";
+      //       break;
+      //
+      //     default:
+      //       console.log("Unknown Status Indicator")
+      //       status_icon.style.backgroundColor = "grey";
+      //       break;
+      //   }
+      // });
   });
 })(window.jQuery)
