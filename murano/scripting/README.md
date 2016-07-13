@@ -3,22 +3,15 @@ title: Murano Platform Scripting
 template: default
 ---
 
-# Lua Scripting API
+# Solution Scripting Overview
 
-Exosite's [Murano](../) can run Lua scripts on your behalf. These scripts have
-a rich set of capabilities and may be used to offload processing from your
-device.
-
-If you're completely new to Exosite's APIs, you may want to read the [API overview](../get-started/) first.
-
-
-## Overview
+Exosite's [Murano](../) platform is an event driven system that uses scripts to route data and perform application logic and rules. These scripts have a rich set of capabilities and are used to perform such actions as storing device data into time series data store, offloading processing from your devices, and handling Solution Application API requests.  These scripts have access to all of the Murano services.  A reference for each of these services and their functionality can be found here: [Service Reference](../services/)
 
 Scripts are written in Lua 5.1 scripting language. For general information
 about Lua 5.1, please reference the [online Lua manual](http://www.lua.org/manual/5.1/).
 
-Scripts may be added to an application either using the [Murano admin UI](https://www.exosite.com/business/solutions), or by
-using the [Exosite Client Tool](../exosite-cli/).
+Scripts may be added to a Solution by using either the [Murano admin UI](https://www.exosite.com/business/solutions), or by
+using the [Exosite Command Line Interface](../exosite-cli/).
 
 
 ## Examples
