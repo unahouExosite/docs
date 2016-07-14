@@ -135,7 +135,7 @@ npm run compile
 
 And deploy your solution from the top level directory (you may need to cd back up to home-automation-example directory)
 ```
-exosite -—deploy
+exosite --deploy
 ```
 
 Open the URL (cmd/ctrl + click to open in default browser, or copy paste the link)
