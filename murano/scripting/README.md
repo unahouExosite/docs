@@ -52,6 +52,7 @@ or
 return "Hello world"
 ```
 By default, the 200 HTTP status code is returned and any complex structure given as response, such as a Lua table, will be converted in a JSON structure.
+Also by default the *content-type* header is set depending on the message value. *text/plain* for string message and *application/json* for other Lua types.
 
 
 ### Websocket API Routes
@@ -122,4 +123,66 @@ jsonString = to_json(luaTable)
 * *from_json()* To build a Lua table from a JSON string.
 ```lua
 luaTable = from_json(jsonString)
+```
+
+## Troubleshooting
+
+The Lua script execution is recorded in the solution logs and is accessible through the solution management console under the *LOG* panel.
+
+Two different types of logs are available:
+
+
+#### *[script log]*
+
+Contains the Lua script execution result.
+
+Log content:
+
+###### Request
+
+* *solution_id:* Active solution id
+* *event_type:* The event that triggered the script execution. In the format of ```{ServiceAlias}_{EventName}```
+* *script_parameters:* JSON object containing the input parameters of the script
+
+###### Response
+
+* *status_code:* HTTP status code representing the Lua script execution status
+* *result.result:* "ok" or "error"
+* *result.error:* Execution error if any
+* *result.execution_time:* Script execution time in ms
+* *result.script_output:* Content logged with the *print(..)* function
+
+
+Example of WebService request script execution log.
+```
+[script log] 2016-07-12T09:21:40.350+00:00
+--------- request: solution_id=mySolutionId, event_type=webservice_request, script_parameters={"body": {}, "route": "/user/{email}/lightbulbs", .. }
+--------- response: status_code=200, result={"error": "", "result": "ok", "execution_time": "110.103996ms", "script_output": "200"}
+```
+
+
+#### *[service call log]*
+
+Log of Murano services calls. Example a key value is stored or a web-socket message is sent.
+
+Log content:
+
+###### Request
+
+* *solution_id:* Active solution id
+* *service_alias:* Target service alias
+* *function_call:* Target service function
+* *arguments:* JSON object containing the parameters
+
+###### Response
+
+* *error:* Execution error if any
+* *status:* Service call HTTP status code
+* *result:* Service call response data
+
+Example of WebService service call log.
+```
+[service call log] 2016-07-12T09:21:40.464+00:00
+--------- request: {"arguments": {"code": 200, "headers": {}, "message": "[]", ..}, "function_call": "apiReply", "service_alias": "Webservice", "solution_id": "mySolutionId"}
+--------- response: {"error": "", "result: "", "status": 204}
 ```
