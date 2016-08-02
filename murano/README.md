@@ -3,13 +3,11 @@ title: Murano
 template: default
 ---
 
-# Murano Platform
+# Murano
 
-![murano overview](assets/platform_overview.png)
+Exosite's Murano Platform provides organizations a powerful IoT Platform that helps them connect product deployments in a secure scalable infrastructure and easily build applications and services with device interaction and data.
 
-# Introduction
-The Murano hosted software platform allows you to deploy full IoT solutions, from device to user applications by providing tools, infrastructure, and example starting templates.  IoT is more than just connecting things to the internet - it is a mash-up of resource-constrained `things` (not computers) and overlaying concepts of `application logic`, `user roles / permissions`, and `business integration`.  Murano provides this `full stack` of IoT, already integrated allowing developers to focus on creating value and interesting functionality rather than building and maintaining infrastructure, protocols, and lots of integration work.
+<a class="btn orange" href="https://exosite.com/business/signup">Murano Signup</a>
+<a class="btn orange" href="/murano/get-started">Quick-Start Murano Guides</a>
 
-<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
-
-![product exanded](assets/murano_exploded.png)
+![murano](/murano/assets/platform_overview.png)
