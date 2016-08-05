@@ -14,7 +14,7 @@ else
     exit 1
 fi
 
-wget --no-verbose http://${PEGASUSAPI}/api/v1/service/doc.md?token=${PEGASUSTOKEN} -O README.md || exit 1
+wget --no-verbose http://${PEGASUSAPI}/service/doc.md?token=${PEGASUSTOKEN} -O README.md || exit 1
  
 # remove erroneous lines coming out of pegasus generated docs
 # once that's fixed this can be removed
@@ -23,6 +23,6 @@ grep -v '\[[0-9]*\]' ./README.md | grep -v '_meta_schema.md' > README.fixed.md ;
 while read line; do
     if [[ $line =~ \.\/([a-z0-9]+)\.md ]]; then
         echo "Getting doc for Service: ${BASH_REMATCH[1]}"
-        wget --no-verbose http://${PEGASUSAPI}/api/v1/service/${BASH_REMATCH[1]}/doc.mdtoken=${PEGASUSTOKEN} -O ${BASH_REMATCH[1]}.md || exit 1
+        wget --no-verbose http://${PEGASUSAPI}/service/${BASH_REMATCH[1]}/doc.mdtoken=${PEGASUSTOKEN} -O ${BASH_REMATCH[1]}.md || exit 1
     fi
 done <README.md
