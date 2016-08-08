@@ -23,6 +23,6 @@ grep -v '\[[0-9]*\]' ./README.md | grep -v '_meta_schema.md' > README.fixed.md ;
 while read line; do
     if [[ $line =~ \.\/([a-z0-9]+)\.md ]]; then
         echo "Getting doc for Service: ${BASH_REMATCH[1]}"
-        wget --no-verbose http://${PEGASUSAPI}/service/${BASH_REMATCH[1]}/doc.mdtoken=${PEGASUSTOKEN} -O ${BASH_REMATCH[1]}.md || exit 1
+        wget --no-verbose http://${PEGASUSAPI}/service/${BASH_REMATCH[1]}/doc.md?token=${PEGASUSTOKEN} -O ${BASH_REMATCH[1]}.md || exit 1
     fi
 done <README.md
