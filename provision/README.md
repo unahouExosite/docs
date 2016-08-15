@@ -1052,10 +1052,12 @@ enforced to be between 5 and 1000. Optionally specify `shared=<vendor>` to
 filter on serial numbers enabled by a particular shared vendor. If calling 
 with header `X-Exosite-Vendor` specified, `<extra>` will always be empty. 
 Note that `<rid>` may be blank if the `<sn>` has not yet been instantiated 
-as a client.
+as a client. `status=true` is another optional query that, if specified,
+shows activation status at the second column. `<status>` would also be blank
+if the `<sn>` has not yet been instantiate as a client.
 
 ```
-GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>} HTTP/1.1
+GET /provision/manage/model/<model>/?offset=<offset>&limit=<limit>{&shared=<vendor>}{&status=true} HTTP/1.1
 Host: m2.exosite.com
 {X-Exosite-Vendor: <VendorName>}
 X-Exosite-CIK: <VendorCIK> OR X-Exosite-Token: <VendorToken>
@@ -1073,9 +1075,24 @@ Content-Length: <length>
 Content-Type: text/csv; charset=utf-8
 <blank line>
 <sn 1>,<rid 1>,<extra 1>
-<sn 2>,<rid 2>, <extra 2>
+<sn 2>,<rid 2>,<extra 2>
 ...
 <sn n>,<rid n>,<extra n>
+```
+
+If status=true query presents:
+```
+HTTP/1.1 200 OK
+Date: <date>
+Server: <server>
+Connection: Keep-Alive
+Content-Length: <length>
+Content-Type: text/csv; charset=utf-8
+<blank line>
+<sn 1>,<status 1>,<rid 1>,<extra 1>
+<sn 2>,<status 2>,<rid 2>,<extra 2>
+...
+<sn n>,<status n>,<rid n>,<extra n>
 ```
 
 ####example
