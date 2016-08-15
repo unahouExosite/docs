@@ -116,10 +116,24 @@ In addition to the Lua system resources the following global features are availa
 
 * *to_json()* To build a JSON string from a Lua table structure.
 ```lua
-jsonString = to_json(luaTable)
+local jsonString, err = to_json({})
+if err ~= nil then
+  print(err)
+end
+
+-- Or directly
+
+local jsonString = to_json({})
 ```
 
 * *from_json()* To build a Lua table from a JSON string.
 ```lua
-luaTable = from_json(jsonString)
+local luaTable, err = from_json("{}")
+if err ~= nil then
+  print(err)
+end
+
+-- Or directly
+
+local luaTable = from_json("{}")
 ```
