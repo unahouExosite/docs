@@ -1,0 +1,346 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Exosite Documentation</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.png">
+
+  <!-- Style -->
+  <link  href='/assets/theme-white/style.css' rel='stylesheet'>
+  <link href='/assets/style.css' rel='stylesheet'>
+
+  <!-- Meta -->
+  <meta content="Exosite Reference Documentation" property="og:title">
+  <meta content="Developer Documentation for Exosite" name="description">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-44116002-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  <!-- Initializer -->
+  <script></script>
+</head>
+<body role='flatdoc' class="no-literate">
+  <div class='header'>
+    <div class='left'>
+      <a href="/">
+        <img src="/assets/logo-white.png" id="logo">
+      </a>
+    </div>
+    <div class='headercenter'>
+      <a href="/">DOCUMENTATION </a>
+    </div>
+    <div class='links right'>
+      <ul>
+        <li><input id="docsearch" placeholder="Search..."></li>
+        <li><a href='https://support.exosite.com'>Support</a></li>
+        <li><a href='https://community.exosite.com' target="_blank">Developer Forum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <ul class='topmenu'>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Murano Platform</p>
+          <li><a class="level-0" href="/">Murano Overview</a></li>
+          <li><a class="level-0" href="/murano/get-started">Getting Started Quick-Start Guides</a></li>
+        </ul>
+        <!-- <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Tutorials</p>
+      	  <li><a class="level-0" href="/murano/tutorials/">Building and Connecting Devices</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Building an Application</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Using Services and Data Routing</a></li>
+      	  <li><a class"level-0" href="/videos">Videos</a></li>
+        </ul> -->
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Reference Guides</p>
+      	  <!-- <li><a class="level-0" href="/murano/products">Products Overview</a></li> -->
+          <li><a class="level-0" href="/murano/products/device_api/http/">Device API - HTTP</a></li>
+          <!-- <li><a class="level-0" href="/murano/dashboards">Prototyping Dashboards</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/api">Solution Application APIs / Users</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/assets">Solution Application Asset Hosting</a></li> -->
+          <li><a class="level-0" href="/murano/scripting">Solution Scripting</a></li>
+          <li><a class="level-0" href="/murano/services">Solution Services Reference</a></li>
+          <!-- <li><a class="level-0" href="/murano/solutions">Solutions Overview</a></li> -->
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Developer Tools</p>
+          <li><a class="level-0" href="/murano/exosite-cli/">Exosite CLI (solutions)</a></li>
+          <li><a class="level-0" href="/murano/exoline-cli/">Exoline CLI (products)</a></li>
+        </ul>
+        <!--The following is to create space between Murano and OneP Pages in side nav  -->
+        <ul style="padding-bottom:0.5em;padding-top:5em;"><p style="font-size:larger;"></p>
+        </ul>
+        <hr style="margin-right:20px;border-top-color: rgba(46, 147, 166, 0.16);">
+        <ul style="padding-bottom:0.5em;padding-top:3em;"><p style="font-size:larger;"></p>
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">One Platform & Portals</p>
+          <li>One Platform Reference</li>
+          <li><a class="level-1" href="/oneplatform">One Platform Guide</a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/scripting">Scripting Reference</a></li>
+          <li>One Platform API</li>
+          <li><a class="level-1" href="/http">API - HTTP Device</a></li>
+          <li><a class="level-1" href="/coap">API - CoAP Device</a></li>
+          <li><a class="level-1" href="/rpc">API - Remote Procedure Call / RPC</a></li>
+          <li><a class="level-1" href="/websocket">API - Websocket RPC</a></li>
+          <li><a class="level-1" href="/provision">API - Provision Management</a></li>
+          <li><a class="level-1" href="https://github.com/exosite-labs" target="_blank">Libraries <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/exositeready">Device Software - ExositeReady</a></li>
+          <li>Portals Reference</li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200072708">Portals User Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200054894">Portals Admin & Config Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/portals">API - Portals</a></li>
+          <li><a class="level-1" href="/widget">API - Custom Widgets</a></li>
+          <li>One Platform / Portals Tutorials</li>
+          <li><a class="level-1" href="/introduction">Intro to One Platform Device Connectivity</a></li>
+      	  <li><a class="level-1" href="/portals/tutorials/get-started">Getting Started Portals</a></li>
+          <li><a class="level-1" href="/portals/tutorials/get-started-arduinoyun">Getting Started Arduino Yún</a></li>
+          <li><a class"level-1" href="/portals/videos">Portals and One Platform Videos</a></li>
+          <li>OneP/Portals Developer Tools</li>
+          <li><a class="level-0" href="https://github.com/exosite/exoline/" target="_blank">Exoline - Command Line Interface <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+        </ul>
+      </ul>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'><h1 id="websocket-gateway-service">WebSocket Gateway Service</h1>
+<blockquote>
+<p>WebSocket Gateway of the custom API acception <strong>WSS</strong> protocol.<br/> WebSocket endpoints can be configured from <a href="https://www.exosite.com/business/solutions">Murano portal</a> interface under your solution routes or from exosite-cli tools.<br/> Each WebSocket connection and messages will trigger the execution of your Murano script.<br/> Note that WebSocket endpoints must be fixed, e.g. /lightbulb rather than /lightbulb/{id} or /lightbulb?id=&lt;id&gt;.</p>
+</blockquote>
+<h3 id="operations">Operations</h3>
+<ul>
+<li><a href="#close">Websocket.close()</a>  - Close a WebSocket channel</li>
+<li><a href="#send">Websocket.send()</a>  - Send a message to a WebSocket channel</li>
+</ul>
+<h3 id="events">Events</h3>
+<ul>
+<li><a href="#websocket_info">websocket_info</a>  - WebSocket request information</li>
+</ul>
+<h2 id="operations">Operations</h2>
+<hr>
+<h4 id="close">close</h4>
+<blockquote>
+<p>Close a WebSocket channel and disconnect the client.<br/> From a WebSocket <strong>endpoint script</strong> you can directly close the active channel by using <em>websocketInfo.close()</em> instead.<br/> From any other script the <em>service_ip</em> and <em>socket_id</em> parameters are required.</p>
+</blockquote>
+<h5 id="arguments">Arguments</h5>
+<h6 id="parameters-object-object-containing-service-call-parameters-">parameters  -  <em>object</em>  -  <em>Object containing service call parameters.</em></h6>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>socket_id</strong></td>
+<td style="text-align:center">^[a-z0-9]{10}$</td>
+<td>The WebSocket channel ID, provided in the websocket connection data <em>websocketInfo</em> .</td>
+</tr>
+<tr>
+<td><strong>server_ip</strong></td>
+<td style="text-align:center"><em>string(ipv4)</em></td>
+<td>The server ip address holding the WebSocket connection. Provided in the websocket connection data <em>websocketInfo</em> .</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses">Responses</h5>
+<h6 id="connection-closed-nil-">Connection closed  -  <em>nil</em></h6>
+<h6 id="error-response-object-">Error response  -  <em>object</em></h6>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td style="text-align:center"><em>string</em></td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>message</td>
+<td style="text-align:center"><em>string</em></td>
+<td>Error Message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="example">Example</h5>
+<pre><code class="lang-lua">local data = {
+  [&quot;request_id&quot;] = websocketInfo.request_id,
+  [&quot;server_ip&quot;] = websocketInfo.server_ip
+} webSocket.close(data)
+</code></pre>
+<hr>
+<h4 id="send">send</h4>
+<blockquote>
+<p>Send a message to a WebSocket channel.<br/> From a WebSocket <em>endpoint script</em> you can directly reply to the active channel by using <em>websocketInfo.send(&quot;message&quot;)</em> instead.<br/> From any other script the _service<em>ip</em> and _socket<em>id</em> parameters are required.</p>
+</blockquote>
+<h5 id="arguments">Arguments</h5>
+<h6 id="parameters-object-object-containing-service-call-parameters-">parameters  -  <em>object</em>  -  <em>Object containing service call parameters.</em></h6>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>socket_id</strong></td>
+<td style="text-align:center">^[a-z0-9]{10}$</td>
+<td>The WebSocket channel ID, provided in the websocket connection data <em>websocketInfo</em>.<br/> Automatically set when calling <em>websocketInfo.send(&quot;message&quot;)</em> from Murano <strong>endpoint script</strong>.<br /></td>
+</tr>
+<tr>
+<td>server_ip</td>
+<td style="text-align:center"><em>string(ipv4)</em></td>
+<td>The server ip address holding the WebSocket connection. Provided in the websocket connection data <em>websocketInfo</em> .<br/> Automatically set when calling <em>websocketInfo.send(..)</em> from Murano <strong>endpoint script</strong> .<br /></td>
+</tr>
+<tr>
+<td>type</td>
+<td style="text-align:center">&quot;data-text&quot;, &quot;data-binary&quot;</td>
+<td>Data type used to transmit message to websocket client. &#39;data-binary&#39; being based on a base64 encoding.</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td style="text-align:center"><em>string</em></td>
+<td>Content of the message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses">Responses</h5>
+<h6 id="message-successfully-sent-nil-">Message successfully sent  -  <em>nil</em></h6>
+<h6 id="error-response-object-">Error response  -  <em>object</em></h6>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td style="text-align:center"><em>string</em></td>
+<td>Error code</td>
+</tr>
+<tr>
+<td>message</td>
+<td style="text-align:center"><em>string</em></td>
+<td>Error Message</td>
+</tr>
+</tbody>
+</table>
+<h5 id="example">Example</h5>
+<pre><code class="lang-lua">local data = {
+  [&quot;request_id&quot;] = websocketInfo.request_id,
+  [&quot;server_ip&quot;] = websocketInfo.server_ip,
+  message = &quot;hello world&quot;
+} webSocket.send(data)
+</code></pre>
+<h2 id="events">Events</h2>
+<hr>
+<h4 id="websocket_info">websocket_info</h4>
+<blockquote>
+<p>An WSS request has reached your custom API endpoint and triggers the websocket eventHandler script execution.<br/> All requests trigger the same <strong>eventHandler script</strong>. However for your convenience Murano provides out-of-the-box endpoint routing wrapper triggering <strong>endpoint scripts</strong>. So when writing an <strong>endpoint script</strong>, you simply can use the <em>websocketInfo.send(&quot;message&quot;)</em> or <em>websocketInfo.close()</em> functions. <br/><br/> However if you want to set you own endpoint routing mechanism you can directly edit your solution webSocket websocket_info <strong>eventHandler script</strong>.<br/> Important! Any <strong>endpoint script</strong> modification will reset the default routing mechanism and <strong>eventHandler script</strong> changes will be lost.</p>
+</blockquote>
+<h5 id="arguments">Arguments</h5>
+<h6 id="websocketinfo-object-websocket-information-">websocketInfo  -  <em>object</em>  -  <em>WebSocket information</em></h6>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th style="text-align:center">Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uri</td>
+<td style="text-align:center"><em>string(uri)</em></td>
+<td>The full URI of WebSocket HTTP upgrade request</td>
+</tr>
+<tr>
+<td>type</td>
+<td style="text-align:center">&quot;open&quot;, &quot;data&quot;, &quot;close&quot;</td>
+<td>The state of WebSocket connection and type of event being triggered.<br/> From the WebSocket <strong>endpoint script</strong>, if the state == &#39;close&#39;<br /> <em>websocketInfo.send(..)</em> and <em>websocketInfo.close(..)</em> functions are not usable.<br /></td>
+</tr>
+<tr>
+<td>route</td>
+<td style="text-align:center"><em>string</em></td>
+<td>The endpoint path, matching the custom api endpoint configuration</td>
+</tr>
+<tr>
+<td>headers</td>
+<td style="text-align:center"><em>object</em></td>
+<td>The WebSocket HTTP upgrade request headers</td>
+</tr>
+<tr>
+<td>message</td>
+<td style="text-align:center"><em>string</em></td>
+<td>The WebSocket message content</td>
+</tr>
+<tr>
+<td>server_ip</td>
+<td style="text-align:center"><em>string(ipv4)</em></td>
+<td>The server ip address holding the WebSocket connection</td>
+</tr>
+<tr>
+<td>socket_id</td>
+<td style="text-align:center">^[a-z0-9]{10}$</td>
+<td>Unique socket id representing this websocket connection.</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td style="text-align:center"><em>integer</em></td>
+<td>Message reception timestamp</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td style="text-align:center"><em>object</em></td>
+<td>The WebSocket HTTP upgrade request query parameters as a Map containing both from path and query parameters.<br/> Path parameters are set on the <a href="https://www.exosite.com/business/solutions">Murano portal</a> routes by using &#39;/myendpoint/{pathParameterName}&#39;. Query parameters are dynamically set from the url parameters following the format &#39;/myendpoint?queryParameterNameOne=hello&amp;queryParameterNameTwo=world&#39;.<br /></td>
+</tr>
+<tr>
+<td>message_type</td>
+<td style="text-align:center">&quot;data-text&quot;, &quot;data-binary&quot;</td>
+<td>The WebSocket message type. &#39;data-binary&#39; being based on a base64 encoding.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="example">Example</h5>
+<pre><code class="lang-lua">function handle_websocket_websocket_info (websocketInfo)
+
+ ... 
+
+end
+</code></pre>
+</div>
+  </div>
+
+  <div id="markdown" style="display:none;">
+
+  </div>
+
+  <!-- Custom -->
+  <script src='/assets/main.js'></script>
+
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Exosite Documentation</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.png">
+
+  <!-- Style -->
+  <link  href='/assets/theme-white/style.css' rel='stylesheet'>
+  <link href='/assets/style.css' rel='stylesheet'>
+
+  <!-- Meta -->
+  <meta content="Exosite Reference Documentation" property="og:title">
+  <meta content="Developer Documentation for Exosite" name="description">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-44116002-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  <!-- Initializer -->
+  <script></script>
+</head>
+<body role='flatdoc' class="no-literate">
+  <div class='header'>
+    <div class='left'>
+      <a href="/">
+        <img src="/assets/logo-white.png" id="logo">
+      </a>
+    </div>
+    <div class='headercenter'>
+      <a href="/">DOCUMENTATION </a>
+    </div>
+    <div class='links right'>
+      <ul>
+        <li><input id="docsearch" placeholder="Search..."></li>
+        <li><a href='https://support.exosite.com'>Support</a></li>
+        <li><a href='https://community.exosite.com' target="_blank">Developer Forum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <ul class='topmenu'>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Murano Platform</p>
+          <li><a class="level-0" href="/">Murano Overview</a></li>
+          <li><a class="level-0" href="/murano/get-started">Getting Started Quick-Start Guides</a></li>
+        </ul>
+        <!-- <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Tutorials</p>
+      	  <li><a class="level-0" href="/murano/tutorials/">Building and Connecting Devices</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Building an Application</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Using Services and Data Routing</a></li>
+      	  <li><a class"level-0" href="/videos">Videos</a></li>
+        </ul> -->
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Reference Guides</p>
+      	  <!-- <li><a class="level-0" href="/murano/products">Products Overview</a></li> -->
+          <li><a class="level-0" href="/murano/products/device_api/http/">Device API - HTTP</a></li>
+          <!-- <li><a class="level-0" href="/murano/dashboards">Prototyping Dashboards</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/api">Solution Application APIs / Users</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/assets">Solution Application Asset Hosting</a></li> -->
+          <li><a class="level-0" href="/murano/scripting">Solution Scripting</a></li>
+          <li><a class="level-0" href="/murano/services">Solution Services Reference</a></li>
+          <!-- <li><a class="level-0" href="/murano/solutions">Solutions Overview</a></li> -->
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Developer Tools</p>
+          <li><a class="level-0" href="/murano/exosite-cli/">Exosite CLI (solutions)</a></li>
+          <li><a class="level-0" href="/murano/exoline-cli/">Exoline CLI (products)</a></li>
+        </ul>
+        <!--The following is to create space between Murano and OneP Pages in side nav  -->
+        <ul style="padding-bottom:0.5em;padding-top:5em;"><p style="font-size:larger;"></p>
+        </ul>
+        <hr style="margin-right:20px;border-top-color: rgba(46, 147, 166, 0.16);">
+        <ul style="padding-bottom:0.5em;padding-top:3em;"><p style="font-size:larger;"></p>
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">One Platform & Portals</p>
+          <li>One Platform Reference</li>
+          <li><a class="level-1" href="/oneplatform">One Platform Guide</a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/scripting">Scripting Reference</a></li>
+          <li>One Platform API</li>
+          <li><a class="level-1" href="/http">API - HTTP Device</a></li>
+          <li><a class="level-1" href="/coap">API - CoAP Device</a></li>
+          <li><a class="level-1" href="/rpc">API - Remote Procedure Call / RPC</a></li>
+          <li><a class="level-1" href="/websocket">API - Websocket RPC</a></li>
+          <li><a class="level-1" href="/provision">API - Provision Management</a></li>
+          <li><a class="level-1" href="https://github.com/exosite-labs" target="_blank">Libraries <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/exositeready">Device Software - ExositeReady</a></li>
+          <li>Portals Reference</li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200072708">Portals User Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200054894">Portals Admin & Config Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/portals">API - Portals</a></li>
+          <li><a class="level-1" href="/widget">API - Custom Widgets</a></li>
+          <li>One Platform / Portals Tutorials</li>
+          <li><a class="level-1" href="/introduction">Intro to One Platform Device Connectivity</a></li>
+      	  <li><a class="level-1" href="/portals/tutorials/get-started">Getting Started Portals</a></li>
+          <li><a class="level-1" href="/portals/tutorials/get-started-arduinoyun">Getting Started Arduino Yún</a></li>
+          <li><a class"level-1" href="/portals/videos">Portals and One Platform Videos</a></li>
+          <li>OneP/Portals Developer Tools</li>
+          <li><a class="level-0" href="https://github.com/exosite/exoline/" target="_blank">Exoline - Command Line Interface <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+        </ul>
+      </ul>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'><h1 id="murano-scripting-guide">Murano Scripting Guide</h1>
+<ul>
+<li><a href="#overview">Overview and References</a></li>
+<li><a href="#script-execution">Script Execution &amp; Event Handlers</a></li>
+<li><a href="#api-endpoint-scripts">API Endpoint Scripts</a></li>
+<li><a href="#websocket-endpoints">Websocket Scripts</a></li>
+<li><a href="#modules">Writing Modules</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#script-environment">Script Environment</a></li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>Exosite&#39;s <a href="../">Murano</a> platform is an event driven system that uses scripts to route data and perform application logic and rules. These scripts have a rich set of capabilities and are used to perform such actions as storing device data into time series data store, offloading processing from your devices, and handling Solution Application API requests. These scripts have access to all of the Murano services.  A reference for each of these services and their functionality can be found here: <a href="../services/">Service Reference</a></p>
+<p>Scripts are written in Lua 5.1 scripting language. For general information about Lua 5.1, please refer to the <a href="http://www.lua.org/manual/5.1/">online Lua manual</a>.</p>
+<p>Scripts may be added to a Solution by using either the <a href="https://www.exosite.com/business/solutions">Murano admin UI</a>, or by
+using the <a href="../exosite-cli/">Exosite Command Line Interface</a>.</p>
+<h4 id="examples">Examples</h4>
+<p>Examples of Murano Lua scripts are made available in the following projects:</p>
+<ul>
+<li><a href="https://github.com/exosite/murano-examples/tree/master/solutions/simple_graph">Example Platform Scripts Repository</a></li>
+<li><a href="https://github.com/exosite/home-automation-example">Example Of Home automation solution using Murano</a></li>
+</ul>
+<hr>
+<h2 id="script-execution">Script Execution</h2>
+<p>The Murano Lua scripts are executed in reaction of a system event which are defined by <a href="../services">Murano services</a> events.</p>
+<p>For example a <a href="../services/device/#datapoint">message is received from an Iot device</a> or an HTTP request is made on your <a href="../services/webservice/#request">Custom API endpoint</a>.</p>
+<p>Those events will trigger the execution one or more <strong>event_handler script(s)</strong> defined in your solution. One <strong>event_handler script</strong> always target a single <a href="../services">Murano services</a> event.</p>
+<p>On the <a href="https://www.exosite.com/business/solutions">Murano Portal</a> you can define event script under the solution <em>services</em> tab.
+If you are using the <a href="../exosite-cli/">Exosite client tool</a> you can define the event script in the <a href="https://github.com/exosite/home-automation-example/tree/master/event_handler">event_handler folder</a> of your project by using the service <em>Alias</em> as file name.</p>
+<h3 id="event-handler-context">Event handler context</h3>
+<p>During execution, <strong>event handler scripts</strong> are wrapped in a handler function corresponding to the <a href="../services/">Murano Services</a> event. The event handler function will expose arguments defined by the Murano service event.</p>
+<p><strong>Important:</strong> Murano <strong>event handler scripts</strong> share the same context withing a solution. Therefore the use of the <em>local</em> keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue.</p>
+<h4 id="example">Example</h4>
+<p><strong>Incoming data from an IoT device</strong> are triggered by the <a href="../services/device/#datapoint">Device service datapoint event</a> which defines a <em>data</em> parameter for the event handler context. The wrapper function will therefore be:</p>
+<pre><code class="lang-lua">function handle_device_datapoint (data)
+
+  -- Here goes your device data handler script
+
+end
+</code></pre>
+<p>So when your <strong>event handler script</strong> defines:</p>
+<pre><code class="lang-lua">  print(data.pid)
+</code></pre>
+<p>The final execution script will look like the following:</p>
+<pre><code class="lang-lua">function handle_device_datapoint (data)
+
+  print(data.pid)
+
+end
+</code></pre>
+<h3 id="api-endpoint-scripts">API Endpoint Scripts</h3>
+<p>For convenience, Murano offers the option to build your custom HTTP API by defining endpoints scripts.</p>
+<p><strong>Endpoint scripts</strong> are automatically wrapped in a simple routing mechanism based on the <a href="../services/webservice">Webservice Murano service</a> set within the event handler for the <a href="../services/webservice/#request">&#39;request&#39; event</a>.
+As for a regular Service event handler, the script will receive the <a href="../services/webservice/#request">request event arguments</a> containing the HTTP request data.</p>
+<p>An extra <em>response</em> argument is provided to the <strong>endpoint script</strong> context allowing a compact response syntax.
+The <em>response</em> object content:
+||attribute||type||default value||description||
+|<strong>code</strong>|<em>integer</em>|200|The response HTTP status code.<br />If any exception occurs a 500 is returned.|
+|<strong>message</strong>|<em>string</em> or <em>table</em>|&quot;Ok&quot;|The HTTP response body. If a Lua table is given, the routing wrapper will automatically encode it as JSON object.|
+|<strong>headers</strong>|Table of <em>string</em>|&quot;content-type&quot; = <em>text/plan</em> or <em>application/json</em> |The HTTP response headers depending on message type.|</p>
+<h4 id="example">Example</h4>
+<pre><code class="lang-lua">response.headers = {} -- optional
+response.code = 200 -- optional
+response.message = &quot;My response to endpoint &quot; .. request.uri
+</code></pre>
+<p>or</p>
+<pre><code class="lang-lua">return &quot;My response to endpoint &quot; .. request.uri
+</code></pre>
+<h4 id="endpoints-functions-context">Endpoints functions context</h4>
+<p>Under the hood, endpoints scripts are stored in a <em>_endpoints</em> table used by the <a href="../services/webservice/#request">Webservice &#39;request&#39;</a> event handler.
+So the final API script will be:</p>
+<pre><code class="lang-lua">local _endpoints = {
+    [&quot;get_/myendpoint&quot;] = function (request, response)
+      -- endpoint script
+      return &quot;My response to endpoint &quot; .. request.uri
+    end
+}
+function handle_webservice_request(request)
+  ... -- default routing mechanism
+end
+</code></pre>
+<h3 id="websocket-endpoints">Websocket endpoints</h3>
+<p>Websocket endpoints are handle in a similar manner as web-service endpoints based on <a href="http://docs.exosite.com/murano/services/websocket">Websocket Murano service</a>.
+The function context includes the <a href="http://docs.exosite.com/murano/services/websocket/#websocket_info">websocketInfo</a> as well as a <em>response</em> arguments.
+The <em>response.message</em> content will be automatically sent back to the websocket channel.</p>
+<pre><code class="lang-lua">response.message = &quot;Hello world&quot;
+</code></pre>
+<p>or you can directly pass the message as function result:</p>
+<pre><code class="lang-lua">return &quot;Hello world&quot;
+</code></pre>
+<p>In addition you can also interact with the websocket channel with the following functions.</p>
+<pre><code class="lang-lua">websocketInfo.send(&quot;Hello&quot;) -- Send a message to the channel.
+websocketInfo.send(&quot;world&quot;) -- Useful to send back multiple messages.
+websocketInfo.close() -- Close the websocket connection
+</code></pre>
+<h4 id="websocket-endpoints-functions-context">Websocket Endpoints functions context</h4>
+<p>Similar as the web-service endpoints, websocket are stored in the <em>_ws_endpoints</em> table. And final script at execution will be:</p>
+<pre><code class="lang-lua">local _ws_endpoints = {
+    [&quot;/mywebsocketendpoint&quot;] = function (websocketInfo, response)
+      -- websocket endpoint script
+      return &quot;My response to endpoint &quot; .. request.uri
+    end
+}
+function handle_websocket_websocket_info(websocketInfo)
+  ... -- default routing mechanism
+end
+</code></pre>
+<hr>
+<h2 id="modules">Modules</h2>
+<p>Murano recommend the use of re-usable block of Lua code. For this purpose you can defined Lua modules from the <a href="https://github.com/exosite/home-automation-example/tree/master/modules">module folder</a> of your project.</p>
+<p>Murano modules diverges from standard Lua modules as they are automatically added to the solution script and don&#39;t need to be manually included in other scripts.</p>
+<h3 id="to-keep-in-mind-about-modules">To keep in mind about Modules</h3>
+<ul>
+<li><strong>Naming:</strong> To avoid confusion with Murano services use a lower-case first letter</li>
+<li><strong>Context isolation:</strong> Murano modules do not have a specific context isolation from other Modules of the solution and the <em>local</em> keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue. As best practice, wrap your module in an object named after your module name.</li>
+<li><strong>Loading order:</strong> currently loading order between modules is not insure and cross Modules reference is to be avoided.</li>
+</ul>
+<h3 id="example">Example</h3>
+<p><strong>Module</strong></p>
+<pre><code class="lang-lua">myModule = {} -- Module object accessible withing all event handler scripts of the solution
+
+function myModule.hello()
+    local localModuleVariable = &quot;World&quot;
+    return localModuleVariable
+end
+</code></pre>
+<p><strong>Usage</strong></p>
+<pre><code class="lang-lua">   -- In Endpoint script
+   return myModule.hello()
+</code></pre>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>The Lua script execution is recorded in the solution logs and is accessible through the solution management console under the <em>LOG</em> panel.</p>
+<p>Two different types of logs are available:</p>
+<h3 id="-script-log-"><em>[script log]</em></h3>
+<p>Contains the Lua script execution result.</p>
+<h5 id="request-content">Request content</h5>
+<ul>
+<li><em>solution_id:</em> Active solution id</li>
+<li><em>event_type:</em> The event that triggered the script execution. In the format of <code>{ServiceAlias}_{EventName}</code></li>
+<li><em>script_parameters:</em> JSON object containing the input parameters of the script</li>
+</ul>
+<h5 id="response-content">Response content</h5>
+<ul>
+<li><em>status_code:</em> HTTP status code representing the Lua script execution status</li>
+<li><em>result.result:</em> &quot;ok&quot; or &quot;error&quot;</li>
+<li><em>result.error:</em> Execution error if any</li>
+<li><em>result.execution_time:</em> Script execution time in ms</li>
+<li><em>result.script_output:</em> Content logged with the <em>print(..)</em> function</li>
+</ul>
+<h5 id="example">Example</h5>
+<p>A log from a the script execution triggered by a <a href="../services/webservice/#request">Webservice request event</a>.</p>
+<pre><code>[script log] 2016-07-12T09:21:40.350+00:00
+--------- request: solution_id=mySolutionId, event_type=webservice_request, script_parameters={&quot;body&quot;: {}, &quot;route&quot;: &quot;/user/{email}/lightbulbs&quot;, .. }
+--------- response: status_code=200, result={&quot;error&quot;: &quot;&quot;, &quot;result&quot;: &quot;ok&quot;, &quot;execution_time&quot;: &quot;110.103996ms&quot;, &quot;script_output&quot;: &quot;200&quot;}
+</code></pre><h3 id="-service-call-log-"><em>[service call log]</em></h3>
+<p>Log of Murano services calls. Example a key value is stored or a web-socket message is sent.</p>
+<h5 id="request-content">Request content</h5>
+<ul>
+<li><em>solution_id:</em> Active solution id</li>
+<li><em>service_alias:</em> Target service alias</li>
+<li><em>function_call:</em> Target service function</li>
+<li><em>arguments:</em> JSON object containing the parameters</li>
+</ul>
+<h5 id="response-content">Response content</h5>
+<ul>
+<li><em>error:</em> Execution error if any</li>
+<li><em>status:</em> Service call HTTP status code</li>
+<li><em>result:</em> Service call response data</li>
+</ul>
+<h5 id="example">Example</h5>
+<p>Log from the call to the <a href="../services/webservice/#apiReply">Webservice request operation</a>.</p>
+<pre><code>[service call log] 2016-07-12T09:21:40.464+00:00
+--------- request: {&quot;arguments&quot;: {&quot;code&quot;: 200, &quot;headers&quot;: {}, &quot;message&quot;: &quot;[]&quot;, ..}, &quot;function_call&quot;: &quot;apiReply&quot;, &quot;service_alias&quot;: &quot;Webservice&quot;, &quot;solution_id&quot;: &quot;mySolutionId&quot;}
+--------- response: {&quot;error&quot;: &quot;&quot;, &quot;result: &quot;&quot;, &quot;status&quot;: 204}
+</code></pre><hr>
+<h2 id="script-environment">Script environment</h2>
+<p>Scripts are completely isolated from one another, each running in its own,
+secure environment, complete with direct access to all <a href="../services/">Murano Services</a>.</p>
+<p>Scripts are scheduled to run with a limited number of 64000 instructions per execution.
+Scripts also have memory usage limits of 1Mb, which if completely consumed
+terminates the script with a &#39;not enough memory&#39; error.  Please reference the
+Lua 5.1 manual for how Lua manages memory. In particular:</p>
+<ul>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#2.5">Garbage Collection</a></p>
+</li>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#3.5">Visibility Rules</a></p>
+</li>
+</ul>
+<h3 id="lua-tables-and-functions">Lua tables and functions</h3>
+<p>The following global Lua tables and functions are available to Lua
+scripts. They operate exactly as described in the Lua 5.1 reference manual.</p>
+<ul>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#5.1"><code>Basic Functions</code></a> (Note:
+  the <code>dofile</code> function are not available to scripts.)</p>
+</li>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#5.4"><code>string</code></a> (Note:
+  the <code>string.dump</code> function are not available to scripts.)</p>
+</li>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#5.5"><code>table</code></a></p>
+</li>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#5.6"><code>math</code></a></p>
+</li>
+<li><p><a href="http://www.lua.org/manual/5.1/manual.html#5.8"><code>os</code></a> (Note:
+  Only <code>os.difftime</code>, <code>os.date</code>, <code>os.time</code>, <code>os.clock</code> function are available to scripts.)</p>
+</li>
+</ul>
+<h3 id="additional-global-tables-functions-and-properties">Additional global tables, functions and properties</h3>
+<p>In addition to the Lua system resources the following global features are available to Lua scripts:</p>
+<ul>
+<li><p><em>to_json()</em> To build a JSON string from a Lua table structure.</p>
+<pre><code class="lang-lua">jsonString = to_json(luaTable)
+</code></pre>
+</li>
+<li><p><em>from_json()</em> To build a Lua table from a JSON string.</p>
+<pre><code class="lang-lua">luaTable = from_json(jsonString)
+</code></pre>
+</li>
+</ul>
+</div>
+  </div>
+
+  <div id="markdown" style="display:none;">
+
+  </div>
+
+  <!-- Custom -->
+  <script src='/assets/main.js'></script>
+
+</body>
+</html>

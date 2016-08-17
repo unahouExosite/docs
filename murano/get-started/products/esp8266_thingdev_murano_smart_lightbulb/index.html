@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Exosite Documentation</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.png">
+
+  <!-- Style -->
+  <link  href='/assets/theme-white/style.css' rel='stylesheet'>
+  <link href='/assets/style.css' rel='stylesheet'>
+
+  <!-- Meta -->
+  <meta content="Exosite Reference Documentation" property="og:title">
+  <meta content="Developer Documentation for Exosite" name="description">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-44116002-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  <!-- Initializer -->
+  <script></script>
+</head>
+<body role='flatdoc' class="no-literate">
+  <div class='header'>
+    <div class='left'>
+      <a href="/">
+        <img src="/assets/logo-white.png" id="logo">
+      </a>
+    </div>
+    <div class='headercenter'>
+      <a href="/">DOCUMENTATION </a>
+    </div>
+    <div class='links right'>
+      <ul>
+        <li><input id="docsearch" placeholder="Search..."></li>
+        <li><a href='https://support.exosite.com'>Support</a></li>
+        <li><a href='https://community.exosite.com' target="_blank">Developer Forum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <ul class='topmenu'>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Murano Platform</p>
+          <li><a class="level-0" href="/">Murano Overview</a></li>
+          <li><a class="level-0" href="/murano/get-started">Getting Started Quick-Start Guides</a></li>
+        </ul>
+        <!-- <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Tutorials</p>
+      	  <li><a class="level-0" href="/murano/tutorials/">Building and Connecting Devices</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Building an Application</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Using Services and Data Routing</a></li>
+      	  <li><a class"level-0" href="/videos">Videos</a></li>
+        </ul> -->
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Reference Guides</p>
+      	  <!-- <li><a class="level-0" href="/murano/products">Products Overview</a></li> -->
+          <li><a class="level-0" href="/murano/products/device_api/http/">Device API - HTTP</a></li>
+          <!-- <li><a class="level-0" href="/murano/dashboards">Prototyping Dashboards</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/api">Solution Application APIs / Users</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/assets">Solution Application Asset Hosting</a></li> -->
+          <li><a class="level-0" href="/murano/scripting">Solution Scripting</a></li>
+          <li><a class="level-0" href="/murano/services">Solution Services Reference</a></li>
+          <!-- <li><a class="level-0" href="/murano/solutions">Solutions Overview</a></li> -->
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Developer Tools</p>
+          <li><a class="level-0" href="/murano/exosite-cli/">Exosite CLI (solutions)</a></li>
+          <li><a class="level-0" href="/murano/exoline-cli/">Exoline CLI (products)</a></li>
+        </ul>
+        <!--The following is to create space between Murano and OneP Pages in side nav  -->
+        <ul style="padding-bottom:0.5em;padding-top:5em;"><p style="font-size:larger;"></p>
+        </ul>
+        <hr style="margin-right:20px;border-top-color: rgba(46, 147, 166, 0.16);">
+        <ul style="padding-bottom:0.5em;padding-top:3em;"><p style="font-size:larger;"></p>
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">One Platform & Portals</p>
+          <li>One Platform Reference</li>
+          <li><a class="level-1" href="/oneplatform">One Platform Guide</a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/scripting">Scripting Reference</a></li>
+          <li>One Platform API</li>
+          <li><a class="level-1" href="/http">API - HTTP Device</a></li>
+          <li><a class="level-1" href="/coap">API - CoAP Device</a></li>
+          <li><a class="level-1" href="/rpc">API - Remote Procedure Call / RPC</a></li>
+          <li><a class="level-1" href="/websocket">API - Websocket RPC</a></li>
+          <li><a class="level-1" href="/provision">API - Provision Management</a></li>
+          <li><a class="level-1" href="https://github.com/exosite-labs" target="_blank">Libraries <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/exositeready">Device Software - ExositeReady</a></li>
+          <li>Portals Reference</li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200072708">Portals User Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200054894">Portals Admin & Config Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/portals">API - Portals</a></li>
+          <li><a class="level-1" href="/widget">API - Custom Widgets</a></li>
+          <li>One Platform / Portals Tutorials</li>
+          <li><a class="level-1" href="/introduction">Intro to One Platform Device Connectivity</a></li>
+      	  <li><a class="level-1" href="/portals/tutorials/get-started">Getting Started Portals</a></li>
+          <li><a class="level-1" href="/portals/tutorials/get-started-arduinoyun">Getting Started Arduino Yún</a></li>
+          <li><a class"level-1" href="/portals/videos">Portals and One Platform Videos</a></li>
+          <li>OneP/Portals Developer Tools</li>
+          <li><a class="level-0" href="https://github.com/exosite/exoline/" target="_blank">Exoline - Command Line Interface <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+        </ul>
+      </ul>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'><p>If you don’t already have a Murano account</p>
+<p><a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a></p>
+<p><strong>NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.</strong></p>
+<h1 id="murano-example-esp8266-thing-dev-board-as-wifi-smart-lightbulb">Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb</h1>
+<p>This example walks through setting up a ESP8266 Thing Dev Board to act as a Smart Lightbulb
+with Murano.  Users can feel free to customize after walking through this guide as you&#39;ll have
+created a full Product instance that supports a deployment of devices specific to that Product.
+Product definition can be updated and more devices can be added.  After walking through these steps,
+users will be interacting with live device data using a prototype developer dashboard tool.  </p>
+<p>After this, users can go through the Murano Solution examples to deploy a Example consumer web application
+that works with this product demo.</p>
+<h1 id="hardware-setup">Hardware Setup</h1>
+<h2 id="hardware">Hardware</h2>
+<ul>
+<li><a href="https://www.sparkfun.com/products/13711">Sparkfun ESP8266 Thing - Dev Board</a></li>
+<li><a href="https://www.sparkfun.com/products/10167">Humidity and Temperature Sensor - RHT03 </a></li>
+<li>1 10K Ohm Resistors (for digital pin pull-up)</li>
+<li>1 330 Ohm Resistor</li>
+<li>1 LED (suggest green or yellow)</li>
+<li>Micro-USB B Cable</li>
+</ul>
+<h2 id="hook-up-guide">Hook-up Guide</h2>
+<p><img src="assets/esp8266-thing-dev-hookup.png" alt="Thing-Board Hookup"></p>
+<h1 id="software-setup">Software Setup</h1>
+<h2 id="setup-arduino-ide-and-libraries">Setup Arduino IDE and Libraries</h2>
+<ol>
+<li><p><a href="https://www.arduino.cc/en/Main/Software">Install Arduino</a> if you haven&#39;t used it before). New to Arduino? Check out the <a href="https://www.arduino.cc/en/Guide/HomePage">Arduino Get Started page</a>.</p>
+</li>
+<li><p>Paste this link into your board manager (Arduino &gt; Preferences) to install ESP8266 Thing Dev Board: <a href="https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon">ESP8266 Thing Dev Board Install Directions </a></p>
+<p><img src="assets/paste_esp8266_link.png" alt="search exosite"></p>
+</li>
+<li><p>Install Exosite Arduino Library, Adafruit DHT Unified, and DHT Sensor Library - Use Arduino Library Manager, search for <code>Exosite</code> and <code>DHT</code>. <em>(Make sure you have Version 2.4.1 or greater)</em></p>
+<p><img src="assets/library_manager.png" alt="search exosite">
+<img src="assets/search_for_exosite.png" alt="search exosite">
+<img src="assets/search_for_dht.png" alt="search exosite"></p>
+</li>
+<li><p>Create a new Arduino Sketch   </p>
+</li>
+<li><p>Get the Example Sketch from the Exosite library called ‘murano_example_lightbulb_sensor’, which will load a new Skitch with the example device application code.</p>
+<p><img src="assets/example_sketch.png" alt="search exosite"></p>
+</li>
+<li><p>In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and password).</p>
+<p><img src="assets/ssid_password.png" alt="search exosite"></p>
+</li>
+</ol>
+<p>You can get your product ID in Murano &gt; Products &gt; Info Tab:</p>
+<p>  <img src="assets/product_id.png" alt="search exosite"></p>
+<ol>
+<li><p>Make sure your board is connected to your computer via USB port and select the correct port from the Arduino Tools menu.</p>
+<p><img src="assets/port_selection.png" alt="search exosite"></p>
+</li>
+<li><p>Select the correct board before you compile your code from the Tools menu.</p>
+<p><img src="assets/select_board.png" alt="search exosite"></p>
+</li>
+<li><p>Open the Serial Monitor and set it to 115200 Baud.</p>
+<p><img src="assets/serial_monitor2.png" alt="search exosite"></p>
+<p><img src="assets/set_115200baud.png" alt="search exosite"></p>
+</li>
+<li><p>Click the “upload” button, which will first compile and download to your plugged in board.</p>
+<p><img src="assets/click_upload.png" alt="search exosite"></p>
+</li>
+<li><p>Copy Device Identifier (MAC Address) from the Serial Monitor. <strong>Note: If you get comm errors, try unplugging the USB cord from your computer and plugging it back in.</strong></p>
+<p><img src="assets/run_debug_get_unique_identifier.png" alt="compile download"></p>
+</li>
+</ol>
+<h1 id="new-to-arduino-">NEW TO ARDUINO?</h1>
+<p><em>Arduino is a powerful software platform for quickly building applications on embedded hardware.  Although typically easier than most any other software IDEs and compilers, it can still be a learning experience for new users. Once installed quickly with the necessary libraries, users will find they can customize and build applications in minutes.  Here are a few links to get an understanding of Arduino since this guide does not cover every concept of the Arduino IDE and hardware concepts (in this case the SparkFun ESP8266 Thing Dev Board) Note that Arduino supports a number of hardware platforms, not just Arduino branded boards themselves, like the ESP8266 Thing Dev Board.</em></p>
+<ul>
+<li><a href="https://www.sparkfun.com/products/13711">Sparkfun ESP8266 Thing - Dev Board</a></li>
+<li><a href="https://www.arduino.cc/en/Guide/HomePage0">Arduino Getting Started</a></li>
+</ul>
+<h1 id="murano-product-setup">Murano Product Setup</h1>
+<h2 id="create-your-product-">Create Your Product.</h2>
+<ol>
+<li><p>Create a Product in Murano.  </p>
+<p>When creating a product, Murano allows you to use a <code>product template</code> spec file to setup the product definition. For this example, you can use the following url (copy the whole thing):</p>
+<p><code>https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-ThingDevBoard/product_spec_smart_lightbulb_example.yaml</code></p>
+<p><img src="assets/add_new_product.png" alt="create new">
+<img src="assets/add_new_product_window.png" alt="create new window"></p>
+<p>After creating a product, take note of the Product ID which will be used for the Arduino Sketch in later steps.  The Product ID can always be found on the <code>Info</code> tab on the Product page.</p>
+<p><img src="assets/get_product_id.png" alt="product id"></p>
+<p>Your <code>Definition</code> tab should look like this:
+<img src="assets/adding_resources.png" alt="resources"></p>
+<p><em>Note: If you did not use the template previous step, you can manually set up your Product Definition. Go to the Product Definition Tab and set up your dataport resources as specified here. Also, set the default value for <code>state</code> to 0 so the device has a default value it reads to know to turn on or off the LED. Click on the <code>state</code> resource in the Definition tab and write a 0 to the value.</em></p>
+<ul>
+<li>alias: <em>temperature</em>, format: <em>float</em></li>
+<li>alias: <em>humidity</em>, format: <em>float</em></li>
+<li>alias: <em>uptime</em>, format: <em>integer</em></li>
+<li>alias: <em>state</em>, format: <em>integer</em></li>
+</ul>
+<p><img src="assets/set_light_status_default_value.png" alt="default state"></p>
+<p>Before we add a device, we&#39;ll start the Arduino Thing Dev Board device application.
+ <em>Note: We do not yet have the device&#39;s MAC address, so wait on adding the device. We get the MAC Address from the debug output of the device application</em></p>
+</li>
+</ol>
+<h2 id="create-and-run-the-example-application">Create and Run the example application</h2>
+<ol>
+<li>Create a new Arduino Sketch.</li>
+<li><p>Get the Example Sketch from the Exosite library called &#39;murano_example_smart_lightbulb_sensor&#39;, which will load a new Sketch with the example device application code.</p>
+<p><img src="assets/select_example.png" alt="example"></p>
+</li>
+<li><p>In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and Password).<br><img src="assets/your_customizations.png" alt="change"></p>
+</li>
+<li><p>In your sketch, edit Exosite Product ID from your Murano product
+<img src="assets/sketch_edit_parameters.png" alt="sketch"></p>
+</li>
+<li><p>Make sure board is connected to your computer via USB port and select the correct Port from the Arudino Tools menu.
+<img src="assets/arduino_serial_port_selector.png" alt="port"></p>
+</li>
+<li><p>Select the correct board before you compile your code from the Tools menu.
+<img src="assets/board_selection.png" alt="board"></p>
+</li>
+<li><p>Click the Upload button which will first compile and then download to your plugged in board.
+<img src="assets/compile_upload_button.png" alt="upload"></p>
+</li>
+<li><p>Open the Serial Monitor.<br><img src="assets/serial_monitor.png" alt="serial"></p>
+</li>
+<li><p>Copy Device Identifier (MAC Address) from the Serial Monitor Output. <em>The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device&#39;s pre-programmed MAC Address.</em>
+<img src="assets/run_debug_get_unique_identifier.png" alt="compile download">
+<em>(You can click the Autoscroll if the log window goes past the top)</em></p>
+</li>
+</ol>
+<h2 id="add-device-to-your-project">Add Device to your project</h2>
+<ol>
+<li><p>Add Device to Product in Murano using the Device Identifier (MAC Address)
+<img src="assets/add_unique_device.png" alt="add device">
+<img src="assets/not_activated_devices.png" alt="not activated"></p>
+</li>
+<li><p>RE-DO Step 11 - Upload the Arduino Sketch to the board again.</p>
+</li>
+<li><p>Verify Device Provisions using the Arduino Serial Output.
+If previously used, it may have an old CIK (private device API key) stored in it&#39;s non-volatile memory (EEPROM).</p>
+<p><img src="assets/debug_output_activation_text.png" alt="activation log"></p>
+</li>
+<li><p>Click on your device to make sure data is showing up</p>
+<p><img src="assets/device_resources_new_data.png" alt="device resources"></p>
+</li>
+<li><p>Click on ‘Dashboard’</p>
+<p> <img src="assets/click_dashboard.png" alt="click dashboard"></p>
+</li>
+</ol>
+<p>You will then see</p>
+<p><img src="assets/initial_dashboard.png" alt="initial dashboard"></p>
+<ol>
+<li>Add a text pane for temperature and include sparkline</li>
+</ol>
+<p><img src="assets/add_temperature.png" alt="add temperature"></p>
+<ol>
+<li><p>Do the same for humidity.</p>
+</li>
+<li><p>Add a toggle switch for your light (use datasource: state)</p>
+</li>
+<li><p>Interact with live data! Turn your lightbulb on and off from the dashboard.</p>
+</li>
+</ol>
+<p><img src="assets/interact_data.png" alt="interact data"></p>
+<p><strong>You now have a device connected to Exosite’s Murano IoT Platform!</strong></p>
+<p><strong>Any device that connects as that same product will inherit the same resources.</strong></p>
+<p><a href="http://docs.exosite.com/murano/get-started/solutions/exampleapp/">Next, create a Solution!</a></p>
+<h2 id="run-the-product-dashboard-developer-tool">Run the Product Dashboard Developer Tool</h2>
+<ol>
+<li>On the Device page, click the &#39;Dashboard&#39; tab - which is a link to the Murano Product Dashboard Developer Tool.  This opens a new browser tab.<br><img src="assets/dashboard_link.png" alt="dashboard link">
+<img src="assets/dashboard_empty.png" alt="dashboard empty"></li>
+<li>Add a pane, then add a widget to the pane.
+<img src="assets/dashboard_add_widget.png" alt="dashboard add widget"></li>
+<li>Interact with live data
+<img src="assets/dashboard_live_data.png" alt="dashboard"></li>
+<li>Done!</li>
+</ol>
+</div>
+  </div>
+
+  <div id="markdown" style="display:none;">
+
+  </div>
+
+  <!-- Custom -->
+  <script src='/assets/main.js'></script>
+
+</body>
+</html>

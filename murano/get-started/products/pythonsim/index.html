@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Exosite Documentation</title>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon.png">
+
+  <!-- Style -->
+  <link  href='/assets/theme-white/style.css' rel='stylesheet'>
+  <link href='/assets/style.css' rel='stylesheet'>
+
+  <!-- Meta -->
+  <meta content="Exosite Reference Documentation" property="og:title">
+  <meta content="Developer Documentation for Exosite" name="description">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-44116002-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+  <!-- Initializer -->
+  <script></script>
+</head>
+<body role='flatdoc' class="no-literate">
+  <div class='header'>
+    <div class='left'>
+      <a href="/">
+        <img src="/assets/logo-white.png" id="logo">
+      </a>
+    </div>
+    <div class='headercenter'>
+      <a href="/">DOCUMENTATION </a>
+    </div>
+    <div class='links right'>
+      <ul>
+        <li><input id="docsearch" placeholder="Search..."></li>
+        <li><a href='https://support.exosite.com'>Support</a></li>
+        <li><a href='https://community.exosite.com' target="_blank">Developer Forum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <ul class='topmenu'>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Murano Platform</p>
+          <li><a class="level-0" href="/">Murano Overview</a></li>
+          <li><a class="level-0" href="/murano/get-started">Getting Started Quick-Start Guides</a></li>
+        </ul>
+        <!-- <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Tutorials</p>
+      	  <li><a class="level-0" href="/murano/tutorials/">Building and Connecting Devices</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Building an Application</a></li>
+          <li><a class="level-0" href="/murano/tutorials/">Using Services and Data Routing</a></li>
+      	  <li><a class"level-0" href="/videos">Videos</a></li>
+        </ul> -->
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Reference Guides</p>
+      	  <!-- <li><a class="level-0" href="/murano/products">Products Overview</a></li> -->
+          <li><a class="level-0" href="/murano/products/device_api/http/">Device API - HTTP</a></li>
+          <!-- <li><a class="level-0" href="/murano/dashboards">Prototyping Dashboards</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/api">Solution Application APIs / Users</a></li> -->
+          <!-- <li><a class="level-0" href="/murano/solution/assets">Solution Application Asset Hosting</a></li> -->
+          <li><a class="level-0" href="/murano/scripting">Solution Scripting</a></li>
+          <li><a class="level-0" href="/murano/services">Solution Services Reference</a></li>
+          <!-- <li><a class="level-0" href="/murano/solutions">Solutions Overview</a></li> -->
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">Developer Tools</p>
+          <li><a class="level-0" href="/murano/exosite-cli/">Exosite CLI (solutions)</a></li>
+          <li><a class="level-0" href="/murano/exoline-cli/">Exoline CLI (products)</a></li>
+        </ul>
+        <!--The following is to create space between Murano and OneP Pages in side nav  -->
+        <ul style="padding-bottom:0.5em;padding-top:5em;"><p style="font-size:larger;"></p>
+        </ul>
+        <hr style="margin-right:20px;border-top-color: rgba(46, 147, 166, 0.16);">
+        <ul style="padding-bottom:0.5em;padding-top:3em;"><p style="font-size:larger;"></p>
+        </ul>
+        <ul style="padding-bottom:0.5em;"><p style="font-size:larger;">One Platform & Portals</p>
+          <li>One Platform Reference</li>
+          <li><a class="level-1" href="/oneplatform">One Platform Guide</a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/scripting">Scripting Reference</a></li>
+          <li>One Platform API</li>
+          <li><a class="level-1" href="/http">API - HTTP Device</a></li>
+          <li><a class="level-1" href="/coap">API - CoAP Device</a></li>
+          <li><a class="level-1" href="/rpc">API - Remote Procedure Call / RPC</a></li>
+          <li><a class="level-1" href="/websocket">API - Websocket RPC</a></li>
+          <li><a class="level-1" href="/provision">API - Provision Management</a></li>
+          <li><a class="level-1" href="https://github.com/exosite-labs" target="_blank">Libraries <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/exositeready">Device Software - ExositeReady</a></li>
+          <li>Portals Reference</li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200072708">Portals User Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="https://support.exosite.com/hc/en-us/sections/200054894">Portals Admin & Config Articles <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+          <li><a class="level-1" href="/portals">API - Portals</a></li>
+          <li><a class="level-1" href="/widget">API - Custom Widgets</a></li>
+          <li>One Platform / Portals Tutorials</li>
+          <li><a class="level-1" href="/introduction">Intro to One Platform Device Connectivity</a></li>
+      	  <li><a class="level-1" href="/portals/tutorials/get-started">Getting Started Portals</a></li>
+          <li><a class="level-1" href="/portals/tutorials/get-started-arduinoyun">Getting Started Arduino Yún</a></li>
+          <li><a class"level-1" href="/portals/videos">Portals and One Platform Videos</a></li>
+          <li>OneP/Portals Developer Tools</li>
+          <li><a class="level-0" href="https://github.com/exosite/exoline/" target="_blank">Exoline - Command Line Interface <img class="ext_link_icon" src="/assets/external_link.png" alt="(ext)"></a></li>
+        </ul>
+      </ul>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'><h1 id="simulate-a-device-using-a-python-script">SIMULATE A DEVICE USING A PYTHON SCRIPT</h1>
+<p><strong>NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system&#39;s terminal. In order to complete this tutorial you will need python installed on your system. If you haven’t used Python before, download and install it here: <a href="https://www.python.org" target="_blank">https://www.python.org/</a></strong></p>
+<p>In this tutorial, we&#39;ll simulate a device based on the &quot;Connected Lightbulb Example&quot; and see data on your dashboard.</p>
+<h1 id="step-1-add-example-product-and-device">STEP 1: ADD EXAMPLE PRODUCT AND DEVICE</h1>
+<p>If you haven’t already, create a product using the connected lightbulb example here:
+<a href="http://exosite.io/business/products" target="_blank">http://exosite.io/business/products</a></p>
+<p><img src="assets/add_new_product.png" alt="Add product button">
+<img src="assets/create_product_python_simulator.png" alt="Create product for python device simulator"></p>
+<p>When you click on the &quot;Definition&quot; tab, it should look like this:
+<img src="assets/product_definition_lightbulb_example.png" alt="Product Definition based on the example"></p>
+<p>Now add a device with identity 000001, like so:
+<img src="assets/product_add_device.png" alt="Navigating to add new device">
+<img src="assets/new_device.png" alt="Add new device modal">
+<img src="assets/product_device_not_activated.png" alt="Add new device modal"></p>
+<p>It should show up in your list as not activated. Now we&#39;ll use the python device simulator to activate that device and start simulating data.</p>
+<h1 id="step-2-run-the-python-device-simulator">STEP 2: RUN THE PYTHON DEVICE SIMULATOR</h1>
+<p>Open your OS terminal and clone the python simulator repo:</p>
+<pre><code>git clone https://github.com/exosite/murano_python_device_simulator_example.git
+</code></pre><pre><code>cd murano_python_device_simulator_example
+</code></pre><p>Run the device simulator</p>
+<pre><code>python murano_device_simulator.py
+</code></pre><p>The script will ask you for your ProductID. On your browser, navigate to your product on Exosite and copy your Product ID</p>
+<p><img src="assets/find_product_id.png" alt="find product id"></p>
+<p>Paste it into terminal and hit enter</p>
+<p><img src="assets/terminal_paste.png" alt="terminal paste"></p>
+<p>Then hit the enter key to use the default device identity (000001) - this matches the identity of the device you added earlier, so it will activate correctly.</p>
+<p><strong>Note: If you&#39;ve already added 000001 and simulated the device before, you may need to create a device (e.g. 000002), and change the default identity on the simulator. This will activate a new device and simulate data for it.</strong></p>
+<p>If the Python Simulator is running correctly, it should look like this:
+<img src="assets/product_python_simulator_success.png" alt="Python simulator success"></p>
+<p>The script should show that the device has been activated and whether the lightbulb is on or off. Change back to your browser and make sure the device has been activated and data is showing up on the platform:
+<img src="assets/product_device_activated.png" alt="Select device"></p>
+<p><img src="assets/product_device_resources_simulated_data.png" alt="Select device"></p>
+<p>Awesome! Now you have a simulated device pumping data into Exosite. Keep the simulator running throughout these tutorials.</p>
+<h1 id="step-3-create-the-dashboard">STEP 3: CREATE THE DASHBOARD</h1>
+<p>On your browser, select the device you just created (most likely 000001) and open the Dashboard:
+<img src="assets/click_dashboard.png" alt="Click Dashboard"></p>
+<p>Add a text pane for temperature and include sparkline
+ <img src="assets/product_dashboard_add_pane.png" alt="dashboard add pane">
+ <img src="assets/product_dashboard_add_widget.png" alt="dashboard add pane">
+ <img src="assets/dashboard_add_widget.png" alt="dashboard add widget"></p>
+<p>Do the same for Humidity. Then add a toggle switch for your light:
+ <img src="assets/product_dashboard_toggle_widget.png" alt="dashboard add widget"></p>
+<p>Now try turning the light on and off for the simulated device. Hit the toggle switch on your dashboard, then switch to terminal (while the simulator is running) and make sure the simulator acknowledges it.
+ <img src="assets/product_dashboard_complete_toggle_switch.png" alt="dashboard toggle switch">
+ <img src="assets/product_dashboard_lightbulb_on_terminal.png" alt="dashboard toggle lightbulb on - terminal"></p>
+<p>Congratulations - you just remotely turned a simulated device sensor on and off. </p>
+<p><a class="btn orange" href="http://docs.exosite.com/murano/get-started/solutions/exampleapp/">UP NEXT: CREATE A SOLUTION &gt;&gt;</a></p>
+<div style="padding-bottom: 300px"></div>
+
+
+
+
+
+
+</div>
+  </div>
+
+  <div id="markdown" style="display:none;">
+
+  </div>
+
+  <!-- Custom -->
+  <script src='/assets/main.js'></script>
+
+</body>
+</html>
