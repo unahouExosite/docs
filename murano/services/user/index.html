@@ -283,17 +283,8 @@ response = User.listRoles()
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
  parameter = { 
- { }, 
- { 
-name = &quot;CUDPeIAJUQFoBlkDJvcFlEWgV&quot;
-}, 
- { 
-name = &quot;amfaUegKhXPMY&quot;
-}, 
- { }, 
  { }
-  }, 
- [&quot;role_id&quot;] = &quot;fsKxWgjHU_&quot;
+  }
  }
 
 response = User.createRole(parameters)
@@ -348,7 +339,10 @@ response = User.createRole(parameters)
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
  filter = { 
- &quot;nostrud i&quot;
+ &quot;in mollit eu nostrud ull&quot;, 
+ &quot;labore enim&quot;, 
+ &quot;laboris&quot;, 
+ &quot;ut&quot;
   }
  }
 
@@ -413,9 +407,9 @@ response = User.listUsers(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- name = &quot;ullamco&quot;, 
- email = &quot;RuwCV@OarGGrGNLBl.am&quot;, 
- password = &quot;Excepteur irure dolor&quot;
+ name = &quot;ex ut pariatur Ut qui&quot;, 
+ email = &quot;5NxeA@wifhpKfxhrLOJoguLgMnsxGfmybNA.pz&quot;, 
+ password = &quot;nostrud&quot;
  }
 
 response = User.createUser(parameters)
@@ -558,7 +552,7 @@ response = User.socialList()
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- consumer = &quot;Ut in quis&quot;
+ [&quot;client_secret&quot;] = &quot;aliqua&quot;
  }
 
 response = User.createSocial(parameters)
@@ -648,7 +642,7 @@ response = User.createSocial(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- token = &quot;commodo&quot;
+ token = &quot;labore irure consequat&quot;
  }
 
 response = User.getCurrentUser(parameters)
@@ -738,7 +732,7 @@ response = User.getCurrentUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;velit id culpa aliquip&quot;
+ id = &quot;quis&quot;
  }
 
 response = User.getUser(parameters)
@@ -848,7 +842,9 @@ response = User.getUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;sint Lorem reprehenderit&quot;
+ id = &quot;voluptate Duis nisi ullamco cupidatat&quot;, 
+ [&quot;original_password&quot;] = &quot;laboris cillum non occaecat&quot;, 
+ name = &quot;anim&quot;
  }
 
 response = User.updateUser(parameters)
@@ -902,7 +898,7 @@ response = User.updateUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;sint consequat consectetur amet eiusmod&quot;
+ id = &quot;do id reprehend&quot;
  }
 
 response = User.deleteUser(parameters)
@@ -1015,8 +1011,8 @@ response = User.listPerms()
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- method = &quot;YFBZNPY&quot;, 
- [&quot;end_point&quot;] = &quot;FqrsmjFoja5FpsIQeT-uJiGGByfasJ/hDn3F8Mhr{6jSofq{O3a9URWBALUvVUOQmO4UKmhaDRJQB4JEI3DtkJNQI/BjCI2V/HI/liJTvZKxqdJhqifYdyZXYMwY73-pzASBw3wgtb&quot;
+ [&quot;end_point&quot;] = &quot;b}T_7FHQu3gFy2y7qOoYpBxW8sReieKvW9LWC4TzTlyqC3EG9lm/n8R-P8fnnYZgxRE{fsP95k5T0phRta-MY8gyOeeqQ_VNLIs7GdkFxWxlEkTPOiJwMvpq{OROImS9LRDWv8iaf97WRx2-tl&quot;, 
+ method = &quot;XFJVXFYZU&quot;
  }
 
 response = User.createPermission(parameters)
@@ -1075,8 +1071,8 @@ response = User.createPermission(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- email = &quot;cfKFy@g.hpe&quot;, 
- password = &quot;Lorem culpa Ut sint nulla&quot;
+ email = &quot;7TTL@CqqxAQbIgZWGk.pcpp&quot;, 
+ password = &quot;magna et in&quot;
  }
 
 response = User.getUserToken(parameters)
@@ -1130,7 +1126,7 @@ response = User.getUserToken(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- code = &quot;mollit&quot;
+ code = &quot;ipsum occaecat amet&quot;
  }
 
 response = User.activateUser(parameters)
@@ -1210,7 +1206,7 @@ response = User.activateUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;pariatur minim Excepteur fugiat dolore&quot;
+ [&quot;role_id&quot;] = &quot;eu culpa anim&quot;
  }
 
 response = User.getRole(parameters)
@@ -1264,7 +1260,7 @@ response = User.getRole(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;minim cillum nisi&quot;
+ [&quot;role_id&quot;] = &quot;m&quot;
  }
 
 response = User.deleteRole(parameters)
@@ -1318,7 +1314,7 @@ response = User.deleteRole(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;do sed laboris incididunt velit&quot;
+ id = &quot;Excepteur Duis &quot;
  }
 
 response = User.listUserRoles(parameters)
@@ -1397,60 +1393,30 @@ response = User.listUserRoles(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;velit culpa sed amet occaecat&quot;, 
+ id = &quot;velit laboris&quot;, 
  roles = { 
+ { 
+[&quot;role_id&quot;] = &quot;bYjcI3ip_Q5Cc6MSMMgcjt&quot;, 
+parameters = { 
+ { 
+name = &quot;sqfszVNNMHeDbZesWawwNkGtRoGYaoB&quot;, 
+value = &quot;fRrwH0kdwmg2v0StfsTZ9lUQGIcE23yr6WGpZy2yxi8e4ALTPLPBh9FdksLTj2eOOojqMueDSl4ulXUUK9DwECtHVdsWiUCCUgF&quot;
+}, 
  { }, 
+ { 
+name = &quot;iTtlKjyQdumLVwLeOeLQlNyqXUhcSWK&quot;, 
+value = &quot;ZEjo02mIxAmqB34QE4myZof42MFfYCSibkJzaJ2UOf92PnL0z85j22IQAy98m62W1q3PdUKrXxB3w6Q&quot;
+}
+ }
+}, 
  { 
 parameters = { 
  { 
-name = &quot;lCTAzPRbnNLwsAYNcjjvjlSSiHMEpDKyqI&quot;
-}, 
- { 
-value = &quot;VVFvuFI0VGUvKtN42sCgO10Fc2zorkdGpvcFkorwUtoj9CCY4LTbKUrT1tF7WOGLWF5U&quot;
-}, 
- { }, 
- { 
-value = &quot;DlM2GqzZ7VM9BBRl8bmOmnZ4NHWOGFS6wlLh5vaEXZX1ETw3RlZIOmyjTI8edcEHw1Z4HibIlAZ&quot;, 
-name = &quot;O&quot;
-}, 
- { 
-value = &quot;2TLx4Gu6doYd8&quot;
+name = &quot;BZDA&quot;, 
+value = &quot;QI7FJORhPdX8iyi&quot;
 }
  }, 
-[&quot;role_id&quot;] = &quot;XPq8MIgqUy_oP1lSYtBvB9dJzzRw7s6Nc9PVVji6oN8U4rQHTZMVmuFvv-fKA6B&quot;
-}, 
- { 
-[&quot;role_id&quot;] = &quot;jj_B_IU-edBK54mXQBR7xEuFdh&quot;, 
-parameters = { 
- { }, 
- { 
-name = &quot;WQLQDCockqVQHLumjsOXLpMTBGzjEAlqMtZ&quot;
-}, 
- { 
-name = &quot;MsopVACuDksLhKlTaUBRfDkqiUL&quot;
-}, 
- { }, 
- { 
-name = &quot;ACmVgPaHQyhqlvoA&quot;, 
-value = &quot;urkM7VfLDbPT6IsRIlHuuYsfzwPGAAZ0Hcg8oLBUwtZzudIseSv58iA69ugEhTNRfMtACZz8u&quot;
-}
- }
-}, 
- { 
-parameters = { 
- { 
-value = &quot;9hiCzAp1tes82V1jBNUxkq8NBAawIcWbhuf3oYwqE1sitq4nDUGJbzMskpsPeW7f&quot;, 
-name = &quot;niBPyoblAgysJzs&quot;
-}
- }
-}, 
- { 
-[&quot;role_id&quot;] = &quot;jdLf1tXeaoUxL8A9OQtwNXWAxG5Mw19-FY2wZK2j44z29u3LLpefULq&quot;, 
-parameters = { 
- { 
-name = &quot;aVgAVmyEsVVJlzotKkMQSBiwJERjmoMDZEXNf&quot;
-}
- }
+[&quot;role_id&quot;] = &quot;kOOqOEr_In7ZsYwKtZlqbWCusnkuxF0NI-eNDMBu4DQUZJJ9ebJhp3DRrEtc19UgbX2W5U4wAYNG&quot;
 }
   }
  }
@@ -1542,7 +1508,7 @@ response = User.assignUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- consumer = &quot;in irure minim &quot;
+ consumer = &quot;nisi aliquip officia esse&quot;
  }
 
 response = User.getSocial(parameters)
@@ -1610,7 +1576,7 @@ response = User.getSocial(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;et consectetur irure cupidatat laborum&quot;
+ id = &quot;dolore amet id&quot;
  }
 
 response = User.listUserData(parameters)
@@ -1678,7 +1644,7 @@ response = User.listUserData(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;labore consequat cillum&quot;
+ id = &quot;dolore ex labore aliquip dolor&quot;
  }
 
 response = User.updateUserData(parameters)
@@ -1746,7 +1712,7 @@ response = User.updateUserData(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;sint&quot;
+ id = &quot;dolor elit esse ea&quot;
  }
 
 response = User.createUserData(parameters)
@@ -1819,11 +1785,9 @@ response = User.createUserData(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;mollit sed proident&quot;, 
+ id = &quot;ad cupidatat minim&quot;, 
  keys = { 
- &quot;tempor non do&quot;, 
- &quot;sunt&quot;, 
- &quot;ullamco do sint&quot;
+ &quot;qui esse&quot;
   }
  }
 
@@ -1878,7 +1842,7 @@ response = User.deleteUserData(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;minim deserunt&quot;
+ [&quot;role_id&quot;] = &quot;adipisicing ullamco exercitation aliquip id&quot;
  }
 
 response = User.listRoleUsers(parameters)
@@ -1932,7 +1896,7 @@ response = User.listRoleUsers(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;perm_id&quot;] = &quot;elit&quot;
+ [&quot;perm_id&quot;] = &quot;occaecat commodo elit in&quot;
  }
 
 response = User.deletePerm(parameters)
@@ -1986,7 +1950,7 @@ response = User.deletePerm(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- consumer = &quot;adipisicing pariatur mollit et ut&quot;
+ consumer = &quot;non&quot;
  }
 
 response = User.getSocialLoginUrl(parameters)
@@ -2060,10 +2024,8 @@ response = User.getSocialLoginUrl(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- consumer = &quot;ex deserunt veniam sed&quot;, 
- state = &quot;nostrud eu&quot;, 
- [&quot;oauth_verifier&quot;] = &quot;pariatur nostrud enim&quot;, 
- code = &quot;proident mollit elit&quot;
+ consumer = &quot;cupidatat exercitation eu quis adipisicing&quot;, 
+ state = &quot;nulla Duis consectetur&quot;
  }
 
 response = User.getSocialToken(parameters)
@@ -2122,8 +2084,8 @@ response = User.getSocialToken(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;irure nulla mollit&quot;, 
- key = &quot;ullamco amet laborum&quot;
+ id = &quot;ea esse&quot;, 
+ key = &quot;officia consequat laboris exercitation&quot;
  }
 
 response = User.getUserData(parameters)
@@ -2213,11 +2175,12 @@ response = User.getUserData(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;Duis Lorem &quot;, 
+ [&quot;role_id&quot;] = &quot;do aliquip&quot;, 
  body = { 
  { 
-name = &quot;kfUzjZktgWJLdOU&quot;
-}
+name = &quot;PvmiJRuXDCvVE&quot;
+}, 
+ { }
   }
  }
 
@@ -2277,8 +2240,8 @@ response = User.addRoleParam(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;elit&quot;, 
- [&quot;role_id&quot;] = &quot;consectetur ut qui&quot;
+ id = &quot;consectetur aliquip dolor&quot;, 
+ [&quot;role_id&quot;] = &quot;mini&quot;
  }
 
 response = User.deassignUser(parameters)
@@ -2332,7 +2295,7 @@ response = User.deassignUser(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;consequat qui&quot;
+ [&quot;role_id&quot;] = &quot;cillum irure incididunt Duis&quot;
  }
 
 response = User.listRolePerms(parameters)
@@ -2401,14 +2364,21 @@ response = User.listRolePerms(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;consequat veniam adipisicing est commodo&quot;, 
+ [&quot;role_id&quot;] = &quot;adipisicing pariatur quis occaecat Excepteur&quot;, 
  body = { 
  { 
-[&quot;end_point&quot;] = &quot;ktZt7ar8{F87V7dcKyi1IV7WkSxdBHKP8jZDq5SapOKXeX4dcuQ}nKsGMkd7-oe_4W&quot;
+method = &quot;WC&quot;
 }, 
  { 
-[&quot;end_point&quot;] = &quot;lf0DRUBF{vEqeQKOc66lHluaRT63lnUok}qNJLqNP{fIFWexW{H{SCIVXgX3RuW_OEm3TbG}A}mZKpUjCatkF5pk6Z2FE4CzkmYzxSmLF9cBjVC-xjyrPydpNC8PbDT7b/77a7_5qnZdD&quot;, 
-method = &quot;K&quot;
+method = &quot;FV&quot;, 
+[&quot;end_point&quot;] = &quot;uD}DffTlsLC&quot;
+}, 
+ { 
+[&quot;end_point&quot;] = &quot;bwoeXW-q&quot;, 
+method = &quot;AZAOQ&quot;
+}, 
+ { 
+[&quot;end_point&quot;] = &quot;p_Fvjr_via9wb09R6oZOeX6ucxAsQwwP_zHdp{G_tWpXZpCoHRK87imMzkYIyBXY02IkxqmJ7N{g1WreL3-&quot;
 }
   }
  }
@@ -2469,8 +2439,8 @@ response = User.addRolePerm(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- consumer = &quot;Ut dolore irur&quot;, 
- token = &quot;dolore occaecat&quot;
+ consumer = &quot;exercitation nostrud&quot;, 
+ token = &quot;in dolore qui ut velit&quot;
  }
 
 response = User.socialRequest(parameters)
@@ -2534,11 +2504,12 @@ response = User.socialRequest(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;velit ex Duis&quot;, 
- [&quot;perm_id&quot;] = &quot;cupidatat aliquip commodo sunt&quot;, 
+ id = &quot;id&quot;, 
+ [&quot;perm_id&quot;] = &quot;id veniam Duis ullamco ut&quot;, 
  parameters = { 
- &quot;dolor eiusmod commodo&quot;, 
- &quot;irure dolor aute no&quot;
+ &quot;in dolor aute&quot;, 
+ &quot;aliqua reprehenderit quis laborum ut&quot;, 
+ &quot;commodo veniam laboris aliquip eiusmod&quot;
   }
  }
 
@@ -2598,8 +2569,8 @@ response = User.hasUserPerm(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;sed Excepteur tempor ipsum dolor&quot;, 
- [&quot;perm_id&quot;] = &quot;i&quot;
+ [&quot;role_id&quot;] = &quot;ullamco&quot;, 
+ [&quot;perm_id&quot;] = &quot;consectetur fugiat aliquip eu deserunt&quot;
  }
 
 response = User.deleteRolePerm(parameters)
@@ -2684,8 +2655,8 @@ response = User.deleteRolePerm(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;mollit&quot;, 
- [&quot;parameter_name&quot;] = &quot;deserunt reprehenderit nostrud tempor&quot;
+ [&quot;role_id&quot;] = &quot;sed do pariatur velit veniam&quot;, 
+ [&quot;parameter_name&quot;] = &quot;ipsum culpa ex mollit&quot;
  }
 
 response = User.deleteRoleParam(parameters)
@@ -2780,9 +2751,10 @@ response = User.deleteRoleParam(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;enim consequat qui laborum ullamco&quot;, 
- [&quot;role_id&quot;] = &quot;aliquip deserunt&quot;, 
- [&quot;parameter_name&quot;] = &quot;nostrud qui cupidatat dolor ni&quot;
+ id = &quot;adipisicing quis&quot;, 
+ [&quot;role_id&quot;] = &quot;id Duis velit&quot;, 
+ [&quot;parameter_name&quot;] = &quot;occaecat aute l&quot;, 
+ limit = -62396635
  }
 
 response = User.listUserRoleParamValues(parameters)
@@ -2846,9 +2818,9 @@ response = User.listUserRoleParamValues(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;est et&quot;, 
- [&quot;role_id&quot;] = &quot;aute culpa&quot;, 
- [&quot;parameter_name&quot;] = &quot;commodo&quot;
+ id = &quot;Ut cillum anim&quot;, 
+ [&quot;role_id&quot;] = &quot;voluptate qui&quot;, 
+ [&quot;parameter_name&quot;] = &quot;dolore labore nulla cul&quot;
  }
 
 response = User.deassignUserParamName(parameters)
@@ -2912,9 +2884,9 @@ response = User.deassignUserParamName(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;exercitation eiusmod cupida&quot;, 
- [&quot;parameter_name&quot;] = &quot;occaecat esse consequat&quot;, 
- [&quot;parameter_value&quot;] = &quot;nostrud&quot;
+ [&quot;role_id&quot;] = &quot;dolore ea magna sed&quot;, 
+ [&quot;parameter_name&quot;] = &quot;amet eiusmod mollit deserunt&quot;, 
+ [&quot;parameter_value&quot;] = &quot;ex amet proident cillum&quot;
  }
 
 response = User.listRoleParamUsers(parameters)
@@ -2983,10 +2955,10 @@ response = User.listRoleParamUsers(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- [&quot;role_id&quot;] = &quot;et qui incididunt&quot;, 
- [&quot;parameter_name&quot;] = &quot;sint mollit aliqua tempor&quot;, 
- [&quot;parameter_value&quot;] = &quot;nostrud ex consectetur dolore&quot;, 
- id = -15137158
+ [&quot;role_id&quot;] = &quot;sit Excepteur&quot;, 
+ [&quot;parameter_name&quot;] = &quot;culpa dolor id&quot;, 
+ [&quot;parameter_value&quot;] = &quot;laborum dolore aliquip minim&quot;, 
+ id = 79787990
  }
 
 response = User.hasUserRoleParam(parameters)
@@ -3055,10 +3027,10 @@ response = User.hasUserRoleParam(parameters)
 </table>
 <h5 id="example">Example</h5>
 <pre><code class="lang-lua">local parameters = { 
- id = &quot;exercitation in do nostrud ex&quot;, 
- [&quot;role_id&quot;] = &quot;voluptate&quot;, 
- [&quot;parameter_name&quot;] = &quot;esse ad no&quot;, 
- [&quot;parameter_value&quot;] = &quot;officia reprehenderit proident do&quot;
+ id = &quot;qui ut sunt c&quot;, 
+ [&quot;role_id&quot;] = &quot;irure est&quot;, 
+ [&quot;parameter_name&quot;] = &quot;nisi&quot;, 
+ [&quot;parameter_value&quot;] = &quot;sed voluptate in&quot;
  }
 
 response = User.deassignUserParam(parameters)

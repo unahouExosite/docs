@@ -127,7 +127,8 @@
 </ul>
 <h2 id="overview">Overview</h2>
 <p>Exosite&#39;s <a href="../">Murano</a> platform is an event driven system that uses scripts to route data and perform application logic and rules. These scripts have a rich set of capabilities and are used to perform such actions as storing device data into time series data store, offloading processing from your devices, and handling Solution Application API requests. These scripts have access to all of the Murano services.  A reference for each of these services and their functionality can be found here: <a href="../services/">Service Reference</a></p>
-<p>Scripts are written in Lua 5.1 scripting language. For general information about Lua 5.1, please refer to the <a href="http://www.lua.org/manual/5.1/">online Lua manual</a>.</p>
+<p>Scripts are written in Lua, on the LuaJIT VM, which is Lua 5.1 with <a href="http://luajit.org/extensions.html#lua52">some 5.2 features</a>. 
+For general information about Lua 5.1, please refer to the <a href="http://www.lua.org/manual/5.1/">online Lua manual</a>.</p>
 <p>Scripts may be added to a Solution by using either the <a href="https://www.exosite.com/business/solutions">Murano admin UI</a>, or by
 using the <a href="../exosite-cli/">Exosite Command Line Interface</a>.</p>
 <h4 id="examples">Examples</h4>
@@ -139,38 +140,43 @@ using the <a href="../exosite-cli/">Exosite Command Line Interface</a>.</p>
 <hr>
 <h2 id="script-execution">Script Execution</h2>
 <p>The Murano Lua scripts are executed in reaction of a system event which are defined by <a href="../services">Murano services</a> events.</p>
-<p>For example a <a href="../services/device/#datapoint">message is received from an Iot device</a> or an HTTP request is made on your <a href="../services/webservice/#request">Custom API endpoint</a>.</p>
-<p>Those events will trigger the execution one or more <strong>event_handler script(s)</strong> defined in your solution. One <strong>event_handler script</strong> always target a single <a href="../services">Murano services</a> event.</p>
+<p>For example a <a href="../services/device/#datapoint">message is received from an IoT device</a> or an 
+HTTP request is made on your <a href="../services/webservice/#request">Custom API endpoint</a>.</p>
+<p>Those events will trigger the execution one or more <strong>event_handler script(s)</strong> defined 
+in your solution. One <strong>event_handler script</strong> always target a single <a href="../services">Murano services</a> event.</p>
 <p>On the <a href="https://www.exosite.com/business/solutions">Murano Portal</a> you can define event script under the solution <em>services</em> tab.
-If you are using the <a href="../exosite-cli/">Exosite client tool</a> you can define the event script in the <a href="https://github.com/exosite/home-automation-example/tree/master/event_handler">event_handler folder</a> of your project by using the service <em>Alias</em> as file name.</p>
-<h3 id="event-handler-context">Event handler context</h3>
-<p>During execution, <strong>event handler scripts</strong> are wrapped in a handler function corresponding to the <a href="../services/">Murano Services</a> event. The event handler function will expose arguments defined by the Murano service event.</p>
-<p><strong>Important:</strong> Murano <strong>event handler scripts</strong> share the same context withing a solution. Therefore the use of the <em>local</em> keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue.</p>
+If you are using the <a href="../exosite-cli/">Exosite client tool</a> you can define the event script in the 
+<a href="https://github.com/exosite/home-automation-example/tree/master/event_handler">event_handler folder</a> of your project 
+by using the service <em>Alias</em> as file name.</p>
+<h3 id="event-handler-context">Event Handler Context</h3>
+<p>During execution, <strong>event handler scripts</strong> are wrapped in a handler function corresponding to 
+the <a href="../services/">Murano Services</a> event. The event handler function will expose arguments defined by the Murano service event.</p>
+<p><strong>Important:</strong> Murano <strong>event handler scripts</strong> share the same context withing a solution. 
+Therefore the use of the <em>local</em> keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue.</p>
 <h4 id="example">Example</h4>
-<p><strong>Incoming data from an IoT device</strong> are triggered by the <a href="../services/device/#datapoint">Device service datapoint event</a> which defines a <em>data</em> parameter for the event handler context. The wrapper function will therefore be:</p>
+<p><strong>Incoming data from an IoT device</strong> are triggered by the <a href="../services/device/#datapoint">Device service datapoint event</a> which 
+defines a <em>data</em> parameter for the event handler context. The wrapper function will therefore be:</p>
 <pre><code class="lang-lua">function handle_device_datapoint (data)
-
   -- Here goes your device data handler script
-
 end
 </code></pre>
 <p>So when your <strong>event handler script</strong> defines:</p>
-<pre><code class="lang-lua">  print(data.pid)
+<pre><code class="lang-lua">print(data.pid)
 </code></pre>
 <p>The final execution script will look like the following:</p>
 <pre><code class="lang-lua">function handle_device_datapoint (data)
-
   print(data.pid)
-
 end
 </code></pre>
 <h3 id="api-endpoint-scripts">API Endpoint Scripts</h3>
 <p>For convenience, Murano offers the option to build your custom HTTP API by defining endpoints scripts.</p>
-<p><strong>Endpoint scripts</strong> are automatically wrapped in a simple routing mechanism based on the <a href="../services/webservice">Webservice Murano service</a> set within the event handler for the <a href="../services/webservice/#request">&#39;request&#39; event</a>.
-As for a regular Service event handler, the script will receive the <a href="../services/webservice/#request">request event arguments</a> containing the HTTP request data.</p>
-<p>An extra <em>response</em> argument is provided to the <strong>endpoint script</strong> context allowing a compact response syntax.
-The <em>response</em> object content:
-||attribute||type||default value||description||
+<p><strong>Endpoint scripts</strong> are automatically wrapped in a simple routing mechanism based on the <a href="../services/webservice">Webservice Murano service</a> 
+set within the event handler for the <a href="../services/webservice/#request">&#39;request&#39; event</a>.
+As for a regular Service event handler, the script will receive the <a href="../services/webservice/#request">request event arguments</a> 
+containing the HTTP request data.</p>
+<p>An extra <em>response</em> argument is provided to the <strong>endpoint script</strong> context allowing a compact response syntax.</p>
+<p>The <em>response</em> object content:</p>
+<p>||attribute||type||default value||description||
 |<strong>code</strong>|<em>integer</em>|200|The response HTTP status code.<br />If any exception occurs a 500 is returned.|
 |<strong>message</strong>|<em>string</em> or <em>table</em>|&quot;Ok&quot;|The HTTP response body. If a Lua table is given, the routing wrapper will automatically encode it as JSON object.|
 |<strong>headers</strong>|Table of <em>string</em>|&quot;content-type&quot; = <em>text/plan</em> or <em>application/json</em> |The HTTP response headers depending on message type.|</p>
@@ -223,7 +229,8 @@ end
 </code></pre>
 <hr>
 <h2 id="modules">Modules</h2>
-<p>Murano recommend the use of re-usable block of Lua code. For this purpose you can defined Lua modules from the <a href="https://github.com/exosite/home-automation-example/tree/master/modules">module folder</a> of your project.</p>
+<p>Murano recommend the use of re-usable block of Lua code. For this purpose you can defined Lua modules from 
+the <a href="https://github.com/exosite/home-automation-example/tree/master/modules">module folder</a> of your project.</p>
 <p>Murano modules diverges from standard Lua modules as they are automatically added to the solution script and don&#39;t need to be manually included in other scripts.</p>
 <h3 id="to-keep-in-mind-about-modules">To keep in mind about Modules</h3>
 <ul>
@@ -291,17 +298,25 @@ end
 --------- response: {&quot;error&quot;: &quot;&quot;, &quot;result: &quot;&quot;, &quot;status&quot;: 204}
 </code></pre><hr>
 <h2 id="script-environment">Script environment</h2>
-<p>Scripts are completely isolated from one another, each running in its own,
-secure environment, complete with direct access to all <a href="../services/">Murano Services</a>.</p>
-<p>Scripts are scheduled to run with a limited number of 64000 instructions per execution.
-Scripts also have memory usage limits of 1Mb, which if completely consumed
-terminates the script with a &#39;not enough memory&#39; error.  Please reference the
-Lua 5.1 manual for how Lua manages memory. In particular:</p>
+<p>Scripts are executed in their own sandboxed instance of the Lua VM to keep them isolated
+form each other. Each script has access to all <a href="../services/">Murano Services</a>, but access
+to those services is authenticated based on your solution.</p>
+<p>Each script execution is resource constrained, currently that translates into 1Mb of
+RAM, and 64k Lua instructions. </p>
+<p>While memory usage is easy to reason about, a Lua instruction limit is not so clear-cut. 
+If you are not sure what a Lua instruction is, intuitively you could view it as correlated to
+CPU usage, although it is not a direct correlation - in short, it represents how much work your
+script performs. Lua is a stack-based virtual machine, and it&#39;s instruction set is similar to assembly 
+in some respects. Thus Lua instructions are primitive operations on the stack and the registers in
+each stack frame, as well as primitives for boolean logic and arithmetic, examples of
+such instructions are: LOADNIL, LOADK, MOVE, ADD, SUB, MUL, POW, LEN, JMP, EQ, and many more.</p>
+<p>The limit is only enforced for instructions executed.</p>
+<p>In cases where either limit is exceeded, your script will immediately fail with an error message
+explaining why. If you are curious how Lua 5.1 memory management works, please see the following
+references:</p>
 <ul>
-<li><p><a href="http://www.lua.org/manual/5.1/manual.html#2.5">Garbage Collection</a></p>
-</li>
-<li><p><a href="http://www.lua.org/manual/5.1/manual.html#3.5">Visibility Rules</a></p>
-</li>
+<li><a href="http://www.lua.org/manual/5.1/manual.html#2.5">Garbage Collection</a></li>
+<li><a href="http://www.lua.org/manual/5.1/manual.html#3.5">Visibility Rules</a></li>
 </ul>
 <h3 id="lua-tables-and-functions">Lua tables and functions</h3>
 <p>The following global Lua tables and functions are available to Lua
@@ -323,16 +338,22 @@ scripts. They operate exactly as described in the Lua 5.1 reference manual.</p>
 </ul>
 <h3 id="additional-global-tables-functions-and-properties">Additional global tables, functions and properties</h3>
 <p>In addition to the Lua system resources the following global features are available to Lua scripts:</p>
-<ul>
-<li><p><em>to_json()</em> To build a JSON string from a Lua table structure.</p>
-<pre><code class="lang-lua">jsonString = to_json(luaTable)
+<h4 id="to_json">to_json</h4>
+<p>Converts a Lua table to a JSON string.
+This function is multi-return, the first value being the result,
+and the second value being an error value. If the error value is nil,
+then the conversion was successful, and the result can be used safely.</p>
+<p>If non-nil, the error value will be a string.</p>
+<pre><code class="lang-lua">result, err = to_json(luaTable)
 </code></pre>
-</li>
-<li><p><em>from_json()</em> To build a Lua table from a JSON string.</p>
-<pre><code class="lang-lua">luaTable = from_json(jsonString)
+<h4 id="from_json">from_json</h4>
+<p>Converts a JSON string to a Lua table.
+This function is multi-return, the first value being the result,
+and the second value being an error value. If the error value is nil,
+then the conversion was successful, and the result can be used safely.</p>
+<p>If non-nil, the error value will be a string.</p>
+<pre><code class="lang-lua">result, err = from_json(jsonString)
 </code></pre>
-</li>
-</ul>
 </div>
   </div>
 
