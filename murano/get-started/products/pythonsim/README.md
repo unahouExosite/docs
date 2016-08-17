@@ -86,7 +86,7 @@ Now try turning the light on and off for the simulated device. Hit the toggle sw
 
 Congratulations - you just remotely turned a simulated device sensor on and off. 
 
-<a class="btn orange" href="http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/">UP NEXT: CREATE A SOLUTION >></a>
+<a class="btn orange" href="http://docs.exosite.com/murano/get-started/solutions/exampleapp/">UP NEXT: CREATE A SOLUTION >></a>
 <div style="padding-bottom: 300px"></div>
 
 

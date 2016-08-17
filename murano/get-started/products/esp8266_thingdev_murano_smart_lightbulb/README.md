@@ -195,7 +195,7 @@ You will then see
 
 __Any device that connects as that same product will inherit the same resources.__
 
-[Next, create a Solution!](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
+[Next, create a Solution!](http://docs.exosite.com/murano/get-started/solutions/exampleapp/)
 
 
 

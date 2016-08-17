@@ -191,5 +191,5 @@ exosite --deploy
 
 
 Next up (if you haven’t already):
-<a class="btn orange" href="http://beta-docs.exosite.com/murano/get-started/">CREATE A PRODUCT >></a>
+<a class="btn orange" href="http://docs.exosite.com/murano/get-started/">CREATE A PRODUCT >></a>
 <div style="padding-bottom: 300px"></div>
