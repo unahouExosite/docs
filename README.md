@@ -2,9 +2,8 @@
 
 Murano provides a powerful IoT platform that helps organizations connect product deployments and build applications and services using secure, scalable infrastructure. 
 
-[Murano Signup](https://exosite.com/business/signup) 
-
-[Murano Getting-Started Guides](https://github.com/exosite/docs/blob/master/murano/get-started)
+<a class="btn orange" href="https://exosite.com/business/signup">Murano Signup</a>
+<a class="btn orange" href="/murano/get-started">Murano Getting-Started Guides</a>
 
 ![murano overview image](/murano/assets/platform_overview.png)
 
