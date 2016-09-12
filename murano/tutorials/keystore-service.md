@@ -149,6 +149,7 @@ With the CIK in hand you are ready to write data. If you don't have a physical d
 
 ```
 curl https://<product_id>.m2.exosite.com/onep:v1/stack/alias \
+-H "X-Exosite-CIK: <CIK>" \
 -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
 -d "<resource_alias>=<value>"
 ```
