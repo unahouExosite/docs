@@ -131,10 +131,10 @@ return { dailyCount = dailyCount.value, logs = logs.value }
 
 To test your scripts you need to send data to from your device to Murano. Here's how to do that:
 
-1. Create a Product or use an existing one from the Murano portal and note its **product_id**.
+1. Create a Product or use an existing one from the Murano portal and note its product ID.
 2. If you create a new Product, be sure to add it to the Products configuration under the SERVICES tab of the solution.
-3. Define a **resource** to send data under the DEFINITION tab. For example, you could create a resource of type "string" with alias "message".
-4. Create a device on the DEVICES panel and note its **identity**.
+3. Add a resource under the DEFINITION tab. For example, you could create a resource of type "string" with alias "message".
+4. Create a device on the DEVICES panel and note its identity.
 5. Activate the device to get the device key (CIK). A simple HTTP request on the provisioning API will do. Normally this step is done by a device, but here's how to do that using curl. Be sure to substitute the items in brackets with your values.
 
 ```
