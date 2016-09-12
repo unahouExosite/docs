@@ -5,11 +5,11 @@ template: default
 
 # Tutorial: Record Product Metrics
 
-A common need when managing a fleet of devices is to track metrics and error logs. This tutorial demonstrates how to use Murano's [Keystore service](../services/keystore#) to [collect metrics](#collect-metrics) and [expose those metrics](#expose-metrics) from a custom API endpoint.
+A common need when managing a fleet of devices is to track metrics and error logs. This tutorial demonstrates how to use Murano's [Keystore service](../../services/keystore#) to [collect metrics](#collect-metrics) and [expose those metrics](#expose-metrics) from a custom API endpoint.
 
 ## Prerequisites
 
-* A Murano account with a solution. To create a solution you can follow [The getting started guide](../get-started/solutions/exampleapp/#).
+* A Murano account with a solution. To create a solution you can follow the [getting started guide](../../get-started/solutions/exampleapp/#).
 
 
 ## Collect Metrics
@@ -41,7 +41,7 @@ Keystore.command({ command = "expireat", key = "dailyCount", args = {expiration}
 
 ### Log the last 10 messages from the Device
 
-To log message content from your devices, you can use the [data.value event argument](../services/device/#datapoint) provided to the _datapoint_ event handler. The first value found in data.value is the message timestamp, and the second is the message itself. (Note that in most cases, you'd want to also filter on `data.alias` rather than log all messages.)
+To log message content from your devices, you can use the [data.value event argument](../../services/device/#datapoint) provided to the _datapoint_ event handler. The first value found in data.value is the message timestamp, and the second is the message itself. (Note that in most cases, you'd want to also filter on `data.alias` rather than log all messages.)
 
 ```lua
 local message = data.value[2]
@@ -88,7 +88,7 @@ Keystore.command({ command = "ltrim", key = "logs", args = {0, 9}})
 
 The easiest way to expose our collected data is to create an API route endpoint. Endpoints can be created with the "+" button on the _ROUTES_ tab of your solution. When you create a new route, you'll be prompted to specify the path and HTTP method for the route. Create a new route in your solution with the path `/metrics` and method `GET`.
 
-Once the route is created, you can write an _endpoint script_ which runs when your API route endpoint is called. You can learn more about endpoint scripts on the [Webservice reference page](../services/webservice).
+Once the route is created, you can write an _endpoint script_ which runs when your API route endpoint is called. You can learn more about endpoint scripts on the [Webservice reference page](../../services/webservice).
 
 Exposing the count only requires we get the counter value store in the `Keystore` service with the `get` operation.
 
@@ -143,9 +143,9 @@ curl https://<product_id>.m2.exosite.com/provision/activate \
 -d "vendor=<product_id>&model=<product_id>&sn=<identity>"
 ```
 
-The **CIK** for the device is returned. See the [device API documentation](http://docs.exosite.com/murano/products/device_api/http/#activate) for more about the activation step.
+The **CIK** for the device is returned. See the [device API documentation](../../products/device_api/http/#activate) for more about the activation step.
 
-With the CIK in hand you are ready to write data. If you don't have a physical device, you can simulate one by sending data with the _write_ operation of the [device API](http://docs.exosite.com/murano/products/device_api/http#write). Here's how to do that using curl. Again, be sure to substitute the items in brackets with your values.
+With the CIK in hand you are ready to write data. If you don't have a physical device, you can simulate one by sending data with the _write_ operation of the [device API](../../products/device_api/http#write). Here's how to do that using curl. Again, be sure to substitute the items in brackets with your values.
 
 ```
 curl https://<product_id>.m2.exosite.com/onep:v1/stack/alias \
