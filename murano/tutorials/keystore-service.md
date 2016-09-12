@@ -143,9 +143,9 @@ curl https://<product_id>.m2.exosite.com/provision/activate \
 -d "vendor=<product_id>&model=<product_id>&sn=<identity>"
 ```
 
-The **CIK** for the device is returned. See the [device API documentation](../../products/device_api/http/#activate) for more about the activation step.
+The **CIK** for the device is returned. See the [activate API](../../products/device_api/http/#activate) documentation for more about the activation step.
 
-With the CIK in hand you are ready to write data. If you don't have a physical device, you can simulate one by sending data with the _write_ operation of the [device API](../../products/device_api/http#write). Here's how to do that using curl. Again, be sure to substitute the items in brackets with your values.
+With the CIK in hand you are ready to write data. If you don't have a physical device, you can simulate one by sending data using the [write API](../../products/device_api/http#write). Here's how to do that using curl. Again, be sure to substitute the items in brackets with your values.
 
 ```
 curl https://<product_id>.m2.exosite.com/onep:v1/stack/alias \
