@@ -19,7 +19,7 @@ A first step for monitoring your device fleet is to collect information from dev
 * The number of messages per day
 * The contents of the last 10 messages
 
-Murano solutions provide a _datapoint_ event that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the _datapoint_ event in Murano's web-based code editor or by uploading code using the command line tool. For the purpose of this tutorial let's use the web-based editor. To modify the datapoint event handler, click on the _SERVICES_ tab of your solution, select _Products_, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
+Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. For the purpose of this tutorial let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
 
 ### Increasing a daily metric counter
 
@@ -41,7 +41,7 @@ Keystore.command({ command = "expireat", key = "dailyCount", args = {expiration}
 
 ### Log the last 10 messages from the Device
 
-To log message content from your devices, you can use the [data.value event argument](../../services/device/#datapoint) provided to the _datapoint_ event handler. The first value found in data.value is the message timestamp, and the second is the message itself. (Note that in most cases, you'd want to also filter on `data.alias` rather than log all messages.)
+To log message content from your devices, you can use the [data.value event argument](../../services/device/#datapoint) provided to the datapoint event handler. The first value found in data.value is the message timestamp, and the second is the message itself. (Note that in most cases, you'd want to also filter on `data.alias` rather than log all messages.)
 
 ```lua
 local message = data.value[2]
@@ -86,9 +86,9 @@ Keystore.command({ command = "ltrim", key = "logs", args = {0, 9}})
 
 ## Expose Metrics
 
-The easiest way to expose our collected data is to create an API route endpoint. Endpoints can be created with the "+" button on the _ROUTES_ tab of your solution. When you create a new route, you'll be prompted to specify the path and HTTP method for the route. Create a new route in your solution with the path `/metrics` and method `GET`.
+The easiest way to expose our collected data is to create an API route endpoint. Endpoints can be created with the "+" button on the ROUTES tab of your solution. When you create a new route, you'll be prompted to specify the path and HTTP method for the route. Create a new route in your solution with the path `/metrics` and method `GET`.
 
-Once the route is created, you can write an _endpoint script_ which runs when your API route endpoint is called. You can learn more about endpoint scripts on the [Webservice reference page](../../services/webservice).
+Once the route is created, you can write an endpoint script which runs when your API route endpoint is called. You can learn more about endpoint scripts on the [Webservice reference page](../../services/webservice).
 
 Exposing the count only requires we get the counter value store in the `Keystore` service with the `get` operation.
 
@@ -132,10 +132,10 @@ return { dailyCount = dailyCount.value, logs = logs.value }
 To test your scripts you need to send data to from your device to Murano. Here's how to do that:
 
 1. Create a Product or use an existing one from the Murano portal and note its **product_id**.
-2. If you create a new Product, be sure to add it to the Products configuration under the _SERVICES_ tab of the solution.
-3. Define a **resource** to send data under the _DEFINITION_ tab. For example, you could create a resource of type _string_ with alias _message_.
-4. Create a device on the _DEVICES_ panel and note its **identity**.
-5. Activate the device to get the device _CIK_. A simple HTTP request on the provisioning API will do. Normally this step is done by a device, but here's how to do that using curl. Be sure to substitute the items in brackets with your values.
+2. If you create a new Product, be sure to add it to the Products configuration under the SERVICES tab of the solution.
+3. Define a **resource** to send data under the DEFINITION tab. For example, you could create a resource of type "string" with alias "message".
+4. Create a device on the DEVICES panel and note its **identity**.
+5. Activate the device to get the device key (CIK). A simple HTTP request on the provisioning API will do. Normally this step is done by a device, but here's how to do that using curl. Be sure to substitute the items in brackets with your values.
 
 ```
 curl https://<product_id>.m2.exosite.com/provision/activate \
@@ -143,7 +143,7 @@ curl https://<product_id>.m2.exosite.com/provision/activate \
 -d "vendor=<product_id>&model=<product_id>&sn=<identity>"
 ```
 
-The **CIK** for the device is returned. See the [activate API](../../products/device_api/http/#activate) documentation for more about the activation step.
+The CIK for the device is returned. See the [activate API](../../products/device_api/http/#activate) documentation for more about the activation step.
 
 With the CIK in hand you are ready to write data. If you don't have a physical device, you can simulate one by sending data using the [write API](../../products/device_api/http#write). Here's how to do that using curl. Again, be sure to substitute the items in brackets with your values.
 
