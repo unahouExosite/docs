@@ -13,7 +13,7 @@ This page describes the services available in the Murano platform.  Services are
 
 Handling of Service Events and calling of Service Operations are performed with [Murano scripting](../scripting).
 
-# Murano Services
+# Core Services
 
   * [Device](./device.md)  - Device Gateway Service
   * [Email](./email.md)  - Email Service
