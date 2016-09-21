@@ -1,211 +1,221 @@
----
-title: Murano Getting Started - Products - ESP8266 Thing Dev Board
-template: default
----
+# Getting-started Guide: Prototype a Connected Lightbulb Using an ESP8266 Thing Dev Board
 
-If you don’t already have a Murano account
+In this guide, you will set up an ESP8266 Thing Dev Board to act as a connected lightbulb. You will then create a development dashboard within Murano, where you can see temperature and humidity data from the device and have the ability to remotely turn the lightbulb on and off.
 
-<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
+**NOTE:** The ESP8266 Thing Dev Board has a known issue when using Arduino on a Windows machine. Please make sure digital pin 0 is grounded, or use a Linux machine to complete this guide.
 
-**NOTE: This board has a known issue when using Arduino on a Windows machine. Please make digital pin 0 grounded, or use a Linux machine to complete this tutorial.**
+# Requirements
 
+## Hardware Setup
 
-# Murano Example - ESP8266 Thing Dev Board as WiFi Smart Lightbulb
+To complete this guide, you will need the following hardware: 
 
-This example walks through setting up a ESP8266 Thing Dev Board to act as a Smart Lightbulb
-with Murano.  Users can feel free to customize after walking through this guide as you'll have
-created a full Product instance that supports a deployment of devices specific to that Product.
-Product definition can be updated and more devices can be added.  After walking through these steps,
-users will be interacting with live device data using a prototype developer dashboard tool.  
+* [SparkFun ESP8266 Thing Dev Board](https://www.sparkfun.com/products/13711)
 
-After this, users can go through the Murano Solution examples to deploy a Example consumer web application
-that works with this product demo.
+* [RHT03 humidity and temperature sensor ](https://www.sparkfun.com/products/10167)
 
-# Hardware Setup
+* 10K ohm resistor (for digital pin pull-up)
 
-## Hardware
-* [Sparkfun ESP8266 Thing - Dev Board](https://www.sparkfun.com/products/13711)
-* [Humidity and Temperature Sensor - RHT03 ](https://www.sparkfun.com/products/10167)
-* 1 10K Ohm Resistors (for digital pin pull-up)
-* 1 330 Ohm Resistor
-* 1 LED (suggest green or yellow)
-* Micro-USB B Cable
+* 330 ohm resistor
 
-## Hook-up Guide
+* LED (suggest green or yellow)
 
-![Thing-Board Hookup](assets/esp8266-thing-dev-hookup.png)
+* Micro-USB B cable
 
-# Software Setup
-## Setup Arduino IDE and Libraries
-0. [Install Arduino](https://www.arduino.cc/en/Main/Software) if you haven't used it before). New to Arduino? Check out the [Arduino Get Started page](https://www.arduino.cc/en/Guide/HomePage).
+To begin, connect the components as shown in the image below.
 
-1. Paste this link into your board manager (Arduino > Preferences) to install ESP8266 Thing Dev Board: [ESP8266 Thing Dev Board Install Directions ](https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/installing-the-esp8266-arduino-addon)
+  ![image alt text](thingdev_0.png)
 
-  ![search exosite](assets/paste_esp8266_link.png)
+## Software Setup
 
-2. Install Exosite Arduino Library, Adafruit DHT Unified, and DHT Sensor Library - Use Arduino Library Manager, search for `Exosite` and `DHT`. _(Make sure you have Version 2.4.1 or greater)_
+To complete this guide, you will need to set up the Arduino IDE as well as the board support for the ESP8266.
 
-  ![search exosite](assets/library_manager.png)
-  ![search exosite](assets/search_for_exosite.png)
-  ![search exosite](assets/search_for_dht.png)
+New to Arduino? Below are a few links to get an understanding of Arduino since this guide does not cover every concept of the Arduino IDE and hardware (in this case, the SparkFun ESP8266 Thing Dev Board). Note that Arduino supports a number of hardware platforms, not just Arduino-branded boards themselves, like the ESP8266 Thing Dev Board.
 
-3. Create a new Arduino Sketch   
+* [SparkFun ESP8266 Thing Dev Board](https://www.sparkfun.com/products/13711)
 
-4. Get the Example Sketch from the Exosite library called ‘murano_example_lightbulb_sensor’, which will load a new Skitch with the example device application code.
-
-  ![search exosite](assets/example_sketch.png)
-
-5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and password).
-
-  ![search exosite](assets/ssid_password.png)
-
-You can get your product ID in Murano > Products > Info Tab:
-
-  ![search exosite](assets/product_id.png)
-
-6. Make sure your board is connected to your computer via USB port and select the correct port from the Arduino Tools menu.
-
-  ![search exosite](assets/port_selection.png)
-
-7. Select the correct board before you compile your code from the Tools menu.
-
-  ![search exosite](assets/select_board.png)
-
-8. Open the Serial Monitor and set it to 115200 Baud.
-
-  ![search exosite](assets/serial_monitor2.png)
-
-  ![search exosite](assets/set_115200baud.png)
-
-9. Click the “upload” button, which will first compile and download to your plugged in board.
-
-  ![search exosite](assets/click_upload.png)
-
-10. Copy Device Identifier (MAC Address) from the Serial Monitor. **Note: If you get comm errors, try unplugging the USB cord from your computer and plugging it back in.**
-
-   ![compile download](assets/run_debug_get_unique_identifier.png)
-
-# NEW TO ARDUINO?
-_Arduino is a powerful software platform for quickly building applications on embedded hardware.  Although typically easier than most any other software IDEs and compilers, it can still be a learning experience for new users. Once installed quickly with the necessary libraries, users will find they can customize and build applications in minutes.  Here are a few links to get an understanding of Arduino since this guide does not cover every concept of the Arduino IDE and hardware concepts (in this case the SparkFun ESP8266 Thing Dev Board) Note that Arduino supports a number of hardware platforms, not just Arduino branded boards themselves, like the ESP8266 Thing Dev Board._
-
-* [Sparkfun ESP8266 Thing - Dev Board](https://www.sparkfun.com/products/13711)
 * [Arduino Getting Started](https://www.arduino.cc/en/Guide/HomePage0)
 
+1. First download and install the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/Main/Software). 
 
-# Murano Product Setup
-## Create Your Product.
+2. Open the Arduino IDE, then install the ESP8266 Thing Dev Board board support: 
 
-1. Create a Product in Murano.  
+    1. Select *Arduino* > *Preferences..*. 
 
-   When creating a product, Murano allows you to use a `product template` spec file to setup the product definition. For this example, you can use the following url (copy the whole thing):
+    2. In the *Preferences* popup that appears, paste this link into the *Additional Boards Manager URLs* field: `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
 
-  ```https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-ThingDevBoard/product_spec_smart_lightbulb_example.yaml```
+      ![image alt text](thingdev_1.png)
 
-  ![create new](assets/add_new_product.png)
-  ![create new window](assets/add_new_product_window.png)
+    3. Click OK.
 
-  After creating a product, take note of the Product ID which will be used for the Arduino Sketch in later steps.  The Product ID can always be found on the `Info` tab on the Product page.
+3. Next install the Exosite Arduino library, Adafruit DHT Unified library, and DHT Sensor library: 
 
-  ![product id](assets/get_product_id.png)
+    4. Select *Sketch* > *Include Library* > *Manage Libraries...* 
 
-  Your `Definition` tab should look like this:
-  ![resources](assets/adding_resources.png)
+      ![image alt text](thingdev_2.png)
 
-  _Note: If you did not use the template previous step, you can manually set up your Product Definition. Go to the Product Definition Tab and set up your dataport resources as specified here. Also, set the default value for `state` to 0 so the device has a default value it reads to know to turn on or off the LED. Click on the `state` resource in the Definition tab and write a 0 to the value._
+    5. In the *Library Manager* popup that appears, search for "Exosite." 
 
-  * alias: _temperature_, format: _float_
-  * alias: _humidity_, format: _float_
-  * alias: _uptime_, format: _integer_
-  * alias: _state_, format: _integer_
+    6. Select version 2.4.1 or greater and click Install. 
 
-  ![default state](assets/set_light_status_default_value.png)
+      ![image alt text](thingdev_3.png)
 
-  Before we add a device, we'll start the Arduino Thing Dev Board device application.
-    _Note: We do not yet have the device's MAC address, so wait on adding the device. We get the MAC Address from the debug output of the device application_
+    7. Next, search for "DHT." Install both the Adafruit DHT Unified and DHT sensor library.
 
-## Create and Run the example application
+      ![image alt text](thingdev_4.png) 
 
-1. Create a new Arduino Sketch.
-2. Get the Example Sketch from the Exosite library called 'murano_example_smart_lightbulb_sensor', which will load a new Sketch with the example device application code.
+    8. When complete, click Close.
 
-   ![example](assets/select_example.png)
+# Getting Started
 
-5. In your sketch, edit the WiFi configuration parameters for your local WiFi network (SSID and Password).  
-   ![change](assets/your_customizations.png)
+## Create a Product in Murano
 
-6. In your sketch, edit Exosite Product ID from your Murano product
-   ![sketch](assets/sketch_edit_parameters.png)
+In this section, you will create a new Product in Murano.
 
-7. Make sure board is connected to your computer via USB port and select the correct Port from the Arudino Tools menu.
-   ![port](assets/arduino_serial_port_selector.png)
+1. In Murano, navigate to the [Product tab](http://exosite.io/business/products).
 
-8. Select the correct board before you compile your code from the Tools menu.
-   ![board](assets/board_selection.png)
+2. To add a Product, click New Product.
 
-9. Click the Upload button which will first compile and then download to your plugged in board.
-   ![upload](assets/compile_upload_button.png)
+  ![image alt text](thingdev_5.png)
 
-8. Open the Serial Monitor.  
-   ![serial](assets/serial_monitor.png)
+3. In the *New Product* popup: 
 
-9. Copy Device Identifier (MAC Address) from the Serial Monitor Output. _The Unique Identifier or Serial Number is device firmware specific.  In this situation, the Exosite Arduino library uses the device's pre-programmed MAC Address._
-   ![compile download](assets/run_debug_get_unique_identifier.png)
-   _(You can click the Autoscroll if the log window goes past the top)_
+    1. Enter a name for the Product in the *Name* field. 
+
+    2. Select *Start from scratch* in the *Choose starting point* drop-down menu.
+
+    3. Copy and paste the following URL into the *Link to your product template* field: 
+
+      `https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-Thin gDevBoard/product_spec_smart_lightbulb_example.yaml`
+
+      This will allow you to use a product template spec file to set up the product definition. 
+
+    4. Click Add. 
+
+  ![image alt text](thingdev_6.png)
+
+4. Once the Product has been created, navigate to the Definition tab.
+
+These are the resources your device will interact with. They were created automatically from the product template you selected in the previous step. In this example, the device will generally write data to the temperature, humidity, and uptime aliases, while watching the state alias for changes.
+
+  ![image alt text](thingdev_7.png)
+
+**NOTE**: If you did not use the template URL in the previous step, you can manually configure your product definition. From the Definition tab, configure your dataport resources as specified below. Also, set the default value for "state" to 0 so the device has a default value it reads to know to turn the LED on or off. Click on the *state* resource in the Definition tab and write a 0 to the value.
+```
+* alias: _temperature_, format: _float_
+* alias: _humidity_, format: _float_
+* alias: _uptime_, format: _integer_
+* alias: _state_, format: _integer_
+
+![default state](assets/set_light_status_default_value.png)
+```
+## Flash and Run the Example Application
+
+In this section, you will flash and run an example application for a connected lightbulb in Arduino. 
+
+4. In Arduino, create a new sketch by selecting *File* > *New*.
+
+5. Load the Exosite connected lightbulb example sketch with device application code by selecting *File* > *Examples* > *Exosite* > *Murano-SmartLightBulb-ThingDevBoard*. 
+
+  ![image alt text](thingdev_8.png)
+
+6. In your sketch, edit the Wi-Fi configuration parameters for your local Wi-Fi network (SSID and password) and the Murano Product ID parameters for your product. 
+
+  ![image alt text](thingdev_9.png)
+
+  To find your Product ID:
+
+    1. In Murano, navigate to the Products tab and select the product you just created. 
+
+    2. On the Info tab, locate the Product ID and copy it.
+
+    ![image alt text](thingdev_10.png)
+
+8. Make sure the Thing Dev Board is connected to your computer via a micro-USB cable and select your device’s serial port with *Tools* > *Port* > *"your_port"*. 
+
+  **NOTE:** Your device will likely be the only one. If it’s not, you can figure out which is correct by unplugging your device and finding which device disappears.
+    
+    ![image alt text](thingdev_11.png)
+
+9. Click Upload. This will first compile and then download the firmware image to the selected board.
+  
+  ![image alt text](thingdev_12.png)
+
+10. Open the serial monitor and set it to 115200 Baud.  
+  
+  ![image alt text](thingdev_13.png)
+
+11. Locate the MAC address in the serial monitor output; this will serve as the device identifier that will enable you to add a unique device to your Product in Murano. The device identifier or serial number is device-specific. In this situation, the Exosite Arduino library uses the device's pre-programmed MAC address.
+  
+  ![image alt text](thingdev_14.png)
+
+  **NOTE:** Deselect the "Autoscroll" checkbox if the log window goes past the top.
+
+## Add a Device in Murano
+
+In this section, you will create a device under your Product in Murano.
+
+1. In Murano, navigate to the Product tab and select the product you just created.  
+
+2. Navigate to the Devices tab and click New Device. 
+
+  ![image alt text](thingdev_15.png)
+
+3. In the *New Device* popup: 
+
+  1. Enter a name for the device in the *Name* field. This will only be used to help you distinguish between devices. 
+
+  2. Enter the device identifier (MAC address) you identified in the previous section in the *Identity* field.
+
+  3. Click Create.
+
+  ![image alt text](thingdev_16.png)
+
+4. Back in Arduino, click Upload again to flash the sketch to the board one last time.
+
+5. Open the serial monitor and verify that your device activated and provisioned successfully using the serial output.
+
+  ![image alt text](thingdev_17.png)
+
+3. In Murano, navigate to the Devices tab for this Product, select your device, and ensure data is showing up on the Resources tab.
+
+  ![image alt text](thingdev_18.png)
+
+## Create a Dashboard in Murano
+
+In this section, you will create a dashboard to view the data from the connected lightbulb and turn it on and off remotely. 
+
+1. From the Resources tab for your device, open the Dashboard tab. 
+
+  ![image alt text](thingdev_19.png)
+
+2. Click Add Pane to house the widgets you will create.
+
+  ![image alt text](thingdev_20.png)
+
+3.  In the pane that appears, click the plus sign to add a widget.  
+
+  ![image alt text](thingdev_21.png)
+
+4. In the *Widget* popup that appears, select *Text* from the *Type* drop-down menu and complete the remaining fields (*Title*: Temperature; *Value*: datasources["temperature"]; *Units*: F). Click Save.
+
+  ![image alt text](thingdev_22.png)
+
+5. Create another pane and text widget for humidity and complete the remaining fields (*Title:* Humidity; *Value:* datasources["humidity"]; *Units:* %). Click Save.
+
+  ![image alt text](thingdev_23.png)
+
+6. Then add a third pane and widget. In the *Widget* popup that appears, select *Toggle Switch* from the *Type* drop-down menu and complete the remaining fields (*Title*: On / Off; *Value*: datasources["state"]; *On Value*: 1; *Off Value*: 0). Click Save.
+
+  ![image alt text](thingdev_24.png)
+
+7. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
 
 
-
-## Add Device to your project
-
-1. Add Device to Product in Murano using the Device Identifier (MAC Address)
-  ![add device](assets/add_unique_device.png)
-  ![not activated](assets/not_activated_devices.png)
-
-2. RE-DO Step 11 - Upload the Arduino Sketch to the board again.
-
-2. Verify Device Provisions using the Arduino Serial Output.
-If previously used, it may have an old CIK (private device API key) stored in it's non-volatile memory (EEPROM).
-
-   ![activation log](assets/debug_output_activation_text.png)
-
-3. Click on your device to make sure data is showing up
-
-   ![device resources](assets/device_resources_new_data.png)
-
-4. Click on ‘Dashboard’
-
-	![click dashboard](assets/click_dashboard.png)
-
-You will then see
-
-![initial dashboard](assets/initial_dashboard.png)
-
-5. Add a text pane for temperature and include sparkline
-
-![add temperature](assets/add_temperature.png)
-
-6. Do the same for humidity.
-
-7. Add a toggle switch for your light (use datasource: state)
-
-8. Interact with live data! Turn your lightbulb on and off from the dashboard.
-
-![interact data](assets/interact_data.png)
-
-**You now have a device connected to Exosite’s Murano IoT Platform!**
-
-__Any device that connects as that same product will inherit the same resources.__
-
-[Next, create a Solution!](http://docs.exosite.com/murano/get-started/solutions/exampleapp/)
+  ![image alt text](thingdev_25.png)
 
 
+Congratulations—you just remotely turned a light on and off.
 
+[UP NEXT: CREATE A SOLUTION >>](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
 
-## Run the Product Dashboard Developer Tool
-1. On the Device page, click the 'Dashboard' tab - which is a link to the Murano Product Dashboard Developer Tool.  This opens a new browser tab.  
-   ![dashboard link](assets/dashboard_link.png)
-   ![dashboard empty](assets/dashboard_empty.png)
-2. Add a pane, then add a widget to the pane.
-  ![dashboard add widget](assets/dashboard_add_widget.png)
-3. Interact with live data
-  ![dashboard](assets/dashboard_live_data.png)
-4. Done!
