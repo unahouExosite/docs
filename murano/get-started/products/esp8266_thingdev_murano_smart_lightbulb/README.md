@@ -36,6 +36,8 @@ New to Arduino? Below are a few links to get an understanding of Arduino since t
 
 * [Arduino Getting Started](https://www.arduino.cc/en/Guide/HomePage0)
 
+Install tools and libraries:
+
 1. First download and install the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/Main/Software). 
 
 2. Open the Arduino IDE, then install the ESP8266 Thing Dev Board board support: 
