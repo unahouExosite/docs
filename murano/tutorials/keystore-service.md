@@ -9,17 +9,17 @@ A common need when managing a fleet of devices is to track metrics and error log
 
 ## Prerequisites
 
-* A Murano account with a solution. To create a solution you can follow the [getting started guide](../../get-started/solutions/exampleapp/#).
+* A Murano account with a solution. To create a solution, you can follow the [getting-started guide](../../get-started/solutions/exampleapp/#).
 
 
 ## Collect Metrics
 
-A first step for monitoring your device fleet is to collect information from devices. To keep things simple we will collect two types of data about incoming messages from devices.
+A first step for monitoring your device fleet is to collect information from devices. To keep things simple, we will collect two types of data about incoming messages from devices.
 
 * The number of messages per day
 * The contents of the last 10 messages
 
-Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. For the purpose of this tutorial let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
+Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. For the purpose of this tutorial, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
 
 ### Increasing a daily metric counter
 
@@ -54,7 +54,7 @@ Keystore.command({ command = "lpush", key = "logs", args = {message}})
 ```
 
 We then keep only the last logs items with the trimming command by specifying a range of data to keep. Note that the list index starts at 0.
-Therefore in order to keep the last 10 logs the target list range index is 0 to 9.
+Therefore, in order to keep the last 10 logs, the target list range index is 0 to 9.
 
 ```lua
 Keystore.command({ command = "ltrim", key = "logs", args = {0, 9}})
@@ -108,7 +108,7 @@ To make our endpoint return the values of `dailyCount` and `logs`, we can simply
 return { dailyCount = dailyCount.value, logs = logs.value }
 ```
 
-This works because endpoint scripts return a 200 HTTP status code by default, and Lua tables are automatically transformed into JSON response bodies. However we could also set these manually by setting `response.code` and `response.body` instead.
+This works because endpoint scripts return a 200 HTTP status code by default, and Lua tables are automatically transformed into JSON response bodies. However, we could also set these manually by setting `response.code` and `response.body` instead.
 
 ### All together
 
@@ -129,7 +129,7 @@ return { dailyCount = dailyCount.value, logs = logs.value }
 
 ## Generate some product data
 
-To test your scripts you need to send data to from your device to Murano. Here's how to do that:
+To test your scripts, you need to send data from your device to Murano. Here's how to do that:
 
 1. Create a Product or use an existing one from the Murano portal and note its product ID.
 2. If you create a new Product, be sure to add it to the Products configuration under the SERVICES tab of the solution.
