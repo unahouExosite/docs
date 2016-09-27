@@ -88,7 +88,7 @@ In this section, you will create a new Product in Murano.
 
     3. Copy and paste the following URL into the *Link to your product template* field: 
 
-      `https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-Thin gDevBoard/product_spec_smart_lightbulb_example.yaml`
+      `https://raw.githubusercontent.com/exosite-garage/arduino_exosite_library/master/examples/Murano-SmartLightBulb-ThingDevBoard/product_spec_smart_lightbulb_example.yaml`
 
       This will allow you to use a product template spec file to set up the product definition. 
 
