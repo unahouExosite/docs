@@ -19,7 +19,9 @@ A first step for monitoring your device fleet is to collect information from dev
 * The number of messages per day
 * The contents of the last 10 messages
 
-Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. For the purpose of this tutorial, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
+Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. 
+
+For the purpose of this tutorial, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
 
 ### Increasing a daily metric counter
 
@@ -53,7 +55,7 @@ Next we'll push the message to a list in the `Keystore` service using the `lpush
 Keystore.command({ command = "lpush", key = "logs", args = {message}})
 ```
 
-We then keep only the last logs items with the trimming command by specifying a range of data to keep. Note that the list index starts at 0.
+We then keep only the last log items with the trimming command by specifying a range of data to keep. Note that the list index starts at 0.
 Therefore, in order to keep the last 10 logs, the target list range index is 0 to 9.
 
 ```lua
@@ -86,7 +88,7 @@ Keystore.command({ command = "ltrim", key = "logs", args = {0, 9}})
 
 ## Expose Metrics
 
-The easiest way to expose our collected data is to create an API route endpoint. Endpoints can be created with the "+" button on the ROUTES tab of your solution. When you create a new route, you'll be prompted to specify the path and HTTP method for the route. Create a new route in your solution with the path `/metrics` and method `GET`.
+The easiest way to expose our collected data is to create an API route endpoint. Endpoints can be created with the "+" button on the ROUTES tab of your solution. When you create a new route, you'll be prompted to specify the path and HTTP method for the route. Create a new route in your solution with the Method `GET` and the Path `/metrics`.
 
 Once the route is created, you can write an endpoint script which runs when your API route endpoint is called. You can learn more about endpoint scripts on the [Webservice reference page](../../services/webservice).
 
@@ -133,9 +135,9 @@ To test your scripts, you need to send data from your device to Murano. Here's h
 
 1. Create a Product or use an existing one from the Murano portal and note its product ID.
 2. If you create a new Product, be sure to add it to the Products configuration under the SERVICES tab of the solution.
-3. Add a resource under the DEFINITION tab. For example, you could create a resource of type "string" with alias "message".
+3. Add a resource under the DEFINITION tab. For example, you could create a resource with the Alias "message" and Data format "string".
 4. Create a device on the DEVICES panel and note its identity.
-5. Activate the device to get the device key (CIK). A simple HTTP request on the provisioning API will do. Normally this step is done by a device, but here's how to do that using curl. Be sure to substitute the items in brackets with your values.
+5. Activate the device to get the device key (CIK). A simple HTTP request on the provisioning API will do. Normally this step is done by a device, but here's how to do that using curl. (Be sure to substitute the items in brackets with your values.)
 
 ```
 curl https://<product_id>.m2.exosite.com/provision/activate \
