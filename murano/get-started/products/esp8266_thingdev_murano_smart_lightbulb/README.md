@@ -34,7 +34,7 @@ New to Arduino? Below are a few links to get an understanding of Arduino since t
 
 * [SparkFun ESP8266 Thing Dev Board](https://www.sparkfun.com/products/13711)
 
-* [Arduino Getting Started](https://www.arduino.cc/en/Guide/HomePage0)
+* [Arduino Getting Started](https://www.arduino.cc/en/Guide/HomePage)
 
 Install tools and libraries:
 
@@ -211,7 +211,7 @@ In this section, you will create a dashboard to view the data from the connected
 
   ![image alt text](thingdev_24.png)
 
-7. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
+7. Refresh your browser if you don't see data coming through in the Humidity and Temperature widgets. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
 
 
   ![image alt text](thingdev_25.png)
