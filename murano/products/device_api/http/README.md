@@ -4,7 +4,7 @@ title: HTTP
 
 # HTTP Device API Overview
 
-This the HTTP Device API for the Murano Platform.  Device firmware and applications should use this API to provision and interact with the platform.  Devices use dataport resources to read from and write to, like a variable.  
+This is the HTTP Device API for the Murano Platform.  Device firmware and applications should use this API to provision and interact with the platform.  Devices use dataport resources to read from and write to, like a variable.  
 
 
 # Procedures
@@ -25,7 +25,7 @@ This the HTTP Device API for the Murano Platform.  Device firmware and applicati
 
 ## Libraries and Sample Code
 
-Sample code is available that uses this API can be found on the Murano Getting Started product examples:
+Sample code that uses this API can be found on the Murano Getting Started product examples:
 
 * [Murano Getting Started Product Examples](/murano/get-started/)
 
@@ -35,15 +35,15 @@ This document uses a few notational conventions:
 
 * JSON is pretty printed for clarity. The extra whitespace is not included in the RPC JSON.
 * Comments (`//`) are occasionally included in JSON to give hints or provide detail. These comments are not included in actual requests or responses.
-* A name in angle brackets, e.g. `<myvar>`, is a placeholder that will be defined elsewhere.
-* `number` indicates a number, e.g. 42
-* `string` represents a string, e.g. "MySensor"
+* A name in angle brackets (e.g., `<myvar>` is a placeholder that will be defined elsewhere)
+* `number` indicates a number (e.g., 42)
+* `string` represents a string (e.g., "MySensor")
 * `|` represents multiple choice
 * `=` represents default value
-* `...` represents one or more of the previous item
+* `...` represents one or more of the previous items
 
-## Hostname / Host
-Although all examples use the server hostname and host header of 'm2.exosite.com', device firmware and applications should use the Murano Product ID in the hostname: `<productid>.m2.exosite.com`.  
+## Hostname/Host
+Although all examples use the server hostname and host header of "m2.exosite.com," device firmware and applications should use the Murano Product ID in the hostname: `<productid>.m2.exosite.com`.  
 
 ```
    Host: myproductid.m2.exosite.com
@@ -59,16 +59,16 @@ Typical HTTP response codes include:
 | 204    | No Content    | Successful request, nothing will be returned         |
 | 4xx    | Client Error  | There was an error\* with the request by the client  |
 | 401    | Unauthorized  | No or invalid CIK                                    |
-| 5xx    | Server Error  | There way an error with the request on the server    |
+| 5xx    | Server Error  | There was an error with the request on the server    |
 
-_\* Note: aliases that are not found are not considered errors in the request. See the documentation for [read](#read), and [write](#write) and [Hybrid write/read](#hybrid-writeread) for details._
+_\* Note: aliases that are not found are not considered errors in the request. See the documentation for [read](#read), [write](#write), and [Hybrid write/read](#hybrid-writeread) for details._
 
 
 # Data Procedures
 
 ## Write
 
-Write one or more dataports of alias `<alias>` with given `<value>`. The client (e.g. device, portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second, doing so results in undefined behavior. If multiple aliases are specified, they are written at the same timestamp.
+Write one or more dataports of `<alias>` with given `<value>`. The client (e.g., device or portal) is identified by `<CIK>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second; doing so results in undefined behavior. If multiple aliases are specified, they are written at the same timestamp.
 
 
 ### request
@@ -110,7 +110,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias \
 
 ## Read
 
-Read the most recent value from one or more dataports with alias `<alias>`. The client (e.g. device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
+Read the most recent value from one or more dataports with `<alias>`. The client (e.g., device or portal) to read from is identified by `<CIK>`. If at least one `<alias>` is found and has data, data will be returned.
 
 
 ### request
@@ -151,7 +151,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 
 ## Hybrid write/read
 
-Write one or more dataports of alias `<alias w>` with given `<value>` and then read the most recent value from one or more dataports with alias `<alias r>`. The client (e.g. device, portal) to write to and read from is identified by `<CIK>`. All writes occur before all reads.
+Write one or more dataports of `<alias w>` with given `<value>` and then read the most recent value from one or more dataports with `<alias r>`. The client (e.g., device, portal) to write to and read from is identified by `<CIK>`. All writes occur before all reads.
 
 
 ### request
@@ -181,7 +181,7 @@ Content-Length: <length>
 ```
 
 * Response may also be `HTTP/1.1 204 No Content` if either none of the aliases are found or they are all empty of data
-* See [HTTP Responses](#http-responses) for a full list of responses.
+* See [HTTP Responses](#http-responses) for a full list of responses
 
 
 ### example
@@ -198,11 +198,11 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
 
 The [read](#read) procedure now supports long polling. Long polling is a method of getting a server push without the complexities of setting up publicly accessible HTTP server endpoints on your device. As the name suggests, long polling is similar to normal polling of an HTTP resource, but instead of requiring the client to make a new request to the server constantly, the server will wait to return until it has new information to return to the client (or a timeout has been reached).
 
-To perform a request with long polling simply add the header `Request-Timeout: <miliseconds>` to your request. The server will then wait until a new datapoint is written to the given dataport and will then immediately return the value. If no datapoint is written before that time a `304 Not Modified` is returned and the client may make another long poling request to continue monitoring that dataport.
+To perform a request with long polling, simply add the header `Request-Timeout: <miliseconds>` to your request. The server will then wait until a new datapoint is written to the given dataport and will then immediately return the value. If no datapoint is written before that time, a `304 Not Modified` is returned and the client may make another long polling request to continue monitoring that dataport.
 
-You may also optionally add an `If-Modified-Since` header to specify a start time to wait. This is exactly the same as the `alias.last` semantics in scripting. You will want to use this if it's important that you receive all updates to a given dataport, otherwise it is possible to miss points that get written between long polling requests.
+You may also optionally add an `If-Modified-Since` header to specify a start time to wait. This is exactly the same as the `alias.last` semantics in scripting. You will want to use this if it's important that you receive all updates to a given dataport; otherwise it is possible to miss points that get written between long polling requests.
 
-Note: Only one dataport may be read at a time when using long polling.
+Note: only one dataport may be read at a time when using long polling.
 
 
 ### request
@@ -218,8 +218,8 @@ If-Modified-Since: <timestamp>
 ```
 
 * `<alias>` is the alias you monitor for new datapoints.
-* `Request-Timeout` specifies the how long to wait on changes.  `<timeout>` is a millisecond value and cannot be more than 300 seconds (300000 ms).
-* `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`.  `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified it defaults to "now".
+* `Request-Timeout` specifies how long to wait on changes. `<timeout>` is a millisecond value and cannot be more than 300 seconds (300,000 ms).
+* `If-Modified-Since` specifies waiting on aliases since the `<timestamp>`. `<timestamp>` can be timestamp seconds since 1970-01-01 00:00:00 UTC or standard <a href=http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html>HTTP-Date</a> format. If this is not specified, it defaults to "now."
 
 
 ### response
@@ -248,7 +248,7 @@ Content-Length: <length>
 <blank line>
 ```
 
-When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure that you don't miss any points that may have been written since the last request returned.
+When the dataport is updated and a value is returned, a `Last-Modified` header is included. When it is vital for your application to receive all updates to a dataport, you can pass the `Last-Modified` header value back to the `If-Not-Modified-Since` header in your next request to make sure you don't miss any points that may have been written since the last request returned.
 
 
 ### example
@@ -266,8 +266,7 @@ $ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
 
 ## Activate
 
-Activates and returns the `<cik>` for the associated device's identity `<sn>` administrated
-for tbe Product ID `<vendor>` and `<model>` by Murano .
+Activates and returns the `<cik>` for the associated device's identity `<sn>` administrated for the Product ID `<vendor>` and `<model>` by Murano.
 The device's identity must be added to the Product in Murano.
 
 ```
@@ -353,7 +352,7 @@ requested range, is returned. The header `Range: bytes=<range-specifier>`, if
 specified, allows the caller to request a chunk of bytes at a time.
 `<range-specifier>` takes the form of `X-Y` where both `X` and `Y` are
 optional but at least one of them must be present. `X` is the start byte
-position to return, `Y` is the end position. Both are 0 based. If `X` is
+position to return. `Y` is the end position. Both are 0 based. If `X` is
 omitted, `Y` will request the last `Y` count of bytes of the content. If `Y`
 is omitted, it will default to the end of the content. Note that `Content-Type`
 of `<blob>` is based on the type set in the `POST` to
