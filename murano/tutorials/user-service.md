@@ -1,5 +1,5 @@
 ---
-# Sphinx - User Management
+# User Management
 ---
 
 * [Overview](#head_overview)
@@ -7,26 +7,26 @@
 * [Reference for example](#head_reference)
 
 ## <span id="head_overview">Overview</span>
-This system is to manage users under Murano solution. It supports user authentication, role-based access control and storage per user.
+This system is to manage users under the Murano solution. It supports user authentication, role-based access control, and storage per user.
 
 #### User Authentication
-* basic (email & password)
-* token based
-* social auth
+* Basic (email & password)
+* Token based
+* Social auth
 
 #### User Permission
 We support user permission based on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control).
-In our system, there are three concrete elements &rsquo;role&rsquo;, &rsquo;user&rsquo; and &rsquo;endpoint&rsquo;. According to RBAC, we can control user&rsquo;s access to endpoint by concept below:
+In our system, there are three concrete elements: &rsquo;role&rsquo;, &rsquo;user&rsquo;, and &rsquo;endpoint&rsquo;. According to RBAC, we can control a user&rsquo;s access to endpoint with the concept below:
 
 1. Assign endpoint to role
 2. Assign role to user
-3. User can access the endpoint his role has
+3. User can access the endpoint of his role
 
 <div align="center">
   <img src="https://github.com/unahouExosite/docs/blob/MUR-298/murano/assets/usm_rbac_1.png"><br>
 </div>
 
-However, URL can be different in variable practically. For example, &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; are different literally but can be considered the same endpoint. We don&rsquo;t want to create two endpoints for such difference, that is why we add the fourth element called &rsquo;parameter&rsquo;.
+However, URL can be different in variable practically. For example, &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; are different literally but can be considered the same endpoint. We don&rsquo;t want to create two endpoints for such a difference. That is why we add the fourth element called &rsquo;parameter&rsquo;.
 
 &rsquo;Parameter&rsquo; represents a specific resource by name and value. We mark it like {&lt;parameter_name&gt;} in endpoint. Here we only need to create one endpoint &rsquo;device/{rid}/info&rsquo; for &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo;.
 When we grant user permission, we need to specify parameters for each role assignment.
@@ -41,20 +41,20 @@ If we want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;,
 2. Add parameter definition &rsquo;rid&rsquo; to role &rsquo;Viewer&rsquo;, which means parameter &rsquo;rid&rsquo; is available in role &rsquo;Viewer&rsquo;.
 3. Assign endpoint &rsquo;*device/{rid}/info*&rsquo; to role &rsquo;Viewer&rsquo;.
 4. Assign role &rsquo;Viewer&rsquo; with parameter &rsquo;rid&rsquo;(name) = 1(value) to &rsquo;UserA&rsquo;.
-5. Now UserA is allowed accessing &rsquo;*device/1/info*&rsquo; when we check his permission.
+5. Now UserA is allowed access to &rsquo;*device/1/info*&rsquo; when we check his permission.
 
 #### Storage Per User
-We provide storage per user which can store data by key-value format. Since user&rsquo;s properties are only email and name, we can put more individual information in storage, for example, address, birthday, etc.
+We provide storage per user which can store data by key-value format. Since a user&rsquo;s properties are only email and name, we can put more individual information in storage (for example, address, birthday, etc.).
 
 
 <br><br><br><br>
 
-## <span id="head_tutorial_example">Tutorial example in scripting system</span>
+## <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
 
-Assuming we are running a parking application.
-There are two major roles in our system. One is driver wants to park his vehicle. The other is parking lot/garage charges drivers for parking.
+Assume we are running a parking application.
+There are two major roles in our system. One: the driver wants to park his vehicle. Two: the parking lot/garage charges drivers for parking.
 
-To seperate their permission, we should create two roles at least.
+To separate their permission, we should create at least two roles.
 ###### <span id="eg_createRole"></span>
 ```lua
 -- Create role 'vehicle' for driver
@@ -70,9 +70,9 @@ local role_parking_area = {
 User.createRole(role_parking_area)
 ```
 
-Supposing we have two users:
+Suppose we have two users:
 
-**User\_Parking\_Area** is in role &rsquo;parking_area&rsquo; and has unique id = **1**.
+**User\_Parking\_Area** is in role &rsquo;parking_area&rsquo; and has unique ID = **1**.
 
 ###### <span id="eg_createUser"></span>
 ```lua
@@ -96,7 +96,7 @@ User.activateUser(parameters)
 
 ```
 
-**User_Vehicle** is in role &rsquo;vehicle&rsquo; and has unique id = **2**.
+**User_Vehicle** is in role &rsquo;vehicle&rsquo; and has unique ID = **2**.
 
 ```lua
 -- Create User_Vehicle
@@ -115,7 +115,7 @@ User.activateUser(parameters)
 
 ```
 
-Each vehicle has it&rsquo;s own license plate number, thus we store info in user storage.
+Each vehicle has its own license plate number; thus we store info in user storage.
 
 ###### <span id="eg_createUserData"></span>
 ```lua
@@ -133,7 +133,7 @@ local parameters = {
 }
 User.createUserData(parameters)
 ```
-### Scenario : list control
+### Scenario: List Control
 First, we support an endpoint for parking areas to manage their parking spaces. This endpoint is expected to list unique IDs of parking spaces.
 
 ```lua
@@ -152,7 +152,7 @@ local endpoints = {
 User.addRolePerm({[“role_id”] = “parking_area”, [“body”] = endpoints})
 ```
 
-To let **User\_Parking\_Area** access *"GET list/1/parkingSpace"*, we need to grant **User\_Parking\_Area** permisson on 'parkingAreaID' = 1 in role 'parking_area'.
+To let **User\_Parking\_Area** access *'GET list/1/parkingSpace'*, we need to grant **User\_Parking\_Area** permisson on 'parkingAreaID' = 1 in role 'parking_area'.
 
 ```lua
 -- We should add parameter definition before assigning roles with new parameter name.
@@ -177,11 +177,11 @@ local roles_assigned = {
 }
 User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
 ```
-Now **User\_Parking\_Area** can access *"GET list/1/parkingSpace"*.
+Now **User\_Parking\_Area** can access *'GET list/1/parkingSpace'*.
 
 Next, we are going to make the list returned in response.
 
-Assuming there are two parking spaces in **User\_Parking\_Area**. Each parking space has a device RID. Device can detect the status of parking space. We can make **User\_Parking\_Area** have device RIDs by assigning roles. 
+Assume there are two parking spaces in **User\_Parking\_Area**. Each parking space has a device RID. Devices can detect the status of a parking space. We can make **User\_Parking\_Area** have device RIDs by assigning roles. 
 
 ```lua
 -- We should add parameter definition before assigning roles with new parameter name.
@@ -214,7 +214,7 @@ local roles_assigned = {
 User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
 ```
 
-After roles assignment, we can return a paginated list of &rsquo;spaceRID&rsquo; when **User\_Parking\_Area** accesses *"GET list/1/parkingSpace"*.
+After roles assignment, we can return a paginated list of &rsquo;spaceRID&rsquo; when **User\_Parking\_Area** accesses *'GET list/1/parkingSpace'*.
 
 ###### <span id="eg_listUserRoleParamValues"></span>
 ```lua
@@ -229,8 +229,8 @@ local result = User.listUserRoleParamValues(parameters)
 response.message = result.items -- return the list of RID
 ```
 
-### Scenario : endpoint access control
-Second, we support an endpoint for drivers to look for vacant parking space. Drivers can query number of vacancy in every parking area while each parking area is restricted to his own.
+### Scenario: Endpoint Access Control
+Second, we support an endpoint for drivers to look for a vacant parking space. Drivers can query a number of vacancy in every parking area while each parking area is restricted to his own.
 
 ###### <span id="eg_createPermission"></span>
 ```lua
@@ -250,15 +250,15 @@ local endpoints = {
         [“end_point”] = “query/{parkingAreaID}/availableSpace”
     }
 }
--- Let drivers can access this endpoint
+-- Let drivers access this endpoint
 User.addRolePerm({[“role_id”] = “vehicle”, [“body”] = endpoints})
--- Let parking areas can access this endpoint
+-- Let parking areas access this endpoint
 User.addRolePerm({[“role_id”] = “parking_area”, [“body”] = endpoints})
 ```
 
-To let **User\_Parking\_Area** access *"GET query/1/availableSpace"*, **User\_Parking\_Area** should have parameter 'parkingAreaID' = 1 in role 'parking_area'. Since he has been assigned it before, there is no need to assign again.
+To let **User\_Parking\_Area** access *'GET query/1/availableSpace'*, **User\_Parking\_Area** should have parameter 'parkingAreaID' = 1 in role 'parking_area'. Since he has been assigned it before, there is no need to assign again.
 
-To let **User\_Vehicle** access *"GET query/\*/availableSpace"*, we should grant **User\_Vehicle** permission on 'parkingAreaID' = * in role 'vehicle'.
+To let **User\_Vehicle** access *'GET query/\*/availableSpace'*, we should grant **User\_Vehicle** permission on 'parkingAreaID' = * in role 'vehicle'.
 
 ###### <span id="eg_addRoleParam"></span>
 ```lua
@@ -302,7 +302,7 @@ local updating_data = {
 User.createUserData(updating_data) -- We store value by creating since 'number_of_vacancy' is not existing in storage of User_Parking_Area.
 ```
 
-When permitted user accesses *"GET  query/1/availableSpace"*, we can return the number.
+When permitted user accesses *'GET  query/1/availableSpace'*, we can return the number.
 ```lua
 -- Get number of vanacy of User_Parking_Area
 local parameters = {
@@ -314,7 +314,7 @@ response.message = number
 ```
 
 
-The underground process of permission check when user accesses endpoint can be replicated as follows:
+The underground process of permission check when the user accesses endpoint can be replicated as follows:
 ###### <span id="eg_hasUserPerm"></span>
 ```lua
 -- Check if User_Vehicle can access GET query/1/availableSpace.
@@ -342,14 +342,14 @@ local check_param = {
 local result = User.hasUserPerm(check_param)
 ```
 
-Becuase **User\_Parking\_Area** has been assigned with &rsquo;parkingAreaID = 1&rsquo; in role &rsquo;parking_area&rsquo;, variable &rsquo;result&rsquo; is expected to be &rsquo;OK&rsquo;.
+Because **User\_Parking\_Area** has been assigned with &rsquo;parkingAreaID = 1&rsquo; in role &rsquo;parking_area&rsquo;, variable &rsquo;result&rsquo; is expected to be &rsquo;OK&rsquo;.
 
 
 
 
-### Scenario : application of user-storage and endpoint-access-control
+### Scenario: Application of User-storage and Endpoint-access-control
 
-We also support an endpoint for parking areas to query info of vehicle, such as parking time or license plate number. Each parking area can only see info of vehicles parked in his place.
+We also support an endpoint for parking areas to query info of a vehicle, such as parking time or license plate number. Each parking area can only see info of vehicles parked in its spaces.
 
 ```lua
 -- Create endpoint 'GET query/{parkingAreaID}/parkingVehicle/{vehicleID}/info'
@@ -377,7 +377,7 @@ local param_definitions = {
 User.addRoleParam({["role_id"] = "parking_area",  ["body"] = param_definitions})
 ```
 
-When **User\_Vehicle** parks in **User\_Parking\_Area** (detected by device). **User\_Parking\_Area** should has right to see info of **User\_Vehicle**.
+When **User\_Vehicle** parks in **User\_Parking\_Area** (detected by device), **User\_Parking\_Area** should have the right to see info of **User\_Vehicle**.
 
 ```lua
 -- Since User_Parking_Area already has 'parkingAreaID' = 1 in role 'parking_area', we only need to assign role 'parking_area' with extra parameter 'vehicleID' = 2 to User_Parking_Area.
@@ -450,7 +450,7 @@ local updating_data = {
 User.updateUserData(updating_data)
 ```
 
-Now **User\_Parking\_Area** can access *"GET query/1/parkingVehicle/2/info"* to get parking info of **User\_Vehicle**.
+Now **User\_Parking\_Area** can access *'GET query/1/parkingVehicle/2/info'* to get parking info of **User\_Vehicle**.
 
 ###### <span id="eg_getUserData"></span>
 ```lua
@@ -517,7 +517,7 @@ local updating_data = {
 }
 User.updateUserData(updating_data)
 
--- Update nubmer of vacancy of User_Parking_Area
+-- Update number of vacancy of User_Parking_Area
 local parameters = {
     ["id"] = 1,
     ["key"] = "number_of_vacancy"
@@ -530,7 +530,7 @@ local updating_data = {
 User.updateUserData(updating_data)
 ```
 
-**User\_Parking\_Area** can not access *"GET query/1/parkingVehicle/2/info"* any longer since **User\_Vehicle** is not in his parking list.
+**User\_Parking\_Area** cannot access *'GET query/1/parkingVehicle/2/info'* any longer since **User\_Vehicle** is not in his parking list.
 
 ```lua
 -- Underground process of checking if User_Parking_Area can access 'GET query/1/parkingVehicle/2/info'.
@@ -551,7 +551,7 @@ Because currently **User\_Parking\_Area** does not have parameter &rsquo;vehicle
 
 <br><br><br><br>
 
-## <span id="head_reference">Reference for example</span>
+## <span id="head_reference">Reference for Example</span>
 * RBAC
    * User
       * [User.createUser()](#eg_createUser)
