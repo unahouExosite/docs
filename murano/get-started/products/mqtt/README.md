@@ -28,21 +28,21 @@ STEP ONE: ENABLE MQTT FOR YOUR PRODUCT
 
 Contact Exosite to have MQTT enabled for your product. Exosite will request your Product ID, which is available on the INFO tab of your product:
 
-![image alt text](mqtt_0.png)
+![image alt text](../mqtt_0.png)
 
 STEP TWO: ACTIVATE YOUR DEVICE
 
 If you haven’t already, create a device. First, navigate to the DEVICES tab of your product and click on the NEW DEVICE button:
 
-![image alt text](mqtt_1.png)
+![image alt text](../mqtt_1.png)
 
 Provide an Identity and, optionally, a Name, and CREATE the device:
 
-![image alt text](mqtt_2.png)
+![image alt text](../mqtt_2.png)
 
 The DEVICES tab will list the newly-created device and indicate its STATUS is "notactivated."
 
-![image alt text](mqtt_3.png)
+![image alt text](../mqtt_3.png)
 
 We’ll use a patched version of the Eclipse Paho™ MQTT Python Client; install it via the following command:
 
@@ -113,7 +113,7 @@ password = b7b34f55e948b94841820ea50868a2490632d78f
 ```
 A successful result, as shown, activates the device and prints the credentials necessary to subsequently authenticate. We can see the device has been activated:
 
-![image alt text](mqtt_4.png)
+![image alt text](../mqtt_4.png)
 
 STEP THREE: CONNECT YOUR ACTIVATED DEVICE
 
