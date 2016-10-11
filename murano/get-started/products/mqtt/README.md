@@ -175,11 +175,11 @@ payload = 32
 ```
 The device’s resource’s value will reflect the value published by the device:
 
-![image alt text](mqtt_5.png)
+![image alt text](../mqtt_5.png)
 
 Additionally, if you directly enter values in the browser, the device will also receive those changes as messages:
 
-![image alt text](mqtt_6.png)
+![image alt text](../mqtt_6.png)
 
 The client will receive a message with the change:
 ```
