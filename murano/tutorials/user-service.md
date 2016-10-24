@@ -320,7 +320,7 @@ The underground process of permission check when the user accesses endpoint can 
 -- Check if User_Vehicle can access GET query/1/availableSpace.
 local check_permission = {
     [“id”] = 2, -- User ID of User_Vehicle
-    [“perm_id”] = “GET%2query%2F%7BparkingAreaID%7D%2FavailableSpace”, -- urlencode("GET/query/{parkingAreaID}/availableSpace")
+    [“perm_id”] = “GET/query/{parkingAreaID}/availableSpace”, -- {method}/{end_point}
     [“parameters”] = {
         “parkingAreaID::1” -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
     }
@@ -334,7 +334,7 @@ Because **User\_Vehicle** has been assigned with all values of &rsquo;parkingAre
 -- Check if User_Parking_Area can access 'GET query/1/availableSpace'.
 local check_param = {
     [“id”] = 1, -- User ID of User_Parking_Area
-    [“perm_id”] = “GET%2query%2F%7BparkingAreaID%7D%2FavailableSpace”, -- urlencode("GET/query/{parkingAreaID}/availableSpace")
+    [“perm_id”] = “GET/query/{parkingAreaID}/availableSpace”, -- {method}/{end_point}
     [“parameters”] = {
         “parkingAreaID::1” -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
     }
@@ -537,7 +537,7 @@ User.updateUserData(updating_data)
 
 local check_permission = {
     ["id"] = 1, -- User ID of User_Parking_Area
-    ["perm_id"] = "GET%2Fquery%2F%7BparkingAreaID%7D%2FparkingVehicle%2F%7BvehicleID%7D%2Finfo", -- urlencode("GET/query/{parkingAreaID}/parkingVehicle/{vehicleID}/info")
+    ["perm_id"] = "GET/query/{parkingAreaID}/parkingVehicle/{vehicleID}/info", -- {method}/{end_point}
     ["parameters"] = {
         "parkingAreaID::1", -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
         "vehicleID::2" -- Specifies value 2 for parameter 'vehicleID' in endpoint
