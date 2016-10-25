@@ -42,15 +42,15 @@ Install tools and libraries:
 
 2. Open the Arduino IDE, then install the ESP8266 Thing Dev Board board support: 
 
-    1. Select *Arduino* > *Preferences..*. 
+    1. Select *Arduino* > *Preferences...*. 
 
     2. In the *Preferences* popup that appears, paste this link into the *Additional Boards Manager URLs* field: `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
 
       ![image alt text](thingdev_1.png)
 
-    3. Click OK.
+    3. Click "OK."
 
-3. Next install the Exosite Arduino library, Adafruit DHT Unified library, and DHT Sensor library: 
+3. Install the Exosite Arduino library, Adafruit DHT Unified library, and DHT Sensor library: 
 
     4. Select *Sketch* > *Include Library* > *Manage Libraries...* 
 
@@ -58,15 +58,15 @@ Install tools and libraries:
 
     5. In the *Library Manager* popup that appears, search for "Exosite." 
 
-    6. Select version 2.4.1 or greater and click Install. 
+    6. Select version 2.4.1 or greater and click "Install." 
 
       ![image alt text](thingdev_3.png)
 
-    7. Next, search for "DHT." Install both the Adafruit DHT Unified and DHT sensor library.
+    7. Search for "DHT". Install both the Adafruit DHT Unified and DHT sensor library.
 
       ![image alt text](thingdev_4.png) 
 
-    8. When complete, click Close.
+    8. When complete, click "Close."
 
 # Getting Started
 
@@ -74,9 +74,9 @@ Install tools and libraries:
 
 In this section, you will create a new Product in Murano.
 
-1. In Murano, navigate to the [Product tab](http://exosite.io/business/products).
+1. In Murano, navigate to the [Products tab](http://exosite.io/business/products).
 
-2. To add a Product, click New Product.
+2. To add a Product, click "NEW PRODUCT."
 
   ![image alt text](thingdev_5.png)
 
@@ -92,17 +92,17 @@ In this section, you will create a new Product in Murano.
 
       This will allow you to use a product template spec file to set up the product definition. 
 
-    4. Click Add. 
+    4. Click "ADD." 
 
   ![image alt text](thingdev_6.png)
 
-4. Once the Product has been created, navigate to the Definition tab.
+4. Once the Product has been created, navigate to the *DEFINITION* tab.
 
 These are the resources your device will interact with. They were created automatically from the product template you selected in the previous step. In this example, the device will generally write data to the temperature, humidity, and uptime aliases, while watching the state alias for changes.
 
   ![image alt text](thingdev_7.png)
 
-**NOTE**: If you did not use the template URL in the previous step, you can manually configure your product definition. From the Definition tab, configure your dataport resources as specified below. Also, set the default value for "state" to 0 so the device has a default value it reads to know to turn the LED on or off. Click on the *state* resource in the Definition tab and write a 0 to the value.
+**NOTE**: If you did not use the template URL in the previous step, you can manually configure your product definition. From the *DEFINITION* tab, configure your dataport resources as specified below. Also, set the default value for *state* to 0 so the device has a default value it reads to know to turn the LED on or off. Click on the *state* resource in the *DEFINITION* tab and write a 0 to the value.
 ```
 * alias: _temperature_, format: _float_
 * alias: _humidity_, format: _float_
@@ -127,23 +127,23 @@ In this section, you will flash and run an example application for a connected l
 
   To find your Product ID:
 
-    1. In Murano, navigate to the Products tab and select the product you just created. 
+    1. In Murano, navigate to the *Products* tab and select the product you just created. 
 
-    2. On the Info tab, locate the Product ID and copy it.
+    2. On the *INFO* tab, locate the Product ID and copy it.
 
     ![image alt text](thingdev_10.png)
 
 8. Make sure the Thing Dev Board is connected to your computer via a micro-USB cable and select your device’s serial port with *Tools* > *Port* > *"your_port"*. 
 
-  **NOTE:** Your device will likely be the only one. If it’s not, you can figure out which is correct by unplugging your device and finding which device disappears.
+  **NOTE:** Your device will likely be the only one. If it is not, you can figure out which is correct by unplugging your device and finding which device disappears.
     
     ![image alt text](thingdev_11.png)
 
-9. Click Upload. This will first compile and then download the firmware image to the selected board.
+9. Click the arrow icon to upload. This will first compile and then download the firmware image to the selected board.
   
   ![image alt text](thingdev_12.png)
 
-10. Open the serial monitor and set it to 115200 Baud.  
+10. Open the *Serial Monitor* and set it to *115200 baud*.  
   
   ![image alt text](thingdev_13.png)
 
@@ -157,9 +157,9 @@ In this section, you will flash and run an example application for a connected l
 
 In this section, you will create a device under your Product in Murano.
 
-1. In Murano, navigate to the Product tab and select the product you just created.  
+1. In Murano, navigate to the *Products* tab and select the product you just created.  
 
-2. Navigate to the Devices tab and click New Device. 
+2. Navigate to the *DEVICES* tab and click "New Device." 
 
   ![image alt text](thingdev_15.png)
 
@@ -169,17 +169,17 @@ In this section, you will create a device under your Product in Murano.
 
   2. Enter the device identifier (MAC address) you identified in the previous section in the *Identity* field.
 
-  3. Click Create.
+  3. Click "CREATE."
 
   ![image alt text](thingdev_16.png)
 
-4. Back in Arduino, click Upload again to flash the sketch to the board one last time.
+4. Back in Arduino, click the arrow icon again to upload to flash the sketch to the board one last time.
 
-5. Open the serial monitor and verify that your device activated and provisioned successfully using the serial output.
+5. Open the *Serial Monitor* and verify that your device activated and provisioned successfully using the serial output.
 
   ![image alt text](thingdev_17.png)
 
-3. In Murano, navigate to the Devices tab for this Product, select your device, and ensure data is showing up on the Resources tab.
+3. In Murano, navigate to the *DEVICES* tab for this Product, select your device, and ensure data is showing up on the *RESOURCES* tab.
 
   ![image alt text](thingdev_18.png)
 
@@ -187,32 +187,31 @@ In this section, you will create a device under your Product in Murano.
 
 In this section, you will create a dashboard to view the data from the connected lightbulb and turn it on and off remotely. 
 
-1. From the Resources tab for your device, open the Dashboard tab. 
+1. From the *RESOURCES* tab for your device, open the *DASHBOARD* tab. 
 
   ![image alt text](thingdev_19.png)
 
-2. Click Add Pane to house the widgets you will create.
+2. Click "ADD PANE" to house the widgets you will create.
 
   ![image alt text](thingdev_20.png)
 
-3.  In the pane that appears, click the plus sign to add a widget.  
+3.  In the pane that appears, click the plus sign "+" to add a widget.  
 
   ![image alt text](thingdev_21.png)
 
-4. In the *Widget* popup that appears, select *Text* from the *Type* drop-down menu and complete the remaining fields (*Title*: Temperature; *Value*: datasources["temperature"]; *Units*: F). Click Save.
+4. In the *WIDGET* popup that appears, select *Text* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "Temperature"; *VALUE*: "datasources["temperature"]"; *UNITS*: "F"). Click "SAVE."
 
   ![image alt text](thingdev_22.png)
 
-5. Create another pane and text widget for humidity and complete the remaining fields (*Title:* Humidity; *Value:* datasources["humidity"]; *Units:* %). Click Save.
+5. Create another pane and text widget for humidity and complete the remaining fields (*TITLE:* "Humidity"; *VALUE:* "datasources["humidity"]"; *UNITS:* "%"). Click "SAVE."
 
   ![image alt text](thingdev_23.png)
 
-6. Then add a third pane and widget. In the *Widget* popup that appears, select *Toggle Switch* from the *Type* drop-down menu and complete the remaining fields (*Title*: On / Off; *Value*: datasources["state"]; *On Value*: 1; *Off Value*: 0). Click Save.
+6. Add a third pane and widget. In the *WIDGET* popup that appears, select *Toggle Switch* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "On / Off"; *VALUE*: "datasources["state"]"; *ON VALUE*: "1"; *OFF VALUE*: "0"). Click "SAVE."
 
   ![image alt text](thingdev_24.png)
 
-7. Refresh your browser if you don't see data coming through in the Humidity and Temperature widgets. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
-
+7. Refresh your browser if you do not see data coming through in the Humidity and Temperature widgets. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
 
   ![image alt text](thingdev_25.png)
 
