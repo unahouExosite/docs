@@ -182,8 +182,9 @@ Your changes have now been deployed:
 
   ![image alt text](exampleapp_13.png)
 
+In your terminal:
 
-3. CD to the *home-automation-example* directory in the terminal, and paste this command:
+3. CD to the *home-automation-example* directory and paste this command:
   ```
   npm run start:dev
   ```
