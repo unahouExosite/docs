@@ -5,7 +5,7 @@ template: default
 
 # Murano Scripting Guide
 
-* [Overview and References](#overview)
+* [Overview & References](#overview)
 * [Script Execution & Event Handlers](#script-execution)
 * [API Endpoint Scripts](#api-endpoint-scripts)
 * [Websocket Scripts](#websocket-endpoints)
@@ -13,50 +13,50 @@ template: default
 * [Troubleshooting](#troubleshooting)
 * [Script Environment](#script-environment)
 
-## Overview
+# Overview
 
-Exosite's [Murano](../) platform is an event driven system that uses scripts to route data and perform application logic and rules. These scripts have a rich set of capabilities and are used to perform such actions as storing device data into time series data store, offloading processing from your devices, and handling Solution Application API requests. These scripts have access to all of the Murano services.  A reference for each of these services and their functionality can be found here: [Service Reference](../services/)
+Exosite's [Murano](../) platform is an event-driven system that uses scripts to route data and perform application logic and rules. These scripts have a rich set of capabilities and are used to perform such actions as storing device data into a time series data store, offloading processing from your devices, and handling Solution Application API requests. These scripts have access to all of the Murano services. A reference for each of these services and their functionality can be found here: [Service Reference](../services/)
 
 Scripts are written in Lua, on the LuaJIT VM, which is Lua 5.1 with [some 5.2 features](http://luajit.org/extensions.html#lua52).
 For general information about Lua 5.1, please refer to the [online Lua manual](http://www.lua.org/manual/5.1/).
 
-Scripts may be added to a Solution by using either the [Murano admin UI](https://www.exosite.com/business/solutions), or by
+Scripts may be added to a Solution by using either the [Murano admin UI](https://www.exosite.com/business/solutions) or by
 using the [Exosite Command Line Interface](../exosite-cli/).
 
 
-#### Examples
+### Examples
 
 Examples of Murano Lua scripts are made available in the following projects:
 
 * [Example Platform Scripts Repository](https://github.com/exosite/murano-examples/tree/master/solutions/simple_graph)
-* [Example Of Home automation solution using Murano](https://github.com/exosite/home-automation-example)
+* [Example of Home Automation Solution Using Murano](https://github.com/exosite/home-automation-example)
 
 ---
 
-## Script Execution
+# Script Execution
 
-The Murano Lua scripts are executed in reaction of a system event which are defined by [Murano services](../services) events.
+The Murano Lua scripts are executed in reaction to a system event, which are defined by [Murano services](../services) events.
 
-For example a [message is received from an IoT device](../services/device/#datapoint) or an
+For example, a [message is received from an IoT device](../services/device/#datapoint) or an
 HTTP request is made on your [Custom API endpoint](../services/webservice/#request).
 
-Those events will trigger the execution one or more **event_handler script(s)** defined
-in your solution. One **event_handler script** always target a single [Murano services](../services) event.
+Those events will trigger the execution of one or more **event_handler script(s)** defined
+in your solution. One **event_handler script** always targets a single [Murano services](../services) event.
 
-On the [Murano Portal](https://www.exosite.com/business/solutions) you can define event script under the solution *services* tab.
-If you are using the [Exosite client tool](../exosite-cli/) you can define the event script in the
+On the [Murano Portal](https://www.exosite.com/business/solutions) you can define event script under the Solutions *Services* tab.
+If you are using the [Exosite client tool](../exosite-cli/), you can define the event script in the
 [event_handler folder](https://github.com/exosite/home-automation-example/tree/master/event_handler) of your project
-by using the service _Alias_ as file name.
+by using the service _Alias_ as the file name.
 
-### Event Handler Context
+## Event Handler Context
 
 During execution, **event handler scripts** are wrapped in a handler function corresponding to
 the [Murano Services](../services/) event. The event handler function will expose arguments defined by the Murano service event.
 
-**Important:** Murano **event handler scripts** share the same context withing a solution.
-Therefore the use of the _local_ keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue.
+**Important:** Murano **event handler scripts** share the same context within a solution.
+Therefore, the use of the _local_ keyword is highly recommended for every function and variable definitions to avoid a potential overlapping issue.
 
-#### Example
+### Example
 
 **Incoming data from an IoT device** are triggered by the [Device service datapoint event](../services/device/#datapoint) which
 defines a _data_ parameter for the event handler context. The wrapper function will therefore be:
@@ -81,12 +81,12 @@ function handle_device_datapoint (data)
 end
 ```
 
-### API Endpoint Scripts
+## API Endpoint Scripts
 
-For convenience, Murano offers the option to build your custom HTTP API by defining endpoints scripts.
+For convenience, Murano offers the option to build your custom HTTP API by defining endpoint scripts.
 
 **Endpoint scripts** are automatically wrapped in a simple routing mechanism based on the [Webservice Murano service](../services/webservice)
-set within the event handler for the ['request' event](../services/webservice/#request).
+set within the event handler for the ["request" event](../services/webservice/#request).
 As for a regular Service event handler, the script will receive the [request event arguments](../services/webservice/#request)
 containing the HTTP request data.
 
@@ -95,11 +95,11 @@ An extra *response* argument is provided to the **endpoint script** context allo
 The _response_ object content:
 
 ||attribute||type||default value||description||
-|**code**|_integer_|200|The response HTTP status code.<br />If any exception occurs a 500 is returned.|
+|**code**|_integer_|200|The response HTTP status code.<br />If any exception occurs, a 500 is returned.|
 |**message**|_string_ or _table_|"Ok"|The HTTP response body. If a Lua table is given, the routing wrapper will automatically encode it as JSON object.|
-|**headers**|Table of _string_|"content-type" = *text/plan* or *application/json* |The HTTP response headers depending on message type.|
+|**headers**|Table of _string_|"content-type" = *text/plan* or *application/json* |The HTTP response headers depend on message type.|
 
-#### Example
+### Example
 
 ```lua
 response.headers = {} -- optional
@@ -113,9 +113,9 @@ or
 return "My response to endpoint " .. request.uri
 ```
 
-#### Endpoints functions context
+### Endpoints Functions Context
 
-Under the hood, endpoints scripts are stored in a *_endpoints* table used by the [Webservice 'request'](../services/webservice/#request) event handler.
+Under the hood, endpoints scripts are stored in an *_endpoints* table used by the [Webservice "request"](../services/webservice/#request) event handler.
 So the final API script will be:
 
 ```lua
@@ -130,9 +130,9 @@ function handle_webservice_request(request)
 end
 ```
 
-### Websocket endpoints
+## Websocket Endpoints
 
-Websocket endpoints are handle in a similar manner as web-service endpoints based on [Websocket Murano service](http://docs.exosite.com/murano/services/websocket).
+Websocket endpoints are handled in a similar manner as webservice endpoints based on [Websocket Murano service](http://docs.exosite.com/murano/services/websocket).
 The function context includes the [websocketInfo](http://docs.exosite.com/murano/services/websocket/#websocket_info) as well as a _response_ arguments.
 The _response.message_ content will be automatically sent back to the websocket channel.
 
@@ -140,13 +140,13 @@ The _response.message_ content will be automatically sent back to the websocket 
 response.message = "Hello world"
 ```
 
-or you can directly pass the message as function result:
+Or you can directly pass the message as function result:
 
 ```lua
 return "Hello world"
 ```
 
-In addition you can also interact with the websocket channel with the following functions.
+In addition, you can also interact with the websocket channel with the following functions:
 
 ```lua
 websocketInfo.send("Hello") -- Send a message to the channel.
@@ -154,9 +154,9 @@ websocketInfo.send("world") -- Useful to send back multiple messages.
 websocketInfo.close() -- Close the websocket connection
 ```
 
-#### Websocket Endpoints functions context
+### Websocket Endpoints Functions Context
 
-Similar as the web-service endpoints, websocket are stored in the *_ws_endpoints* table. And final script at execution will be:
+Similar to the webservice endpoints, websockets are stored in the *_ws_endpoints* table. And final script at execution will be:
 
 ```lua
 local _ws_endpoints = {
@@ -172,18 +172,18 @@ end
 
 ---
 
-## Modules
+# Modules
 
-Murano recommend the use of re-usable block of Lua code. For this purpose you can defined Lua modules from
+Murano recommends the use of a reusable block of Lua code. For this purpose, you can define Lua modules from
 the [module folder](https://github.com/exosite/home-automation-example/tree/master/modules) of your project.
 
-Murano modules diverges from standard Lua modules as they are automatically added to the solution script and don't need to be manually included in other scripts.
+Murano modules diverge from standard Lua modules as they are automatically added to the solution script and do not need to be manually included in other scripts.
 
-### To keep in mind about Modules
+## To Keep in Mind About Modules
 
-* **Naming:** To avoid confusion with Murano services use a lower-case first letter
-* **Context isolation:** Murano modules do not have a specific context isolation from other Modules of the solution and the _local_ keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue. As best practice, wrap your module in an object named after your module name.
-* **Loading order:** currently loading order between modules is not insure and cross Modules reference is to be avoided.
+* **Naming:** To avoid confusion with Murano services, use a lowercase first letter.
+* **Context isolation:** Murano modules do not have a specific context isolation from other Modules of the solution, and the _local_ keyword is highly recommended for every function and variable definitions to avoid potential overlapping issue. As a best practice, wrap your module in an object named after your module name.
+* **Loading order:** currently loading order between modules is not ensured and cross-Modules reference is to be avoided.
 
 ### Example
 
@@ -204,24 +204,24 @@ end
 
 ---
 
-## Troubleshooting
+# Troubleshooting
 
 The Lua script execution is recorded in the solution logs and is accessible through the solution management console under the *LOG* panel.
 
 Two different types of logs are available:
 
 
-### *[script log]*
+## *[script log]*
 
 Contains the Lua script execution result.
 
-##### Request content
+#### Request Content
 
-* *solution_id:* Active solution id
+* *solution_id:* Active solution ID
 * *event_type:* The event that triggered the script execution. In the format of ```{ServiceAlias}_{EventName}```
 * *script_parameters:* JSON object containing the input parameters of the script
 
-##### Response content
+#### Response Content
 
 * *status_code:* HTTP status code representing the Lua script execution status
 * *result.result:* "ok" or "error"
@@ -229,9 +229,9 @@ Contains the Lua script execution result.
 * *result.execution_time:* Script execution time in ms
 * *result.script_output:* Content logged with the *print(..)* function
 
-##### Example
+#### Example
 
-A log from a the script execution triggered by a [Webservice request event](../services/webservice/#request).
+A log from the script execution triggered by a [Webservice request event](../services/webservice/#request).
 ```
 [script log] 2016-07-12T09:21:40.350+00:00
 --------- request: solution_id=mySolutionId, event_type=webservice_request, script_parameters={"body": {}, "route": "/user/{email}/lightbulbs", .. }
@@ -241,22 +241,22 @@ A log from a the script execution triggered by a [Webservice request event](../s
 
 ### *[service call log]*
 
-Log of Murano services calls. Example a key value is stored or a web-socket message is sent.
+Log of Murano services calls. Example: a key value is stored or a websocket message is sent.
 
-##### Request content
+#### Request Content
 
-* *solution_id:* Active solution id
+* *solution_id:* Active solution ID
 * *service_alias:* Target service alias
 * *function_call:* Target service function
 * *arguments:* JSON object containing the parameters
 
-##### Response content
+#### Response Content
 
 * *error:* Execution error if any
 * *status:* Service call HTTP status code
 * *result:* Service call response data
 
-##### Example
+#### Example
 
 Log from the call to the [Webservice request operation](../services/webservice/#apiReply).
 ```
@@ -267,21 +267,21 @@ Log from the call to the [Webservice request operation](../services/webservice/#
 
 ---
 
-## Script environment
+# Script Environment
 
 Scripts are executed in their own sandboxed instance of the Lua VM to keep them isolated
-form each other. Each script has access to all [Murano Services](../services/), but access
+from each other. Each script has access to all [Murano Services](../services/), but access
 to those services is authenticated based on your solution.
 
-Each script execution is resource constrained, currently that translates into 1Mb of
-RAM, and 64k Lua instructions.
+Each script execution is resource constrained. Currently that translates into 1MB of
+RAM and 64k Lua instructions.
 
 While memory usage is easy to reason about, a Lua instruction limit is not so clear-cut.
 If you are not sure what a Lua instruction is, intuitively you could view it as correlated to
-CPU usage, although it is not a direct correlation - in short, it represents how much work your
-script performs. Lua is a stack-based virtual machine, and it's instruction set is similar to assembly
+CPU usage, although it is not a direct correlation—in short, it represents how much work your
+script performs. Lua is a stack-based virtual machine, and its instruction set is similar to assembly
 in some respects. Thus Lua instructions are primitive operations on the stack and the registers in
-each stack frame, as well as primitives for boolean logic and arithmetic, examples of
+each stack frame, as well as primitives for boolean logic and arithmetic. Examples of
 such instructions are: LOADNIL, LOADK, MOVE, ADD, SUB, MUL, POW, LEN, JMP, EQ, and many more.
 
 The limit is only enforced for instructions executed.
@@ -294,7 +294,7 @@ references:
 - [Visibility Rules](http://www.lua.org/manual/5.1/manual.html#3.5)
 
 
-### Lua tables and functions
+## Lua Tables and Functions
 
 The following global Lua tables and functions are available to Lua
 scripts. They operate exactly as described in the Lua 5.1 reference manual.
@@ -313,11 +313,11 @@ scripts. They operate exactly as described in the Lua 5.1 reference manual.
     Only `os.difftime`, `os.date`, `os.time`, `os.clock` function are available to scripts.)
 
 
-### Additional global tables, functions and properties
+## Additional Global Tables, Functions, and Properties
 
-In addition to the Lua system resources the following global features are available to Lua scripts:
+In addition to the Lua system resources, the following global features are available to Lua scripts:
 
-#### to_json
+### to_json
 
 Converts a Lua table to a JSON string.
 This function is multi-return, the first value being the result,
@@ -337,7 +337,7 @@ end
 local jsonString = to_json({})
 ```
 
-#### from_json
+### from_json
 
 Converts a JSON string to a Lua table.
 This function is multi-return, the first value being the result,
