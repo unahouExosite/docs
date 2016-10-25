@@ -14,7 +14,7 @@ This is a getting-started guide for using Exosite Murano Solutions. In this guid
 * Device Control
 
 If you do not already have a Murano account,
-<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>.
+<a class="btn orange" href="https://exosite.com/business/signup">Sign Up for Beta Access to Murano</a>
 
 # Requirements
 
