@@ -80,11 +80,11 @@ In this section, you will use the Python device simulator to activate the new de
   ```
 If successful, the script will ask you to enter your Product ID.
 
-  ![image alt text](pythonsim_6(2).png)
+  ![image alt text](pythonsim_6.png)
 
 3. Paste your Product ID into the terminal and press **Enter**. 
 
-  ![image alt text](pythonsim_7(2).png)
+  ![image alt text](pythonsim_7.png)
 
   To find your Product ID:
 
@@ -100,7 +100,7 @@ If successful, the script will ask you to enter your Product ID.
 
   If the Python Simulator is running correctly, the script should show the device has been activated and whether the lightbulb is on or off. 
 
-  ![image alt text](pythonsim_9(2).png)
+  ![image alt text](pythonsim_9.png)
 
 5. Back in Murano, make sure the device shows a status of "activated" on the *DEVICES* tab. 
 
@@ -146,7 +146,7 @@ In this section, you will create a dashboard to view the data from the connected
 
 Switch to the terminal (while the simulator is running), and you will see the simulator indicates that it has received the state changes.
 
-  ![image alt text](pythonsim_19(2).png)
+  ![image alt text](pythonsim_19.png)
 
 Congratulations—you just remotely turned a simulated device sensor on and off.
 
