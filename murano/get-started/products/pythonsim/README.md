@@ -80,11 +80,11 @@ In this section, you will use the Python device simulator to activate the new de
   ```
 If successful, the script will ask you to enter your Product ID.
 
-  ![image alt text](pythonsim_6.png)
+  ![image alt text](pythonsim_a.png)
 
 3. Paste your Product ID into the terminal and press **Enter**. 
 
-  ![image alt text](pythonsim_7.png)
+  ![image alt text](pythonsim_b.png)
 
   To find your Product ID:
 
@@ -100,7 +100,7 @@ If successful, the script will ask you to enter your Product ID.
 
   If the Python Simulator is running correctly, the script should show the device has been activated and whether the lightbulb is on or off. 
 
-  ![image alt text](pythonsim_9.png)
+  ![image alt text](pythonsim_c.png)
 
 5. Back in Murano, make sure the device shows a status of "activated" on the *DEVICES* tab. 
 
