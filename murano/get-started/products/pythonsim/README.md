@@ -20,7 +20,7 @@ In this section, you will create a new Product in Murano.
 
 1. In your browser, navigate to the Murano [Product tab](http://exosite.io/business/products). 
 
-2. To add a Product, click "New Product."
+2. To add a Product, click "NEW PRODUCT."
 
   ![image alt text](pythonsim_0.png)
 
@@ -30,7 +30,7 @@ In this section, you will create a new Product in Murano.
 
     2. Select *Connected lightbulb example* from the *Choose starting point* drop-down menu. 
 
-    3. Click "Add."  
+    3. Click "ADD."  
 
   ![image alt text](pythonsim_1.png)
 
@@ -44,7 +44,7 @@ These are the resources your device will interact with. They were created automa
 
 In this section, you will create and activate a device under your Product in Murano.
 
-5. In Murano, navigate to the *DEVICES* tab and click "New Device." 
+5. In Murano, navigate to the *DEVICES* tab and click "NEW DEVICE." 
 
   ![image alt text](pythonsim_3.png)
 
@@ -54,7 +54,7 @@ In this section, you will create and activate a device under your Product in Mur
 
     5. Enter a serial number or device identifier in the *Identity* field. For the purpose of this example, you can use `000001`.
 
-    6. Click "Create."
+    6. Click "CREATE."
 
   ![image alt text](pythonsim_4.png)
 
