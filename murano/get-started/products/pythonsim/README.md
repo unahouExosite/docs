@@ -146,7 +146,7 @@ In this section, you will create a dashboard to view the data from the connected
 
 Switch to the terminal (while the simulator is running), and you will see the simulator indicates that it has received the state changes.
 
-  ![image alt text](pythonsim_19.png)
+  ![image alt text](pythonsim_d.png)
 
 Congratulations—you just remotely turned a simulated device sensor on and off.
 
