@@ -7375,8 +7375,8 @@ Get information on all users.
 
 | String | Description | Example |
 |:-------|:------------|:---------------|
-| `offset` | Sets the number of users to skip. Optional. | `/users?offset=10` |
-| `limit` | Limits the number of users to retrieve. Optional. | `/users?limit=10` |
+| `offset` | Sets the number of users to skip. Optional but paired with limit. | `/users?offset=0&limit=10` |
+| `limit` | Limits the number of users to retrieve. Optional but paired with offset. | `/users?limit=10&offset=0` |
 | `NoPermissions` | Excludes permissions from the [user object](#user-object). Optional. | `/users?NoPermissions` |
 
 ##### Request
