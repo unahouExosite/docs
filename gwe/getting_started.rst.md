@@ -91,9 +91,8 @@ follow these steps:
     > ssh <USER>@<GATEWAY_IP> "mkdir /opt"
     > scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt 
     > ```
-    >
-    > At this point, you have downloaded the latest release of Gateway
-    > Engine and copied it to your gateway.
+
+    At this point, you have downloaded the latest release of Gateway Engine and copied it to your gateway.
 
 3.  Run this command to untar the release package and install Gateway
     Engine onto your gateway:
@@ -104,83 +103,63 @@ follow these steps:
     >    cd gateway-engine
     >    ./install.sh"
     > ```
-    >
-    > <div class="admonition note">
-    >
-    > In some linux environments, you'll need to use Super-User
-    > permissions to run the installer. In this case, replace the
-    > `./install.sh` command to:
-    >
+
+    **NOTE:** In some Linux environments, you'll need to use Super-User permissions to run the installer. In this case, replace the `./install.sh` command to:
+
     > > ``` {.sourceCode .bash}
     > > sudo ./install.sh
     > > ```
-    >
-    > </div>
 
 4.  Once the installation completes, you'll need to configure Gateway
     Engine for your IoT solution and Exosite account. This will require
     one piece of information from your Murano account and you'll need to
     make a decision about what serial number to use for your gateway.
 
-    > 1.  In your Murano account, navigate to your Product and click on
-    >     the Info tab. Copy the Product ID and use it in the commands,
-    >     below, in place of &lt;PRODUCT\_ID&gt;.
-    > 2.  Determine the serial number of your gateway. Gateway Engine is
-    >     programmed to retrieve the MAC address from the internet
-    >     interface of your choosing (e.g. `eth0`, `wlan0`,
-    >     `ppp0`, etc.) when the `--set-iface` command-line switch
-    >     is used. Or you can just specify any serial number you want
-    >     with the `--set-uuid` command line switch.
-    >
-    > Once you've gathered this information and determined what serial
-    > number to use for your gateway (interface MAC address or custom
-    > serial number), run the following command to configure Gateway
-    > Engine:
-    >
+    1.  In your Murano account, navigate to your Product and click on
+        the Info tab. Copy the Product ID and use it in the commands,
+        below, in place of &lt;PRODUCT\_ID&gt;.
+    2.  Determine the serial number of your gateway. Gateway Engine is
+        programmed to retrieve the MAC address from the internet
+        interface of your choosing (e.g. `eth0`, `wlan0`,
+        `ppp0`, etc.) when the `--set-iface` command-line switch
+        is used. Or you can just specify any serial number you want
+        with the `--set-uuid` command line switch.
+   
+        Once you've gathered this information and determined what serial
+        number to use for your gateway (interface MAC address or custom
+        serial number), run the following command to configure Gateway
+        Engine:
+
     > ``` {.sourceCode .bash}
     > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
     > ```
-    >
-    > <div class="admonition note">
-    >
-    > Example:
-    >
+
+    **Example:**
+
     > ``` {.sourceCode .bash}
     > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
     > ```
-    >
-    > </div>
-    >
-    > Or if you want to just specify your own serial number:
-    >
+    
+ Or if you want to just specify your own serial number:
+
     > ``` {.sourceCode .bash}
     > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
     > ```
-    >
-    > <div class="admonition note">
-    >
-    > Example:
-    >
+
+    **Example:**
+
     > ``` {.sourceCode .bash}
     > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
     > ```
-    >
-    > </div>
-    >
-    > To complete the installation you will need to reboot the gateway.
-    > To reboot, you can toggle the power or use the following command:
-    >
+   
+To complete the installation you will need to reboot the gateway.
+To reboot, you can toggle the power or use the following command:
+
     > ``` {.sourceCode .bash}
     > ssh <USER>@<GATEWAY_IP> "reboot"
     > ```
-    >
-    > <div class="admonition important">
-    >
-    > Gateway Engine uses `supervisord` to start itself on boot and once
-    > it starts, it will start Gateway Engine as well as all other
-    > installed Custom Gateway Applications.
-    >
-    > </div>
+
+**NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
 ### Step Four
 
