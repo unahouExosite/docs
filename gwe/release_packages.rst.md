@@ -17,61 +17,16 @@ Gateway Engine Downloads
 
 The download options below contain full Gateway Engine release packages.
 
-To download the latest version of this release, click the button below.
+To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk)
 
-> <div id="download-gwe"></div>
->
-> <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-> <script type="text/javascript">
->     $(document).ready(function(e) {
->         console.log( "Prepping download button..." );
->         $.get("https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk", function(contents) {
->
->             console.log("Latest Release: " + String(contents))
->             var release_name = String(contents).split('/').pop();
->             console.log(release_name)
->
->             var onclick = "window.open('" + String(contents).trim() + "')";
->             console.log(onclick)
->             var button = $('<button id="gwe-download-button" type="submit" onclick="' + onclick + '">Download ' + release_name + '</button>');
->             $("#download-gwe").append(button);
->             $("#gwe-download-button").css(
->                 {
->                     "-moz-box-shadow": "2px 2px 15px 0px #41C4DC",
->                     "-webkit-box-shadow": "2px 2px 15px 0px #41C4DC",
->                     "box-shadow": "2px 2px 15px 0px #41C4DC",
->                     "background-color":"#41C4DC",
->                     "-moz-border-radius":"10px",
->                     "-webkit-border-radius":"10px",
->                     "border-radius":"10px",
->                     "border":"1px solid #222736",
->                     "display":"inline-block",
->                     "cursor":"pointer",
->                     "color":"#ffffff",
->                     "font-family":"Arial",
->                     "font-size":"17px",
->                     "padding":"16px 31px",
->                     "text-decoration":"none",
->                     "text-shadow":"0px 1px 0px #41C4DC"
->                 }
->             )
->         },'text');
->     });
-> </script>
+If your gateway has an internet connection and no browser to load this
+page and click the button with, the following command can be executed
+on the gateway to download the release package. It will quietly
+download the release and print the release name when it finishes.
 
-| 
-
-> <div class="admonition tip">
->
-> If your gateway has an internet connection and no browser to load this
-> page and click the button with, the following command can be executed
-> on the gateway to download the release package. It will quietly
-> download the release and print the release name when it finishes.
->
-> ``` {.sourceCode .bash}
-> basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
-> ```
->
+```{.sourceCode .console}
+basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
+```
 > </div>
 
 ### Previous Releases
