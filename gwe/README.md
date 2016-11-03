@@ -46,4 +46,43 @@ gateways.
 Terminology
 -----------
 
+| Term          | Definition    |
+| ------------- | ------------- |
+| CIK           | An acronym for Client Interface Key. The CIK is the authorization for operations like reading and writing data to dataports, creating new clients, dataports and scripts, and even dropping (a.k.a deleting) the client.  |
+| Custom Gateway Application  | This is the application that you (the developer) develop as your IoT solution. It is the application that Gateway Engine hosts on your gateway(s).  |
+| Gateway Engine | A Python framework for creating Custom Gateway Applications on linux gateways. |
+| `"GatewayEngine"` | The Python package in the Gateway Engine framework developed and maintained by Exosite Professional Services.|
+| GWE | An acronym for Gateway Engine and/or `"GatewayEngine"`. |
+| Vendor | An Exosite One Platform term that refers to an account name. |
+| OTAU | An acronym for Over the Air Update. This the mechanism that enables software and firmware updates over internet connections. |
+| tarball | A type of compressed file that contains other files, directories and even other tarballs.|
+
+Resources
+-----------
+
+-   Getting Started
+  -   Minimum Requirements
+-   Product Overview
+  -   Over the Air Updating (OTAU)
+  -   Application version control
+  -   Process and logfile managment
+  -   Exosite API libraries 
+  -   Gateway telemetrics
+  -   Network outage and power failure tolerance
+  -   Gateway fleet management
+-   Gateway Engine release packages
+  -   Gateway Engine Downloads
+  -   Release Package Overview
+  -   Release Notes
+-   Over the Air Updates
+-   Device Client - Docs
+  -   README - Device Client (gdc)
+  -   Module Documentation
+-   Gateway Engine - Docs
+  -   Key Features
+-   Gateway Message Queuing (GMQ) - Docs
+  -   README - Gateway Message Queuing (`"gmq"`)
+  -   gmq Package
+  -   Module Documentation
+  
 
