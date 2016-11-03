@@ -37,7 +37,7 @@ By design, the OTAU feature of Gateway Engine installs updates and new
 programs the same way that it installs and updates itself and its
 complementary components. For general design information and
 instructions on how to create OTAU and new program installation
-packages, please refer to the otau section.
+packages, please refer to the [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates) section.
 
 Application version control
 ---------------------------
