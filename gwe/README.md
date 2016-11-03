@@ -60,21 +60,21 @@ Terminology
 Resources
 -----------
 
--   Getting Started
-  -   Minimum Requirements
--   Product Overview
-  -   Over the Air Updating (OTAU)
-  -   Application version control
-  -   Process and logfile managment
-  -   Exosite API libraries 
-  -   Gateway telemetrics
-  -   Network outage and power failure tolerance
-  -   Gateway fleet management
--   Gateway Engine release packages
-  -   Gateway Engine Downloads
-  -   Release Package Overview
-  -   Release Notes
--   Over the Air Updates
+-   [Getting Started] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#getting-started)
+  -   [Minimum Requirements] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#minimum-requirements)
+-   [Product Overview] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#product-overview) 
+  -   [Over the Air Updating (OTAU)] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#over-the-air-updating-otau)
+  -   [Application version control] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#application-version-control)
+  -   [Process and logfile managment] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#process-and-logfile-management)
+  -   [Exosite API libraries] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#exosite-api-libraries) 
+  -   [Gateway telemetrics] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-telemetrics)
+  -   [Network outage and power failure tolerance] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#network-outage-and-power-failure-tolerance)
+  -   [Gateway fleet management] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-fleet-management)
+-   [Gateway Engine release packages]
+  -   [Gateway Engine Downloads]
+  -   [Release Package Overview]
+  -   [Release Notes]
+-   [Over the Air Updates] (https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates)
 -   Device Client - Docs
   -   README - Device Client (gdc)
   -   Module Documentation
