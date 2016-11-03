@@ -13,14 +13,14 @@ needs are so often the same.
 
 Common functions of gateway software include:
 
--   Over the Air Updating (OTAU)
--   Application version control
--   Process management
--   Logfile management
--   Exosite API libraries
--   Gateway telemetrics
--   Power failure tolerance
--   Gateway fleet management
+* Over the Air Updating (OTAU)
+* Application version control
+* Process management
+* Logfile management
+* Exosite API libraries
+* Gateway telemetrics
+* Power failure tolerance
+* Gateway fleet management
 
 Over the Air Updating (OTAU)
 ----------------------------
