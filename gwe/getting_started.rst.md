@@ -33,6 +33,15 @@ resources to it with one of two ways
 The table, below, shows the resources you must add, what to name them
 and what format to choose for them.
 
+| Alias         | Format        | Description   |
+| ------------- | ------------- | ------------- |
+| usage_report  | string        | Gateway Engine sends a report of all processes using its resources (`gmq`, `device-client`) to send data to Murano. This report contains information about how much network bandwidth is being consumed as well as other meta data about network requests.|
+| engine_report | string | Gateway Engine reports information about what applications are installed and other meta data like uptime, exit codes, and versions.         |
+| device_info | string | Gateway Engine reports filesystem and OS data like OS and kernel version as well as free memory and disk space usage.|
+| engine_fetch | string | Gateway Engine regularly checks this dataport for formatted messages containing instructions on new apps and updates to install.        |
+| fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer.        |
+| update_interval | string | This value, in seconds, is the delay between each series of Gateway Engine reports and OTAU checkins.|
+
 #### Use MrMurano
 
 The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
@@ -63,12 +72,8 @@ EOF
 mr product spec --file spec.yaml
 ```
 
-<div class="admonition note">
-
-When signing up for a new account, there will be emails you will need to
+**NOTE:** When signing up for a new account, there will be emails you will need to
 take action on in order to activate your account and login.
-
-</div>
 
 ### Step Two
 
@@ -77,7 +82,7 @@ Download, install and configure Gateway Engine onto your gateway.
 To download the latest version of the Public Release of Gateway Engine,
 follow these steps:
 
-1.  Navigate to the releases section and follow the instructions to
+1.  Navigate to the [Gateway Engine Release Packages](https://github.com/exosite/docs/blob/gwe/gwe/release_packages.rst.md#gateway-engine-release-packages) section and follow the instructions to
     download Gateway Engine.
 2.  Run these commands to copy Gateway Engine to your gateway (the
     actual filename in the command may differ):
