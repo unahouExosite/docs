@@ -87,28 +87,28 @@ follow these steps:
 2.  Run these commands to copy Gateway Engine to your gateway (the
     actual filename in the command may differ):
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "mkdir /opt"
-    > scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt 
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "mkdir /opt"
+    scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt 
+    ```
 
     At this point, you have downloaded the latest release of Gateway Engine and copied it to your gateway.
 
 3.  Run this command to untar the release package and install Gateway
     Engine onto your gateway:
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "cd /opt
-    >    tar zxvf GatewayEngine.v1-1-2.tar.gz
-    >    cd gateway-engine
-    >    ./install.sh"
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "cd /opt
+      tar zxvf GatewayEngine.v1-1-2.tar.gz
+      cd gateway-engine
+      ./install.sh"
+    ```
 
     **NOTE:** In some Linux environments, you'll need to use Super-User permissions to run the installer. In this case, replace the `./install.sh` command to:
 
-    > > ``` {.sourceCode .bash}
-    > > sudo ./install.sh
-    > > ```
+    ``` {.sourceCode .bash}
+    sudo ./install.sh
+    ```
 
 4.  Once the installation completes, you'll need to configure Gateway
     Engine for your IoT solution and Exosite account. This will require
@@ -130,34 +130,34 @@ follow these steps:
         serial number), run the following command to configure Gateway
         Engine:
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
+    ```
 
     **Example:**
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
+    ```
     
  Or if you want to just specify your own serial number:
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
+    ```
 
     **Example:**
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
+    ```
    
 To complete the installation you will need to reboot the gateway.
 To reboot, you can toggle the power or use the following command:
 
-    > ``` {.sourceCode .bash}
-    > ssh <USER>@<GATEWAY_IP> "reboot"
-    > ```
+    ``` {.sourceCode .bash}
+    ssh <USER>@<GATEWAY_IP> "reboot"
+    ```
 
 **NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
@@ -173,11 +173,11 @@ to read through. If this is the case, filter the output with `grep`
 `supervisorctl status` command to view the status of the Gateway Engine
 applications.
 
-> ``` {.sourceCode .bash}
-> ssh <USER>@<GATEWAY_IP> "supervisorctl status"
-> gmq                           RUNNING    pid 621, 00:01:38
-> gwe                           RUNNING    pid 620, 00:01:38
-> ```
+``` {.sourceCode .bash}
+ssh <USER>@<GATEWAY_IP> "supervisorctl status"
+gmq                           RUNNING    pid 621, 00:01:38
+gwe                           RUNNING    pid 620, 00:01:38
+```
 
 A few seconds after rebooting the gateway you should see data appear in
 the aliases of your GatewayEngine device.
