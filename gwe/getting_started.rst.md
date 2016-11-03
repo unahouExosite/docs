@@ -151,14 +151,14 @@ follow these steps:
     ``` {.sourceCode .bash}
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
     ```
-   
+    
 To complete the installation you will need to reboot the gateway.
 To reboot, you can toggle the power or use the following command:
 
     ``` {.sourceCode .bash}
     ssh <USER>@<GATEWAY_IP> "reboot"
     ```
-
+    
 **NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
 ### Step Four
