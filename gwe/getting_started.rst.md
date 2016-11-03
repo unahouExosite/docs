@@ -12,12 +12,12 @@ Minimum Requirements
 Before proceeding to [Step One] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
 
--   Linux OS
--   Python 2.7.9+
--   Network interface (`eth0`, `wlan0`, `ppp0`, etc.)
--   GNU shell
--   128MB Flash
--   64MB RAM
+* Linux OS
+* Python 2.7.9+
+* Network interface (`eth0`, `wlan0`, `ppp0`, etc.)
+* GNU shell
+* 128MB Flash
+* 64MB RAM
 
 ### Step One
 
