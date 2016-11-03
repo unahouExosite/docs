@@ -26,7 +26,7 @@ account is set up, add a device to your Murano Product and name it
 "Gateway Engine". Copy down the MAC address of your Gateway and use it
 as the serial number for your new Murano Gateway Engine device. Once you
 have a Gateway Engine device in your Murano Product, you must add
-resources to it with one of two ways
+resources to it with one of two ways.
 
 #### Manually
 
