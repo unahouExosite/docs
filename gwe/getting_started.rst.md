@@ -9,7 +9,7 @@ Engine installed and running on a gateway.
 Minimum Requirements
 --------------------
 
-Before proceeding to Step One\_, you should first verify that your
+Before proceeding to [Step One] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
 
 > -   Linux OS
