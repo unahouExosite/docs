@@ -25,7 +25,7 @@ In addition to what [supervisord](http://supervisor.org) provides, [gwe](https:/
 
 ## OTA Application Management
 
-Gateway Engine was designed to install and update applications Over-the-Air. For more information on building Custom Gateway Application tarballs see the [Gateway Engine (GWE)](/gwe/gateway-engine/gateway_engine_gwe/) section on Hosted Applications.
+Gateway Engine was designed to install and update applications Over-the-Air. For more information on building Custom Gateway Application tarballs see the [Gateway Engine (gwe) README](/gwe/gateway-engine/gateway_engine_gwe/) page on Hosted Applications.
 
 ## OS/Filesystem Metadata Collection
 
