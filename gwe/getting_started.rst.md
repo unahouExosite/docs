@@ -24,7 +24,7 @@ account is set up, add a device to your Murano Product and name it
 "Gateway Engine". Copy down the MAC address of your Gateway and use it
 as the serial number for your new Murano Gateway Engine device. Once you
 have a Gateway Engine device in your Murano Product, you must add
-resources to it with one of two ways.
+resources to it with one of two ways, either manually or by using the MrMurano tool.
 
 ## Manually
 
@@ -123,7 +123,7 @@ follow these steps:
         is used. Or you can just specify any serial number you want
         with the `--set-uuid` command line switch.
    
-        Once you've gathered this information and determined what serial
+    3.  Once you've gathered this information and determined what serial
         number to use for your gateway (interface MAC address or custom
         serial number), run the following command to configure Gateway
         Engine:
@@ -150,8 +150,8 @@ follow these steps:
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
     ```
     
-To complete the installation you will need to reboot the gateway.
-To reboot, you can toggle the power or use the following command:
+5.  To complete the installation you will need to reboot the gateway.
+    To reboot, you can toggle the power or use the following command:
 
   ```
   ssh <USER>@<GATEWAY_IP> "reboot"
