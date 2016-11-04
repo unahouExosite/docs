@@ -63,5 +63,3 @@ and deployment tool for Internet-connected gateways.
 * [Device Client - Docs](/gwe/device-client/)
 * [Gateway Engine - Docs](/gwe/gateway-engine/)
 * [Gateway Message Queuing - Docs](/gwe/gmq/)
-  
-
