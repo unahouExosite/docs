@@ -2,7 +2,7 @@
 
 Gateway Engine is designed to be a custom application hosting framework. 
 
-TODO: Add gateway_engine image. 
+  ![Alt text](gateway_engine_image.png) 
 
 # Key Features
 
