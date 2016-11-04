@@ -1,96 +1,154 @@
----
-title: Murano Getting Started - Products - Python Simulator Script
-template: default
----
+# Getting-started Guide: Simulate a Connected Lightbulb Using a Python Script
 
-# SIMULATE A DEVICE USING A PYTHON SCRIPT
-**NOTE: This is a technical tutorial. You’ll need some familiarity with your operating system's terminal. In order to complete this tutorial you will need python installed on your system. If you haven’t used Python before, download and install it here: <a href="https://www.python.org" target="_blank">https://www.python.org/</a>**
+In this guide, you will use a Python script to simulate a connected lightbulb. You will then create a development dashboard within Murano, where you can see temperature and humidity data from the device and have the ability to remotely turn the lightbulb on and off.
 
-In this tutorial, we'll simulate a device based on the "Connected Lightbulb Example" and see data on your dashboard.
+# Requirements
 
+## Hardware Setup
 
-# STEP 1: ADD EXAMPLE PRODUCT AND DEVICE
+No hardware is required to complete this guide.
 
-If you haven’t already, create a product using the connected lightbulb example here:
-<a href="http://exosite.io/business/products" target="_blank">http://exosite.io/business/products</a>
+## Software Setup
 
-![Add product button](assets/add_new_product.png )
-![Create product for python device simulator](assets/create_product_python_simulator.png)
+To complete this guide, you must first download and install Python 2.7 from the [Python website](https://www.python.org/).
 
-When you click on the "Definition" tab, it should look like this:
-![Product Definition based on the example](assets/product_definition_lightbulb_example.png)
+# Getting Started 
 
-Now add a device with identity 000001, like so:
-![Navigating to add new device](assets/product_add_device.png)
-![Add new device modal](assets/new_device.png)
-![Add new device modal](assets/product_device_not_activated.png)
+## Create a Product in Murano
 
-It should show up in your list as not activated. Now we'll use the python device simulator to activate that device and start simulating data.
+In this section, you will create a new Product in Murano.
 
+1. In your browser, navigate to the Murano [Product tab](http://exosite.io/business/products). 
 
-# STEP 2: RUN THE PYTHON DEVICE SIMULATOR
+2. To add a Product, click "NEW PRODUCT."
 
-Open your OS terminal and clone the python simulator repo:
-```
-git clone https://github.com/exosite/murano_python_device_simulator_example.git
-```
+  ![image alt text](pythonsim_0.png)
 
-```
-cd murano_python_device_simulator_example
-```
+3. In the *New Product* popup: 
 
-Run the device simulator
-```
-python murano_device_simulator.py
-```
+    1. Enter a name for the Product in the *Name* field. 
 
-The script will ask you for your ProductID. On your browser, navigate to your product on Exosite and copy your Product ID
+    2. Select *Connected lightbulb example* from the *Choose starting point* drop-down menu. 
 
-![find product id](assets/find_product_id.png)
+    3. Click "ADD."  
 
-Paste it into terminal and hit enter
+  ![image alt text](pythonsim_1.png)
 
-![terminal paste](assets/terminal_paste.png)
+4. Once the Product has been created, navigate to the *DEFINITION* tab. 
 
-Then hit the enter key to use the default device identity (000001) - this matches the identity of the device you added earlier, so it will activate correctly.
+These are the resources your device will interact with. They were created automatically from the product template you selected in the previous step. In this example, the device will generally write data to the uptime, temperature, and humidity aliases, while watching the state alias for changes.
 
-**Note: If you've already added 000001 and simulated the device before, you may need to create a device (e.g. 000002), and change the default identity on the simulator. This will activate a new device and simulate data for it.**
+  ![image alt text](pythonsim_2.png)
 
-If the Python Simulator is running correctly, it should look like this:
-![Python simulator success](assets/product_python_simulator_success.png)
+## Add a Device in Murano
 
-The script should show that the device has been activated and whether the lightbulb is on or off. Change back to your browser and make sure the device has been activated and data is showing up on the platform:
-![Select device](assets/product_device_activated.png)
+In this section, you will create and activate a device under your Product in Murano.
 
-![Select device](assets/product_device_resources_simulated_data.png)
+5. In Murano, navigate to the *DEVICES* tab and click "NEW DEVICE." 
 
-Awesome! Now you have a simulated device pumping data into Exosite. Keep the simulator running throughout these tutorials.
+  ![image alt text](pythonsim_3.png)
 
+6. In the *New Device* popup: 
 
-# STEP 3: CREATE THE DASHBOARD
+    4. Enter a name for the device in the *Name* field. This will only be used to help you distinguish between devices.  
 
-On your browser, select the device you just created (most likely 000001) and open the Dashboard:
-![Click Dashboard](assets/click_dashboard.png)
+    5. Enter a serial number or device identifier in the *Identity* field. For the purpose of this example, you can use `000001`.
 
-Add a text pane for temperature and include sparkline
- ![dashboard add pane](assets/product_dashboard_add_pane.png)
- ![dashboard add pane](assets/product_dashboard_add_widget.png)
- ![dashboard add widget](assets/dashboard_add_widget.png)
+    6. Click "CREATE."
 
-Do the same for Humidity. Then add a toggle switch for your light:
- ![dashboard add widget](assets/product_dashboard_toggle_widget.png)
+  ![image alt text](pythonsim_4.png)
 
-Now try turning the light on and off for the simulated device. Hit the toggle switch on your dashboard, then switch to terminal (while the simulator is running) and make sure the simulator acknowledges it.
- ![dashboard toggle switch](assets/product_dashboard_complete_toggle_switch.png)
- ![dashboard toggle lightbulb on - terminal](assets/product_dashboard_lightbulb_on_terminal.png)
+7. Once the device is created, you will see it in your device list with a status of "notactivated."
 
-Congratulations - you just remotely turned a simulated device sensor on and off. 
+  ![image alt text](pythonsim_5.png)
 
-<a class="btn orange" href="http://docs.exosite.com/murano/get-started/solutions/exampleapp/">UP NEXT: CREATE A SOLUTION >></a>
-<div style="padding-bottom: 300px"></div>
+## Run the Python Device Simulator
 
+In this section, you will use the Python device simulator to activate the new device you created and start simulating data. 
 
+1. Open your OS terminal and clone the Python simulator repo by entering the commands below into the terminal window. Press **Enter**.
+  ```
+  git clone https://github.com/exosite/murano_python_device_simulator_example.git
+  ```
+  ```
+  cd murano_python_device_simulator_example
+  ```
 
+2. Run the device simulator by entering the command below into the terminal window. Press **Enter**.
+  ```
+  python murano_device_simulator.py
+  ```
+If successful, the script will ask you to enter your Product ID.
 
+  ![image alt text](pythonsim_a.png)
 
+3. Paste your Product ID into the terminal and press **Enter**. 
+
+  ![image alt text](pythonsim_b.png)
+
+  To find your Product ID:
+
+    1. In Murano, navigate to the *Products* tab and select the product you just created. 
+
+    2. On the *INFO* tab, locate the Product ID and copy it.
+
+  ![image alt text](pythonsim_8.png)
+
+4. Press **Enter** again to use the default device identity (000001). This matches the identity of the device you added earlier, so it will activate correctly.
+
+  **NOTE:** If you have already added 000001 and simulated the device before, you may need to create a new device (e.g., 000002) and change the default identity on the simulator. This will activate a new device and simulate data for it.
+
+  If the Python Simulator is running correctly, the script should show the device has been activated and whether the lightbulb is on or off. 
+
+  ![image alt text](pythonsim_c.png)
+
+5. Back in Murano, make sure the device shows a status of "activated" on the *DEVICES* tab. 
+
+  ![image alt text](pythonsim_10.png)
+
+6. Click the device and navigate to the *RESOURCES* tab to ensure data is showing up on the platform. 
+
+  ![image alt text](pythonsim_11.png)
+
+Now you have a simulated device pumping data into Exosite. Keep the simulator running throughout the rest of this guide.
+
+## Create a Dashboard in Murano
+
+In this section, you will create a dashboard to view the data from the connected lightbulb and turn it on and off remotely. 
+
+1. From the *RESOURCES* tab for your device, open the *DASHBOARD* tab. 
+
+  ![image alt text](pythonsim_12.png)
+
+2. Click "ADD PANE" to house the widgets you will create.
+
+  ![image alt text](pythonsim_13.png)
+
+2.  In the pane that appears, click the plus sign "+" to add a widget.  
+
+  ![image alt text](pythonsim_14.png)
+
+3. In the *WIDGET* popup that appears, select *Text* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "Temperature"; *VALUE*: "datasources["temperature"]"; *UNITS*: "F"). Click "SAVE."
+
+  ![image alt text](pythonsim_15.png)
+
+5. Create another pane and text widget for humidity and complete the remaining fields (*TITLE:* "Humidity"; *VALUE:* "datasources["humidity"]"; *UNITS:* "%"). Click "SAVE."
+
+  ![image alt text](pythonsim_16.png)
+
+6. Add a third pane and widget. In the *WIDGET* popup that appears, select *Toggle Switch* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "On / Off"; *VALUE*: "datasources["state"]"; *ON VALUE*: "1"; *OFF VALUE*: "0"). Click "SAVE".
+
+  ![image alt text](pythonsim_17.png)
+
+7. Turn the light on and off for the simulated device using the toggle switch on your dashboard. 
+
+  ![image alt text](pythonsim_18.png)
+
+Switch to the terminal (while the simulator is running), and you will see the simulator indicates that it has received the state changes.
+
+  ![image alt text](pythonsim_d.png)
+
+Congratulations—you just remotely turned a simulated device sensor on and off.
+
+[UP NEXT: CREATE A SOLUTION >>](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
 

@@ -5,15 +5,14 @@ title: ExositeReady™
 
 # ![ExositeReady™ Logo](assets/exosite_ready_logo_wide.png)
 
-ExositeReady™ software is code created by Exosite or in collaboration with partners to give developers software for their hardware platform, no matter if it is a small embedded microcontroller or a Linux based industrial computer gateway.  We provide libraries, demo and reference code, in addition to production quality offerings like the ExositeReady™ Embedded SDK.  Code and hardware ports that have gone through the ExositeReady™ Certitication program meeting high criteria for functionality, testing, and quality are marked as __ExositeReady™ Certified__.
+ExositeReady™ software is code created by Exosite or in collaboration with partners to give developers software for their hardware platform, no matter if it is a small embedded microcontroller or a Linux based industrial computer gateway. Exosite provides libraries, demo and reference code, in addition to production quality offerings like the ExositeReady™ Embedded SDK. Code and hardware ports that have gone through the ExositeReady™ Certitication program meeting high criteria for functionality, testing, and quality are marked as __ExositeReady™ Certified__.
 
 * [ExositeReady™ Certified](#exositeready-certified)
 * [Embedded SDK](#embedded-sdk)
 * [Device Libraries](#device-libraries)
 * [Reference Code, Demos, and Examples](#reference-code-demos-and-examples)
 * [For Partners](#exositeready-for-partners)
-* [Support](#support-inquiries)
-* [Other Hardware & Development Kit Support](#other-hardware-development-kit-support)
+* [Support](#support-and-inquiries)
 
 
 
@@ -21,7 +20,7 @@ ExositeReady™ software is code created by Exosite or in collaboration with par
 Production quality IoT device client SDKs and Frameworks created, certified, and supported by Exosite.
 
 ## EMBEDDED SDK
-The ExositeReady™ Embedded SDK is an open-source software framework, written in ANSI C, containing application software for controlling devices’ communication with the Exosite platform. It compiles various third-party libraries for basic protocol functionality as well as implementing all the common logic needed to interact with the platform. Exosite also provides several ports to select hardware platforms, including various application examples, to accelerate your application development. The SDK is for engineers developing firmware for their embedded device products, it is generally targeted for use in creating end-node devices and not gateways.
+The ExositeReady™ Embedded SDK is an open-source software framework, written in ANSI C, containing application software for controlling devices’ communication with the Exosite platform. It compiles various third-party libraries for basic protocol functionality as well as implementing all the common logic needed to interact with the platform. Exosite also provides several ports to select hardware platforms, including various application examples, to accelerate your application development. The SDK is for engineers developing firmware for their embedded device products. It is generally targeted for use in creating end-node devices and not gateways.
 
 <table width="100%">
     <tr>
@@ -33,7 +32,7 @@ The ExositeReady™ Embedded SDK is an open-source software framework, written i
     </tr>
 </table>
 
-Ports to specific hardware platforms can be found by clicking on our partner below. Each port contains platform specific source code, instructions for building, a binary for evaluation, and instructions for using the example application.
+Ports to specific hardware platforms can be found by clicking on our partner below. Each port contains platform-specific source code, instructions for building, a binary for evaluation, and instructions for using the example application.
 
 <table width="100%">
     <tr>
@@ -131,7 +130,7 @@ Exosite has provided reference code for or worked with partners on a number of h
 
 
 # ExositeReady™ for Partners
-For vendors who are interested in partnering with Exosite on providing ExositeReady™ enabled hardware and development kits, please contact [support@exosite.com](mailto:support@exosite.com). Exosite allows vendors to contribute ports that meet the requirements of the ExositeReady program.
+For vendors interested in partnering with Exosite on providing ExositeReady™ enabled hardware and development kits, please contact [support@exosite.com](mailto:support@exosite.com). Exosite allows vendors to contribute ports that meet the requirements of the ExositeReady™ program.
 
-# Support & Inquiries
+# Support and Inquiries
 The [developer forum](https://community.exosite.com/c/hardware-platforms) is the best place to get and find help.
