@@ -95,7 +95,7 @@ The GMQ server introduces the Vendor-Model-Serial (VMS) data structure as the fu
 1.  Attempt to provision the VMS Client with Murano and retrieve its CIK.
 2.  Immediately forward all 'write' requests on to Murano.
 3.  If 'write' requests fail due to a lossy internet connection or no/invalid CIK, the request will be queued into the 'record' database    with the timestamp of the request. FUTURE: Requests that get a `400` response code from Murano will not be queued into the 'record' db.
-4.  Immediately queue all 'record' requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [Module Documentation](/gwe/gmq/gateway_message_queuing_gmq) for information on default behavior.
+4.  Immediately queue all 'record' requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [Module Documentation](https://gateway-engine.exosite.io/gmq/apidoc/modules.html#) for information on default behavior.
 
 The VENDOR, MODEL, SERIAL data is an old paradigm from the Exosite One Platform product that has been replaced by the Murano Product ID paradigm. In order to use GMQ with a Murano Product, all you have to do is set the VENDOR and MODEL to the Murano Product ID.
 
