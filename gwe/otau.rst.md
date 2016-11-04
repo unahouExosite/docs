@@ -27,14 +27,14 @@ the alias (i.e. write an empty string).
 The `update_interval` can be changed before `gwe` ever starts with the
 following command:
 
-``` {.sourceCode .bash}
+```
 gwe --set-update-interval <INTERVAL>
 ```
 
 If this command is run while `gwe` is running, then the process will
 need to be restarted in order for the change to be applied.
 
-``` {.sourceCode .bash}
+```
 supervisorctl restart gwe
 ```
 
@@ -47,7 +47,7 @@ installed immediately.
 
 The JSON object must be formatted like this:
 
-``` {.sourceCode .json}
+```
 {"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}
 ```
 
