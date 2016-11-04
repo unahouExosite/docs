@@ -38,7 +38,7 @@ By design, the OTAU feature of Gateway Engine installs updates and new
 programs the same way that it installs and updates itself and its
 complementary components. For general design information and
 instructions on how to create OTAU and new program installation
-packages, please refer to the [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates) section.
+packages, please refer to the [Over the Air Updates](/gwe/otau/) section.
 
 ## Application version control
 
@@ -62,11 +62,10 @@ to restart itself as well as all other managed processes.
 
 Gateway Engine uses and depends on the `device-client` python library
 for all Exosite [Provision and
-HTTP](http://docs.exosite.com/murano/products/device_api/http/) API
+HTTP](/murano/products/device_api/http/) API
 calls. Additional documentation as well as source code documentation can
-be found
-[here](http://gateway-engine.exosite.io/device-client/index.html) on
-this documentation site.
+be found on the
+[Device Client - Docs](/gwe/device-client) page.
 
 ## Gateway telemetrics
 
@@ -93,7 +92,7 @@ If your IoT solution can tolerate dataloss, then this section won't
 apply to your gateway solution. If data originating at sensors, nodes or
 the gateway itself *absolutely must* terminate at Exosite Murano (or
 on-premise solutions), then the [Gateway Message
-Queuing](http://gateway-engine.exosite.io/gmq/index.html) is an option
+Queuing](/gwe/gmq/) is an option
 you can leverage for a powerful, tunable store-and-forward non-volatile
 queue designed specifically for network and power outages.
 
