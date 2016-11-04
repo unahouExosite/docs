@@ -1,26 +1,13 @@
-# Gateway Engine
+# ExositeReady™ Gateway Engine
 
-Gateway Engine was created by Exosite to service a commonly occurring
-design pattern in IoT applications.
+ExositeReady™ Gateway Engine was created by Exosite to service a commonly occurring
+design pattern in IoT applications. This page provides information about
+what Gateway Engine does and doesn't do, as well as a list of the terms 
+that are used and the additional resources that are available. 
 
-## What Gateway Engine is and does...
+# About Gateway Engine 
 
-* It is the product that installs and modifies software over-the-air
-    in a secure and scalable manner.
-* It is an application hosting framework for Custom
-    Gateway Applications.
-* It provides an Exosite API library in Python called `device-client`.
-* It is integrated with [Supervisor](http://supervisord.org) to manage
-    your Custom Gateway Applications' runtime environment.
-
-## What Gateway Engine is **not** and **doesn't** do...
-
-* It doesn't read any sensor data.
-* It doesn't auto-discover any connected nodes or sensors and
-    automatically send data.
-* It doesn't know what a Custom Gateway Application does.
-
-## What is a gateway?
+## What is a Gateway?
 
 In the context of IoT, a 'gateway' can be loosely defined as any device
 that serves as a communication broker for other devices. Gateways, in
@@ -33,9 +20,25 @@ Either way, the purpose of any gateway is to move local data to an
 external agent on the Internet.
 
 Since using gateways is common throughout so many industrial
-applications, the Professional Services team at Exosite created Gateway
-Engine as an out-of-the-box developer and deployment tool for Internet
-gateways.
+applications, Exosite created Gateway Engine as an out-of-the-box developer 
+and deployment tool for Internet-connected gateways.
+
+## What Gateway Engine Does
+
+* It is the product that installs and modifies software over-the-air
+    in a secure and scalable manner.
+* It is an application hosting framework for Custom
+    Gateway Applications.
+* It provides an Exosite API library in Python called `device-client`.
+* It is integrated with [Supervisor](http://supervisord.org) to manage
+    your Custom Gateway Applications' runtime environment.
+
+## What Gateway Engine Doesn't Do
+
+* It doesn't read any sensor data.
+* It doesn't auto-discover any connected nodes or sensors and
+    automatically send data.
+* It doesn't know what a Custom Gateway Application does.
 
 # Terminology
 
@@ -53,29 +56,10 @@ gateways.
 
 # Resources
 
-* [Getting Started](gwe/gwe/getting_started.rst.md#getting-started)
-  * [Minimum Requirements](gwe/gwe/getting_started.rst.md#minimum-requirements)
-* [Product Overview](/gwe/gwe/product_overview.rst.md#product-overview) 
-  * [Over the Air Updating (OTAU)](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#over-the-air-updating-otau)
-  * [Application version control](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#application-version-control)
-  * [Process and logfile managment](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#process-and-logfile-management)
-  * [Exosite API libraries](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#exosite-api-libraries) 
-  * [Gateway telemetrics](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-telemetrics)
-  * [Network outage and power failure tolerance](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#network-outage-and-power-failure-tolerance)
-  * [Gateway fleet management](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-fleet-management)
-* [Gateway Engine release packages]
-  * [Gateway Engine Downloads]
-  * [Release Package Overview]
-  * [Release Notes]
-* [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates)
-* Device Client - Docs
-  * README - Device Client (gdc)
-  * Module Documentation
-* Gateway Engine - Docs
-  * Key Features
-* Gateway Message Queuing (GMQ) - Docs
-  * README - Gateway Message Queuing (`"gmq"`)
-  * gmq Package
-  * Module Documentation
-  
-
+* [Getting Started](/gwe/getting_started/)
+* [Product Overview](/gwe/product_overview/) 
+* [Gateway Engine Release Packages](/gwe/release_packages/)
+* [Over the Air Updates](/gwe/otau/)
+* [Device Client - Docs](/gwe/device-client/)
+* [Gateway Engine - Docs](/gwe/gateway-engine/)
+* [Gateway Message Queuing - Docs](/gwe/gmq/)
