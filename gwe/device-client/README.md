@@ -7,7 +7,7 @@ TODO: Add device client image here.
 # Resources
 
 For detailed information on how to build or install `device-client`: 
-*  Device Client (gdc)
+*  [Device Client (gdc)](/gwe/device-client/device-client-gdc/)
 
 For documentation on the `device-client` python package:
 *  Module Documentation
