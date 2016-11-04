@@ -6,6 +6,7 @@ possible. Once you've completed this section you will have a Gateway
 Engine installed and running on a gateway.
 
 ## Minimum Requirements
+
 Before proceeding to [Step One](https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
 
@@ -17,13 +18,16 @@ gateway has the minimum requirements for running Gateway Engine.
 * 64MB RAM
 
 # Step One
+
 Sign up for a [Murano account](https://exosite.com/murano/). Once your
 account is set up, add a device to your Murano Product and name it
 "Gateway Engine". Copy down the MAC address of your Gateway and use it
 as the serial number for your new Murano Gateway Engine device. Once you
 have a Gateway Engine device in your Murano Product, you must add
 resources to it with one of two ways.
+
 ## Manually
+
 The table, below, shows the resources you must add, what to name them
 and what format to choose for them.
 
@@ -35,6 +39,7 @@ and what format to choose for them.
 | engine_fetch | string | Gateway Engine regularly checks this dataport for formatted messages containing instructions on new apps and updates to install.        |
 | fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer.        |
 | update_interval | string | This value, in seconds, is the delay between each series of Gateway Engine reports and OTAU checkins.|
+
 ## Use MrMurano
 
 The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
@@ -68,9 +73,9 @@ mr product spec --file spec.yaml
 **NOTE:** When signing up for a new account, there will be emails you will need to
 take action on in order to activate your account and login.
 
-### Step Two
+# Step Two
 
-Download, install and configure Gateway Engine onto your gateway.
+Download, install, and configure Gateway Engine onto your gateway.
 
 To download the latest version of the Public Release of Gateway Engine,
 follow these steps:
@@ -90,7 +95,7 @@ follow these steps:
 3.  Run this command to untar the release package and install Gateway
     Engine onto your gateway:
 
-    ``` {.sourceCode .bash}
+    ```
     ssh <USER>@<GATEWAY_IP> "cd /opt
       tar zxvf GatewayEngine.v1-1-2.tar.gz
       cd gateway-engine
@@ -99,7 +104,7 @@ follow these steps:
 
     **NOTE:** In some Linux environments, you'll need to use Super-User permissions to run the installer. In this case, replace the `./install.sh` command to:
 
-    ``` {.sourceCode .bash}
+    ```
     sudo ./install.sh
     ```
 
@@ -123,38 +128,38 @@ follow these steps:
         serial number), run the following command to configure Gateway
         Engine:
 
-    ``` {.sourceCode .bash}
+    ``` 
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-iface <THE_INTERFACE>""
     ```
 
     **Example:**
 
-    ``` {.sourceCode .bash}
+    ```
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-iface eth0"``
     ```
     
  Or if you want to just specify your own serial number:
 
-    ``` {.sourceCode .bash}
+    ``` 
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
     ```
 
     **Example:**
 
-    ``` {.sourceCode .bash}
+    ```
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id dubhxzv0r4e1m7vj --set-uuid 12345"
     ```
     
 To complete the installation you will need to reboot the gateway.
 To reboot, you can toggle the power or use the following command:
 
-    ``` {.sourceCode .bash}
+    ```
     ssh <USER>@<GATEWAY_IP> "reboot"
     ```
     
 **NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
-### Step Four
+# Step Three
 
 Watch for new data in the Gateway Engine Device on your Product device.
 
@@ -166,7 +171,7 @@ to read through. If this is the case, filter the output with `grep`
 `supervisorctl status` command to view the status of the Gateway Engine
 applications.
 
-``` {.sourceCode .bash}
+```
 ssh <USER>@<GATEWAY_IP> "supervisorctl status"
 gmq                           RUNNING    pid 621, 00:01:38
 gwe                           RUNNING    pid 620, 00:01:38
@@ -175,7 +180,7 @@ gwe                           RUNNING    pid 620, 00:01:38
 A few seconds after rebooting the gateway you should see data appear in
 the aliases of your GatewayEngine device.
 
-### Summary
+# Summary
 
 The steps in this section were designed to get you moving as quickly as
 possible with Gateway Engine and Exosite. If you have questions,
