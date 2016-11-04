@@ -61,13 +61,7 @@ and deployment tool for Internet-connected gateways.
 * [Gateway Engine Release Packages](/gwe/release_packages/)
 * [Over the Air Updates](/gwe/release_packages/)
 * Device Client - Docs
-  * README - Device Client (gdc)
-  * Module Documentation
 * Gateway Engine - Docs
-  * Key Features
 * Gateway Message Queuing (GMQ) - Docs
-  * README - Gateway Message Queuing (`"gmq"`)
-  * gmq Package
-  * Module Documentation
   
 
