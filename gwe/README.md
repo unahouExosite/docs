@@ -53,21 +53,10 @@ gateways.
 
 # Resources
 
-* [Getting Started](gwe/gwe/getting_started.rst.md#getting-started)
-  * [Minimum Requirements](gwe/gwe/getting_started.rst.md#minimum-requirements)
-* [Product Overview](/gwe/gwe/product_overview.rst.md#product-overview) 
-  * [Over the Air Updating (OTAU)](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#over-the-air-updating-otau)
-  * [Application version control](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#application-version-control)
-  * [Process and logfile managment](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#process-and-logfile-management)
-  * [Exosite API libraries](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#exosite-api-libraries) 
-  * [Gateway telemetrics](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-telemetrics)
-  * [Network outage and power failure tolerance](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#network-outage-and-power-failure-tolerance)
-  * [Gateway fleet management](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-fleet-management)
-* [Gateway Engine release packages]
-  * [Gateway Engine Downloads]
-  * [Release Package Overview]
-  * [Release Notes]
-* [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates)
+* [Getting Started](/gwe/getting_started/)
+* [Product Overview](/gwe/product_overview/) 
+* [Gateway Engine release packages](/gwe/release_packages/)
+* [Over the Air Updates](/gwe/otau/)
 * Device Client - Docs
   * README - Device Client (gdc)
   * Module Documentation
