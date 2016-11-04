@@ -1,5 +1,4 @@
-Gateway Engine Release Packages
-===============================
+# Gateway Engine Release Packages
 
 This section contains links and downloadable files that are referenced
 throughout this documentation site. Below are sections outlining the
@@ -12,8 +11,7 @@ development purposes and come with no guarantee or warranty. Releases
 based on the `master` branch are stable and undergo a comprehensive QA
 process.
 
-Gateway Engine Downloads
-------------------------
+## Gateway Engine Downloads
 
 The download options below contain full Gateway Engine release packages. To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk).
 
@@ -22,11 +20,11 @@ page and click the button with, the following command can be executed
 on the gateway to download the release package. It will quietly
 download the release and print the release name when it finishes.
 
-```{.sourceCode .console}
+```
 basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
 ```
 
-### Previous Releases
+## Previous Releases
 
 If the download button doesn't work in your browser, we also keep a
 downloads area for current and previous releases you can access by
@@ -35,8 +33,7 @@ clicking
 The latest release is the one with the highest numerical designator and
 is also specified in the `latest.lnk` file.
 
-Release Package Overview
-------------------------
+# Release Package Overview
 
 A release package comes in the form of a compressed tar file. Unpacking
 this tar file and running the included installer will install Gateway
@@ -47,7 +44,7 @@ of Gateway Engine come with an example program that other sections
 
 Here’s what a typical release package of Gateway Engine looks like:
 
-``` {.sourceCode .console}
+```
 $ tar tvf GatewayEngine.v1-0-6.tar.gz 
 drwxr-xr-x  0 jenkins jenkins     0 Aug 25 17:14 gateway-engine/
 -rw-r--r--  0 jenkins jenkins     1 Aug 25 17:14 gateway-engine/requirements.txt
@@ -97,7 +94,7 @@ tarball and that’s the `gateway-engine/` directory.
 
 At the `gateway-engine/` directory level, there’s
 
-``` {.sourceCode .console}
+```
 install.sh
 setup.py
 GatewayEngine/
@@ -133,16 +130,15 @@ application called `coffee_reporter`. This example application
 illustrates how Custom Gateway Applications fit into Gateway Engine's
 run-time framework.
 
-Release Notes
--------------
+# Release Notes
 
 This section contains release notes for each release of Gateway Engine.
 The subsections are broken down by release and contain notes about known
 bugs that were fixed and new features added.
 
-### Version 1.1.4
+## Version 1.1.4
 
-#### Bug fixes
+### Bug fixes
 
 * Logging improvements.
 * Some Jenkins CI fixes to packaging and naming releases.
@@ -158,7 +154,7 @@ bugs that were fixed and new features added.
 * Fixed upgrade path to remove old `device_client` library with known
   import issue.
 
-#### New features
+### New Features
 
 * Gateway Engine now fully supported on Murano.
 * Added `gwe --set-product-id <PRODUCT_ID>` cli to configure Gateway
@@ -200,9 +196,9 @@ bugs that were fixed and new features added.
   logging and tunable parameter changes without the need for
   restarting the server.
 
-### Version 1.0.6
+## Version 1.0.6
 
-#### Bug fixes
+### Bug Fixes
 
 * Now copying the existing config instead of creating a new one. This
   addresses the case where the user updated GWE but wanted to keep
@@ -224,7 +220,7 @@ bugs that were fixed and new features added.
 * User configured interface is validated against the existing system
   interfaces and a warning is issued if it is found invalid.
 
-#### Changing a Gateway serial number or interface
+### Changing a Gateway serial number or interface
 
 Changing a gateway's `uuid` or `iface` configuration has been supported
 by Gateway Engine since the `iface` option was added, but has been error
@@ -248,7 +244,7 @@ To check the current serial number setting, checking the `uuid` option
 in the Gateway Engine config file can be done with the following
 command.
 
-``` {.sourceCode .console}
+```
 $ gwe --gateway-cfg
 [device]
 cik = f1d4f10f3ca413caa08bba34c91d095d010bcd32
@@ -261,14 +257,14 @@ iface = eth0
 The following command will clear the current serial number from the
 Gateway Engine config file.
 
-``` {.sourceCode .console}
+```
 gwe --set-uuid \'\'
 ```
 
 Check the config file again to confirm it has been set to an empty
 string.
 
-``` {.sourceCode .console}
+```
 $ gwe --gateway-cfg
 [device]
 cik = f1d4f10f3ca413caa08bba34c91d095d010bcd32
@@ -282,7 +278,7 @@ Now that the serial number has been cleared, the gateway administrator
 can either choose to use a different interface's MAC address with by
 changing the `iface` option with the following command.
 
-``` {.sourceCode .console}
+```
 $ gwe --set-iface wlan0
 $
 ```
@@ -290,7 +286,7 @@ $
 Or, if a custom serial number is desired, one can be configured with the
 following command.
 
-``` {.sourceCode .console}
+```
 $ gwe --set-uuid anyserial!@#$%^&*()number
 $ 
 ```
