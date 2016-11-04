@@ -51,7 +51,7 @@ else:
     print('Unable to send message: {}'.format(resp_handler))
 ```
 
-For more information on the configurable parameters to the `ExositeAPI` class, visit [the module documentation](http://gateway-engine.exosite.io/device-client/apidoc/exo.html).
+For more information on the configurable parameters to the `ExositeAPI` class, visit [the module documentation](/gwe/device-client/module_documentation/).
 
 ### Command Line Interface
 
