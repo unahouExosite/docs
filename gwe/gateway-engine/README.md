@@ -45,4 +45,10 @@ The log of all requests made with the [device-client](https://github.com/exosite
 
 # Resources
 
+For detailed information on how to build or install `gateway-engine`: 
+*  [Gateway Engine (gwe)](/gwe/gateway-engine/gateway_engine_gwe/)
 
+For documentation on the `gateway-engine` python package:
+*  [Module Documentation](https://gateway-engine.exosite.io/gateway-engine/apidoc/modules.html)
+
+To view the source code, go to the [GitHub](https://github.com/exosite/gateway-engine) site.
