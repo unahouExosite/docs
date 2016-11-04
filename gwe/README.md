@@ -1,13 +1,11 @@
-Gateway Engine
-==============
+# Gateway Engine
 
 Welcome to Gateway Engine by Exosite Professional Services.
 
 Gateway Engine was created by Exosite to service a commonly occurring
 design pattern in IoT applications.
 
-What Gateway Engine is and does...
-----------------------------------
+## What Gateway Engine is and does...
 
 * It is the product that installs and modifies software over-the-air
     in a secure and scalable manner.
@@ -17,16 +15,14 @@ What Gateway Engine is and does...
 * It is integrated with [Supervisor](http://supervisord.org) to manage
     your Custom Gateway Applications' runtime environment.
 
-What Gateway Engine is **not** and **doesn't** do...
-----------------------------------------------------
+## What Gateway Engine is **not** and **doesn't** do...
 
 * It doesn't read any sensor data.
 * It doesn't auto-discover any connected nodes or sensors and
     automatically send data.
 * It doesn't know what a Custom Gateway Application does.
 
-What is a gateway?
-------------------
+## What is a gateway?
 
 In the context of IoT, a 'gateway' can be loosely defined as any device
 that serves as a communication broker for other devices. Gateways, in
@@ -43,8 +39,7 @@ applications, the Professional Services team at Exosite created Gateway
 Engine as an out-of-the-box developer and deployment tool for Internet
 gateways.
 
-Terminology
------------
+# Terminology
 
 | Term          | Definition    |
 | ------------- | ------------- |
@@ -57,24 +52,23 @@ Terminology
 | OTAU | An acronym for Over the Air Update. This the mechanism that enables software and firmware updates over internet connections. |
 | tarball | A type of compressed file that contains other files, directories and even other tarballs.|
 
-Resources
------------
+# Resources
 
-* [Getting Started] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#getting-started)
-  * [Minimum Requirements] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#minimum-requirements)
-* [Product Overview] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#product-overview) 
-  * [Over the Air Updating (OTAU)] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#over-the-air-updating-otau)
-  * [Application version control] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#application-version-control)
-  * [Process and logfile managment] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#process-and-logfile-management)
-  * [Exosite API libraries] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#exosite-api-libraries) 
-  * [Gateway telemetrics] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-telemetrics)
-  * [Network outage and power failure tolerance] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#network-outage-and-power-failure-tolerance)
-  * [Gateway fleet management] (https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-fleet-management)
+* [Getting Started](gwe/gwe/getting_started.rst.md#getting-started)
+  * [Minimum Requirements](gwe/gwe/getting_started.rst.md#minimum-requirements)
+* [Product Overview](/gwe/gwe/product_overview.rst.md#product-overview) 
+  * [Over the Air Updating (OTAU)](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#over-the-air-updating-otau)
+  * [Application version control](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#application-version-control)
+  * [Process and logfile managment](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#process-and-logfile-management)
+  * [Exosite API libraries](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#exosite-api-libraries) 
+  * [Gateway telemetrics](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-telemetrics)
+  * [Network outage and power failure tolerance](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#network-outage-and-power-failure-tolerance)
+  * [Gateway fleet management](https://github.com/exosite/docs/blob/gwe/gwe/product_overview.rst.md#gateway-fleet-management)
 * [Gateway Engine release packages]
   * [Gateway Engine Downloads]
   * [Release Package Overview]
   * [Release Notes]
-* [Over the Air Updates] (https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates)
+* [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates)
 * Device Client - Docs
   * README - Device Client (gdc)
   * Module Documentation
