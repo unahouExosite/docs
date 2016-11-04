@@ -4,7 +4,7 @@ GMQ is designed to be a local proxy for Exosite, with benefits. GMQ is a process
 
 # The Basics
 
-GMQ is designed to be a localhost **store-and-forward-style** HTTP server that processes incoming requests and, when a network connection cannot be made, retries the them when the network becomes available. The `gmq` API contains the following subset of the (Exosite HTTP Data API)[http://docs.exosite.com/murano/products/device_api/http/]
+GMQ is designed to be a localhost **store-and-forward-style** HTTP server that processes incoming requests and, when a network connection cannot be made, retries the them when the network becomes available. The `gmq` API contains the following subset of the [Exosite HTTP Data API](http://docs.exosite.com/murano/products/device_api/http/).
 
 * **activate**
 * **write**
@@ -46,7 +46,7 @@ curl -XPOST localhost:8090/onep:v1/stack/alias \
     -d "device_report={\"pressure\": \"63\"}"
 ```
 
-This custom header and its use is covered in more detail in the [Identity Management](#identity-management) and [GMQ Custom Header](#gmq-custom-header) sections, below.
+This custom header and its use is covered in more detail in the [Identity Management](#identity-management) and [GMQ Custom Header](#gmq-custom-header) sections below.
 
 # Choosing APIs
 
@@ -95,7 +95,7 @@ The GMQ server introduces the Vendor-Model-Serial (VMS) data structure as the fu
 1.  Attempt to provision the VMS Client with Murano and retrieve its CIK.
 2.  Immediately forward all 'write' requests on to Murano.
 3.  If 'write' requests fail due to a lossy internet connection or no/invalid CIK, the request will be queued into the 'record' database    with the timestamp of the request. FUTURE: Requests that get a `400` response code from Murano will not be queued into the 'record' db.
-4.  Immediately queue all 'record' requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [GMQ Package and Module documentation](#GMQ-Package-and-Module-Documentation) for information on default behavior.
+4.  Immediately queue all 'record' requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [Module Documentation](/gwe/gmq/gateway_message_queuing_gmq) for information on default behavior.
 
 The VENDOR, MODEL, SERIAL data is an old paradigm from the Exosite One Platform product that has been replaced by the Murano Product ID paradigm. In order to use GMQ with a Murano Product, all you have to do is set the VENDOR and MODEL to the Murano Product ID.
 
@@ -179,7 +179,7 @@ Any time a configuration setting is changed, the server must [re-read](#gmq-rere
 
 ## Manually Editing Configurations
 
-Configuration files, of which there are two, can be edited with your favorite editor (i.e. nano, vim, emacs, etc.).
+Configuration files, of which there are two, can be edited with your favorite editor (i.e., nano, vim, emacs, etc.).
 
 The two configuration files are `gmq.cfg` and `logging.cfg`. The paths to these files can be retrieved using the `--cfg-path` and `--log-cfg-path` command line switches, respectively.
 
@@ -246,7 +246,7 @@ Installing GMQ can be done a couple of different ways.
 3. Untar the release tarball and run `install.sh` manually.
 
 Information on GWE installation methods and procedures can be
-found at [gateway-engine.exosite.io](http://gateway-engine.exosite.io).
+found on the [Gaterway Engine](/gwe/) page.
 
 # GMQ Package and Module documentation
 
