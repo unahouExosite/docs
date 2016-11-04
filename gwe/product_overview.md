@@ -53,7 +53,7 @@ the `engine_report` dataport.
 
 Process management in Gateway Engine is implemented with the
 `supervisord` process management tool. It is light-weight, portable and
-extensible. The core features of [supervisor](http://supervisord.org)
+extensible. The core features of [Supervisor](http://supervisord.org)
 that Gateway Engine utilizes are logfile rotation and process restarting
 in case of bugs that can cause crashes. Gateway Engine uses supervisor
 to restart itself as well as all other managed processes.
