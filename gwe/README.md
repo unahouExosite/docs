@@ -56,7 +56,7 @@ gateways.
 * [Getting Started](/gwe/getting_started/)
 * [Product Overview](/gwe/product_overview/) 
 * [Gateway Engine release packages](/gwe/release_packages/)
-* [Over the Air Updates](/gwe/otau/)
+* [Over the Air Updates](http://docs.exosite.com/gwe/release_packages/)
 * Device Client - Docs
   * README - Device Client (gdc)
   * Module Documentation
