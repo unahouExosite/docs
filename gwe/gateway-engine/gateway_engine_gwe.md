@@ -1,36 +1,32 @@
 # Gateway Engine (gwe) README
 
-Welcome to Gateway Engine by Exosite.
-
 Gateway Engine was created by Exosite to service a commonly occurring design pattern in IoT applications. In the IoT context, a 'gateway' can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some a collection of devices that don't posses the ability of internet (HTTP/CoAP/MQTT) communications.
 
-This README document is included with other detailed Edge Gateway documentation [here.](http://gateway-engine.exosite.io)
-
-## Overview
+# Overview
 
 It is often the case that a gateway appears as a component in many IoT applications. Gateway Engine is an out-of-the-box solution for developing and supporting custom IoT gateways for as long as hardware will allow.
 
 Internet gateways often run some flavor of Linux and, as such, have a Python environment. Leveraging this fact, Gateway Engine is a program written in Python that provides you (the developer) with the ability to develop your specific IoT business needs instead of repeatable gateway logic. Gateway software often performs the same functions because the needs are often the same.
 
-## Key Features
+# Key Features
 
 Gateway Engine was created by Exosite out of the necessity for the following (but not limited to):
 
- - Application Hosting
- - OTA Application Management
- - OS/Filesystem Metadata Collection
- - Exosite Device API Client
- - Bandwidth Telemetrics (Beta)
+*  Application Hosting
+*  OTA Application Management
+*  OS/Filesystem Metadata Collection
+*  Exosite Device API Client
+*  Bandwidth Telemetrics (Beta)
 
-## Installation, Configuration and First Start
+# Installation, Configuration and First Start
 
 Gateway Engine can be installed in several different ways. Depending on the target environment, installing via a **build** is preferable to installing from source. Whichever method you use it is important to note that if using a non-built version, the **__version__**'s from the Exosite Device API Client (`device-client`) and the `GatewayEngine` module will not be traceable to source code version in git at the time of the build. This can make debugging and root-cause analysis difficult if not impossible in field-deployed, production systems.
 
-### From a Release Package
+## From a Release Package
 
 After downloading a release build of Gateway Engine from [the release areas](https://gateway-engine.exosite.io/release_packages.html#id2), follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
 
-#### Copy Gateway Engine to Gateway
+### Copy Gateway Engine to Gateway
 
 Using the `scp` command, remotely copy Gateway Engine to the `/opt` directory.
 
@@ -39,7 +35,7 @@ ssh <USER>@<GATEWAY_IP> "mkdir -p /opt"
 scp GatewayEngine.v1-0-6.tar.gz <USER>@<GATEWAY_IP>:/opt
 ```
 
-#### Install Gateway Engine on Gateway
+### Install Gateway Engine on Gateway
 
 The command, below, can be used to remotely install Gateway Engine.
 
@@ -51,7 +47,7 @@ ssh <USER>@<GATEWAY_IP> "cd /opt
 "
 ```
 
-#### Configure Gateway Engine to your Murano Product
+### Configure Gateway Engine to your Murano Product
 
 When configuring gateway engine to you Murano Product ID, you are faced with two choices with regards to determining your Gateway Engine serial number:
 
@@ -81,7 +77,7 @@ Notice that the `uuid` option is still empty. GWE will populate this field once 
 gwe --product-id <MURANO_PRODUCT_ID> --set-uuid <SERIAL_NUMBER>
 ```
 
-### First Start
+## First Start
 
 Once Gateway Engine has been installed and configured, it is time for the first start. Instead of manually calling the `gwe` executable (though this is an option), it is a good idea to reboot the gateway. This is because during the Gateway Engine installation process, it configures the linux `init.d` subsystem to start `supervisord`, which in-turn is configured to start `gwe`.
 
@@ -124,7 +120,7 @@ please contact gwesupport@exosite.com with the following details:
  - The installation log (`/opt/gateway-engine/gwe_install_<DATE_TIME>.log`).
  - The version of Python on the gateway (`python --version`)
 
-### From source (setup.py)
+## From source (setup.py)
 
 Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to [the release areas](https://gateway-engine.exosite.io/release_packages.html#id2) and download a copy of a Gateway Engine and execute the following:
 
@@ -139,11 +135,11 @@ GatewayEngine/installer.py "$(ls device-client.v*.tar.gz)"
 python setup.py install
 ```
 
-## Building Gateway Engine
+# Building Gateway Engine
 
 Distributable builds and official releases of Gateway Engine are created with the `jenkins.sh` script at the top-level of this (`gateway-engine`) repository. There are several helpful arguments one can pass to the `jenkins.sh` script for various tasks like running tests, creating `git` tags, tracking `BUILD` version numbers, etc. Our Continuous Integration method of making releases is the following:
 
-### Release Candidates
+## Release Candidates
 
 We make available a release based on the `integration` branch for testing bug fixes, new features, etc.
 
@@ -157,7 +153,7 @@ echo "TAG = ${TAG}" > TAG.file
 ./jenkins.sh create_rc
 ```
 
-### Distributable Releases
+## Distributable Releases
 
 For our distributable releases, a similar process:
 
@@ -171,7 +167,7 @@ echo "TAG = ${TAG}" > TAG.file
 ./jenkins.sh create_r
 ```
 
-## Command Line Interface
+# Command Line Interface
 
 A cli is provided for configuring the run-time environment as well as initializing a development environment. To acquaint yourself with the cli, install Gateway Engine on your development machine and look through the help dialog:
 
@@ -253,7 +249,7 @@ optional arguments:
                         Checks GWE tarball for things like structure, optional elements.
 ```
 
-## Documentation
+# Documentation
 
 The documentation for `gateway-engine` can built with the [Sphinx Documentation](http://www.sphinx-doc.org/) tool. The `Makefile` has been modified to include the creation of a single PDF.
 
@@ -274,7 +270,7 @@ make singlepdf
 ```
 
 
-## Over-the-Air Updates
+# Over-the-Air Updates
 The primary function of Gateway Engine is to provide Over-the-Air-Updates (OTAU). Utilizing Exosite's Content Area, Gateway Engine makes updating software running on your gateway simple, reliable, and secure. 
 
 Over-the-Air Updates can take many forms:
@@ -286,10 +282,10 @@ Over-the-Air Updates can take many forms:
 
 The Over-the-Air Update capability of Gateway Engine is essentially limited by the capabilities of the gateways themselves.
 
-## Process Monitoring
+# Process Monitoring
 Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](supervisor.org "supervisor"). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
 
-## Statistics Reporting
+# Statistics Reporting
 The default behavior of Gateway Engine is to report things like:
 
  - Disk space utilization
@@ -298,7 +294,7 @@ The default behavior of Gateway Engine is to report things like:
 
 As with any other Linux OS, gateways can suffer from their disk space getting filled up and Gateway Engine gives you visibility on this metric by default. Another key metric is how much data you're sending and receiving on the network. This is especially crucial for cellular gateways. Gateway Engine provides some level of statistics on bandwidth consumption. And in addition to information that always changes, Gateway Engine reports things like kernel version and build information so that you can quickly and easily sort and filter a fleet of gateways based on these data.
 
-## Exosite APIs
+# Exosite APIs
 Gateway Engine comes with the [HTTP and Provisioning](http://docs.exosite.com/murano/products/device_api/http/ "HTTP Device API") implemented in Python as a globally importable module that, in essence, functions as the gateway *protocol layer*. This means that, if you choose to write your applications in Python, you won't have to spend time writing an Exosite interface library to make HTTP and Provisioning calls. This library is developed in a separate repository called `device-client`.
 
 ```
@@ -319,14 +315,14 @@ while True:
 
 In the above code snippet, the `http_write()` function handles *all* of the Exosite communication and represents pages of code that you no-longer have to write. More information on the API library in the `device-client` project documentation.
 
-## Hosted Applications
+# Hosted Applications
 You can write your applications in any language you want. 
 
 **Gateway Engine doesn't care which language your application is written in.**
 
 Exosite understands that every IoT application is different and that every situation is different. The fact that Gateway Engine is written in Python does not preclude a developer from writing the actual business application in Java, Perl, C, or even BASH. If you compile your application from C, or use interpreted languages like Python or Perl, Gateway Engine will still work with your application. This is because Gateway Engine operates at the *process* level. If the application runs as a process on the gateway, Gateway Engine will work with it just fine.
 
-## Example
+# Example
 What do we mean by 'application'?
 
 For example, let's say you are a developer at a company that makes temperature sensors. The sensors report their data over Bluetooth Low Energy so you will need an internet gateway with a BLE radio. Now you need to write an application to run on the gateway that collects data from any number of these temperature sensors. This BLE application is what you want to develop, debug and test. You don't want to spend your time writing an HTTP library for interacting with Exosite's OnePlatform APIs. You don't want to spend your time writing scripts that restart the temperature sensor application if it crashes, or rotating log files if they get too large. You just want to write the application that collects sensor data and reports it.
