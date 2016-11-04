@@ -7,7 +7,7 @@ TODO: Add device client image here.
 # Resources
 
 For detailed information on how to build or install `device-client`: 
-*  [Device Client (gdc)](/gwe/device-client/device_client_gdc/)
+*  [Device Client (gdc) README](/gwe/device-client/device_client_gdc/)
 
 For documentation on the `device-client` python package:
 *  [Module Documentation](https://gateway-engine.exosite.io/device-client/apidoc/modules.html)
