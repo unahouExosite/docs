@@ -59,7 +59,7 @@ and deployment tool for Internet-connected gateways.
 * [Getting Started](/gwe/getting_started/)
 * [Product Overview](/gwe/product_overview/) 
 * [Gateway Engine Release Packages](/gwe/release_packages/)
-* [Over the Air Updates](/gwe/release_packages/)
+* [Over the Air Updates](/gwe/otau/)
 * [Device Client - Docs](/gwe/device-client/)
 * [Gateway Engine - Docs](/gwe/gateway-engine/)
 * [Gateway Message Queuing - Docs](/gwe/gmq/)
