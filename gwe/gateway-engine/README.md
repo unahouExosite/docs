@@ -16,7 +16,7 @@ Gateway Engine uses the open source [supervisord] project to provide the followi
 *  Application start/restart/crash rules and monitoring
 *  Language neutral (C,Python,Node,Go,etc.)
 
-In addition to what [supervisord](http://supervisor.org) provides, [gwe](https://github.com/exosite/gateway-engine) provides the following features to a hosted Custom Gateway Application:
+In addition to what [Supervisor](http://supervisord.org) provides, [gwe](https://github.com/exosite/gateway-engine) provides the following features to a hosted Custom Gateway Application:
 
 *  Over-the-Air Updating
 *  Hosted Application Version Tracking
