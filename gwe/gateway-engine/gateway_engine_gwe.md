@@ -1,1 +1,1 @@
-# Gateway Engine (GWE)
+# Gateway Engine (gwe) README
