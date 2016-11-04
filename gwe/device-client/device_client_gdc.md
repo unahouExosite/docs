@@ -1,4 +1,4 @@
-# Device Client (gdc)
+# Device Client (gdc) README
 
 The purpose of the `device-client` package is to provide a library to the Exosite [HTTP Device API](/http/) as well as providing some other gateway-centric services.
 
