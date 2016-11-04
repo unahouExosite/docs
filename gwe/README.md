@@ -1,6 +1,6 @@
-# ExositeReady Gateway Engine
+# ExositeReady™ Gateway Engine
 
-ExositeReady Gateway Engine was created by Exosite to service a commonly occurring
+ExositeReady™ Gateway Engine was created by Exosite to service a commonly occurring
 design pattern in IoT applications. This page provides information about
 what Gateway Engine does and doesn't do, as well as a list of the terms 
 that are used and the additional resources that are available. 
