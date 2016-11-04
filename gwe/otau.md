@@ -55,4 +55,4 @@ In order for Gateway Engine to be able to download the tarball and
 install it, the tarball must be uploaded to the Gateway Engine Content
 Area of One Platform. For instructions on uploading your application
 tarball and sending the installation command to Gateway Engine, see the
-[Gateway Engine README](/gwe/gateway-engine/gateway_engine_gwe/).
+[Gateway Engine README](/gwe/gateway-engine/gateway_engine_gwe/) page.
