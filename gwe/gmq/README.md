@@ -8,6 +8,6 @@ For detailed information on how to build or install `gmq`:
 *  [Gateway Message Queuing (gmq) README](/gwe/gmq/gateway_message_queuing_gmq/)
 
 For documentation on the `gmq` python package:
-*  [Module Documentation](https://gateway-engine.exosite.io/gmq/apidoc/modules.htmll)
+*  [Module Documentation](https://gateway-engine.exosite.io/gmq/apidoc/modules.html)
 
 To view the source code, go to the [GitHub](https://github.com/exosite/gmq) site.
