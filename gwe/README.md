@@ -1,26 +1,13 @@
-# Gateway Engine
+# ExositeReady Gateway Engine
 
-Gateway Engine was created by Exosite to service a commonly occurring
-design pattern in IoT applications.
+ExositeReady Gateway Engine was created by Exosite to service a commonly occurring
+design pattern in IoT applications. This page provides information about
+what Gateway Engine does and doesn't do, as well as a list of the terms 
+that are used and the additional resources that are available. 
 
-## What Gateway Engine is and does...
+# About Gateway Engine 
 
-* It is the product that installs and modifies software over-the-air
-    in a secure and scalable manner.
-* It is an application hosting framework for Custom
-    Gateway Applications.
-* It provides an Exosite API library in Python called `device-client`.
-* It is integrated with [Supervisor](http://supervisord.org) to manage
-    your Custom Gateway Applications' runtime environment.
-
-## What Gateway Engine is **not** and **doesn't** do...
-
-* It doesn't read any sensor data.
-* It doesn't auto-discover any connected nodes or sensors and
-    automatically send data.
-* It doesn't know what a Custom Gateway Application does.
-
-## What is a gateway?
+## What is a Gateway?
 
 In the context of IoT, a 'gateway' can be loosely defined as any device
 that serves as a communication broker for other devices. Gateways, in
@@ -33,9 +20,25 @@ Either way, the purpose of any gateway is to move local data to an
 external agent on the Internet.
 
 Since using gateways is common throughout so many industrial
-applications, the Professional Services team at Exosite created Gateway
-Engine as an out-of-the-box developer and deployment tool for Internet
-gateways.
+applications, Exosite created Gateway Engine as an out-of-the-box developer 
+and deployment tool for Internet-connected gateways.
+
+## What Gateway Engine Does
+
+* It is the product that installs and modifies software over-the-air
+    in a secure and scalable manner.
+* It is an application hosting framework for Custom
+    Gateway Applications.
+* It provides an Exosite API library in Python called `device-client`.
+* It is integrated with [Supervisor](http://supervisord.org) to manage
+    your Custom Gateway Applications' runtime environment.
+
+## What Gateway Engine Doesn't Do
+
+* It doesn't read any sensor data.
+* It doesn't auto-discover any connected nodes or sensors and
+    automatically send data.
+* It doesn't know what a Custom Gateway Application does.
 
 # Terminology
 
