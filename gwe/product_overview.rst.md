@@ -1,5 +1,4 @@
-Product Overview
-================
+# Product Overview
 
 This product overview takes a deeper look at Gateway Engine as a
 developer tool and an application hosting platform.
@@ -22,8 +21,7 @@ Common functions of gateway software include:
 * Power failure tolerance
 * Gateway fleet management
 
-Over the Air Updating (OTAU)
-----------------------------
+## Over the Air Updating (OTAU)
 
 At some point or another a software requirement changes, a bug is
 discovered or a new feature is added. When any of these things happen,
@@ -39,8 +37,7 @@ complementary components. For general design information and
 instructions on how to create OTAU and new program installation
 packages, please refer to the [Over the Air Updates](https://github.com/exosite/docs/blob/gwe/gwe/otau.rst.md#over-the-air-updates) section.
 
-Application version control
----------------------------
+## Application version control
 
 Gateway Engine employs a light-weight version tracking system. It uses
 the Custom Gateway Application tarball name and version to help you keep
@@ -49,8 +46,7 @@ Incrementing or changing the version designator in the tarball name
 changes the version in the next Gateway Engine report for that app in
 the `engine_report` dataport.
 
-Process and Logfile management
-------------------------------
+## Process and Logfile management
 
 Process management in Gateway Engine is implemented with the
 `supervisord` process management tool. It is light-weight, portable and
@@ -59,8 +55,7 @@ that Gateway Engine utilizes are logfile rotation and process restarting
 in case of bugs that can cause crashes. Gateway Engine uses supervisor
 to restart itself as well as all other managed processes.
 
-Exosite API libraries
----------------------
+## Exosite API libraries
 
 Gateway Engine uses and depends on the `device-client` python library
 for all Exosite [Provision and
@@ -70,8 +65,7 @@ be found
 [here](http://gateway-engine.exosite.io/device-client/index.html) on
 this documentation site.
 
-Gateway telemetrics
--------------------
+## Gateway telemetrics
 
 As any devops professional can tell you, diagnosing issues on any
 computer system either post-mortem or predictively requires basic system
@@ -79,8 +73,7 @@ information. Gateway Engine provides both filesystem and OS metadata as
 well as modem bandwidth usage (beta). These data are reported to
 separate dataports `device_info` and `usage_report`, respectively.
 
-Network outage and Power failure tolerance
-------------------------------------------
+## Network outage and Power failure tolerance
 
 When gateways are deployed into production environments they are subject
 to the whims of their environments.
@@ -101,8 +94,7 @@ Queuing](http://gateway-engine.exosite.io/gmq/index.html) is an option
 you can leverage for a powerful, tunable store-and-forward non-volatile
 queue designed specifically for network and power outages.
 
-Gateway fleet management
-------------------------
+## Gateway fleet management
 
 Murano Solutions can easily be designed and employed to manage small
 (&lt;100) to medium (&lt;10,000) gateway fleets. As your fleet of
