@@ -46,9 +46,9 @@ The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
 command-line tool you can configure and use with your Murano Solutions
 and Products. Once you configure MrMurano, you can use the following
 commands to create the required Gateway Engine resources to the Murano
-device.
+device. 
 
-``` 
+```
 # command to create spec.yaml file
 cat << EOF > spec.yaml
 ---
@@ -139,11 +139,11 @@ follow these steps:
     ```
     
  Or if you want to just specify your own serial number:
-
-    ``` 
+ 
+    ```
     ssh <USER>@<GATEWAY_IP> "gwe --set-product-id <PRODUCT_ID> --set-uuid <THE_SERIAL_NUMBER>""
     ```
-
+        
     **Example:**
 
     ```
