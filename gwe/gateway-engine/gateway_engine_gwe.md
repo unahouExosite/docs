@@ -24,7 +24,7 @@ Gateway Engine can be installed in several different ways. Depending on the targ
 
 ## From a Release Package
 
-After downloading a release build of Gateway Engine from [the release areas](https://gateway-engine.exosite.io/release_packages.html#id2), follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
+After downloading a release build of Gateway Engine from the [Gateway Engine Release Packages](/gwe/release_packages) page, follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
 
 ### Copy Gateway Engine to Gateway
 
@@ -51,13 +51,13 @@ ssh <USER>@<GATEWAY_IP> "cd /opt
 
 When configuring gateway engine to you Murano Product ID, you are faced with two choices with regards to determining your Gateway Engine serial number:
 
- 1. Configure GWE to use a specific internet interface (e.g. `eth0`, `wlan0`, `ppp0`, etc.) and retrieve its MAC address for use as its serial number. GWE defaults to using this MAC address in UPPER case characters. 
+1. Configure GWE to use a specific internet interface (e.g. `eth0`, `wlan0`, `ppp0`, etc.) and retrieve its MAC address for use as its        serial number. GWE defaults to using this MAC address in UPPER case characters. 
 
 ```
 gwe --product-id <MURANO_PRODUCT_ID> --set-iface <INET_IFACE>
 ```
 
-Once this command has completed, use the following command to view the resultant serial number for Gateway Engine:
+   Once this command has completed, use the following command to view the resultant serial number for Gateway Engine:
 
 ```
 (shell) $ gwe --gateway-cfg
@@ -69,9 +69,9 @@ uuid = ''
 iface = en0
 ```
 
-Notice that the `uuid` option is still empty. GWE will populate this field once it is started.
+   Notice that the `uuid` option is still empty. GWE will populate this field once it is started.
 
- 2. Configure GWE to use a specific serial number of your choosing instead of the MAC address from option #1.
+2. Configure GWE to use a specific serial number of your choosing instead of the MAC address from option #1.
 
 ```
 gwe --product-id <MURANO_PRODUCT_ID> --set-uuid <SERIAL_NUMBER>
@@ -113,16 +113,16 @@ or
 unix:///tmp/supervisord.sock no such file
 ```
 
-please contact gwesupport@exosite.com with the following details:
+Please contact gwesupport@exosite.com with the following details:
 
- - The hardware platform and version used.
- - The OS and kernel version (`uname -a` output).
- - The installation log (`/opt/gateway-engine/gwe_install_<DATE_TIME>.log`).
- - The version of Python on the gateway (`python --version`)
+*  The hardware platform and version used.
+*  The OS and kernel version (`uname -a` output).
+*  The installation log (`/opt/gateway-engine/gwe_install_<DATE_TIME>.log`).
+*  The version of Python on the gateway (`python --version`)
 
 ## From source (setup.py)
 
-Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to [the release areas](https://gateway-engine.exosite.io/release_packages.html#id2) and download a copy of a Gateway Engine and execute the following:
+Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to the [Gateway Engine Release Packages](/gwe/release_packages) page and download a copy of a Gateway Engine and execute the following:
 
 ```
 mkdir gwe
@@ -275,10 +275,10 @@ The primary function of Gateway Engine is to provide Over-the-Air-Updates (OTAU)
 
 Over-the-Air Updates can take many forms:
 
- - Versioned application software upgrades
- - Installation of new applications
- - Retrieving the status of connected hardware
- - Sending one-off commands to the gateway (reboot, restart app, etc.)
+*  Versioned application software upgrades
+*  Installation of new applications
+*  Retrieving the status of connected hardware
+*  Sending one-off commands to the gateway (reboot, restart app, etc.)
 
 The Over-the-Air Update capability of Gateway Engine is essentially limited by the capabilities of the gateways themselves.
 
@@ -288,14 +288,14 @@ Software crashes. This fact causes countless hours of sleep to be lost by IoT de
 # Statistics Reporting
 The default behavior of Gateway Engine is to report things like:
 
- - Disk space utilization
- - Internet interface utilization
- - Static OS information
+*  Disk space utilization
+*  Internet interface utilization
+*  Static OS information
 
 As with any other Linux OS, gateways can suffer from their disk space getting filled up and Gateway Engine gives you visibility on this metric by default. Another key metric is how much data you're sending and receiving on the network. This is especially crucial for cellular gateways. Gateway Engine provides some level of statistics on bandwidth consumption. And in addition to information that always changes, Gateway Engine reports things like kernel version and build information so that you can quickly and easily sort and filter a fleet of gateways based on these data.
 
 # Exosite APIs
-Gateway Engine comes with the [HTTP and Provisioning](http://docs.exosite.com/murano/products/device_api/http/ "HTTP Device API") implemented in Python as a globally importable module that, in essence, functions as the gateway *protocol layer*. This means that, if you choose to write your applications in Python, you won't have to spend time writing an Exosite interface library to make HTTP and Provisioning calls. This library is developed in a separate repository called `device-client`.
+Gateway Engine comes with the [HTTP and Provisioning](/murano/products/device_api/http/) implemented in Python as a globally importable module that, in essence, functions as the gateway *protocol layer*. This means that, if you choose to write your applications in Python, you won't have to spend time writing an Exosite interface library to make HTTP and Provisioning calls. This library is developed in a separate repository called `device-client`.
 
 ```
 # test_app.py
@@ -478,8 +478,8 @@ Once you've uploaded your application tarball to your Product ID's content area,
 
 There are currently two ways to write the JSON install command into your GWE Murano device:
 
- 1. The Murano Device's UI.
- 2. The `MrMurano` command-line tool.
+1. The Murano Device's UI.
+2. The `MrMurano` command-line tool.
 
 ##### Murano Device UI
 
@@ -499,6 +499,7 @@ Once these actions have been taken, Gateway Engine will download the app tarball
 
 In order to receive status reports from `gwe` and perform OTAUs, a Murano Device must exist in your Product ID with all of the following aliases defined:
 
+   ```
  - alias: usage_report
    name: GatewayEngine Usage
    format: string
@@ -517,6 +518,7 @@ In order to receive status reports from `gwe` and perform OTAUs, a Murano Device
  - alias: fetch_status
    name: Fetch Status
    format: string
+   ```
 
 # Coda
 The examples provided in this document illustrate how Gateway Engine can be used as a developer tool and framework for managing fleets of gateways in a production environment. Thank you for taking the time to read this instructional document.
