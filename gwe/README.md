@@ -55,7 +55,7 @@ gateways.
 
 * [Getting Started](/gwe/getting_started/)
 * [Product Overview](/gwe/product_overview/) 
-* [Gateway Engine release packages](/gwe/release_packages/)
+* [Gateway Engine Release Packages](/gwe/release_packages/)
 * [Over the Air Updates](/gwe/release_packages/)
 * Device Client - Docs
   * README - Device Client (gdc)
