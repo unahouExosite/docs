@@ -3,6 +3,8 @@
 This product overview takes a deeper look at Gateway Engine as a
 developer tool and an application hosting platform.
 
+# Features
+
 Internet gateways often run some flavor of Linux and, as such, have a
 Python environment. Leveraging this fact, Gateway Engine is a framework
 written (mainly) in Python for developing and hosting Custom Gateway
@@ -10,7 +12,8 @@ Applications *in any language* on Linux gateways. IoT gateway softwares
 often perform the same functions regardless of the use-case because the
 needs are so often the same.
 
-Common functions of gateway software include:
+The features of GWE are included below and described in more detail in 
+the following sections:
 
 * Over the Air Updating (OTAU)
 * Application version control
