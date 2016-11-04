@@ -185,4 +185,4 @@ the aliases of your GatewayEngine device.
 The steps in this section were designed to get you moving as quickly as
 possible with Gateway Engine and Exosite. If you have questions,
 concerns or suggestions on how to make this documentation better, please
-[contact the author](gwesupport@exosite.com) with a detailed message.
+contact gwesupport@exosite.com with a detailed message.
