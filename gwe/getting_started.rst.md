@@ -153,10 +153,10 @@ follow these steps:
 To complete the installation you will need to reboot the gateway.
 To reboot, you can toggle the power or use the following command:
 
-    ```
-    ssh <USER>@<GATEWAY_IP> "reboot"
-    ```
-    
+  ```
+  ssh <USER>@<GATEWAY_IP> "reboot"
+  ```
+  
 **NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
 # Step Three
