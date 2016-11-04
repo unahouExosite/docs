@@ -6,7 +6,6 @@ possible. Once you've completed this section you will have a Gateway
 Engine installed and running on a gateway.
 
 ## Minimum Requirements
-
 Before proceeding to [Step One](https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
 
@@ -18,16 +17,13 @@ gateway has the minimum requirements for running Gateway Engine.
 * 64MB RAM
 
 # Step One
-
 Sign up for a [Murano account](https://exosite.com/murano/). Once your
 account is set up, add a device to your Murano Product and name it
 "Gateway Engine". Copy down the MAC address of your Gateway and use it
 as the serial number for your new Murano Gateway Engine device. Once you
 have a Gateway Engine device in your Murano Product, you must add
 resources to it with one of two ways.
-
 ## Manually
-
 The table, below, shows the resources you must add, what to name them
 and what format to choose for them.
 
@@ -39,7 +35,6 @@ and what format to choose for them.
 | engine_fetch | string | Gateway Engine regularly checks this dataport for formatted messages containing instructions on new apps and updates to install.        |
 | fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer.        |
 | update_interval | string | This value, in seconds, is the delay between each series of Gateway Engine reports and OTAU checkins.|
-
 ## Use MrMurano
 
 The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
