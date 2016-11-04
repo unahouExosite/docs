@@ -1,7 +1,5 @@
 # Gateway Engine
 
-Welcome to Gateway Engine by Exosite Professional Services.
-
 Gateway Engine was created by Exosite to service a commonly occurring
 design pattern in IoT applications.
 
@@ -40,6 +38,7 @@ Engine as an out-of-the-box developer and deployment tool for Internet
 gateways.
 
 # Terminology
+
 
 | Term          | Definition    |
 | ------------- | ------------- |
