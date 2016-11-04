@@ -1,13 +1,11 @@
-Getting Started
-===============
+# Getting Started
 
 This section is provided to help you quickly download Gateway Engine,
 install it onto your gateway and start using it as quickly and easily as
 possible. Once you've completed this section you will have a Gateway
 Engine installed and running on a gateway.
 
-Minimum Requirements
---------------------
+## Minimum Requirements
 
 Before proceeding to [Step One] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
@@ -19,7 +17,7 @@ gateway has the minimum requirements for running Gateway Engine.
 * 128MB Flash
 * 64MB RAM
 
-### Step One
+# Step One
 
 Sign up for a [Murano account](https://exosite.com/murano/). Once your
 account is set up, add a device to your Murano Product and name it
@@ -28,7 +26,7 @@ as the serial number for your new Murano Gateway Engine device. Once you
 have a Gateway Engine device in your Murano Product, you must add
 resources to it with one of two ways.
 
-#### Manually
+## Manually
 
 The table, below, shows the resources you must add, what to name them
 and what format to choose for them.
@@ -42,7 +40,7 @@ and what format to choose for them.
 | fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer.        |
 | update_interval | string | This value, in seconds, is the delay between each series of Gateway Engine reports and OTAU checkins.|
 
-#### Use MrMurano
+## Use MrMurano
 
 The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
 command-line tool you can configure and use with your Murano Solutions
@@ -50,7 +48,7 @@ and Products. Once you configure MrMurano, you can use the following
 commands to create the required Gateway Engine resources to the Murano
 device.
 
-``` {.sourceCode .bash}
+``` {.sourceCode .bash}ffsdg
 # command to create spec.yaml file
 cat << EOF > spec.yaml
 ---
