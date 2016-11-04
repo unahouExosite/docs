@@ -60,7 +60,7 @@ and deployment tool for Internet-connected gateways.
 * [Product Overview](/gwe/product_overview/) 
 * [Gateway Engine Release Packages](/gwe/release_packages/)
 * [Over the Air Updates](/gwe/release_packages/)
-* Device Client - Docs
+* [Device Client - Docs](/gwe/device-client/)
 * Gateway Engine - Docs
 * Gateway Message Queuing (GMQ) - Docs
   
