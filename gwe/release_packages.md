@@ -11,7 +11,7 @@ development purposes and come with no guarantee or warranty. Releases
 based on the `master` branch are stable and undergo a comprehensive QA
 process.
 
-## Gateway Engine Downloads
+# Gateway Engine Downloads
 
 The download options below contain full Gateway Engine release packages. To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk).
 
@@ -24,7 +24,7 @@ download the release and print the release name when it finishes.
 basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
 ```
 
-## Previous Releases
+# Previous Releases
 
 If the download button doesn't work in your browser, we also keep a
 downloads area for current and previous releases you can access by
