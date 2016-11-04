@@ -7,7 +7,7 @@ Engine installed and running on a gateway.
 
 ## Minimum Requirements
 
-Before proceeding to [Step One] (https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
+Before proceeding to [Step One](https://github.com/exosite/docs/blob/gwe/gwe/getting_started.rst.md#step-one), you should first verify that your
 gateway has the minimum requirements for running Gateway Engine.
 
 * Linux OS
@@ -48,7 +48,7 @@ and Products. Once you configure MrMurano, you can use the following
 commands to create the required Gateway Engine resources to the Murano
 device.
 
-``` {.sourceCode .bash}ffsdg
+``` 
 # command to create spec.yaml file
 cat << EOF > spec.yaml
 ---
@@ -85,7 +85,7 @@ follow these steps:
 2.  Run these commands to copy Gateway Engine to your gateway (the
     actual filename in the command may differ):
 
-    ``` {.sourceCode .bash}
+    ```
     ssh <USER>@<GATEWAY_IP> "mkdir /opt"
     scp GatewayEngine.v1-1-2.tar.gz <USER>@<GATEWAY_IP>:/opt 
     ```
