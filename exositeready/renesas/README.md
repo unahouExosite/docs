@@ -42,7 +42,7 @@ The Renesas RX63N RDK (Renesas Development Kit) is a low cost, full featured, re
 
 
 ## RL78G13
-The Renesas RL78G14 allows you to connect wirelessly to send your data to the cloud with the GainSpan low powered wi-fi module.
+The Renesas RL78G14 allows you to connect wirelessly to send your data to the cloud with the GainSpan low powered Wi-Fi module.
 
 ![rdkrl78](assets/rdkrl78.jpg)
 
@@ -54,13 +54,13 @@ The Renesas RL78G14 allows you to connect wirelessly to send your data to the cl
 
 
 ## RL78G14
-The Renesas RL78G13 allows you to connect wirelessly to send your data to the cloud with the GainSpan low powered wi-fi module.
+The Renesas RL78G13 allows you to connect wirelessly to send your data to the cloud with the GainSpan low powered Wi-Fi module.
 
 ![rdkrl78g14](assets/rdkrl78g14.jpg)
 
 
 ### Downloads and Links
-* [Source Code and Quickstart Guide](https://github.com/exosite-garage/rl78g14_gs_cloud")
+* [Source Code and Quick Start Guide](https://github.com/exosite-garage/rl78g14_gs_cloud")
 * [Renesas Source Code](https://github.com/exosite-garage/gs_rl78_cloud)
 * [Renesas Binary Programming Files](https://github.com/exosite-garage/rl78g14_gs_cloud/downloads)
 * [Exosite's Renesas Portal](https://renesas.exosite.com/)
