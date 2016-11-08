@@ -25,7 +25,7 @@ At the end of each getting-started guide, you should have either a physical or s
     </tr>
     	<tr>
         <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Simulate a Device Using a Python Script](products/pythonsim)</td>
+        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Simulate a Connected Lightbulb Using a Python Script](products/pythonsim)</td>
     </tr>
 	<tr>
         <td style="text-align: center;">![IoT Thing Dev](assets/iotthing.png)</td>
