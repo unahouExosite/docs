@@ -11,5 +11,3 @@ For detailed information on how to build or install `device-client`:
 
 For documentation on the `device-client` python package:
 *  [Module Documentation](https://gateway-engine.exosite.io/device-client/apidoc/modules.html)
-
-To view the source code, go to the [GitHub](https://github.com/exosite/device-client) site.
