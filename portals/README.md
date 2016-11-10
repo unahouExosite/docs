@@ -2088,6 +2088,7 @@ w
 | `limit` | Limits the number of users to retrieve. The internal limit is 200, but some may be smaller. Optional. | `/users/_this/users/[{user-id},{user-id},...]?limit=10`      |
 | `offset` | Sets the number of users in the query array to skip. Optional. | `/users/_this/users/[{user-id},{user-id},...]?offset=10`     |
 | `NoPermissions` | Excludes permission items from the response object. Optional. | `/users/_this/users/[{user-id},{user-id},...]?NoPermissions` |
+| `LastLoginTimestamp` | Includes last-login timestamp of the [user object](#user-object). Optional. | `/users/_this/users/[{user-id},{user-id},...]?LastLoginTimestamp` |
 
 ##### Request
 
@@ -2246,6 +2247,47 @@ Content-Type: application/json; charset=UTF-8
         "phoneNumber": "",
         "activated": true,
         "groups": []
+    }
+]
+```
+
+###### If the number of requested IDs exceeds the response limit and LastLoginTimestamp is set
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/_this/users/\[2014970789,2308265000\]?limit=1&LastLoginTimestamp' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 206 Partial Content
+Date: Mon, 17 Nov 2014 03:44:42 GMT
+Status: 206 Partial Content
+Link: <https://mydomain.exosite.com/api/portals/v1/users/_this/users/[2014970789,2308265000]?offset=1&limit=1>; rel="next"
+Vary: Accept-Encoding
+Content-Length: 280
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "email": "testing+2014+0805+0309+0953+7449@exosite.com",
+        "fullName": "",
+        "id": "2014970789",
+        "meta": null,
+        "phoneNumber": "",
+        "activated": true,
+        "groups": [],
+        "permissions": [
+            {
+                "access": "d_update",
+                "oid": {
+                    "type": "Device",
+                    "id": "27a9414bc2999a8d975a9c65a1195acde7ec3f4b"
+                }
+            }
+        ],
+        "lastLoginTimestamp": 1416190210
     }
 ]
 ```
@@ -7378,6 +7420,7 @@ Get information on all users.
 | `offset` | Sets the number of users to skip. Optional but paired with limit. | `/users?offset=0&limit=10` |
 | `limit` | Limits the number of users to retrieve. Optional but paired with offset. | `/users?limit=10&offset=0` |
 | `NoPermissions` | Excludes permissions from the [user object](#user-object). Optional. | `/users?NoPermissions` |
+| `LastLoginTimestamp` | Includes last-login timestamp of the [user object](#user-object). Optional. | `/users?LastLoginTimestamp` |
 
 ##### Request
 
@@ -7446,7 +7489,7 @@ Content-Type: application/json; charset=UTF-8
 ##### Example with options
 
 ```
-curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions' \
+curl 'https://mydomain.exosite.com/api/portals/v1/users?offset=0&limit=10&NoPermissions&LastLoginTimestamp' \
      -X GET \
      -u 'useremail@gmail.com:userP4ssword' \
      -i
@@ -7470,6 +7513,7 @@ Content-Type: application/json; charset=UTF-8
         "phoneNumber": "",
         "activated": true,
         "groups": [],
+        "lastLoginTimestamp": null
     },
     {
         "email": "existinguseremail@gmail.com",
@@ -7480,6 +7524,7 @@ Content-Type: application/json; charset=UTF-8
         "phoneNumber": "",
         "activated": true,
         "groups": [],
+        "lastLoginTimestamp": 1416190210
     },
     ...
 ]
@@ -7605,6 +7650,12 @@ If you want to get more than one user information can refer to [Get multiple use
 * User can get his own portals information.
 * User must have at least `d_u_view` [permission](#permission-object) to the domain.
 
+##### Query String
+
+| String | Description | Example |
+|:-------|:------------|:---------------|
+| `LastLoginTimestamp` | Includes last-login timestamp of the [user object](#user-object). Optional. | `/users?LastLoginTimestamp` |
+
 ##### Request
 
 * Request body is empty.
@@ -7645,6 +7696,37 @@ Content-Type: application/json; charset=UTF-8
     "activated": true,
     "groups": [],
     "permissions": []
+}
+```
+
+##### Example with options
+
+```
+curl 'https://mydomain.exosite.com/api/portals/v1/users/3167859736?LastLoginTimestamp' \
+     -X GET \
+     -u 'useremail@gmail.com:userP4ssword' \
+     -i
+```
+
+```
+HTTP/1.1 200 OK
+Date: Mon, 17 Nov 2014 08:18:40 GMT
+Status: 200 OK
+Vary: Accept-Encoding
+Content-Length: 172
+Content-Type: application/json; charset=UTF-8
+
+{
+    "email": "newuseremail@gmail.com",
+    "fullName": "",
+    "id": "3167859736",
+    "rid": "72ab11cdb1b5025e0f8ae8fe78b1c0c949751090",
+    "meta": null,
+    "phoneNumber": "",
+    "activated": true,
+    "groups": [],
+    "permissions": [],
+    "lastLoginTimestamp": 1416190210
 }
 ```
 
