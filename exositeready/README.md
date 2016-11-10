@@ -9,7 +9,7 @@ ExositeReady™ software is code created by Exosite or in collaboration with par
 
 * [ExositeReady™ Certified](#exositeready-certified)
 * [Embedded SDK](#embedded-sdk)
-* [Gateway Engine](docs/gwe) 
+* [Gateway Engine](http://docs.exosite.com/gwe) 
 * [Device Libraries](#device-libraries)
 * [Reference Code, Demos, and Examples](#reference-code-demos-and-examples)
 * [For Partners](#exositeready-for-partners)
