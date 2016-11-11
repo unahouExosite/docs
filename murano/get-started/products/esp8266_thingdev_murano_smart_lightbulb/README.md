@@ -218,5 +218,5 @@ In this section, you will create a dashboard to view the data from the connected
 
 Congratulations—you just remotely turned a light on and off.
 
-[UP NEXT: CREATE A SOLUTION >>](http://beta-docs.exosite.com/murano/get-started/solutions/exampleapp/)
+[UP NEXT: CREATE A SOLUTION >>](http://docs.exosite.com/murano/get-started/solutions/exampleapp/)
 
