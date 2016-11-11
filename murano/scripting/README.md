@@ -356,3 +356,23 @@ end
 
 local luaTable = from_json("{}")
 ```
+
+### bench.measure()
+
+Returns the elapsed time to nanosecond precision as a human readable string. It may be used to do optimization of solution code. For example here's how to measure how long some code in a solution endpoint took to run.
+
+```
+elapsed = bench.measure(function ()
+  -- do a couple things
+    end)
+return elapsed   -- returns, e.g., "122.145329ms" 
+```
+
+`bench.measure()` will also return any parameters the function returns before the elapsed time. For example:
+
+```
+a, b, elapsed = bench.measure(function ()
+  return "foo", 2 -- you can return how ever many values you want, adjust the assignment accordingly
+  end)
+print({a=a, b=b, elapsed=elapsed}) -- results in printing `map[a:foo,b:2,elapsed:44.406µs]`
+```
