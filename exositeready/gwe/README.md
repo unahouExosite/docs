@@ -13,7 +13,7 @@ used and the additional resources available.
 * [Over the Air Updates](otau)
 * [Device Client - Docs](device-client)
 * [Gateway Engine - Docs](gateway-engine)
-* [Gateway Message Queuing - Docs](/gwe/gmq/)
+* [Gateway Message Queuing - Docs](gmq)
 
 # About Gateway Engine 
 
