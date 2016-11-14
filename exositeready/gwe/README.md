@@ -11,7 +11,7 @@ used and the additional resources available.
 * [Product Overview](product_overview) 
 * [Gateway Engine Release Packages](release_packages)
 * [Over the Air Updates](otau)
-* [Device Client - Docs](/gwe/device-client/)
+* [Device Client - Docs](device-client)
 * [Gateway Engine - Docs](/gwe/gateway-engine/)
 * [Gateway Message Queuing - Docs](/gwe/gmq/)
 
