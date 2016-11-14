@@ -80,7 +80,7 @@ Download, install, and configure Gateway Engine onto your gateway.
 To download the latest version of the Public Release of Gateway Engine,
 follow these steps:
 
-1.  Navigate to the [Gateway Engine Release Packages](/gwe/release_packages/) page and follow the instructions to
+1.  Navigate to the [Gateway Engine Release Packages](/exositeready/gwe/release_packages/) page and follow the instructions to
     download Gateway Engine.
 2.  Run these commands to copy Gateway Engine to your gateway (the
     actual filename in the command may differ):
