@@ -7,7 +7,7 @@ used and the additional resources available.
 
 # Resources
 
-* [Getting Started](/gwe/getting_started/)
+* [Getting Started](getting_started)
 * [Product Overview](/gwe/product_overview/) 
 * [Gateway Engine Release Packages](/gwe/release_packages/)
 * [Over the Air Updates](/gwe/otau/)
