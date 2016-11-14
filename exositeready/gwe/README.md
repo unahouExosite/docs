@@ -12,7 +12,7 @@ used and the additional resources available.
 * [Gateway Engine Release Packages](release_packages)
 * [Over the Air Updates](otau)
 * [Device Client - Docs](device-client)
-* [Gateway Engine - Docs](/gwe/gateway-engine/)
+* [Gateway Engine - Docs](gateway-engine)
 * [Gateway Message Queuing - Docs](/gwe/gmq/)
 
 # About Gateway Engine 
