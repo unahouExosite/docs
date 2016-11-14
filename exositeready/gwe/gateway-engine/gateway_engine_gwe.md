@@ -24,7 +24,7 @@ Gateway Engine can be installed in several different ways. Depending on the targ
 
 ## From a Release Package
 
-After downloading a release build of Gateway Engine from the [Gateway Engine Release Packages](/gwe/release_packages) page, follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
+After downloading a release build of Gateway Engine from the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page, follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
 
 ### Copy Gateway Engine to Gateway
 
@@ -122,7 +122,7 @@ Please contact gwesupport@exosite.com with the following details:
 
 ## From source (setup.py)
 
-Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to the [Gateway Engine Release Packages](/gwe/release_packages) page and download a copy of a Gateway Engine and execute the following:
+Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page and download a copy of a Gateway Engine and execute the following:
 
 ```
 mkdir gwe
@@ -283,7 +283,7 @@ Over-the-Air Updates can take many forms:
 The Over-the-Air Update capability of Gateway Engine is essentially limited by the capabilities of the gateways themselves.
 
 # Process Monitoring
-Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](supervisor.org "supervisor"). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
+Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](supervisord.org "supervisor"). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
 
 # Statistics Reporting
 The default behavior of Gateway Engine is to report things like:
