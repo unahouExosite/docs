@@ -9,7 +9,7 @@ used and the additional resources available.
 
 * [Getting Started](getting_started)
 * [Product Overview](product_overview) 
-* [Gateway Engine Release Packages](/gwe/release_packages/)
+* [Gateway Engine Release Packages](release_packages)
 * [Over the Air Updates](/gwe/otau/)
 * [Device Client - Docs](/gwe/device-client/)
 * [Gateway Engine - Docs](/gwe/gateway-engine/)
