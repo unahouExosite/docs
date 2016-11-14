@@ -8,7 +8,7 @@ Over the Air Updating can be tricky. To help you understand how Gateway
 Engine's OTAU feature works, the diagram below was put together to show
 the sequence that results in a Gateway Engine Over the Air Update.
 
-![otau](over_the_air_updates_image.png)
+![otau](otau_image.png)
 
 In words, this diagram states that Gateway Engine will check for the
 `engine_fetch` alias for specially formatted JSON objects that contain
