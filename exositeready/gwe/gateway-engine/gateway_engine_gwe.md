@@ -283,7 +283,7 @@ Over-the-Air Updates can take many forms:
 The Over-the-Air Update capability of Gateway Engine is essentially limited by the capabilities of the gateways themselves.
 
 # Process Monitoring
-Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](supervisord.org "supervisor"). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
+Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](http://supervisord.org). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
 
 # Statistics Reporting
 The default behavior of Gateway Engine is to report things like:
