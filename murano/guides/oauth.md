@@ -78,7 +78,7 @@ Create an App on Google: [https://console.developers.google.com/](https://consol
 
 Go to Credentials and create a new credential.
 
-![image alt text](assets/oauth_0.png)	
+![image alt text](../assets/oauth_0.png)	
 
 Get the
 ```
@@ -89,7 +89,7 @@ Get the
 
 Add callback url.
 
-![image alt text](assets/oauth_1.png)
+![image alt text](../assets/oauth_1.png)
 
 Use websocket debug endpoint to add the google social.
 
@@ -97,19 +97,19 @@ Use websocket debug endpoint to add the google social.
 Example: User.createSocial({"consumer":"Google","client_id":"xxxxxxxxxx","client_secret":"xxxxxx","scope":["profile","email"],"redirect":"https://sphx185.apps.exosite-dev.io/social/handle/Google"})
 ```
 
-![image alt text](assets/oauth_2.png)
+![image alt text](../assets/oauth_2.png)
 
 Test it:
 
 Example: [https://sphx185.apps.exosite-dev.io/social/handle/Google/loginurl](https://sphx185.apps.exosite-dev.io/social/handle/Google/loginurl)
 
-![image alt text](assets/oauth_3.png)￼￼￼
+![image alt text](../assets/oauth_3.png)￼￼￼
 
 ## Facebook
 
 Create an App on Facebook: [https://developers.facebook.com/apps/](https://developers.facebook.com/apps/)
 
-![image alt text](assets/oauth_4.png)
+![image alt text](../assets/oauth_4.png)
 
 Get the:
 ```
@@ -118,27 +118,27 @@ Get the:
  Client_secret => App Secret
 ```
 
-![image alt text](assets/oauth_5.png)
+![image alt text](../assets/oauth_5.png)
 
 Set the callback url.
 
-![image alt text](assets/oauth_6.png)
+![image alt text](../assets/oauth_6.png)
 
 Use websocket debug endpoint to add the Facebook social.
 
     Example: User.createSocial({"consumer":"Facebook","client_id":"xxxxxxxxxx","client_secret":"xxxxxx","scope":["email","public_profile"],"redirect":"https://sphx185.apps.exosite-dev.io/social/handle/Facebook"})
 
-![image alt text](assets/oauth_7.png)
+![image alt text](../assets/oauth_7.png)
 
 Test it.
 
 Example: [https://sphx185.apps.exosite-dev.io/social/handle/Facebook/loginurl](https://sphx185.apps.exosite-dev.io/social/handle/Facebook/loginurl)
 
-![image alt text](assets/oauth_8.png)
+![image alt text](../assets/oauth_8.png)
 
 Success!
 
-![image alt text](assets/oauth_9.png)
+![image alt text](../assets/oauth_9.png)
 
 ## Amazon
 
@@ -146,7 +146,7 @@ Go to Amazon doc: [http://login.amazon.com/website](http://login.amazon.com/webs
 
 Register your website as an Application on the App Console.
 
-![image alt text](assets/oauth_10.png)
+![image alt text](../assets/oauth_10.png)
 
 Get the: 
 ```
@@ -161,7 +161,7 @@ Use websocket debug endpoint to add the amazon social.
 Example: User.createSocial({"consumer":"Amazon","client_id":"xxxxxxxxxx","client_secret":"xxxxxx","scope":["profile"],"redirect":"https://sphx185.apps.exosite-dev.io/social/handle/Amazon"})
 ```
 
-![image alt text](assets/oauth_11.png)
+![image alt text](../assets/oauth_11.png)
 
 Test it:
 
@@ -169,11 +169,11 @@ Example: [https://sphx185.apps.exosite-d](https://sphx185.apps.exosite-dev.io/so
 
 [ev.io/social/handle/Amazon/loginurl](https://sphx185.apps.exosite-dev.io/social/handle/Amazon/loginurl)
 
-![image alt text](assets/oauth_12.png)
+![image alt text](../assets/oauth_12.png)
 
 Success!
 
-![image alt text](assets/oauth_13.png)
+![image alt text](../assets/oauth_13.png)
 
 ## GitHub
 
@@ -186,7 +186,7 @@ Get the:
  Client_secret => Client Secret
 ```
 
-![image alt text](assets/oauth_15.png)
+![image alt text](../assets/oauth_15.png)
 
 Use websocket debug endpoint to add the GitHub social.
 
@@ -194,15 +194,15 @@ Use websocket debug endpoint to add the GitHub social.
 Example: User.createSocial({"consumer":"GitHub","client_id":"xxxxxxxxxxxx","client_secret":"xxxxxxxxxxxxxxx","scope":["user"],"redirect":"[https://sphx185.apps.exosite-dev.io/social/handle/GitHub](https://sphx185.apps.exosite-dev.io/social/handle/GitHub)"})
 ```
 
-![image alt text](assets/oauth_16.png)
+![image alt text](../assets/oauth_16.png)
 
 Test it:
 
 Example:  [https://sphx185.apps.exosite-dev.io/social/handle/GitHub/loginurl](https://sphx185.apps.exosite-dev.io/social/handle/GitHub/loginurl)
 
-![image alt text](assets/oauth_17.png)
+![image alt text](../assets/oauth_17.png)
 
-![image alt text](assets/oauth_18.png)
+![image alt text](../assets/oauth_18.png)
 
 ## Twitter
 
@@ -236,23 +236,23 @@ response.message = User.socialRequest({consumer= "Twitter", token=aToken})
 Create a new application on Twitter[ h](https://apps.twitter.com/)
 ```
 
-![image alt text](assets/oauth_19.png)
+![image alt text](../assets/oauth_19.png)
 
-![image alt text](assets/oauth_20.png)
+![image alt text](../assets/oauth_20.png)
 
-![image alt text](assets/oauth_21.png)
+![image alt text](../assets/oauth_21.png)
 
 Use websocket debug endpoint to add the GitHub social.
 
 Example: User.createSocial({"consumer":"Twitter","client_id":"232131231","client_secret":"xxxxxxxxxxxxxxxxxx","redirect":"https://sphx185.apps.exosite-dev.io/social/Twitter/handle"})
 
-![image alt text](assets/oauth_22.png)
+![image alt text](../assets/oauth_22.png)
 
 Test it.
 
 Example:  [https://sphx185.apps.exosite-dev.io/Twitter/login](https://sphx185.apps.exosite-dev.io/Twitter/login)
 
-![image alt text](assets/oauth_23.png)
+![image alt text](../assets/oauth_23.png)
 
-![image alt text](assets/oauth_24.png)
+![image alt text](../assets/oauth_24.png)
 

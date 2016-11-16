@@ -23,7 +23,7 @@ Murano solutions provide a [datapoint event](../../services/device/#datapoint) t
 
 For the purpose of this guide, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
 
-![web-based-editor](assets/point-event.png)
+![web-based-editor](../assets/point-event.png)
 
 ### Increasing a daily metric counter
 
