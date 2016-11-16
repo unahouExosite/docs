@@ -31,7 +31,7 @@ files in place.
 
 ### Frontmatter
 
-Both Markdown files and HTML files can contain frontmatter. Frontmatter is
+Both markdown files and HTML files can contain frontmatter. Frontmatter is
 basically a set of variables that the generator uses to change exactly how it
 processes the file. It must be the first thing in the file and be formatted
 like:
