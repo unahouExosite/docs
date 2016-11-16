@@ -1,7 +1,9 @@
 ---
-title: Murano OAuth 2.0 guide
+title: Murano OAuth Guide
 template: default
 ---
+
+# Murano OAuth User Guide
 
 # Function:
 ## createSocial
