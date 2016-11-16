@@ -2,6 +2,9 @@
 title: Embedded SDK
 ---
 # EMBEDDED SDK
+
+# ![SDK Logo](system_logos_exositeready_sdk_rgb_final_reva.png)
+
 The ExositeReady™ Embedded SDK is an open-source software framework, written in ANSI C, containing application software for controlling devices’ communication with the Exosite platform. It compiles various third-party libraries for basic protocol functionality as well as implementing all the common logic needed to interact with the platform. Exosite also provides several ports to select hardware platforms, including various application examples, to accelerate your application development. The SDK is for engineers developing firmware for their embedded device products. It is generally targeted for use in creating end-node devices and not gateways.
 
 <table width="100%">
