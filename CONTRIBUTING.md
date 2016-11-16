@@ -26,7 +26,7 @@ index.html file. This means that, for instance, the RPC doc, `/rpc/README.md`
 will generate the page `/rpc/index.html` which can then be viewed at
 docs.exosite.com/rpc
 
-In addidtion to markdown files the generator will copy all .html, .png, and .jpg
+In addition to markdown files the generator will copy all .html, .png, and .jpg
 files in place.
 
 ### Frontmatter

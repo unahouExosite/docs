@@ -3,9 +3,9 @@ title: Record Product Metrics
 template: default
 ---
 
-# Tutorial: Record Product Metrics
+# Guide: Record Product Metrics
 
-A common need when managing a fleet of devices is to track metrics and error logs. This tutorial demonstrates how to use Murano's [Keystore service](../../services/keystore#) to [collect metrics](#collect-metrics) and [expose those metrics](#expose-metrics) from a custom API endpoint.
+A common need when managing a fleet of devices is to track metrics and error logs. This guide demonstrates how to use Murano's [Keystore service](../../services/keystore#) to [collect metrics](#collect-metrics) and [expose those metrics](#expose-metrics) from a custom API endpoint.
 
 ## Prerequisites
 
@@ -21,7 +21,9 @@ A first step for monitoring your device fleet is to collect information from dev
 
 Murano solutions provide a [datapoint event](../../services/device/#datapoint) that gives you an opportunity to respond to incoming device data. When handling datapoints you may perform data conversion, store data, or send alerts. You may modify the way your solution responds to data by editing the handler for the datapoint event in Murano's web-based code editor or by uploading code using the command line tool. 
 
-For the purpose of this tutorial, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
+For the purpose of this guide, let's use the web-based editor. To modify the datapoint event handler, click on the SERVICES tab of your solution, select Products, and select the code tab. The code found here is executed when any devices with product types associated with the solution send data. You can now add code to store metrics to the Keystore service.
+
+![web-based-editor](assets/point-event.png)
 
 ### Increasing a daily metric counter
 
@@ -63,6 +65,8 @@ Keystore.command({ command = "ltrim", key = "logs", args = {0, 9}})
 ```
 
 ### All together
+
+Here's our point event code in its entirety.
 
 ```lua
 
@@ -154,6 +158,15 @@ curl https://<product_id>.m2.exosite.com/onep:v1/stack/alias \
 -H "X-Exosite-CIK: <CIK>" \
 -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
 -d "<resource_alias>=<value>"
+```
+
+Here's an example, assuming a product ID of m0a6fwvjl7x8ncdi and device ID of 001.
+
+```
+$ curl https://m0a6fwvjl7x8ncdi.m2.exosite.com/provision/activate -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -d "vendor=m0a6fwvjl7x8ncdi&model=m0a6fwvjl7x8ncdi&sn=001"
+029c56108afffc2507e3ffb0aeed105dd6c39922
+
+$ curl https://m0a6fwvjl7x8ncdi.m2.exosite.com/onep:v1/stack/alias -H "X-Exosite-CIK: 029c56108afffc2507e3ffb0aeed105dd6c39922" -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" -d "message=hello world"
 ```
 
 ## Test
