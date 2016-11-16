@@ -1,7 +1,7 @@
 ---
 title: Embedded SDK
 ---
-# EMBEDDED SDK
+# EXOSITEREADY™ EMBEDDED SDK
 
 # ![SDK Logo](system_logos_exositeready_sdk_rgb_final_reva.png)
 
