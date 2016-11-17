@@ -12,6 +12,8 @@ template: default
 # Resources
 
 * [Getting Started](getting_started)
+* [Terminology](# Terminology)
+* [FAQs](# FAQs)
 
 # Body Text Section Title Format
 
@@ -25,3 +27,8 @@ Body text format.
 | ------------- | ------------- |
 | Term 1  | Definition of Term 1.  |
 | Term 2  | Defintion of Term 2.  |
+
+# FAQs
+
+Q: How is Okami different than One Platform?
+A: 
