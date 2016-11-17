@@ -12,6 +12,7 @@ Okami is Exosite's Advanced Connectivity Solution. It allows anything capable of
 # Resources
 
 * [Getting Started](link_to_tutorial_docs)
+* [Overview](#overview)
 * [Terminology](#terminology)
 * [FAQs](#faqs)
 
