@@ -12,8 +12,8 @@ template: default
 # Resources
 
 * [Getting Started](getting_started)
-* [Terminology](# Terminology)
-* [FAQs](# FAQs)
+* [Terminology](#Terminology)
+* [FAQs](#FAQs)
 
 # Body Text Section Title Format
 
