@@ -2,13 +2,31 @@
 
 # ![logo/graphic](insert_logo/graphic_if_applicable)
 
-Provide a statement of purpose for the document.
+In this guide, you will connect a device to Exosite and the attain the necessary information you will need to go into production.
+
+**Note:** This is a technical tutorial. You will need some knowledge of embedded C, your terminal, and how to flash firmware to your device. There is also a known issue with the ESP8266 Thing Dev Board when using Arduino on a Windows machine. Please ensure digital pin 0 is grounded, or use a Linux machine to complete this guide.
 
 # Requirements
 
 ## Hardware Setup
 
-* List hardware needs
+To complete this guide, you will need the following hardware:
+
+* [SparkFun ESP8266 Thing Dev Board](https://www.sparkfun.com/products/13711)
+
+* [RHT03 humidity and temperature sensor ](https://www.sparkfun.com/products/10167)
+
+* 10K ohm resistor (for digital pin pull-up)
+
+* 330 ohm resistor
+
+* LED (suggest green or yellow)
+
+* Micro-USB B cable
+
+To begin, connect the components as shown in the image below.
+
+![sparkfun](insert_logo/graphic_if_applicable)
 
 ## Software Setup
 
