@@ -26,7 +26,7 @@ To complete this guide, you will need the following hardware:
 
 To begin, connect the components as shown in the image below.
 
-![sparkfun](insert_logo/graphic_if_applicable)
+![sparkfun](assets/sparkfun_image.png)
 
 ## Software Setup
 
