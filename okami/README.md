@@ -7,7 +7,7 @@ template: default
 
 # ![logo/graphic](insert_logo/graphic_if_applicable)
 
-Okami is Exosite's Advanced Connectivity Solution. It allows anything capable of sending IP packets (devices, mobiles, desktops, etc.) to securely connect and authenticate to Exosite's IoT platform. It tracks and maintains information about device connections and facilitates bidirectional communication between the devices and Exosite's systems.
+Okami is Exosite's advanced connectivity solution. It allows anything capable of sending IP packets (devices, mobiles, desktops, etc.) to securely connect and authenticate to Exosite's IoT platform. It tracks and maintains information about device connections and facilitates bidirectional communication between the devices and Exosite's systems.
 
 # Resources
 
@@ -18,7 +18,7 @@ Okami is Exosite's Advanced Connectivity Solution. It allows anything capable of
 
 # Overview
 
-Okami device connectivity overview content.
+Provide Okami device connectivity overview content.
 
 ! [diagram]
 
