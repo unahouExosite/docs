@@ -1,8 +1,8 @@
-# Getting-started Guide: Connect a Device with Okami
+# Getting-started Guide: Connect a Device Using Okami
 
 # ![logo/graphic](insert_logo/graphic_if_applicable)
 
-In this guide, you will connect a device to Exosite and the attain the necessary information you will need to go into production.
+In this guide, you will connect a device to Exosite and attain the necessary information you will need to go into production.
 
 **Note:** This is a technical tutorial. You will need some knowledge of embedded C, your terminal, and how to flash firmware to your device. There is also a known issue with the ESP8266 Thing Dev Board when using Arduino on a Windows machine. Please ensure digital pin 0 is grounded, or use a Linux machine to complete this guide.
 
@@ -32,11 +32,13 @@ To begin, connect the components as shown in the image below.
 
 * List software needs
 
-# Body Text Section Title Format
+# Overview of Concepts
 
-## Body Text Subsection Title Format
+<insert diagram>
 
-Body text format.
+# Getting Started
+
+## Subsection Title
 
 1. Number instructional steps within subsections.
 
