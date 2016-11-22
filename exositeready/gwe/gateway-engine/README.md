@@ -16,7 +16,7 @@ Gateway Engine uses the open source [supervisord] project to provide the followi
 *  Application start/restart/crash rules and monitoring
 *  Language neutral (C,Python,Node,Go,etc.)
 
-In addition to what [Supervisor](http://supervisord.org) provides, [gwe](https://github.com/exosite/gateway-engine) provides the following features to a hosted Custom Gateway Application:
+In addition to what [Supervisor](http://supervisord.org) provides, [GWE](https://github.com/exosite/gateway-engine) provides the following features to a hosted Custom Gateway Application:
 
 *  Over-the-Air Updating
 *  Hosted Application Version Tracking
@@ -25,7 +25,7 @@ In addition to what [Supervisor](http://supervisord.org) provides, [gwe](https:/
 
 ## OTA Application Management
 
-Gateway Engine was designed to install and update applications Over-the-Air. For more information on building Custom Gateway Application tarballs see the [Gateway Engine (gwe) README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/) page on Hosted Applications.
+Gateway Engine was designed to install and update applications over the air. For more information on building Custom Gateway Application tarballs see the [Gateway Engine (GWE) README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/) page on Hosted Applications.
 
 ## OS/Filesystem Metadata Collection
 
@@ -46,7 +46,7 @@ The log of all requests made with the [device-client](https://github.com/exosite
 # Resources
 
 For detailed information on how to build or install `gateway-engine`: 
-*  [Gateway Engine (gwe) README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/)
+*  [Gateway Engine (GWE) README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/)
 
 For documentation on the `gateway-engine` python package:
 *  [Module Documentation](https://gateway-engine.exosite.io/gateway-engine/apidoc/modules.html)
