@@ -141,7 +141,7 @@ Distributable builds and official releases of Gateway Engine are created with th
 
 ## Release Candidates
 
-We make available a release based on the `integration` branch for testing bug fixes, new features, etc.
+A release will be made available based on the `integration` branch for testing bug fixes, new features, etc.
 
 ```
 #!/usr/bin/env bash
@@ -169,7 +169,7 @@ echo "TAG = ${TAG}" > TAG.file
 
 # Command Line Interface
 
-A CLI is provided for configuring the run-time environment as well as initializing a development environment. To acquaint yourself with the CLI, install Gateway Engine on your development machine and look through the help dialog:
+A CLI is provided for configuring the runtime environment as well as initializing a development environment. To acquaint yourself with the CLI, install Gateway Engine on your development machine and look through the help dialog:
 
 ```
 $ gwe -h
@@ -269,7 +269,6 @@ To create a PDF file of all of the documentation, simply run:
 make singlepdf
 ```
 
-
 # Over-the-Air Updates
 The primary function of Gateway Engine is to provide Over-the-Air-Updates (OTAU). Utilizing Exosite's Content Area, Gateway Engine makes updating software running on your gateway simple, reliable, and secure. 
 
@@ -359,7 +358,7 @@ if __name__ == '__main__':
 
 # Updating and Installing Applications
 
-Now that we have our temp sensor application written, it is time to plug it into Gateway Engine.
+Now that the temp sensor application is written, it is time to plug it into Gateway Engine.
 
 In order to get Gateway Engine to download and install a new application or update an existing one, it has to first be uploaded to the Exosite Content Area. For this reason, applications need to be in the form of tarballs. This gives us a single file with which we can download and parse for its name and version.
 
