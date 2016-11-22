@@ -1,6 +1,6 @@
-# Gateway Engine (gwe) README
+# Gateway Engine (GWE) README
 
-Gateway Engine was created by Exosite to service a commonly occurring design pattern in IoT applications. In the IoT context, a 'gateway' can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some a collection of devices that don't posses the ability of internet (HTTP/CoAP/MQTT) communications.
+Gateway Engine was created by Exosite to service a commonly occurring design pattern in IoT applications. In the IoT context, a "gateway" can be loosely defined as any device that serves as a communication broker for other devices. Gateways, in this context, often bridge the gap between an IoT platform (Exosite) and some collection of devices that do not possess the ability of Internet (HTTP/CoAP/MQTT) communications.
 
 # Overview
 
@@ -10,7 +10,7 @@ Internet gateways often run some flavor of Linux and, as such, have a Python env
 
 # Key Features
 
-Gateway Engine was created by Exosite out of the necessity for the following (but not limited to):
+Gateway Engine was created by Exosite out of the necessity for (but not limited to) the following :
 
 *  Application Hosting
 *  OTA Application Management
@@ -18,13 +18,13 @@ Gateway Engine was created by Exosite out of the necessity for the following (bu
 *  Exosite Device API Client
 *  Bandwidth Telemetrics (Beta)
 
-# Installation, Configuration and First Start
+# Installation, Configuration, and First Start
 
 Gateway Engine can be installed in several different ways. Depending on the target environment, installing via a **build** is preferable to installing from source. Whichever method you use it is important to note that if using a non-built version, the **__version__**'s from the Exosite Device API Client (`device-client`) and the `GatewayEngine` module will not be traceable to source code version in git at the time of the build. This can make debugging and root-cause analysis difficult if not impossible in field-deployed, production systems.
 
 ## From a Release Package
 
-After downloading a release build of Gateway Engine from the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page, follow these simple steps to copy it to your gateway and configure for use with your Murano Product:
+After downloading a release build of Gateway Engine from the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page, follow these simple steps to copy it to your gateway and configure for use with your Murano product:
 
 ### Copy Gateway Engine to Gateway
 
@@ -49,9 +49,9 @@ ssh <USER>@<GATEWAY_IP> "cd /opt
 
 ### Configure Gateway Engine to your Murano Product
 
-When configuring gateway engine to you Murano Product ID, you are faced with two choices with regards to determining your Gateway Engine serial number:
+When configuring Gateway Engine to you Murano product ID, you are faced with two choices with regard to determining your Gateway Engine serial number:
 
-1. Configure GWE to use a specific internet interface (e.g. `eth0`, `wlan0`, `ppp0`, etc.) and retrieve its MAC address for use as its        serial number. GWE defaults to using this MAC address in UPPER case characters. 
+1. Configure GWE to use a specific Internet interface (e.g., `eth0`, `wlan0`, `ppp0`, etc.) and retrieve its MAC address for use as its serial number. GWE defaults to using this MAC address in UPPER case characters. 
 
 ```
 gwe --product-id <MURANO_PRODUCT_ID> --set-iface <INET_IFACE>
@@ -79,7 +79,7 @@ gwe --product-id <MURANO_PRODUCT_ID> --set-uuid <SERIAL_NUMBER>
 
 ## First Start
 
-Once Gateway Engine has been installed and configured, it is time for the first start. Instead of manually calling the `gwe` executable (though this is an option), it is a good idea to reboot the gateway. This is because during the Gateway Engine installation process, it configures the linux `init.d` subsystem to start `supervisord`, which in-turn is configured to start `gwe`.
+Once Gateway Engine has been installed and configured, it is time for the first start. Instead of manually calling the `gwe` executable (though this is an option), it is a good idea to reboot the gateway. This is because during the Gateway Engine installation process, it configures the Linux `init.d` subsystem to start `supervisord`, which in turn is configured to start `gwe`.
 
 ```
 reboot
@@ -99,7 +99,7 @@ gmq                              RUNNING    pid 579, uptime 0:00:20
 gwe                              RUNNING    pid 578, uptime 0:00:20
 ```
 
-If you see any status for `gwe` or `gmq` other than `RUNNING` (e.g. `FATAL`, `BACKOFF`, etc.) or if you see the following error message:
+If you see any status for `gwe` or `gmq` other than `RUNNING` (e.g., `FATAL`, `BACKOFF`, etc.) or if you see the following error message:
 
 ```
 (shell) $ supervisorctl status
@@ -120,9 +120,9 @@ Please contact gwesupport@exosite.com with the following details:
 *  The installation log (`/opt/gateway-engine/gwe_install_<DATE_TIME>.log`).
 *  The version of Python on the gateway (`python --version`)
 
-## From source (setup.py)
+## From Source (setup.py)
 
-Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you'll need to navigate to the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page and download a copy of a Gateway Engine and execute the following:
+Installing `GatewayEngine` to a development machine/laptop is a great idea for accessing some of the command line tools. To do this on a development machine, it is recommended that you create a Python Virtual Environment and install to it. To do this, you will need to navigate to the [Gateway Engine Release Packages](/exositeready/gwe/release_packages) page, download a copy of a Gateway Engine, and execute the following:
 
 ```
 mkdir gwe
@@ -137,7 +137,7 @@ python setup.py install
 
 # Building Gateway Engine
 
-Distributable builds and official releases of Gateway Engine are created with the `jenkins.sh` script at the top-level of this (`gateway-engine`) repository. There are several helpful arguments one can pass to the `jenkins.sh` script for various tasks like running tests, creating `git` tags, tracking `BUILD` version numbers, etc. Our Continuous Integration method of making releases is the following:
+Distributable builds and official releases of Gateway Engine are created with the `jenkins.sh` script at the top level of this (`gateway-engine`) repository. There are several helpful arguments one can pass to the `jenkins.sh` script for various tasks like running tests, creating `git` tags, tracking `BUILD` version numbers, etc. Our Continuous Integration method of making releases is the following:
 
 ## Release Candidates
 
@@ -169,7 +169,7 @@ echo "TAG = ${TAG}" > TAG.file
 
 # Command Line Interface
 
-A cli is provided for configuring the run-time environment as well as initializing a development environment. To acquaint yourself with the cli, install Gateway Engine on your development machine and look through the help dialog:
+A CLI is provided for configuring the run-time environment as well as initializing a development environment. To acquaint yourself with the CLI, install Gateway Engine on your development machine and look through the help dialog:
 
 ```
 $ gwe -h
@@ -283,7 +283,7 @@ Over-the-Air Updates can take many forms:
 The Over-the-Air Update capability of Gateway Engine is essentially limited by the capabilities of the gateways themselves.
 
 # Process Monitoring
-Software crashes. This fact causes countless hours of sleep to be lost by IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](http://supervisord.org). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately re-starting an application in case it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
+Software crashes. This fact causes countless hours of lost sleep for IoT developers everywhere. Gateway Engine calms this issue down by utilizing the very popular, open source project [supervisor](http://supervisord.org). The `supervisor` tool provides a simple interface to monitoring a gateway application's statistics (runtime, exitcode, status, etc.) as well as immediately restarting an application if it crashes. Since Gateway Engine relies on `supervisor` for these features, it comes with all of the configuration possibilities of `supervisor` for free as well.
 
 # Statistics Reporting
 The default behavior of Gateway Engine is to report things like:
@@ -292,10 +292,10 @@ The default behavior of Gateway Engine is to report things like:
 *  Internet interface utilization
 *  Static OS information
 
-As with any other Linux OS, gateways can suffer from their disk space getting filled up and Gateway Engine gives you visibility on this metric by default. Another key metric is how much data you're sending and receiving on the network. This is especially crucial for cellular gateways. Gateway Engine provides some level of statistics on bandwidth consumption. And in addition to information that always changes, Gateway Engine reports things like kernel version and build information so that you can quickly and easily sort and filter a fleet of gateways based on these data.
+As with any other Linux OS, gateways can suffer from their disk space getting filled up and Gateway Engine gives you visibility on this metric by default. Another key metric is how much data you are sending and receiving on the network. This is especially crucial for cellular gateways. Gateway Engine provides some level of statistics on bandwidth consumption. And in addition to information that always changes, Gateway Engine reports things like kernel version and build information so you can quickly and easily sort and filter a fleet of gateways based on these data.
 
 # Exosite APIs
-Gateway Engine comes with the [HTTP and Provisioning](/murano/products/device_api/http/) implemented in Python as a globally importable module that, in essence, functions as the gateway *protocol layer*. This means that, if you choose to write your applications in Python, you won't have to spend time writing an Exosite interface library to make HTTP and Provisioning calls. This library is developed in a separate repository called `device-client`.
+Gateway Engine comes with the [HTTP and Provisioning](/murano/products/device_api/http/) implemented in Python as a globally importable module that, in essence, functions as the gateway protocol layer. This means that, if you choose to write your applications in Python, you will not have to spend time writing an Exosite interface library to make HTTP and Provisioning calls. This library is developed in a separate repository called `device-client`.
 
 ```
 # test_app.py
@@ -312,20 +312,15 @@ while True:
     sleep(5)
 ```
 
-
-In the above code snippet, the `http_write()` function handles *all* of the Exosite communication and represents pages of code that you no-longer have to write. More information on the API library in the `device-client` project documentation.
+In the above code snippet, the `http_write()` function handles all of the Exosite communication and represents pages of code you no longer have to write. More information on the API library in the `device-client` project documentation.
 
 # Hosted Applications
-You can write your applications in any language you want. 
-
-**Gateway Engine doesn't care which language your application is written in.**
-
-Exosite understands that every IoT application is different and that every situation is different. The fact that Gateway Engine is written in Python does not preclude a developer from writing the actual business application in Java, Perl, C, or even BASH. If you compile your application from C, or use interpreted languages like Python or Perl, Gateway Engine will still work with your application. This is because Gateway Engine operates at the *process* level. If the application runs as a process on the gateway, Gateway Engine will work with it just fine.
+You can write your applications in any language you want. Exosite understands that every IoT application is different and that every situation is different. The fact that Gateway Engine is written in Python does not preclude a developer from writing the actual business application in Java, Perl, C, or even BASH. If you compile your application from C, or use interpreted languages like Python or Perl, Gateway Engine will still work with your application. This is because Gateway Engine operates at the process level. If the application runs as a process on the gateway, Gateway Engine will work with it just fine.
 
 # Example
-What do we mean by 'application'?
+What exactly is an application"?
 
-For example, let's say you are a developer at a company that makes temperature sensors. The sensors report their data over Bluetooth Low Energy so you will need an internet gateway with a BLE radio. Now you need to write an application to run on the gateway that collects data from any number of these temperature sensors. This BLE application is what you want to develop, debug and test. You don't want to spend your time writing an HTTP library for interacting with Exosite's OnePlatform APIs. You don't want to spend your time writing scripts that restart the temperature sensor application if it crashes, or rotating log files if they get too large. You just want to write the application that collects sensor data and reports it.
+For example, say you are a developer at a company that makes temperature sensors. The sensors report their data over Bluetooth Low Energy (BLE), so you will need an Internet gateway with a BLE radio. Now you need to write an application to run on the gateway that collects data from any number of these temperature sensors. This BLE application is what you want to develop, debug, and test. You do not want to spend your time writing an HTTP library for interacting with Exosite's OnePlatform APIs. You do not want to spend your time writing scripts that restart the temperature sensor application if it crashes, or rotating log files if they get too large. You just want to write the application that collects sensor data and reports it.
 
 ```
 # /usr/local/bin/temp_app.v1/temp_app.cfg
@@ -364,13 +359,13 @@ if __name__ == '__main__':
 
 # Updating and Installing Applications
 
-Now that we have our temp sensor application written, it's time to plug it into Gateway Engine.
+Now that we have our temp sensor application written, it is time to plug it into Gateway Engine.
 
 In order to get Gateway Engine to download and install a new application or update an existing one, it has to first be uploaded to the Exosite Content Area. For this reason, applications need to be in the form of tarballs. This gives us a single file with which we can download and parse for its name and version.
 
 ## Custom Gateway Application Assets
 
-In order to install your application, Gateway Engine needs it in a certain form, with certain files present. Here are the rules...
+In order to install your application, Gateway Engine needs it in a certain form, with certain files present. Here are the rules:
 
 ### The Install Script
 
@@ -401,7 +396,7 @@ EOF
 
 ### The Supervisor Configuration File
 
-Though this file is not a requirement for any Custom Gateway Application, it is recommended for use with any long-running application. An example of when it is **not** used is when the "app" is a single command like `reboot` in the `install.sh` script or a simple maintenance script that changes configurations or uploads some debug data. For long running applications, a file called `supervisor.conf` must be included with the app with the rules you (the developer) decide are the right rules for supervisor to manage your app. All supervisor configuration options are supported but **some** defaults are imposed if they aren't included in your `supervisor.conf` file. These defaults are:
+Though this file is not a requirement for any Custom Gateway Application, it is recommended for use with any long-running application. An example of when it is not used is when the "app" is a single command like `reboot` in the `install.sh` script or a simple maintenance script that changes configurations or uploads some debug data. For long-running applications, a file called `supervisor.conf` must be included with the app with the rules you (the developer) decide are the right rules for supervisor to manage your app. All supervisor configuration options are supported but some defaults are imposed if they are not included in your `supervisor.conf` file. These defaults are:
 
  - 'command': 'command'
  - 'stdout_logfile': '/var/log/<APP_NAME>.log',
@@ -426,7 +421,7 @@ x test_app.py
 
 ## Installing a Custom Gateway Application
 
-There are a couple of ways you can install your app onto a gateway with Gateway Engine. 
+There are a couple ways you can install your app onto a gateway with Gateway Engine. 
 
 ### Custom Release Packaging
 
@@ -440,11 +435,11 @@ Gateway Engine release packages contain a sub-directory called `apps_to_install`
 ... lots of output ...
 ```
 
-In the re-packaging step, we've renamed the release package so as not to confuse the two packages - one with the custom app and one without. With the app in the `apps_to_install` directory you can distribute this new release package to hardware vendors, developers, etc. for installation on production and test gateways. Simply follow the normal Gateway Engine installation instructions and the test app will be installed during the regular installation.
+In the repackaging step, the release package is renamed so as not to confuse the two packages—one with the custom app and one without. With the app in the `apps_to_install` directory you can distribute this new release package to hardware vendors, developers, etc. for installation on production and test gateways. Simply follow the normal Gateway Engine installation instructions and the test app will be installed during the regular installation.
 
 ### Command Line Install
 
-With Gateway Engine installed onto your gateway, you can install a custom app with the command-line.
+With Gateway Engine installed onto your gateway, you can install a custom app with the command line.
 
 ```
 (bash) $ gwe --set-debug-level DEBUG --install-apps test_app.v1.tar.gz
@@ -453,7 +448,7 @@ With Gateway Engine installed onto your gateway, you can install a custom app wi
 
 ### Over-the-Air (OTA) Install/Update
 
-Over-the-air (OTA) installs, though common, can be a bit more involved. It's not too terribly complicated, but several things are assumed in order for this to work so easily:
+Over-the-air (OTA) installs, though common, can be a bit more involved. It is not too terribly complicated, but several things are assumed in order for this to work so easily:
 
  1. You have a Murano account.
  2. You have a Product in your Murano account with Gateway Engine's aliases populated.
@@ -468,13 +463,13 @@ The OTA install command for the `test_app.v1.tar.gz` application is a JSON strin
 
     {"install": [{"name": "test_app.v1.tar.gz"}]}
 
-#### Upload the App Tarball to your Murano Product ID's content area.
+#### Upload the App Tarball to Your Murano Product ID's Content Area
 
-The [MrMurano](https://github.com/tadpol/MrMurano) tool was created for this and many other purposes. It is currently the only supported tool we have for uploading any content to a Murano Product ID's content area. To get your application tarball uploaded, follow the instructions on the `MrMurano` github page to configure the tool and then use the `mr content upload` command to upload your application tarball into the content area.
+The [MrMurano](https://github.com/tadpol/MrMurano) tool was created for this and many other purposes. It is currently the only supported tool for uploading any content to a Murano Product ID's content area. To get your application tarball uploaded, follow the instructions on the `MrMurano` github page to configure the tool and then use the `mr content upload` command to upload your application tarball into the content area.
 
 #### Writing the Install Command to the `engine_fetch` Alias
 
-Once you've uploaded your application tarball to your Product ID's content area, you can tell GWE to download and install it.
+Once you have uploaded your application tarball to your Product ID's content area, you can tell Gateway Engine to download and install it.
 
 There are currently two ways to write the JSON install command into your GWE Murano device:
 
@@ -497,7 +492,7 @@ Once these actions have been taken, Gateway Engine will download the app tarball
 
 ### Murano Product Aliases
 
-In order to receive status reports from `gwe` and perform OTAUs, a Murano Device must exist in your Product ID with all of the following aliases defined:
+In order to receive status reports from `gwe` and perform OTAUs, a Murano device must exist in your Product ID with all of the following aliases defined:
 
    ```
  - alias: usage_report
