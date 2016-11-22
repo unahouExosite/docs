@@ -1,14 +1,14 @@
-# Device Client (gdc) README
+# Device Client (GDC) README
 
 The purpose of the `device-client` package is to provide a library to the Exosite [HTTP Device API](/http/) as well as providing some other gateway-centric services.
 
 ## Overview
 
-The Gateway Device Client (GDC) can be referred to as the *protocol layer* of the gateway. It is a python package that can be used as a common entry point for all requests to Exosite. Though other Exosite API libraries exist, GDC is used by Gateway Engine and other Exosite gateway technologies to format and process all Exosite API requests. The GDC library has a few features that make it extremely useful for development, debugging and telemetry purposes.
+The Gateway Device Client (GDC) can be referred to as the protocol layer of the gateway. It is a python package that can be used as a common entry point for all requests to Exosite. Though other Exosite API libraries exist, GDC is used by Gateway Engine and other Exosite gateway technologies to format and process all Exosite API requests. The GDC library has a few features that make it extremely useful for development, debugging, and telemetry purposes.
 
-### Response handlers
+### Response Handlers
 
-Writing code that handles HTTP(S) responses can quickly add to the overhead of writing a gateway IoT application. Utilizing the built-in response handlers can simplify things.
+Writing code that handles HTTP(s) responses can quickly add to the overhead of writing a gateway IoT application. Utilizing the built-in response handlers can simplify things.
 
 ```
 from exo.api import ExositeAPI
@@ -32,7 +32,7 @@ sqlite3 /tmp/ifaces.db ".dump"
 
 ### Connect to Custom Servers
 
-Sometimes your IoT solution is in development and you need to point your data originator at some url other than `VENDOR.m2.exosite.com`, the `device-client` library supports custom server urls (as well as port).
+Sometimes your IoT solution is in development and you need to point your data originator at some URL other than `VENDOR.m2.exosite.com`. The `device-client` library supports custom server URLs (as well as port).
 
 ```
 from exo.api import ExositeAPI
@@ -55,7 +55,7 @@ For more information on the configurable parameters to the `ExositeAPI` class, v
 
 ### Command Line Interface
 
-A light-weight cli is provided for common tasks like checking the version number, install path, etc.
+A light-weight CLI is provided for common tasks like checking the version number, install path, etc.
 
 ```
 $ gdc -h
@@ -102,9 +102,9 @@ The resultant tarball is installable with the Gateway Engine OTAU feature. This 
 
 Currently, the `device-client` library can be installed in several ways. Installing from source is supported, but not recommended because the process of **building** `device-client` makes the exact version of the code traceable (making support and debug easier).
 
-### From Gateway Engine installer
+### From Gateway Engine Installer
 
-If you have, or intend to have, Gateway Engine installed you can install `device-client` from a build.
+If you have, or intend to have, Gateway Engine installed, you can install `device-client` from a build.
 
 ```
 # virtualenv step optional
@@ -113,7 +113,7 @@ pip install -e git+ssh://git@github.com/exosite/gateway-engine.git#egg=gateway-e
 gwe -I device-client.v1_f97dd97.tar.gz 
 ```
 
-### From tarball
+### From Tarball
 
 ```
 tar zxvf device-client.v1_f97dd97.tar.gz
@@ -121,14 +121,14 @@ cd device-client
 python setup.py install
 ```
 
-### From source (pip)
+### From Source (pip)
 
 ```
 mkvirtualenv device-client --python=python2.7
 pip install -e git+ssh://git@github.com/exosite/device-client.git#egg=device-client
 ```
 
-### From source (setup.py)
+### From Source (setup.py)
 
 ```
 git clone git@github.com:exosite/device-client.git
