@@ -44,7 +44,7 @@ This guide provides an example solution displaying all the telemetric data from 
 	git clone https://github.com/exosite/GWE-Seed-App
 	```
 
-10. Init the Exosite program.
+10. Init the Exosite program and log in using your exosite.io credentials. 
 
 	```
 	cd GWE-Seed-App
