@@ -12,7 +12,7 @@ used and the additional resources available.
 * [Getting Started](getting_started)
 * [Product Overview](product_overview) 
 * [Gateway Engine Release Packages](release_packages)
-* [GWE Seed App](seed-app)
+* [GWE Solution App](solution-app)
 * [Over the Air Updates](otau)
 * [Device Client - Docs](device-client)
 * [Gateway Engine - Docs](gateway-engine)
