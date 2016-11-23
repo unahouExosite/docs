@@ -1,23 +1,24 @@
-# GWE-Seed-App
-An example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application, "gmq-sine-demo".
+# GWE Seed App
+
+This guide provides an example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application: "gmq-sine-demo".
 
 # Getting Started
 
 ## Configure Murano
 
-1. Create a Murano account and log in to your account (https://exosite.com/signup/).
+1. Create a Murano account (https://exosite.com/signup/) or log in to your existing account (https://www.exosite.io/).
 
-2. Choose to create a New Product. *Start from scratch* as a starting point. Use whatever product name you like.
+2. Choose to create a New Product. Select *Start from scratch* as a starting point. Use whatever product name you like.
 
-3. Add a New Device called "Gateway". Use your gateway's MAC address as the Identity. Example format "00:08:00:4A:02:25".
+3. Navigate to the *DEVICES* tab to add a New Device called "Gateway". Use your gateway's MAC address as the *Identity*. Example format "00:08:00:4A:02:25".
 
-4. Add another New Device called "Test Data". Use "12345" as the Identity.
+4. Add another New Device called "Test Data". Use "12345" as the *Identity*.
 
-5. Add the "test" resource to your "Test Data" device as a float.
+5. Click on your Test Data device and add a New Resource with the *Alias* “test” and *Data Format* “float". 
 
 6. Add the "usage_report", "engine_report", "device_info", "update_interval", "engine_fetch", and "fetch_status" resources to your "Gateway" device as strings.
 
-7. Create an empty solution in Murano. Name it whatever you like. 
+7. Navigate to the *Solutions* screen and create an New Solution. Select *Start from scratch* as a starting point. Name it whatever you like. 
 
 8. Install the Exosite CLI tool. https://github.com/exosite/exosite-cli
 
@@ -46,7 +47,7 @@ An example solution displaying all the telemetric data from Gateway Engine as we
 
 ## Configure The Gateway 
 
-1. Install GWE on your GateWay following the documentation https://gateway-engine.exosite.io/gateway-engine/README.html
+1. Install GWE on your gateway following the documentation https://gateway-engine.exosite.io/gateway-engine/README.html
 
 2. Set the update interval to post data every minute.
 
