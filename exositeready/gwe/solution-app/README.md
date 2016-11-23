@@ -1,4 +1,4 @@
-# GWE Seed App
+# GWE Solution App
 
 This guide provides an example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application: "gmq-sine-demo".
 
