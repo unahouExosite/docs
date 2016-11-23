@@ -10,15 +10,27 @@ This guide provides an example solution displaying all the telemetric data from 
 
 2. Choose to create a New Product. Select *Start from scratch* as a starting point. Use whatever product name you like.
 
+	![Step 2](assets/step_2.png)
+
 3. Navigate to the *DEVICES* tab to add a New Device called "Gateway". Use your gateway's MAC address as the *Identity*. Example format "00:08:00:4A:02:25".
+
+	![Step 3](assets/step_3.png)
 
 4. Add another New Device called "Test Data". Use "12345" as the *Identity*.
 
+	![Step 4](assets/step_4.png)
+
 5. Click on your Test Data device and add a New Resource with the *Alias* “test” and *Data Format* “float". 
+
+	![Step 5](assets/step_5.png)
 
 6. Add the "usage_report", "engine_report", "device_info", "update_interval", "engine_fetch", and "fetch_status" resources to your "Gateway" device as strings.
 
+	![Step 6](assets/step_6.png)
+
 7. Navigate to the *Solutions* screen and create an New Solution. Select *Start from scratch* as a starting point. Name it whatever you like. 
+
+	![Step 7](assets/step_7.png)
 
 8. Install the Exosite CLI tool. https://github.com/exosite/exosite-cli
 
