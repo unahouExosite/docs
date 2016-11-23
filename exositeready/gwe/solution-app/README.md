@@ -1,6 +1,6 @@
 # GWE Solution App
 
-This guide provides an example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application: "gmq-sine-demo".
+This guide provides an example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application: "gmq-sine-demo". For additional information and resources, please refer back to the Gateway Engine documentation home page (http://docs.exosite.com/exositeready/gwe/).
 
 # Getting Started
 
@@ -8,7 +8,7 @@ This guide provides an example solution displaying all the telemetric data from 
 
 1. Create a Murano account (https://exosite.com/signup/) or log in to your existing account (https://www.exosite.io/).
 
-2. Choose to create a New Product. Select *Start from scratch* as a starting point. Use whatever product name you like.
+2. Choose to create a New Product. Select *Start from scratch* as a starting point. You may use any product name you like.
 
 	![Step 2](assets/step_2.png)
 
@@ -20,7 +20,7 @@ This guide provides an example solution displaying all the telemetric data from 
 
 	![Step 4](assets/step_4.png)
 
-5. Click on your Test Data device and add a New Resource with the *Alias* “test” and *Data Format* “float". 
+5. Click on your Test Data device and add a New Resource with the *Alias* “test” and *Data format* “float". 
 
 	![Step 5](assets/step_5.png)
 
