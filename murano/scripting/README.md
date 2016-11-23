@@ -94,7 +94,8 @@ An extra *response* argument is provided to the **endpoint script** context allo
 
 The _response_ object content:
 
-||attribute||type||default value||description||
+|attribute|type|default value|description|
+|---------|----|-------------|-----------|
 |**code**|_integer_|200|The response HTTP status code.<br />If any exception occurs, a 500 is returned.|
 |**message**|_string_ or _table_|"Ok"|The HTTP response body. If a Lua table is given, the routing wrapper will automatically encode it as JSON object.|
 |**headers**|Table of _string_|"content-type" = *text/plan* or *application/json* |The HTTP response headers depend on message type.|
