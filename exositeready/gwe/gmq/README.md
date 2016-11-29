@@ -1,4 +1,4 @@
-# Gateway Messaging Queuing - Docs
+# Gateway Message Queuing - Docs
 
 Gateway Message Queuing (GMQ) is a localhost HTTP server that provides a shallow clone of the Exosite Device API. Its primary function is to deal with loss-of-network and power failure scenarios.
 
