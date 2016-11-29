@@ -3,7 +3,7 @@ title: ExositeReady™
 ---
 # ExositeReady™ Device Connectivity Enablement Software
 
-ExositeReady™ software is code created by Exosite or in collaboration with partners to give developers software for their hardware platform, no matter if it is a small embedded microcontroller or a Linux based industrial computer gateway. Exosite provides libraries, demo and reference code, in addition to production quality offerings like the ExositeReady™ Embedded SDK. Code and hardware ports that have gone through the ExositeReady™ Certitication program meeting high criteria for functionality, testing, and quality are marked as __ExositeReady™ Certified__.
+ExositeReady™ software is code created by Exosite or in collaboration with partners to give developers software for their hardware platform, no matter if it is a small embedded microcontroller or a Linux based industrial computer gateway. Exosite provides libraries, demo and reference code, in addition to production quality offerings like the ExositeReady™ Embedded SDK. Code and hardware ports that have gone through the ExositeReady™ Certification program meeting high criteria for functionality, testing, and quality are marked as __ExositeReady™ Certified__.
 
 * [Embedded SDK](embedded_sdk)
 * [Gateway Engine](gwe) 
