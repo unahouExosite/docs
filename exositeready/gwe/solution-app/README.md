@@ -71,3 +71,4 @@ This guide provides an example solution displaying all the telemetric data from 
 
 4. Navigate to your solution page and check to see the data is flowing.
 
+If you encounter any issues, please contact our dedicated GWE support team at [gwesupport@exosite.com](mailto:gwesupport@exosite.com).
