@@ -1,12 +1,11 @@
 # Gateway Engine Release Packages
 
 This section contains links and downloadable files that are referenced
-throughout this documentation site. Below are sections outlining the
+throughout the Gateway Engine documentation. Below are sections outlining the
 various options when choosing a copy of Gateway Engine. The packages all
 contain the same version of Gateway Engine, but with specific Custom
-Gateway Applications that are packaged into it. Each option also
-contains an additional option of the git branch its build is based -
-`master` or `dev`. Release packages based on the `dev` branch are for
+Gateway Applications packaged into it. Each option also
+contains an additional option of the git branch its build is based—`master` or `dev`. Release packages based on the `dev` branch are for
 development purposes and come with no guarantee or warranty. Releases
 based on the `master` branch are stable and undergo a comprehensive QA
 process.
@@ -15,7 +14,7 @@ process.
 
 The download options below contain full Gateway Engine release packages. To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk).
 
-**NOTE:** If your gateway has an internet connection and no browser to load this
+**NOTE:** If your gateway has an Internet connection and no browser to load this
 page and click the button with, the following command can be executed
 on the gateway to download the release package. It will quietly
 download the release and print the release name when it finishes.
@@ -26,7 +25,7 @@ basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amaz
 
 # Previous Releases
 
-If the download button doesn't work in your browser, we also keep a
+If the download button does not work in your browser, we also keep a
 downloads area for current and previous releases you can access by
 clicking
 [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html).
@@ -37,12 +36,12 @@ is also specified in the `latest.lnk` file.
 
 A release package comes in the form of a compressed tar file. Unpacking
 this tar file and running the included installer will install Gateway
-Engine and all of its dependencies. The Gateway Engine software won't
+Engine and all its dependencies. The Gateway Engine software will not
 start/execute until the machine has been rebooted. Most public releases
 of Gateway Engine come with an example program that other sections
 (otau, custom\_gateway\_applications) in this documentation refer to.
 
-Here’s what a typical release package of Gateway Engine looks like:
+Here is what a typical release package of Gateway Engine looks like:
 
 ```
 $ tar tvf GatewayEngine.v1-0-6.tar.gz 
@@ -88,11 +87,11 @@ drwxr-xr-x  0 jenkins jenkins      0 Aug 25 17:14 gateway-engine/test/
 -rwxr-xr-x  0 jenkins jenkins   4821 Aug 25 17:14 gateway-engine/test/test_engine.py
 ```
 
-Notice the various sections of the release tarball from the above
-listing. There is typically only one section at the top-level of the
-tarball and that’s the `gateway-engine/` directory.
+Notice, the various sections of the release tarball from the above
+listing. There is typically only one section at the top level of the
+tarball, and that is the `gateway-engine/` directory.
 
-At the `gateway-engine/` directory level, there’s
+At the `gateway-engine/` directory level, there is
 
 ```
 install.sh
@@ -114,21 +113,21 @@ If you want to simply install everything needed to get your gateway data
 to Exosite promptly, we recommend executing `install.sh`. This will
 ensure all dependencies and programs get installed. Once complete, the
 gateway will need to be rebooted so all initializations can be executed.
-After a reboot, `supervisord` will be started by the linux `init.d`
+After a reboot, `supervisord` will be started by the Linux `init.d`
 subsystem. Once `supervisord` is running, it will start `GatewayEngine`
-as well as any other program that it installed from the
+as well as any other program it installed from the
 `apps_to_install` directory.
 
-**NOTE:** If you want to manually start `GatewayEngine` you can use the same
+**NOTE:** If you want to manually start `GatewayEngine`, you can use the same
 command that `supervisord` uses: `gwe`. If Supervisor is installed on
 the gateway prior to running the `install.sh` installer, then gateway
 engine installer overwrites it.
 
-In the next section, we'll download the latest version of one of
+In the next section, we will download the latest version of one of
 Exosite's public releases of Gateway Engine that contains an example
 application called `coffee_reporter`. This example application
 illustrates how Custom Gateway Applications fit into Gateway Engine's
-run-time framework.
+runtime framework.
 
 # Release Notes
 
@@ -138,7 +137,7 @@ bugs that were fixed and new features added.
 
 ## Version 1.1.4
 
-### Bug fixes
+### Bug Fixes
 
 * Logging improvements.
 * Some Jenkins CI fixes to packaging and naming releases.
@@ -161,7 +160,7 @@ bugs that were fixed and new features added.
   Engine for use with Murano.
 * Added `gwe --gateway-cik` cli to retrieve Gateway Engine's
   current CIK.
-* Re-wrote READMEs and docs for Murano support.
+* Rewrote READMEs and docs for Murano support.
 * Added `fetch_status` alias to Gateway Engine model. Gateway Engine
   will write the STDOUT/STDERR of any OTAU `install.sh` script to this
   new alias.
@@ -220,25 +219,25 @@ bugs that were fixed and new features added.
 * User configured interface is validated against the existing system
   interfaces and a warning is issued if it is found invalid.
 
-### Changing a Gateway serial number or interface
+### Changing a Gateway Serial Number or Interface
 
 Changing a gateway's `uuid` or `iface` configuration has been supported
-by Gateway Engine since the `iface` option was added, but has been error
+by Gateway Engine since the `iface` option was added but has been error
 prone and subject to confusion.
 
 If ever during development of a gateway IoT solution you change the
-serial number scheme of the device fleet moving forward, you might need
+serial number scheme of the device fleet moving forward, you may need
 to change the serial number of a given gateway. Gateway Engine can be
-configured to use an interface (e.g. eth0, wlan0, ppp0, etc.) MAC
-address as the serial number with the iface option, or configured to use
+configured to use an interface (e.g., eth0, wlan0, ppp0, etc.) MAC
+address as the serial number with the iface option, or it can be configured to use
 a custom serial number with the uuid option.
 
 When Gateway Engine starts up, it checks for a `uuid` option. If one is
-not set (i.e. it is an empty string) it checks for an `iface` option. If
+not set (i.e., it is an empty string) it checks for an `iface` option. If
 neither are set, Gateway Engine refuses to run and exits `-1`.
 
 In order to change the serial number of a gateway, the gateway
-administrator has to first ensure that uuid field is empty.
+administrator has to first ensure the uuid field is empty.
 
 To check the current serial number setting, checking the `uuid` option
 in the Gateway Engine config file can be done with the following
@@ -275,7 +274,7 @@ iface = eth0
 ```
 
 Now that the serial number has been cleared, the gateway administrator
-can either choose to use a different interface's MAC address with by
+can either choose to use a different interface's MAC address by
 changing the `iface` option with the following command.
 
 ```
