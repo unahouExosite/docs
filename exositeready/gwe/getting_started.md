@@ -3,7 +3,7 @@
 This section is provided to help you quickly download Gateway Engine,
 install it onto your gateway and start using it as quickly and easily as
 possible. Once you've completed this section you will have a Gateway
-Engine installed and running on a gateway.
+Engine installed and running on a gateway. If you encounter any issues, please contact the dedicated GWE support team at [gwesupport@exosite.com](mailto:gwesupport@exosite.com).
 
 ## Minimum Requirements
 
