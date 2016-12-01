@@ -11,9 +11,10 @@ used and the additional resources available.
 
 * [Getting Started](getting_started)
 * [Product Overview](product_overview) 
-* [Gateway Engine Release Packages](release_packages)
-* [GWE Solution App](solution-app)
+* [Release Packages](release_packages)
+* [Custom Gateway Applications](custom_gateway_applications)
 * [Over the Air Updates](otau)
+* [GWE Solution App](solution-app)
 * [Device Client - Docs](device-client)
 * [Gateway Engine - Docs](gateway-engine)
 * [Gateway Message Queuing - Docs](gmq)
