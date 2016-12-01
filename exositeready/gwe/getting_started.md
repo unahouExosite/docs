@@ -17,14 +17,83 @@ gateway has the minimum requirements for running Gateway Engine.
 * 128MB Flash
 * 64MB RAM
 
-# Step One
+**NOTE:** Some testing has been done on Python 2.7.3, but hasn't been tested extensively and is not recommended.
 
-Sign up for a [Murano account](https://exosite.com/murano/). Once your
-account is set up, add a device to your Murano Product and name it
-"Gateway Engine". Copy down the MAC address of your Gateway and use it
-as the serial number for your new Murano Gateway Engine device. Once you
-have a Gateway Engine device in your Murano Product, you must add
-resources to it with one of two ways, either manually or by using the MrMurano tool.
+# Step One - Making an Account
+
+Sign up for a [Murano account](https://exosite.com/murano/). 
+
+**NOTE:** When signing up for a new account, there will be emails you will need to
+take action on in order to activate your account and login.
+
+# Step Two - Making and Configuring a Product
+
+Once your account is set up, add a Product and name it (e.g. "Gateway Engine", "My Product", etc). 
+
+Now that you have a product, you must configure it with resources either using MrMurano (recommended) or Manually.
+
+## Use MrMurano
+
+The [MrMurano tool](https://github.com/tadpol/MrMurano) is a command-line tool you can configure and use with your Murano Solutions and Products. 
+
+### Quick Configuration
+
+Below are the minimum steps needed to configure MrMurano for using Gateway Engine.
+
+#### Configure User Name
+
+```
+mr config user.name USER_NAME
+```
+
+#### (*optional*) Configure User Password
+
+The `mr config` dialog stores configuration entries in `.mrmuranorc` files. Use caution when storing passwords on your filesystem. 
+
+```
+mr config user.password PASSWORD
+```
+
+**NOTE**:  The following command can be used to clear the passwords and other configuration entries: `mr config user.password --unset`.
+
+#### Select and Configure your Business Account
+
+```
+mr account --business
+mr config business.id XXXXXXXXXXX
+```
+
+#### Configure Product ID
+
+```
+mr config product.id XXXXXXXXXXX
+```
+
+Once you configure MrMurano, you can use the following
+commands to create the required Gateway Engine resources to the Murano
+device. 
+
+#### Tell MrMurano Where to Find the Spec File
+
+The default location MrMurano uses is `$PWD/specs`. This can be overridden with the following command:
+
+```
+mr config location.specs relative/path/to/folder/containing/spec.file
+```
+
+Verify the path with `mr config --dump`.
+
+#### Tell MrMurano Which Spec File to Use
+
+```
+mr config product.spec gwe.spec
+```
+
+### Create the Resources
+
+```
+mr syncup -V --specs
+```
 
 ## Manually
 
@@ -37,45 +106,16 @@ and what format to choose for them.
 | engine_report | string | Gateway Engine reports information about what applications are installed and other meta data like uptime, exit codes, and versions.         |
 | device_info | string | Gateway Engine reports filesystem and OS data like OS and kernel version as well as free memory and disk space usage.|
 | engine_fetch | string | Gateway Engine regularly checks this dataport for formatted messages containing instructions on new apps and updates to install.        |
-| fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer.        |
+| fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, Gateway Engine reports the STDOUT and STDERR from the app installer. This dataport is also used for uncaught exception logging.       |
 | update_interval | string | This value, in seconds, is the delay between each series of Gateway Engine reports and OTAU checkins.|
 
-## Use MrMurano
+# Step Three - Adding a Device
 
-The [MrMurano tool](https://github.com/tadpol/MrMurano) is a
-command-line tool you can configure and use with your Murano Solutions
-and Products. Once you configure MrMurano, you can use the following
-commands to create the required Gateway Engine resources to the Murano
-device. 
+Copy down the MAC address of your Gateway and use it as the serial number for your new Murano Gateway Engine device. 
 
-```
-# command to create spec.yaml file
-cat << EOF > spec.yaml
----
-resources:
-- alias: usage_report
-  format: string
-- alias: engine_report
-  format: string
-- alias: device_info
-  format: string
-- alias: engine_fetch
-  format: string
-- alias: fetch_status
-  format: string
-- alias: update_interval
-  format: string 
-EOF
-# command to apply the spec.yaml file to the new Gateway Engine device in your Murano Product.
-mr product spec --file spec.yaml
-```
+Add a Device to your Murano Product with the MAC address of your gateway and name it something relevant (e.g. My Getting Started Gateway).
 
-**NOTE:** When signing up for a new account, there will be emails you will need to
-take action on in order to activate your account and login.
-
-# Step Two
-
-Download, install, and configure Gateway Engine onto your gateway.
+# Step Four - Download, Install, Configure Gateway Engine
 
 To download the latest version of the Public Release of Gateway Engine,
 follow these steps:
@@ -110,8 +150,8 @@ follow these steps:
 
 4.  Once the installation completes, you'll need to configure Gateway
     Engine for your IoT solution and Exosite account. This will require
-    one piece of information from your Murano account and you'll need to
-    make a decision about what serial number to use for your gateway.
+    one piece of information from your Murano account and the serial 
+    number of your gateway.
 
     1.  In your Murano account, navigate to your Product and click on
         the Info tab. Copy the Product ID and use it in the commands,
@@ -159,7 +199,7 @@ follow these steps:
   
 **NOTE:** Gateway Engine uses `supervisord` to start itself on boot and once it starts, it will start Gateway Engine as well as all other installed Custom Gateway Applications.
 
-# Step Three
+# Step Five - Verify
 
 Watch for new data in the Gateway Engine Device on your Product device.
 
@@ -179,6 +219,27 @@ gwe                           RUNNING    pid 620, 00:01:38
 
 A few seconds after rebooting the gateway you should see data appear in
 the aliases of your GatewayEngine device.
+
+For additional functionality of Exosite products available on your gateway, take a look at
+the output of the following commands:
+
+## The Device Client cli
+
+```
+gdc --help
+```
+
+## The Gateway Engine cli
+
+```
+gwe --help
+```
+
+## The Gateway Message Queue cli
+
+```
+gmq --help
+```
 
 # Summary
 

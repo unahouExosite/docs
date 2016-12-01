@@ -1,4 +1,4 @@
-# Gateway Engine Release Packages
+# Release Packages
 
 This section contains links and downloadable files that are referenced
 throughout the Gateway Engine documentation. Below are sections outlining the
@@ -12,25 +12,18 @@ process.
 
 # Gateway Engine Downloads
 
-The download options below contain full Gateway Engine release packages. To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk).
+The download options below contain Gateway Engine release packages.
 
-**NOTE:** If your gateway has an Internet connection and no browser to load this
-page and click the button with, the following command can be executed
-on the gateway to download the release package. It will quietly
-download the release and print the release name when it finishes.
+## Listing of Releases
+To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html) to view a listing of downloadable releases. 
+
+## Shell Command
+
+The shell command, below works on most Linux and OSX machines to download and echo the name of the downloaded file to the terminal.
 
 ```
 basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
 ```
-
-# Previous Releases
-
-If the download button does not work in your browser, we also keep a
-downloads area for current and previous releases you can access by
-clicking
-[here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html).
-The latest release is the one with the highest numerical designator and
-is also specified in the `latest.lnk` file.
 
 # Release Package Overview
 
@@ -96,6 +89,7 @@ At the `gateway-engine/` directory level, there is
 ```
 install.sh
 setup.py
+LICENSE.txt
 GatewayEngine/
 apps_to_install/
 init/
@@ -123,19 +117,26 @@ command that `supervisord` uses: `gwe`. If Supervisor is installed on
 the gateway prior to running the `install.sh` installer, then gateway
 engine installer overwrites it.
 
-In the next section, we will download the latest version of one of
-Exosite's public releases of Gateway Engine that contains an example
-application called `coffee_reporter`. This example application
-illustrates how Custom Gateway Applications fit into Gateway Engine's
-runtime framework.
-
 # Release Notes
 
 This section contains release notes for each release of Gateway Engine.
 The subsections are broken down by release and contain notes about known
 bugs that were fixed and new features added.
 
+## Version 1.3.x
+
+### Bug Fixes
+
+### New Features
+
+* Custom Gateway Application build command --build-app added.
+* Build file linter --check-buildfile added.
+* Custom Gateway Application tarball test command --check-tarfile added.
+* Unkown exceptions during `gwe` runtime are logged to the `fetch_status` dataport.
+
 ## Version 1.1.4
+
+An early, stable developer preview version.
 
 ### Bug Fixes
 
