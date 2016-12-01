@@ -5,7 +5,10 @@ template: default
 
 # Murano OAuth User Guide
 
+This document describes how to use the Murano User service to connect with an OAuth provider. This allows the end users of a solution to sign in using an existing identity such as Google or Facebook rather than using username and password.
+
 # Function:
+
 ## createSocial
 Description: Create a social.
 Example:
@@ -76,7 +79,7 @@ response.message = User.socialRequest({consumer=request.parameters.consumer, tok
 
 Create an App on Google: [https://console.developers.google.com/](https://console.developers.google.com/)
 
-Go to Credentials and create a new credential.
+Go to Credentials and create a new credential. It should be an OAuth client ID with type "Web Application".
 
 ![image alt text](../assets/oauth_0.png)	
 
@@ -91,7 +94,7 @@ Add callback url.
 
 ![image alt text](../assets/oauth_1.png)
 
-Use websocket debug endpoint to add the google social.
+Use websocket debug endpoint to add the google social connection.
 
 ```
 Example: User.createSocial({"consumer":"Google","client_id":"xxxxxxxxxx","client_secret":"xxxxxx","scope":["profile","email"],"redirect":"https://sphx185.apps.exosite-dev.io/social/handle/Google"})
