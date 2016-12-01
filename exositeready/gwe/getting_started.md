@@ -46,22 +46,16 @@ Below are the minimum steps needed to configure MrMurano for using Gateway Engin
 mr config user.name USER_NAME
 ```
 
-#### (*optional*) Configure User Password
-
-The `mr config` dialog stores configuration entries in `.mrmuranorc` files. Use caution when storing passwords on your filesystem. 
-
-```
-mr config user.password PASSWORD
-```
-
-**NOTE**:  The following command can be used to clear the passwords and other configuration entries: `mr config user.password --unset`.
-
 #### Select and Configure your Business Account
 
 ```
 mr account --business
 mr config business.id XXXXXXXXXXX
 ```
+
+**NOTE**: The `mr config` dialog stores configuration entries in `.mrmuranorc` files, but treats passwords differently. The first time you log in to an account and are prompted for your password, MrMurano stashes the password in the file `~/.mrmurano/passwords`. 
+
+If you don't want this stored in a local file, run `rm ~/.mrmurano/passwords` after each session.
 
 #### Configure Product ID
 
