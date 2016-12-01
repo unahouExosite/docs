@@ -1,5 +1,6 @@
-Over the Air Updates
-====================
+# Over the Air Updates
+
+## Overview
 
 Performing Over the Air Updates to gateways is the core function of
 Gateway Engine and, more specifically, the `gwe` process.
@@ -38,6 +39,8 @@ need to be restarted in order for the change to be applied.
 supervisorctl restart gwe
 ```
 
+### A Note on Cellular vs. Development Gateways
+
 During the development of your Custom Gateway Application, if you are
 not on a cellular network or otherwise are not concerned with network
 bandwidth usage, use a really fast `update_interval`. You can set the
@@ -45,14 +48,115 @@ bandwidth usage, use a really fast `update_interval`. You can set the
 as soon as you have updates to deploy to the gateway, they will be
 installed immediately.
 
+## Uploading Content
+
+In order for Gateway Engine to be able to download an OTAU package, it 
+must be uploaded to your Gateway Engine Product's content area. To upload
+content to your Product's content area, use the following MrMurano commands:
+
+```
+mr content upload your_app.v1.2.3.tar.gz your_app.v1.2.3.tar.gz
+```
+
+Verify `your_app.v1.2.3.tar.gz` was uploaded:
+
+```
+mr content list
+```
+
+## Deploy the OTAU
+
+Now that your OTAU package is in the content area, it is available for 
+download by Gateway Engine. In order for your gateway to download the 
+OTAU, you must tell it to do so. Remember that Gateway Engine checks 
+every `update_interval` seconds for new OTAUs to download and if there
+aren't any specified in it's `engine_fetch` dataport it won't do anything.
+
+To deploy the OTAU `your_app.v1.2.3.tar.gz` to your gateway, you'll need
+the following:
+
+*  The serial number of the gateway, usually the MAC (e.g. 00:10:C2:9B:A8:46)
+   address of the internet interface (`eth0`, `ppp0`).
+*  The filename of the OTAU content for Gateway Engine to download and install
+   (e.g. `your_app.v1.2.3.tar.gz`)
+
+Use the following MrMurano command to deploy the `your_app.v1.2.3.tar.gz` OTAU
+to gateway with serial number 00:10:C2:9B:A8:46:
+
+```
+mr product device write 00:10:C2:9B:A8:46 engine_fetch '{"install": [{"name": "your_app.v1.2.3.tar.gz"}]}'
+```
+
 The JSON object must be formatted like this:
 
 ```
 {"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}
 ```
 
-In order for Gateway Engine to download the tarball and
-install it, the tarball must be uploaded to the Gateway Engine Content
-Area of One Platform. For instructions on uploading your application
-tarball and sending the installation command to Gateway Engine, see the
-[Gateway Engine README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/) page.
+## Verify/Debug
+
+One of the reasons that Gateway Engine is such a powerful developer and 
+fleet management tool for IoT gateway systems is the OTAU feature. Once
+an OTAU is deployed and Gateway Engine checks in to download and install
+it, it "clears" the `engine_fetch` dataport to signify that it is now
+downloading and installing the OTAU package.
+
+Once the download and install is complete, it writes the STDOUT/STDERR
+of the OTAU package's `install.sh` script to the `engine_fetch` dataport.
+
+After a reasonable amount of time, you should be able to see the status
+of your OTAU deployment with the following command:
+
+```
+mr product device read 00:10:C2:9B:A8:46 fetch_status
+```
+
+# A Development Cycle
+
+Here is a common development cycle for developing Custom Gateway Applications
+with Gateway Engine:
+
+1. Create/fix Custom Gateway Application.
+
+    ```
+    gwe --create-buildfile
+    # edit build file
+    gwe --check-buildfile <BUILD_FILE>
+    gwe --build-app <BUILD_FILE>
+    gwe --check-tarball <APP_NAME>.v<VERSION>.tar.gz
+    ```
+
+**NOTE**: The `gwe --build-app <BUILD_FILE>` command prints the full path to 
+the new application tarball to STDOUT, but it runs checks on the build file
+and the new tarball by default. You can view the output by adding the optional
+debug flags on the command line:
+
+    ```
+    gwe -d DEBUG --build-app <BUILD_FILE> 
+    ```
+
+2. Upload, deploy to gateway.
+
+    ```
+    mr content upload <APP_NAME>.v<VERSION>.tar.gz <APP_NAME>.v<VERSION>.tar.gz
+    mr product device write <MAC_ADDRESS> engine_fetch '{"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}'
+    ```
+
+3. Check status of installation.
+
+    ```
+    mr product device read <MAC_ADDRESS> fetch_status
+    ```
+
+4. Verify application behavior.
+5. If application still isn't working right, go to Step 1.
+
+## Summary/Recap
+
+The Gateway Engine Over-the-Air-Update feature is your most powerful tool
+as a developer because it uses the same installation mechanism for OTAUs
+and command-line installs. When used as the method for deploying 
+development code to your gateway, it paves the pathway for managing your
+fleet of gateways as your IoT system grows over time.
+
+
