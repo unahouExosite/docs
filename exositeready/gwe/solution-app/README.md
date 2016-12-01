@@ -1,6 +1,6 @@
-# GWE Solution App
+# ExositeReady™ Gateway Engine Solution App
 
-This guide provides an example solution displaying all the telemetric data from Gateway Engine as well as showing a Custom Gateway Application: "gmq-sine-demo". For additional information and resources, please refer back to the Gateway Engine documentation home page (http://docs.exosite.com/exositeready/gwe/).
+This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a Custom Gateway Application: "gmq-sine-demo". For additional information and resources, please refer back to the GWE documentation home page (http://docs.exosite.com/exositeready/gwe/).
 
 # Getting Started
 
