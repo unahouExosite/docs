@@ -4,7 +4,7 @@ The purpose of the `device-client` package is to provide a library to the Exosit
 
 ## Overview
 
-The Gateway Device Client (GDC) can be referred to as the protocol layer of the gateway. It is a python package that can be used as a common entry point for all requests to Exosite. Though other Exosite API libraries exist, GDC is used by Gateway Engine and other Exosite gateway technologies to format and process all Exosite API requests. The GDC library has a few features that make it extremely useful for development, debugging, and telemetry purposes.
+The Gateway Device Client (GDC) can be referred to as the protocol layer of the gateway. It is a python package that can be used as a common entry point for all requests to Exosite. Though other Exosite API libraries exist, GDC is used by ExositeReady™ Gateway Engine (GWE) and other Exosite gateway technologies to format and process all Exosite API requests. The GDC library has a few features that make it extremely useful for development, debugging, and telemetry purposes.
 
 ### Response Handlers
 
@@ -76,7 +76,7 @@ $ gdc --version
 
 ## Building
 
-The `device-client` library is **built** for installation via Gateway Engine.
+The `device-client` library is **built** for installation via GWE.
 
 ```
 $ cd device-client
@@ -96,15 +96,15 @@ a setup.py
 /Users/willcharlton/sandbox/GatewayEngine/device-client/device-client.v1_f97dd97.tar.gz
 ```
 
-The resultant tarball is installable with the Gateway Engine OTAU feature. This is the same process that creates the production version of `device-client` that Gateway Engine installs and utilizes.
+The resultant tarball is installable with the GWE OTAU feature. This is the same process that creates the production version of `device-client` that GWE installs and utilizes.
 
 ## Installation
 
 Currently, the `device-client` library can be installed in several ways. Installing from source is supported, but not recommended because the process of **building** `device-client` makes the exact version of the code traceable (making support and debug easier).
 
-### From Gateway Engine Installer
+### From GWE Installer
 
-If you have, or intend to have, Gateway Engine installed, you can install `device-client` from a build.
+If you have, or intend to have, GWE installed, you can install `device-client` from a build.
 
 ```
 # virtualenv step optional
