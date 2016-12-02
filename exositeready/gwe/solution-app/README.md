@@ -1,6 +1,6 @@
 # ExositeReady™ Gateway Engine Solution App
 
-This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo". For additional information and resources, please refer back to the GWE documentation [home page](http://docs.exosite.com/exositeready/gwe/).
+This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo." For additional information and resources, please refer back to the GWE documentation [home page](http://docs.exosite.com/exositeready/gwe/).
 
 # Requirements
 
@@ -21,7 +21,7 @@ This guide requires the installation of GWE on your gateway hardware device. The
 
 	![Step 2](assets/step_2.png)
 
-3. Navigate to the *DEVICES* tab.
+3. Click to open your new product and navigate to the *DEVICES* tab.
 
 	1. Click "NEW DEVICE." 
 	2. In the popup box, name your device "Gateway". 
@@ -30,18 +30,18 @@ This guide requires the installation of GWE on your gateway hardware device. The
 
 	![Step 3](assets/step_3.png)
 
-4. Repeat the previous steps to add another new device called "Test Data", using "12345" as the *Identity*.
+4. Refer back to the previous steps to add another new device called "Test Data", using "12345" as the *Identity*.
 
 	![Step 4](assets/step_4.png)
 
 5. Click to open your Test Data device. 
 	1. Click "NEW RESOURCE." 
-	2. In the popup box, input the *Alias* as “test” and *Data format* as “float". 
+	2. In the popup box, input the *Alias* as “Test” and *Data format* as *float*. 
 	3. Click "CREATE."
 
 	![Step 5](assets/step_5.png)
 
-6. Add additional new resources to your "Gateway" device with the *Alias*es "usage_report", "engine_report", "device_info", "update_interval", "engine_fetch", and "fetch_status". Use the *Data format* "string" for each.
+6. Add additional new resources to your "Gateway" device with the *Alias*es "usage_report", "engine_report", "device_info", "update_interval", "engine_fetch", and "fetch_status". Use *string* as the *Data format* for each.
 
 	![Step 6](assets/step_6.png)
 
