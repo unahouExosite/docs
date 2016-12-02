@@ -1,27 +1,27 @@
 # Custom Gateway Applications
 
-By itself, Gateway Engine hosts Custom Gateway Applications (CGA) and Gateway Message Queuing server waits for incoming requests from Custom Gateway Applications, so, without a Custom Gateway Application to host, Gateway Engine doesn't really do much. This section is dedicated to defining how Custom Gateway Applications fit into the Gateway Engine hosting framework.
+By itself, ExositeReady™ Gateway Engine (GWE) hosts Custom Gateway Applications (CGA) and Gateway Message Queuing server waits for incoming requests from Custom Gateway Applications, so, without a Custom Gateway Application to host, GWE does not really do much. This section is dedicated to defining how Custom Gateway Applications fit into the GWE hosting framework.
 
 The illustration, below, shows the basic layout of a typical IoT gateway from the physical layer up to the cloud.
 
 ![communication_topology](/exositeready/gwe/communication_topology.png)
 
-This illustration shows an application written in the context of and hosted by Gateway Engine. As shown, the custom application has flexible options as far as how it can communicate on the internet and with Exosite. As a developer of a CGA, you may choose to use the Gateway Message Queue (GMQ) for writing sensor data, Device Client (GDC) for reading configuration data and some other tool like `curl` or another library for some other service (e.g. ntpdate, ping, a nodejs library, etc.).
+This illustration shows an application written in the context of and hosted by GWE. As shown, the custom application has flexible options as far as how it can communicate on the internet and with Exosite. As a developer of a CGA, you may choose to use the Gateway Message Queue (GMQ) for writing sensor data, Device Client (GDC) for reading configuration data and some other tool like `curl` or another library for some other service (e.g., ntpdate, ping, a nodejs library, etc.).
 
-The Custom Gateway Application is the customized logic the developer writes for a specific IoT solution. A Custom Gateway Application should be designed to be installed via the Gateway Engine installer and OTAU feature.
+The Custom Gateway Application is the customized logic the developer writes for a specific IoT solution. A Custom Gateway Application should be designed to be installed via the GWE installer and OTAU feature.
 
-## Get the Gateway Engine Development Tools
+## Get the GWE Development Tools
 
-Navigate to the [Release Packages!](release_packages.md) section and download the latest copy of Gateway Engine to your development machine.
+Navigate to the [Release Packages](release_packages.md) section and download the latest copy of GWE to your development machine.
 
-It is highly recommended that you create a virtual Python environment before installing Gateway Engine onto your development machine.
+It is highly recommended that you create a virtual Python environment before installing GWE onto your development machine.
 
 ```
 pip install virtualenvwrapper
 mkvirtualenv gwe-devtools --python=python2.7
 ```
 
-Unpack the Gateway Engine release and install the development tools. If using a virtual python environment, make sure to activate it with `workon gwe-devtools` before proceeding.
+Unpack the GWE release and install the development tools. If using a virtual python environment, make sure to activate it with `workon gwe-devtools` before proceeding.
 
 ```
 mkdir ~/sandbox
@@ -122,7 +122,7 @@ Build file location:
 
 ### Create `install.sh` Script
 
-To get started, create an `install.sh` file Gateway Engine can use to install `example.sh` to `/usr/local/bin`. Making sure to use a shebang as the first line of the file and having the correct file mode is important.
+To get started, create an `install.sh` file GWE can use to install `example.sh` to `/usr/local/bin`. Making sure to use a shebang as the first line of the file and having the correct file mode is important.
 
 ```
 echo '#!/bin/sh' > install.sh
@@ -134,12 +134,12 @@ chmod +x install.sh
 
 ### Create the `supervisor.conf` File
 
-This file is used by Gateway Engine during installation to determine if this is a long-running, hosted application or if it is just a script to run. By not including a `supervisor.conf` file, the Gateway Engine installer will have no way to configure `supervisord` to automatically start the Custom Gateway Application on boot, or to restart it if/when it crashes. Sometimes there are cases in which you want this behavior. Custom Gateway Applications that have no `supervisor.conf` configuration file are effectively **ONE-OFF** applications. Restated, these can still be considered applications, but they execute only once - when Gateway Engine runs the `install.sh` script. This can be a handy tool if you want to just send a command to a gateway like `reboot`.
+This file is used by GWE during installation to determine if this is a long-running, hosted application or if it is just a script to run. By not including a `supervisor.conf` file, the GWE installer will have no way to configure `supervisord` to automatically start the Custom Gateway Application on boot, or to restart it if/when it crashes. Sometimes there are cases in which you want this behavior. Custom Gateway Applications that have no `supervisor.conf` configuration file are effectively **ONE-OFF** applications. Restated, these can still be considered applications, but they execute only once - when GWE runs the `install.sh` script. This can be a handy tool if you want to just send a command to a gateway like `reboot`.
 
 For long-running, hosted CGAs in which a `supervisor.conf` file *is* provided, there are some defaults and constraints to understand before proceeding.
 
 * The file must be an INI-style configuration file with a single `[supervisord]` section.
-* Any option specified in the `[supervisord]` will override any default option that Gateway Engine provides.
+* Any option specified in the `[supervisord]` will override any default option that GWE provides.
 
 Below is an example of a `supervisor.conf` file that `supervisord` can use to start `/usr/local/bin/example.sh`, keep running, rotate the logs and restart it it crashes.
 
@@ -151,7 +151,7 @@ cat supervisor.conf
 
 #### A Note on the Default Supervisor Options
 
-Below are the default options that Gateway Engine will impose if the `supervisor.conf` file you provide does not contain them. If your `supervisor.conf` file contains any of these options, then the defaults will be overridden by them.
+Below are the default options that GWE will impose if the `supervisor.conf` file you provide does not contain them. If your `supervisor.conf` file contains any of these options, then the defaults will be overridden by them.
 
     ```
     ; This section is mandatory. If a supervisor.conf file doesn't
@@ -227,7 +227,7 @@ With the example buildfile, above, the following output should be seen on your t
 
 ## Build the Application
 
-With an application to build and a buildfile, Gateway Engine can build an OTAU application with the following command:
+With an application to build and a buildfile, GWE can build an OTAU application with the following command:
 
 ```
 gwe --build-app gwe-buildfile.json
@@ -252,7 +252,7 @@ mr product device write <SERIAL_NUMBER_OF_GATEWAY> engine_fetch '{"install": [{"
 
 ## Verify the Deployment
 
-The STDOUT of the `install.sh` script is written to Gateway Engine's `fetch_status` dataport after it completes. Use the following MrMurano command to check on the status of the installation. If there were any errors during the deployment, the will show up here:
+The STDOUT of the `install.sh` script is written to GWE's `fetch_status` dataport after it completes. Use the following MrMurano command to check on the status of the installation. If there were any errors during the deployment, the will show up here:
 
 ```
 mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
@@ -260,6 +260,6 @@ mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
 
 # A Good Example
 
-If you navigate to the [gmq-sine-demo](https://github.com/exosite/gmq-sine-demo "GMQ Sine Demo") you can see an example of a simple application that Gateway Engine can host and install over the air.
+If you navigate to the [gmq-sine-demo](https://github.com/exosite/gmq-sine-demo "GMQ Sine Demo") you can see an example of a simple application that GWE can host and install over the air.
 
 
