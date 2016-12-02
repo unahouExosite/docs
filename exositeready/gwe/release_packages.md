@@ -1,18 +1,18 @@
 # Release Packages
 
 This section contains links and downloadable files that are referenced
-throughout the Gateway Engine documentation. Below are sections outlining the
-various options when choosing a copy of Gateway Engine. The packages all
-contain the same version of Gateway Engine, but with specific Custom
+throughout the ExositeReady™ Gateway Engine (GWE) documentation. Below are sections outlining the
+various options when choosing a copy of GWE. The packages all
+contain the same version of GWE, but with specific Custom
 Gateway Applications packaged into it. Each option also
 contains an additional option of the git branch its build is based—`master` or `dev`. Release packages based on the `dev` branch are for
 development purposes and come with no guarantee or warranty. Releases
 based on the `master` branch are stable and undergo a comprehensive QA
 process.
 
-# Gateway Engine Downloads
+# GWE Downloads
 
-The download options below contain Gateway Engine release packages.
+The download options below contain GWE release packages.
 
 ## Listing of Releases
 To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html) to view a listing of downloadable releases. 
@@ -28,13 +28,12 @@ basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amaz
 # Release Package Overview
 
 A release package comes in the form of a compressed tar file. Unpacking
-this tar file and running the included installer will install Gateway
-Engine and all its dependencies. The Gateway Engine software will not
+this tar file and running the included installer will install GWE and all its dependencies. The GWE software will not
 start/execute until the machine has been rebooted. Most public releases
-of Gateway Engine come with an example program that other sections
+of GWE come with an example program that other sections
 (otau, custom\_gateway\_applications) in this documentation refer to.
 
-Here is what a typical release package of Gateway Engine looks like:
+Here is what a typical release package of GWE looks like:
 
 ```
 $ tar tvf GatewayEngine.v1-0-6.tar.gz 
@@ -119,7 +118,7 @@ engine installer overwrites it.
 
 # Release Notes
 
-This section contains release notes for each release of Gateway Engine.
+This section contains release notes for each release of GWE.
 The subsections are broken down by release and contain notes about known
 bugs that were fixed and new features added.
 
@@ -207,7 +206,7 @@ An early, stable developer preview version.
   packages (e.g. `gwe -z`)
 * General code cleanup - duplicate code, comments, logging messages.
 * User agent for GWE is now dynamically built by the build sytem.
-  Because of this, GatewayEngine:Gateway constructor no longer
+  Because of this, Gateway Engine: Gateway constructor no longer
   needs user\_agent. User-Agent for Gateway Engine HTTP requests now
   use current version.
 * Added test for checking Gateway Engine User-Agent against the
@@ -215,7 +214,7 @@ An early, stable developer preview version.
 * Versioning changed to custom semantic versioning scheme where
   version reflects MAJOR.MINOR.BUILD designators. Only MAJOR and MINOR
   are tracked in git. BUILD designator tracked in Jenkins and appended
-  to GatewayEngine:\_\_version\_\_:\_\_version\_\_ after
+  to Gateway Engine:\_\_version\_\_:\_\_version\_\_ after
   successful build.
 * User configured interface is validated against the existing system
   interfaces and a warning is issued if it is found invalid.
@@ -223,25 +222,25 @@ An early, stable developer preview version.
 ### Changing a Gateway Serial Number or Interface
 
 Changing a gateway's `uuid` or `iface` configuration has been supported
-by Gateway Engine since the `iface` option was added but has been error
+by GWE since the `iface` option was added but has been error
 prone and subject to confusion.
 
 If ever during development of a gateway IoT solution you change the
 serial number scheme of the device fleet moving forward, you may need
-to change the serial number of a given gateway. Gateway Engine can be
+to change the serial number of a given gateway. GWE can be
 configured to use an interface (e.g., eth0, wlan0, ppp0, etc.) MAC
 address as the serial number with the iface option, or it can be configured to use
 a custom serial number with the uuid option.
 
-When Gateway Engine starts up, it checks for a `uuid` option. If one is
+When GWE starts up, it checks for a `uuid` option. If one is
 not set (i.e., it is an empty string) it checks for an `iface` option. If
-neither are set, Gateway Engine refuses to run and exits `-1`.
+neither are set, GWE refuses to run and exits `-1`.
 
 In order to change the serial number of a gateway, the gateway
 administrator has to first ensure the uuid field is empty.
 
 To check the current serial number setting, checking the `uuid` option
-in the Gateway Engine config file can be done with the following
+in the GWE config file can be done with the following
 command.
 
 ```
@@ -255,7 +254,7 @@ iface = eth0
 ```
 
 The following command will clear the current serial number from the
-Gateway Engine config file.
+GWE config file.
 
 ```
 gwe --set-uuid \'\'
