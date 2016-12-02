@@ -12,8 +12,8 @@ gateway has the minimum requirements for running GWE:
 * Python 2.7.9+
 * Network interface (`eth0`, `wlan0`, `ppp0`, etc.)
 * GNU shell
-* 128MB Flash
-* 64MB RAM
+* 128 MB Flash
+* 64 MB RAM
 
 **NOTE:** Some testing has been done on Python 2.7.3, but it has not been tested extensively and is not recommended.
 
@@ -24,7 +24,7 @@ gateway has the minimum requirements for running GWE:
 Sign up for a [Murano account](https://exosite.com/murano/). 
 
 **NOTE:** When signing up for a new account, there will be emails you will need to
-take action on in order to activate your account and lo gin.
+take action on in order to activate your account and log in.
 
 ## Create and Configure a Product
 
@@ -91,13 +91,13 @@ mr syncup -V --specs
 
 ### Manually
 
-The table, below, shows the resources you must add, what to name them,
+The table below shows the resources you must add, what to name them,
 and what format to choose for them.
 
 | Alias         | Format        | Description   |
 | ------------- | ------------- | ------------- |
-| usage_report  | string        | GWE sends a report of all processes using its resources (`gmq`, `device-client`) to send data to Murano. This report contains information about how much network bandwidth is being consumed as well as other meta data about network requests.|
-| engine_report | string | GWE reports information about what applications are installed and other meta data like uptime, exit codes, and versions.         |
+| usage_report  | string        | GWE sends a report of all processes using its resources (`gmq`, `device-client`) to send data to Murano. This report contains information about how much network bandwidth is being consumed as well as other metadata about network requests.|
+| engine_report | string | GWE reports information about what applications are installed and other metadata like uptime, exit codes, and versions.         |
 | device_info | string | GWE reports filesystem and OS data like OS and kernel version as well as free memory and disk space usage.|
 | engine_fetch | string | GWE regularly checks this dataport for formatted messages containing instructions on new apps and updates to install.        |
 | fetch_status | string | Once an app is installed over-the-air or an update to an app is executed, GWE reports the STDOUT and STDERR from the app installer. This dataport is also used for uncaught exception logging.       |
@@ -146,8 +146,8 @@ follow these steps:
     number of your gateway.
 
     1.  In your Murano account, navigate to your product and click on
-        the *INFO* tab. Copy the Product ID and use it in the commands,
-        below, in place of &lt;PRODUCT\_ID&gt;.
+        the *INFO* tab. Copy the Product ID and use it in the commands
+        below in place of "&lt;PRODUCT\_ID&gt;".
     2.  Determine the serial number of your gateway. GWE is
         programmed to retrieve the MAC address from the Internet
         interface of your choosing (e.g., `eth0`, `wlan0`,
@@ -234,7 +234,7 @@ gmq --help
 
 # Summary
 
-The steps in this section were designed to get you moving as quickly as
+The steps in this guide were designed to get you moving as quickly as
 possible with GWE and Exosite. If you have questions,
 concerns, or suggestions on how to make this documentation better, please
-contact gwesupport@exosite.com with a detailed message. Thank you.
+contact [gwesupport@exosite.com](mailto:gwesupport@exosite.com) with a detailed message. Thank you.
