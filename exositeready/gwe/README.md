@@ -2,9 +2,9 @@
 
 # ![GWE Logo](system_logos_exosite_ready_gwe_rgb_reva.png)
 
-ExositeReady™ Gateway Engine was created by Exosite to service a commonly occurring
+ExositeReady™ Gateway Engine (GWE) was created by Exosite to service a commonly occurring
 design pattern in IoT applications. This page provides information about
-what Gateway Engine does and does not do, as well as a list of the terms 
+what GWE does and does not do, as well as a list of the terms 
 used and the additional resources available. 
 
 # Resources
@@ -16,10 +16,10 @@ used and the additional resources available.
 * [Over the Air Updates](otau)
 * [GWE Solution App](solution-app)
 * [Device Client - Docs](device-client)
-* [Gateway Engine - Docs](gateway-engine)
+* [GWE - Docs](gateway-engine)
 * [Gateway Message Queuing - Docs](gmq)
 
-# About Gateway Engine 
+# About GWE 
 
 ## What is a Gateway?
 
@@ -34,10 +34,10 @@ Either way, the purpose of any gateway is to move local data to an
 external agent on the Internet.
 
 Since using gateways is common throughout so many industrial
-applications, Exosite created Gateway Engine as an out-of-the-box developer 
+applications, Exosite created GWE as an out-of-the-box developer 
 and deployment tool for Internet-connected gateways.
 
-## What Gateway Engine Does
+## What GWE Does
 
 * It is the product that installs and modifies software over the air
     in a secure and scalable manner.
@@ -47,7 +47,7 @@ and deployment tool for Internet-connected gateways.
 * It is integrated with [Supervisor](http://supervisord.org) to manage
     your Custom Gateway Applications' runtime environment.
 
-## What Gateway Engine Does Not Do
+## What GWE Does Not Do
 
 * It does not read any sensor data.
 * It does not auto-discover any connected nodes or sensors and
@@ -59,9 +59,9 @@ and deployment tool for Internet-connected gateways.
 | Term          | Definition    |
 | ------------- | ------------- |
 | CIK           | An acronym for Client Interface Key. The CIK is the authorization for operations like reading and writing data to dataports, creating new clients, dataports, and scripts, and even dropping (aka deleting) the client.  |
-| Custom Gateway Application  | This is the application you (the developer) develop as your IoT solution. It is the application Gateway Engine hosts on your gateway(s).  |
-| Gateway Engine | A Python framework for creating Custom Gateway Applications on Linux gateways. |
-| `"GatewayEngine"` | The Python package in the Gateway Engine framework developed and maintained by Exosite Professional Services.|
+| Custom Gateway Application  | This is the application you (the developer) develop as your IoT solution. It is the application GWE hosts on your gateway(s).  |
+| GWE | A Python framework for creating Custom Gateway Applications on Linux gateways. |
+| `"GatewayEngine"` | The Python package in the GWE framework developed and maintained by Exosite Professional Services.|
 | GWE | An acronym for Gateway Engine and/or `"GatewayEngine"`. |
 | Vendor | An Exosite One Platform term that refers to an account name. |
 | OTAU | An acronym for Over the Air Update. This is the mechanism that enables software and firmware updates over Internet connections. |
