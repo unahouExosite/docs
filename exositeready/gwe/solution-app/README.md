@@ -6,6 +6,8 @@ This guide provides an example solution displaying all the telemetric data from 
 
 This guide requires the installation of GWE on your gateway hardware device. These installation instructions can be found in the [GWE Getting-started Guide](http://docs.exosite.com/exositeready/gwe/getting_started/).
 
+**NOTE:** This is a technical tutorial. You will need some familiarity with your operating system’s terminal.
+
 # Getting Started
 
 ## Configure Murano
@@ -53,7 +55,7 @@ This guide requires the installation of GWE on your gateway hardware device. The
 
 	![Step 7](assets/step_7.png)
 
-8. Install the [Exosite CLI tool](https://github.com/exosite/exosite-cli).
+8. Open your terminal to install the [Exosite CLI tool](https://github.com/exosite/exosite-cli).
 
 	```
 	pip install exosite
