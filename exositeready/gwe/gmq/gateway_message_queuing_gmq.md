@@ -1,6 +1,6 @@
-# Gateway Message Queuing (gmq) README
+# Gateway Message Queuing README
 
-GMQ is designed to be a local proxy for Exosite, with benefits. GMQ is a process in the Gateway Engine product that receives HTTP requests from local (on-gateway) processes.
+Gateway Message Queuing (GMQ) is designed to be a local proxy for Exosite, with benefits. GMQ is a process in the ExositeReady™ Gateway Engine (GWE) product that receives HTTP requests from local (on-gateway) processes.
 
 # The Basics
 
@@ -50,7 +50,7 @@ This custom header and its use is covered in more detail in the [Identity Manage
 
 # Choosing APIs
 
-When writing your Custom Gateway Application (CGA), there are a some considerations to take into account when choosing between the **write** and **record** APIs.
+When writing your custom gateway application, there are a some considerations to take into account when choosing between the **write** and **record** APIs.
 
 ## Send My Data Immediately
 
