@@ -3,17 +3,16 @@
 ## Overview
 
 Performing Over the Air Updates to gateways is the core function of
-Gateway Engine and, more specifically, the `gwe` process.
+ExositeReady™ Gateway Engine (GWE) and, more specifically, the `gwe` process.
 
-Over the Air Updating can be tricky. To help you understand how Gateway
-Engine's OTAU feature works, the diagram below was created to show
-the sequence that results in a Gateway Engine Over the Air Update.
+Over the Air Updating can be tricky. To help you understand how GWE's OTAU feature works, the diagram below was created to show
+the sequence that results in a GWE Over the Air Update.
 
 ![otau](/exositeready/gwe/otau_image.png)
 
-In words, this diagram states that Gateway Engine will check for the
+In words, this diagram states that GWE will check for the
 `engine_fetch` alias for specially formatted JSON objects that contain
-instructions for new Custom Gateway Applications or updates to existing
+instructions for new custom gateway applications or updates to existing
 ones to be downloaded and installed. If there is nothing to download and
 install, it will sleep for the amount of seconds configured in the
 `update_interval` alias.
@@ -41,7 +40,7 @@ supervisorctl restart gwe
 
 ### A Note on Cellular vs. Development Gateways
 
-During the development of your Custom Gateway Application, if you are
+During the development of your custom gateway application, if you are
 not on a cellular network or otherwise are not concerned with network
 bandwidth usage, use a really fast `update_interval`. You can set the
 `update_interval` to as low as one second. Doing so will ensure that
@@ -50,8 +49,8 @@ installed immediately.
 
 ## Uploading Content
 
-In order for Gateway Engine to be able to download an OTAU package, it 
-must be uploaded to your Gateway Engine Product's content area. To upload
+In order for GWE to be able to download an OTAU package, it 
+must be uploaded to your GWE product's content area. To upload
 content to your Product's content area, use the following MrMurano commands:
 
 ```
@@ -67,8 +66,8 @@ mr content list
 ## Deploy the OTAU
 
 Now that your OTAU package is in the content area, it is available for 
-download by Gateway Engine. In order for your gateway to download the 
-OTAU, you must tell it to do so. Remember that Gateway Engine checks 
+download by GWE. In order for your gateway to download the 
+OTAU, you must tell it to do so. Remember that GWE checks 
 every `update_interval` seconds for new OTAUs to download and if there
 aren't any specified in it's `engine_fetch` dataport it won't do anything.
 
@@ -77,7 +76,7 @@ the following:
 
 *  The serial number of the gateway, usually the MAC (e.g. 00:10:C2:9B:A8:46)
    address of the internet interface (`eth0`, `ppp0`).
-*  The filename of the OTAU content for Gateway Engine to download and install
+*  The filename of the OTAU content for GWE to download and install
    (e.g. `your_app.v1.2.3.tar.gz`)
 
 Use the following MrMurano command to deploy the `your_app.v1.2.3.tar.gz` OTAU
@@ -95,9 +94,9 @@ The JSON object must be formatted like this:
 
 ## Verify/Debug
 
-One of the reasons that Gateway Engine is such a powerful developer and 
+One of the reasons that GWE is such a powerful developer and 
 fleet management tool for IoT gateway systems is the OTAU feature. Once
-an OTAU is deployed and Gateway Engine checks in to download and install
+an OTAU is deployed and GWE checks in to download and install
 it, it "clears" the `engine_fetch` dataport to signify that it is now
 downloading and installing the OTAU package.
 
@@ -113,10 +112,10 @@ mr product device read 00:10:C2:9B:A8:46 fetch_status
 
 # A Development Cycle
 
-Here is a common development cycle for developing Custom Gateway Applications
-with Gateway Engine:
+Here is a common development cycle for developing custom gateway applications
+with GWE:
 
-1. Create/fix Custom Gateway Application.
+1. Create/fix custom gateway application.
 
     ```
     gwe --create-buildfile
@@ -153,7 +152,7 @@ debug flags on the command line:
 
 ## Summary/Recap
 
-The Gateway Engine Over-the-Air-Update feature is your most powerful tool
+The GWE Over-the-Air-Update feature is your most powerful tool
 as a developer because it uses the same installation mechanism for OTAUs
 and command-line installs. When used as the method for deploying 
 development code to your gateway, it paves the pathway for managing your
