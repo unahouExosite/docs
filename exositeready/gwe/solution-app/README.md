@@ -1,6 +1,6 @@
 # ExositeReady™ Gateway Engine Solution App
 
-This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo." For additional information and resources, please refer back to the GWE documentation [home page](http://docs.exosite.com/exositeready/gwe/).
+This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo." For additional information and resources, please refer to the GWE documentation [home page](http://docs.exosite.com/exositeready/gwe/).
 
 # Requirements
 
@@ -32,7 +32,7 @@ This guide requires the installation of GWE on your gateway hardware device. The
 
 	![Step 3](assets/step_3.png)
 
-4. Refer back to the previous steps to add another new device called "Test Data", using "12345" as the *Identity*.
+4. Refer back to the previous step to add another new device called "Test Data", using "12345" as the *Identity*.
 
 	![Step 4](assets/step_4.png)
 
