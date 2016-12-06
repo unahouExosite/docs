@@ -4,7 +4,7 @@ Gateway Message Queuing (GMQ) is designed to be a local proxy for Exosite, with 
 
 # The Basics
 
-GMQ is designed to be a localhost **store-and-forward-style** HTTP server that processes incoming requests and, when a network connection cannot be made, retries the them when the network becomes available. The `gmq` API contains the following subset of the [Exosite HTTP Data API](http://docs.exosite.com/murano/products/device_api/http/).
+GMQ is designed to be a localhost **store-and-forward-style** HTTP server that processes incoming requests and, when a network connection cannot be made, retries them when the network becomes available. The `gmq` API contains the following subset of the [Exosite HTTP Data API](http://docs.exosite.com/murano/products/device_api/http/).
 
 * **activate**
 * **write**
@@ -14,7 +14,7 @@ The `gmq` server's main function is to assure that the data you give it will ter
 
 # Refactoring Existing Code to Work with GMQ
 
-Since the endpoints of `gmq` are the same as the Exosite HTTP Data API, all you need to do to make your application's existing `activate`, `write` and `record` calls to Exosite use `gmq` instead is to change the hostname in the url from `<PRODUCT_ID>.m2.exosite.com` to `localhost:8090`.
+Since the endpoints of `gmq` are the same as the Exosite HTTP Data API, all you need to do to make your application's existing `activate`, `write`, and `record` calls to Exosite use `gmq` instead is to change the hostname in the url from `<PRODUCT_ID>.m2.exosite.com` to `localhost:8090`.
 
 For example, take the following `curl` command that writes JSON data to Murano Product ID **dubhxzv0r4e1m7vj** using the HTTP Device API.
 
@@ -26,7 +26,7 @@ curl -XPOST dubhxzv0r4e1m7vj.m2.exosite.com/onep:v1/stack/alias \
     -d "device_report={\"pressure\": \"63\"}"
 ```
 
-To change this to point at the `gmq` server endpoint.
+To change this to point at the `gmq` server endpoint:
 
 ```
 curl -XPOST localhost:8090/onep:v1/stack/alias \
@@ -36,7 +36,7 @@ curl -XPOST localhost:8090/onep:v1/stack/alias \
     -d "device_report={\"pressure\": \"63\"}"
 ```
 
-Your application code is likely programmed to provision a client and retrieve a CIK using the client Model, Vendor and Serial Number. The GMQ server takes care of managing provisioning and CIKs when you use the "X-Exosite-VMS" header instead of a CIK.
+Your application code is likely programmed to provision a client and retrieve a CIK using the client model, vendor, and serial number. The GMQ server takes care of managing provisioning and CIKs when you use the "X-Exosite-VMS" header instead of a CIK.
 
 ```
 curl -XPOST localhost:8090/onep:v1/stack/alias \
@@ -56,7 +56,7 @@ When writing your custom gateway application, there are a some considerations to
 
 If you want GMQ to attempt to send data immediately, the **write** API is the best choice. If the request fails due to a bad network connection, then the timestamp of the **write** request and the request itself is queued so it can be **record**ed later when the connection gets reestablished. When the request is recorded to Murano, it will appear in the time-series at the time of the failed **write** request, not the time of the successful **record** request.
 
-## Send My Data In Bursts or Batches
+## Send My Data in Bursts or Batches
 
 Since the behavior of the GMQ server is configurable, you can use the **record** API to queue all outgoing data so it can be batch uploaded according to the configured period. There are two main configuration settings to worry about when tuning GMQ for your Bursts/Batches of uploaded data:
 
@@ -73,7 +73,7 @@ This setting controls the amount of time, in seconds, that GMQ attempts unqueue 
 
 ### batch_qty
 
-The amount of data that is uploaded every `batch_record_period` is controlled by another *unq* section option called `batch_qty`. The `batch_qty` setting determines the number of records to attempt to upload every `batch_record_period`.
+The amount of data uploaded every `batch_record_period` is controlled by another *unq* section option called `batch_qty`. The `batch_qty` setting determines the number of records to attempt to upload every `batch_record_period`.
 
 For example, if I wanted to queue sensor data every `5` seconds and then upload all queued data every `5` minutes, I would make the following configuration adjustments:
 
@@ -93,16 +93,16 @@ Though this makes sense in a perfect network scenario, setting `batch_qty` to `6
 The GMQ server introduces the Vendor-Model-Serial (VMS) data structure as the fundamental unit of any given node's identity, called the VMS Client. By making a request to localhost:8090 endpoints with a VMS identity (VENDOR, MODEL, SERIAL), GMQ will automatically:
 
 1.  Attempt to provision the VMS Client with Murano and retrieve its CIK.
-2.  Immediately forward all 'write' requests on to Murano.
-3.  If 'write' requests fail due to a lossy internet connection or no/invalid CIK, the request will be queued into the 'record' database    with the timestamp of the request. FUTURE: Requests that get a `400` response code from Murano will not be queued into the 'record' db.
-4.  Immediately queue all 'record' requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [Module Documentation](https://gateway-engine.exosite.io/gmq/apidoc/modules.html#) for information on default behavior.
+2.  Immediately forward all "write" requests on to Murano.
+3.  If "write" requests fail due to a lossy internet connection or no/invalid CIK, the request will be queued into the "record" database with the timestamp of the request. FUTURE: Requests that get a `400` response code from Murano will not be queued into the "record" db.
+4.  Immediately queue all "record" requests into a datastore that uploads a configurable number (`batch_qty`) of requests to Murano according to a configurable frequency (``). See the [Module Documentation](https://gateway-engine.exosite.io/gmq/apidoc/modules.html#) for information on default behavior.
 
 The VENDOR, MODEL, SERIAL data is an old paradigm from the Exosite One Platform product that has been replaced by the Murano Product ID paradigm. In order to use GMQ with a Murano Product, all you have to do is set the VENDOR and MODEL to the Murano Product ID.
 
 # GMQ Custom Header
 
 GMQ uses a new custom header to identify a requestor as a VMS Client.
-This new header is
+This new header is:
 
     X-Exosite-VMS: <VENDOR> <MODEL> <SERIAL>
 
@@ -154,7 +154,7 @@ Example for Product ID `dubhxzv0r4e1m7vj` and serial number `02ab7fc89`:
 
 `POST localhost:8090/onep:v1/stack/<alias> <HEADERS> <DATA>`
 
-1. Append **DATA** to the VMS Client's database. A separate thread of execution will batch record these entries at regular intervals. Like the 'write' method, GMQ will use the CIK associated with the VMS client specified by the new "X-Exosite-VMS" header. If GMQ has no CIK for the given VMS client in the X-Exosite-VMS header, an activation attempt will be made.
+1. Append **DATA** to the VMS Client's database. A separate thread of execution will batch record these entries at regular intervals. Like the "write" method, GMQ will use the CIK associated with the VMS client specified by the new "X-Exosite-VMS" header. If GMQ has no CIK for the given VMS client in the X-Exosite-VMS header, an activation attempt will be made.
 2. The GMQ server will respond `204` with an empty payload. GMQ will respond `400` for invalid requests.
 
 Example for Product ID `dubhxzv0r4e1m7vj` and serial number `02ab7fc89`:
@@ -168,20 +168,20 @@ Example for Product ID `dubhxzv0r4e1m7vj` and serial number `02ab7fc89`:
 
 `POST localhost:8090/reread`
 
-Any time configuration settings are changed, the GMQ server must be notified to re-read the configuration settings files and update its internal state. This can be done in two ways:
+Any time configuration settings are changed, the GMQ server must be notified to reread the configuration settings files and update its internal state. This can be done in two ways:
 
 * POST directly to `localhost:8090/reread`
 * Use the command line to run `gmq reread`
 
 # Configuration and the `gmq` Command Line
 
-Any time a configuration setting is changed, the server must [re-read](#gmq-reread) its configuration files in order for the change to take effect.
+Any time a configuration setting is changed, the server must [reread](#gmq-reread) its configuration files in order for the change to take effect.
 
 ## Manually Editing Configurations
 
 Configuration files, of which there are two, can be edited with your favorite editor (i.e., nano, vim, emacs, etc.).
 
-The two configuration files are `gmq.cfg` and `logging.cfg`. The paths to these files can be retrieved using the `--cfg-path` and `--log-cfg-path` command line switches, respectively.
+The two configuration files are `gmq.cfg` and `logging.cfg`. The paths to these files can be retrieved using the `--cfg-path` and `--log-cfg-path` command-line switches, respectively.
 
 ## Editing Configurations on the Command Line
 
@@ -195,7 +195,7 @@ To view the current database debug level, try the command: `gmq log get logger_d
 
 ## The Command Line
 
-Here is the `gmq` command line help screen.
+Here is the `gmq` command-line help screen.
 
 ```
 # gmq --help
@@ -204,7 +204,7 @@ Gateway Message Queue (GMQ)
 GMQ is a localhost HTTP server for use as a general purpose
 request queue for data intended for Exosite Murano Products
 and Solutions. The primary use cases for GMQ is for lossy
-cellular and intermittent WiFi networks, but can be used
+cellular and intermittent WiFi networks, but it can be used
 as a store-and-forward queue for outgoing data. 
 
 Usage:
@@ -271,16 +271,16 @@ To create a PDF file of all of the documentation, simply run:
 
     $ make singlepdf
 
-# Known issues
+# Known Issues
 
-## The `&` bug
+## The `&` Bug
 
-The `&` character in 'write' and 'record' requests can cause requests to fail. This issue is known and currently being addressed by Professional Services.
+The `&` character in "write" and "record" requests can cause requests to fail. This issue is known and currently being addressed by Professional Services.
 
-## The off-by-one CIK renewal behavior
+## The Off-by-one CIK Renewal Behavior
 
-If a 'write' or 'record' request receives a 401 (unauthorized) by GMQ from One Platform, the CIK for the associated VMS Client is flagged for re-activation. Only on successive 'write' and 'record' requests will the activation actually take place. FUTURE: This might be able to be solved by moving from a central identity db (`gmq.db`) and just tracking the cik in the `<VENDOR>.<MODEL>.<SERIAL>.db`. 
+If a "write" or "record" request receives a 401 (unauthorized) by GMQ from One Platform, the CIK for the associated VMS Client is flagged for reactivation. Only on successive "write" and "record" requests will the activation actually take place. FUTURE: This might be solvable by moving from a central identity db (`gmq.db`) and just tracking the CIK in the `<VENDOR>.<MODEL>.<SERIAL>.db`. 
 
-## The new HTTP Record API
+## The New HTTP Record API
 
 The very week that `GMQ` was released, so was the newest version of the Exosite HTTP Record API. Currently, `GMQ` uses the old version of this API and plans are underway to update to the newest version, but rest assured that the old version of the Exosite HTTP Record API is still supported and fully functional.
