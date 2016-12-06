@@ -53,7 +53,7 @@ else:
 
 For more information on the configurable parameters to the `ExositeAPI` class, visit [the module documentation](https://gateway-engine.exosite.io/device-client/apidoc/modules.html).
 
-### Command Line Interface
+### Command-line Interface
 
 A light-weight CLI is provided for common tasks like checking the version number, install path, etc.
 
@@ -100,7 +100,7 @@ The resultant tarball is installable with the GWE OTAU feature. This is the same
 
 ## Installation
 
-Currently, the `device-client` library can be installed in several ways. Installing from source is supported, but not recommended because the process of **building** `device-client` makes the exact version of the code traceable (making support and debug easier).
+Currently, the `device-client` library can be installed in several ways. Installing from source is supported but not recommended because the process of **building** `device-client` makes the exact version of the code traceable (making support and debug easier).
 
 ### From GWE Installer
 
@@ -139,7 +139,7 @@ python setup.py install
 
 ## Documentation
 
-The documentation for `device-client` can built with the [Sphinx Documentation](http://www.sphinx-doc.org/) tool. The `Makefile` has been modified to include the creation of a single PDF.
+The documentation for `device-client` can be built with the [Sphinx Documentation](http://www.sphinx-doc.org/) tool. The `Makefile` has been modified to include the creation of a single PDF.
 
 To create the docs, simply run:
 
