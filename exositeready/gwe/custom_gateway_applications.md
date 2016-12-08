@@ -38,6 +38,7 @@ Beyond this requirement, all other configuration settings are optional (*some ha
 
 This type of application is a command, or series of commands, that is run only once. A one-off app is simply a command or series of commands in an `install.sh` script packaged in an application tarball. Below is an example of a one-off app:
 
+  ```
   $ tar tvf send_some_logs.v1.tar.gz 
   install.sh
   $ tar -Oxf send_some_logs.v1.tar.gz install.sh
@@ -47,6 +48,7 @@ This type of application is a command, or series of commands, that is run only o
 
   gdc write "$(gwe --gateway-cik)" fetch_status "${GWE_LOG_TAIL}"
   $
+  ```
 
 Notice that one-off apps do not have a `supervisor.conf` file that configures commands and logfiles for supervisor, it is just an `install.sh` script that runs some shell commands. 
 
@@ -265,10 +267,10 @@ Next, create a simple application that you can package up into an OTAU package a
 cat > example.sh << EOF
 #!/bin/sh
 
-GW_CIK="$(gwe --gateway-cik)"
+GW_CIK=\$(gwe --gateway-cik)
 
 while true ; do
-    gdc write "${GW_CIK}" gateway_time "$(date +'%s')"
+    gdc write ${GW_CIK} gateway_time \$(date +'%s')
     sleep 1
 done
 EOF
