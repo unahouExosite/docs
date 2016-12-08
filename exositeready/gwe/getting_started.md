@@ -393,5 +393,5 @@ The steps in this guide were designed to get you moving as quickly as possible w
 
 At this point you are probably ready to start using GWE to host your Custom Applications. Next, take a look at the following sections:
 
-  * [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications/)
-  * [Over the Air Updates](otau)
+  * [Custom Gateway Applications](http://docs.exosite.com/exositeready/gwe/custom_gateway_applications/)
+  * [Over the Air Updates](http://docs.exosite.com/exositeready/gwe/otau/)
