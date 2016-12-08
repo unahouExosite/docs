@@ -80,10 +80,11 @@ the following:
    (e.g. `your_app.v1.2.3.tar.gz`)
 
 Use the following MrMurano command to deploy the `your_app.v1.2.3.tar.gz` OTAU
-to gateway with serial number 00:10:C2:9B:A8:46:
+to gateway with serial number `<SERIAL_NUMBER_OF_GATEWAY>`:
+
 
 ```
-mr product device write 00:10:C2:9B:A8:46 engine_fetch '{"install": [{"name": "your_app.v1.2.3.tar.gz"}]}'
+mr product device write <SERIAL_NUMBER_OF_GATEWAY> engine_fetch '{"install": [{"name": "your_app.v1.2.3.tar.gz"}]}'
 ```
 
 The JSON object must be formatted like this:
@@ -94,11 +95,7 @@ The JSON object must be formatted like this:
 
 ## Verify/Debug
 
-One of the reasons that GWE is such a powerful developer and 
-fleet management tool for IoT gateway systems is the OTAU feature. Once
-an OTAU is deployed and GWE checks in to download and install
-it, it "clears" the `engine_fetch` dataport to signify that it is now
-downloading and installing the OTAU package.
+One of the reasons that GWE is such a powerful developer and fleet management tool for IoT gateway systems is the OTAU feature. Once an OTAU is deployed and GWE checks in to download and install it, it "clears" the `engine_fetch` dataport to signify that it is now downloading and installing the OTAU package.
 
 Once the download and install is complete, it writes the STDOUT/STDERR
 of the OTAU package's `install.sh` script to the `engine_fetch` dataport.
@@ -107,7 +104,7 @@ After a reasonable amount of time, you should be able to see the status
 of your OTAU deployment with the following command:
 
 ```
-mr product device read 00:10:C2:9B:A8:46 fetch_status
+mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
 ```
 
 # A Development Cycle
@@ -117,35 +114,32 @@ with GWE:
 
 1. Create/fix custom gateway application.
 
-    ```
-    gwe --create-buildfile
-    # edit build file
-    gwe --check-buildfile <BUILD_FILE>
-    gwe --build-app <BUILD_FILE>
-    gwe --check-tarball <APP_NAME>.v<VERSION>.tar.gz
-    ```
+  ```
+  gwe --create-buildfile
+  # edit build file
+  gwe --check-buildfile <BUILD_FILE>
+  gwe --build-app <BUILD_FILE>
+  gwe --check-tarball <APP_NAME>.v<VERSION>.tar.gz
+  ```
 
-**NOTE**: The `gwe --build-app <BUILD_FILE>` command prints the full path to 
-the new application tarball to STDOUT, but it runs checks on the build file
-and the new tarball by default. You can view the output by adding the optional
-debug flags on the command line:
+  **NOTE**: The `gwe --build-app <BUILD_FILE>` command prints the full path to  the new application tarball to STDOUT, but it runs checks on the build file and the new tarball by default. You can view the output by adding the optional debug flags on the command line:
 
-    ```
-    gwe -d DEBUG --build-app <BUILD_FILE> 
-    ```
+  ```
+  gwe -d DEBUG --build-app <BUILD_FILE> 
+  ```
 
 2. Upload, deploy to gateway.
 
-    ```
-    mr content upload <APP_NAME>.v<VERSION>.tar.gz <APP_NAME>.v<VERSION>.tar.gz
-    mr product device write <MAC_ADDRESS> engine_fetch '{"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}'
-    ```
+  ```
+  mr content upload <APP_NAME>.v<VERSION>.tar.gz <APP_NAME>.v<VERSION>.tar.gz
+  mr product device write <MAC_ADDRESS> engine_fetch '{"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}'
+  ```
 
 3. Check status of installation.
 
-    ```
-    mr product device read <MAC_ADDRESS> fetch_status
-    ```
+  ```
+  mr product device read <MAC_ADDRESS> fetch_status
+  ```
 
 4. Verify application behavior.
 5. If application still isn't working right, go to Step 1.
