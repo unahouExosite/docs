@@ -270,7 +270,7 @@ cat > example.sh << EOF
 GW_CIK=\$(gwe --gateway-cik)
 
 while true ; do
-    gdc write ${GW_CIK} gateway_time \$(date +'%s')
+    gdc write \${GW_CIK} gateway_time \$(date +'%s')
     sleep 1
 done
 EOF
