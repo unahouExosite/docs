@@ -47,7 +47,7 @@ You will be doing more with this download and the newly unpacked directory `~/co
 take action on in order to activate your account and log in.
 
 ## Create and Configure a Product
-Once your account is set up, add a Product and name it (e.g., "gateway-engine", "my-product", etc). 
+Once your account is set up, add a Product and name it (e.g. "gateway-engine", "my-product", etc). 
 
 Once you have a product, you must configure it with resources either using **MrMurano** (*recommended*) or manually by using the Murano web UI.
 
@@ -168,6 +168,21 @@ Once you have finished configuring your Product, you can confirm it has the corr
 ```
 mr product spec pull
 ```
+
+You should see output similar to this:
+
+  ```
+  +-----------------+--------+------------------------------------------+
+  | Alias           | Format | RID                                      |
+  +-----------------+--------+------------------------------------------+
+  | engine_fetch    | string | 584375baa68eb9e3d3c342caa5cf783a24965029 |
+  | engine_report   | string | d1cdfece4e080c723e7b2d57e0c508f6e4c96c20 |
+  | device_info     | string | 875c312cf0532a17556a05118374d215cbbfb4ee |
+  | update_interval | string | ab3885bc85c68fc0290ee1adbf7264671651e816 |
+  | usage_report    | string | b8405345023bb5dc72488ed072e96a5dc5f3424a |
+  | fetch_status    | string | 4c237e449a6fdff9e2ca72b3832c89902413eb6b |
+  +-----------------+--------+------------------------------------------+
+  ```
 
 ## Install GWE Onto Your Gateway
 
