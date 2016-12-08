@@ -247,7 +247,7 @@ When configured this way, GWE uses the MAC address of the Internet interface (i.
   iface = eth0
   ```
 
-  To see what the MAC address of any interface is, you can use the `gwe --mac-address IFACE` command.
+  To see what the MAC address of any interface is, you can use the `gwe --mac-address <IFACE>` command.
 
 ### Use Your Own Serial Number
 
