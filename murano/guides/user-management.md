@@ -1,10 +1,10 @@
 ---
-# User Management
+# Guide: User Management
 ---
 
 * [Overview](#head_overview)
-* [Tutorial example in scripting system](#head_tutorial_example)
-* [Reference for example](#head_reference)
+* [Tutorial Example in Scripting System](#head_tutorial_example)
+* [Reference for Example](#head_reference)
 
 ## <span id="head_overview">Overview</span>
 This system is to manage users under the Murano solution. It supports user authentication, role-based access control, and storage per user.
@@ -15,46 +15,46 @@ This system is to manage users under the Murano solution. It supports user authe
 * Social auth
 
 #### User Permission
-We support user permission based on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control).
-In our system, there are three concrete elements: &rsquo;role&rsquo;, &rsquo;user&rsquo;, and &rsquo;endpoint&rsquo;. According to RBAC, we can control a user&rsquo;s access to endpoint with the concept below:
+User permission is based on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control).
+In this system, there are three concrete elements: &rsquo;role&rsquo;, &rsquo;user&rsquo;, and &rsquo;endpoint&rsquo;. According to RBAC, you can control a user&rsquo;s access to endpoint with the concept below:
 
 1. Assign endpoint to role
 2. Assign role to user
-3. User can access the endpoint of his role
+3. User can access the endpoint of their role
 
 <div align="center">
   <img src="https://github.com/unahouExosite/docs/blob/MUR-298/murano/assets/usm_rbac_1.png"><br>
 </div>
 
-However, URL can be different in variable practically. For example, &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; are different literally but can be considered the same endpoint. We don&rsquo;t want to create two endpoints for such a difference. That is why we add the fourth element called &rsquo;parameter&rsquo;.
+However, URL can be different in variable practically. For example, &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; are different literally but can be considered the same endpoint. You do not want to create two endpoints for such a difference. That is why the fourth element called &rsquo;parameter&rsquo; is added.
 
-&rsquo;Parameter&rsquo; represents a specific resource by name and value. We mark it like {&lt;parameter_name&gt;} in endpoint. Here we only need to create one endpoint &rsquo;device/{rid}/info&rsquo; for &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo;.
-When we grant user permission, we need to specify parameters for each role assignment.
+&rsquo;Parameter&rsquo; represents a specific resource by name and value. It is marked as {&lt;parameter_name&gt;} in endpoint. Here, the creation of only one endpoint &rsquo;device/{rid}/info&rsquo; for &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; is needed.
+When user permission is granted, it is necessary to specify parameters for each role assignment.
 
 <div align="center">
   <img src="https://github.com/unahouExosite/docs/blob/MUR-298/murano/assets/usm_rbac_2.png"><br>
 </div>
 
-If we want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;, we can:
+If you want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;, you can:
 
 1. Create a role called &rsquo;Viewer&rsquo;.
 2. Add parameter definition &rsquo;rid&rsquo; to role &rsquo;Viewer&rsquo;, which means parameter &rsquo;rid&rsquo; is available in role &rsquo;Viewer&rsquo;.
 3. Assign endpoint &rsquo;*device/{rid}/info*&rsquo; to role &rsquo;Viewer&rsquo;.
 4. Assign role &rsquo;Viewer&rsquo; with parameter &rsquo;rid&rsquo;(name) = 1(value) to &rsquo;UserA&rsquo;.
-5. Now UserA is allowed access to &rsquo;*device/1/info*&rsquo; when we check his permission.
+5. Now UserA is allowed access to &rsquo;*device/1/info*&rsquo; when you check their permission.
 
 #### Storage Per User
-We provide storage per user which can store data by key-value format. Since a user&rsquo;s properties are only email and name, we can put more individual information in storage (for example, address, birthday, etc.).
+The provided storage per user stores data by key-value format. Since a user&rsquo;s properties are only email and name, you can put more individual information in storage (for example, address, birthday, etc.).
 
 
 <br><br><br><br>
 
 ## <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
 
-Assume we are running a parking application.
-There are two major roles in our system. One: the driver wants to park his vehicle. Two: the parking lot/garage charges drivers for parking.
+Assume you are running a parking application.
+There are two major roles in your system. One: the driver wants to park their vehicle. Two: the parking lot/garage charges drivers for parking.
 
-To separate their permission, we should create at least two roles.
+To separate their permission, you should create at least two roles.
 ###### <span id="eg_createRole"></span>
 ```lua
 -- Create role 'vehicle_driver' for driver
@@ -70,7 +70,7 @@ local role_parking_area_manager = {
 User.createRole(role_parking_area_manager)
 ```
 
-Suppose we have two users:
+Suppose you have two users:
 
 **User\_Parking\_Area** is in role &rsquo;parking_area_manager&rsquo; and has unique ID = **1**.
 
@@ -115,7 +115,7 @@ User.activateUser(parameters)
 
 ```
 
-In this tutorial, we'll assume that each driver has exactly one vehicle. This is a simplification that allows us to respect the User Management focus of this tutorial. We'll represent the driver's vehicle data in a keystore record derived from the user's id.
+In this tutorial, you will assume each driver has exactly one vehicle. This is a simplification that allows you to respect the User Management focus of this tutorial. You will represent the driver's vehicle data in a keystore record derived from the user's ID.
 
 ###### <span></span>
 ```lua
@@ -136,7 +136,7 @@ Keystore.set(parameters)
 
 ```
 ### Scenario: List Control
-First, we support an endpoint for parking areas to manage their parking spaces. This endpoint is expected to list unique IDs of parking spaces.
+First, support an endpoint for parking areas to manage their parking spaces. This endpoint is expected to list unique IDs of parking spaces.
 
 ```lua
 -- Create endpoint for listing parking spaces of parking area
@@ -154,7 +154,7 @@ local endpoints = {
 User.addRolePerm({[“role_id”] = “parking_area_manager”, [“body”] = endpoints})
 ```
 
-To let **User\_Parking\_Area** access *'GET list/1/parkingSpace'*, we need to grant **User\_Parking\_Area** permisson on 'parkingAreaID' = 1 in role 'parking_area_manager'.
+To let **User\_Parking\_Area** access *'GET list/1/parkingSpace'*, grant **User\_Parking\_Area** permisson on 'parkingAreaID' = 1 in role 'parking_area_manager'.
 
 ```lua
 -- We should add parameter definition before assigning roles with new parameter name.
@@ -181,9 +181,9 @@ User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
 ```
 Now **User\_Parking\_Area** can access *'GET list/1/parkingSpace'*.
 
-Next, we are going to make the list returned in response.
+Next, make the list returned in response.
 
-Assume there are two parking spaces in **User\_Parking\_Area**. Each parking space has a device RID. Devices can detect the status of a parking space. We can make **User\_Parking\_Area** have device RIDs by assigning roles. 
+Assume there are two parking spaces in **User\_Parking\_Area**. Each parking space has a device RID. Devices can detect the status of a parking space. You can make **User\_Parking\_Area** have device RIDs by assigning roles. 
 
 ```lua
 -- We should add parameter definition before assigning roles with new parameter name.
@@ -216,7 +216,7 @@ local roles_assigned = {
 User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
 ```
 
-After roles assignment, we can return a paginated list of &rsquo;spaceRID&rsquo; when **User\_Parking\_Area** accesses *'GET list/1/parkingSpace'*.
+After roles assignment, you can return a paginated list of &rsquo;spaceRID&rsquo; when **User\_Parking\_Area** accesses *'GET list/1/parkingSpace'*.
 
 ###### <span id="eg_listUserRoleParamValues"></span>
 ```lua
@@ -232,7 +232,7 @@ response.message = result.items -- return the list of RID
 ```
 
 ### Scenario: Endpoint Access Control
-Second, we support an endpoint for drivers to look for a vacant parking space. Drivers can query a number of vacancy in every parking area while each parking area manager is restricted to his own.
+Second, support an endpoint for drivers to look for a vacant parking space. Drivers can query a number of vacancy in every parking area while each parking area manager is restricted to his own.
 
 ###### <span id="eg_createPermission"></span>
 ```lua
