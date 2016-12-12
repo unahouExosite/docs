@@ -23,7 +23,16 @@ This getting-started guide will take you through the various steps to start usin
 
 ## Download and Unpack GWE
 
-To download the latest version of the public release of GWE, navigate to the [GWE Release Packages](/exositeready/gwe/release_packages/) page and choose a method for downloading GWE. Once downloaded, copy/move it to a directory on the filesystem of your development machine so its resources can be referenced later on.
+To download the latest version of the public release of GWE, navigate to the [GWE Release Packages](/exositeready/gwe/release_packages/) page and choose a method for downloading GWE. 
+
+  **NOTE**: The shell command, below works on most Linux and OSX machines to download and echo the name of the downloaded file to the terminal.
+
+  ```
+  basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
+  ```
+
+
+Once downloaded, copy/move it to a directory on the filesystem of your development machine so its resources can be referenced later on.
 
 ```
 mkdir ~/code
