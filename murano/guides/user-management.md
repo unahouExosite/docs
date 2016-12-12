@@ -22,14 +22,14 @@ In this system, there are three concrete elements: &rsquo;role&rsquo;, &rsquo;us
 2. Assign role to user
 3. User can access the endpoint of their role
 
-![User Diagram 1](assets/user_1.png)
+![User Diagram 1](user_1.png)
 
 However, URL can be different in variable practically. For example, &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; are different literally but can be considered the same endpoint. You do not want to create two endpoints for such a difference. That is why the fourth element called &rsquo;parameter&rsquo; is added.
 
 &rsquo;Parameter&rsquo; represents a specific resource by name and value. It is marked as {&lt;parameter_name&gt;} in endpoint. Here, the creation of only one endpoint &rsquo;device/{rid}/info&rsquo; for &rsquo;*device/1/info*&rsquo; and &rsquo;*device/2/info*&rsquo; is needed.
 When user permission is granted, it is necessary to specify parameters for each role assignment.
 
-![User Diagram 2](assets/user_2.png)
+![User Diagram 2](user_2.png)
 
 If you want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;, you can:
 
