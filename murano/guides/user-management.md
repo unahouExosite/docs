@@ -46,9 +46,6 @@ If you want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;
 #### Storage Per User
 The provided storage per user stores data by key-value format. Since a user&rsquo;s properties are only email and name, you can put more individual information in storage (for example, address, birthday, etc.).
 
-
-<br><br><br><br>
-
 # <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
 
 Assume you are running a parking application.
@@ -551,9 +548,6 @@ local result = User.hasUserPerm(check_permission)
 
 Because currently **User\_Parking\_Area** does not have parameter &rsquo;vehicleID&rsquo; = 2 in role &rsquo;parking_area_manager&rsquo;, it is expected to get result.status == 403.
 
-
-<br><br><br><br>
-
 # <span id="head_reference">Reference for Example</span>
 * RBAC
    * User
@@ -578,13 +572,3 @@ Because currently **User\_Parking\_Area** does not have parameter &rsquo;vehicle
    * [User.getUserData()](#eg_getUserData)
 
 
-
-
-
-
-
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
