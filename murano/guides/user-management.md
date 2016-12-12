@@ -2,12 +2,9 @@
 # Guide: User Management
 ---
 
-* [Overview](#head_overview)
-* [Tutorial Example in Scripting System](#head_tutorial_example)
-* [Reference for Example](#head_reference)
-
-## <span id="head_overview">Overview</span>
 This system is to manage users under the Murano solution. It supports user authentication, role-based access control, and storage per user.
+
+# Prerequisites
 
 #### User Authentication
 * Basic (email & password)
@@ -49,7 +46,7 @@ The provided storage per user stores data by key-value format. Since a user&rsqu
 
 <br><br><br><br>
 
-## <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
+# <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
 
 Assume you are running a parking application.
 There are two major roles in your system. One: the driver wants to park their vehicle. Two: the parking lot/garage charges drivers for parking.
@@ -232,7 +229,7 @@ response.message = result.items -- return the list of RID
 ```
 
 ### Scenario: Endpoint Access Control
-Second, support an endpoint for drivers to look for a vacant parking space. Drivers can query a number of vacancy in every parking area while each parking area manager is restricted to his own.
+Second, support an endpoint for drivers to look for a vacant parking space. Drivers can query a number of vacancy in every parking area while each parking area manager is restricted to their own.
 
 ###### <span id="eg_createPermission"></span>
 ```lua
@@ -258,13 +255,13 @@ User.addRolePerm({[“role_id”] = “vehicle_driver”, [“body”] = endpoin
 User.addRolePerm({[“role_id”] = “parking_area_manager”, [“body”] = endpoints})
 ```
 
-To let **User\_Parking\_Area** access *'GET query/1/availableSpace'*, **User\_Parking\_Area** should have parameter 'parkingAreaID' = 1 in role 'parking_area_manager'. Since he has been assigned it before, there is no need to assign again.
+To let **User\_Parking\_Area** access *'GET query/1/availableSpace'*, **User\_Parking\_Area** should have parameter 'parkingAreaID' = 1 in role 'parking_area_manager'. Since they have been assigned it before, there is no need to assign again.
 
-To let **User\_Vehicle** access *'GET query/\*/availableSpace'*, we should grant **User\_Vehicle** permission on 'parkingAreaID' = * in role 'vehicle_driver'.
+To let **User\_Vehicle** access *'GET query/\*/availableSpace'*, you should grant **User\_Vehicle** permission on 'parkingAreaID' = * in role 'vehicle_driver'.
 
 ###### <span id="eg_addRoleParam"></span>
 ```lua
--- To role 'vehicle_driver', parameter name 'parkingAreaID' is new. Before assigning roles with new parameter name, we need to add parameter definition.
+-- To role 'vehicle_driver', parameter name 'parkingAreaID' is new. Before assigning roles with new parameter name, you need to add parameter definition.
 local param_definitions = {
     {
         [“name”] = “parkingAreaID”
@@ -292,9 +289,9 @@ local roles_assigned = {
 User.assignUser({[“id”] = 2, [“roles”] = roles_assigned})
 ```
 
-Now we can prepare the number returned in response.
+Now you can prepare the number returned in response.
 
-We already know there are two parking spaces in **User\_Parking\_Area**. Here we assume that each parking area is managed by one manager. Thus we can store info in keystore storage with the key derived from the manager's id.
+You already know there are two parking spaces in **User\_Parking\_Area**. Assume that each parking area is managed by one manager. Thus, info can be stored in keystore storage with the key derived from the manager's ID.
 
 ```lua
 -- Set number of vacancy info for User_Parking_Area
@@ -306,7 +303,7 @@ parameters = {
 Keystore.set(parameters) -- We store value by Keystore service.
 ```
 
-When permitted user accesses *'GET  query/1/availableSpace'*, we can return the number.
+When permitted user accesses *'GET  query/1/availableSpace'*, you can return the number.
 ```lua
 -- Get number of vanacy of User_Parking_Area
 local manager_id = 1 -- User ID of User_Parking_Area
@@ -353,7 +350,7 @@ Because **User\_Parking\_Area** has been assigned with &rsquo;parkingAreaID = 1&
 
 ### Scenario: Application of User-storage and Endpoint-access-control
 
-We also support an endpoint for parking area managers to query info of a vehicle, such as parking time or license plate number. Each parking area manager can only see info of vehicles parked in his spaces.
+An endpoint for parking area managers to query info of a vehicle, such as parking time or license plate number, is also supported. Each parking area manager can only see info of vehicles parked in their spaces.
 
 ```lua
 -- Create endpoint 'GET query/{parkingAreaID}/parkingVehicle/{vehicleID}/info'
@@ -410,7 +407,7 @@ parameters = {
 Keystore.set(parameters)
 ```
 
-For info of the space **User\_Vehicle** is parking at, we can create another parameter 'parkingSpaceRID' to store relationship by role assignment.
+For info of the space **User\_Vehicle** is parking at, you can create another parameter 'parkingSpaceRID' to store relationship by role assignment.
 
 ```lua
 -- Create parameter definition for new parameter.
@@ -438,7 +435,7 @@ local roles_assigned = {
 User.assignUser({["id"] = 2, ["roles"] = roles_assigned})
 ```
 
-Because parking space &rsquo;d2343hbcc1232sweee1&rsquo; is occupied, we should also update the number of vacancy of **User\_Parking\_Area**.
+Because parking space &rsquo;d2343hbcc1232sweee1&rsquo; is occupied, you should also update the number of vacancy of **User\_Parking\_Area**.
 ```lua
 -- Get current number of vacancy of User_Parking_Area
 local manager_id = 1
@@ -489,10 +486,9 @@ response.message = {
 }
 ```
 
-When **User\_Vehicle** is going to leave, **User\_Parking\_Area** can charge him according to the parking time.
+When **User\_Vehicle** is going to leave, **User\_Parking\_Area** can charge them according to the parking time.
 
-
-After **User\_Vehicle** leaves, we remove **User\_Vehicle** from the parking list of **User\_Parking\_Area** and update relevant info.
+After **User\_Vehicle** leaves, remove **User\_Vehicle** from the parking list of **User\_Parking\_Area** and update relevant info.
 
 ```lua
 local roles_removed = {
@@ -534,7 +530,7 @@ parameters = {
 Keystore.set(parameters)
 ```
 
-**User\_Parking\_Area** cannot access *'GET query/1/parkingVehicle/2/info'* any longer since **User\_Vehicle** is not in his parking list.
+**User\_Parking\_Area** cannot access *'GET query/1/parkingVehicle/2/info'* any longer since **User\_Vehicle** is not in their parking list.
 
 ```lua
 -- Background process of checking if User_Parking_Area can access 'GET query/1/parkingVehicle/2/info'.
@@ -555,7 +551,7 @@ Because currently **User\_Parking\_Area** does not have parameter &rsquo;vehicle
 
 <br><br><br><br>
 
-## <span id="head_reference">Reference for Example</span>
+# <span id="head_reference">Reference for Example</span>
 * RBAC
    * User
       * [User.createUser()](#eg_createUser)
