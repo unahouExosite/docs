@@ -1,6 +1,9 @@
 ---
-# Guide: User Management
+title: User Management
+template: default
 ---
+
+# Guide: User Management
 
 This system is to manage users under the Murano solution. It supports user authentication, role-based access control, and storage per user.
 
