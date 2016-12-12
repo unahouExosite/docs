@@ -1,24 +1,20 @@
 # Custom Gateway Applications
 
-By itself, ExositeReady™ Gateway Engine (GWE) hosts Custom Gateway Applications (CGA) and Gateway Message Queuing server waits for incoming requests from Custom Gateway Applications, so, without a Custom Gateway Application to host, GWE does not really do much. This section is dedicated to defining how Custom Gateway Applications fit into the GWE hosting framework.
-
-This section is dedicated to defining how Custom Gateway Applications fit into the GWE hosting framework. The illustration, below, shows the basic layout of a typical IoT gateway from the physical layer up to the cloud.
+ExositeReady™ Gateway Engine (GWE) hosts Custom Gateway Applications (CGA), and the Gateway Message Queuing (GMQ) server waits for incoming requests from CGAs. Without a CGA to host, GWE cannot really do much. This section is dedicated to defining how CGAs fit into the GWE hosting framework. The illustration, below, shows the basic layout of a typical IoT gateway from the physical layer up to the cloud.
 
 ![communication_topology](/exositeready/gwe/communication_topology.png)
 
-This illustration shows an application (*Custom Gateway Application*) written in the context of and hosted by GWE. As shown, the custom application has flexible options as far as how it can communicate on the internet and with Exosite. As a developer of a CGA, you may choose to use the Gateway Message Queue (GMQ) for writing sensor data, Device Client (GDC) for reading configuration data and some other tool like `curl` or another library for some other service (*e.g., ntpdate, ping, a nodejs library, etc*).
+This illustration shows a custom application written in the context of and hosted by GWE. As shown, the custom application has flexible options as far as how it can communicate on the Internet and with Exosite. As a developer of a CGA, you may choose to use the GMQ for writing sensor data, Device Client (GDC) for reading configuration data, and some other tool like `curl` or another library for some other service (e.g., ntpdate, ping, a nodejs library, etc.).
 
-The Custom Gateway Application is the customized logic the developer writes for a specific IoT solution. A Custom Gateway Application should be designed to be installed via the GWE installer and OTAU feature.
+The CGA is the customized logic the developer writes for a specific IoT solution. A CGA should be designed for installation via the GWE installer and OTAU feature.
 
-## The Three Types of Custom Gateway Applications
+## The Three Types of CGAs
 
-Before going any further, lets cover some basics about the kinds of applications GWE can execute and host.
+In order to host applications, GWE combines [supervisor's](http://supervisord.org) process management functionality with its own set of installation, version tracking, and telemetrics.
 
-In order to host applications, Gateway Engine combines [supervisor's](http://supervisord.org) process management functionality with its own set of installation, version tracking and telemetrics.
+Not every CGA needs to leverage all of these features. Sometimes you just need to have a single command executed on a gateway, or maybe there is an API library that requires an update. For applications like these, there is no use for process control, logfile rotation, or even supervisor configuration files. In cases like these, `supervisor.conf` can be omitted entirely from OTAU packages.
 
-Not every Custom Gateway Application needs to leverage all of these features. Sometimes you just need to have a single command executed on a gateway, or maybe there is an API library that requires an update. For applications like these, there is no use for process control, logfile rotation, or even supervisor configuration files. In cases like these, `supervisor.conf` can be omitted entirely from OTAU packages.
-
-Broadly speaking, there are 3 types of Custom Gateway Applications:
+Broadly speaking, there are three types of CGAs:
 
 * Long-Running
 * One-Off
@@ -26,9 +22,9 @@ Broadly speaking, there are 3 types of Custom Gateway Applications:
 
 ### Long-Running Applications
 
-Gateway applications usually have some sort of `While-True` loop that essentially attempts to make the program run forever. In order to start and continuously manage a long-running application, a `supervisor.conf` file should be provided to configure `supervisord`. Though there are many configuration options available, Gateway Engine essentially only needs to know one thing to start/execute and continue running a given Custom Gateway Application: **the command to start/execute the application**.
+Gateway applications usually have some sort of `While-True` loop that essentially attempts to make the program run forever. In order to start and continuously manage a long-running application, a `supervisor.conf` file should be provided to configure `supervisord`. Though there are many configuration options available, GWE essentially only needs to know one thing to start/execute and continue running a given CGA: **the command to start/execute the application**.
 
-Beyond this requirement, all other configuration settings are optional (*some have defaults*). The way you provide the path to your application is with the `supervisor.conf` file.
+Beyond this requirement, all other configuration settings are optional (some have defaults). The way you provide the path to your application is with the `supervisor.conf` file.
 
   $ cat supervisor.conf 
   [supervisord]
@@ -36,7 +32,7 @@ Beyond this requirement, all other configuration settings are optional (*some ha
 
 ### One-Off
 
-This type of application is a command, or series of commands, that is run only once. A one-off app is simply a command or series of commands in an `install.sh` script packaged in an application tarball. Below is an example of a one-off app:
+This type of application is a command, or series of commands, run only once. A one-off app is simply a command or series of commands in an `install.sh` script packaged in an application tarball. Below is an example of a one-off app:
 
   ```
   $ tar tvf send_some_logs.v1.tar.gz 
@@ -56,7 +52,7 @@ The example shown above uses the `Device` python class from the `device-client` 
 
 ### Libraries
 
-Similar to a one-off application, this type of application can hardly be said to be an application at all. A typical library install package looks the same as a normal Gateway Engine application tarball with the exception of not having a `supervisor.conf` file since it doesn't need to ever run. Sometimes it is important to be able to fix libraries such as protocol libraries, API libraries, etc. Below is what an update to a Modbus library might look like.
+Similar to a one-off application, this type of application can hardly be said to be an application at all. A typical library install package looks the same as a normal GWE application tarball with the exception of not having a `supervisor.conf` file since it does not need to ever run. Sometimes it is important to be able to fix libraries such as protocol libraries, API libraries, etc. Below is what an update to a Modbus library might look like.
 
     $ tar zxvf modbus_lib.v37.tar.gz
     x install.sh
@@ -67,7 +63,7 @@ Similar to a one-off application, this type of application can hardly be said to
     cd modbus_lib/
     python setup.py install
 
-Since the Gateway Engine installer supports running `setup.py` installers as well as `install.sh` scripts, python libraries can be installed without an `install.sh` script. Here is an example below:
+Since the GWE installer supports running `setup.py` installers as well as `install.sh` scripts, python libraries can be installed without an `install.sh` script. Here is an example below:
 
     $ tar zxvf modbus_lib.v38.tar.gz
     x setup.py
@@ -75,7 +71,7 @@ Since the Gateway Engine installer supports running `setup.py` installers as wel
 
 ## Get the GWE Development Tools
 
-Navigate to the [Release Packages](release_packages) section and download the latest copy of GWE to your development machine.
+Navigate to the [Release Packages](http://docs.exosite.com/exositeready/gwe/release_packages/) section and download the latest copy of GWE to your development machine.
 
 ### Optional Setup
 
@@ -85,7 +81,7 @@ In some development environments, it is recommended that you create a virtual Py
 mkvirtualenv gwe-devtools --python=python2.7
 ```
 
-### Install the Dev Tools from Gateway Engine Release
+### Install the Dev Tools from GWE Release
 
 Unpack the GWE release to a place on your development machine where it can remain and be referenced by other projects and applications. The example, below, moves the downloaded release from `~/Downloads` to the sandbox directory `~/code` and unpacks it to `~/code/gateway-engine`.
 
@@ -104,11 +100,11 @@ python setup.py gdc
 python setup.py install
 ```
 
-  **NOTE**: Installing the Dev Tools is different than installing onto an actual gateway for IoT operations. The `gwe` callable contains some useful developer tools, but we don't need the `gwe` or `gmq` processes running. Below is a series of commands that will get `gdc` and `gwe` command line tools installed.
+**NOTE**: Installing the Dev Tools is different than installing onto an actual gateway for IoT operations. The `gwe` callable contains some useful developer tools, but you do not need the `gwe` or `gmq` processes running. Below is a series of commands that will get `gdc` and `gwe` command-line tools installed.
 
 ## Initialize Your Application Repository
 
-The first thing to do when creating a CGA is to create a new sandbox folder to put the application files and supporting scripts and documents.
+The first thing to do when creating a CGA is to create a new sandbox folder to store the application files and supporting scripts and documents.
 
 ### Project Directory
 
@@ -119,7 +115,7 @@ cd ~/code/my_gwe_hosted_app
 
 ### Create Buildfile
 
-Executing the `gwe --create-buildfile` command will prompt you for a name for the new buildfile, the name you want to give the new app and the version of the new app. After the buildfile is created, a summary of the buildfile contents are printed to the console. See the example below.
+Executing the `gwe --create-buildfile` command will prompt you for a name for the new buildfile, the name you want to give the new app, and the version of the new app. After the buildfile is created, a summary of the buildfile contents are printed to the console. See the example below:
 
   ```
   $ gwe --create-buildfile
@@ -197,10 +193,9 @@ Executing the `gwe --create-buildfile` command will prompt you for a name for th
 
 Every GWE-hosted application needs an installer. GWE uses the file `install.sh` for all CGA installs.
 
-Below is an example for creating an `install.sh` file GWE that can use to install application `example.sh` to `/usr/local/bin`. 
+Below is an example for creating an `install.sh` file GWE can use to install application `example.sh` to `/usr/local/bin`. 
 
-  **Note**: 
-  Make sure to use a 'shebang' as the first line of the `install.sh` file and that it the correct file mode (*i.e. it has the `x` bit set*).
+**Note**: Be sure to use a "shebang" as the first line of the `install.sh` file and that it is the correct file mode (i.e., it has the `x` bit set).
 
 ```
 cd ~/code/my_gwe_hosted_app
@@ -213,16 +208,16 @@ chmod +x install.sh
 
 ### Create the `supervisor.conf` File
 
-This file is used by GWE during installation to determine if this is a long-running, hosted application or if it is just a script to run. By not including a `supervisor.conf` file, the GWE installer will have no way to configure `supervisord` to automatically start the Custom Gateway Application on boot, or to restart it if/when it crashes. 
+This file is used by GWE during installation to determine if this is a long-running, hosted application or if it is just a script to run. By not including a `supervisor.conf` file, the GWE installer will have no way to configure `supervisord` to automatically start the CGA on boot, or to restart it if/when it crashes. 
 
-  **NOTE**: Sometimes there are cases in which you want this behavior. Custom Gateway Applications that have no `supervisor.conf` configuration file are effectively **ONE-OFF** applications. Restated, these can still be considered applications, but they execute only once - when GWE runs the `install.sh` script. This can be a handy tool if you want to just send a command to a gateway like `reboot`.
+**NOTE**: Sometimes there are cases in which you want this behavior. CGAs with no `supervisor.conf` configuration file are effectively **ONE-OFF** applications. Restated, these can still be considered applications, but they execute only once—when GWE runs the `install.sh` script. This can be a handy tool if you want to just send a command to a gateway like `reboot`.
 
-For long-running, hosted CGAs in which a `supervisor.conf` file *is* provided, there are some defaults and constraints to understand before proceeding.
+For long-running, hosted CGAs in which a `supervisor.conf` file is provided, there are some defaults and constraints to understand before proceeding.
 
 * The file must be an INI-style configuration file with a single `[supervisord]` section.
-* Any option specified in the `[supervisord]` section will override any default option that GWE provides.
+* Any option specified in the `[supervisord]` section will override any default option GWE provides.
 
-Below is an example of a `supervisor.conf` file that `supervisord` can use to start `/usr/local/bin/example.sh`, keep running, rotate the logs and restart it it crashes.
+Below is an example of a `supervisor.conf` file that `supervisord` can use to start `/usr/local/bin/example.sh`, keep running, rotate the logs, and restart if it crashes.
 
 ```
 echo '[supervisord]' > supervisor.conf
@@ -232,7 +227,7 @@ cat supervisor.conf
 
 #### A Note on the Default Supervisor Options
 
-Below are the default options that GWE will impose if the `supervisor.conf` file you provide does not contain them. If your `supervisor.conf` file contains any of these options, then the defaults will be overridden by them.
+Below are the default options GWE will impose if the `supervisor.conf` file you provide does not contain them. If your `supervisor.conf` file contains any of these options, then the defaults will be overridden by them.
 
   ```
   ; This section is mandatory. If a supervisor.conf file doesn't
@@ -280,7 +275,7 @@ Since this application defines a new Murano Device resource (a.k.a. alias), this
 
 ### Update the Buildfile
 
-Add the new repository files to the build file so they're included in the OTAU package during the build step. An example of the edited `gwe-buildfile.json` file from a previous step.
+Add the new repository files to the buildfile so they are included in the OTAU package during the build step. An example of the edited `gwe-buildfile.json` file from a previous step:
 
 ```
 {
@@ -299,7 +294,7 @@ Add the new repository files to the build file so they're included in the OTAU p
 
 ### Check the Buildfile for Errors
 
-Use the following command to check for errors and issues with the build file.
+Use the following command to check for errors and issues with the buildfile.
 
 ```
 gwe --check-buildfile gwe-buildfile.json
@@ -319,7 +314,7 @@ With an application to build and a buildfile, GWE can build an OTAU application 
 gwe --build-app gwe-buildfile.json
 ```
 
-**NOTE**: If you are experiencing errors or problems with installs, you can add more debug output to the build command with the `-d DEBUG` cli flag.
+**NOTE**: If you are experiencing errors or problems with installs, you can add more debug output to the build command with the `-d DEBUG` CLI flag.
 
 The output of this command will look something like this:
 
@@ -329,7 +324,7 @@ The output of this command will look something like this:
 
 ## Deploy the Application
 
-The following MrMurano commands can be used to upload and deploy the new application a gateway:
+The following MrMurano commands can be used to upload and deploy the new application to a gateway:
 
 ```
 mr content upload my_gwe_hosted_app.v1.tar.gz my_gwe_hosted_app.v1.tar.gz
@@ -338,7 +333,7 @@ mr product device write <SERIAL_NUMBER_OF_GATEWAY> engine_fetch '{"install": [{"
 
 ## Verify the Deployment
 
-The STDOUT of the `install.sh` script is written to GWE's `fetch_status` dataport after it completes. Use the following MrMurano command to check on the status of the installation. If there were any errors during the deployment, the will show up here:
+The STDOUT of the `install.sh` script is written to GWE's `fetch_status` dataport after it completes. Use the following MrMurano command to check on the status of the installation. If there were any errors during the deployment, they will show up here:
 
 ```
 mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
@@ -346,10 +341,10 @@ mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
 
 # A Good Example
 
-If you navigate to the [gmq-sine-demo](https://github.com/exosite/gmq-sine-demo "GMQ Sine Demo") you can see an example of a simple application that GWE can host and install over the air.
+If you navigate to the [gmq-sine-demo](https://github.com/exosite/gmq-sine-demo "GMQ Sine Demo"), you can see an example of a simple application that GWE can host and install over the air.
 
 # Summary
 
-This section covered creating a new Custom Gateway Application and using the GWE developer tools to build and deploy it over-the-air. The next recommended section (*link below*) to study looks deeper at how OTAU works and how it enables developers. 
+This section covered creating a new CGA and using the GWE developer tools to build and deploy it over the air. The next recommended section (link below) to study looks deeper at how OTAU works and how it enables developers. 
 
-  * [Over the Air Updates](otau)
+  * [Over the Air Updates](http://docs.exosite.com/exositeready/gwe/otau/)
