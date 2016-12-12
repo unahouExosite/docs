@@ -10,7 +10,7 @@ The download options below contain GWE release packages.
 
 To download the latest version of Gateway Engine...
 
-**CLICK [HERE](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html)**
+[**CLICK HERE**](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html)
 
 ...to view a listing of downloadable releases. 
 
