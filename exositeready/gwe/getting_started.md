@@ -1,15 +1,3 @@
-# Table of Contents
-
-* [Getting Started](/exositeready/gwe/getting_started)
-* [Product Overview](/exositeready/gwe/product_overview) 
-* [Release Packages](/exositeready/gwe/release_packages)
-* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
-* [Over the Air Updates](/exositeready/gwe/otau)
-* [GWE Solution App](/exositeready/gwe/solution-app)
-* [Device Client - Docs](/exositeready/gwe/device-client)
-* [GWE - Docs](/exositeready/gwe/gateway-engine)
-* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
-
 # Getting-started Guide: Install and Run ExositeReady™ Gateway Engine on a Gateway Device
 
 In this guide, you will be able to quickly download ExositeReady™ Gateway Engine (GWE),
@@ -28,6 +16,18 @@ gateway has the minimum requirements for running GWE:
 * 64 MB RAM
 
 **NOTE:** Some testing has been done on Python 2.7.3, but it has not been tested extensively and is not recommended.
+
+# Table of Contents
+
+* [Getting Started](/exositeready/gwe/getting_started)
+* [Product Overview](/exositeready/gwe/product_overview) 
+* [Release Packages](/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/exositeready/gwe/otau)
+* [GWE Solution App](/exositeready/gwe/solution-app)
+* [Device Client - Docs](/exositeready/gwe/device-client)
+* [GWE - Docs](/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
 
 # Getting Started 
 
@@ -397,21 +397,21 @@ For additional functionality of Exosite products available on your gateway, take
 
 The `supervisorctl` command-line interface is extremely powerful and incredibly useful. It is highly recommended that you run this command (*`supervisorctl` using `sudo` if necessary*) and then type `help` when you have entered the interactive cli.
 
-  **Example**:
+### example (*gateway*) 
 
-  ```
-  $ supervisorctl
-  gmq                                RUNNING      pid 1184, uptime 1:02:51
-  gwe                                RUNNING      pid 1184, uptime 1:02:51
-  supervisor> help
+```
+$ supervisorctl
+gmq                                RUNNING      pid 1184, uptime 1:02:51
+gwe                                RUNNING      pid 1184, uptime 1:02:51
+supervisor> help
 
-  default commands (type help <topic>):
-  =====================================
-  add     clear    fg        open   quit     remove    restart    start   update
-  avail   exit     maintail  pid    reload   reread    shutdown   stop    version
+default commands (type help <topic>):
+=====================================
+add     clear    fg        open   quit     remove    restart    start   update
+avail   exit     maintail  pid    reload   reread    shutdown   stop    version
 
-  supervisor> 
-  ```
+supervisor> 
+```
 
 ### The Device Client cli
 
