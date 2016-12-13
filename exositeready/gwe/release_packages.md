@@ -1,21 +1,18 @@
 # Release Packages
 
-This section contains links and downloadable files that are referenced
-throughout the ExositeReady™ Gateway Engine (GWE) documentation. Below are sections outlining the
-various options when choosing a copy of GWE. The packages all
-contain the same version of GWE, but with specific Custom
-Gateway Applications packaged into it. Each option also
-contains an additional option of the git branch its build is based—`master` or `dev`. Release packages based on the `dev` branch are for
-development purposes and come with no guarantee or warranty. Releases
-based on the `master` branch are stable and undergo a comprehensive QA
-process.
+This section contains links and downloadable files that are referenced throughout the ExositeReady™ Gateway Engine (GWE) documentation. Below are sections outlining the various options when choosing a copy of GWE. The packages all contain the same version of GWE, but with specific Custom Gateway Applications packaged into it. Each option also contains an additional option of the git branch its build is based—`master` or `dev`. Release packages based on the `dev` branch are for development purposes and come with no guarantee or warranty. Releases based on the `master` branch are stable and undergo a comprehensive QA process.
 
 # GWE Downloads
 
 The download options below contain GWE release packages.
 
 ## Listing of Releases
-To download the latest version of this release, click [here](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html) to view a listing of downloadable releases. 
+
+To download the latest version of Gateway Engine...
+
+[**CLICK HERE**](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/list.html)
+
+...to view a listing of downloadable releases. 
 
 ## Shell Command
 
