@@ -1,7 +1,7 @@
 # Getting-started Guide: Install and Run ExositeReady™ Gateway Engine on a Gateway Device
 
 In this guide, you will be able to quickly download ExositeReady™ Gateway Engine (GWE),
-install it onto your gateway, and start using it. Once you have completed this section you will have GWE installed and running on a gateway. If you encounter any issues, please contact the dedicated GWE support team at [gwesupport@exosite.com](mailto:gwesupport@exosite.com).
+install it onto your gateway, and start using it. Once you have completed this section you will have GWE installed and running on a gateway. If you encounter any issues, please raise a topic on the dedicated [GWE Support Forum](https://community.exosite.com/c/GWE) or comment on an existing one.
 
 # Requirements
 
@@ -27,12 +27,15 @@ To download the latest version of the public release of GWE, navigate to the [GW
 
   **NOTE**: The shell command, below works on most Linux and OSX machines to download and echo the name of the downloaded file to the terminal.
 
-  ```
-  basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
-  ```
+### command (*dev machine*)
 
+```
+basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
+```
 
 Once downloaded, copy/move it to a directory on the filesystem of your development machine so its resources can be referenced later on.
+
+### command (*dev machine*)
 
 ```
 mkdir ~/code
@@ -40,6 +43,8 @@ cp ~/Downloads/GatewayEngine.v*.tar.gz ~/code
 ```
 
 The GWE download contains useful resources and tools you can use outside the context of a gateway. To make these resources available on your development machine, decompress the tarball:
+
+### command (*dev machine*)
 
 ```
 cd ~/code
@@ -74,13 +79,18 @@ Below are some of the steps needed to configure MrMurano for using GWE.
 
 This is the username or email address with which you use to login to Murano.
 
+### command (*dev machine*)
+
 ```
-mr config user.name USER_NAME
+cd ~/code
+mr config user.name <USER_NAME>
 ```
 
 ##### Select and Configure your Business Account
 
 If it is your first time logging into your Murano account with MrMurano on the command line, you will be prompted for your password. Once you have successfully logged in, the following command will show you a listing of all the business accounts you have access to. 
+
+### command (*dev machine*)
 
 ```
 mr account --business
@@ -90,7 +100,10 @@ mr account --business
 
 Once you have logged in, choose the right **Biz ID** and use it in the command below in place of "&lt;BUSINESS\_ID&gt;":
 
+### command (*dev machine*)
+
 ```
+cd ~/code
 mr config business.id <BUSINESS_ID>
 ```
 
@@ -98,11 +111,16 @@ mr config business.id <BUSINESS_ID>
 
 In your Murano account, navigate to your product and click on the *INFO* tab. Copy the Product ID (sometimes referred to in this context as the **PID**) and use it in the commands below in place of "&lt;PRODUCT\_ID&gt;".
 
+### command (*dev machine*)
+
 ```
+cd ~/code
 mr config product.id <PRODUCT_ID>
 ```
 
 You can also find the Product ID using the following MrMurano command:
+
+### command (*dev machine*)
 
 ```
 mr product list
@@ -112,46 +130,41 @@ mr product list
 
 A "spec" file is a YAML file that describes the resources of a Murano Product. The GWE spec file is available in the release tarball and, now that you have unpacked it on your development machine, can be found at `~/code/gateway-engine/specs`. The contents of the file are shown, below.
 
-    $ cd ~/code/gateway-engine
-    $ cat specs/gwe.spec
-    ---
-    resources:
-    - alias: usage_report
-      format: string
-    - alias: engine_report
-      format: string
-    - alias: engine_fetch
-      format: string
-    - alias: device_info
-      format: string
-    - alias: update_interval
-      format: string
-    - alias: fetch_status
-      format: string
-
-
-The default location MrMurano uses for spec files is `$PWD/specs`. This can be overridden with the following command:
+### example
 
 ```
-mr config location.specs relative/path/to/folder/containing/spec.file
+$ cat gateway-engine/specs/gwe.spec
+---
+resources:
+- alias: usage_report
+  format: string
+- alias: engine_report
+  format: string
+- alias: engine_fetch
+  format: string
+- alias: device_info
+  format: string
+- alias: update_interval
+  format: string
+- alias: fetch_status
+  format: string
 ```
 
-  **Example:**
+The default location MrMurano uses for spec files is `$PWD/specs` for project directories. The following commands will set up `~/code/gateway-engine` directory as a project directory.  
 
-  ```
-  cd ~/code/gateway-engine
-  mr config location.specs specs
-  ```
-
-Verify the path with `mr config --dump`.
-
-##### Tell MrMurano Which Spec File to Use
+### command (*dev machine*)
 
 ```
+cd ~/code/gateway-engine
+mr config location.specs specs
 mr config product.spec gwe.spec
+# Verify the path <location.base/location.specs/product.spec>
+mr config --dump
 ```
 
 #### Create the Resources
+
+### command (*dev machine*)
 
 ```
 mr syncup -V --specs
@@ -174,53 +187,64 @@ The table, below, shows the resources you must add to the Product Definition, wh
 
 Once you have finished configuring your Product, you can confirm it has the correct definition either by using the Murano web UI or with MrMurano:
 
-```
-mr product spec pull
-```
+### example
 
-You should see output similar to this:
-
-  ```
-  +-----------------+--------+------------------------------------------+
-  | Alias           | Format | RID                                      |
-  +-----------------+--------+------------------------------------------+
-  | engine_fetch    | string | 584375baa68eb9e3d3c342caa5cf783a24965029 |
-  | engine_report   | string | d1cdfece4e080c723e7b2d57e0c508f6e4c96c20 |
-  | device_info     | string | 875c312cf0532a17556a05118374d215cbbfb4ee |
-  | update_interval | string | ab3885bc85c68fc0290ee1adbf7264671651e816 |
-  | usage_report    | string | b8405345023bb5dc72488ed072e96a5dc5f3424a |
-  | fetch_status    | string | 4c237e449a6fdff9e2ca72b3832c89902413eb6b |
-  +-----------------+--------+------------------------------------------+
-  ```
+```
+$ mr product spec pull
++-----------------+--------+------------------------------------------+
+| Alias           | Format | RID                                      |
++-----------------+--------+------------------------------------------+
+| engine_fetch    | string | 584375baa68eb9e3d3c342caa5cf783a24965029 |
+| engine_report   | string | d1cdfece4e080c723e7b2d57e0c508f6e4c96c20 |
+| device_info     | string | 875c312cf0532a17556a05118374d215cbbfb4ee |
+| update_interval | string | ab3885bc85c68fc0290ee1adbf7264671651e816 |
+| usage_report    | string | b8405345023bb5dc72488ed072e96a5dc5f3424a |
+| fetch_status    | string | 4c237e449a6fdff9e2ca72b3832c89902413eb6b |
++-----------------+--------+------------------------------------------+
+```
 
 ## Install GWE Onto Your Gateway
 
-Run the following commands from your development machine to copy GWE to your gateway:
+If you're working directly from a gateway, use the following commands to get Gateway Engine onto your gateway.
 
-  ```
-  ssh <USER>@<GATEWAY_IP> "mkdir /opt"
-  scp ~/code/GatewayEngine.v*.tar.gz <USER>@<GATEWAY_IP>:/opt 
-  ```
+### command (*gateway*)
+
+```
+mkdir /opt
+cd /opt
+basename $(curl -v -k --remote-name $(curl --silent -k https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gateway-engine-release-area/gmq-master/latest.lnk) 2>&1 | awk '/GET/{print $(NF-1)}')
+```
+
+### command (*dev machine*)
+
+```
+ssh <USER>@<GATEWAY_IP> "mkdir /opt"
+scp ~/code/GatewayEngine.v*.tar.gz <USER>@<GATEWAY_IP>:/opt 
+```
 
 At this point, you have downloaded the latest release of GWE and copied it to your gateway.
 
 Run the following command to untar the release package and install GWE onto your gateway:
 
-  ```
-  ssh <USER>@<GATEWAY_IP> "cd /opt
-    tar zxvf GatewayEngine.v*.tar.gz
-    cd gateway-engine
-    ./install.sh"
-  ```
+### command (*dev machine*)
+
+```
+ssh <USER>@<GATEWAY_IP> "cd /opt
+  tar zxvf GatewayEngine.v*.tar.gz
+  cd gateway-engine
+  ./install.sh"
+```
+
+### command (*gateway*)
+
+```
+cd /opt
+tar zxvf GatewayEngine.v*.tar.gz
+cd gateway-engine
+./install.sh
+```
 
   **NOTE:** In some Linux environments, you will need to use Super-User permissions to run the installer. If the type of Linux you are using has both `root` and non-`root` users, you will likely need to install GWE as `root` in order to use it. In this case, replace the `./install.sh` from the command, above with `sudo ./install.sh`. For example:
-
-  ```
-  ssh <USER>@<GATEWAY_IP> "cd /opt
-    tar zxvf GatewayEngine.v*.tar.gz
-    cd gateway-engine
-    sudo ./install.sh"
-  ```
 
 ### The Installation Log File
 
@@ -233,7 +257,9 @@ Once the installation is complete, you will need to configure GWE for your IoT s
 You can determine the serial number of your gateway in two ways:
 
   * The MAC address
-  * Any other serial number
+  * Any Custom Serial Number
+
+For the purpose of this Getting Started guide, the Custom Serial Number method will not be covered, but can be used via the `gwe --set-uuid <UUID>` command.
 
 ### Use the MAC Address of an Internet Interface
 
@@ -241,48 +267,28 @@ GWE can be configured to use the MAC address of the Internet interface of your c
 
 When configured this way, GWE uses the MAC address of the Internet interface (i.e., iface) you specify with ALL CAPS and ':' formatted. To view a list of the available Internet interfaces on your gateway, use the `ifconfig` command.
 
-  **Example**: 
+The example, below, shows the command for configuring GWE to use the MAC address of iface `eth0` as its serial number (a.k.a., *uuid*). After configuring GWE, it prints the new configuration to the console. GWE doesn't fill in the `uuid` value until after it starts for the first time.
 
-  The example, below, shows the command for configuring GWE to use the MAC address of iface `eth0` as its serial number (a.k.a., *uuid*). After configuring GWE, it prints the new configuration to the console.
+### example (*gateway*)
 
-  ```
-  $ gwe --set-iface eth0 -d DEBUG
-  Found interface 'eth0' with MAC address (serial/uuid): FF:10:C2:9B:A8:46
-  [device]
-  cik = ''
-  model = ''
-  vendor = ''
-  uuid = ''
-  iface = eth0
-  ```
+```
+$ gwe --set-iface eth0 -d DEBUG
+Found interface 'eth0' with MAC address (serial/uuid): FF:10:C2:9B:A8:46
+[device]
+cik = ''
+model = ''
+vendor = ''
+uuid = ''
+iface = eth0
+```
 
-  To see what the MAC address of any interface is, you can use the `gwe --mac-address <IFACE>` command.
+To see what the MAC address of any interface is, you can use the following command as a convenience function.
 
-### Use Your Own Serial Number
+### command (*gateway*)
 
-Depending on the needs of your IoT solution, you may need to specify your own serial number. To do this, use the `--set-uuid UUID` command-line switch.
-
-  **Example**: 
-
-  The example, below, shows the command for configuring GWE to use the MAC address of iface `eth0` as its serial number (a.k.a., *uuid*). After configuring GWE, it prints the new configuration to the console.
-
-  ```
-  $ gwe --set-uuid 12345
-  [device]
-  cik = ''
-  model = ''
-  vendor = ''
-  uuid = 12345
-  iface = eth0
-  ```
-
-If you configure GWE with a uuid, it will override any iface configuration and the MAC address will not be used. This is true even if you change the iface configuration, so the only way GWE will use a MAC address again as its serial number is if you clear, or re-initialize, the uuid configuration to "''".
-
-You can use the following command to clear the uuid or any other configuration to start over. 
-
-  ```
-  gwe --set-uuid \'\'
-  ```
+```
+gwe --mac-address <IFACE>
+```
 
 ## Configure the GWE Product ID on Your Gateway
 
@@ -294,17 +300,17 @@ gwe --set-product-id <PRODUCT_ID>
 
 Due to legacy reasons, GWE uses the PRODUCT_ID as both the *vendor* and *model* entries in the GWE configuration. See the example below:
 
-  **Example:**
-  ```
-  $ gwe --set-product-id dubhxzv0r4e1m7vj
-  [device]
-  cik = ''
-  model = dubhxzv0r4e1m7vj
-  vendor = dubhxzv0r4e1m7vj
-  uuid = 12345
-  iface = eth0
-  ```
+### example (*gateway*)
 
+```
+$ gwe --set-product-id dubhxzv0r4e1m7vj
+[device]
+cik = ''
+model = dubhxzv0r4e1m7vj
+vendor = dubhxzv0r4e1m7vj
+uuid = ''
+iface = eth0
+```
 
 ## Add a Device
 
@@ -312,18 +318,19 @@ Navigate to the *Products* tab of the Murano web UI, select the GWE product (wha
 
 You will see this new device appear in the list of available devices in the GWE product of your Murano account. If you are following this getting-started guide in order, the new device should be showing a *STATUS* of `notactivated`.
 
-
 ## Reboot
 
 To complete the installation, you will need to reboot the gateway. 
 
 The installation is incomplete until a gateway reboot because it is the last step in determining whether or not GWE will start on boot. If after rebooting the gateway GWE is not running, then something went wrong with the installation (if this happens, please visit [the community forum](https://community.exosite.com/c/GWE)). 
 
-To reboot, you can toggle the power or use the following command:
+To reboot, you can toggle the power or use the following command.
 
-  ```
-  reboot
-  ```
+### command (*gateway*)
+
+```
+reboot
+```
   
 **NOTE:** GWE uses `supervisord` to start itself on boot, and once it starts, it will start GWE as well as all other installed default and custom gateway applications.
 
@@ -333,8 +340,10 @@ Watch for new data in your new Murano GWE device.
 
 Once the reboot has completed, you will notice that `supervisord` and `gwe` processes are running in the output of the `ps -ef` command. Sometimes there are a lot of processes and the `ps -ef` command can be too much to read through. You can filter the output with `grep` (e.g., `ps -ef | grep 'super\|gwe\|gmq'`). You can also use the `supervisorctl status` command to view the status of the GWE applications.
 
+### example (*gateway*)
+
 ```
-supervisorctl status
+$ supervisorctl status
 gmq                           RUNNING    pid 621, 00:01:38
 gwe                           RUNNING    pid 620, 00:01:38
 ```
@@ -346,26 +355,31 @@ A few seconds after rebooting the gateway you should see two things change on th
 
 You can also check to see if the gateway has successfully activated by checking for the existence of a CIK in the GWE configuration with the following command:
 
-  ```
-  gwe --gateway-cik
-  ```
+### command (*gateway*)
 
-  **Example**: A non-activated GWE.
+```
+gwe --gateway-cik
+```
 
-  ```
-  $ gwe --gateway-cik
-  ''
-  ```
+### example (*gateway*) 
 
-  **Example**: An activated GWE.
+A non-activated GWE.
 
-  ```
-  $ gwe --gateway-cik
-  3803226073f6f2feb51a9010bd1d3e53143214a7
-  ```
+```
+$ gwe --gateway-cik
+''
+```
 
+### example (*gateway*) 
 
-For additional functionality of Exosite products available on your gateway, take a look at the output of the following commands:
+An activated GWE.
+
+```
+$ gwe --gateway-cik
+3803226073f6f2feb51a9010bd1d3e53143214a7
+```
+
+For additional functionality of Exosite products available on your gateway, take a look at the output of the commands in the next section.
 
 ### The supervisorctl cli
 
@@ -391,6 +405,8 @@ The `supervisorctl` command-line interface is extremely powerful and incredibly 
 
 The device-client library has a lightweight command-line interface accessible with the callable `gdc`.
 
+### command (*gateway*)
+
 ```
 gdc --help
 ```
@@ -399,6 +415,8 @@ gdc --help
 
 The `gwe` process seen in `ps -ef` and `supervisorctl status` output has a robust command-line interface.
 
+### command (*gateway*)
+
 ```
 gwe --help
 ```
@@ -406,6 +424,8 @@ gwe --help
 ### The Gateway Message Queue cli
 
 The `gmq` process has a command-line interface that helps configure some runtime behavior like timers and logging.
+
+### command (*gateway*)
 
 ```
 gmq --help
@@ -417,5 +437,5 @@ The steps in this guide were designed to get you moving as quickly as possible w
 
 At this point you are probably ready to start using GWE to host your Custom Applications. Next, take a look at the following sections:
 
-  * [Custom Gateway Applications](http://docs.exosite.com/exositeready/gwe/custom_gateway_applications/)
-  * [Over the Air Updates](http://docs.exosite.com/exositeready/gwe/otau/)
+  * [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications/)
+  * [Over the Air Updates](/exositeready/gwe/otau/)

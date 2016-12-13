@@ -27,12 +27,16 @@ the alias (i.e., write an empty string).
 The `update_interval` can be changed before `gwe` ever starts with the
 following command:
 
+### command (*gateway*)
+
 ```
 gwe --set-update-interval <INTERVAL>
 ```
 
 If this command is run while `gwe` is running, the process will
 need to be restarted in order for the change to be applied.
+
+### command (*gateway*)
 
 ```
 supervisorctl restart gwe
@@ -53,11 +57,15 @@ In order for GWE to be able to download an OTAU package, it
 must be uploaded to your GWE product's content area. To upload
 content to your Product's content area, use the following MrMurano commands:
 
+### command (*dev machine*)
+
 ```
 mr content upload your_app.v1.2.3.tar.gz your_app.v1.2.3.tar.gz
 ```
 
 Verify `your_app.v1.2.3.tar.gz` was uploaded:
+
+### command (*dev machine*)
 
 ```
 mr content list
@@ -82,6 +90,7 @@ the following:
 Use the following MrMurano command to deploy the `your_app.v1.2.3.tar.gz` OTAU
 to gateway with serial number `<SERIAL_NUMBER_OF_GATEWAY>`:
 
+### example (*dev machine*)
 
 ```
 mr product device write <SERIAL_NUMBER_OF_GATEWAY> engine_fetch '{"install": [{"name": "your_app.v1.2.3.tar.gz"}]}'
@@ -103,6 +112,8 @@ of the OTAU package's `install.sh` script to the `engine_fetch` dataport.
 After a reasonable amount of time, you should be able to see the status
 of your OTAU deployment with the following command:
 
+### example (*dev machine*)
+
 ```
 mr product device read <SERIAL_NUMBER_OF_GATEWAY> fetch_status
 ```
@@ -113,6 +124,8 @@ Here is a common development cycle for developing custom gateway applications
 with GWE:
 
 1. Create/fix custom gateway application.
+
+  ### command (*dev machine*)
 
   ```
   gwe --create-buildfile
@@ -130,12 +143,16 @@ with GWE:
 
 2. Upload, deploy to gateway.
 
+  ### command (*dev machine*)
+
   ```
   mr content upload <APP_NAME>.v<VERSION>.tar.gz <APP_NAME>.v<VERSION>.tar.gz
   mr product device write <MAC_ADDRESS> engine_fetch '{"install": [{"name": "<APP_NAME>.v<VERSION>.tar.gz"}]}'
   ```
 
 3. Check status of installation.
+
+  ### command (*dev machine*)
 
   ```
   mr product device read <MAC_ADDRESS> fetch_status
