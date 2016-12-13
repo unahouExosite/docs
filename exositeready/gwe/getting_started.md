@@ -397,21 +397,21 @@ For additional functionality of Exosite products available on your gateway, take
 
 The `supervisorctl` command-line interface is extremely powerful and incredibly useful. It is highly recommended that you run this command (*`supervisorctl` using `sudo` if necessary*) and then type `help` when you have entered the interactive cli.
 
-  **Example**:
+### example (*gateway*) 
 
-  ```
-  $ supervisorctl
-  gmq                                RUNNING      pid 1184, uptime 1:02:51
-  gwe                                RUNNING      pid 1184, uptime 1:02:51
-  supervisor> help
+```
+$ supervisorctl
+gmq                                RUNNING      pid 1184, uptime 1:02:51
+gwe                                RUNNING      pid 1184, uptime 1:02:51
+supervisor> help
 
-  default commands (type help <topic>):
-  =====================================
-  add     clear    fg        open   quit     remove    restart    start   update
-  avail   exit     maintail  pid    reload   reread    shutdown   stop    version
+default commands (type help <topic>):
+=====================================
+add     clear    fg        open   quit     remove    restart    start   update
+avail   exit     maintail  pid    reload   reread    shutdown   stop    version
 
-  supervisor> 
-  ```
+supervisor> 
+```
 
 ### The Device Client cli
 
