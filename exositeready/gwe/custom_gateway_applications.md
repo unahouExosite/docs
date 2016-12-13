@@ -1,3 +1,15 @@
+# Table of Contents
+
+* [Getting Started](/exositeready/gwe/getting_started)
+* [Product Overview](/exositeready/gwe/product_overview) 
+* [Release Packages](/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/exositeready/gwe/otau)
+* [GWE Solution App](/exositeready/gwe/solution-app)
+* [Device Client - Docs](/exositeready/gwe/device-client)
+* [GWE - Docs](/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
+
 # Custom Gateway Applications
 
 ExositeReady™ Gateway Engine (GWE) hosts Custom Gateway Applications (CGA), and the Gateway Message Queuing (GMQ) server waits for incoming requests from CGAs. Without a CGA to host, GWE cannot really do much. This section is dedicated to defining how CGAs fit into the GWE hosting framework. The illustration, below, shows the basic layout of a typical IoT gateway from the physical layer up to the cloud.
