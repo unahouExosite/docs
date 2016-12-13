@@ -316,7 +316,7 @@ echo 'command = /bin/sh /usr/local/bin/example.sh' >> supervisor.conf
 ### example (*dev machine*)
 
 ```
-cd ~/code/my_gwe_hosted_app
+$ cd ~/code/my_gwe_hosted_app
 $ cat supervisor.conf
 [supervisord]
 command = /bin/sh /usr/local/bin/example.sh
