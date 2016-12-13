@@ -66,7 +66,7 @@ $
 
 Notice that one-off apps do not have a `supervisor.conf` file that configures commands and logfiles for supervisor, it is just an `install.sh` script that runs some shell commands. 
 
-The example shown above uses the `Device` python class from the `device-client` library and the `GatewayEngine` configuration file to dump the last 50 lines of a log file into the `fetch_status` dataport.
+The example shown above uses the `gdc` command-line interface from the `device-client` library and the `GatewayEngine` cik to dump the last 50 lines of a log file into the `fetch_status` dataport.
 
 ### Libraries
 
