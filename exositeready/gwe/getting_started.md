@@ -1,3 +1,15 @@
+# Table of Contents
+
+* [Getting Started](/exositeready/gwe/getting_started)
+* [Product Overview](/exositeready/gwe/product_overview) 
+* [Release Packages](/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/exositeready/gwe/otau)
+* [GWE Solution App](/exositeready/gwe/solution-app)
+* [Device Client - Docs](/exositeready/gwe/device-client)
+* [GWE - Docs](/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
+
 # Getting-started Guide: Install and Run ExositeReady™ Gateway Engine on a Gateway Device
 
 In this guide, you will be able to quickly download ExositeReady™ Gateway Engine (GWE),
@@ -244,7 +256,7 @@ cd gateway-engine
 ./install.sh
 ```
 
-  **NOTE:** In some Linux environments, you will need to use Super-User permissions to run the installer. If the type of Linux you are using has both `root` and non-`root` users, you will likely need to install GWE as `root` in order to use it. In this case, replace the `./install.sh` from the command, above with `sudo ./install.sh`. For example:
+  **NOTE:** In some Linux environments, you will need to use Super-User permissions to run the installer. If the type of Linux you are using has both `root` and non-`root` users, you will likely need to install GWE as `root` in order to use it. In this case, replace the `./install.sh` from the command, above with `sudo ./install.sh`.
 
 ### The Installation Log File
 
