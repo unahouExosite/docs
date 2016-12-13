@@ -1,15 +1,3 @@
-# Table of Contents
-
-* [Getting Started](/exositeready/gwe/getting_started)
-* [Product Overview](/exositeready/gwe/product_overview) 
-* [Release Packages](/exositeready/gwe/release_packages)
-* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
-* [Over the Air Updates](/exositeready/gwe/otau)
-* [GWE Solution App](/exositeready/gwe/solution-app)
-* [Device Client - Docs](/exositeready/gwe/device-client)
-* [GWE - Docs](/exositeready/gwe/gateway-engine)
-* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
-
 # Getting-started Guide: Install and Run ExositeReady™ Gateway Engine on a Gateway Device
 
 In this guide, you will be able to quickly download ExositeReady™ Gateway Engine (GWE),
@@ -28,6 +16,18 @@ gateway has the minimum requirements for running GWE:
 * 64 MB RAM
 
 **NOTE:** Some testing has been done on Python 2.7.3, but it has not been tested extensively and is not recommended.
+
+# Table of Contents
+
+* [Getting Started](/exositeready/gwe/getting_started)
+* [Product Overview](/exositeready/gwe/product_overview) 
+* [Release Packages](/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/exositeready/gwe/otau)
+* [GWE Solution App](/exositeready/gwe/solution-app)
+* [Device Client - Docs](/exositeready/gwe/device-client)
+* [GWE - Docs](/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
 
 # Getting Started 
 
