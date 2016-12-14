@@ -199,17 +199,17 @@ In this section, you will create a dashboard to view the data from the connected
 
   ![image alt text](thingdev_21.png)
 
-4. In the *WIDGET* popup that appears, select *Text* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "Temperature"; *VALUE*: "datasources["temperature"]"; *UNITS*: "F"). Click "SAVE."
+4. In the *WIDGET* popup that appears, select *Text* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "Temperature"; *VALUE*: "resources["temperature"]"; *UNITS*: "F"). Click "SAVE."
 
-  ![image alt text](thingdev_22.png)
+  ![image alt text](temperature.png)
 
-5. Create another pane and text widget for humidity and complete the remaining fields (*TITLE:* "Humidity"; *VALUE:* "datasources["humidity"]"; *UNITS:* "%"). Click "SAVE."
+5. Create another pane and text widget for humidity and complete the remaining fields (*TITLE:* "Humidity"; *VALUE:* "resources["humidity"]"; *UNITS:* "%"). Click "SAVE."
 
-  ![image alt text](thingdev_23.png)
+  ![image alt text](humidity.png)
 
-6. Add a third pane and widget. In the *WIDGET* popup that appears, select *Toggle Switch* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "On / Off"; *VALUE*: "datasources["state"]"; *ON VALUE*: "1"; *OFF VALUE*: "0"). Click "SAVE."
+6. Add a third pane and widget. In the *WIDGET* popup that appears, select *Toggle Switch* from the *TYPE* drop-down menu and complete the remaining fields (*TITLE*: "On / Off"; *VALUE*: "resources["state"]"; *ON VALUE*: "1"; *OFF VALUE*: "0"). Click "SAVE."
 
-  ![image alt text](thingdev_24.png)
+  ![image alt text](toggle.png)
 
 7. Refresh your browser if you do not see data coming through in the Humidity and Temperature widgets. Now turn the light on and off using the toggle switch on your dashboard. You should see the LED turn on and off on the Thing Dev Board accordingly. 
 
