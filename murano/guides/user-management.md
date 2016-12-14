@@ -134,17 +134,17 @@ First, support an endpoint for parking areas to manage their parking spaces. Thi
 ```lua
 -- Create endpoint for listing parking spaces of parking area
 local list_parking_space_endpoint = {
-    [“method”] = “GET”,
-    [“end_point”] = “list/{parkingAreaID}/parkingSpace” -- This endpoint contains a parameter name 'parkingAreaID'
+    ["method"] = "GET",
+    ["end_point"] = "list/{parkingAreaID}/parkingSpace" -- This endpoint contains a parameter name 'parkingAreaID'
 }
 User.createPermission(list_parking_space_endpoint)
 
 -- Assign endpoint to role 'parking_area_manager', so parking area managers can access it.
 local endpoints = {
     ["method"] = "GET",
-    [“end_point”] = “list/{parkingAreaID}/parkingSpace”
+    ["end_point"] = "list/{parkingAreaID}/parkingSpace"
 }
-User.addRolePerm({[“role_id”] = “parking_area_manager”, [“body”] = endpoints})
+User.addRolePerm({["role_id"] = "parking_area_manager", ["body"] = endpoints})
 ```
 
 To let **User\_Parking\_Area** access *'GET list/1/parkingSpace'*, grant **User\_Parking\_Area** permisson on 'parkingAreaID' = 1 in role 'parking_area_manager'.
@@ -153,24 +153,24 @@ To let **User\_Parking\_Area** access *'GET list/1/parkingSpace'*, grant **User\
 -- We should add parameter definition before assigning roles with new parameter name.
 local param_definitions = {
     {
-        [“name”] = “parkingAreaID”
+        ["name"] = "parkingAreaID"
     }
 }
-User.addRoleParam({[“role_id”] = “parking_area_manager”,  [“body”] = param_definitions})
+User.addRoleParam({["role_id"] = "parking_area_manager",  ["body"] = param_definitions})
 
 -- Grant User_Parking_Area parameter 'parkingAreaID' = 1 in role 'parking_area_manager'
 local roles_assigned = {
     {
-        [“role_id”] = “parking_area_manager”,
-        [“parameters”] = {
+        ["role_id"] = "parking_area_manager",
+        ["parameters"] = {
             {
-                [“name”] = “parkingAreaID”,
-                [“value”] = 1
+                ["name"] = "parkingAreaID",
+                ["value"] = 1
             }
         }
     }
 }
-User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
+User.assignUser({["id"] = 1, ["roles"] = roles_assigned})
 ```
 Now **User\_Parking\_Area** can access *'GET list/1/parkingSpace'*.
 
@@ -181,10 +181,10 @@ Assume there are two parking spaces in **User\_Parking\_Area**. Each parking spa
 ```lua
 -- We should add parameter definition before assigning roles with new parameter name.
 local param_definitions = {
-    [“role_id”] = “parking_area_manager”,
-    [“body”] = {
+    ["role_id"] = "parking_area_manager",
+    ["body"] = {
         {
-            [“name”] = “spaceRID” -- device RID
+            ["name"] = "spaceRID" -- device RID
         }
     }
 }
@@ -193,20 +193,20 @@ User.addRoleParam(param_definitions)
 -- Grant User_Parking_Area access to his parking space RIDs
 local roles_assigned = {
     {
-        [“role_id”] = “parking_area_manager”,
-        [“parameters”] = {
+        ["role_id"] = "parking_area_manager",
+        ["parameters"] = {
             {
-                [“name”] = “spaceRID”,
-                [“value”] = “d2343hbcc1232sweee12” -- first parking space RID
+                ["name"] = "spaceRID",
+                ["value"] = "d2343hbcc1232sweee12" -- first parking space RID
              },
              {
-                [“name”] = “spaceRID”,
-                [“value”] = “a34feh709a234e232xd21” -- second parking space RID
+                ["name"] = "spaceRID",
+                ["value"] = "a34feh709a234e232xd21" -- second parking space RID
              }
         }
     }
 }
-User.assignUser({[“id”] = 1, [“roles”] = roles_assigned})
+User.assignUser({["id"] = 1, ["roles"] = roles_assigned})
 ```
 
 After roles assignment, you can return a paginated list of &rsquo;spaceRID&rsquo; when **User\_Parking\_Area** accesses *'GET list/1/parkingSpace'*.
@@ -214,11 +214,11 @@ After roles assignment, you can return a paginated list of &rsquo;spaceRID&rsquo
 ###### <span id="eg_listUserRoleParamValues"></span>
 ```lua
 local parameters = {
-    [“id”] = 1, -- User ID of User_Parking_Area
-    [“role_id”] = “parking_area_manager”,
-    [“parameter_name”] = “spaceRID”,
-    [“offset”] = 0, -- offset for pagination
-    [“limit”] = 10 -- limit for pagination
+    ["id"] = 1, -- User ID of User_Parking_Area
+    ["role_id"] = "parking_area_manager",
+    ["parameter_name"] = "spaceRID",
+    ["offset"] = 0, -- offset for pagination
+    ["limit"] = 10 -- limit for pagination
 }
 local result = User.listUserRoleParamValues(parameters)
 response.message = result.items -- return the list of RID
@@ -231,8 +231,8 @@ Second, support an endpoint for drivers to look for a vacant parking space. Driv
 ```lua
 -- Create endpoint for querying vacant parking space
 local available_space_endpoint = {
-    [“method”] = “GET”,
-    [“end_point”] = “query/{parkingAreaID}/availableSpace” -- The endpoint contains a parameter name 'parkingAreaID'.
+    ["method"] = "GET",
+    ["end_point"] = "query/{parkingAreaID}/availableSpace" -- The endpoint contains a parameter name 'parkingAreaID'.
 }
 User.createPermission(available_space_endpoint)
 ```
@@ -241,14 +241,14 @@ User.createPermission(available_space_endpoint)
 -- Assign the endpoint to roles 'vehicle_driver' and 'parking_area_manager', so drivers and parking area managers can access the endpoint.
 local endpoints = {
     {
-        [“method”] = “GET”,
-        [“end_point”] = “query/{parkingAreaID}/availableSpace”
+        ["method"] = "GET",
+        ["end_point"] = "query/{parkingAreaID}/availableSpace"
     }
 }
 -- Let drivers access this endpoint
-User.addRolePerm({[“role_id”] = “vehicle_driver”, [“body”] = endpoints})
+User.addRolePerm({["role_id"] = "vehicle_driver", ["body"] = endpoints})
 -- Let parking area managers access this endpoint
-User.addRolePerm({[“role_id”] = “parking_area_manager”, [“body”] = endpoints})
+User.addRolePerm({["role_id"] = "parking_area_manager", ["body"] = endpoints})
 ```
 
 To let **User\_Parking\_Area** access *'GET query/1/availableSpace'*, **User\_Parking\_Area** should have parameter 'parkingAreaID' = 1 in role 'parking_area_manager'. Since they have been assigned it before, there is no need to assign again.
@@ -260,10 +260,10 @@ To let **User\_Vehicle** access *'GET query/\*/availableSpace'*, you should gran
 -- To role 'vehicle_driver', parameter name 'parkingAreaID' is new. Before assigning roles with new parameter name, you need to add parameter definition.
 local param_definitions = {
     {
-        [“name”] = “parkingAreaID”
+        ["name"] = "parkingAreaID"
     }
 }
-User.addRoleParam({[“role_id”] = “vehicle_driver”,  [“body”] = param_definitions})
+User.addRoleParam({["role_id"] = "vehicle_driver",  ["body"] = param_definitions})
 ```
 
 ###### <span id="eg_assignUser"></span>
@@ -271,18 +271,18 @@ User.addRoleParam({[“role_id”] = “vehicle_driver”,  [“body”] = param
 -- Grant User_Vehicle all value of parkingAreaID in role 'vehicle_driver'
 local roles_assigned = {
     {
-        [“role_id”] = “vehicle_driver”,
-        [“parameters”] = {
+        ["role_id"] = "vehicle_driver",
+        ["parameters"] = {
             {
-                [“name”] = “parkingAreaID”,
-                [“value”] = {
-                    [“type”] = “wildcard” -- this format represents all values
+                ["name"] = "parkingAreaID",
+                ["value"] = {
+                    ["type"] = "wildcard" -- this format represents all values
                 }
             }
         }
     }
 }
-User.assignUser({[“id”] = 2, [“roles”] = roles_assigned})
+User.assignUser({["id"] = 2, ["roles"] = roles_assigned})
 ```
 
 Now you can prepare the number returned in response.
@@ -316,10 +316,10 @@ The background process of permission check when the user accesses endpoint can b
 ```lua
 -- Check if User_Vehicle can access GET query/1/availableSpace.
 local check_permission = {
-    [“id”] = 2, -- User ID of User_Vehicle
-    [“perm_id”] = “GET/query/{parkingAreaID}/availableSpace”, -- {method}/{end_point}
-    [“parameters”] = {
-        “parkingAreaID::1” -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
+    ["id"] = 2, -- User ID of User_Vehicle
+    ["perm_id"] = "GET/query/{parkingAreaID}/availableSpace", -- {method}/{end_point}
+    ["parameters"] = {
+        "parkingAreaID::1" -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
     }
 }
 local result = User.hasUserPerm(check_permission)
@@ -330,10 +330,10 @@ Because **User\_Vehicle** has been assigned with all values of &rsquo;parkingAre
 ```lua
 -- Check if User_Parking_Area can access 'GET query/1/availableSpace'.
 local check_param = {
-    [“id”] = 1, -- User ID of User_Parking_Area
-    [“perm_id”] = “GET/query/{parkingAreaID}/availableSpace”, -- {method}/{end_point}
-    [“parameters”] = {
-        “parkingAreaID::1” -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
+    ["id"] = 1, -- User ID of User_Parking_Area
+    ["perm_id"] = "GET/query/{parkingAreaID}/availableSpace", -- {method}/{end_point}
+    ["parameters"] = {
+        "parkingAreaID::1" -- Specifies value 1 for parameter 'parkingAreaID' in endpoint
     }
 }
 local result = User.hasUserPerm(check_param)
@@ -359,7 +359,7 @@ User.createPermission(vehicle_info_endpoint)
 -- Assign endpoint to role 'parking_area_manager', so parking area managers can access this endpoint.
 local endpoints_assigned = {
     {
-        ["method"] = “GET”,
+        ["method"] = "GET",
         ["end_point"] = "query/{parkingAreaID}/parkingVehicle/{vehicleID}/info" -- This endpoint contains a parameter name 'vehicleID'
     }
 }
