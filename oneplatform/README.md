@@ -14,23 +14,22 @@ template: default
 
 # Tutorials
 * [Introduction To Device Connectivity and One Platform ](/introduction) - Start at the basics of device connectivity to Exosite's Platform
-* [Getting Started with Portals Evaluation Web Dashboard Tool](tutorials/get-started) - Using a free account, get a device added and start sending data
-* [Getting Started using an Arduino YÚN](tutorials/get-started-arduinoyun/) - Get a device added and start sending data
-* [Videos](videos/) - Video tutorials covering various topics
+* [Getting Started with Portals Evaluation Web Dashboard Tool](../portals/tutorials/get-started) - Using a free account, get a device added and start sending data
+* [Getting Started using an Arduino YÚN](../portals/tutorials/get-started-arduinoyun/) - Get a device added and start sending data
+* [Videos](../videos) - Video tutorials covering various topics
 
 # One Platform
 Exosite's IoT Platform for Connected Products
-* [One Platform Reference Guide](oneplatform/)
 * <a class="level-0" href="https://support.exosite.com/hc/en-us/articles/200308457" target="_blank">Provisioning Articles</a>
-* [Lua Scripting Reference and API](scripting/) - the One Platform Lua scripting environment
+* [Lua Scripting Reference and API](../scripting/) - the One Platform Lua scripting environment
 ## API
-* [HTTP Device API](http/) - easy API for reading from and writing to One Platform dataport resources via HTTPS
-* [CoAP Device API](coap/) - small, low bandwidth protocol for low-power devices and lossy networks
-* [Remote Procedure Call (JSON RPC) API](rpc/) - full featured API for device management and data visualization via HTTPS
-* [Remote Procedure Call API via WebSocket](websocket/) - RPC API over websocket with support for subscriptions
-* [Provision Management API](provision/) - API for working with product device models and device provisioning via applications
+* [HTTP Device API](../http/) - easy API for reading from and writing to One Platform dataport resources via HTTPS
+* [CoAP Device API](../coap/) - small, low bandwidth protocol for low-power devices and lossy networks
+* [Remote Procedure Call (JSON RPC) API](../rpc/) - full featured API for device management and data visualization via HTTPS
+* [Remote Procedure Call API via WebSocket](../websocket/) - RPC API over websocket with support for subscriptions
+* [Provision Management API](../provision/) - API for working with product device models and device provisioning via applications
 ## SDK & Libraries
-* [ExositeReady™ Device Support](exositeready/) - Production quality device software and device libraries
+* [ExositeReady™ Device Support](../exositeready/) - Production quality device software and device libraries
 * [One Platform Libraries](https://github.com/exosite-labs) - Python, Java, .NET, Cocoa, C++, ...
 ## Developer Tools
 * [Exoline](https://github.com/exosite/exoline/) - Command Line Interface (CLI) / Utility for the Exosite API
@@ -41,8 +40,8 @@ Portals is a whitelabel dashboard based web application framework that is used f
 * [Portals Web Application User Reference Articles (link)](https://support.exosite.com/hc/en-us/sections/200072708)
 * [Portals Whitelabel Domain Solution Administration Reference Articles (link)](https://support.exosite.com/hc/en-us/sections/200054894)
 ## API
-* [Portals Custom Widget API](widget/) - a Javascript API for creating custom Portals dashboard widgets
-* [Portals API](portals/) - an API for interacting with the Portals application
+* [Portals Custom Widget API](../widget/) - a Javascript API for creating custom Portals dashboard widgets
+* [Portals API](../portals/) - an API for interacting with the Portals application
 
 
 
@@ -50,8 +49,6 @@ Portals is a whitelabel dashboard based web application framework that is used f
 The One Platform is Exosite's core IoT building block.  The platform allows for virtualizing and digitizing physical things and their data.  It gives an identity in the 'cloud' to devices and becomes a central node for data to and from the device, to and from user applications, and to any other service you want to connect with.
 
 The interaction with the platform is via a set of web service APIs ([Application Programming Interface](https://en.wikipedia.org/wiki/Application_programming_interface) ).  These APIs allow developers to both connect devices and build applications with.  All data is stored in reference to each individual client (device) and is accessible using the APIs.
-
-[API Overview](/)
 
 The platform allows for storage of time-stamped data, triggering rules on incoming data, triggering dispatches such as HTTP, SMS, and Email, and stream processing of the data using Lua scripts to perform advanced automated functions.  In addition - the platform has a provisioning system that allows vendors to deploy fleets of devices with an approach for activation, defining ownership, and providing content such as new firmware to groups of specific products.
 
