@@ -20,6 +20,9 @@ wget --no-verbose http://${PEGASUSAPI}/service/doc.md?token=${PEGASUSTOKEN} -O R
 # once that's fixed this can be removed
 grep -v '\[[0-9]*\]' ./README.md | grep -v '_meta_schema.md' > README.fixed.md ;  mv README.fixed.md README.md
 
+# remove Auth0 from docs
+grep -v Auth0 ./README.md > README.fixed.md ; mv README.fixed.md README.md
+
 while read line; do
     if [[ $line =~ \.\/([a-z0-9]+)\.md ]]; then
         echo "Getting doc for Service: ${BASH_REMATCH[1]}"
