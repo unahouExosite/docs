@@ -32,7 +32,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.header li a:hover {
+.header li a:not(.nav_orange):hover {
   color: #41C4DC;
   /*text-decoration:underline;*/
   -webkit-font-smoothing: antialiased;
@@ -219,7 +219,7 @@ a.btn.orange {
 
 }
 
-.nav.orange {
+.nav_orange {
     
     background: #ff921e;
     color: #ffffff;

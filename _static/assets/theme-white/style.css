@@ -698,7 +698,7 @@ body.no-literate .content pre > code:hover::-webkit-scrollbar-thumb {
   color: #9090aa;
   display: block;
 }
-.header li a:hover {
+.header li a:not(.nav_orange):hover {
   color: #3a3a44;
 }
 @media (min-width: 480px) {
