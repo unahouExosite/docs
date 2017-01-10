@@ -101,7 +101,7 @@ Content-Length: 0 
 ### example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/alias \
+$ curl https://m2.exosite.com/onep:v1/stack/alias \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' \
     -d '<alias>=<value>'
@@ -143,7 +143,7 @@ Content-Length: <length>
 ### example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
+$ curl https://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8'
 ```
@@ -187,7 +187,7 @@ Content-Length: <length>
 ### example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
+$ curl https://m2.exosite.com/onep:v1/stack/alias?<alias_to_read> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8' \
     -d '<alias_to_write>=<value>'
@@ -254,7 +254,7 @@ When the dataport is updated and a value is returned, a `Last-Modified` header i
 ### example
 
 ```
-$ curl http://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
+$ curl https://m2.exosite.com/onep:v1/stack/alias?<dataport-alias> \
     -H 'X-Exosite-CIK: <CIK>' \
     -H 'Accept: application/x-www-form-urlencoded; charset=utf-8'
     -H 'Request-Timeout: 30000
@@ -304,7 +304,7 @@ Response may also be:
 This command activates a device with serial number 12345678 and returns its CIK.
 
 ```
-$ curl http://m2.exosite.com/provision/activate \
+$ curl https://m2.exosite.com/provision/activate \
     -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" \
     -d "vendor=mysubdomain&model=myclientmodel&sn=12345678"
 ```
