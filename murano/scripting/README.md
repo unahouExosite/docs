@@ -5,7 +5,12 @@ template: default
 
 # Murano Scripting Guide
 
+<<<<<<< HEAD
 * [Overview & References](#overview)
+=======
+* [Overview and References](#overview)
+* [Service Call](#service-call)
+>>>>>>> Document service call
 * [Script Execution & Event Handlers](#script-execution)
 * [API Endpoint Scripts](#api-endpoint-scripts)
 * [Websocket Scripts](#websocket-endpoints)
@@ -30,6 +35,33 @@ Examples of Murano Lua scripts are made available in the following projects:
 
 * [Example Platform Scripts Repository](https://github.com/exosite/murano-examples/tree/master/solutions/simple_graph)
 * [Example of Home Automation Solution Using Murano](https://github.com/exosite/home-automation-example)
+
+---
+
+# Service Call
+
+The besides native Lua scripting, Murano script offers direct access to high level service, providing extended functionalities. For example Murano has a service for sending emails.
+
+To send an email, a service operation call can be made from the Lua script by using the service alias with a capitalized first letter followed by the operation to call.
+
+#### Example
+
+```lua
+locale result = Email.send({to="my@friend.com", subject="Hello", text="World"})
+```
+
+The list of services, operations, arguments and response are defined for each services on [Murano Services page](../services).
+
+### Error handling
+
+If for any reason the service call failed the following Lua Table is returned to the script:
+```lua
+{
+  "error": "Error details, typically the Service response as a string",
+  "status": 400, -- The http status code
+  "type": "QueryError" -- Either QueryError or ServerError
+}
+```
 
 ---
 
@@ -366,7 +398,7 @@ Returns the elapsed time to nanosecond precision as a human readable string. It 
 elapsed = bench.measure(function ()
   -- do a couple things
     end)
-return elapsed   -- returns, e.g., "122.145329ms" 
+return elapsed   -- returns, e.g., "122.145329ms"
 ```
 
 `bench.measure()` will also return any parameters the function returns before the elapsed time. For example:
