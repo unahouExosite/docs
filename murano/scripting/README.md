@@ -5,12 +5,8 @@ template: default
 
 # Murano Scripting Guide
 
-<<<<<<< HEAD
 * [Overview & References](#overview)
-=======
-* [Overview and References](#overview)
 * [Service Call](#service-call)
->>>>>>> Document service call
 * [Script Execution & Event Handlers](#script-execution)
 * [API Endpoint Scripts](#api-endpoint-scripts)
 * [Websocket Scripts](#websocket-endpoints)
