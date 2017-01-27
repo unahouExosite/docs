@@ -19,7 +19,7 @@ gateway has the minimum requirements for running GWE:
 
 ## Partner Platforms
 
-**MultiTech** - In order to use MultiTech’s Conduit with GWE, end users must install the custom image fixes linked below. Download instructions for these images can be found [here](http://www.multitech.net/developer/software/mlinux/using-mlinux/flashing-mlinux-firmware-for-conduit/).
+**MultiTech MultiConnect® Conduit™** - In order to use MultiTech’s Conduit with GWE, end users must install the custom image fixes linked below. Download instructions for these images can be found [here](http://www.multitech.net/developer/software/mlinux/using-mlinux/flashing-mlinux-firmware-for-conduit/).
 
 [MultiTech GWE Image 1](https://s3-us-west-2.amazonaws.com/exosite-client-downloads/gecko-conduit/latest/rootfs.jffs2)
 
