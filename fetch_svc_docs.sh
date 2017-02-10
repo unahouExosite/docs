@@ -7,7 +7,7 @@ echo "-- get service docs --"
 # check environment variable
 : ${PEGASUSTOKEN?"Need to set env var PEGASUSTOKEN"}
 
-if cd murano/services; then
+if cd reference/services; then
     rm ./*
 else
     echo "Could not change directory! Aborting." 1>&2

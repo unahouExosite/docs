@@ -161,8 +161,8 @@ end
 
 ## Websocket Endpoints
 
-Websocket endpoints are handled in a similar manner as webservice endpoints based on [Websocket Murano service](http://docs.exosite.com/murano/services/websocket).
-The function context includes the [websocketInfo](http://docs.exosite.com/murano/services/websocket/#websocket_info) as well as a _response_ arguments.
+Websocket endpoints are handled in a similar manner as webservice endpoints based on [Websocket Murano service](/reference/services/websocket).
+The function context includes the [websocketInfo](/reference/services/websocket/#websocket_info) as well as a _response_ arguments.
 The _response.message_ content will be automatically sent back to the websocket channel.
 
 ```lua
