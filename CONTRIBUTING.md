@@ -1,6 +1,6 @@
 ---
 title: Contributing Guide
-template: two-column
+template: default
 ---
 
 # Contributing to Exosite's Documentation
@@ -24,7 +24,7 @@ the GitHub web interface most pages should be named README.md. The site
 generator will save the generated HTML from any README.md file into an
 index.html file. This means that, for instance, the RPC doc, `/rpc/README.md`
 will generate the page `/rpc/index.html` which can then be viewed at
-docs.exosite.com/rpc
+[Portals RPC Documentation](/portals/rpc)
 
 In addition to markdown files the generator will copy all .html, .png, and .jpg
 files in place.
@@ -38,19 +38,31 @@ like:
 
 ```
 ---
-title: UDP Single Shot
-template: two-column
+title: Introduction
+template: default
 ---
 ```
 
 There are two variables that are currently supported. `title` is used to set the
 HTML title tag in the template. `template` is used to set the HTML template that
-is used, it can either be set to "two-column" or "default" (which is the
-default).
+is used, it can be "default" (which is the default).
 
 Frontmatter is optional.
 
 ## Developing
+
+First step is to get the documentation files on your local machine!  The best
+way to do that is to us git and clone the documentation repository from 
+github.  
+
+If you don't know how to use git, see the <a href="https://i.exosite.com/display/ENG/GIT+Usage+Guide">in-house tutorial</a>, go get a github account, and work 
+with the documentation team to get your user added to the github documentation 
+project.  Once you do that, you can open a command line, and clone the 
+repository onto your local machine via git clone (for example: git clone 
+https://github.com/exosite/docs.git).  If you are working on a branch, make 
+sure to switch to that branch before editing files...
+
+### Local Preview
 
 When making changes that are more substantial than a technical or grammar fix
 you'll probably want to fix preview your changes locally. You'll need three

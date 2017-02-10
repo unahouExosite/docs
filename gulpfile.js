@@ -12,7 +12,7 @@ var gulp = require('gulp'),
   exec = require('child_process').exec;
 
 var defaultTemplate = new Buffer(fs.readFileSync("_static/_layouts/default.html"));
-var twoColumnTemplate = new Buffer(fs.readFileSync("_static/_layouts/two-column.html"));
+var portalsTemplate = new Buffer(fs.readFileSync("_static/_layouts/portals.html"));
 
 var site_search_index = [];
 
@@ -149,10 +149,10 @@ gulp.task('md', ['fetch-svc-docs'], function() {
 
       try {
         content.attributes.body = marked(body);
-        if(content.attributes.template == "two-column"){
-          file.contents = twoColumnTemplate;
+        if (content.attributes.template == "portals") {
+            file.contents = portalsTemplate;
         } else {
-          file.contents = defaultTemplate;
+            file.contents = defaultTemplate;
         }
 
         var tokens = marked.lexer(body);
@@ -202,34 +202,26 @@ gulp.task('html', function() {
 
 gulp.task('js', function() {
   return gulp.src('_static/assets/**/*.js')
-    //.pipe(jshint())
-    //.pipe(jshint.reporter('default'))
-    //.pipe(uglify())
-    //.pipe(concat('app.js'))
     .pipe(gulp.dest('_site/assets'));
 });
 
 gulp.task('css', function() {
   return gulp.src('_static/assets/**/*.css')
-    //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site/assets'));
 });
 
 gulp.task('img', function() {
   return gulp.src(['_static/assets/**/*.png','_static/assets/**/*.jpg'])
-    //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site/assets'));
 });
 
 gulp.task('il-img', function() {
   return gulp.src(['**/*.png','**/*.jpg', '!_*/**', '!node_modules/**'])
-    //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site'));
 });
 
 gulp.task('assets', function() {
   return gulp.src(['_static/**/*', '!_static/**/*.html', '!_static/_*/**'])
-    //.pipe(concat('app.css'))
     .pipe(gulp.dest('_site'));
 });
 
