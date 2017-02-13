@@ -9,15 +9,15 @@ used and the additional resources available.
 
 # Resources
 
-* [Getting Started](/exositeready/gwe/getting_started)
-* [Product Overview](/exositeready/gwe/product_overview) 
-* [Release Packages](/exositeready/gwe/release_packages)
-* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
-* [Over the Air Updates](/exositeready/gwe/otau)
-* [GWE Solution App](/exositeready/gwe/solution-app)
-* [Device Client - Docs](/exositeready/gwe/device-client)
-* [GWE - Docs](/exositeready/gwe/gateway-engine)
-* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
+* [Getting Started](/development/exositeready/gwe/getting_started)
+* [Product Overview](/development/exositeready/gwe/product_overview) 
+* [Release Packages](/development/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/development/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/development/exositeready/gwe/otau)
+* [GWE Solution App](/development/exositeready/gwe/solution-app)
+* [Device Client - Docs](/development/exositeready/gwe/device-client)
+* [GWE - Docs](/development/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/development/exositeready/gwe/gmq)
 
 # About GWE 
 
