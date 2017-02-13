@@ -38,7 +38,7 @@ By design, the OTAU feature of GWE installs updates and new
 programs the same way it installs and updates itself and its
 complementary components. For general design information and
 instructions on how to create OTAU and new program installation
-packages, please refer to the [Over the Air Updates](/exositeready/gwe/otau/) section.
+packages, please refer to the [Over the Air Updates](/development/exositeready/gwe/otau/) section.
 
 ## Application Version Control
 
@@ -65,7 +65,7 @@ for all Exosite [Provision and
 HTTP](/reference/products/device_api/http/) API
 calls. Additional documentation as well as source code documentation can
 be found on the
-[Device Client - Docs](/exositeready/gwe/device-client) page.
+[Device Client - Docs](/development/exositeready/gwe/device-client) page.
 
 ## Gateway Telemetrics
 
@@ -92,7 +92,7 @@ If your IoT solution can tolerate dataloss, then this section will not
 apply to your gateway solution. If data originating at sensors, nodes, or
 the gateway itself must terminate at Exosite Murano (or
 on-premise solutions), then the [Gateway Message
-Queuing](/exositeready/gwe/gmq/) is an option
+Queuing](/development/exositeready/gwe/gmq/) is an option
 you can leverage for a powerful, tunable store-and-forward non-volatile
 queue designed specifically for network and power outages.
 
