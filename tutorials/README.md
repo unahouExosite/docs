@@ -1,6 +1,6 @@
 # Murano Tutorials Overview
 
-Tutorials will help you create production ready solutions by walking through real life use cases in great detail. Each tutorial is designed to help your through every step, beginning to end.
+Tutorials will help you create production-ready solutions by walking through real-life use cases in great detail. Each tutorial is designed to help you through every step, from beginning to end.
 
 # Murano Tutorials
 
