@@ -3,6 +3,6 @@ title: Portals and OneP Documentation
 template: portals
 ---
 
-### Welcome to the Portals Documentation page. 
+# One Platform and Portals Documentation 
 
-Click on a link to the left to get started. 
+Welcome to Exosite's One Platform and Portals documentation. Please use the lefthand sidebar to navigate this site. 
