@@ -1,14 +1,14 @@
 # Table of Contents
 
-* [Getting Started](/exositeready/gwe/getting_started)
-* [Product Overview](/exositeready/gwe/product_overview) 
-* [Release Packages](/exositeready/gwe/release_packages)
-* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
-* [Over the Air Updates](/exositeready/gwe/otau)
-* [GWE Solution App](/exositeready/gwe/solution-app)
-* [Device Client - Docs](/exositeready/gwe/device-client)
-* [GWE - Docs](/exositeready/gwe/gateway-engine)
-* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
+* [Getting Started](/development/exositeready/gwe/getting_started)
+* [Product Overview](/development/exositeready/gwe/product_overview) 
+* [Release Packages](/development/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/development/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/development/exositeready/gwe/otau)
+* [GWE Solution App](/development/exositeready/gwe/solution-app)
+* [Device Client - Docs](/development/exositeready/gwe/device-client)
+* [GWE - Docs](/development/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/development/exositeready/gwe/gmq)
 
 # Over the Air Updates
 
@@ -20,7 +20,7 @@ ExositeReady™ Gateway Engine (GWE) and, more specifically, the `gwe` process.
 Over the Air Updating can be tricky. To help you understand how GWE's OTAU feature works, the diagram below was created to show
 the sequence that results in a GWE Over the Air Update.
 
-![otau](/exositeready/gwe/otau_image.png)
+![otau](/development/exositeready/gwe/otau_image.png)
 
 In words, this diagram states that GWE will check for the
 `engine_fetch` alias for specially formatted JSON objects that contain
