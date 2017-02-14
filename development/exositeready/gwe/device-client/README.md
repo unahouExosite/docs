@@ -5,7 +5,7 @@ The `device-client` python package is a separate component from any other Exosit
 # Resources
 
 For detailed information on how to build or install `device-client`: 
-*  [Device Client (GDC) README](/exositeready/gwe/device-client/device_client_gdc/)
+*  [Device Client (GDC) README](/development/exositeready/gwe/device-client/device_client_gdc/)
 
 For documentation on the `device-client` python package:
 *  [Module Documentation](https://gateway-engine.exosite.io/device-client/apidoc/modules.html)
