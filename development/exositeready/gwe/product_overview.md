@@ -62,7 +62,7 @@ to restart itself as well as all other managed processes.
 
 GWE uses and depends on the `device-client` python library
 for all Exosite [Provision and
-HTTP](/reference/products/device_api/http/) API
+HTTP](http://docs.exosite.com/reference/products/device-api/http/) API
 calls. Additional documentation as well as source code documentation can
 be found on the
 [Device Client - Docs](/development/exositeready/gwe/device-client) page.
