@@ -5,8 +5,6 @@ template: default
 
 # Guide: Create a Solution
 
-## Solution Overview
-
 Murano Solutions allow developers to create and deploy custom Applications and API Services.  Solutions combines three key things:
 * A custom API with definable end-point routes, scripted logic, and integration with a User Service for permission control
 * Asset hosting for deploying static file based applications, like a CDN
