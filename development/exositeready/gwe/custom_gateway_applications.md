@@ -1,20 +1,20 @@
 # Table of Contents
 
-* [Getting Started](/exositeready/gwe/getting_started)
-* [Product Overview](/exositeready/gwe/product_overview) 
-* [Release Packages](/exositeready/gwe/release_packages)
-* [Custom Gateway Applications](/exositeready/gwe/custom_gateway_applications)
-* [Over the Air Updates](/exositeready/gwe/otau)
-* [GWE Solution App](/exositeready/gwe/solution-app)
-* [Device Client - Docs](/exositeready/gwe/device-client)
-* [GWE - Docs](/exositeready/gwe/gateway-engine)
-* [Gateway Message Queuing - Docs](/exositeready/gwe/gmq)
+* [Getting Started](/development/exositeready/gwe/getting_started)
+* [Product Overview](/development/exositeready/gwe/product_overview) 
+* [Release Packages](/development/exositeready/gwe/release_packages)
+* [Custom Gateway Applications](/development/exositeready/gwe/custom_gateway_applications)
+* [Over the Air Updates](/development/exositeready/gwe/otau)
+* [GWE Solution App](/development/exositeready/gwe/solution-app)
+* [Device Client - Docs](/development/exositeready/gwe/device-client)
+* [GWE - Docs](/development/exositeready/gwe/gateway-engine)
+* [Gateway Message Queuing - Docs](/development/exositeready/gwe/gmq)
 
 # Custom Gateway Applications
 
 ExositeReady™ Gateway Engine (GWE) hosts Custom Gateway Applications (CGA), and the Gateway Message Queuing (GMQ) server waits for incoming requests from CGAs. Without a CGA to host, GWE cannot really do much. This section is dedicated to defining how CGAs fit into the GWE hosting framework. The illustration, below, shows the basic layout of a typical IoT gateway from the physical layer up to the cloud.
 
-![communication_topology](/exositeready/gwe/communication_topology.png)
+![communication_topology](/development/exositeready/gwe/communication_topology.png)
 
 This illustration shows a custom application written in the context of and hosted by GWE. As shown, the custom application has flexible options as far as how it can communicate on the Internet and with Exosite. As a developer of a CGA, you may choose to use the GMQ for writing sensor data, Device Client (GDC) for reading configuration data, and some other tool like `curl` or another library for some other service (e.g., ntpdate, ping, a nodejs library, etc.).
 
@@ -98,7 +98,7 @@ x modbus_lib/
 ## Get the GWE Development Tools
 
 
-Navigate to the [Release Packages](/exositeready/gwe/release_packages) section and download the latest copy of GWE to your development machine.
+Navigate to the [Release Packages](/development/exositeready/gwe/release_packages) section and download the latest copy of GWE to your development machine.
 Navigate to the [Release Packages](/development/exositeready/gwe/release_packages/) section and download the latest copy of GWE to your development machine.
 
 ### Optional Setup
@@ -451,4 +451,4 @@ If you navigate to the [gmq-sine-demo](https://github.com/exosite/gmq-sine-demo 
 
 This section covered creating a new CGA and using the GWE developer tools to build and deploy it over the air. The next recommended section (link below) to study looks deeper at how OTAU works and how it enables developers. 
 
-  * [Over the Air Updates](/exositeready/gwe/otau)
+  * [Over the Air Updates](/development/exositeready/gwe/otau)
