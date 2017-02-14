@@ -246,7 +246,7 @@ Installing GMQ can be done a couple of different ways.
 3. Untar the release tarball and run `install.sh` manually.
 
 Information on GWE installation methods and procedures can be
-found on the main [ExositeReady Gateway Engine](/exositeready/gwe/) page.
+found on the main [ExositeReady Gateway Engine](/development/exositeready/gwe/) page.
 
 # GMQ Package and Module documentation
 
