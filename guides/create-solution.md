@@ -22,11 +22,11 @@ To create a solution using the Web UI:
 
 1. From the *Solutions* tab (https://www.exosite.io/business/solutions), click "+ NEW SOLUTION." 
 
-   ![new solution](../assets/new_solution.png)
+   ![new solution](/tutorials/hvac-tutorial/assets/new_solution.png)
 
 2. Select *Start from scratch* and click the "ADD" button.
 
-   ![new solution](../assets/new_solution_popup.png)
+   ![new solution](/tutorials/hvac-tutorial/assets/new_solution_popup.png)
 
 Once you have created a solution, you will need to find the Solution ID.
 
@@ -36,7 +36,7 @@ Once you have created a solution, you will need to find the Solution ID.
 
 3. Copy the Solution ID on this page.
 
-   ![solutions tab](../assets/solutions_tab.png)
+   ![solutions tab](/tutorials/hvac-tutorial/assets/solutions_tab.png)
 
 ### Murano CLI
 
