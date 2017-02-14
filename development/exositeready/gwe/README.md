@@ -56,7 +56,7 @@ and deployment tool for Internet-connected gateways.
 
 ## Notational Conventions
 
-As mentioned in the [HTTP Device API](/reference/products/device_api/http/readme/#notational_conventions), this document follows some notational conventions:
+As mentioned in the [HTTP Device API](http://docs.exosite.com/reference/products/device-api/http/), this document follows some notational conventions:
 
 * Any JSON is pretty printed for clarity. The extra whitespace is not necessarily included in any commands.
 * Comments (e.g. `#`, `//`) are occasionally included in example code, runnable commands and JSON to give hints or provide detail. These comments are not necessary (*and sometimes error-prone*) in actual example code, commands, requests, and responses.
