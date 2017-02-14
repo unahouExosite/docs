@@ -1,10 +1,10 @@
 # ExositeReady™ Gateway Engine Solution App
 
-This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo." For additional information and resources, please refer to the GWE documentation [home page](http://docs.exosite.com/exositeready/gwe/).
+This guide provides an example solution displaying all the telemetric data from ExositeReady™ Gateway Engine (GWE) as well as showing a custom gateway application: "gmq-sine-demo." For additional information and resources, please refer to the GWE documentation [home page](http://docs.exosite.com/development/exositeready/gwe/).
 
 # Requirements
 
-This guide requires the installation of GWE on your gateway hardware device. These installation instructions can be found in the [GWE Getting-started Guide](http://docs.exosite.com/exositeready/gwe/getting_started/).
+This guide requires the installation of GWE on your gateway hardware device. These installation instructions can be found in the [GWE Getting-started Guide](http://docs.exosite.com/development/exositeready/gwe/getting_started/).
 
 **NOTE:** This is a technical tutorial. You will need some familiarity with your operating system’s terminal.
 
@@ -82,7 +82,7 @@ This guide requires the installation of GWE on your gateway hardware device. The
 
 ## Configure the Gateway 
 
-1. Ensure GWE has been properly installed on your gateway following the [GWE Getting-started guide](http://docs.exosite.com/exositeready/gwe/getting_started/).
+1. Ensure GWE has been properly installed on your gateway following the [GWE Getting-started guide](http://docs.exosite.com/development/exositeready/gwe/getting_started/).
 
 2. Set the update interval to post data every minute.
 
