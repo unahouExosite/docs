@@ -25,7 +25,7 @@ In addition to what [Supervisor](http://supervisord.org) provides, [GWE](https:/
 
 ## OTA Application Management
 
-GWE was designed to install and update applications over the air. For more information on building Custom Gateway Application tarballs see the [GWE README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/) page on Hosted Applications.
+GWE was designed to install and update applications over the air. For more information on building Custom Gateway Application tarballs see the [GWE README](/development/exositeready/gwe/gateway-engine/gateway_engine_gwe/) page on Hosted Applications.
 
 ## OS/Filesystem Metadata Collection
 
@@ -46,7 +46,7 @@ The log of all requests made with the [device-client](https://github.com/exosite
 # Resources
 
 For detailed information on how to build or install `gateway-engine`: 
-*  [GWE README](/exositeready/gwe/gateway-engine/gateway_engine_gwe/)
+*  [GWE README](/development/exositeready/gwe/gateway-engine/gateway_engine_gwe/)
 
 For documentation on the `gateway-engine` python package:
 *  [Module Documentation](https://gateway-engine.exosite.io/gateway-engine/apidoc/modules.html)
