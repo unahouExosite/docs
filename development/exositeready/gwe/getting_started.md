@@ -88,7 +88,7 @@ Once you have a product, you must configure it with resources either using **MrM
 
 ### Configure a Product Using MrMurano
 
-The [MrMurano tool](https://github.com/tadpol/MrMurano) is a command-line tool you can configure and use with your Murano solutions and products. 
+The [MrMurano tool](https://github.com/exosite/MrMurano) is a command-line tool you can configure and use with your Murano solutions and products. 
 
 #### Quick Configuration
 

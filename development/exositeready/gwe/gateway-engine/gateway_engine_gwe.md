@@ -470,7 +470,7 @@ The OTA install command for the `test_app.v1.tar.gz` application is a JSON strin
 
 #### Upload the App Tarball to Your Murano Product ID's Content Area
 
-The [MrMurano](https://github.com/tadpol/MrMurano) tool was created for this and many other purposes. It is currently the only supported tool for uploading any content to a Murano Product ID's content area. To get your application tarball uploaded, follow the instructions on the `MrMurano` github page to configure the tool and then use the `mr content upload` command to upload your application tarball into the content area.
+The [MrMurano](https://github.com/exosite/MrMurano) tool was created for this and many other purposes. It is currently the only supported tool for uploading any content to a Murano Product ID's content area. To get your application tarball uploaded, follow the instructions on the `MrMurano` github page to configure the tool and then use the `mr content upload` command to upload your application tarball into the content area.
 
 #### Writing the Install Command to the `engine_fetch` Alias
 
