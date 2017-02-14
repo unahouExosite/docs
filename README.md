@@ -20,7 +20,7 @@ Murano also allows integration with third-party software and other server-based 
 
 Murano allows developers to build full IoT systems quickly, while maintaining the flexibility to add new features and build customizations not possible on more rigid platforms.
 
-Murano uses a micro-services [architecture](/guides/murano-architecture/) managed by an ISO-27001 information security program, and provides support, status, and developer-operations interfaces that many of the world's top organizations rely on as an integral part of their IoT operations. 
+Murano uses a micro-services architecture managed by an ISO-27001 information security program, and provides support, status, and developer-operations interfaces that many of the world's top organizations rely on as an integral part of their IoT operations. 
 
 # Murano Features
 
