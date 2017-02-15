@@ -3,9 +3,9 @@ title: Murano Solution Example App
 template: default
 ---
 
-# GETTING-STARTED GUIDE: CREATE A SOLUTION & DEPLOY CHANGES
+# Solution Quickstart
 
-This is a getting-started guide for using Exosite Murano Solutions. In this guide, you will build, deploy, and use an example IoT application with the following features:
+In this quickstart, you will build, deploy, and use an example IoT application with the following features:
 
 * User Login
 * User Profiles
@@ -28,7 +28,7 @@ In order to complete this tutorial, you will need Git, node.js & npm, and Python
 
 **NOTE:** This is a technical tutorial. You will need some familiarity with your operating system’s terminal. 
 
-# CREATE A SOLUTION USING THE HOME AUTOMATION EXAMPLE
+# Getting Started
 
 Create a solution using the home automation example as a starting point here:
 <a href="https://www.exosite.io/business/solutions" target="_blank">https://www.exosite.io/business/solutions</a>
