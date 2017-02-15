@@ -3,9 +3,9 @@ title: Murano Getting Started Manually
 template: default
 ---
 
-# Guide: Manually Activate a Connected Lightbulb Device Using APIs
+# Manual Quickstart
 
-In this guide, you will manually activate a device to act as a connected lightbulb using API calls. 
+In this quickstart, you will manually activate a device to act as a connected lightbulb using API calls. 
 
 **NOTE:** This simulator script uses the [Device HTTP API](https://github.com/exosite/docs/blob/master/murano/products/device_api/http).
 
@@ -13,11 +13,17 @@ Devices need two pieces of information to activate with the platform. These are 
 
 ![image alt text](manual_0.png)
 
-# Hardware Setup
+# Requirements
+
+## Hardware Setup
 
 This example does not require hardware. It assumes developers will use command line CURL commands or implement in a language of choice using HTTP client library commands.
 
-# Software Setup
+## Software Setup
+
+This example does not require one specific type of software. 
+
+# Getting Started
 
 ## Using CURL
 
