@@ -18,13 +18,13 @@ To create a new product using the Web UI:
 
 1. Click on "+ NEW PRODUCT." 
 
-1. Name your product. Note: Your product name cannot contain any capital letters. 
+1. Name your product. Note: your product name cannot contain any capital letters. 
 
-1. Open the *Choose Starting Point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your product.
+1. Open the *Choose starting point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your product.
 
    ![new product](../assets/new_product_popup.png)
 
-Before continuing you will need to find the ID of the product you created.
+Before continuing, you will need to find the ID of the product you created.
 
 1. In Murano select *Products*.
 
@@ -58,4 +58,4 @@ Executing the command below will set the product definition for this example as 
 ```
 $ murano syncup --specs
 ```
-This command sets up all of the data aliases in the spec file. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the 'Definition' tab. These are all the different resources that will used by your hardware. 
+This command sets up all the data aliases in the spec file. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the *DEFINITION* tab. These are all the different resources that will used by your hardware. 
