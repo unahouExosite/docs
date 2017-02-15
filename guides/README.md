@@ -9,4 +9,4 @@ Guides are provided to help you execute single specific tasks within Murano. Eac
 * [Create a Solution](/guides/create-solution/)
 * [Create a Product](/guides/create-product/)
 * [Manage Users](/guides/user-management/)
-* [Record Product Metris](/guides/keystore-service/)
+* [Record Product Metrics](/guides/keystore-service/)
