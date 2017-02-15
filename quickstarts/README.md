@@ -9,7 +9,7 @@ Exosite provides example templates to help you quickly create Products and Solut
 
 # Create a Product
 
-In this section, you will create a connected lightbulb from the provided example templates. Choose an example template below based on whether you will use software-simulated devices, a SparkFun ESP8266 Thing Dev Board, or manual API commands. 
+In this section, you will create a connected lightbulb from the provided example templates. Choose an example template below based on whether you will use software-simulated devices or manual API commands. 
 
 At the end of each quickstart, you should have either a physical or simulated device representing a connected lightbulb that is:
 
@@ -21,7 +21,7 @@ At the end of each quickstart, you should have either a physical or simulated de
 
 <table width="100%">
     <tr>
-      <th colspan="2" style="font-weight: bold;">Murano Products - Getting-started Example Templates</th>
+      <th colspan="2" style="font-weight: bold;">Murano Products - Quickstart Example Templates</th>
     </tr>
     <tr>
         <td style="text-align: center;">![Python Simulator](assets/sim.png)</td>
@@ -50,7 +50,7 @@ At the end of this quickstart, you should have a deployed web application that h
 
 <table width="100%">
     <tr>
-      <th colspan="2" style="font-weight: bold;">Murano Solution - Getting-started Example Templates</th>
+      <th colspan="2" style="font-weight: bold;">Murano Solution - Quickstart Example Templates</th>
     </tr>
     <tr>
         <td style="text-align: center;">![Consumer Example App](assets/lightapp.png)</td>
