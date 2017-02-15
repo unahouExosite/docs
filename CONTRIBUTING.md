@@ -5,12 +5,28 @@ template: default
 
 # Contributing to Exosite's Documentation
 
-Thanks for helping make docs better!
+Thanks for helping make docs better!  Check out the [Technical Overview](#technical-overview) below for information on how this doc site works and how to use the tools to contribute to it.
+
+## Making Small Changes
+
+If you are just adjusting a simple spelling error or syntax/grammar problem, you can edit the page directly in the GitHub UI (go to the doc page and click the pencil edit button). Any changes you make with this method should be minor!
+
+## Making Large(r) Changes
+
+If you are making more significant changes, you will need to make the changes locally, verify they are complete and accurate, push the changes to GitHub on a branch, and then submit a pull request to get them published.  Details below:
+
+First, you will need to read the section below on ["Developing"](#developing) to get this docs repository cloned onto your local machine and to be able to preview changes before pushing back to GitHub.
+
+Before starting to make changes, get the most recent GitHub version of docs down via "git pull" and then create a branch (e.g., my-branch-name) via "git branch my-branch-name".  Check out the branch via "git checkout my-branch-name" and then make your changes.
+
+Once you have made changes you are happy with locally and have committed those changes to your "my-branch-name" branch, go ahead and push the branch via "git push origin my-branch-name".  Then, in GitHub, go ahead and submit a pull request so that the documentation overlord can review your changes and determine if they are ready for prime time or not.
+
+To submit a pull request in github, go to the <a href="https://github.com/exosite/docs/pulls">Pull requests menu item</a> and click "New pull request", set base to "master" and compare to "my-branch-name" and click "Create pull request".
 
 ## Technical Overview
 
-Exosite's docs site is hosted on Github Pages, this means that it's just a bunch
-of static HTML files. To make the docs easier to write this repo includes a
+Exosite's docs site is hosted on Github Pages, this means that it is just a bunch
+of static HTML files. To make the docs easier to write, this repo includes a
 custom static site generator that reads markdown and transforms it into HTML.
 
 ### Directory Structure
