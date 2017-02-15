@@ -29,7 +29,7 @@ At the end of each quickstart, you should have either a physical or simulated de
     </tr>
     <tr>
         <td style="text-align: center;">![Manual](assets/manual.png)</td>
-        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Manually Activate and Write Data using API Commands](products/manualdevice)</td>
+        <td style="width:80%;padding-top:40px;padding-bottom:40px;">[Manually Activate and Write Data using API Commands](/quickstarts/manualdevice)</td>
     </tr>
     
 </table>
