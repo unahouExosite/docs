@@ -11,4 +11,6 @@ To get started with Exosite, you will need to create an Exosite account using yo
 
    ![signup](../assets/exosite_signup.png)
    
+2. Once you have signed up, an email confirmation of your new Murano account will be sent to you. Follow the instructions provided in the email, and you will be all set. 
+   
    ![welcome](../assets/business_welcome.png)
