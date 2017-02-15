@@ -90,7 +90,7 @@ Exosite's API currently only return a subset of the response codes as defined in
 
 # Procedures
 
-##Write
+## Write
 
 Write one dataport of alias `<alias>` with given `<value>`. Data is written with the server timestamp as of the time the data was received by the server. Data cannot be written faster than a rate of once per second.
 
@@ -123,7 +123,7 @@ POST: coap://coap.exosite.com/1a/<alias>?<CIK>
 * 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
 
-##Read
+## Read
 
 Read the most recent value from the dataport with alias `<alias>`. If at `<alias>` is found and has data, data will be returned.
 
@@ -200,7 +200,7 @@ GET: coap://coap.exosite.com/1a/<alias>?<CIK>
 * 4.01 Unauthorized: The given CIK couldn't be used to authenticate.
 * 4.03 Forbidden: The given alias couldn't be accesses with the given CIK.
 
-##Multiple Read and Write
+## Multiple Read and Write
 
 Read the most recent value from zero or more dataports and write a value to zero or more dataports with the given values in one call. The server will look in the first uri query option for the CIK.
 
@@ -394,7 +394,7 @@ http://wiki.tools.ietf.org/html/draft-ietf-core-block
 * 4.04 Not Found: No device or no content found with given information.
 
 
-##Timestamp
+## Timestamp
 
 Get the current time as a unix timestamp.
 
