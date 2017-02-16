@@ -5,13 +5,13 @@ template: default
 
 # Murano Quickstarts Overview
 
-Quickstarts are example templates to help you quickly create Products and Solutions on Murano. This includes everything you need to set up a Product, connect a physical device (or device simulator), interact with device data on a custom dashboard, and deploy a fully customizable front-end web application Solution. When finished, you will have a complete end-to-end IoT application deployed on Exosite’s Murano platform.
+Quickstarts are example templates to help you quickly create Products and Solutions on Murano. This includes everything you need to set up a Product, connect a simulated device, interact with device data on a custom dashboard, and deploy a fully customizable front-end web application Solution. When finished, you will have a complete end-to-end IoT application deployed on Exosite’s Murano platform.
 
 # Create a Product
 
 In this section, you will create a connected lightbulb from the provided example templates. Choose an example template below based on whether you will use software-simulated devices or manual API commands. 
 
-At the end of each quickstart, you should have either a physical or simulated device representing a connected lightbulb that is:
+At the end of each quickstart, you should have a simulated device representing a connected lightbulb that is:
 
 * Connected to the Murano platform
 
