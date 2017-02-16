@@ -3,7 +3,7 @@ title: Murano Overview
 template: default
 ---
 
-# Murano Documentation
+# Murano Overview
 
 Welcome to Murano, Exosite's enterprise IoT software platform. Use this documentation site to familiarize yourself with Exosite's products and explore the many features available to you through Murano.
 
@@ -11,8 +11,6 @@ Welcome to Murano, Exosite's enterprise IoT software platform. Use this document
 <a class="btn orange" href="/quickstarts">Murano Quickstarts</a>
 
 ![murano overview image](/assets/platform_overview.png)
-
-# Murano Overview
 
 Murano helps organizations connect product deployments and build applications and services using a secure, scalable infrastructure. The easiest way to think about the Murano platform is as a number of cloud software layers that are integrated together, simplifying the full IoT stack. Murano has taken care of the infrastructure, development, and integration of the functional layers, including device connectivity, device/product management, data routing, service integration (with services like data stores, alerting, and third-party analytics platforms), application public APIs, user auth/roles/permissions, and application asset hosting. 
 
