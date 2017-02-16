@@ -28,17 +28,17 @@ The Business concept in Murano is a virtual space that houses all the products a
 
 [Manage Your Business](/guides/manage-business/)
 
-## Products
-
-The Product concept in Murano represents a connected device type. It provides tools and interfaces to manage product definitions, allowing developers to deploy a fleet of devices using a common API hostname, provisioning sequence, definition for data routing, and content for things like infield updates and configuration. Developers can quickly build devices and verify device behavior using integrated prototyping dashboards.
-
-[Create a Product](/guides/create-product/)
-
 ## Solutions
 
 The Solution concept in Murano represents the application logic, user interfaces, and APIs for an IoT application. It provides the tools needed to build and deploy applications and services on top of IoT device data using concepts of data routing, integrated services, custom APIs, user auth/roles/permissions, and application asset hosting. This allows developers to create solution templates that contain the entire application functionality to deploy to end users or to provide a custom API for their products.
 
 [Create a Solution](/guides/create-solution/)
+
+## Products
+
+The Product concept in Murano represents a connected device type. It provides tools and interfaces to manage product definitions, allowing developers to deploy a fleet of devices using a common API hostname, provisioning sequence, definition for data routing, and content for things like infield updates and configuration. Developers can quickly build devices and verify device behavior using integrated prototyping dashboards.
+
+[Create a Product](/guides/create-product/)
 
 ## Services
 
