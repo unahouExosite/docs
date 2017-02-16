@@ -9,7 +9,7 @@ A common need when managing a fleet of devices is to track metrics and error log
 
 ## Prerequisites
 
-* A Murano account with a solution is required. To create a solution, you can follow the [getting-started guide](/quickstarts/solutions/exampleapp/).
+* A Murano account with a solution is required. To create a solution, you can follow the [Solution Quickstart](/quickstarts/solutions/exampleapp/).
 
 
 ## Collect Metrics
