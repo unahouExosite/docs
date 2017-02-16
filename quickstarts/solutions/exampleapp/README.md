@@ -37,7 +37,7 @@ Create a solution using the home automation example as a starting point here:
 
 ![image alt text](exampleapp_1.png)
 
-Notice, the Home Automation Example will pull in a public GitHub repository. If you are using your own GitHub repository in the future, it will not be linked to your solution (e.g., push to your GitHub repository and see changes on your solution). It consumes the repository when creating the solution, and you can push changes using the <a href="/development/tools/murano-cli/" target="_blank">Murano CLI</a>.
+Notice, the Home Automation Example will pull in a public GitHub repository. If you are using your own GitHub repository in the future, it will not be linked to your solution (e.g., push to your GitHub repository and see changes on your solution). It consumes the repository when creating the solution, and you can push changes using the <a href="/development/tools/exosite-cli/" target="_blank">Murano CLI</a>.
 
 
 ![image alt text](exampleapp_2.png)
