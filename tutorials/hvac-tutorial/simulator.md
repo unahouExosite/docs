@@ -1,6 +1,6 @@
 # Python Simulator Setup
 
-This portion of the tutorial with help you run the Python simulator and connect the data to the solution you have already deployed.
+This portion of the tutorial will help you run the Python simulator and connect the data to the solution you have already deployed.
 
 # Requirements
 
