@@ -5,7 +5,7 @@ template: default
 
 # Guide: Manage Users
 
-This system is to manage users under the Murano solution. It supports user authentication, role-based access control, and storage per user.
+Murano user management supports user authentication, role-based access control, and storage per user.
 
 # Prerequisites
 
