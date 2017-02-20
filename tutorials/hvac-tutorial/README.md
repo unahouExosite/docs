@@ -13,9 +13,9 @@ This tutorial is designed to be flexible based the hardware, software, and tools
 
 ### SeeedStudio BeagleBone Green Wireless
 
-[https://beagleboard.org/green-wireless](https://beagleboard.org/green-wireless)
-
 SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-supported development platform for developers and hobbyists. It is a joint effort by BeagleBoard.org and Seeed Studio. It is based on the classical open-source hardware design of BeagleBone Black and has been developed into this differentiated version. The BBG includes two Grove connectors, making it easier to connect to the large family of Grove sensors. The onboard HDMI is removed to make room for these Grove connectors.
+
+[https://beagleboard.org/green-wireless](https://beagleboard.org/green-wireless)
 
 [http://wiki.seeed.cc/BeagleBone_Green/](http://wiki.seeed.cc/BeagleBone_Green/) 
 
@@ -35,11 +35,11 @@ Murano CLI is a command-line utility for working with Murano. Think of it as a w
 
 ### Python
 
-All code written for the simulator in this tutorial has been written to work with Python 2 and 3, which can be downloaded from the [Python website](https://www.python.org/).
+All code written for the simulator in this tutorial has been designed to work with Python 2 and 3, which can be downloaded from the [Python website](https://www.python.org/).
 
 ### Web Browser
 
-You'll need a web browser for the initial steps in this tutorial.
+You will need a web browser for the initial steps in this tutorial.
 
 # Getting Started
 
@@ -53,27 +53,31 @@ To get started with this tutorial, you will need to create an Exosite account us
 
    ![signup](assets/exosite_signup.png)
    
+2. Once you have signed up, an email confirmation of your new Murano account will be sent to you. Follow the instructions provided in the email, and you will be all set.
+   
    ![welcome](assets/business_welcome.png)
 
-## Create Business
+## Manage Your Business
 
 1. Once you have an active account and have logged in, you can navigate to the following URL to see your newly created business [https://www.exosite.io/business/memberships](https://www.exosite.io/business/memberships).
 
    ![new business](assets/new_business.png)
 
 1. Click on your business to access your business page. 
+
+1. Or, click the "+ NEW BUSINESS" button to create a new business.
    
 ## Install Murano CLI
 
-Exosite offers a command line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a the Web UI, feel free to install the Murano CLI.
+Exosite offers a command-line tool that allows you to efficiently work with the project in this tutorial. Even though everything in this tutorial can be accomplished using a Web UI, feel free to install the Murano CLI.
 
 ```
 Murano CLI is the command-line tool that interacts with Murano and makes tasks easier. Murano CLI makes it simple to deploy code to a solution, import many product definitions at once, set up endpoints and APIs, and more. 
 ```
 
-Murano CLI is a Ruby based command-line interface. Murano CLI will be used for most actions throughout the rest of this tutorial.
+Murano CLI is a Ruby-based command-line interface. Murano CLI will be used for most actions throughout the rest of this tutorial.
 
-Ruby is most likely already installed on your system. Check to see if Ruby is installed first by opening up a terminal window and typing the following command.  
+Check to see if Ruby is installed first by opening up a terminal window and typing the following command:  
 
 **Note:** Always copy and paste what comes after the $.
 
@@ -104,7 +108,7 @@ This tutorial uses a common codebase that includes a web application and specifi
 
 ## Create a Solution
 
-Next you need a place to deploy HVAC solution code. 
+You will need a place to deploy the HVAC solution code. 
 
 ### Web UI
 
@@ -161,13 +165,13 @@ To create a new product using the Web UI:
 
 1. Click on "+ NEW PRODUCT." 
 
-1. Name your product. Note: Your product name cannot contain any capital letters. 
+1. Name your product. Note: your product name cannot contain any capital letters. 
 
-1. Open the *Choose Starting Point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your product.
+1. Open the *Choose starting point* dropdown, select *Start from scratch*, and click the "ADD" button. In the next step you can use code to configure your product.
 
    ![new product](assets/new_product_popup.png)
 
-Before continuing you will need to find the ID of the product you created.
+Before continuing, you will need to find the ID of the product you created.
 
 1. In Murano select *Products*.
 
@@ -190,7 +194,7 @@ This command will return the ID of your product for the next step.
 
 ## Configure Your Product
 
-To configure your product you can use the config command of the Murano CLI tool. This command tells Murano CLI which product to use. 
+To configure your product, you may use the config command of the Murano CLI tool. This command tells Murano CLI which product to use. 
 
 ```sh
 $ murano config product.id <productid>
@@ -201,11 +205,11 @@ Executing the command below will set the product definition for this example as 
 ```
 $ murano syncup --specs
 ```
-This command sets up all of the data aliases that we will use in this example. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the 'Definition' tab. Many of the aliases are used by Gateway Engine. Notice the aliases like 'ambient_temperature', 'desired_temperature', and 'heat_on'. These are all the different resources that will used for this HVAC tutorial. 
+This command sets up all of the data aliases used in this example. You can now see them by going to [https://www.exosite.io/business/products](https://www.exosite.io/business/products) and clicking the *DEFINITION* tab. Many of the aliases are used by Gateway Engine. Notice, the aliases like "ambient_temperature", "desired_temperature", and "heat_on". These are all the different resources used for this HVAC tutorial. 
 
 ## Connect Product to Solution
 
-Next, you will need to link your product with your solution. Linking allows your solution and product to communicate with one another.
+You will need to link your product with your solution. Linking allows your solution and product to communicate with one another.
 
 ### Web UI
 
@@ -243,7 +247,7 @@ What is happening when you sync code?
 Murano CLI looks at the directory structure of your local repository and syncs the appropriate files and configurations directly to your solution in Murano. Endpoints, event handles, static files, and modules are synced. If you make changes locally, a syncup command will ensure Murano matches your local changes. If you make changes using the Murano interface, a syncdown will ensure your local repository matches Murano.
 ```
 
-At this point your product and solution is configured and ready to start receiving data from your hardware of choice or the simulator. You can see the solution interface at this point by clicking the DOMAIN link on the Solution page.
+At this point your product and solution are configured and ready to start receiving data from your hardware of choice or the simulator. You can see the solution interface at this point by clicking the *DOMAIN* link on the Solutions page.
 
 ## Next Steps
 
