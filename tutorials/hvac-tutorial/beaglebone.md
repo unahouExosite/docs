@@ -1,6 +1,6 @@
 # BeagleBone Green Wireless Setup
 
-This portion of the tutorial with help you get your BeagleBone Green Wireless connected to the solution you have already deployed.
+This portion of the tutorial will help you get your SeeedStudio BeagleBone Green Wireless (BBG) connected to the solution you have already deployed.
 
 # Requirements
 
@@ -10,7 +10,7 @@ This portion of the tutorial with help you get your BeagleBone Green Wireless co
 
 [https://beagleboard.org/green-wireless](https://beagleboard.org/green-wireless)
 
-SeeedStudio BeagleBone Green (BBG) is a low-cost, open-source, community-supported development platform for developers and hobbyists. It is a joint effort by BeagleBoard.org and Seeed Studio. It is based on the classical open-source hardware design of BeagleBone Black and has been developed into this differentiated version. The BBG includes two Grove connectors, making it easier to connect to the large family of Grove sensors. The onboard HDMI is removed to make room for these Grove connectors.
+BBG is a low-cost, open-source, community-supported development platform for developers and hobbyists. It is a joint effort by BeagleBoard.org and Seeed Studio. It is based on the classical open-source hardware design of BeagleBone Black and has been developed into this differentiated version. The BBG includes two Grove connectors, making it easier to connect to the large family of Grove sensors. The onboard HDMI is removed to make room for these Grove connectors.
 
 [http://wiki.seeed.cc/BeagleBone_Green/](http://wiki.seeed.cc/BeagleBone_Green/) 
 
@@ -35,7 +35,7 @@ ExositeReady™ Gateway Engine (GWE) is a Python-based application framework tha
 In this example you will use GWE to allow sensors to communicate with the Murano platform. Installation instructions are provided in a later section.
 
 ```
-Gateway Engine will be used to provision, or activate your physical hardware.
+GWE will be used to provision or activate your physical hardware.
 ```
 # BeagleBone Setup
 
@@ -47,7 +47,7 @@ Using a smartphone or computer:
 
 1.  Go to your Wi-Fi settings.
 
-2.  Connect to the Wi-Fi signal named "Beaglebone <xxxx>".
+2.  Connect to the Wi-Fi signal named "Beaglebone <  >".
 
 3.  Follow the instructions on the screen to connect the BBG to your Wi-Fi network.
 
@@ -93,7 +93,7 @@ $ sudo apt-get install python-smbus
 
 ## Install GWE with GMQ on BeagleBone
 
-Next install GWE on the BBG. 
+Install GWE on the BBG. 
 
 ```
 What is GWE?
@@ -105,7 +105,7 @@ Since using gateways is common throughout so many industrial applications, Exosi
 For more information, check out the GWE docs site [http://docs.exosite.com/gwe/](http://docs.exosite.com/gwe/).
 ```
 
-First write down the MAC address of the BBG for adding the device later.
+First, write down the MAC address of the BBG for adding the device later.
 
 ```
 $ ssh <USER>@<GATEWAY_IP> "ifconfig -a"
@@ -160,7 +160,7 @@ $ ssh <USER>@<GATEWAY_IP> "reboot"
 
 At this point in the tutorial, your device’s software is up to date and ready to connect.
 
-## Add Device
+## Add a Device
 
 Now you will add your device to your product in Murano
 
@@ -187,7 +187,7 @@ At this point, you will need to activate your device by executing a command in G
 ### GWE Activation
 
 The steps to activate your BBG using GWE can be found here:
-[http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/gwe/getting_started/)
+[http://docs.exosite.com/gwe/getting_started/](http://docs.exosite.com/development/exositeready/gwe/getting_started/)
 
 A summarized version of the steps are included here:
 
@@ -199,7 +199,7 @@ $ sudo reboot
 
 ## Coding the sensors
 
-The BBG needs to be able to talk to the Temp/Humidity sensor.
+The BBG needs to be able to talk to the "Temp/Humidity" sensor.
 
 In a web browser, type in the IP address of the BBG in the following format:
 
@@ -207,4 +207,4 @@ In a web browser, type in the IP address of the BBG in the following format:
 http://xxx.xxx.xxx.xxx:3000/
 ```
 
-Copy the code from TH02.py into the code area and click run. This will read data from the temperature and humidity sensor and send the data to your Murano solution.
+Copy the code from TH02.py into the code area and click run. This will read data from the "temperature" and "humidity" sensor and send the data to your Murano solution.
