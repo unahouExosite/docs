@@ -4,6 +4,12 @@ This portion of the tutorial will help you run the Python simulator and connect 
 
 # Requirements
 
+## Hardware Setup
+
+No hardware is required to complete this portion of the tutorial. 
+
+## Software Setup
+
 ### Python
 
 All code written for the simulator in this tutorial has been written to work with Python, which can be downloaded from the [Python website](https://www.python.org/).
@@ -42,7 +48,7 @@ wuapi = aen23n5215a235jkjh
 
 The CIK value will be automatically added during the activation step below.
 
-## Add Device
+## Add a Device
 
 Now you will add your device to your product in Murano
 
@@ -60,7 +66,7 @@ Now you will add your device to your product in Murano
 
    ![image alt text](../assets/new_device_popup.png)
 
-5. Add a device with a Name and Identity. The Name can be any string to help remember which device it is. The Identity can be `00001` for the purpose of testing with the Python simulator.
+5. Add a device with a *Name* and *Identity*. The name can be any string to help remember which device it is. The identity can be `00001` for the purpose of testing with the Python simulator.
 
 ### Simulator Activation and Execution
 
