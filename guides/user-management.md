@@ -5,14 +5,1008 @@ template: default
 
 # Guide: Manage Users
 
-Murano user management supports user authentication, role-based access control, and storage per user.
+Murano user management supports user authentication, role-based access control, and storage per user. This guide will give simple examples of using User Service from [http://docs.exosite.com/reference/services/user/] to manage users under your solution. 
 
 # Prerequisites
+1. Need a solution for following the examples step by step.
+2. Need to install MrMurano [https://github.com/exosite/MuranoCLI] for solution deploy.
+3. Need to add following functions to 'my_library' of MODULES for reuse. Use MrMurano to syndown your solution, then put the code into **modules/my_library.lua**
+   ```lua
+    function find_user_by_email(email)
+      -- This function is for finding user by email, which makes use of the filter of user listing operation.
+      local result = User.listUsers({filter="email::like::"..email})
+
+      if tostring(result) == "[]" or result[1] == nil then
+        return nil
+      end
+
+      return result[1]
+    end
+
+    function get_current_user(request)
+      -- This function is to get current logged-in user, which is saved by token in browser cookie.
+      local headers = request.headers
+      if type(headers.cookie) ~= "string" then
+        return nil
+      end
+      local _, _, sid = string.find(headers.cookie, "sid=([^;]+)")
+      if type(sid) ~= "string" then
+        return nil
+      end
+      local user = User.getCurrentUser({token = sid})
+      if user ~= nil and user.id ~= nil then
+        user.token = sid
+        return user
+      end
+      return nil
+    end
+
+    function random_capital_string(length)
+      -- This function is a simple way to create password or token for example use. For your online solution, please replace with safer token generator if possible.
+      math.randomseed(os.time())
+      local a = {}
+      for count = 1, length do
+        a[#a+1] = string.char(math.random(65,90))
+      end
+      return table.concat(a)
+    end
+   ```
+
+#### User
+* User Signup
+
+    In this example, you will be guided to add user-signup feature to your solution. To validate a new user, it requires at least two steps - creation and activation. A user is unable to login until activated. Thus the signup process here will be:
+    1. A user submits with email, name, and password.
+    2. Your solution sends the user an email contains the activation link for verifing the email address.
+    3. The user clicks the activation link to finish his signup.
+
+   Now, you can start to implement by following steps.
+
+  * First, prepare an endpoint for user creation. It is assumed to be called when a user submits his email, name, and password.
+
+    For use of MrMurano, create endpoint  **endpoints/api-user-signup.post.lua** and put the following code into it.
+    ```lua
+    --#ENDPOINT POST /api/user/signup
+    local email = request.body.email
+    local name = request.body.name
+    local password = request.body.password
+
+    local ret = User.createUser({
+      email = email,
+      name = name,
+      password = password
+    })
+    if ret.error ~= nil then
+      -- Failed to create user
+      response.code = ret.status
+      response.message = ret.error
+    else
+      -- Succeeded in creating user and got the activation code.
+      local activation_code = ret
+      local domain = Config.solution().domain
+      local text = "Hi " .. email .. ",\n"
+      text = text .. "Click this link to verify your account:\n"
+      -- Include activation link in email
+      text = text .. "https://" .. domain .. "/api/verify/" .. activation_code;
+      -- Mail to the user for email verification
+      Email.send({
+        from = 'Sample App <mail@exosite.com>',
+        to = email,
+        subject = ("Signup on " .. domain),
+        text = text
+      })
+    end
+    ```
+  * Next, create an endpoint for activating users. This endpoint should be same as the link in singup email. Users are assumed to be directed to this endpoint by clicking the link in email they received from signup.
+
+    For use of MrMurano, create endpoint **endpoints/api-verify-{code}.get.lua** and put the following code into it.
+    ```lua
+    --#ENDPOINT GET /api/verify/{code}
+    local ret = User.activateUser({code = request.parameters.code})
+    if ret == 'OK' then
+      response.message = "Sign up succeeded"
+    else
+      response.code = 401
+      response.message = 'Sign up failed. Error: ' .. ret.message
+    end
+    ```
+   * Next, you need a user-signup page as UI.
+
+     For use of MrMurano, create file **files/signup.html** and put the following code into it. In this page, there is a simple form for input of email, name, and password.
+
+     ```html
+     <!DOCTYPE html>
+        <html lang="en">
+        	<head>
+        		<meta charset="utf-8">
+        		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        		<meta name="description" content="">
+        		<meta name="author" content="">
+
+        		<title>Singup</title>
+
+        		<!-- Bootstrap core CSS -->
+        		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        	</head>
+
+        	<body>
+
+        		<div class="container">
+
+        			<form id="nav-signup" method="POST" action="/api/user/signup" >
+
+        				<div class="form-group nav-signedout">
+        					<label for="email">Email: </label>
+        					<input type="text" class="form-control" name="email" id="email" placeholder="Email" required="true" />
+        				</div>
+        				<div class="form-group nav-signedout">
+        					<label for="name">Name: </label>
+        					<input type="text" class="form-control" name="name" id="name" placeholder="Name" required="true" />
+        				</div>
+        				<div class="form-group nav-signedout">
+        					<label for="password">Password: </label>
+        					<input type="password" class="form-control" name="password" id="password" placeholder="Password" required="true" />
+        				</div>
+        				<button type="submit" class="btn btn-default nav-signedout" id="sign-up">Sign Up</button>
+        			</form>
+
+        		</div><!-- /.container -->
+
+
+        		<!-- Bootstrap core JavaScript
+        		================================================== -->
+        		<!-- Placed at the end of the document so the pages load faster -->
+        		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+        		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+                <script>
+                        $(function(){
+                                function signUp() {
+                                        console.log('signing up...');
+                                        $.ajax({
+                                                method: 'POST',
+                                                url: '/api/user/signup',
+                                                data: JSON.stringify({email: $('#email').val(), name: $('#name').val(), password: $('#password').val()}),
+                                                headers: {
+                                                        'Content-Type': 'application/json'
+                                                },
+                                                success: function(data) {
+                                                        alert("You should soon receive an email with a validation token.");
+                                                },
+                                                error: function(xhr, textStatus, errorThrown) {
+                                                        const errorRes = jQuery.parseJSON(xhr.responseText);
+                                                        alert(errorRes.message);
+                                                }
+                                        });
+                                }
+                                $('#nav-signup').submit(function(){
+                                        signUp();
+                                        return false;
+                                });
+                        });
+                </script>
+        	</body>
+        </html>
+
+     ```
+    * Lastly, deploy the local change by command **mr syncup -V**.
+
+      Now You are able to singup!
+
+      Go to user-signup page [https://&lt;your_domain_name&gt;/signup.html]. You will see a form for singup.
+
+      ![User Signup](../assets/user-signup.png)
+
+      Fill out the form and submit. You will receive an email for activation.
+
+      ![User Activation](../assets/user-activation-email.png)
+
+      Click the link and be directed to solution, you will finally get a success message. A user singup is completed. 
+
+* User Forget Password
+
+   Sometimes, users may forget their password. Unlike general process of password change requires original password, setting password without original password will require differenct process. This example will guide you to implement user-password-reset with the following process :
+  1. A user requests forget-password by email. The solution sends the token to the user.
+  2. The user receives the token and then uses the token to set password directly.
+
+    Now, start to implement by following steps.
+
+  * First, you need an endpoint to be called when a user requests forget-password.
+
+    For use of MrMurano, create endpoint **endpoints/api-forgotten.post.lua** and put the following code into it.
+    ```lua
+    --#ENDPOINT POST /api/forgotten
+
+    if request.body.email == nil then
+      response.code = 400
+      response.message = "Email missing"
+      return
+    end
+
+    -- Check if the email exists 
+    local user = find_user_by_email(request.body.email)
+    if (user == nil) then
+      response.code = 404
+      response.message = "User not found"
+      return
+    end
+
+    -- Generate Token and send email.
+    -- That links to reset page, which validates token, and asks for new pasword and resets.
+
+    local resetToken = random_capital_string(50)
+
+    -- Save the token.
+    local ret = Keystore.set{key = resetToken, value = user.id}
+    if ret.status ~= nil then
+      response.code = ret.status
+      response.message = ret
+      return
+    end
+    -- Have the Reset Token expire after 24 hours.
+    Keystore.command{key = resetToken, command = 'EXPIRE', args = { 24*3600 }}
+
+    local domain = Config.solution().domain
+    local text = "Hi " .. user.email .. ",\n"
+    text = text .. "Click this link to reset your password\n"
+    -- Add Reset Token to query string of the link URL
+    text = text .. "https://" .. domain .. "/resetPassword.html?rt=" .. resetToken;
+    Email.send({
+      from = 'Sample App <mail@exosite.com>',
+      to = user.email,
+      subject = ("Password reset request from " .. domain),
+      text = text
+    })
+    ```
+
+  * Next, create an endpoint for setting password directly by reset token.
+
+    For use of MrMurano, create endpoint **endpoints/api-resetPassword.post.lua** and put the following code into it.
+    ```lua
+    --#ENDPOINT POST /api/resetPassword
+    if request.body.resetToken == nil then
+      response.code = 400
+      response.message = "Missing reset token"
+      return
+    end
+
+    if request.body.password == nil then
+      response.code = 400
+      response.message = "Missing new password"
+      return
+    end
+
+    local found = Keystore.get{key = request.body.resetToken}
+    if found.value == nil then
+      response.code = found.status
+      response.message = "Invalid Token"
+      response.code = 400
+      return
+    end
+
+    local ret = User.resetUserPassword{
+      id = found.value,
+      password = request.body.password
+    }
+    if ret.status ~= nil then
+      -- Failed to reset password
+      response.code = ret.status
+      response.message = ret
+      return
+    end
+
+    Keystore.delete{key = request.body.resetToken}
+    -- Reset successfully
+    return ret
+    ```
+  * For UI part, there are two pages: one is for users to request by submiting email; the other is  for requesters to set new password.
+
+    Please create file **files/forgotten.html** and put the following code into it. In this page, there is only an input for email address.
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    	<head>
+    		<meta charset="utf-8">
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    		<meta name="description" content="">
+    		<meta name="author" content="">
+
+    		<title>Forgot Password</title>
+
+    		<!-- Bootstrap core CSS -->
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	</head>
+
+    	<body>
+
+    		<div class="container">
+
+    			<form id="nav-forgot" method="POST" action="/api/forgotten" >
+
+    				<div class="form-group nav-signedout">
+    					<label for="email">Email: </label>
+    					<input type="text" class="form-control" name="email" id="email" placeholder="Email" required="true" />
+    				</div>
+    				<button type="submit" class="btn btn-default" id="forgot">Forgot Password</button>
+    			</form>
+
+    		</div><!-- /.container -->
+
+
+    		<!-- Bootstrap core JavaScript
+    		================================================== -->
+    		<!-- Placed at the end of the document so the pages load faster -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script>
+                    $(function(){
+                            function forgotPassword() {
+                                    $.ajax({
+                                            method: 'POST',
+                                            url: '/api/forgotten',
+                                            data: JSON.stringify({email: $('#email').val()}),
+                                            headers: { 'Content-Type': 'application/json' },
+                                            success: function(data) {
+                                                    alert("You should soon receive an email with a reset link.");
+                                            },
+                                            error: function(xhr, textStatus, errorThrown) {
+                                                    console.log(xhr.responseText);
+                                            }
+                                    });
+                            }
+
+                            $('#nav-forgot').submit(function(){
+                                    forgotPassword();
+                                    return false;
+                            });
+                    });
+            </script>
+    	</body>
+    </html>
+    ```
+    Then create another page **files/resetPassword.html** and put the following code into it. In this page, there is only an input for new password, but it is assumed to have Reset Token in query string when being opened by the requester. 
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    	<head>
+    		<meta charset="utf-8">
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    		<meta name="description" content="">
+    		<meta name="author" content="">
+
+    		<title>Reset Password</title>
+
+    		<!-- Bootstrap core CSS -->
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	</head>
+
+    	<body>
+
+    		<div class="container">
+
+    			<form id="nav-reset-password" method="POST" action="/api/resetPassword" >
+    				<div class="form-group nav-signedout">
+    					<label for="password">New Password: </label>
+    					<input type="password" class="form-control" name="password" id="password" placeholder="New Password" required="true" />
+    				</div>
+    				<button type="submit" class="btn btn-default" id="changePassword">Change</button>
+    			</form>
+
+    		</div><!-- /.container -->
+
+
+    		<!-- Bootstrap core JavaScript
+    		================================================== -->
+    		<!-- Placed at the end of the document so the pages load faster -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script>
+                $(function(){
+                            var resetToken = null;
+
+                            function changePassword() {
+                                $.ajax({
+                                        method: 'POST',
+                                        url: '/api/resetPassword',
+                                        data: JSON.stringify({
+                                                resetToken: resetToken,
+                                                password: $('#password').val()
+                                        }),
+                                        headers: { 'Content-Type': 'application/json' },
+                                        success: function(data) {
+                                                alert('Changed');
+                                        },
+                                        error: function(xhr, textStatus, errorThrown) {
+                                                try {
+                                                        const errorRes = jQuery.parseJSON(xhr.responseText);
+                                                        alert(errorRes.message);
+                                                } catch (e){
+                                                        alert(xhr.responseText);
+                                                }
+                                        }
+                                });
+                        }
+
+                        $('#nav-reset-password').submit(function(){
+                                changePassword();
+                                return false;
+                        });
+
+                        function getParameterByName(name, url) {
+                                if (!url) {
+                                        url = window.location.href;
+                                }
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                        results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                        }
+
+                        resetToken = getParameterByName('rt');
+
+                });
+            </script>
+    	</body>
+    </html>
+    ```
+
+  * Finally, deploy the local change by command **mr syncup -V**.
+ 
+    Now you are able to reset your password!
+
+    Go to forgotten page [https://&lt;your_domain_name&gt;/forgotten.html]. Submit an email address of an existing user.
+
+    ![User Forget Password](../assets/user-forget-password.png)
+
+    Receive the email and click the link to set new password.
+
+    ![User Reset Password Email](../assets/user-reset-password-email.png)
+
+    ![User Reset Password](../assets/user-reset-password.png)
+
+    Once you get message "Changed". The user password has been changed.
 
 #### User Authentication
-* Basic (email & password)
-* Token based
-* Social auth
+The process of solution user identification is:
+1. A user uses **email** and **password** to get a token which represents an authenticated user and has a time-to-live(ttl) associated.
+2. A token can be used to get user basic info, such as user.id, user.email, user.name ...etc.
+
+* User Login
+
+  This example will guide you to implement user-login feature. It is expected to have a login page and a profile page to show user info after login. 
+
+  * First, create an endpoint for being called when a user submits email and password.
+
+    For use of MrMurano, create endpoint **endpoints/api-session-login.post.lua** and put the following code into it.
+
+    ```lua
+    --#ENDPOINT POST /api/session/login
+    -- Clear browser cookie to logout current user
+    response.headers = {
+      ["Set-Cookie"] = "sid=; path=/;"
+    }
+    -- Authenticate by email and password
+    local ret = User.getUserToken({
+      email = request.body.email,
+      password = request.body.password
+    })
+    -- If email and password match, it will return a token.
+    if ret.error ~= nil then
+       response.code = 401
+      response.message = "Auth failed"
+    else
+      local domain = Config.solution().domain
+      response.code = 303
+        -- Save token as current user in browser cookie
+        response.headers = {
+          ["Set-Cookie"] = "sid=" .. tostring(ret).."; path=/;",
+          ["Location"] = "https://" .. domain .. "/api/session/user"
+        }
+    end
+    ```
+  * Second, create an endpoint for returning current user info. This can be used to check logged-in user for access restriction.
+
+    For use of MrMurano, create endpoint  **endpoints/api-session-user.get.lua** and put the following code into it.
+
+    ```lua
+    --#ENDPOINT GET /api/session/user
+    local user = get_current_user(request)
+    if user ~= nil and user.id ~= nil then
+      response.headers = {
+        ["Cache-Control"] = 'no-cache',
+      }
+      response.message = user
+    else
+      response.code = 400
+      response.message = "Session invalid"
+    end
+    ```
+
+  * Next, for login page please create file **files/login.html** and put the following code into it. In this page, there is a form for submiting email and password.
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    	<head>
+    		<meta charset="utf-8">
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    		<meta name="description" content="">
+    		<meta name="author" content="">
+
+    		<title>Login</title>
+
+    		<!-- Bootstrap core CSS -->
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	</head>
+
+    	<body>
+
+    		<div class="container">
+
+    			<form id="nav-login" method="POST" action="/api/session/login" >
+
+    				<div class="form-group nav-signedout">
+    					<label for="email">Email: </label>
+    					<input type="text" class="form-control" name="email" id="email" placeholder="Email" required="true" />
+    				</div>
+    				<div class="form-group nav-signedout">
+    					<label for="password">Password: </label>
+    					<input type="password" class="form-control" name="password" id="password" placeholder="Password" required="true" />
+    				</div>
+    				<button type="submit" class="btn btn-default nav-signedout" id="login">Login</button>
+    			</form>
+
+    		</div><!-- /.container -->
+
+
+    		<!-- Bootstrap core JavaScript
+    		================================================== -->
+    		<!-- Placed at the end of the document so the pages load faster -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script>
+                    $(function(){
+                            function login() {
+                                    console.log('logging in...');
+                                    $.ajax({
+                                            method: 'POST',
+                                            url: '/api/session/login',
+                                            data: JSON.stringify({email: $('#email').val(), password: $('#password').val()}),
+                                            headers: {
+                                                    'Content-Type': 'application/json'
+                                            },
+                                            success: function(data) {
+                                                    window.location.href = 'profile.html';
+                                            },
+                                            error: function(xhr, textStatus, errorThrown) {
+                                                    alert(xhr.responseText);
+                                            }
+                                    });
+                            }
+                            $('#nav-login').submit(function(){
+                                    login();
+                                    return false;
+                            });
+                    });
+            </script>
+    	</body>
+    </html>
+    ```
+
+    For profile page, please create file **files/profile.html** and put the following code into it.
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    	<head>
+    		<meta charset="utf-8">
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    		<meta name="description" content="">
+    		<meta name="author" content="">
+
+    		<title>Login</title>
+
+    		<!-- Bootstrap core CSS -->
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	</head>
+
+    	<body>
+
+    		<div class="container">
+                            <h2>My Profile</h2>
+                            <table id="user-info" class="table table-hover">
+                                    <tbody>
+                                    </tbody>
+                            </table>
+                            <button type="button" class="btn btn-default" id="Logout">Logout</button>
+    		</div><!-- /.container -->
+
+
+    		<!-- Bootstrap core JavaScript
+    		================================================== -->
+    		<!-- Placed at the end of the document so the pages load faster -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script>
+                    $(function(){
+                            function checkSession() {
+                                    $.ajax({
+                                            method: 'GET',
+                                            url: '/api/session/user',
+                                            success: function(user) {
+                                                    loadProfileDetails(user);
+                                            },
+                                            error: function(xhr, textStatus, errorThrown) {
+                                                    console.log("Session check failed.");
+                                                    window.location.href = "login.html";
+                                            }
+                                    });
+                            }
+
+                            function loadProfileDetails(user) {
+                                    $(Object.keys(user)).each(function(index, name){
+                                            const title = $("<th />").text(name);
+                                            const value = $("<td />").text(user[name]);
+                                            const row = $("<tr />").append(title).append(value);
+                                            $('#user-info tbody').append(row);
+                                    });
+                            }
+
+                            function logout() {
+                                    $.ajax({
+                                            method: 'POST',
+                                            url: '/api/session/login',
+                                            data: JSON.stringify({email: "inavlid", password: "invalid"}),
+                                            headers: {
+                                                    'Content-Type': 'application/json'
+                                            },
+                                            error: function(xhr, textStatus, errorThrown) {
+                                                    window.location.href = "login.html";
+                                            }
+                                    });
+                            }
+
+                            $('#Logout').click(function() {
+                                logout();
+                            });
+                            checkSession();
+                    });
+            </script>
+    	</body>
+    </html>
+    ```
+
+  * Finally, deploy the local change by command **mr syncup -V**.
+
+    Now You are able to login!
+
+    Go to login page [https://&lt;your_domain_name&gt;/login.html]. Submit your email and password.
+
+    ![User Login](../assets/user-login.png)
+
+    With correct email and password, you should login successfully and be redirected to profile page [https://&lt;your_domain_name&gt;/profile.html].
+
+    ![User Profile](../assets/user-profile.png)
+
+    Click logout button, you will be redirected to login page.
+
+#### Role
+
+* Role Creation
+
+    Assumption:
+    You want to provide differenciated info of a user depends on different roles. An owner should be able to see all info while a guest is restricted to partial info. Here is the code you can use to initiate roles for this example.
+
+    Please create endpoint **endpoints/_init.get.lua** if your solution doesn't have it, and then put/merge the following code into it.
+
+    ```lua
+    --#ENDPOINT GET /_init
+    -- Create a role represents 'owner'
+    local owner_role = {role_id = "owner"}
+    User.createRole(owner_role)
+
+    -- Create a role represents 'guest'
+    local guest_role = {role_id = "guest"}
+    User.createRole(guest_role)
+
+    -- Add parameter 'infoUserId' to specify user for info retrieve, thus you can assign roles with specific user IDs later on.
+    local add_owner_info_user_id = {
+      role_id = "owner",
+      body = {
+        {
+          name = "infoUserId"
+        }
+      }
+    }
+    User.addRoleParam(add_owner_info_user_id)
+
+    local add_guest_info_user_id = {
+      role_id = "guest",
+      body = {
+        {
+          name = "infoUserId"
+        }
+      }
+    }
+    User.addRoleParam(add_guest_info_user_id)
+    ```
+
+    To create roles above, please deploy by command **mr syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
+
+* Role Assignment
+Assumption:
+Bearing on Role-Creation, you have created two roles **owner** and **guest** for differenciating user info retrieved. Now you are going to grant differenct access by role assignement. In this example, a user is assumed to be assigned roles once created.
+
+  * Please modify the file **endpoints/api-user-signup.post.lua** from User-Signup example and put the following code into it.
+
+    ```lua
+    --#ENDPOINT POST /api/user/signup
+    local email = request.body.email
+    local name = request.body.name
+    local password = request.body.password
+
+    local ret = User.createUser({
+      email = email,
+      name = name,
+      password = password
+    })
+    if ret.error ~= nil then
+      -- Failed to create user
+      response.code = ret.status
+      response.message = ret.error
+    else
+      -- Succeeded in user creation and got the activation code.
+
+      -- Assign roles to this new user
+      local new_user = find_user_by_email(email)
+      local assign_info_user_id = {
+        id = new_user.id,
+        roles = {
+          {
+            -- Assign role 'owner' to let the created user be owner of himself
+            role_id = "owner",
+            parameters = {
+              {
+                name = "infoUserId",
+                value = new_user.id
+              }
+            }
+          },
+          {
+            -- Assign role 'guest' to let the created user be guest to other users.
+            role_id = "guest",
+            parameters = {
+              {
+                name = "infoUserId",
+                value = {
+                  type = "wildcard"
+                }
+              }
+            }
+          }
+        }
+      }
+      User.assignUser(assign_info_user_id)
+
+
+      local activation_code = ret
+      local domain = Config.solution().domain
+      local text = "Hi " .. email .. ",\n"
+      text = text .. "Click this link to verify your account:\n"
+      -- Include activation link in email
+      text = text .. "https://" .. domain .. "/api/verify/" .. activation_code;
+      -- Mail to the user for email verification
+      Email.send({
+        from = 'Sample App <mail@exosite.com>',
+        to = email,
+        subject = ("Signup on " .. domain),
+        text = text
+      })
+    end
+    ```
+
+    Please deploy the local change again by command **mr syncup -V**.
+
+    Now, every new user signs up through **/api/user/signup** will be granted user info access.
+
+    To see how it works, let's move to next example for Role-Check.
+
+* Role Check
+    Assumption:
+
+    Bearing on Role-Assignment, a new user will be granted different user info access. This example will focus on how you check a resource access by assigned roles. You will implement a page for email query, the info returned depends on  what roles the current user has.
+
+    Following is a table lists the details available for each role.
+
+    | Access Role  | User Info Retrieved |
+    |---|---|
+    | Logged-in User is Owner  | user.id, user.name, user.email, user.status, user.creation_date, user.roles  |
+    | Logged-in User is Guest  | user.email, user.creation_date  |
+    | Logged-in User without relevant roles | user.email  |
+    | Public / Not Logged-in User | Message "Email <user.email> has already been taken."  |
+
+  * First, create an endpoint for returning user info when submiting an email.
+
+    Please create endpoint **endpoints/api-user-info-{email}.get.lua** and put the following code into it.
+
+    ```lua
+    --#ENDPOINT GET /api/user/info/{email}
+    local current_user = get_current_user(request)
+    local info_user = find_user_by_email(request.parameters.email)
+
+    if (current_user == nil) then
+      -- There is no current user
+      if (info_user == nil) then
+        response.message = "Email " .. request.parameters.email .. " is available."
+      else
+        response.message = "Email " .. request.parameters.email .. " has already been taken."
+      end
+      return
+    end
+
+    if (info_user == nil) then
+      response.message = "Not Found"
+      response.code = 404
+      return
+    end
+
+    local check_current_user_has_owner_role = {
+      id = current_user.id,
+      role_id = "owner",
+      parameter_name = "infoUserId",
+      parameter_value = info_user.id
+    }
+    local owner_role_check_result = User.hasUserRoleParam(check_current_user_has_owner_role)
+    if (owner_role_check_result.error == nil) then
+      -- is owner
+      local user_info_for_owner = info_user
+      -- get roles of the user
+      local roles_of_user = User.listUserRoles({id = info_user.id})
+      -- add further info about roles of the user
+      user_info_for_owner.roles = roles_of_user
+      response.message = user_info_for_owner
+      return
+    end
+
+    local check_current_user_has_guest_role = {
+      id = current_user.id,
+      role_id = "guest",
+      parameter_name = "infoUserId",
+      parameter_value = info_user.id
+    }
+    local guest_role_check_result = User.hasUserRoleParam(check_current_user_has_guest_role)
+    if (guest_role_check_result.error == nil) then
+      local user_info_for_guest = {
+        email = info_user.email,
+        creation_date = info_user.creation_date
+      }
+      response.message = user_info_for_guest
+      return
+    end
+
+    response.message = {
+      email = info_user.email
+    }
+    ```
+  * Next, create a query page for submiting an email address.
+    Please create file **files/queryEmail.html** and put the following code into it.
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    	<head>
+    		<meta charset="utf-8">
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    		<meta name="description" content="">
+    		<meta name="author" content="">
+
+    		<title>Query Email</title>
+
+    		<!-- Bootstrap core CSS -->
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    	</head>
+
+    	<body>
+
+    		<div class="container">
+
+    			<form id="nav-query-email">
+    				<div class="form-group nav-signedout">
+    					<label for="email">Email: </label>
+    					<input type="email" class="form-control" name="email" id="email" placeholder="Email" required="true" />
+    				</div>
+    				<button type="submit" class="btn btn-default" id="query_email">Query</button>
+    			</form>
+                            <div class="container">
+                                    <h2>Info of Email</h2>
+                                    <table id="user-info" class="table table-hover">
+                                            <tbody>
+                                            </tbody>
+                                    </table>
+                            </div>
+
+    		</div><!-- /.container -->
+
+
+    		<!-- Bootstrap core JavaScript
+    		================================================== -->
+    		<!-- Placed at the end of the document so the pages load faster -->
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script>
+                    $(function(){
+                            function queryEmail() {
+                                    $('#user-info tbody').text('');
+                                    $.ajax({
+                                            method: 'GET',
+                                            url: '/api/user/info/'+$('#email').val(),
+                                            success: function(info) {
+                                                    if (jQuery.type(info) === 'string') {
+                                                        loadInfo({'-': info});
+                                                        return;
+                                                    }
+                                                    loadInfo(info);
+                                            },
+                                            error: function(xhr, textStatus, errorThrown) {
+                                                    loadInfo({'-': xhr.responseText});
+                                            }
+                                    });
+                            }
+
+                            function loadInfo(info) {
+                                    $(Object.keys(info)).each(function(index, name){
+                                            const titleField = $("<th />").text(name);
+                                            const value = jQuery.type(info[name]) === 'array' ? JSON.stringify(info[name]) : info[name];
+                                            const valueField = $("<td />").text(value);
+                                            const row = $("<tr />").append(titleField).append(valueField);
+                                            $('#user-info tbody').append(row);
+                                    });
+                            }
+
+
+                            $('#nav-query-email').submit(function() {
+                                queryEmail();
+                                return false;
+                            });
+                    });
+            </script>
+    	</body>
+    </html>
+    ```
+
+    Now you can deploy the local change and then try on the query page.
+
+    Go to [https://&lt;your_domain_name&gt;/queryEmail.html] before login. Query with an existing email address.
+
+    ![Query Email by Public](../assets/query-email-by-public.png)
+
+    Login through [https://&lt;your_domain_name&gt;/login.html] from example User-Login and back to query page to submit your email address. Because the current user is the owner, it will return full info. 
+
+    ![Query Email by Owner](../assets/query-email-by-owner.png)
+
+    Lastly, query with another existing email address, as a guest you will only get partial info.
+
+    ![Query Email by Guest](../assets/query-email-by-guest.png)
 
 #### User Permission
 User permission is based on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control).
