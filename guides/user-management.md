@@ -5,12 +5,13 @@ template: default
 
 # Guide: Manage Users
 
-Murano user management supports user authentication, role-based access control, and storage per user. This guide will give simple examples of using User Service from [http://docs.exosite.com/reference/services/user/] to manage users under your solution. 
+Murano user management supports user authentication, role-based access control, and storage per user. This guide will give simple examples for managing users under your solution with [User Management Service](http://docs.exosite.com/reference/services/user/). 
 
 # Prerequisites
-1. Need a solution for following the examples step by step.
-2. Need to install MrMurano [https://github.com/exosite/MuranoCLI] for solution deploy.
-3. Need to add following functions to 'my_library' of MODULES for reuse. Use MrMurano to syndown your solution, then put the code into **modules/my_library.lua**
+
+1. You will need a solution to follow these examples step by step.
+2. You will need to install Murano CLI [https://github.com/exosite/MuranoCLI] to deploy your solution.
+3. You will need to add the following functions to 'my_library' of MODULES for reuse. Use Murano CLI to syncdown your solution, then put this code into **modules/my_library.lua**
    ```lua
     function find_user_by_email(email)
       -- This function is for finding user by email, which makes use of the filter of user listing operation.
@@ -52,19 +53,21 @@ Murano user management supports user authentication, role-based access control, 
     end
    ```
 
-#### User
-* User Signup
+# User Signup
 
-    In this example, you will be guided to add user-signup feature to your solution. To validate a new user, it requires at least two steps - creation and activation. A user is unable to login until activated. Thus the signup process here will be:
-    1. A user submits with email, name, and password.
-    2. Your solution sends the user an email contains the activation link for verifing the email address.
-    3. The user clicks the activation link to finish his signup.
+In this example, you will add the user-signup feature to your solution. Validating a new user requires at least two steps—creation and activation. A user is unable to login until activated. Thus, the signup process here will be:
 
-   Now, you can start to implement by following steps.
+1. A user submits their email, name, and password.
 
-  * First, prepare an endpoint for user creation. It is assumed to be called when a user submits his email, name, and password.
+2. Your solution sends the user an email containing an activation link to verify their email address.
 
-    For use of MrMurano, create endpoint  **endpoints/api-user-signup.post.lua** and put the following code into it.
+3. The user clicks the activation link to finish the signup process.
+
+## User Implementation
+
+1. Prepare an endpoint for user creation to be called when a user submits their email, name, and password.
+
+    For use of Murano CLI, create endpoint  **endpoints/api-user-signup.post.lua** and input the following code.
     ```lua
     --#ENDPOINT POST /api/user/signup
     local email = request.body.email
@@ -97,9 +100,9 @@ Murano user management supports user authentication, role-based access control, 
       })
     end
     ```
-  * Next, create an endpoint for activating users. This endpoint should be same as the link in singup email. Users are assumed to be directed to this endpoint by clicking the link in email they received from signup.
+2. Create an endpoint for activating users. This endpoint should be the same as the link in the signup email. Users are directed to this endpoint by clicking the link in the email they receive from signup.
 
-    For use of MrMurano, create endpoint **endpoints/api-verify-{code}.get.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint **endpoints/api-verify-{code}.get.lua** and put the following code into it.
     ```lua
     --#ENDPOINT GET /api/verify/{code}
     local ret = User.activateUser({code = request.parameters.code})
@@ -110,9 +113,10 @@ Murano user management supports user authentication, role-based access control, 
       response.message = 'Sign up failed. Error: ' .. ret.message
     end
     ```
-   * Next, you need a user-signup page as UI.
 
-     For use of MrMurano, create file **files/signup.html** and put the following code into it. In this page, there is a simple form for input of email, name, and password.
+3. Set up a user-signup page as UI.
+
+   For use of Murano CLI, create file **files/signup.html** and put the following code into it (on this page, there is a 	simple form for input of email, name, and password).
 
      ```html
      <!DOCTYPE html>
@@ -125,7 +129,7 @@ Murano user management supports user authentication, role-based access control, 
         		<meta name="description" content="">
         		<meta name="author" content="">
 
-        		<title>Singup</title>
+        		<title>Signup</title>
 
         		<!-- Bootstrap core CSS -->
         		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -189,25 +193,26 @@ Murano user management supports user authentication, role-based access control, 
                 </script>
         	</body>
         </html>
-
      ```
-    * Lastly, deploy the local change by command **mr syncup -V**.
 
-      Now You are able to singup!
+4. Deploy the local change by command **mr syncup -V**.
 
-      Go to user-signup page [https://&lt;your_domain_name&gt;/signup.html]. You will see a form for singup.
+      You should now be able to sign up.
+
+      Go to the user-signup page [https://&lt;your_domain_name&gt;/signup.html]. You will see a form for signup.
 
       ![User Signup](../assets/user-signup.png)
 
-      Fill out the form and submit. You will receive an email for activation.
+      Fill out the form and submit. You will then receive an email for activation.
 
       ![User Activation](../assets/user-activation-email.png)
 
-      Click the link and be directed to solution, you will finally get a success message. A user singup is completed. 
+      Click the link to be directed to your solution. You should receive a success message that user signup is completed. 
 
-* User Forget Password
+## User Password Reset
 
-   Sometimes, users may forget their password. Unlike general process of password change requires original password, setting password without original password will require differenct process. This example will guide you to implement user-password-reset with the following process :
+   Users are only human and may occasionally forget their password. Unlike the general process of password change requires original password, setting password without original password will require different process. This example will guide you to implement user-password-reset with the following process:
+   
   1. A user requests forget-password by email. The solution sends the token to the user.
   2. The user receives the token and then uses the token to set password directly.
 
@@ -215,7 +220,7 @@ Murano user management supports user authentication, role-based access control, 
 
   * First, you need an endpoint to be called when a user requests forget-password.
 
-    For use of MrMurano, create endpoint **endpoints/api-forgotten.post.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint **endpoints/api-forgotten.post.lua** and put the following code into it.
     ```lua
     --#ENDPOINT POST /api/forgotten
 
@@ -263,7 +268,7 @@ Murano user management supports user authentication, role-based access control, 
 
   * Next, create an endpoint for setting password directly by reset token.
 
-    For use of MrMurano, create endpoint **endpoints/api-resetPassword.post.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint **endpoints/api-resetPassword.post.lua** and put the following code into it.
     ```lua
     --#ENDPOINT POST /api/resetPassword
     if request.body.resetToken == nil then
@@ -478,7 +483,7 @@ Murano user management supports user authentication, role-based access control, 
 
     Once you get message "Changed". The user password has been changed.
 
-#### User Authentication
+# User Authentication
 The process of solution user identification is:
 1. A user uses **email** and **password** to get a token which represents an authenticated user and has a time-to-live(ttl) associated.
 2. A token can be used to get user basic info, such as user.id, user.email, user.name ...etc.
@@ -489,7 +494,7 @@ The process of solution user identification is:
 
   * First, create an endpoint for being called when a user submits email and password.
 
-    For use of MrMurano, create endpoint **endpoints/api-session-login.post.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint **endpoints/api-session-login.post.lua** and put the following code into it.
 
     ```lua
     --#ENDPOINT POST /api/session/login
@@ -518,7 +523,7 @@ The process of solution user identification is:
     ```
   * Second, create an endpoint for returning current user info. This can be used to check logged-in user for access restriction.
 
-    For use of MrMurano, create endpoint  **endpoints/api-session-user.get.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint  **endpoints/api-session-user.get.lua** and put the following code into it.
 
     ```lua
     --#ENDPOINT GET /api/session/user
