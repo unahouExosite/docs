@@ -1001,11 +1001,13 @@ Bearing on Role-Creation, you have created two roles **owner** and **guest** for
 
     Now you can deploy the local change and then try on the query page.
 
-    Go to [https://&lt;your_domain_name&gt;/queryEmail.html] before login. Query with an existing email address.
+    Go to [https://&lt;your_domain_name&gt;/queryEmail.html] without login. Query with an existing email address.
 
     ![Query Email by Public](../assets/query-email-by-public.png)
 
-    Login through [https://&lt;your_domain_name&gt;/login.html] from example User-Login and back to query page to submit your email address. Because the current user is the owner, it will return full info. 
+    Next, signup at [https://<your_domain_name>/signup.html] from example User-Signup for getting a new user that has been assigned with roles.
+
+    Login with the new user at [https://&lt;your_domain_name&gt;/login.html] from example User-Login and then back to [https://&lt;your_domain_name&gt;/queryEmail.html] to query with your email address. Because the current user has owner role, it will return full info. 
 
     ![Query Email by Owner](../assets/query-email-by-owner.png)
 
