@@ -53,9 +53,11 @@ Murano user management supports user authentication, role-based access control, 
     end
    ```
 
-# User Signup
+# User
 
-In this example, you will add the user-signup feature to your solution. Validating a new user requires at least two steps—creation and activation. A user is unable to login until activated. Thus, the signup process here will be:
+## User Signup
+
+In this example, you will add the user-signup feature to your solution. Validating a new user requires at least two steps—creation and activation. A user is unable to log in until activated. Thus, the signup process here will be:
 
 1. A user submits their email, name, and password.
 
@@ -207,18 +209,18 @@ In this example, you will add the user-signup feature to your solution. Validati
 
       ![User Activation](../assets/user-activation-email.png)
 
-      Click the link to be directed to your solution. You should receive a success message that user signup is completed. 
+      Click the link to be directed to your solution. You should receive a success message that user signup is complete. 
 
 ## User Password Reset
 
-   Users are only human and may occasionally forget their password. Unlike the general process of password change requires original password, setting password without original password will require different process. This example will guide you to implement user-password-reset with the following process:
+   Users are only human and may occasionally forget their password. This example will help you implement user-password reset with the following process:
    
   1. A user requests forget-password by email. The solution sends the token to the user.
-  2. The user receives the token and then uses the token to set password directly.
+  2. The user receives the token and then uses the token to set their password directly.
 
-    Now, start to implement by following steps.
+Now, you may implement with the following steps.
 
-  * First, you need an endpoint to be called when a user requests forget-password.
+1. You will need an endpoint to be called when a user requests forget-password.
 
     For use of Murano CLI, create endpoint **endpoints/api-forgotten.post.lua** and put the following code into it.
     ```lua
@@ -266,7 +268,7 @@ In this example, you will add the user-signup feature to your solution. Validati
     })
     ```
 
-  * Next, create an endpoint for setting password directly by reset token.
+2. Create an endpoint for setting a password directly by reset token.
 
     For use of Murano CLI, create endpoint **endpoints/api-resetPassword.post.lua** and put the following code into it.
     ```lua
@@ -306,9 +308,9 @@ In this example, you will add the user-signup feature to your solution. Validati
     -- Reset successfully
     return ret
     ```
-  * For UI part, there are two pages: one is for users to request by submiting email; the other is  for requesters to set new password.
+  * For UI, there are two pages: one is for users to request by submiting an email; the other is for requesters to set a new password.
 
-    Please create file **files/forgotten.html** and put the following code into it. In this page, there is only an input for email address.
+3. Create file **files/forgotten.html** and put the following code into it (on this page, there is only an input for email address).
 
     ```html
     <!DOCTYPE html>
@@ -375,7 +377,7 @@ In this example, you will add the user-signup feature to your solution. Validati
     	</body>
     </html>
     ```
-    Then create another page **files/resetPassword.html** and put the following code into it. In this page, there is only an input for new password, but it is assumed to have Reset Token in query string when being opened by the requester. 
+4. Create another page **files/resetPassword.html** and put the following code into it (in this page, there is only an input for new password, but it is assumed to have a Reset Token in the query string when being opened by the requester). 
 
     ```html
     <!DOCTYPE html>
@@ -467,34 +469,37 @@ In this example, you will add the user-signup feature to your solution. Validati
     </html>
     ```
 
-  * Finally, deploy the local change by command **mr syncup -V**.
+5. Deploy the local change by command **mr syncup -V**.
  
-    Now you are able to reset your password!
+    A password can now be reset. 
 
-    Go to forgotten page [https://&lt;your_domain_name&gt;/forgotten.html]. Submit an email address of an existing user.
+    1. Go to forgotten page [https://&lt;your_domain_name&gt;/forgotten.html]. Submit an email address of an existing user.
 
-    ![User Forget Password](../assets/user-forget-password.png)
+    	![User Forget Password](../assets/user-forget-password.png)
 
-    Receive the email and click the link to set new password.
+    2. Receive the email and click the link to set new password.
 
-    ![User Reset Password Email](../assets/user-reset-password-email.png)
+   	 ![User Reset Password Email](../assets/user-reset-password-email.png)
 
-    ![User Reset Password](../assets/user-reset-password.png)
+   	 ![User Reset Password](../assets/user-reset-password.png)
 
-    Once you get message "Changed". The user password has been changed.
+    3. Once you get message "Changed". The user password has been changed.
 
-# User Authentication
+## User Authentication
+
 The process of solution user identification is:
-1. A user uses **email** and **password** to get a token which represents an authenticated user and has a time-to-live(ttl) associated.
-2. A token can be used to get user basic info, such as user.id, user.email, user.name ...etc.
 
-* User Login
+1. A user uses their **email** and **password** to get a token representing an authenticated user and has an associated time-to-live(ttl).
 
-  This example will guide you to implement user-login feature. It is expected to have a login page and a profile page to show user info after login. 
+2. A token can be used to get the user basic information such as user.id, user.email, user.name, etc.
 
-  * First, create an endpoint for being called when a user submits email and password.
+## User Login
 
-    For use of Murano CLI, create endpoint **endpoints/api-session-login.post.lua** and put the following code into it.
+This example will help you implement the user-login feature, which will display a user login and profile page. 
+
+1. Create an endpoint to be called when a user submits their email and password.
+
+    For use of Murano CLI, create endpoint **endpoints/api-session-login.post.lua** and input the following code.
 
     ```lua
     --#ENDPOINT POST /api/session/login
@@ -521,9 +526,9 @@ The process of solution user identification is:
         }
     end
     ```
-  * Second, create an endpoint for returning current user info. This can be used to check logged-in user for access restriction.
+2. Create an endpoint for returning current user info. This can be used to check logged-in users for access restrictions.
 
-    For use of Murano CLI, create endpoint  **endpoints/api-session-user.get.lua** and put the following code into it.
+    For use of Murano CLI, create endpoint  **endpoints/api-session-user.get.lua** and input the following code.
 
     ```lua
     --#ENDPOINT GET /api/session/user
@@ -539,7 +544,7 @@ The process of solution user identification is:
     end
     ```
 
-  * Next, for login page please create file **files/login.html** and put the following code into it. In this page, there is a form for submiting email and password.
+3. For the login page, create file **files/login.html** and input the following code (in this page, there is a form for submitting email and password).
 
     ```html
     <!DOCTYPE html>
@@ -613,7 +618,7 @@ The process of solution user identification is:
     </html>
     ```
 
-    For profile page, please create file **files/profile.html** and put the following code into it.
+4. For the profile page, create file **files/profile.html** and input the following code.
 
     ```html
     <!DOCTYPE html>
@@ -699,28 +704,30 @@ The process of solution user identification is:
     </html>
     ```
 
-  * Finally, deploy the local change by command **mr syncup -V**.
+5. Deploy the local change by command **mr syncup -V**.
 
-    Now You are able to login!
+    You are now able to log in.
 
-    Go to login page [https://&lt;your_domain_name&gt;/login.html]. Submit your email and password.
+    1. Go to the login page [https://&lt;your_domain_name&gt;/login.html]. Submit your email and password.
 
-    ![User Login](../assets/user-login.png)
+    	![User Login](../assets/user-login.png)
 
-    With correct email and password, you should login successfully and be redirected to profile page [https://&lt;your_domain_name&gt;/profile.html].
+    2. With the correct email and password, you should log in successfully and be redirected to the profile page 	[https://&lt;your_domain_name&gt;/profile.html].
 
-    ![User Profile](../assets/user-profile.png)
+    	![User Profile](../assets/user-profile.png)
 
-    Click logout button, you will be redirected to login page.
+    3. Click the logout button, and you will be redirected to the login page.
 
-#### Role
+# Role
 
-* Role Creation
+## Role Creation
 
-    Assumption:
-    You want to provide differenciated info of a user depends on different roles. An owner should be able to see all info while a guest is restricted to partial info. Here is the code you can use to initiate roles for this example.
+Assumption:
+You want to provide differentiated info of a user depending on different roles. An owner should be able to see all info while a guest is restricted to partial info. Here is the code you can use to initiate roles for this example.
 
-    Please create endpoint **endpoints/_init.get.lua** if your solution doesn't have it, and then put/merge the following code into it.
+Please create endpoint **endpoints/_init.get.lua**. 
+
+If your solution does not have it, then put/merge the following code into it.
 
     ```lua
     --#ENDPOINT GET /_init
@@ -756,11 +763,12 @@ The process of solution user identification is:
 
     To create roles above, please deploy by command **mr syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
 
-* Role Assignment
-Assumption:
-Bearing on Role-Creation, you have created two roles **owner** and **guest** for differenciating user info retrieved. Now you are going to grant differenct access by role assignement. In this example, a user is assumed to be assigned roles once created.
+## Role Assignment
 
-  * Please modify the file **endpoints/api-user-signup.post.lua** from User-Signup example and put the following code into it.
+Assumption:
+Bearing on Role-Creation, you have created two roles (**owner** and **guest**) for differentiating user info retrieved. Now you can grant differing access by role assignement. In this example, a user is assumed to be assigned roles once created.
+
+ Please modify the file **endpoints/api-user-signup.post.lua** from User-Signup example and input the following code.
 
     ```lua
     --#ENDPOINT POST /api/user/signup
@@ -830,16 +838,16 @@ Bearing on Role-Creation, you have created two roles **owner** and **guest** for
 
     Please deploy the local change again by command **mr syncup -V**.
 
-    Now, every new user signs up through **/api/user/signup** will be granted user info access.
+    Now, every new user signing up through **/api/user/signup** will be granted user info access.
 
-    To see how it works, let's move to next example for Role-Check.
+    To see how it works, move on to the next example.
 
-* Role Check
-    Assumption:
+## Role Check
+    
+Assumption:
+Bearing on Role-Assignment, a new user will be granted differing user info access. This example will focus on how you check a resource access by assigned roles. You will implement a page for email query. The info returned depends on which roles the current user has.
 
-    Bearing on Role-Assignment, a new user will be granted different user info access. This example will focus on how you check a resource access by assigned roles. You will implement a page for email query, the info returned depends on  what roles the current user has.
-
-    Following is a table lists the details available for each role.
+    The following is a table listing the details available for each role.
 
     | Access Role  | User Info Retrieved |
     |---|---|
@@ -848,9 +856,9 @@ Bearing on Role-Creation, you have created two roles **owner** and **guest** for
     | Logged-in User without relevant roles | user.email  |
     | Public / Not Logged-in User | Message "Email <user.email> has already been taken."  |
 
-  * First, create an endpoint for returning user info when submiting an email.
+1. Create an endpoint for returning user info when submitting an email.
 
-    Please create endpoint **endpoints/api-user-info-{email}.get.lua** and put the following code into it.
+    Please create endpoint **endpoints/api-user-info-{email}.get.lua** and input the following code.
 
     ```lua
     --#ENDPOINT GET /api/user/info/{email}
@@ -911,7 +919,7 @@ Bearing on Role-Creation, you have created two roles **owner** and **guest** for
       email = info_user.email
     }
     ```
-  * Next, create a query page for submiting an email address.
+2. Create a query page for submiting an email address.
     Please create file **files/queryEmail.html** and put the following code into it.
     ```html
     <!DOCTYPE html>
@@ -1001,21 +1009,22 @@ Bearing on Role-Creation, you have created two roles **owner** and **guest** for
 
     Now you can deploy the local change and then try on the query page.
 
-    Go to [https://&lt;your_domain_name&gt;/queryEmail.html] without login. Query with an existing email address.
+    	1. Go to [https://&lt;your_domain_name&gt;/queryEmail.html] without login. Query with an existing email address.
 
-    ![Query Email by Public](../assets/query-email-by-public.png)
+    		![Query Email by Public](../assets/query-email-by-public.png)
 
-    Next, signup at [https://<your_domain_name>/signup.html] from example User-Signup for getting a new user that has been assigned with roles.
+    	2. Next, sign up at [https://<your_domain_name>/signup.html] from example User-Signup for getting a new user that has been assigned with roles.
 
-    Login with the new user at [https://&lt;your_domain_name&gt;/login.html] from example User-Login and then back to [https://&lt;your_domain_name&gt;/queryEmail.html] to query with your email address. Because the current user has owner role, it will return full info. 
+    	3. Log in with the new user at [https://&lt;your_domain_name&gt;/login.html] from example User-Login and then back to [https://&lt;your_domain_name&gt;/queryEmail.html] to query with your email address. Because the current user has owner role, it will return full info. 
 
-    ![Query Email by Owner](../assets/query-email-by-owner.png)
+    		![Query Email by Owner](../assets/query-email-by-owner.png)
 
-    Lastly, query with another existing email address, as a guest you will only get partial info.
+    	4. Lastly, query with another existing email address—as a guest you will only get partial info.
 
-    ![Query Email by Guest](../assets/query-email-by-guest.png)
+    		![Query Email by Guest](../assets/query-email-by-guest.png)
 
-#### User Permission
+## User Permission
+
 User permission is based on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control).
 In this system, there are three concrete elements: &rsquo;role&rsquo;, &rsquo;user&rsquo;, and &rsquo;endpoint&rsquo;. According to RBAC, you can control a user&rsquo;s access to endpoint with the concept below:
 
@@ -1040,8 +1049,9 @@ If you want to grant &rsquo;UserA&rsquo; access to &rsquo;*device/1/info*&rsquo;
 4. Assign role &rsquo;Viewer&rsquo; with parameter &rsquo;rid&rsquo;(name) = 1(value) to &rsquo;UserA&rsquo;.
 5. Now UserA is allowed access to &rsquo;*device/1/info*&rsquo; when you check their permission.
 
-#### Storage Per User
-The provided storage per user stores data by key-value format. Since a user&rsquo;s properties are only email and name, you can put more individual information in storage (for example, address, birthday, etc.).
+## Storage Per User
+
+The provided storage per user stores data by key-value format. Since a user&rsquo;s properties are only email and name, you can put more individual information in storage (e.g., address, birthday, etc.).
 
 # <span id="head_tutorial_example">Tutorial Example in Scripting System</span>
 
@@ -1341,9 +1351,6 @@ local result = User.hasUserPerm(check_param)
 ```
 
 Because **User\_Parking\_Area** has been assigned with &rsquo;parkingAreaID = 1&rsquo; in role &rsquo;parking_area_manager&rsquo;, variable &rsquo;result&rsquo; is expected to be &rsquo;OK&rsquo;.
-
-
-
 
 ### Scenario: Application of User-storage and Endpoint-access-control
 
