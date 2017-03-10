@@ -197,7 +197,7 @@ In this example, you will add the user-signup feature to your solution. Validati
         </html>
      ```
 
-4. Deploy the local change by command **mr syncup -V**.
+4. Deploy the local change by command **murano syncup -V**.
 
       You should now be able to sign up.
 
@@ -469,7 +469,7 @@ Now, you may implement with the following steps.
     </html>
     ```
 
-5. Deploy the local change by command **mr syncup -V**.
+5. Deploy the local change by command **murano syncup -V**.
  
     A password can now be reset. 
 
@@ -704,7 +704,7 @@ This example will help you implement the user-login feature, which will display 
     </html>
     ```
 
-5. Deploy the local change by command **mr syncup -V**.
+5. Deploy the local change by command **murano syncup -V**.
 
     You are now able to log in.
 
@@ -761,7 +761,7 @@ If your solution does not have it, then put/merge the following code into it.
     User.addRoleParam(add_guest_info_user_id)
     ```
 
-    To create roles above, please deploy by command **mr syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
+    To create roles above, please deploy by command **murano syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
 
 ## Role Assignment
 
@@ -836,7 +836,7 @@ Bearing on Role-Creation, you have created two roles (**owner** and **guest**) f
     end
     ```
 
-    Please deploy the local change again by command **mr syncup -V**.
+    Please deploy the local change again by command **murano syncup -V**.
 
     Now, every new user signing up through **/api/user/signup** will be granted user info access.
 
