@@ -479,9 +479,9 @@ Now, you may implement with the following steps.
 
     2. Receive the email and click the link to set new password.
 
-   	 ![User Reset Password Email](../assets/user-reset-password-email.png)
+   	   ![User Reset Password Email](../assets/user-reset-password-email.png)
 
-   	 ![User Reset Password](../assets/user-reset-password.png)
+   	   ![User Reset Password](../assets/user-reset-password.png)
 
     3. Once you get message "Changed". The user password has been changed.
 
@@ -729,132 +729,132 @@ Please create endpoint **endpoints/_init.get.lua**.
 
 If your solution does not have it, then put/merge the following code into it.
 
-    ```lua
-    --#ENDPOINT GET /_init
-    -- Create a role represents 'owner'
-    local owner_role = {role_id = "owner"}
-    User.createRole(owner_role)
+```lua
+--#ENDPOINT GET /_init
+-- Create a role represents 'owner'
+local owner_role = {role_id = "owner"}
+User.createRole(owner_role)
 
-    -- Create a role represents 'guest'
-    local guest_role = {role_id = "guest"}
-    User.createRole(guest_role)
+-- Create a role represents 'guest'
+local guest_role = {role_id = "guest"}
+User.createRole(guest_role)
 
-    -- Add parameter 'infoUserId' to specify user for info retrieve, thus you can assign roles with specific user IDs later on.
-    local add_owner_info_user_id = {
-      role_id = "owner",
-      body = {
-        {
-          name = "infoUserId"
-        }
-      }
+-- Add parameter 'infoUserId' to specify user for info retrieve, thus you can assign roles with specific user IDs later on.
+local add_owner_info_user_id = {
+  role_id = "owner",
+  body = {
+    {
+      name = "infoUserId"
     }
-    User.addRoleParam(add_owner_info_user_id)
+  }
+}
+User.addRoleParam(add_owner_info_user_id)
 
-    local add_guest_info_user_id = {
-      role_id = "guest",
-      body = {
-        {
-          name = "infoUserId"
-        }
-      }
+local add_guest_info_user_id = {
+  role_id = "guest",
+  body = {
+    {
+      name = "infoUserId"
     }
-    User.addRoleParam(add_guest_info_user_id)
-    ```
+  }
+}
+User.addRoleParam(add_guest_info_user_id)
+```
 
-    To create roles above, please deploy by command **murano syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
+To create roles above, please deploy by command **murano syncup -V** and then go to endpoint [https://<your_domain_name>/_init] for executing the code.
 
 ## Role Assignment
 
 Assumption:
 Bearing on Role-Creation, you have created two roles (**owner** and **guest**) for differentiating user info retrieved. Now you can grant differing access by role assignement. In this example, a user is assumed to be assigned roles once created.
 
- Please modify the file **endpoints/api-user-signup.post.lua** from User-Signup example and input the following code.
+Please modify the file **endpoints/api-user-signup.post.lua** from User-Signup example and input the following code.
 
-    ```lua
-    --#ENDPOINT POST /api/user/signup
-    local email = request.body.email
-    local name = request.body.name
-    local password = request.body.password
+```lua
+--#ENDPOINT POST /api/user/signup
+local email = request.body.email
+local name = request.body.name
+local password = request.body.password
 
-    local ret = User.createUser({
-      email = email,
-      name = name,
-      password = password
-    })
-    if ret.error ~= nil then
-      -- Failed to create user
-      response.code = ret.status
-      response.message = ret.error
-    else
-      -- Succeeded in user creation and got the activation code.
+local ret = User.createUser({
+  email = email,
+  name = name,
+  password = password
+})
+if ret.error ~= nil then
+  -- Failed to create user
+  response.code = ret.status
+  response.message = ret.error
+else
+  -- Succeeded in user creation and got the activation code.
 
-      -- Assign roles to this new user
-      local new_user = find_user_by_email(email)
-      local assign_info_user_id = {
-        id = new_user.id,
-        roles = {
+  -- Assign roles to this new user
+  local new_user = find_user_by_email(email)
+  local assign_info_user_id = {
+    id = new_user.id,
+    roles = {
+      {
+        -- Assign role 'owner' to let the created user be owner of himself
+        role_id = "owner",
+        parameters = {
           {
-            -- Assign role 'owner' to let the created user be owner of himself
-            role_id = "owner",
-            parameters = {
-              {
-                name = "infoUserId",
-                value = new_user.id
-              }
-            }
-          },
+            name = "infoUserId",
+            value = new_user.id
+          }
+        }
+      },
+      {
+        -- Assign role 'guest' to let the created user be guest to other users.
+        role_id = "guest",
+        parameters = {
           {
-            -- Assign role 'guest' to let the created user be guest to other users.
-            role_id = "guest",
-            parameters = {
-              {
-                name = "infoUserId",
-                value = {
-                  type = "wildcard"
-                }
-              }
+            name = "infoUserId",
+            value = {
+              type = "wildcard"
             }
           }
         }
       }
-      User.assignUser(assign_info_user_id)
+    }
+  }
+  User.assignUser(assign_info_user_id)
 
 
-      local activation_code = ret
-      local domain = Config.solution().domain
-      local text = "Hi " .. email .. ",\n"
-      text = text .. "Click this link to verify your account:\n"
-      -- Include activation link in email
-      text = text .. "https://" .. domain .. "/api/verify/" .. activation_code;
-      -- Mail to the user for email verification
-      Email.send({
-        from = 'Sample App <mail@exosite.com>',
-        to = email,
-        subject = ("Signup on " .. domain),
-        text = text
-      })
-    end
-    ```
+  local activation_code = ret
+  local domain = Config.solution().domain
+  local text = "Hi " .. email .. ",\n"
+  text = text .. "Click this link to verify your account:\n"
+  -- Include activation link in email
+  text = text .. "https://" .. domain .. "/api/verify/" .. activation_code;
+  -- Mail to the user for email verification
+  Email.send({
+    from = 'Sample App <mail@exosite.com>',
+    to = email,
+    subject = ("Signup on " .. domain),
+    text = text
+  })
+end
+```
 
-    Please deploy the local change again by command **murano syncup -V**.
+Please deploy the local change again by command **murano syncup -V**.
 
-    Now, every new user signing up through **/api/user/signup** will be granted user info access.
+Now, every new user signing up through **/api/user/signup** will be granted user info access.
 
-    To see how it works, move on to the next example.
+To see how it works, move on to the next example.
 
 ## Role Check
     
 Assumption:
 Bearing on Role-Assignment, a new user will be granted differing user info access. This example will focus on how you check a resource access by assigned roles. You will implement a page for email query. The info returned depends on which roles the current user has.
 
-    The following is a table listing the details available for each role.
+The following is a table listing the details available for each role.
 
-    | Access Role  | User Info Retrieved |
-    |---|---|
-    | Logged-in User is Owner  | user.id, user.name, user.email, user.status, user.creation_date, user.roles  |
-    | Logged-in User is Guest  | user.email, user.creation_date  |
-    | Logged-in User without relevant roles | user.email  |
-    | Public / Not Logged-in User | Message "Email <user.email> has already been taken."  |
+| Access Role  | User Info Retrieved |
+|---|---|
+| Logged-in User is Owner  | user.id, user.name, user.email, user.status, user.creation_date, user.roles  |
+| Logged-in User is Guest  | user.email, user.creation_date  |
+| Logged-in User without relevant roles | user.email  |
+| Public / Not Logged-in User | Message "Email <user.email> has already been taken."  |
 
 1. Create an endpoint for returning user info when submitting an email.
 
@@ -1009,19 +1009,19 @@ Bearing on Role-Assignment, a new user will be granted differing user info acces
 
     Now you can deploy the local change and then try on the query page.
 
-    	1. Go to [https://&lt;your_domain_name&gt;/queryEmail.html] without login. Query with an existing email address.
+    1. Go to [https://&lt;your_domain_name&gt;/queryEmail.html] without login. Query with an existing email address.
 
-    		![Query Email by Public](../assets/query-email-by-public.png)
+        ![Query Email by Public](../assets/query-email-by-public.png)
 
-    	2. Next, sign up at [https://<your_domain_name>/signup.html] from example User-Signup for getting a new user that has been assigned with roles.
+    2. Next, sign up at [https://<your_domain_name>/signup.html] from example User-Signup for getting a new user that has been assigned with roles.
 
-    	3. Log in with the new user at [https://&lt;your_domain_name&gt;/login.html] from example User-Login and then back to [https://&lt;your_domain_name&gt;/queryEmail.html] to query with your email address. Because the current user has owner role, it will return full info. 
+    3. Log in with the new user at [https://&lt;your_domain_name&gt;/login.html] from example User-Login and then back to [https://&lt;your_domain_name&gt;/queryEmail.html] to query with your email address. Because the current user has owner role, it will return full info. 
 
-    		![Query Email by Owner](../assets/query-email-by-owner.png)
+        ![Query Email by Owner](../assets/query-email-by-owner.png)
 
-    	4. Lastly, query with another existing email address—as a guest you will only get partial info.
+    4. Lastly, query with another existing email address—as a guest you will only get partial info.
 
-    		![Query Email by Guest](../assets/query-email-by-guest.png)
+        ![Query Email by Guest](../assets/query-email-by-guest.png)
 
 ## User Permission
 
